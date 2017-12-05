@@ -1,7 +1,5 @@
 # Introduction
 
----
-
 This folder consists of three classes:
 
 * Linked List.
@@ -9,7 +7,6 @@ This folder consists of three classes:
 * Circular Linked List.
 
 
----
 
 # Linked List
 
