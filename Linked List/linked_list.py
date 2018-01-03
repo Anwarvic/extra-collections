@@ -8,7 +8,7 @@ class Node():
             return "Node: (value: {}, next: {})".format(self.data, self.next.data)
         else:
             return "Node: (value: {}, next: {})".format(self.data, self.next)
-            
+    
 
 
 class LinkedList():
@@ -18,13 +18,16 @@ class LinkedList():
 
 
     def __repr__(self):
-        output = "["
         pointer = self.__root
-        if pointer.data != None:
-            while(pointer.next != None):
-                output += str(pointer.data) + ", "
-                pointer = pointer.next
-            output += str(pointer.data)
+        # handle edge case
+        if pointer.data == None:
+            return "[]"
+        # general case
+        output = "["
+        while(pointer.next != None):
+            output += str(pointer.data) + ", "
+            pointer = pointer.next
+        output += str(pointer.data)
         return output+"]"
 
 
@@ -49,7 +52,6 @@ class LinkedList():
             pointer = pointer.next
             if counter == idx:
                 return pointer.data
-
 
 
     def is_empty(self):
