@@ -8,8 +8,10 @@ class Node():
 
 
 class LinkedList():
-	def __init__(self):
-		self.__root = Node()
+	def __init__(self, value=None):
+		self.__root = Node(value)
+		self.length = 1 if value else 0
+
 
 	def __repr__(self):
 		output = "["
@@ -23,15 +25,7 @@ class LinkedList():
 
 
 	def __len__(self):
-		length = 0
-		tmp = self.__root
-		if tmp.data == None:
-			return length
-
-		while(tmp.next != None):
-			length += 1
-			tmp = tmp.next
-		return length+1
+		return self.length
 
 
 	def __getitem__(self, num):
@@ -49,9 +43,7 @@ class LinkedList():
 
 
 	def is_empty(self):
-		if len(self) == 0:
-			return True
-		return False
+		return self.length == 0
 
 
 	def add_front(self, item):
@@ -63,6 +55,7 @@ class LinkedList():
 			new.next = self.__root.next
 			self.__root.data = item
 			self.__root.next = new
+		self.length += 1
 
 
 	def add_end(self, item):
@@ -76,24 +69,29 @@ class LinkedList():
 			new.data = item
 			new.next = None
 			tmp.next = new
+		self.length += 1
 
 
 	def remove_front(self):
-		if len(self)>0:
+		if self.length>0:
 			tmp = self.__root.next
 			self.__root = tmp
+			self.length -= 1
 
 
 	def remove_end(self):
-		if len(self)>0:
+		if self.length > 0:
 			tmp = self.__root
 			while(tmp.next.next != None):
 				tmp = tmp.next
 			tmp.next = None
+			self.length -= 1
+
 
 
 	def clear(self):
 		self.__root = Node()
+		self.length = 0
 
 
 	def reverse(self):
@@ -114,20 +112,20 @@ if __name__ == "__main__":
 	l.add_end(1) #1
 	l.add_end(0) #1 0
 	l.add_end(7) #1 0 7
-	print l
+	print(l)
 	l.add_front(0) #0 1 0 7
 	l.add_front(2) #2 0 1 0 7
 	l.add_front(9) #9 2 0 1 0 7
 	rev = l.reverse()
-	print l
-	print rev
+	print(l)
+	print(rev)
 	l.remove_end() #9 2 0 1 0
 	l.remove_front() #2 0 1 0
-	print l.is_empty()
-	print l
+	print(l.is_empty())
+	print(l)
 	l.clear()
-	print l.is_empty()
-	print len(l)
+	print(l.is_empty())
+	print(len(l))
 
 
 
