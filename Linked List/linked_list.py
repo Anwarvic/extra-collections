@@ -82,20 +82,19 @@ class LinkedList():
 
 
     def remove_front(self):
-        if self.length>0:
-            tmp = self.__root.next
-            self.__root = tmp
+        if self.length > 0:
+            self.__root = self.__root.next
             self.length -= 1
 
 
     def remove_end(self):
         if self.length > 0:
-            tmp = self.__root
-            while(tmp.next.next != None):
-                tmp = tmp.next
-            tmp.next = None
+            pointer = self.__root
+            while(pointer.next.next != None):
+                pointer = pointer.next
+            # now the pointer is the second last node
+            pointer.next = None
             self.length -= 1
-
 
 
     def clear(self):
@@ -104,13 +103,13 @@ class LinkedList():
 
 
     def reverse(self):
-        output = LinkedList()
-        tmp = self.__root
-        while(tmp.next != None):
-            output.add_front(tmp.data)
-            tmp = tmp.next
-        output.add_front(tmp.data)
-        return output
+        rev = LinkedList()
+        pointer = self.__root
+        while(pointer.next != None):
+            rev.add_front(pointer.data)
+            pointer = pointer.next
+        rev.add_front(pointer.data)
+        return rev
 
 
 
@@ -131,11 +130,11 @@ if __name__ == "__main__":
     print(rev)
     l.remove_end() #9 2 0 1 0
     l.remove_front() #2 0 1 0
-    print(l.is_empty())
-    print(l)
+    print(l.is_empty()) #False
+    print(l) #2 0 1 0
     l.clear()
-    print(l.is_empty())
-    print(len(l))
+    print(l.is_empty()) #True
+    print(len(l)) #0
 
 
 
