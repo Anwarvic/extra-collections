@@ -1,4 +1,5 @@
 class Node():
+    """Basic object for the Node used for linked lists"""
     def __init__(self, value=None):
         self.data = value
         self.next = None
@@ -12,12 +13,14 @@ class Node():
 
 
 class LinkedList():
+    """Basic object for the linked list"""
     def __init__(self, value=None):
         self.__root = Node(value)
         self.length = 1 if value else 0
 
 
     def __repr__(self):
+        """Represents the linked list as a string"""
         pointer = self.__root
         # handle edge case
         if pointer.data == None:
@@ -32,10 +35,12 @@ class LinkedList():
 
 
     def __len__(self):
+        """Gets the length of the linked list with complexity of O(1)"""
         return self.length
 
 
     def __getitem__(self, idx):
+        """Retrieves the value at the given index. It allows -ve indexing"""
         # caliberate idx if -ve
         if idx <= -1:
             idx += self.length
@@ -55,10 +60,12 @@ class LinkedList():
 
 
     def is_empty(self):
+        """Checks if linked list is empty"""
         return self.length == 0
 
 
     def add_front(self, value):
+        """Adds node at the head of the linked list with complexity of O(1)"""
         self.length += 1
         if self.__root.data == None:
             self.__root = Node(value)
@@ -70,6 +77,7 @@ class LinkedList():
 
 
     def add_end(self, value):
+        """Adds node at the tail of the linked list with complexity of O(n)"""
         self.length += 1
         if self.__root.data == None:
             self.__root = Node(value)
@@ -82,12 +90,14 @@ class LinkedList():
 
 
     def remove_front(self):
+        """Removes the linked list head with complexity of O(1)"""
         if self.length > 0:
             self.__root = self.__root.next
             self.length -= 1
 
 
     def remove_end(self):
+        """Removes the linked list tail with complexity of O(n)"""
         if self.length > 0:
             pointer = self.__root
             while(pointer.next.next != None):
@@ -98,11 +108,13 @@ class LinkedList():
 
 
     def clear(self):
+        """Removes all nodes within the linked list with complexity of O(1)"""
         self.__root = Node()
         self.length = 0
 
 
     def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
         rev = LinkedList()
         pointer = self.__root
         while(pointer.next != None):
