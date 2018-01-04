@@ -58,30 +58,27 @@ class LinkedList():
         return self.length == 0
 
 
-    def add_front(self, item):
-        if self.__root.data == None:
-            self.__root.data = item
-        else:
-            new = Node()
-            new.data = self.__root.data
-            new.next = self.__root.next
-            self.__root.data = item
-            self.__root.next = new
+    def add_front(self, value):
         self.length += 1
+        if self.__root.data == None:
+            self.__root = Node(value)
+        else:
+            new_node = Node(self.__root.data)
+            new_node.next = self.__root.next
+            self.__root = Node(value)
+            self.__root.next = new_node
 
 
-    def add_end(self, item):
-        if self.__root.data == None:
-            self.__root.data = item
-        else:
-            tmp = self.__root
-            while(tmp.next != None):
-                tmp = tmp.next
-            new = Node()
-            new.data = item
-            new.next = None
-            tmp.next = new
+    def add_end(self, value):
         self.length += 1
+        if self.__root.data == None:
+            self.__root = Node(value)
+        else:
+            pointer = self.__root
+            while(pointer.next != None):
+                pointer = pointer.next
+            # now pointer is the last node
+            pointer.next = Node(value)
 
 
     def remove_front(self):
