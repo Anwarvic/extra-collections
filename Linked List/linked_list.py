@@ -115,8 +115,6 @@ class LinkedList():
             raise IndexError(msg)
         elif idx == 0:
             self.add_front(value)
-        elif idx == self.length:
-            self.add_end(value)
         # handle general case
         else:
             counter = 0
@@ -139,8 +137,6 @@ class LinkedList():
             raise IndexError(msg)
         elif idx == 0:
             self.remove_front(value)
-        elif idx == self.length:
-            self.remove_end(value)
         # handle general case
         else:
             counter = 0
@@ -153,7 +149,7 @@ class LinkedList():
             self.length -= 1
 
 
-    def multiple_insert(self, idx, lst):
+    def insert_multiple(self, idx, lst):
         """Inserts multiple values into the linked list at once"""
          # handle edge cases
         if idx > self.length:
@@ -224,6 +220,8 @@ if __name__ == "__main__":
 
     print("\n\n\n")
     l = LinkedList()
-    l.insert(0, 10)
-    l.multiple_insert(0, [1,2,3,4])
+    l.insert_multiple(0, [1,2,3,4])
+    l.insert(4, 10)
+    print(l)
+    l.remove(3)
     print(l)
