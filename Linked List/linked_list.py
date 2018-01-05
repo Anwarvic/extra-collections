@@ -15,13 +15,13 @@ class Node():
 class LinkedList():
     """Basic object for the linked list"""
     def __init__(self, value=None):
-        self.__root = Node(value)
+        self.head = Node(value)
         self.length = 1 if value else 0
 
 
     def __repr__(self):
         """Represents the linked list as a string"""
-        pointer = self.__root
+        pointer = self.head
         # handle edge case
         if pointer.data == None:
             return "[]"
@@ -47,7 +47,7 @@ class LinkedList():
         # sanity check over given index
         if idx >= self.length:
             raise IndexError("max index for this list is "+str(self.length-1))
-        pointer = self.__root
+        pointer = self.head
         # handle edge case
         if idx == 0: return pointer.data
         # iterate over the linked list
@@ -67,22 +67,22 @@ class LinkedList():
     def add_front(self, value):
         """Adds node at the head of the linked list with complexity of O(1)"""
         self.length += 1
-        if self.__root.data == None:
-            self.__root = Node(value)
+        if self.head.data == None:
+            self.head = Node(value)
         else:
-            new_node = Node(self.__root.data)
-            new_node.next = self.__root.next
-            self.__root = Node(value)
-            self.__root.next = new_node
+            new_node = Node(self.head.data)
+            new_node.next = self.head.next
+            self.head = Node(value)
+            self.head.next = new_node
 
 
     def add_end(self, value):
         """Adds node at the tail of the linked list with complexity of O(n)"""
         self.length += 1
-        if self.__root.data == None:
-            self.__root = Node(value)
+        if self.head.data == None:
+            self.head = Node(value)
         else:
-            pointer = self.__root
+            pointer = self.head
             while(pointer.next != None):
                 pointer = pointer.next
             # now pointer is the last node
@@ -92,14 +92,14 @@ class LinkedList():
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
         if self.length > 0:
-            self.__root = self.__root.next
+            self.head = self.head.next
             self.length -= 1
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
         if self.length > 0:
-            pointer = self.__root
+            pointer = self.head
             while(pointer.next.next != None):
                 pointer = pointer.next
             # now the pointer is the second last node
@@ -120,7 +120,7 @@ class LinkedList():
         # handle general case
         else:
             counter = 0
-            pointer = self.__root
+            pointer = self.head
             while(counter != idx-1):  
                 pointer = pointer.next
                 counter += 1
@@ -129,6 +129,7 @@ class LinkedList():
             new_node.next = pointer.next
             pointer.next = new_node
             self.length += 1
+
 
     def remove(self, idx):
         """Removes a node at index=idx from the linked list"""
@@ -143,7 +144,7 @@ class LinkedList():
         # handle general case
         else:
             counter = 0
-            pointer = self.__root
+            pointer = self.head
             while(counter != idx-1):  
                 pointer = pointer.next
                 counter += 1
@@ -154,14 +155,14 @@ class LinkedList():
 
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
-        self.__root = Node()
+        self.head = Node()
         self.length = 0
 
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = LinkedList()
-        pointer = self.__root
+        pointer = self.head
         while(pointer.next != None):
             rev.add_front(pointer.data)
             pointer = pointer.next
@@ -177,7 +178,7 @@ if __name__ == "__main__":
     l.insert(idx=0, value=1) #1
     l.add_end(7) #1 7
     l.insert(idx=1, value=0) #1 0 7
-    l.insert(idx=1, value=100) #1 100 0 7
+    l.insert(idx=1, value=[100]) #1 [100] 0 7
     l.remove(idx=1) #1 0 7
     print(l[2])
     print(l)
