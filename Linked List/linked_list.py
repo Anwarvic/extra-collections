@@ -136,7 +136,7 @@ class LinkedList():
             msg = "Index cannot be bigger than the size of the linked list"
             raise IndexError(msg)
         elif idx == 0:
-            self.remove_front(value)
+            self.remove_front()
         # handle general case
         else:
             counter = 0
@@ -195,33 +195,20 @@ class LinkedList():
 
 if __name__ == "__main__":
     l = LinkedList()
-    rev = l.reverse()
-    l.insert(idx=0, value=1) #1
-    l.add_end(7) #1 7
-    l.insert(idx=1, value=0) #1 0 7
-    l.insert(idx=1, value=[100]) #1 [100] 0 7
-    l.remove(idx=1) #1 0 7
-    print(l[2])
+    l.add_front(6)   #6
+    l.add_end(20)    #6 20
+    l.insert(1, 10)  #6 10 20
+    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
     print(l)
-    l.add_front(0) #0 1 0 7
-    l.add_front(2) #2 0 1 0 7
-    l.add_front(9) #9 2 0 1 0 7
-    rev = l.reverse()
+
+    l.remove_front() #10 1 2 3 4 20
+    l.remove_end()   #10 1 2 3 4
+    l.remove(0)      #1 2 3 4
     print(l)
+
+    print(l[0], l[3])
+
+    rev = l.reverse()#4 3 2 1
     print(rev)
-    l.remove_end() #9 2 0 1 0
-    l.remove_front() #2 0 1 0
-    print(l.is_empty()) #False
-    print(l) #2 0 1 0
-    l.clear()
-    print(l.is_empty()) #True
-    print(len(l)) #0
+    print(rev[1], rev[2])
 
-
-    print("\n\n\n")
-    l = LinkedList()
-    l.insert_multiple(0, [1,2,3,4])
-    l.insert(4, 10)
-    print(l)
-    l.remove(3)
-    print(l)
