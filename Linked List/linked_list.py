@@ -111,11 +111,13 @@ class LinkedList():
         """Inserts a certain value at a given index into the linked list"""
         # handle edge cases
         if idx > self.length:
-            raise IndexError("Index cannot be bigger than the linked list")
+            msg = "Index cannot be bigger than the size of the linked list"
+            raise IndexError(msg)
         elif idx == 0:
             self.add_front(value)
         elif idx == self.length:
             self.add_end(value)
+        # handle general case
         else:
             counter = 0
             pointer = self.__root
@@ -127,6 +129,27 @@ class LinkedList():
             new_node.next = pointer.next
             pointer.next = new_node
             self.length += 1
+
+    def remove(self, idx):
+        """Removes a node at index=idx from the linked list"""
+        # handle edge cases
+        if idx > self.length:
+            msg = "Index cannot be bigger than the size of the linked list"
+            raise IndexError(msg)
+        elif idx == 0:
+            self.remove_front(value)
+        elif idx == self.length:
+            self.remove_end(value)
+        # handle general case
+        else:
+            counter = 0
+            pointer = self.__root
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            pointer.next = pointer.next.next
+            self.length -= 1
 
 
     def clear(self):
@@ -154,6 +177,8 @@ if __name__ == "__main__":
     l.insert(idx=0, value=1) #1
     l.add_end(7) #1 7
     l.insert(idx=1, value=0) #1 0 7
+    l.insert(idx=1, value=100) #1 100 0 7
+    l.remove(idx=1) #1 0 7
     print(l[2])
     print(l)
     l.add_front(0) #0 1 0 7
@@ -169,17 +194,3 @@ if __name__ == "__main__":
     l.clear()
     print(l.is_empty()) #True
     print(len(l)) #0
-
-
-
-
-    # print()
-    # print()
-    # l = LinkedList()
-    # l.insert(idx=0, value=1) #1
-    # l.add_end(7) #1 7
-    # l.insert(idx=1, value=0) #1 0 7
-    # l.insert(idx=2, value=100) #1 0 100 7
-    # l.insert(idx=2, value=90)# 1 0 90 100 7
-    # l.insert(idx=5, value=90000000)# 1 0 90 100 7
-    # print(l)
