@@ -153,6 +153,31 @@ class LinkedList():
             self.length -= 1
 
 
+    def multiple_insert(self, idx, lst):
+        """Inserts multiple values into the linked list at once"""
+         # handle edge cases
+        if idx > self.length:
+            msg = "Index cannot be bigger than the size of the linked list"
+            raise IndexError(msg)
+        elif idx == 0:
+            for value in lst[::-1]:
+                self.add_front(value)
+                self.length += 1
+        # handle general case
+        else:
+            counter = 0
+            pointer = self.head
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            for value in lst[::-1]:
+                new_node = Node(value)
+                new_node.next = pointer.next
+                pointer.next = new_node
+                self.length += 1
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = Node()
@@ -195,3 +220,10 @@ if __name__ == "__main__":
     l.clear()
     print(l.is_empty()) #True
     print(len(l)) #0
+
+
+    print("\n\n\n")
+    l = LinkedList()
+    l.insert(0, 10)
+    l.multiple_insert(0, [1,2,3,4])
+    print(l)
