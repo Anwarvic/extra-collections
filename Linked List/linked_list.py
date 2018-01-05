@@ -107,6 +107,28 @@ class LinkedList():
             self.length -= 1
 
 
+    def insert(self, idx, value):
+        """Inserts a certain value at a given index into the linked list"""
+        # handle edge cases
+        if idx > self.length:
+            raise IndexError("Index cannot be bigger than the linked list")
+        elif idx == 0:
+            self.add_front(value)
+        elif idx == self.length:
+            self.add_end(value)
+        else:
+            counter = 0
+            pointer = self.__root
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            new_node = Node(value)
+            new_node.next = pointer.next
+            pointer.next = new_node
+            self.length += 1
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.__root = Node()
@@ -129,9 +151,9 @@ class LinkedList():
 if __name__ == "__main__":
     l = LinkedList()
     rev = l.reverse()
-    l.add_end(1) #1
-    l.add_end(0) #1 0
-    l.add_end(7) #1 0 7
+    l.insert(idx=0, value=1) #1
+    l.add_end(7) #1 7
+    l.insert(idx=1, value=0) #1 0 7
     print(l[2])
     print(l)
     l.add_front(0) #0 1 0 7
@@ -151,3 +173,13 @@ if __name__ == "__main__":
 
 
 
+    # print()
+    # print()
+    # l = LinkedList()
+    # l.insert(idx=0, value=1) #1
+    # l.add_end(7) #1 7
+    # l.insert(idx=1, value=0) #1 0 7
+    # l.insert(idx=2, value=100) #1 0 100 7
+    # l.insert(idx=2, value=90)# 1 0 90 100 7
+    # l.insert(idx=5, value=90000000)# 1 0 90 100 7
+    # print(l)
