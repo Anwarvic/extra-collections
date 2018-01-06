@@ -1,4 +1,5 @@
 class Node():
+	"""Basic object for the Node used for double linked lists"""
 	def __init__(self, value=None):
 		self.data = value
 		self.prev = None
@@ -12,11 +13,13 @@ class Node():
 
 
 class DoubleLinkedList():
-	def __init__(self):
-		self.head = Node()
+	"""Basic object for the double linked list"""
+	def __init__(self, value):
+		self.head = self.tail = Node(value)
 
 	
 	def __repr__(self):
+		"""Represents the double linked list as a string"""
 		output = "["
 		tmp = self.head
 		if tmp.data != None:
@@ -28,6 +31,8 @@ class DoubleLinkedList():
 
 
 	def __len__(self):
+		"""Gets the length of the double linked list"""
+		#TODO: make it O(1)
 		length = 0
 		tmp = self.head
 		if tmp.data == None:
@@ -39,6 +44,8 @@ class DoubleLinkedList():
 
 
 	def __getitem__(self, num):
+		"""Retrieves the element at the given index."""
+		#TODO: make it support -ve indexing
 		if len(self) <= num or num <= -1:
 			raise IndexError
 		counter = 0
@@ -53,12 +60,14 @@ class DoubleLinkedList():
 
 
 	def is_empty(self):
+		"""Checks if double linked list is empty"""
 		if len(self) == 0:
 			return True
 		return False
 
 
 	def add_front(self, item):
+		"""Adds node at the head of the linked list with complexity of O(1)"""
 		if self.head.data == None:
 			self.head.data = item
 		else:
@@ -74,6 +83,7 @@ class DoubleLinkedList():
 
 
 	def add_end(self, item):
+		"""Adds node at the tail of the linked list with complexity of O(n)"""
 		if self.head.data == None:
 			self.head.data = item
 		else:
@@ -88,6 +98,7 @@ class DoubleLinkedList():
 
 
 	def remove_front(self):
+		"""Removes the linked list head with complexity of O(1)"""
 		if len(self)>0:
 			tmp = self.head.next
 			tmp.prev = None
@@ -95,6 +106,7 @@ class DoubleLinkedList():
 
 
 	def remove_end(self):
+		"""Removes the linked list tail with complexity of O(n)"""
 		if len(self)>0:
 			tmp = self.head
 			while(tmp.next.next != None):
@@ -103,10 +115,12 @@ class DoubleLinkedList():
 
 
 	def clear(self):
+		"""Removes all nodes within the linked list with complexity of O(1)"""
 		self.head = Node()
 
 
 	def reverse(self):
+		"""Reverses the whole linked list with complexity of O(n)"""
 		output = DoubleLinkedList()
 		if self.head.data == None:
 			return DoubleLinkedList()
