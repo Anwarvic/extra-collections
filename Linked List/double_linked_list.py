@@ -16,6 +16,7 @@ class DoubleLinkedList():
 	"""Basic object for the double linked list"""
 	def __init__(self, value):
 		self.head = self.tail = Node(value)
+		self.length = 1 if value else 0
 
 	
 	def __repr__(self):
@@ -33,14 +34,7 @@ class DoubleLinkedList():
 	def __len__(self):
 		"""Gets the length of the double linked list"""
 		#TODO: make it O(1)
-		length = 0
-		tmp = self.head
-		if tmp.data == None:
-			return length
-		while(tmp.next != None):
-			length += 1
-			tmp = tmp.next
-		return length+1
+		return self.length
 
 
 	def __getitem__(self, num):
