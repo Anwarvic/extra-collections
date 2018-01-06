@@ -39,7 +39,7 @@ class LinkedList():
 
 
     def __getitem__(self, idx):
-        """Retrieves the value at the given index. It allows -ve indexing"""
+        """Retrieves the element at the given index. It allows -ve indexing"""
         # caliberate idx if -ve
         if idx <= -1:
             idx += self.length
