@@ -5,7 +5,10 @@ class Node():
 		self.next = None
 
 	def __repr__(self):
-		return str(self.data)
+        data = self.data
+        nxt = self.next.data if self.next else None
+        prv = self.prev.data if self.prev else None
+        return "Node: (value: {}, previous: {}, next: {})".format(data, prv, nxt)
 
 
 class DoubleLinkedList():
