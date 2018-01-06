@@ -5,10 +5,9 @@ class Node():
         self.next = None
 
     def __repr__(self):
-        if self.next:
-            return "Node: (value: {}, next: {})".format(self.data, self.next.data)
-        else:
-            return "Node: (value: {}, next: {})".format(self.data, self.next)
+        data = self.data
+        nxt = self.next.data if self.next else None
+        return "Node: (value: {}, next: {})".format(data, nxt)
     
 
 
