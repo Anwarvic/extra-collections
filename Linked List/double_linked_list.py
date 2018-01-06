@@ -13,12 +13,12 @@ class Node():
 
 class DoubleLinkedList():
 	def __init__(self):
-		self.__root = Node()
+		self.head = Node()
 
 	
 	def __repr__(self):
 		output = "["
-		tmp = self.__root
+		tmp = self.head
 		if tmp.data != None:
 			while(tmp.next != None):
 				output += str(tmp.data) + ", "
@@ -29,7 +29,7 @@ class DoubleLinkedList():
 
 	def __len__(self):
 		length = 0
-		tmp = self.__root
+		tmp = self.head
 		if tmp.data == None:
 			return length
 		while(tmp.next != None):
@@ -42,7 +42,7 @@ class DoubleLinkedList():
 		if len(self) <= num or num <= -1:
 			raise IndexError
 		counter = 0
-		tmp = self.__root
+		tmp = self.head
 		if num == 0:
 			return tmp
 		while(tmp.next != None):
@@ -59,25 +59,25 @@ class DoubleLinkedList():
 
 
 	def add_front(self, item):
-		if self.__root.data == None:
-			self.__root.data = item
+		if self.head.data == None:
+			self.head.data = item
 		else:
 			tmp = Node()
-			tmp.data = self.__root.data
-			tmp.next = self.__root.next
+			tmp.data = self.head.data
+			tmp.next = self.head.next
 			new = Node()
 			new.data = item
 			new.next = tmp
 			new.prev = None
 			tmp.prev = new
-			self.__root = new
+			self.head = new
 
 
 	def add_end(self, item):
-		if self.__root.data == None:
-			self.__root.data = item
+		if self.head.data == None:
+			self.head.data = item
 		else:
-			tmp = self.__root
+			tmp = self.head
 			while(tmp.next != None):
 				tmp = tmp.next
 			new = Node()
@@ -89,28 +89,28 @@ class DoubleLinkedList():
 
 	def remove_front(self):
 		if len(self)>0:
-			tmp = self.__root.next
+			tmp = self.head.next
 			tmp.prev = None
-			self.__root = tmp
+			self.head = tmp
 
 
 	def remove_end(self):
 		if len(self)>0:
-			tmp = self.__root
+			tmp = self.head
 			while(tmp.next.next != None):
 				tmp = tmp.next
 			tmp.next = None
 
 
 	def clear(self):
-		self.__root = Node()
+		self.head = Node()
 
 
 	def reverse(self):
 		output = DoubleLinkedList()
-		if self.__root.data == None:
+		if self.head.data == None:
 			return DoubleLinkedList()
-		tmp = self.__root.next
+		tmp = self.head.next
 		while(tmp.next != None):
 			output.add_front(tmp.prev.data)
 			tmp = tmp.next
