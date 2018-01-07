@@ -48,14 +48,14 @@ class LinkedList():
             raise IndexError("max index for this list is "+str(self.length-1))
         pointer = self.head
         # handle edge case
-        if idx == 0: return pointer.data
+        if idx == 0: return pointer
         # iterate over the linked list
         counter = 0
         while(pointer.next != None):
             counter += 1
             pointer = pointer.next
             if counter == idx:
-                return pointer.data
+                return pointer
 
 
     def is_empty(self):
