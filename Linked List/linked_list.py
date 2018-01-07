@@ -27,9 +27,9 @@ class LinkedList():
         # general case
         output = "["
         while(pointer.next != None):
-            output += str(pointer.data) + ", "
+            output += "({}) -> ".format(pointer.data)
             pointer = pointer.next
-        output += str(pointer.data)
+        output += "({})".format(pointer.data)
         return output+"]"
 
 
