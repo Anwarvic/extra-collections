@@ -198,16 +198,22 @@ if __name__ == "__main__":
     l.add_end(20)    #6 20
     l.insert(1, 10)  #6 10 20
     l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
-    print(l)
+    print(l, "\n")
 
     l.remove_front() #10 1 2 3 4 20
     l.remove_end()   #10 1 2 3 4
     l.remove(0)      #1 2 3 4
-    print(l)
+    print(l, "\n")
 
-    print(l[0], l[3])
+    print(l[0], l[3], "\n")
 
     rev = l.reverse()#4 3 2 1
     print(rev)
-    print(rev[1], rev[2])
+    print(rev[1], rev[2], "\n")
+
+    print("Linked List is empty?", l.is_empty())
+    print(l)
+    l.clear()
+    print("Linked List is empty?", l.is_empty())
+    print(l)
 
