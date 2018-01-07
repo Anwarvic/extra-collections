@@ -39,20 +39,38 @@ class DoubleLinkedList():
         return self.length
 
 
-    def __getitem__(self, num):
-        """Retrieves the element at the given index."""
-        #TODO: make it support -ve indexing
-        if len(self) <= num or num <= -1:
-            raise IndexError
-        counter = 0
-        tmp = self.head
-        if num == 0:
-            return tmp
-        while(tmp.next != None):
-            tmp = tmp.next
-            counter += 1
-            if counter == num:
-                return tmp
+    def __getitem__(self, idx):
+        """Retrieves the element at the given index with complexity of O(n/2).
+        It supports negative indexing."""
+        # caliberate idx if -ve
+        if idx <= -1:
+            idx += self.length
+        # sanity check over given index
+        if idx >= self.length:
+            raise IndexError("max index for this list is "+str(self.length-1))
+        # handle edge case
+        if idx == 0:
+            return self.head
+        elif idx == self.length-1:
+            return self.tail
+        elif idx < self.length//2:
+            # iterate over the double linked list (forward)
+            pointer = self.head
+            counter = 0
+            while(pointer.next != None):
+                counter += 1
+                pointer = pointer.next
+                if counter == idx:
+                    return pointer
+        else:
+            # iterate over the double linked list (backward)
+            pointer = self.tail
+            counter = self.length-1
+            while(pointer.prev != None):
+                counter -= 1
+                pointer = pointer.prev
+                if counter == idx:
+                    return pointer
 
 
     def is_empty(self):
@@ -65,26 +83,22 @@ class DoubleLinkedList():
         if self.length == 0:
             self.head = self.tail = Node(value)
         elif self.length == 1:
-            new_node = Node(self.head.data)
-            new_node.next = self.head.next
+            self.head = Node(value)
+            self.head.next = self.tail
+            self.tail.prev = self.head
+        else:
+            new_node = self.head
             # update head
             self.head = Node(value)
-            new_node.prev = self.head
-            self.head.next = new_node
-            # update tail
-            self.tail.prev = new_node
-        else:
-            new_node = Node(self.head.data)
-            new_node.next = self.head.next
-            self.head = Node(value)
             self.head.next = new_node
             new_node.prev = self.head
+            if self.length == 2:
+                self.tail.prev = new_node
         self.length += 1
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(1)"""
-        self.length += 1
         if self.head.data == None:
             self.head.data = item
         else:
@@ -96,6 +110,7 @@ class DoubleLinkedList():
             new.next = None
             new.prev = tmp
             tmp.next = new
+        self.length += 1
 
 
     def remove_front(self):
@@ -143,11 +158,20 @@ if __name__ == "__main__":
     l.add_front(1) #1
     l.add_front(0) #0 1
     l.add_front(7) #7 0 1
+    l.add_front(20) #20 7 0 1
+    l.add_front(100) #100 20 7 0 1
     print(l)
     print(l[0])
     print(l[1])
     print(l[2])
     print(l[3])
+    print(l[4])
+    # iterate over l backwards
+    # pointer = l.tail
+    # while(pointer != None):
+    #     print(pointer)
+    #     pointer = pointer.prev
+
     # print(l.reverse())
     # l.add_front(0) #0 1 0 7
     # l.add_front(2) #2 0 1 0 7
