@@ -54,7 +54,7 @@ class DoubleLinkedList():
         elif idx == self.length-1:
             return self.tail
         elif idx < self.length//2:
-            # iterate over the double linked list (forward)
+            # iterate over the double linked list (forwards)
             pointer = self.head
             counter = 0
             while(pointer.next != None):
@@ -63,7 +63,7 @@ class DoubleLinkedList():
                 if counter == idx:
                     return pointer
         else:
-            # iterate over the double linked list (backward)
+            # iterate over the double linked list (backwards)
             pointer = self.tail
             counter = self.length-1
             while(pointer.prev != None):
@@ -92,8 +92,6 @@ class DoubleLinkedList():
             self.head = Node(value)
             self.head.next = new_node
             new_node.prev = self.head
-            if self.length == 2:
-                self.tail.prev = new_node
         self.length += 1
 
 
