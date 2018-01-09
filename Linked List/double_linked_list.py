@@ -96,7 +96,7 @@ class DoubleLinkedList():
 
 
     def add_end(self, value):
-        """Adds node at the tail of the linked list with complexity of O(1)"""
+        """Adds node at the tail of the double linked list with O(1) complexity """
         if self.head.data == None:
             self.head = self.tail = Node(value)
         elif self.length == 1:
@@ -112,11 +112,14 @@ class DoubleLinkedList():
 
 
     def remove_front(self):
-        """Removes the linked list head with complexity of O(1)"""
-        if len(self)>0:
-            tmp = self.head.next
-            tmp.prev = None
-            self.head = tmp
+        """Removes the double linked list head with complexity of O(1)"""
+        if self.length > 0:
+            if self.length == 1:
+                self.head = self.tail = Node()
+            else:
+                self.head = self.head.next
+                self.head.prev = None
+            self.length -= 1
 
 
     def remove_end(self):
@@ -152,25 +155,27 @@ class DoubleLinkedList():
 
 
 if __name__ == "__main__":
-    # l = DoubleLinkedList()
-    # l.add_front(1) #1
-    # l.add_front(0) #0 1
+    l = DoubleLinkedList()
+    l.add_front(1) #1
+    l.add_front(0) #0 1
     # l.add_front(7) #7 0 1
     # l.add_front(20) #20 7 0 1
     # l.add_front(100) #100 20 7 0 1
-    # print(l)
+    print(l)
+    l.remove_front()
+    print(l)
     # print(l[0])
     # print(l[1])
     # print(l[2])
     # print(l[3])
     # print(l[4])
-    l = DoubleLinkedList()
-    l.add_end(1) #1
-    l.add_end(0) #1 0
-    l.add_end(7) #1 0 7
-    l.add_end(20) #1 0 7 20
-    l.add_end(100) #1 0 7 20 100
-    print(l)
+    # l = DoubleLinkedList()
+    # l.add_end(1) #1
+    # l.add_end(0) #1 0
+    # l.add_end(7) #1 0 7
+    # l.add_end(20) #1 0 7 20
+    # l.add_end(100) #1 0 7 20 100
+    # print(l)
     # print(l[0])
     # print(l[1])
     # print(l[2])
