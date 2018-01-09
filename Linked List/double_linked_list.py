@@ -95,19 +95,19 @@ class DoubleLinkedList():
         self.length += 1
 
 
-    def add_end(self, item):
+    def add_end(self, value):
         """Adds node at the tail of the linked list with complexity of O(1)"""
         if self.head.data == None:
-            self.head.data = item
+            self.head = self.tail = Node(value)
+        elif self.length == 1:
+            self.tail = Node(value)
+            self.tail.prev = self.head
+            self.head.next = self.tail
         else:
-            tmp = self.head
-            while(tmp.next != None):
-                tmp = tmp.next
-            new = Node()
-            new.data = item
-            new.next = None
-            new.prev = tmp
-            tmp.next = new
+            new_node = self.tail
+            self.tail = Node(value)
+            self.tail.prev = new_node
+            new_node.next = self.tail
         self.length += 1
 
 
@@ -152,24 +152,42 @@ class DoubleLinkedList():
 
 
 if __name__ == "__main__":
+    # l = DoubleLinkedList()
+    # l.add_front(1) #1
+    # l.add_front(0) #0 1
+    # l.add_front(7) #7 0 1
+    # l.add_front(20) #20 7 0 1
+    # l.add_front(100) #100 20 7 0 1
+    # print(l)
+    # print(l[0])
+    # print(l[1])
+    # print(l[2])
+    # print(l[3])
+    # print(l[4])
     l = DoubleLinkedList()
-    l.add_front(1) #1
-    l.add_front(0) #0 1
-    l.add_front(7) #7 0 1
-    l.add_front(20) #20 7 0 1
-    l.add_front(100) #100 20 7 0 1
+    l.add_end(1) #1
+    l.add_end(0) #1 0
+    l.add_end(7) #1 0 7
+    l.add_end(20) #1 0 7 20
+    l.add_end(100) #1 0 7 20 100
     print(l)
-    print(l[0])
-    print(l[1])
-    print(l[2])
-    print(l[3])
-    print(l[4])
+    # print(l[0])
+    # print(l[1])
+    # print(l[2])
+    # print(l[3])
+    # print(l[4])
     # iterate over l backwards
-    # pointer = l.tail
-    # while(pointer != None):
-    #     print(pointer)
-    #     pointer = pointer.prev
-
+    print("===== Backward Iteration =====")
+    pointer = l.tail
+    while(pointer != None):
+        print(pointer)
+        pointer = pointer.prev
+    # iterate over l forward
+    print("===== Forward Iteration =====")
+    pointer = l.head
+    while(pointer != None):
+        print(pointer)
+        pointer = pointer.next
     # print(l.reverse())
     # l.add_front(0) #0 1 0 7
     # l.add_front(2) #2 0 1 0 7
