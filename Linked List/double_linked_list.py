@@ -97,7 +97,7 @@ class DoubleLinkedList():
 
     def add_end(self, value):
         """Adds node at the tail of the double linked list with O(1) complexity """
-        if self.head.data == None:
+        if self.length == 0:
             self.head = self.tail = Node(value)
         elif self.length == 1:
             self.tail = Node(value)
@@ -124,7 +124,7 @@ class DoubleLinkedList():
 
     def remove_end(self):
         """Removes the double linked list tail with complexity of O(1)"""
-        if len(self)>0:
+        if self.length>0:
             if self.length == 1:
                 self.tail = self.head = Node()
             else:
