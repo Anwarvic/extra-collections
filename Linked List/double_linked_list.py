@@ -159,6 +159,12 @@ class DoubleLinkedList():
             self.length += 1
 
 
+    def remove(self, idx):
+        """Removes a node at index=idx from the double linked list"""
+        pass
+
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = self.tail = Node()
