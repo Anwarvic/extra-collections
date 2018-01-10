@@ -139,16 +139,14 @@ class DoubleLinkedList():
 
 
     def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
+        """Reverses the whole double linked list with complexity of O(n)"""
         output = DoubleLinkedList()
-        if self.head.data == None:
+        if self.length == 0:
             return DoubleLinkedList()
-        tmp = self.head.next
-        while(tmp.next != None):
-            output.add_front(tmp.prev.data)
-            tmp = tmp.next
-        output.add_front(tmp.prev.data)
-        output.add_front(tmp.data)
+        pointer = self.head
+        while(pointer != None):
+            output.add_front(pointer.data)
+            pointer = pointer.next
         return output
 
 
@@ -185,6 +183,8 @@ if __name__ == "__main__":
     # print(l[2])
     # print(l[3])
     # print(l[4])
+    rev = l.reverse() # 20 7 0 1
+    print(rev)
     # iterate over l backwards
     print("===== Backward Iteration =====")
     pointer = l.tail
