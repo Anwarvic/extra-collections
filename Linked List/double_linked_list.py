@@ -134,8 +134,29 @@ class DoubleLinkedList():
 
 
     def insert(self, idx, value):
-        """Inserts a certain value at a given index into the linked list"""
-        pass
+        """Inserts a certain value at a given index into the double linked list"""
+        # handle edge cases
+        if idx > self.length:
+            msg = "Index cannot be bigger than the size of the linked list"
+            raise IndexError(msg)
+        elif idx == 0:
+            self.add_front(value)
+        elif idx == self.length:
+            self.add_end(value)
+        # handle general case
+        else:
+            counter = 0
+            pointer = self.head
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            new_node = Node(value)
+            new_node.next = pointer.next
+            pointer.next.prev = new_node
+            new_node.prev = pointer
+            pointer.next = new_node
+            self.length += 1
 
 
     def clear(self):
@@ -161,13 +182,18 @@ class DoubleLinkedList():
 
 
 if __name__ == "__main__":
-    # l = DoubleLinkedList()
-    # l.add_front(1) #1
-    # l.add_front(0) #0 1
-    # l.add_front(7) #7 0 1
-    # l.add_front(20) #20 7 0 1
-    # l.add_front(100) #100 20 7 0 1
-    # print(l, l.length)
+    l = DoubleLinkedList()
+    l.add_front(1) #1
+    l.add_front(0) #0 1
+    l.add_front(7) #7 0 1
+    l.add_front(20) #20 7 0 1
+    l.add_front(100) #100 20 7 0 1
+
+    l.insert(1, 999) #100 999 20 7 0 1
+    l.insert(0, 10)  #10 100 999 20 7 0 1
+    l.insert(2, 888) #10 100 888 999 20 7 0 1
+    l.insert(1, 777) #10 777 100 888 999 20 7 0 1
+    print(l, len(l))
     # l.remove_front()
     # print(l, l.length)
     # print(l[0])
@@ -175,47 +201,16 @@ if __name__ == "__main__":
     # print(l[2])
     # print(l[3])
     # print(l[4])
-    l = DoubleLinkedList()
-    l.add_end(1) #1
-    l.add_end(0) #1 0
-    l.add_end(7) #1 0 7
-    l.add_end(20) #1 0 7 20
-    l.add_end(100) #1 0 7 20 100
-    print(l, l.length)
-    l.remove_end()
-    print(l, l.length)
-    # print(l[0])
-    # print(l[1])
-    # print(l[2])
-    # print(l[3])
-    # print(l[4])
-    rev = l.reverse() # 20 7 0 1
-    print(rev)
+
     # iterate over l backwards
     print("===== Backward Iteration =====")
-    pointer = rev.tail
+    pointer = l.tail
     while(pointer != None):
         print(pointer)
         pointer = pointer.prev
     # iterate over l forward
     print("===== Forward Iteration =====")
-    pointer = rev.head
+    pointer = l.head
     while(pointer != None):
         print(pointer)
         pointer = pointer.next
-    # print(l.reverse())
-    # l.add_front(0) #0 1 0 7
-    # l.add_front(2) #2 0 1 0 7
-    # l.add_front(9) #9 2 0 1 0 7
-    # print(l)
-    # print(l[4].prev)
-    # l.remove_end() #9 2 0 1 0
-    # l.remove_front() #2 0 1 0
-    # print(l)
-    # print(l[0].prev)
-    # print(l[0].next)
-    # rev = l.reverse()
-    # print(rev)
-    # l.clear()
-    # print(len(l))
-
