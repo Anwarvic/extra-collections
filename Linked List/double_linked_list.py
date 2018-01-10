@@ -143,6 +143,7 @@ class DoubleLinkedList():
         output = DoubleLinkedList()
         if self.length == 0:
             return DoubleLinkedList()
+        # iterate over original double linked list in (forward)
         pointer = self.head
         while(pointer != None):
             output.add_front(pointer.data)
