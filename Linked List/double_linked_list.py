@@ -187,13 +187,13 @@ if __name__ == "__main__":
     print(rev)
     # iterate over l backwards
     print("===== Backward Iteration =====")
-    pointer = l.tail
+    pointer = rev.tail
     while(pointer != None):
         print(pointer)
         pointer = pointer.prev
     # iterate over l forward
     print("===== Forward Iteration =====")
-    pointer = l.head
+    pointer = rev.head
     while(pointer != None):
         print(pointer)
         pointer = pointer.next
