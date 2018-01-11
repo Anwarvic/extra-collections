@@ -197,7 +197,7 @@ if __name__ == "__main__":
     l.add_end(20)    #6 20
     l.insert(1, 10)  #6 10 20
     l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
-    print(l, "\n")
+    print(l, "LENGTH:", len(l), "\n")
 
     l.remove_front() #10 1 2 3 4 20
     l.remove_end()   #10 1 2 3 4
