@@ -150,7 +150,7 @@ class LinkedList():
 
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the linked list at once"""
-         # handle edge cases
+        # handle edge cases
         if idx > self.length:
             msg = "Index cannot be bigger than the size of the linked list"
             raise IndexError(msg)
