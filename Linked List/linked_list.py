@@ -157,7 +157,6 @@ class LinkedList():
         elif idx == 0:
             for value in lst[::-1]:
                 self.add_front(value)
-                self.length += 1
         # handle general case
         else:
             counter = 0
