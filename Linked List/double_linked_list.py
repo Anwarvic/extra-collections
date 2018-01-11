@@ -137,7 +137,7 @@ class DoubleLinkedList():
         """Inserts a certain value at a given index into the double linked list"""
         # handle edge cases
         if idx > self.length:
-            msg = "Index cannot be bigger than the size of the linked list"
+            msg = "idx cannot be bigger than the size of the double linked list"
             raise IndexError(msg)
         elif idx == 0:
             self.add_front(value)
@@ -161,8 +161,25 @@ class DoubleLinkedList():
 
     def remove(self, idx):
         """Removes a node at index=idx from the double linked list"""
-        pass
-
+        if idx > self.length:
+            msg = "idx cannot be bigger than the size of the double linked list"
+            raise IndexError(msg)
+        elif idx == 0:
+            self.remove_front()
+        elif idx == self.length-1:
+            self.remove_end()
+        # handle general case
+        else:
+            counter = 0
+            pointer = self.head
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            next_pointer = pointer.next.next
+            next_pointer.prev = pointer
+            pointer.next = next_pointer
+            self.length -= 1
 
 
     def clear(self):
@@ -200,8 +217,8 @@ if __name__ == "__main__":
     l.insert(2, 888) #10 100 888 999 20 7 0 1
     l.insert(1, 777) #10 777 100 888 999 20 7 0 1
     print(l, len(l))
-    # l.remove_front()
-    # print(l, l.length)
+    l.remove(8)
+    print(l, l.length)
     # print(l[0])
     # print(l[1])
     # print(l[2])
