@@ -182,6 +182,10 @@ class DoubleLinkedList():
             self.length -= 1
 
 
+    def insert_multiple(self, idx, lst):
+        """Inserts multiple values into the linked list at once"""
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = self.tail = Node()
