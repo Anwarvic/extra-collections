@@ -189,7 +189,9 @@ class DoubleLinkedList():
             msg = "idx cannot be bigger than the size of the double linked list"
             raise IndexError(msg)
         elif idx == 0:
-            for value in lst[::-1]:
+            # iterate over given list in reverse-order
+            for i in range(len(lst)-1, -1, -1):
+                value = lst[i]
                 self.add_front(value)
         # handle general case
         else:
@@ -199,7 +201,9 @@ class DoubleLinkedList():
                 pointer = pointer.next
                 counter += 1
             # pointer is now at (idx-1)
-            for value in lst[::-1]:
+            # iterate over given list in reverse-order
+            for i in range(len(lst)-1, -1, -1):
+                value = lst[i]
                 new_node = Node(value)
                 new_node.next = pointer.next
                 new_node.prev = pointer
@@ -244,7 +248,7 @@ if __name__ == "__main__":
     print(l, len(l))
     l.remove(8)
     print(l, l.length)
-    l.insert_multiple(1, [-1, -2, -3])
+    l.insert_multiple(2, [-1, -2, -3])
     print(l, len(l))
     # print(l[0])
     # print(l[1])
