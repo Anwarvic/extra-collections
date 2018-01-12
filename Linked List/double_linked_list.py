@@ -184,6 +184,27 @@ class DoubleLinkedList():
 
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the linked list at once"""
+        # handle edge cases
+        if idx > self.length:
+            msg = "idx cannot be bigger than the size of the double linked list"
+            raise IndexError(msg)
+        elif idx == 0:
+            for value in lst[::-1]:
+                self.add_front(value)
+        # handle general case
+        else:
+            counter = 0
+            pointer = self.head
+            while(counter != idx-1):  
+                pointer = pointer.next
+                counter += 1
+            # pointer is now at (idx-1)
+            for value in lst[::-1]:
+                new_node = Node(value)
+                new_node.next = pointer.next
+                new_node.prev = pointer
+                pointer.next = new_node
+                self.length += 1
 
 
     def clear(self):
@@ -223,6 +244,8 @@ if __name__ == "__main__":
     print(l, len(l))
     l.remove(8)
     print(l, l.length)
+    l.insert_multiple(1, [-1, -2, -3])
+    print(l, len(l))
     # print(l[0])
     # print(l[1])
     # print(l[2])
