@@ -155,7 +155,9 @@ class LinkedList():
             msg = "Index cannot be bigger than the size of the linked list"
             raise IndexError(msg)
         elif idx == 0:
-            for value in lst[::-1]:
+            # iterate over given list in reverse-order
+            for i in range(len(lst)-1, -1, -1):
+                value = lst[i]
                 self.add_front(value)
         # handle general case
         else:
@@ -165,7 +167,9 @@ class LinkedList():
                 pointer = pointer.next
                 counter += 1
             # pointer is now at (idx-1)
-            for value in lst[::-1]:
+            # iterate over given list in reverse-order
+            for i in range(len(lst)-1, -1, -1):
+                value = lst[i]
                 new_node = Node(value)
                 new_node.next = pointer.next
                 pointer.next = new_node
