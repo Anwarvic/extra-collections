@@ -219,12 +219,12 @@ class DoubleLinkedList():
             # iterate over the double linked list (backwords)
             pointer = self.tail
             counter = self.length-1
-            while(counter != idx-1):
-                pointer = pointer.next
+            while(counter != idx):
+                pointer = pointer.prev
                 counter -= 1
             # pointer is now at (idx-1)
             # iterate over given list in reverse-order
-            for i in range(0, len(lst)):
+            for i in range(len(lst)-1, -1, -1):
                 # define main nodes
                 new_node = Node(lst[i])
                 prev_pointer = pointer.prev
@@ -264,9 +264,9 @@ class DoubleLinkedList():
 if __name__ == "__main__":
     l = DoubleLinkedList()
     l.add_front(6)   #6
-    l.add_end(20)    #6 20
-    l.insert(1, 10)  #6 10 20
-    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
+    # l.add_end(20)    #6 20
+    # l.insert(1, 10)  #6 10 20
+    l.insert_multiple(1, [1, 2, 3, 4])  #6 10 1 2 3 4 20
     print(l, "LENGTH:", len(l), "\n")
 
     # l.remove_front() #10 1 2 3 4 20
