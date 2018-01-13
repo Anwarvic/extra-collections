@@ -144,20 +144,44 @@ class DoubleLinkedList():
         elif idx == self.length:
             self.add_end(value)
         # handle general case
-        else:
+        # when idx is smaller than half the linked list length
+        elif idx < self.length//2:
+            print("INSERTING FORWARDS")
+            # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
             while(counter != idx-1):  
                 pointer = pointer.next
                 counter += 1
             # pointer is now at (idx-1)
+            # define main nodes
             new_node = Node(value)
-            new_node.next = pointer.next
-            pointer.next.prev = new_node
+            next_pointer = pointer.next
+            # adjust connections
+            new_node.next = next_pointer
+            next_pointer.prev = new_node
             new_node.prev = pointer
             pointer.next = new_node
             self.length += 1
-
+        # when idx is bigger than half the linked list length
+        else:
+            # iterate over the double linked list (backwards)
+            print("INSERTING BACKWARDS")
+            pointer = self.tail
+            counter = self.length-1
+            while(counter != idx):
+                pointer = pointer.prev
+                counter -= 1
+            # pointer is now at (idx)
+            # define main nodes
+            new_node = Node(value)
+            prev_pointer = pointer.prev
+            # adjust connections
+            new_node.prev = prev_pointer
+            prev_pointer.next = new_node
+            new_node.next = pointer
+            pointer.prev = new_node
+            self.length += 1
 
     def remove(self, idx):
         """Removes a node at index=idx from the double linked list"""
@@ -169,7 +193,9 @@ class DoubleLinkedList():
         elif idx == self.length-1:
             self.remove_end()
         # handle general case
-        else:
+        # when idx is smaller than half the linked list length
+        elif idx < self.length//2:
+            # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
             while(counter != idx-1):  
@@ -179,6 +205,19 @@ class DoubleLinkedList():
             next_pointer = pointer.next.next
             next_pointer.prev = pointer
             pointer.next = next_pointer
+            self.length -= 1
+        # when idx is bigger than half the linked list length
+        else:
+            # iterate over the double linked list (forwards)
+            pointer = self.tail
+            counter = self.length-1
+            while(counter != idx):  
+                pointer = pointer.prev
+                counter -= 1
+            # pointer is now at (idx-1)
+            prev_pointer = pointer.prev.prev
+            prev_pointer.next = pointer
+            pointer.prev = prev_pointer
             self.length -= 1
 
 
@@ -225,13 +264,13 @@ class DoubleLinkedList():
             while(counter != idx):
                 pointer = pointer.prev
                 counter -= 1
-            # pointer is now at (idx-1)
+            # pointer is now at (idx)
             # iterate over given list in reverse-order
             for i in range(len(lst)-1, -1, -1):
                 # define main nodes
                 new_node = Node(lst[i])
                 prev_pointer = pointer.prev
-                # adjuct connections
+                # adjust connections
                 new_node.prev = prev_pointer
                 prev_pointer.next = new_node
                 new_node.next = pointer
@@ -240,7 +279,7 @@ class DoubleLinkedList():
                 pointer = pointer.prev
                 self.length += 1
 
-
+    
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = self.tail = Node()
@@ -266,31 +305,34 @@ class DoubleLinkedList():
 
 if __name__ == "__main__":
     l = DoubleLinkedList()
-    l.add_front(6)   #6
-    l.add_end(20)    #6 20
-    l.insert(1, 10)  #6 10 20
-    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
-    print(l, "LENGTH:", len(l), "\n")
-
-    l.remove_front() #10 1 2 3 4 20
-    l.remove_end()   #10 1 2 3 4
-    l.remove(0)      #1 2 3 4
-    print(l, "LENGTH:", len(l), "\n")
-
-    print(l[0], l[3], "\n")
-
-    rev = l.reverse()#4 3 2 1
-    print(rev, "REV LENGTH:", len(rev), "\n")
-    print(rev[1], rev[2], "\n")
-
-    print("Linked List is empty?", l.is_empty())
-    print(l, "LENGTH:", len(l), "\n")
-    l.clear()
-    print("Linked List is empty?", l.is_empty())
+    l.insert(0, 1) #1
+    l.insert(1, 2) #1 2
+    l.insert(1, 3) #1 3 2
+    l.insert(2, 99) #1 3 99 2
+    l.insert(1, 8888) #1 8888 3 99 2
+    l.remove(0)
     print(l, "LENGTH:", len(l), "\n")
 
 
 
+
+    # l = DoubleLinkedList()
+    # l.add_front(6)   #6
+    # l.add_end(20)    #6 20
+    # l.insert(1, 10)  #6 10 20
+    # l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
+    # print(l, "LENGTH:", len(l), "\n")
+
+    # l.remove_front() #10 1 2 3 4 20
+    # l.remove_end()   #10 1 2 3 4
+    # l.remove(0)      #1 2 3 4
+    # print(l, "LENGTH:", len(l), "\n")
+
+    # print(l[0], l[3], "\n")
+
+    # rev = l.reverse()#4 3 2 1
+    # print(rev, "REV LENGTH:", len(rev), "\n")
+    # print(rev[1], rev[2], "\n")
 
     # iterate over l backwards
     print("===== Backward Iteration =====")
@@ -304,3 +346,10 @@ if __name__ == "__main__":
     while(pointer != None):
         print(pointer)
         pointer = pointer.next
+
+
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
+    # l.clear()
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
