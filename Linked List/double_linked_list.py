@@ -183,7 +183,8 @@ class DoubleLinkedList():
 
 
     def insert_multiple(self, idx, lst):
-        """Inserts multiple values into the linked list at once"""
+        """Inserts multiple values into the double linked list at once.
+        Its complexity is O(n/2)."""
         # handle edge cases
         if idx > self.length:
             msg = "idx cannot be bigger than the size of the double linked list"
@@ -191,8 +192,10 @@ class DoubleLinkedList():
         elif idx == 0:
             # iterate over given list in reverse-order
             for i in range(len(lst)-1, -1, -1):
-                value = lst[i]
-                self.add_front(value)
+                self.add_front(lst[i])
+        elif idx == self.length:
+            for i in range(0, len(lst)):
+                self.add_end(lst[i])
         # handle general case
         elif idx < self.length//2:
             # iterate over the double linked list (forwards)
@@ -264,28 +267,28 @@ class DoubleLinkedList():
 if __name__ == "__main__":
     l = DoubleLinkedList()
     l.add_front(6)   #6
-    # l.add_end(20)    #6 20
-    # l.insert(1, 10)  #6 10 20
-    l.insert_multiple(1, [1, 2, 3, 4])  #6 10 1 2 3 4 20
+    l.add_end(20)    #6 20
+    l.insert(1, 10)  #6 10 20
+    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
     print(l, "LENGTH:", len(l), "\n")
 
-    # l.remove_front() #10 1 2 3 4 20
-    # l.remove_end()   #10 1 2 3 4
-    # print(l, "LENGTH:", len(l), "\n")
-    # l.remove(0)      #1 2 3 4
-    # print(l, "LENGTH:", len(l), "\n")
+    l.remove_front() #10 1 2 3 4 20
+    l.remove_end()   #10 1 2 3 4
+    l.remove(0)      #1 2 3 4
+    print(l, "LENGTH:", len(l), "\n")
 
-    # print(l[0], l[3], "\n")
+    print(l[0], l[3], "\n")
 
-    # rev = l.reverse()#4 3 2 1
-    # print(rev, "REV LENGTH:", len(rev), "\n")
-    # print(rev[1], rev[2], "\n")
+    rev = l.reverse()#4 3 2 1
+    print(rev, "REV LENGTH:", len(rev), "\n")
+    print(rev[1], rev[2], "\n")
 
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
-    # l.clear()
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
+    print("Linked List is empty?", l.is_empty())
+    print(l, "LENGTH:", len(l), "\n")
+    l.clear()
+    print("Linked List is empty?", l.is_empty())
+    print(l, "LENGTH:", len(l), "\n")
+
 
 
 
