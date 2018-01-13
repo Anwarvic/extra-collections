@@ -195,6 +195,7 @@ class DoubleLinkedList():
         # handle general case
         # when idx is smaller than half the linked list length
         elif idx < self.length//2:
+            print("REMOVING FORWARD")
             # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
@@ -208,13 +209,14 @@ class DoubleLinkedList():
             self.length -= 1
         # when idx is bigger than half the linked list length
         else:
+            print("REMOVING BACKWARD")
             # iterate over the double linked list (forwards)
             pointer = self.tail
             counter = self.length-1
-            while(counter != idx):  
+            while(counter != idx+1):  
                 pointer = pointer.prev
                 counter -= 1
-            # pointer is now at (idx-1)
+            # pointer is now at (idx+1)
             prev_pointer = pointer.prev.prev
             prev_pointer.next = pointer
             pointer.prev = prev_pointer
@@ -310,8 +312,11 @@ if __name__ == "__main__":
     l.insert(1, 3) #1 3 2
     l.insert(2, 99) #1 3 99 2
     l.insert(1, 8888) #1 8888 3 99 2
-    l.remove(0)
     print(l, "LENGTH:", len(l), "\n")
+    l.remove(2) # 1 8888 99 2
+    print(l, "LENGTH:", len(l), "\n")
+    # l.remove(1)
+    # print(l, "LENGTH:", len(l), "\n")
 
 
 
