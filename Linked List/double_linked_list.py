@@ -124,7 +124,7 @@ class DoubleLinkedList():
 
     def remove_end(self):
         """Removes the double linked list tail with complexity of O(1)"""
-        if self.length>0:
+        if self.length > 0:
             if self.length == 1:
                 self.tail = self.head = Node()
             else:
@@ -194,7 +194,8 @@ class DoubleLinkedList():
                 value = lst[i]
                 self.add_front(value)
         # handle general case
-        else:
+        elif idx < self.length//2:
+            # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
             while(counter != idx-1):  
@@ -202,31 +203,58 @@ class DoubleLinkedList():
                 counter += 1
             # pointer is now at (idx-1)
             # iterate over given list in reverse-order
-            for i in range(len(lst)-1, -1, -1):
-                value = lst[i]
-                new_node = Node(value)
-                new_node.next = pointer.next
+            for i in range(0, len(lst)):
+                # define main nodes
+                new_node = Node(lst[i])
+                next_pointer = pointer.next
+                # adjuct connections
+                new_node.next = next_pointer
+                next_pointer.prev = new_node
                 new_node.prev = pointer
                 pointer.next = new_node
+                # update pointer
+                pointer = pointer.next
+                self.length += 1
+        else:
+            # iterate over the double linked list (backwords)
+            pointer = self.tail
+            counter = self.length-1
+            while(counter != idx-1):
+                pointer = pointer.next
+                counter -= 1
+            # pointer is now at (idx-1)
+            # iterate over given list in reverse-order
+            for i in range(0, len(lst)):
+                # define main nodes
+                new_node = Node(lst[i])
+                prev_pointer = pointer.prev
+                # adjuct connections
+                new_node.prev = prev_pointer
+                prev_pointer.next = new_node
+                new_node.next = pointer
+                pointer.prev = new_node
+                # update pointer
+                pointer = pointer.prev
                 self.length += 1
 
 
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = self.tail = Node()
+        self.length = 0
 
 
     def reverse(self):
         """Reverses the whole double linked list with complexity of O(n)"""
-        output = DoubleLinkedList()
+        rev = DoubleLinkedList()
         if self.length == 0:
             return DoubleLinkedList()
         # iterate over original double linked list in (forward)
         pointer = self.head
         while(pointer != None):
-            output.add_front(pointer.data)
+            rev.add_front(pointer.data)
             pointer = pointer.next
-        return output
+        return rev
 
 
 
@@ -235,26 +263,31 @@ class DoubleLinkedList():
 
 if __name__ == "__main__":
     l = DoubleLinkedList()
-    l.add_front(1) #1
-    l.add_front(0) #0 1
-    l.add_front(7) #7 0 1
-    l.add_front(20) #20 7 0 1
-    l.add_front(100) #100 20 7 0 1
+    l.add_front(6)   #6
+    l.add_end(20)    #6 20
+    l.insert(1, 10)  #6 10 20
+    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
+    print(l, "LENGTH:", len(l), "\n")
 
-    l.insert(1, 999) #100 999 20 7 0 1
-    l.insert(0, 10)  #10 100 999 20 7 0 1
-    l.insert(2, 888) #10 100 888 999 20 7 0 1
-    l.insert(1, 777) #10 777 100 888 999 20 7 0 1
-    print(l, len(l))
-    l.remove(8)
-    print(l, l.length)
-    l.insert_multiple(2, [-1, -2, -3])
-    print(l, len(l))
-    # print(l[0])
-    # print(l[1])
-    # print(l[2])
-    # print(l[3])
-    # print(l[4])
+    # l.remove_front() #10 1 2 3 4 20
+    # l.remove_end()   #10 1 2 3 4
+    # print(l, "LENGTH:", len(l), "\n")
+    # l.remove(0)      #1 2 3 4
+    # print(l, "LENGTH:", len(l), "\n")
+
+    # print(l[0], l[3], "\n")
+
+    # rev = l.reverse()#4 3 2 1
+    # print(rev, "REV LENGTH:", len(rev), "\n")
+    # print(rev[1], rev[2], "\n")
+
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
+    # l.clear()
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
+
+
 
     # iterate over l backwards
     print("===== Backward Iteration =====")
