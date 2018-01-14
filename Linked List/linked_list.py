@@ -49,10 +49,11 @@ class LinkedList():
             msg = "idx must be an integer!"
             raise TypeError(msg)
         # handle negative index
-        if idx <=-1 and abs(idx) <= self.length+1:
-            idx += self.length + 1
-        elif abs(idx) > self.length:
-            msg = "max index for this linked list is " + str(self.length)
+        if idx <=-1 and abs(idx) <= self.length:
+            idx += self.length
+        # handle positive/negative indices
+        elif abs(idx) >= self.length:
+            msg = "max index for this linked list is " + str(self.length-1)
             raise IndexError(msg)
         else:
             pass #direct
@@ -63,12 +64,9 @@ class LinkedList():
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
         idx = self.__fix_index(idx)
-        # handle edge cases
+        # handle edge case
         if idx == 0:
             return self.head
-        elif idx == self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
-            raise IndexError(msg)
         # iterate over the linked list
         counter = 0
         pointer = self.head
@@ -129,7 +127,10 @@ class LinkedList():
 
     def insert(self, idx, value):
         """Inserts a certain value at a given index into the linked list"""
-        idx = self.__fix_index(idx)
+        if idx <= -1 and abs(idx) <= self.length+1:
+            idx += self.length+1
+        else:
+            idx = self.__fix_index(idx)
         # handle edge case
         if idx == 0:
             self.add_front(value)
@@ -150,12 +151,9 @@ class LinkedList():
     def remove(self, idx):
         """Removes a node at index=idx from the linked list"""
         idx = self.__fix_index(idx)
-        # handle edge cases
+        # handle edge case
         if idx == 0:
             self.remove_front()
-        elif idx == self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
-            raise IndexError(msg)
         # handle general case
         else:
             counter = 0
@@ -170,7 +168,10 @@ class LinkedList():
 
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the linked list at once"""
-        idx = self.__fix_index(idx)
+        if idx <= -1 and abs(idx) <= self.length+1:
+            idx += self.length+1
+        else:
+            idx = self.__fix_index(idx)
         # handle edge case
         if idx == 0:
             # NOTE: iterate over given list in reverse-order as add_front() is
@@ -221,23 +222,8 @@ if __name__ == "__main__":
     l.insert(1, 10)  #6 10 20
     l.insert(-2, 999)#6 10 999 20
     l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
+    l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
     print(l, "LENGTH:", len(l))
 
-    l.remove(-2)     #6 10 1 2 3 4 20
-    l.remove_front() #10 1 2 3 4 20
-    l.remove_end()   #10 1 2 3 4
-    l.remove(0)      #1 2 3 4
-    print(l, "LENGTH:", len(l))
-    
-    print(l[0], l[3], "\n")
 
-    rev = l.reverse()#4 3 2 1
-    print(rev, "REV LENGTH:", len(rev))
-    print(rev[1], rev[2])
-
-    print("Linked List is empty?", l.is_empty())
-    print(l, "LENGTH:", len(l))
-    l.clear()
-    print("Linked List is empty?", l.is_empty())
-    print(l, "LENGTH:", len(l))
 
