@@ -221,22 +221,23 @@ if __name__ == "__main__":
     l.insert(1, 10)  #6 10 20
     l.insert(-2, 999)#6 10 999 20
     l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
-    print(l, "LENGTH:", len(l), "\n")
+    print(l, "LENGTH:", len(l))
 
+    l.remove(-2)     #6 10 1 2 3 4 20
     l.remove_front() #10 1 2 3 4 20
     l.remove_end()   #10 1 2 3 4
     l.remove(0)      #1 2 3 4
-    print(l, "LENGTH:", len(l), "\n")
+    print(l, "LENGTH:", len(l))
+    
+    print(l[0], l[3], "\n")
 
-    # print(l[0], l[3], "\n")
+    rev = l.reverse()#4 3 2 1
+    print(rev, "REV LENGTH:", len(rev))
+    print(rev[1], rev[2])
 
-    # rev = l.reverse()#4 3 2 1
-    # print(rev, "REV LENGTH:", len(rev), "\n")
-    # print(rev[1], rev[2], "\n")
-
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
-    # l.clear()
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
+    print("Linked List is empty?", l.is_empty())
+    print(l, "LENGTH:", len(l))
+    l.clear()
+    print("Linked List is empty?", l.is_empty())
+    print(l, "LENGTH:", len(l))
 
