@@ -39,20 +39,35 @@ class DoubleLinkedList():
         return self.length
 
 
+    def __fix_index(self, idx):
+        """
+        private method to make a sanity-check over the given index and fix it
+        if it was -ve. It should return the index if it's valid. If the index is
+        negative, then it converts it to positive index if possible.
+        If the index has any error of any kind, it raises an appropriate error.
+        """
+        if type(idx) != int:
+            msg = "idx must be an integer"
+            raise TypeError(msg)
+        elif abs(idx) > self.length or idx == self.length:
+            msg = "max index for this linked list is " + str(self.length-1)
+            raise IndexError(msg)
+        elif idx <= -1:
+            idx += self.length
+        return idx
+
+
     def __getitem__(self, idx):
         """Retrieves the element at the given index with complexity of O(n/2).
         It supports negative indexing."""
-        # caliberate idx if -ve
-        if idx <= -1:
-            idx += self.length
-        # sanity check over given index
-        if idx >= self.length:
-            raise IndexError("max index for this list is "+str(self.length-1))
-        # handle edge case
+        idx = self.__fix_index(idx)
+        # handle edge cases
         if idx == 0:
             return self.head
         elif idx == self.length-1:
             return self.tail
+        # handle general case
+        # when idx is smaller than half the linked list length
         elif idx < self.length//2:
             # iterate over the double linked list (forwards)
             pointer = self.head
@@ -62,6 +77,7 @@ class DoubleLinkedList():
                 pointer = pointer.next
                 if counter == idx:
                     return pointer
+        # when idx is bigger than half the linked list length
         else:
             # iterate over the double linked list (backwards)
             pointer = self.tail
@@ -135,11 +151,9 @@ class DoubleLinkedList():
 
     def insert(self, idx, value):
         """Inserts a certain value at a given index into the double linked list"""
+        idx = self.__fix_index(idx)
         # handle edge cases
-        if idx > self.length:
-            msg = "idx cannot be bigger than the size of the double linked list"
-            raise IndexError(msg)
-        elif idx == 0:
+        if idx == 0:
             self.add_front(value)
         elif idx == self.length:
             self.add_end(value)
@@ -185,10 +199,9 @@ class DoubleLinkedList():
 
     def remove(self, idx):
         """Removes a node at index=idx from the double linked list"""
-        if idx > self.length:
-            msg = "idx cannot be bigger than the size of the double linked list"
-            raise IndexError(msg)
-        elif idx == 0:
+        idx = self.__fix_index(idx)
+        # handle edge cases
+        if idx == 0:
             self.remove_front()
         elif idx == self.length-1:
             self.remove_end()
@@ -226,11 +239,9 @@ class DoubleLinkedList():
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the double linked list at once.
         Its complexity is O(n/2)."""
+        idx = self.__fix_index(idx)
         # handle edge cases
-        if idx > self.length:
-            msg = "idx cannot be bigger than the size of the double linked list"
-            raise IndexError(msg)
-        elif idx == 0:
+        if idx == 0:
             # iterate over given list in reverse-order
             for i in range(len(lst)-1, -1, -1):
                 self.add_front(lst[i])
@@ -246,7 +257,7 @@ class DoubleLinkedList():
                 pointer = pointer.next
                 counter += 1
             # pointer is now at (idx-1)
-            # iterate over given list in reverse-order
+            # iterate over given list
             for i in range(0, len(lst)):
                 # define main nodes
                 new_node = Node(lst[i])
