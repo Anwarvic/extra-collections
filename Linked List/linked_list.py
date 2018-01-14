@@ -162,12 +162,12 @@ class LinkedList():
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the linked list at once"""
         idx = self.__fix_index(idx)
-        # handle edge cases
+        # handle edge case
         if idx == 0:
-            # iterate over given list in reverse-order
+            # NOTE: iterate over given list in reverse-order as add_front() is
+            # faster than add_end()
             for i in range(len(lst)-1, -1, -1):
-                value = lst[i]
-                self.add_front(value)
+                self.add_front(lst[i])
         # handle general case
         else:
             counter = 0
@@ -177,11 +177,12 @@ class LinkedList():
                 counter += 1
             # pointer is now at (idx-1)
             # iterate over given list in reverse-order
-            for i in range(len(lst)-1, -1, -1):
-                value = lst[i]
+            for value in lst:
                 new_node = Node(value)
                 new_node.next = pointer.next
                 pointer.next = new_node
+                # update pointer
+                pointer = pointer.next
                 self.length += 1
 
 
