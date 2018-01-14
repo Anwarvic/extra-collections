@@ -46,13 +46,16 @@ class LinkedList():
         If the index has any error of any kind, it raises an appropriate error.
         """
         if type(idx) != int:
-            msg = "idx must be an integer"
+            msg = "idx must be an integer!"
             raise TypeError(msg)
-        elif abs(idx) > self.length or idx == self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
+        # handle negative index
+        if idx <=-1 and abs(idx) <= self.length+1:
+            idx += self.length + 1
+        elif abs(idx) > self.length:
+            msg = "max index for this linked list is " + str(self.length)
             raise IndexError(msg)
-        elif idx <= -1:
-            idx += self.length
+        else:
+            pass #direct
         return idx
             
 
@@ -60,9 +63,12 @@ class LinkedList():
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
         idx = self.__fix_index(idx)
-        # handle edge case
+        # handle edge cases
         if idx == 0:
             return self.head
+        elif idx == self.length:
+            msg = "max index for this linked list is " + str(self.length-1)
+            raise IndexError(msg)
         # iterate over the linked list
         counter = 0
         pointer = self.head
@@ -144,9 +150,12 @@ class LinkedList():
     def remove(self, idx):
         """Removes a node at index=idx from the linked list"""
         idx = self.__fix_index(idx)
-        # handle edge case
+        # handle edge cases
         if idx == 0:
             self.remove_front()
+        elif idx == self.length:
+            msg = "max index for this linked list is " + str(self.length-1)
+            raise IndexError(msg)
         # handle general case
         else:
             counter = 0
@@ -210,7 +219,8 @@ if __name__ == "__main__":
     l.add_front(6)   #6
     l.add_end(20)    #6 20
     l.insert(1, 10)  #6 10 20
-    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
+    l.insert(-2, 999)#6 10 999 20
+    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
     print(l, "LENGTH:", len(l), "\n")
 
     l.remove_front() #10 1 2 3 4 20
@@ -218,15 +228,15 @@ if __name__ == "__main__":
     l.remove(0)      #1 2 3 4
     print(l, "LENGTH:", len(l), "\n")
 
-    print(l[0], l[3], "\n")
+    # print(l[0], l[3], "\n")
 
-    rev = l.reverse()#4 3 2 1
-    print(rev, "REV LENGTH:", len(rev), "\n")
-    print(rev[1], rev[2], "\n")
+    # rev = l.reverse()#4 3 2 1
+    # print(rev, "REV LENGTH:", len(rev), "\n")
+    # print(rev[1], rev[2], "\n")
 
-    print("Linked List is empty?", l.is_empty())
-    print(l, "LENGTH:", len(l), "\n")
-    l.clear()
-    print("Linked List is empty?", l.is_empty())
-    print(l, "LENGTH:", len(l), "\n")
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
+    # l.clear()
+    # print("Linked List is empty?", l.is_empty())
+    # print(l, "LENGTH:", len(l), "\n")
 
