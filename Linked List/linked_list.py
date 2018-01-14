@@ -225,5 +225,20 @@ if __name__ == "__main__":
     l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
     print(l, "LENGTH:", len(l))
 
+    l.remove(-9)     #6 10 1 2 3 4 999 20
+    l.remove(-2)     #6 10 1 2 3 4 20
+    l.remove_front() #10 1 2 3 4 20
+    l.remove_end()   #10 1 2 3 4
+    l.remove(0)      #1 2 3 4
+    print(l, "LENGTH:", len(l))
+    
+    print(l[0], l[3], "\n")
 
+    rev = l.reverse()#4 3 2 1
+    print(rev, "REV LENGTH:", len(rev))
+    print(rev[1], rev[2])
+
+    l.clear()
+    print("Linked List is empty?", l.is_empty())
+    print("Reversed Linked List is empty?", rev.is_empty())
 
