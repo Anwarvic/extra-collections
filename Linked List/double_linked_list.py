@@ -365,3 +365,4 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
+
