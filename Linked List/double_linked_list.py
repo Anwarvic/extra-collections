@@ -169,7 +169,6 @@ class DoubleLinkedList():
         # handle general case
         # when idx is smaller than half the linked list length
         elif idx < self.length//2:
-            print("INSERTING FORWARDS")
             # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
@@ -189,7 +188,6 @@ class DoubleLinkedList():
         # when idx is bigger than half the linked list length
         else:
             # iterate over the double linked list (backwards)
-            print("INSERTING BACKWARDS")
             pointer = self.tail
             counter = self.length-1
             while(counter != idx):
@@ -217,7 +215,6 @@ class DoubleLinkedList():
         # handle general case
         # when idx is smaller than half the linked list length
         elif idx < self.length//2:
-            print("REMOVING FORWARD")
             # iterate over the double linked list (forwards)
             counter = 0
             pointer = self.head
@@ -231,7 +228,6 @@ class DoubleLinkedList():
             self.length -= 1
         # when idx is bigger than half the linked list length
         else:
-            print("REMOVING BACKWARD")
             # iterate over the double linked list (forwards)
             pointer = self.tail
             counter = self.length-1
