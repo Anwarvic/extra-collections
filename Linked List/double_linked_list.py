@@ -47,13 +47,17 @@ class DoubleLinkedList():
         If the index has any error of any kind, it raises an appropriate error.
         """
         if type(idx) != int:
-            msg = "idx must be an integer"
+            msg = "idx must be an integer!"
             raise TypeError(msg)
-        elif abs(idx) > self.length or idx == self.length:
+        # handle negative index
+        if idx <=-1 and abs(idx) <= self.length:
+            idx += self.length
+        # handle positive/negative indices
+        elif abs(idx) >= self.length:
             msg = "max index for this linked list is " + str(self.length-1)
             raise IndexError(msg)
-        elif idx <= -1:
-            idx += self.length
+        else:
+            pass #direct
         return idx
 
 
@@ -67,7 +71,7 @@ class DoubleLinkedList():
         elif idx == self.length-1:
             return self.tail
         # handle general case
-        # when idx is smaller than half the linked list length
+        # when idx is smaller than half of the linked list length
         elif idx < self.length//2:
             # iterate over the double linked list (forwards)
             pointer = self.head
@@ -77,7 +81,7 @@ class DoubleLinkedList():
                 pointer = pointer.next
                 if counter == idx:
                     return pointer
-        # when idx is bigger than half the linked list length
+        # when idx is bigger than or equal half the linked list length
         else:
             # iterate over the double linked list (backwards)
             pointer = self.tail
@@ -112,7 +116,8 @@ class DoubleLinkedList():
 
 
     def add_end(self, value):
-        """Adds node at the tail of the double linked list with O(1) complexity """
+        """Adds node at the tail of the double linked list with O(1) complexity.
+        """
         if self.length == 0:
             self.head = self.tail = Node(value)
         elif self.length == 1:
@@ -150,8 +155,12 @@ class DoubleLinkedList():
 
 
     def insert(self, idx, value):
-        """Inserts a certain value at a given index into the double linked list"""
-        idx = self.__fix_index(idx)
+        """Inserts a certain value at a given index into the double linked list.
+        """
+        if idx <= -1 and abs(idx) <= self.length+1:
+            idx += self.length+1
+        else:
+            idx = self.__fix_index(idx)
         # handle edge cases
         if idx == 0:
             self.add_front(value)
@@ -239,7 +248,10 @@ class DoubleLinkedList():
     def insert_multiple(self, idx, lst):
         """Inserts multiple values into the double linked list at once.
         Its complexity is O(n/2)."""
-        idx = self.__fix_index(idx)
+        if idx <= -1 and abs(idx) <= self.length+1:
+            idx += self.length+1
+        else:
+            idx = self.__fix_index(idx)
         # handle edge cases
         if idx == 0:
             # iterate over given list in reverse-order
@@ -314,41 +326,28 @@ class DoubleLinkedList():
 
 
 
-
-
 if __name__ == "__main__":
     l = DoubleLinkedList()
-    l.insert(0, 1) #1
-    l.insert(1, 2) #1 2
-    l.insert(1, 3) #1 3 2
-    l.insert(2, 99) #1 3 99 2
-    l.insert(1, 8888) #1 8888 3 99 2
-    print(l, "LENGTH:", len(l), "\n")
-    l.remove(2) # 1 8888 99 2
-    print(l, "LENGTH:", len(l), "\n")
-    # l.remove(1)
-    # print(l, "LENGTH:", len(l), "\n")
+    l.add_front(6)   #6
+    l.add_end(20)    #6 20
+    l.insert(1, 10)  #6 10 20
+    l.insert(-2, 999)#6 10 999 20
+    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
+    l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
+    print(l, "LENGTH:", len(l))
 
+    l.remove(-9)     #6 10 1 2 3 4 999 20
+    l.remove(-2)     #6 10 1 2 3 4 20
+    l.remove_front() #10 1 2 3 4 20
+    l.remove_end()   #10 1 2 3 4
+    l.remove(0)      #1 2 3 4
+    print(l, "LENGTH:", len(l))
+    
+    print(l[0], l[3], "\n")
 
-
-
-    # l = DoubleLinkedList()
-    # l.add_front(6)   #6
-    # l.add_end(20)    #6 20
-    # l.insert(1, 10)  #6 10 20
-    # l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 20
-    # print(l, "LENGTH:", len(l), "\n")
-
-    # l.remove_front() #10 1 2 3 4 20
-    # l.remove_end()   #10 1 2 3 4
-    # l.remove(0)      #1 2 3 4
-    # print(l, "LENGTH:", len(l), "\n")
-
-    # print(l[0], l[3], "\n")
-
-    # rev = l.reverse()#4 3 2 1
-    # print(rev, "REV LENGTH:", len(rev), "\n")
-    # print(rev[1], rev[2], "\n")
+    rev = l.reverse()#4 3 2 1
+    print(rev, "REV LENGTH:", len(rev))
+    print(rev[1], rev[2])
 
     # iterate over l backwards
     print("===== Backward Iteration =====")
@@ -363,9 +362,6 @@ if __name__ == "__main__":
         print(pointer)
         pointer = pointer.next
 
-
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
-    # l.clear()
-    # print("Linked List is empty?", l.is_empty())
-    # print(l, "LENGTH:", len(l), "\n")
+    l.clear()
+    print("Linked List is empty?", l.is_empty())
+    print("Reversed Linked List is empty?", rev.is_empty())
