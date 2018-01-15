@@ -134,11 +134,11 @@ if __name__ == "__main__":
 	# print l[5].next
 	l.remove_end() #9 2 0 1 0
 	l.remove_front() #2 0 1 0
-	print l[3].next
+	print(l[3].next)
 	# print l.is_empty()
-	print l
+	print(l)
 	l.clear()
-	print l.is_empty()
+	print(l.is_empty())
 
 
 
