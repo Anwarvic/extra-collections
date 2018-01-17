@@ -14,6 +14,7 @@ class Stack():
             down_border += ('─'*width) + '┴'
         # add extension
         top_border += '─'
+        middle += ' '
         down_border += '─'
         return "{}\n{}\n{}".format(top_border, middle, down_border)
 
