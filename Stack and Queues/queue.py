@@ -1,35 +1,35 @@
 class Queue():
 	def __init__(self):
-		self.__container = []
+		self.container = []
 
 	def __repr__(self):
 		output = "["
-		for item in self.__container:
+		for item in self.container:
 			output += str(item)
-			if item != self.__container[-1]:
+			if item != self.container[-1]:
 				output += ", "
 		return output+"]"
 
 	def __len__(self):
-		return len(self.__container)
+		return len(self.container)
 
 	def enqueue(self, item):
-		self.__container.append(item)
+		self.container.append(item)
 
 	def dequeue(self):
-		return self.__container.pop(0)
+		return self.container.pop(0)
 
 	def get_head(self):
-		return self.__container[0]
+		return self.container[0]
 
 	def get_tail(self):
-		return self.__container[-1]
+		return self.container[-1]
 
 	def is_empty(self):
-		return self.__container == 0
+		return self.container == 0
 
 	def clear(self):
-		self.__container = []
+		self.container = []
 
 
 
@@ -39,8 +39,8 @@ if __name__ == "__main__":
 	q.enqueue(1)
 	q.enqueue(8)
 	q.enqueue(9)
-	print q.get_head()
+	print(q.get_head())
 	q.dequeue()
-	print q
+	print(q)
 	q.clear()
-	print q
+	print(q)
