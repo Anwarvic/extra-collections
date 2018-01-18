@@ -1,42 +1,42 @@
 class PriorityQueue():
 	def __init__(self):
-		self.__container = []
+		self.container = []
 
 	def __repr__(self):
 		output = "["
-		for item in self.__container:
+		for item in self.container:
 			output += str(item) + ", "
-		if self.__container:
+		if self.container:
 			output = output[:-2]
 		return output+"]"
 
 	def __len__(self):
-		return len(self.__container)
+		return len(self.container)
 
 	def enqueue(self, item):
-		if self.__container:
-			for i, num in enumerate(self.__container):
+		if self.container:
+			for i, num in enumerate(self.container):
 				if item >= num:
-					self.__container.insert(i, item)
+					self.container.insert(i, item)
 					return
-			self.__container.append(item)
+			self.container.append(item)
 		else:
-			self.__container.append(item)
+			self.container.append(item)
 
 	def dequeue(self):
-		return self.__container.pop(0)
+		return self.container.pop(0)
 
 	def get_head(self):
-		return self.__container[0]
+		return self.container[0]
 
 	def get_tail(self):
-		return self.__container[-1]
+		return self.container[-1]
 
 	def is_empty(self):
-		return self.__container == 0
+		return self.container == 0
 
 	def clear(self):
-		self.__container = []
+		self.container = []
 
 
 
