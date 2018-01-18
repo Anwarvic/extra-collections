@@ -33,11 +33,11 @@ class PriorityQueue():
         """Removes value from the Priority Queue (Queue's head)"""
         return self.container.pop(0)
 
-    def get_head(self):
+    def head(self):
         """Returns the Priority Qeueu head (first element to be enqueued) """
         return self.container[0]
 
-    def get_tail(self):
+    def tail(self):
         """Returns the Priority Qeueu tail (last element to be enqueued) """
         return self.container[-1]
 
