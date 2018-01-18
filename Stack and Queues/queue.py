@@ -29,11 +29,11 @@ class Queue():
         """Removes value from the Queue (Queue's head)"""
         return self.container.pop(0)
 
-    def get_head(self):
+    def head(self):
         """Returns the Qeueu head (first element to be enqueued) """
         return self.container[0]
 
-    def get_tail(self):
+    def tail(self):
         """Returns the Qeueu tail (last element to be enqueued) """
         return self.container[-1]
 
@@ -57,8 +57,8 @@ if __name__ == "__main__":
     print(q)
     
     print('='*20)
-    print(q.get_head())
-    print(q.get_tail())
+    print(q.head())
+    print(q.tail())
     print(q)
     q.dequeue()
     print(q)
