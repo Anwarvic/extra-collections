@@ -23,14 +23,11 @@ class PriorityQueue():
 
     def enqueue(self, item):
         """Insert value into the Priority Queue"""
-        if self.container:
-            for i, num in enumerate(self.container):
-                if item >= num:
-                    self.container.insert(i, item)
-                    return
-            self.container.append(item)
-        else:
-            self.container.append(item)
+        for i, num in enumerate(self.container):
+            if item >= num:
+                self.container.insert(i, item)
+                return
+        self.container.append(item)
 
     def dequeue(self):
         """Removes value from the Priority Queue (Queue's head)"""
