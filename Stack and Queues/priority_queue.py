@@ -49,8 +49,8 @@ if __name__ == "__main__":
 	q.enqueue(8)
 	q.enqueue(9)
 	q.enqueue(-1)
-	print q
+	print(q)
 	q.dequeue()
-	print q
+	print(q)
 	q.clear()
-	print q
+	print(q)
