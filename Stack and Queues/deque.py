@@ -3,12 +3,19 @@ class Deque():
         self.container = []
 
     def __repr__(self):
-        output = "["
+        top_border = '─┬'
+        middle = ' │'
+        down_border = '─┴'
         for item in self.container:
-            output += str(item)
-            if item != self.container[-1]:
-                output += ", "
-        return output+"]"
+            width = len(str(item))+2 #2: for a space before & after item
+            top_border += ('─'*width) + '┬'
+            middle += " {} │".format(item)
+            down_border += ('─'*width) + '┴'
+        # add extension
+        top_border += '─'
+        middle += ' '
+        down_border += '─'
+        return "{}\n{}\n{}".format(top_border, middle, down_border)
 
     def __len__(self):
         return len(self.container)
@@ -44,4 +51,4 @@ if __name__ == "__main__":
     q.add_end(8)
     q.add_front(9)
     print(q)
- 
+    
