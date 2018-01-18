@@ -19,7 +19,7 @@ class Queue():
         return "{}\n{}\n{}".format(top_border, middle, down_border)
 
     def __len__(self):
-        return len(self.container) #TODO remove container
+        return len(self.container)
 
     def enqueue(self, item):
         """Insert value into the Queue"""
@@ -39,7 +39,7 @@ class Queue():
 
     def is_empty(self):
         """Checks if the Queue is empty"""
-        return self.container == 0
+        return len(self) == 0
 
     def clear(self):
         """Clears the whole Queue"""
