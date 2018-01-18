@@ -1,4 +1,5 @@
 class Deque():
+    """Basic object for the Deque data structure"""
     def __init__(self):
         self.container = []
 
@@ -21,24 +22,31 @@ class Deque():
         return len(self.container)
 
     def add_front(self, item):
+        """Insert value into the front of the Deque"""
         self.container.insert(0, item)
 
     def add_end(self, item):
+        """Insert value into the end of the Deque"""
         self.container.append(item)
 
-    def pop(self):
-        return self.container.pop()
-
     def eject(self):
+        """Removes value from the Deque (first-inserted item)"""
         return self.container.pop(0)
 
+    def pop(self):
+        """Removes value from the Deque (most recent)"""
+        return self.container.pop()
+
     def peek(self):
+        """Returns the Deque recent item"""
         return self.container[-1]
 
     def is_empty(self):
+        """Checks if the Deque is empty"""
         return len(self) == 0
 
     def clear(self):
+        """Clears the whole Deque"""
         self.container = []
 
 
