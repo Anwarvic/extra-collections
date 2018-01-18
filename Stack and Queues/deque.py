@@ -36,7 +36,7 @@ class Deque():
         return self.container[-1]
 
     def is_empty(self):
-        return self.container == 0
+        return len(self) == 0
 
     def clear(self):
         self.container = []
