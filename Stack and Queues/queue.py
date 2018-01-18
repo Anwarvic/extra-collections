@@ -49,14 +49,22 @@ class Queue():
 
 if __name__ == "__main__":
     q = Queue()
-    q.enqueue(0)
+    q.enqueue(2)  #2
     print(q)
-    q.enqueue(1)
-    q.enqueue(8)
-    q.enqueue(9)
+    q.enqueue(40)
+    print(q)
+    q.enqueue(800)
+    print(q)
+    
+    print('='*20)
     print(q.get_head())
+    print(q.get_tail())
     print(q)
     q.dequeue()
     print(q)
+
+    print('='*20)
+    print(q.is_empty())
     q.clear()
     print(q)
+    print(q.is_empty())
