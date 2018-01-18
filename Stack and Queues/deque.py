@@ -1,38 +1,38 @@
 class Deque():
     def __init__(self):
-        self.__container = []
+        self.container = []
 
     def __repr__(self):
         output = "["
-        for item in self.__container:
+        for item in self.container:
             output += str(item)
-            if item != self.__container[-1]:
+            if item != self.container[-1]:
                 output += ", "
         return output+"]"
 
     def __len__(self):
-        return len(self.__container)
+        return len(self.container)
 
     def add_front(self, item):
-        self.__container.insert(0, item)
+        self.container.insert(0, item)
 
     def add_end(self, item):
-        self.__container.append(item)
+        self.container.append(item)
 
     def pop(self):
-        return self.__container.pop()
+        return self.container.pop()
 
     def eject(self):
-        return self.__container.pop(0)
+        return self.container.pop(0)
 
     def peek(self):
-        return self.__container[-1]
+        return self.container[-1]
 
     def is_empty(self):
-        return self.__container == 0
+        return self.container == 0
 
     def clear(self):
-        self.__container = []
+        self.container = []
 
 
 
@@ -43,10 +43,5 @@ if __name__ == "__main__":
     q.add_end(1)
     q.add_end(8)
     q.add_front(9)
-    print q
-    print q.pop()
-    print q
-    print q.eject()
-    print q
-    q.clear()
-    print len(q)
+    print(q)
+ 
