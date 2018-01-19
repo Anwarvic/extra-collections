@@ -5,6 +5,7 @@ class Node():
         self.next = None
 
     def __repr__(self):
+        """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
         return "Node: (value: {}, next: {})".format(data, nxt)
