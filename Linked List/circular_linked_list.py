@@ -22,17 +22,18 @@ class CircularLinkedList():
         if pointer.data == None:
             return "[]"
         # handle general case
-        output = ""
+        top_line = ""
         while(pointer.next != self.head):
-            output += "({}) -> ".format(pointer.data)
+            top_line += "({}) -> ".format(pointer.data)
             pointer = pointer.next
-        output += "({}) -> ".format(pointer.data)
+        top_line += "({}) -> ".format(pointer.data)
         # backtrace representation
-        offset = (len(str(self.head.data))+1)//2
-        remaining = len(output) - offset
-        middle = (' '*offset) + '^' + (' '*(remaining-1)) + '│'
-        bottom = (' '*offset) + '└' + ('─'*(remaining-1)) + '┘'
-        return "{}┐\n{}\n{}".format(output, middle, bottom)
+        left_offset = (len(str(self.head.data))+1)//2
+        remaining = len(top_line) - left_offset
+        top_line += '┐'
+        middle_line = (' '*left_offset) + '^' + (' '*(remaining-1)) + '│'
+        bottom_line = (' '*left_offset) + '└' + ('─'*(remaining-1)) + '┘'
+        return "{}\n{}\n{}".format(top_line, middle_line, bottom_line)
 
 
     def __len__(self):
