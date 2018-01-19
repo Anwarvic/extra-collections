@@ -4,12 +4,14 @@ class Node():
         self.next = None
 
     def __repr__(self):
+        """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
         return "Node: (value: {}, next: {})".format(data, nxt)
 
 
 class CircularLinkedList():
+    """Basic object for the Circular Linked List"""
     def __init__(self, value=None):
         self.head = Node(value)
         self.head.next = self.head
@@ -17,6 +19,7 @@ class CircularLinkedList():
 
 
     def __repr__(self):
+        """Represents the Circular linked list as a string"""
         pointer = self.head
         # handle edge case
         if pointer.data == None:
@@ -37,6 +40,7 @@ class CircularLinkedList():
 
 
     def __len__(self):
+        """Gets the length of the linked list with complexity of O(1)"""
         length = 0
         tmp = self.head
         if tmp.data == None:
@@ -48,6 +52,8 @@ class CircularLinkedList():
 
 
     def __getitem__(self, num):
+        """Retrieves the element at the given index."""
+        #TODO: handle It allows -ve indexing
         if len(self) <= num or num <= -1:
             raise IndexError
         counter = 0
@@ -62,12 +68,14 @@ class CircularLinkedList():
 
 
     def is_empty(self):
+        """Checks if circular linked list is empty"""
         if len(self) == 0:
             return True
         return False
 
 
     def add_front(self, item):
+        """Adds node at the head of the circular linked list in O(1)"""
         if self.head.data == None:
             self.head.data = item
         else:
@@ -79,6 +87,7 @@ class CircularLinkedList():
 
 
     def add_end(self, item):
+        """Adds node at the head of the circular linked list"""
         if self.head.data == None:
             self.head.data = item
         else:
@@ -92,6 +101,7 @@ class CircularLinkedList():
 
 
     def remove_front(self):
+        """Removes the circular linked list head with complexity of O(1)"""
         if len(self)>0:
             last = self.head
             while(last.next != self.head ):
@@ -104,6 +114,7 @@ class CircularLinkedList():
 
 
     def remove_end(self):
+        """Removes the circular linked list tail with complexity of O(n)"""
         if len(self)>0:
             tmp = self.head
             while(tmp.next.next != self.head):
@@ -112,11 +123,14 @@ class CircularLinkedList():
 
 
     def clear(self):
+        """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = Node()
         self.head.next = self.head
+        self.length = 0
 
 
     def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
         output = CircularLinkedList()
         tmp = self.head
         while(tmp.next != self.head):
