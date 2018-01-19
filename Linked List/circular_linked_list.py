@@ -131,7 +131,7 @@ if __name__ == "__main__":
     l = CircularLinkedList()
     # print l
     # print len(l)
-    l.add_end(1) #1
+    l.add_end(10000000000000) #1
     l.add_end(0) #1 0
     l.add_end(7) #1 0 7
     print(l)
