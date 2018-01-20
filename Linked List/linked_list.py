@@ -85,20 +85,19 @@ class LinkedList():
 
     def add_front(self, value):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        self.length += 1
-        if self.head.data == None:
+        if self.length == 0:
             self.head = Node(value)
         else:
             new_node = Node(self.head.data)
             new_node.next = self.head.next
             self.head = Node(value)
             self.head.next = new_node
+        self.length += 1
 
 
     def add_end(self, value):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        self.length += 1
-        if self.head.data == None:
+        if self.length == 0:
             self.head = Node(value)
         else:
             pointer = self.head
@@ -106,6 +105,7 @@ class LinkedList():
                 pointer = pointer.next
             # now pointer is the last node
             pointer.next = Node(value)
+        self.length += 1
 
 
     def remove_front(self):
