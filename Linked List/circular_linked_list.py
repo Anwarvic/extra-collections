@@ -67,21 +67,21 @@ class CircularLinkedList():
 
     def add_front(self, item):
         """Adds node at the head of the circular linked list in O(1)"""
+        self.length += 1
         if self.head.data == None:
             self.head.data = item
         else:
-            new = Node()
-            new.data = self.head.data
-            new.next = self.head.next
-            self.head.data = item
-            self.head.next = new
-        self.length += 1
+            new_node = Node(self.head.data)
+            new_node.next = self.head.next
+            self.head = Node(item)
+            self.head.next = new_node
 
 
     def add_end(self, item):
         """Adds node at the head of the circular linked list"""
+        self.length += 1
         if self.head.data == None:
-            self.head.data = item
+            self.head = Node(item)
         else:
             tmp = self.head
             while(tmp.next != self.head):
@@ -90,7 +90,6 @@ class CircularLinkedList():
             new.data = item
             new.next = self.head
             tmp.next = new
-        self.length += 1
 
 
     def remove_front(self):
