@@ -62,9 +62,7 @@ class CircularLinkedList():
 
     def is_empty(self):
         """Checks if circular linked list is empty"""
-        if len(self) == 0:
-            return True
-        return False
+        return self.length == 0
 
 
     def add_front(self, item):
