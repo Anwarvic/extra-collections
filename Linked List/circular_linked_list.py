@@ -41,14 +41,7 @@ class CircularLinkedList():
 
     def __len__(self):
         """Gets the length of the linked list with complexity of O(1)"""
-        length = 0
-        tmp = self.head
-        if tmp.data == None:
-            return length
-        while(tmp.next != self.head):
-            length += 1
-            tmp = tmp.next
-        return length+1
+        return self.length
 
 
     def __getitem__(self, num):
@@ -84,6 +77,7 @@ class CircularLinkedList():
             new.next = self.head.next
             self.head.data = item
             self.head.next = new
+        self.length += 1
 
 
     def add_end(self, item):
@@ -98,6 +92,7 @@ class CircularLinkedList():
             new.data = item
             new.next = self.head
             tmp.next = new
+        self.length += 1
 
 
     def remove_front(self):
@@ -109,7 +104,7 @@ class CircularLinkedList():
             tmp = self.head.next
             self.head = tmp
             last.next = self.head
-            # print "length", len(self)
+            self.length -= 1            
             
 
 
@@ -120,6 +115,7 @@ class CircularLinkedList():
             while(tmp.next.next != self.head):
                 tmp = tmp.next
             tmp.next = self.head
+            self.length -= 1
 
 
     def clear(self):
@@ -149,7 +145,7 @@ if __name__ == "__main__":
     l.add_end(10000000000000) #1
     l.add_end(0) #1 0
     l.add_end(7) #1 0 7
-    print(l)
+    print(len(l))
     # print l
     # print l[2].next
     l.add_front(0) #0 1 0 7
