@@ -64,54 +64,53 @@ class CircularLinkedList():
         """Checks if circular linked list is empty"""
         return self.length == 0
 
-
     def add_front(self, item):
         """Adds node at the head of the circular linked list in O(1)"""
-        self.length += 1
         if self.head.data == None:
             self.head.data = item
         else:
-            new_node = Node(self.head.data)
-            new_node.next = self.head.next
-            self.head = Node(item)
-            self.head.next = new_node
+            old_head = Node()
+            old_head.data = self.head.data
+            old_head.next = self.head.next
+            self.head.data = item
+            self.head.next = old_head
+        self.length += 1
 
 
     def add_end(self, item):
         """Adds node at the head of the circular linked list"""
-        self.length += 1
-        if self.head.data == None:
-            self.head = Node(item)
+        if self.length == 0:
+            self.head.data = item
         else:
-            tmp = self.head
-            while(tmp.next != self.head):
-                tmp = tmp.next
-            new = Node()
-            new.data = item
-            new.next = self.head
-            tmp.next = new
+            pointer = self.head
+            while(pointer.next != self.head):
+                pointer = pointer.next
+            new_node = Node(item)
+            new_node.next = self.head
+            pointer.next = new_node
+        self.length += 1
 
 
     def remove_front(self):
         """Removes the circular linked list head with complexity of O(1)"""
-        if len(self)>0:
-            last = self.head
-            while(last.next != self.head ):
-                last = last.next
-            tmp = self.head.next
-            self.head = tmp
-            last.next = self.head
+        if self.length > 0:
+            pointer = self.head
+            while(pointer.next != self.head ):
+                pointer = pointer.next
+            #pointer is the last item in the circular linked list
+            self.head = self.head.next
+            pointer.next = self.head
             self.length -= 1            
-            
-
+    
 
     def remove_end(self):
         """Removes the circular linked list tail with complexity of O(n)"""
-        if len(self)>0:
-            tmp = self.head
-            while(tmp.next.next != self.head):
-                tmp = tmp.next
-            tmp.next = self.head
+        if self.length > 0:
+            pointer = self.head
+            while(pointer.next.next != self.head):
+                pointer = pointer.next
+            #pointer is now at the second last item
+            pointer.next = self.head
             self.length -= 1
 
 
@@ -124,13 +123,13 @@ class CircularLinkedList():
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
-        output = CircularLinkedList()
-        tmp = self.head
-        while(tmp.next != self.head):
-            output.add_front(tmp.data)
-            tmp = tmp.next
-        output.add_front(tmp.data)
-        return output
+        rev = CircularLinkedList()
+        pointer = self.head
+        while(pointer.next != self.head):
+            rev.add_front(pointer.data)
+            pointer = pointer.next
+        rev.add_front(pointer.data)
+        return rev
 
 
 
@@ -139,27 +138,9 @@ if __name__ == "__main__":
     l = CircularLinkedList()
     # print l
     # print len(l)
-    l.add_end(10000000000000) #1
-    l.add_end(0) #1 0
-    l.add_end(7) #1 0 7
-    print(len(l))
-    # print l
-    # print l[2].next
-    l.add_front(0) #0 1 0 7
-    l.add_front(2) #2 0 1 0 7
-    l.add_front(9) #9 2 0 1 0 7
-    # print l
-    # rev = l.reverse()
-    # print rev
-    # print l[5].next
-    l.remove_end() #9 2 0 1 0
-    l.remove_front() #2 0 1 0
-    print(l[3].next)
-    # print l.is_empty()
+    l.add_front(10000000000000) #1
+    l.add_front(0) #1 0
+    l.add_front(7) #1 0 7
     print(l)
-    l.clear()
-    print(l.is_empty())
-
-
-
-
+    print(len(l))
+    print(l.reverse())
