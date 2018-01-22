@@ -21,8 +21,7 @@ class LinkedList():
 
     def __repr__(self):
         """Represents the linked list as a string."""
-        # NOTE:
-        # complexity of + operator in lists is O(1) while it's O(n) in string
+        # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = ['┌']
         middle = ['│']
         down_border = ['└']
@@ -35,7 +34,6 @@ class LinkedList():
                 middle += [" {} →".format(item)]
                 down_border += (['─']*width) + ['┴']
             pointer = pointer.next
-        # add extension
         top_border += ['─']
         middle += [' ']
         down_border += ['─']
