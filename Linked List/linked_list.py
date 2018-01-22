@@ -20,24 +20,27 @@ class LinkedList():
 
 
     def __repr__(self):
-        """Represents the linked list as a string"""
-        top_border = '┌'
-        middle = '│'
-        down_border = '└'
+        """Represents the linked list as a string."""
+        # NOTE:
+        # complexity of + operator in lists is O(1) while it's O(n) in string
+        top_border = ['┌']
+        middle = ['│']
+        down_border = ['└']
         pointer = self.head
         while(pointer != None):
             item = pointer.data
             if item:
                 width = len(str(item))+2 #2: for a space before & after an item
-                top_border += ('─'*width) + '┬'
-                middle += " {} →".format(item)
-                down_border += ('─'*width) + '┴'
+                top_border += (['─']*width) + ['┬']
+                middle += [" {} →".format(item)]
+                down_border += (['─']*width) + ['┴']
             pointer = pointer.next
         # add extension
-        top_border += '─'
-        middle += ' '
-        down_border += '─'
-        return "{}\n{}\n{}".format(top_border, middle, down_border)
+        top_border += ['─']
+        middle += [' ']
+        down_border += ['─']
+        return "{}\n{}\n{}".format(\
+            "".join(top_border), "".join(middle), "".join(down_border))
 
 
     def __len__(self):
