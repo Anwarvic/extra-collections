@@ -1,4 +1,5 @@
 class Node():
+    """Basic object for the Node used for Circular linked lists"""
     def __init__(self, value=None):
         self.data = value
         self.next = None
@@ -20,23 +21,37 @@ class CircularLinkedList():
 
     def __repr__(self):
         """Represents the Circular linked list as a string"""
+        # NOTE: complexity of + operator is O(1) in lists and O(n) in string
+        first_line = ['┌']
+        second_line = ['│']
+        third_line = ['└']
+        fourth_line = ''
+        fifth_line = ''
         pointer = self.head
-        # handle edge case
-        if pointer.data == None:
-            return "[]"
-        # handle general case
-        top_line = ""
         while(pointer.next != self.head):
-            top_line += "({}) -> ".format(pointer.data)
+            item = pointer.data
+            width = len(str(item))+2 #2: for a space before & after an item
+            first_line += (['─']*width) + ['┬']
+            second_line += [" {} →".format(item)]
+            third_line += (['─']*width) + ['┴']
             pointer = pointer.next
-        top_line += "({}) -> ".format(pointer.data)
+        # add last item
+        item = pointer.data
+        width = len(str(item))+2 #2: for a space before & after an item
+        first_line += (['─']*width) + ['┬']
+        second_line += [" {} →".format(item)]
+        third_line += (['─']*width) + ['┴']
         # backtrace representation
-        left_offset = (len(str(self.head.data))+1)//2
-        remaining = len(top_line) - left_offset
-        top_line += '┐'
-        middle_line = (' '*left_offset) + '^' + (' '*(remaining-1)) + '│'
-        bottom_line = (' '*left_offset) + '└' + ('─'*(remaining-1)) + '┘'
-        return "{}\n{}\n{}".format(top_line, middle_line, bottom_line)
+        if self.head.next != self.head:
+            second_line += [' ┐']
+            third_line += [' │']
+            left_offset = (len(str(self.head.data))+3)//2
+            remaining = len(first_line) - left_offset
+            fourth_line = (' '*left_offset) + '^' + (' '*(remaining)) + '│'
+            fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
+        return "{}\n{}\n{}\n{}\n{}".format(\
+            "".join(first_line), "".join(second_line), "".join(third_line),\
+            fourth_line, fifth_line)
 
 
     def __len__(self):
@@ -63,6 +78,7 @@ class CircularLinkedList():
     def is_empty(self):
         """Checks if circular linked list is empty"""
         return self.length == 0
+
 
     def add_front(self, item):
         """Adds node at the head of the circular linked list in O(1)"""
@@ -136,8 +152,7 @@ class CircularLinkedList():
 
 if __name__ == "__main__":
     l = CircularLinkedList()
-    # print l
-    # print len(l)
+    print(l)
     l.add_front(10000000000000) #1
     l.add_front(0) #1 0
     l.add_front(7) #1 0 7
