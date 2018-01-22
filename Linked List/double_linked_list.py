@@ -6,6 +6,7 @@ class Node():
         self.next = None
 
     def __repr__(self):
+        """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
         prv = self.prev.data if self.prev else None
@@ -21,17 +22,25 @@ class DoubleLinkedList():
     
     def __repr__(self):
         """Represents the double linked list as a string"""
+        # NOTE:
+        # complexity of + operator in lists is O(1) while it's O(n) in string
+        top_border = ['─┬']
+        middle = [' ↔']
+        down_border = ['─┴']
         pointer = self.head
-        # handle edge case
-        if pointer.data == None:
-            return "[]"
-        # general case
-        output = "["
-        while(pointer.next != None):
-            output += "({}) <-> ".format(pointer.data)
+        while(pointer != None):
+            item = pointer.data
+            if item:
+                width = len(str(item))+2 #2: for a space before & after an item
+                top_border += (['─']*width) + ['┬']
+                middle += [" {} ↔".format(item)]
+                down_border += (['─']*width) + ['┴']
             pointer = pointer.next
-        output += "({})".format(pointer.data)
-        return output+"]"
+        top_border += ['─']
+        middle += [' ']
+        down_border += ['─']
+        return "{}\n{}\n{}".format(\
+            "".join(top_border), "".join(middle), "".join(down_border))
 
 
     def __len__(self):
@@ -330,19 +339,22 @@ if __name__ == "__main__":
     l.insert(-2, 999)#6 10 999 20
     l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
     l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
-    print(l, "LENGTH:", len(l))
+    print(l)
+    print("LENGTH:", len(l))
 
     l.remove(-9)     #6 10 1 2 3 4 999 20
     l.remove(-2)     #6 10 1 2 3 4 20
     l.remove_front() #10 1 2 3 4 20
     l.remove_end()   #10 1 2 3 4
     l.remove(0)      #1 2 3 4
-    print(l, "LENGTH:", len(l))
+    print(l)
+    print("LENGTH:", len(l))
     
     print(l[0], l[3], "\n")
 
     rev = l.reverse()#4 3 2 1
-    print(rev, "REV LENGTH:", len(rev))
+    print(rev)
+    print("REV LENGTH:", len(rev))
     print(rev[1], rev[2])
 
     # iterate over l backwards
