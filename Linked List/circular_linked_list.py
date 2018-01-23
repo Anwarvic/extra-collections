@@ -59,20 +59,45 @@ class CircularLinkedList():
         return self.length
 
 
-    def __getitem__(self, num):
+    def __fix_index(self, idx):
+        """
+        private method to make a sanity-check over the given index and fix it
+        if it was -ve. It should return the index if it's valid. If the index is
+        negative, then it converts it to positive index if possible.
+        If the index has any error of any kind, it raises an appropriate error.
+        """
+        if type(idx) != int:
+            msg = "idx must be an integer!"
+            raise TypeError(msg)
+        # handle negative index
+        if idx <=-1 and abs(idx) <= self.length:
+            idx += self.length
+        # handle positive/negative indices
+        elif abs(idx) >= self.length:
+            msg = "max index for this linked list is " + str(self.length-1)
+            raise IndexError(msg)
+        else:
+            pass #direct
+        return idx
+
+
+    def __getitem__(self, idx):
         """Retrieves the element at the given index."""
-        #TODO: handle It allows -ve indexing
-        if len(self) <= num or num <= -1:
-            raise IndexError
+        # sanity check over given index
+        idx = self.__fix_index(idx)
         counter = 0
-        tmp = self.head
-        if num == 0:
-            return tmp
-        while(tmp.next != self.head):
-            tmp = tmp.next
+        pointer = self.head
+        # handle edge case
+        if idx == 0:
+            return self.head
+        # iterate over the linked list
+        counter = 0
+        pointer = self.head
+        while(pointer.next != self.head):
             counter += 1
-            if counter == num:
-                return tmp
+            pointer = pointer.next
+            if counter == idx:
+                return pointer
 
 
     def is_empty(self):
@@ -165,3 +190,4 @@ if __name__ == "__main__":
     rev = l.reverse()
     rev.remove_end()
     print(rev)
+    print(rev[-1])
