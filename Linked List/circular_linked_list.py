@@ -191,3 +191,7 @@ if __name__ == "__main__":
     rev.remove_end()
     print(rev)
     print(rev[-1])
+    print(rev.is_empty())
+    
+    rev.remove_front()
+    print(rev.is_empty())
