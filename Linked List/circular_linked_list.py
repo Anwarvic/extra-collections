@@ -11,6 +11,7 @@ class Node():
         return "Node: (value: {}, next: {})".format(data, nxt)
 
 
+
 class CircularLinkedList():
     """Basic object for the Circular Linked List"""
     def __init__(self, value=None):
@@ -42,13 +43,12 @@ class CircularLinkedList():
         second_line += [" {} →".format(item)]
         third_line += (['─']*width) + ['┴']
         # backtrace representation
-        if self.head.next != self.head:
-            second_line += [' ┐']
-            third_line += [' │']
-            left_offset = (len(str(self.head.data))+3)//2
-            remaining = len(first_line) - left_offset
-            fourth_line = (' '*left_offset) + '^' + (' '*(remaining)) + '│'
-            fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
+        second_line += [' ┐']
+        third_line += [' │']
+        left_offset = (len(str(self.head.data))+3)//2
+        remaining = len(first_line) - left_offset
+        fourth_line = (' '*left_offset) + '^' + (' '*(remaining)) + '│'
+        fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
         return "{}\n{}\n{}\n{}\n{}".format(\
             "".join(first_line), "".join(second_line), "".join(third_line),\
             fourth_line, fifth_line)
@@ -109,19 +109,25 @@ class CircularLinkedList():
 
     def remove_front(self):
         """Removes the circular linked list head with complexity of O(1)"""
-        if self.length > 0:
+        if self.length == 1:
+            self.head.data = None
+            self.length -= 1
+        elif self.length > 1:
             pointer = self.head
             while(pointer.next != self.head ):
                 pointer = pointer.next
             #pointer is the last item in the circular linked list
             self.head = self.head.next
             pointer.next = self.head
-            self.length -= 1            
+            self.length -= 1
     
 
     def remove_end(self):
         """Removes the circular linked list tail with complexity of O(n)"""
-        if self.length > 0:
+        if self.length == 1:
+            self.head.data = None
+            self.length -= 1
+        elif self.length > 0:
             pointer = self.head
             while(pointer.next.next != self.head):
                 pointer = pointer.next
@@ -152,10 +158,10 @@ class CircularLinkedList():
 
 if __name__ == "__main__":
     l = CircularLinkedList()
+    l.add_front(100)
+    l.add_front(700)
     print(l)
-    l.add_front(10000000000000) #1
-    l.add_front(0) #1 0
-    l.add_front(7) #1 0 7
-    print(l)
-    print(len(l))
-    print(l.reverse())
+
+    rev = l.reverse()
+    rev.remove_end()
+    print(rev)
