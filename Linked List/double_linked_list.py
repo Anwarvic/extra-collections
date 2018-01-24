@@ -1,7 +1,7 @@
 class Node():
     """Basic object for the Node used for double linked lists"""
-    def __init__(self, value=None):
-        self.data = value
+    def __init__(self, item=None):
+        self.data = item
         self.prev = None
         self.next = None
 
@@ -10,14 +10,14 @@ class Node():
         data = self.data
         nxt = self.next.data if self.next else None
         prv = self.prev.data if self.prev else None
-        return "Node: (value: {}, previous: {}, next: {})".format(data, prv, nxt)
+        return "Node: (item: {}, previous: {}, next: {})".format(data, prv, nxt)
 
 
 class DoubleLinkedList():
     """Basic object for the double linked list"""
-    def __init__(self, value=None):
-        self.head = self.tail = Node(value)
-        self.length = 1 if value else 0
+    def __init__(self, item=None):
+        self.head = self.tail = Node(item)
+        self.length = 1 if item else 0
 
     
     def __repr__(self):
@@ -107,35 +107,35 @@ class DoubleLinkedList():
         return self.length == 0
 
 
-    def add_front(self, value):
+    def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
         if self.length == 0:
-            self.head = self.tail = Node(value)
+            self.head = self.tail = Node(item)
         elif self.length == 1:
-            self.head = Node(value)
+            self.head = Node(item)
             self.head.next = self.tail
             self.tail.prev = self.head
         else:
             new_node = self.head
             # update head
-            self.head = Node(value)
+            self.head = Node(item)
             self.head.next = new_node
             new_node.prev = self.head
         self.length += 1
 
 
-    def add_end(self, value):
+    def add_end(self, item):
         """Adds node at the tail of the double linked list with O(1) complexity.
         """
         if self.length == 0:
-            self.head = self.tail = Node(value)
+            self.head = self.tail = Node(item)
         elif self.length == 1:
-            self.tail = Node(value)
+            self.tail = Node(item)
             self.tail.prev = self.head
             self.head.next = self.tail
         else:
             new_node = self.tail
-            self.tail = Node(value)
+            self.tail = Node(item)
             self.tail.prev = new_node
             new_node.next = self.tail
         self.length += 1
@@ -163,8 +163,8 @@ class DoubleLinkedList():
             self.length -= 1
 
 
-    def insert(self, idx, value):
-        """Inserts a certain value at a given index into the double linked list.
+    def insert(self, idx, item):
+        """Inserts a certain item at a given index into the double linked list.
         """
         if idx <= -1 and abs(idx) <= self.length+1:
             idx += self.length+1
@@ -172,9 +172,9 @@ class DoubleLinkedList():
             idx = self.__fix_index(idx)
         # handle edge cases
         if idx == 0:
-            self.add_front(value)
+            self.add_front(item)
         elif idx == self.length:
-            self.add_end(value)
+            self.add_end(item)
         # handle general case
         # when idx is smaller than half the linked list length
         elif idx < self.length//2:
@@ -186,7 +186,7 @@ class DoubleLinkedList():
                 counter += 1
             # pointer is now at (idx-1)
             # define main nodes
-            new_node = Node(value)
+            new_node = Node(item)
             next_pointer = pointer.next
             # adjust connections
             new_node.next = next_pointer
@@ -204,7 +204,7 @@ class DoubleLinkedList():
                 counter -= 1
             # pointer is now at (idx)
             # define main nodes
-            new_node = Node(value)
+            new_node = Node(item)
             prev_pointer = pointer.prev
             # adjust connections
             new_node.prev = prev_pointer
@@ -251,7 +251,7 @@ class DoubleLinkedList():
 
 
     def insert_multiple(self, idx, lst):
-        """Inserts multiple values into the double linked list at once.
+        """Inserts multiple items into the double linked list at once.
         Its complexity is O(n/2)."""
         if idx <= -1 and abs(idx) <= self.length+1:
             idx += self.length+1
