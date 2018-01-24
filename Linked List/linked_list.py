@@ -1,22 +1,22 @@
 class Node():
     """Basic object for the Node used for linked lists"""
-    def __init__(self, value=None):
-        self.data = value
+    def __init__(self, item=None):
+        self.data = item
         self.next = None
 
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
-        return "Node: (value: {}, next: {})".format(data, nxt)
+        return "Node: (item: {}, next: {})".format(data, nxt)
     
 
 
 class LinkedList():
     """Basic object for the linked list"""
-    def __init__(self, value=None):
-        self.head = Node(value)
-        self.length = 1 if value else 0
+    def __init__(self, item=None):
+        self.head = Node(item)
+        self.length = 1 if item else 0
 
 
     def __repr__(self):
@@ -90,28 +90,28 @@ class LinkedList():
         return self.length == 0
 
 
-    def add_front(self, value):
+    def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
         if self.length == 0:
-            self.head = Node(value)
+            self.head = Node(item)
         else:
             new_node = Node(self.head.data)
             new_node.next = self.head.next
-            self.head = Node(value)
+            self.head = Node(item)
             self.head.next = new_node
         self.length += 1
 
 
-    def add_end(self, value):
+    def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
         if self.length == 0:
-            self.head = Node(value)
+            self.head = Node(item)
         else:
             pointer = self.head
             while(pointer.next != None):
                 pointer = pointer.next
             # now pointer is the last node
-            pointer.next = Node(value)
+            pointer.next = Node(item)
         self.length += 1
 
 
@@ -133,15 +133,15 @@ class LinkedList():
             self.length -= 1
 
 
-    def insert(self, idx, value):
-        """Inserts a certain value at a given index into the linked list"""
+    def insert(self, idx, item):
+        """Inserts a certain item at a given index into the linked list"""
         if idx <= -1 and abs(idx) <= self.length+1:
             idx += self.length+1
         else:
             idx = self.__fix_index(idx)
         # handle edge case
         if idx == 0:
-            self.add_front(value)
+            self.add_front(item)
         # handle general case
         else:
             counter = 0
@@ -150,7 +150,7 @@ class LinkedList():
                 pointer = pointer.next
                 counter += 1
             # pointer is now at (idx-1)
-            new_node = Node(value)
+            new_node = Node(item)
             new_node.next = pointer.next
             pointer.next = new_node
             self.length += 1
@@ -175,7 +175,7 @@ class LinkedList():
 
 
     def insert_multiple(self, idx, lst):
-        """Inserts multiple values into the linked list at once"""
+        """Inserts multiple items into the linked list at once"""
         if idx <= -1 and abs(idx) <= self.length+1:
             idx += self.length+1
         else:
@@ -195,8 +195,8 @@ class LinkedList():
                 counter += 1
             # pointer is now at (idx-1)
             # iterate over given list in reverse-order
-            for value in lst:
-                new_node = Node(value)
+            for item in lst:
+                new_node = Node(item)
                 new_node.next = pointer.next
                 pointer.next = new_node
                 # update pointer
