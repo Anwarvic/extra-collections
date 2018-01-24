@@ -1,23 +1,23 @@
 class Node():
     """Basic object for the Node used for Circular linked lists"""
-    def __init__(self, value=None):
-        self.data = value
+    def __init__(self, item=None):
+        self.data = item
         self.next = None
 
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
-        return "Node: (value: {}, next: {})".format(data, nxt)
+        return "Node: (item: {}, next: {})".format(data, nxt)
 
 
 
 class CircularLinkedList():
     """Basic object for the Circular Linked List"""
-    def __init__(self, value=None):
-        self.head = Node(value)
+    def __init__(self, item=None):
+        self.head = Node(item)
         self.head.next = self.head
-        self.length = 1 if value else 0
+        self.length = 1 if item else 0
 
 
     def __repr__(self):
@@ -61,23 +61,15 @@ class CircularLinkedList():
 
     def __fix_index(self, idx):
         """
-        private method to make a sanity-check over the given index and fix it
-        if it was -ve. It should return the index if it's valid. If the index is
-        negative, then it converts it to positive index if possible.
-        If the index has any error of any kind, it raises an appropriate error.
+        private method to return the appropriate index for the circular linked
+        list. If the given index is negative, then it converts it to a positive one.
+        It raises a TypeError if the index isn't integer.
         """
         if type(idx) != int:
             msg = "idx must be an integer!"
             raise TypeError(msg)
-        # handle negative index
-        if idx <=-1 and abs(idx) <= self.length:
-            idx += self.length
-        # handle positive/negative indices
-        elif abs(idx) >= self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
-            raise IndexError(msg)
         else:
-            pass #direct
+            idx = idx % (self.length)
         return idx
 
 
@@ -85,7 +77,6 @@ class CircularLinkedList():
         """Retrieves the element at the given index."""
         # sanity check over given index
         idx = self.__fix_index(idx)
-        counter = 0
         pointer = self.head
         # handle edge case
         if idx == 0:
@@ -161,6 +152,11 @@ class CircularLinkedList():
             self.length -= 1
 
 
+    def insert(self, idx, item):
+        """Inserts an item at a given index into the circular linked list"""
+        pass
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.head = Node()
@@ -185,13 +181,16 @@ if __name__ == "__main__":
     l = CircularLinkedList()
     l.add_front(100)
     l.add_front(700)
+    l.add_end(90)
+    l.add_front("B")
     print(l)
+    print(l[-10])
 
-    rev = l.reverse()
-    rev.remove_end()
-    print(rev)
-    print(rev[-1])
-    print(rev.is_empty())
+    # rev = l.reverse()
+    # rev.remove_end()
+    # print(rev)
+    # print(rev[-1])
+    # print(rev.is_empty())
     
-    rev.remove_front()
-    print(rev.is_empty())
+    # rev.remove_front()
+    # print(rev.is_empty())
