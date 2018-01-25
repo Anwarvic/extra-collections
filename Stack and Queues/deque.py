@@ -8,7 +8,7 @@ class Deque():
         middle = ' │'
         down_border = '─┴'
         for item in self.container:
-            width = len(str(item))+2 #2: for a space before & after item
+            width = len(str(item))+2 #2: for a space before & after an item
             top_border += ('─'*width) + '┬'
             middle += " {} │".format(item)
             down_border += ('─'*width) + '┴'
@@ -21,19 +21,19 @@ class Deque():
     def __len__(self):
         return len(self.container)
 
-    def add_front(self, item):
+    def add_left(self, item):
         """Insert value into the front of the Deque"""
         self.container.insert(0, item)
 
-    def add_end(self, item):
+    def add_right(self, item):
         """Insert value into the end of the Deque"""
         self.container.append(item)
 
-    def eject(self):
+    def remove_left(self):
         """Removes value from the Deque (first-inserted item)"""
         return self.container.pop(0)
 
-    def pop(self):
+    def remove_right(self):
         """Removes value from the Deque (most recent)"""
         return self.container.pop()
 
@@ -49,14 +49,18 @@ class Deque():
         """Clears the whole Deque"""
         self.container = []
 
+    def rotate(self, k):
+        """Circularly shift rightward by k steps"""
+        pass
+
 
 
 
 if __name__ == "__main__":
     q = Deque()
-    q.add_front(0)
-    q.add_end(1)
-    q.add_end(8)
-    q.add_front(9)
+    q.add_front(0) #0
+    q.add_end(1)   #0 1
+    q.add_end(8)   #0 1 8
+    q.add_front(9) #9 0 1 8
     print(q)
     
