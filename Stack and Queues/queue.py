@@ -28,9 +28,7 @@ class Queue():
         """Insert value into the Queue"""
         if self.max_capacity and len(self) == self.max_capacity:
             self.dequeue()
-            self.container.append(item)
-        else:
-            self.container.append(item)
+        self.container.append(item)
 
 
     def dequeue(self):
