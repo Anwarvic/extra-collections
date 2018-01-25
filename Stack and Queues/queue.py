@@ -1,7 +1,8 @@
 class Queue():
     """Basic object for the Queue data structure"""
-    def __init__(self):
+    def __init__(self, max_capacity=None):
         self.container = []
+        self.max_capacity = max_capacity
 
     def __repr__(self):
         top_border = '─┬'
@@ -18,28 +19,39 @@ class Queue():
         down_border += '─'
         return "{}\n{}\n{}".format(top_border, middle, down_border)
 
+
     def __len__(self):
         return len(self.container)
 
+
     def enqueue(self, item):
         """Insert value into the Queue"""
-        self.container.append(item)
+        if self.max_capacity and len(self) == self.max_capacity:
+            self.dequeue()
+            self.container.append(item)
+        else:
+            self.container.append(item)
+
 
     def dequeue(self):
         """Removes value from the Queue (Queue's head)"""
         return self.container.pop(0)
 
+
     def get_left(self):
         """Returns the Qeueu head (first element to be enqueued) """
         return self.container[0]
+
 
     def get_right(self):
         """Returns the Qeueu tail (last element to be enqueued) """
         return self.container[-1]
 
+
     def is_empty(self):
         """Checks if the Queue is empty"""
         return len(self) == 0
+
 
     def clear(self):
         """Clears the whole Queue"""
@@ -47,20 +59,22 @@ class Queue():
 
 
 
+
 if __name__ == "__main__":
-    q = Queue()
+    q = Queue(max_capacity=3)
     q.enqueue(2)  #2
     print(q)
     q.enqueue(40) #2 40
     print(q)
     q.enqueue(800)#2 40 800
+    q.enqueue('hello') #40 800 'hello' (replaces most left item)
     print(q)
     
     print('='*20)
-    print(q.get_left()) #2
-    print(q.get_right()) #800
+    print(q.get_left()) #40
+    print(q.get_right()) #'hello'
     q.dequeue()
-    print(q) #40 800
+    print(q) #800 'hello'
 
     print('='*20)
     print(q.is_empty()) #False
