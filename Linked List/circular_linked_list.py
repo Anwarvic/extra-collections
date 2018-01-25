@@ -68,9 +68,11 @@ class CircularLinkedList():
         if type(idx) != int:
             msg = "idx must be an integer!"
             raise TypeError(msg)
+        if self.length == 0:
+            return 0
         else:
             idx = idx % (self.length)
-        return idx
+            return idx
 
 
     def __getitem__(self, idx):
@@ -154,7 +156,19 @@ class CircularLinkedList():
 
     def insert(self, idx, item):
         """Inserts an item at a given index into the circular linked list"""
-        pass
+        idx = self.__fix_index(idx)
+        if idx == 0:
+            self.add_front(item)
+        else:
+            pointer = self.head
+            counter = 0
+            while(counter != idx-1):
+                counter += 1
+                pointer = pointer.next
+            new_node = Node(item)
+            new_node.next = pointer.next
+            pointer.next = new_node
+            self.length += 1
 
 
     def clear(self):
@@ -179,12 +193,17 @@ class CircularLinkedList():
 
 if __name__ == "__main__":
     l = CircularLinkedList()
-    l.add_front(100)
-    l.add_front(700)
-    l.add_end(90)
-    l.add_front("B")
+    l.insert(100, 'item')
     print(l)
-    print(l[-10])
+    # l.add_front(100)
+    # l.add_front(700)
+    # l.add_end(90)
+    # l.add_front("B")
+    # print(l)
+    # print(l[-10])
+
+    # l.insert(10, 'item')
+    # print(l)
 
     # rev = l.reverse()
     # rev.remove_end()
