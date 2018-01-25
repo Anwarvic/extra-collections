@@ -1,7 +1,8 @@
 class Deque():
     """Basic object for the Deque data structure"""
-    def __init__(self):
+    def __init__(self, max_capacity=None):
         self.container = []
+        self.max_capacity = max_capacity
 
     def __repr__(self):
         top_border = '─┬'
@@ -23,10 +24,14 @@ class Deque():
 
     def add_left(self, item):
         """Insert value into the front of the Deque"""
+        if self.max_capacity and len(self) == self.max_capacity:
+            self.remove_right()
         self.container.insert(0, item)
 
     def add_right(self, item):
         """Insert value into the end of the Deque"""
+        if self.max_capacity and len(self) == self.max_capacity:
+            self.remove_left()
         self.container.append(item)
 
     def remove_left(self):
@@ -49,18 +54,14 @@ class Deque():
         """Clears the whole Deque"""
         self.container = []
 
-    def rotate(self, k):
-        """Circularly shift rightward by k steps"""
-        pass
-
 
 
 
 if __name__ == "__main__":
-    q = Deque()
-    q.add_front(0) #0
-    q.add_end(1)   #0 1
-    q.add_end(8)   #0 1 8
-    q.add_front(9) #9 0 1 8
+    q = Deque(max_capacity=3)
+    q.add_left(0) #0
+    q.add_right(1)   #0 1
+    q.add_right(8)   #0 1 8
+    q.add_left(9) #9 0 1
     print(q)
     
