@@ -53,16 +53,16 @@ if __name__ == "__main__":
     print(s)
 
     print('='*20)
-    print(s.peek())
+    print(s.peek()) #800
     print(s)
-    print(s.pop())
-    print(s)
+    print(s.pop())  #800
+    print(s) #2 40
     
     print('='*20)
-    print(s.is_empty())
+    print(s.is_empty()) #False
     s.clear()
     print(s)
-    print(s.is_empty())
+    print(s.is_empty()) #True
 
 
  
