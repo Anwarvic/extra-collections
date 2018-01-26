@@ -4,7 +4,9 @@ class Queue():
         self.container = []
         self.max_capacity = max_capacity
 
+
     def __repr__(self):
+        """Represents the queue as a string."""
         top_border = '─┬'
         middle = ' │'
         down_border = '─┴'
@@ -21,6 +23,7 @@ class Queue():
 
 
     def __len__(self):
+        """Gets the length of the linked list with complexity of O(1)"""
         return len(self.container)
 
 
