@@ -6,6 +6,7 @@ class Stack():
 
 
     def __repr__(self):
+        """Represents the stack as a string."""
         top_border = '┌'
         middle = '│'
         down_border = '└'
@@ -22,6 +23,7 @@ class Stack():
 
 
     def __len__(self):
+        """Gets the length of the stack with complexity of O(1)"""
         return len(self.container)
 
 
