@@ -49,7 +49,7 @@ class PriorityQueue:
                                          + self.container[i:]
                     break
 
-    def dequeue(self):
+    def remove_min(self):
         """Removes value from the Priority Queue (Queue's head)"""
         return self.container.pop(0)
 
@@ -77,13 +77,11 @@ if __name__ == "__main__":
     q.enqueue(Item(1, 10))
     q.enqueue(Item(100, 0))
     q.enqueue(Item(100, 0))
+    q.enqueue(Item("hello", 1))
+    q.enqueue(Item([1,2], 8))
+    q.enqueue(Item(-1, 6))
     print(q)
-    # q.enqueue(1)
-    # q.enqueue(8)
-    # q.enqueue(9)
-    # q.enqueue(-1)
-    # print(q)
-    # q.dequeue()
-    # print(q)
-    # q.clear()
-    # print(q)
+    q.dequeue()
+    print(q)
+    q.clear()
+    print(q)
