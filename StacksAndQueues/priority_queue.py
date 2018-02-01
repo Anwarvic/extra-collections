@@ -1,4 +1,15 @@
-class PriorityQueue():
+class Item:
+    """Basic object for item inside Priority Queue"""
+    def __init__(self, data, priority):
+        self.data = data
+        self.priority = priority
+
+    def __repr__(self):
+        return "Item: {}, priority: {}".format(self.data, self.priority)
+
+
+
+class PriorityQueue:
     """Basic object for the Priority Queue data structure"""
     def __init__(self):
         self.container = []
