@@ -5,12 +5,13 @@ class Item:
         self.priority = priority
 
     def __repr__(self):
-        return "Item: {}, priority: {}".format(self.data, self.priority)
+        return "({}, {})".format(self.data, self.priority)
 
 
 
 class PriorityQueue:
-    """Basic object for the Priority Queue data structure"""
+    """Basic object for the Priority Queue data structure where highest priority
+    is zero."""
     def __init__(self):
         self.container = []
 
@@ -34,21 +35,26 @@ class PriorityQueue:
 
     def enqueue(self, item):
         """Insert value into the Priority Queue"""
-        for i, num in enumerate(self.container):
-            if item >= num:
-                self.container.insert(i, item)
-                return
-        self.container.append(item)
+        if len(self) == 0:
+            self.container.append(item)
+        else:
+            new_data, new_priority = item.data, item.priority
+            for i, _item in enumerate(self.container):
+                curr_data, curr_priority = _item.data, _item.priority
+                if new_priority <= curr_priority:
+                    self.container = self.container[:i] + [item]\
+                                         + self.container[i:]
+                    break
 
     def dequeue(self):
         """Removes value from the Priority Queue (Queue's head)"""
         return self.container.pop(0)
 
-    def head(self):
+    def get_max_priority(self):
         """Returns the Priority Qeueu head (first element to be enqueued) """
         return self.container[0]
 
-    def tail(self):
+    def get_min_priority(self):
         """Returns the Priority Qeueu tail (last element to be enqueued) """
         return self.container[-1]
 
@@ -65,14 +71,16 @@ class PriorityQueue:
 
 if __name__ == "__main__":
     q = PriorityQueue()
-    q.enqueue(1)
-    q.enqueue(0)
-    q.enqueue(1)
-    q.enqueue(8)
-    q.enqueue(9)
-    q.enqueue(-1)
+    q.enqueue(Item(1, 10))
+    q.enqueue(Item(100, 0))
+    q.enqueue(Item(100, 0))
     print(q)
-    q.dequeue()
-    print(q)
-    q.clear()
-    print(q)
+    # q.enqueue(1)
+    # q.enqueue(8)
+    # q.enqueue(9)
+    # q.enqueue(-1)
+    # print(q)
+    # q.dequeue()
+    # print(q)
+    # q.clear()
+    # print(q)
