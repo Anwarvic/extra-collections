@@ -2,6 +2,9 @@ class Item:
     """Basic object for item inside Priority Queue"""
     def __init__(self, data, priority):
         self.data = data
+        # priority has to be an integer bigger than or equal to zero
+        assert type(priority) == int and priority >= 0, \
+                                "priority can't be negative values"
         self.priority = priority
 
     def __repr__(self):
