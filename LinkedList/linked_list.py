@@ -85,6 +85,10 @@ class LinkedList():
                 return pointer
 
 
+    def __setitem__(self, idx):
+        pass
+
+
     def is_empty(self):
         """Checks if linked list is empty"""
         return self.length == 0

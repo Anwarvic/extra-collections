@@ -93,6 +93,10 @@ class CircularLinkedList():
                 return pointer
 
 
+    def __setitem__(self, idx):
+        pass
+
+
     def is_empty(self):
         """Checks if circular linked list is empty"""
         return self.length == 0
@@ -156,19 +160,26 @@ class CircularLinkedList():
 
     def insert(self, idx, item):
         """Inserts an item at a given index into the circular linked list"""
-        idx = self.__fix_index(idx)
-        if idx == 0:
-            self.add_front(item)
-        else:
-            pointer = self.head
-            counter = 0
-            while(counter != idx-1):
-                counter += 1
-                pointer = pointer.next
-            new_node = Node(item)
-            new_node.next = pointer.next
-            pointer.next = new_node
-            self.length += 1
+        pass
+        # idx = self.__fix_index(idx)
+        # print("IDX", idx)
+        # if idx == 0:
+        #     self.add_front(item)
+        # else:
+        #     pointer = self.head
+        #     counter = 0
+        #     while(counter != idx-1):
+        #         counter += 1
+        #         pointer = pointer.next
+        #     new_node = Node(item)
+        #     new_node.next = pointer.next
+        #     pointer.next = new_node
+        #     self.length += 1
+
+
+    def remove(self, idx):
+        """Removes a node at index=idx from the circular linked list"""
+        pass
 
 
     def clear(self):
@@ -193,7 +204,11 @@ class CircularLinkedList():
 
 if __name__ == "__main__":
     l = CircularLinkedList()
-    l.insert(100, 'item')
+    l.insert(100, 'answer')
+    l.add_end('item')     #answer item
+    l.insert(2, 'item2')  #answer item item2
+    l.insert(-1, 'item3') #answer item item3 item2
+    # l.insert(-20, 'item4') #item item2 item3
     print(l)
     # l.add_front(100)
     # l.add_front(700)
