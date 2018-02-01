@@ -54,11 +54,11 @@ class PriorityQueue:
         return self.container.pop(0)
 
     def get_max_priority(self):
-        """Returns the Priority Qeueu head (first element to be enqueued) """
+        """Returns the highest-priority item to be enqueued"""
         return self.container[0]
 
     def get_min_priority(self):
-        """Returns the Priority Qeueu tail (last element to be enqueued) """
+        """Returns the lowest-priority item to be enqueued"""
         return self.container[-1]
 
     def is_empty(self):
