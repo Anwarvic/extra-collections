@@ -16,16 +16,16 @@ class BinaryTree():
         self.root = TreeNode(value)
 
     def __get_height(self, start_node):
-        levels = 0
+        height = 0
         if start_node != None:
-            levels += 1
-            left_levels, right_levels = 0, 0
+            left_height, right_height = 0, 0
             if start_node.left:
-                left_levels = self.__get_height(start_node.left)
+                left_height = 1 + self.__get_height(start_node.left)
             if start_node.right:
-                right_levels = self.__get_height(start_node.right)
-            levels += max(left_levels, right_levels)
-        return levels
+                right_height = 1 + self.__get_height(start_node.right)
+            height += max(left_height, right_height)
+            # print(start_node.data, left_height, right_height)
+        return height
 
 
     def get_height(self):
@@ -69,10 +69,11 @@ if __name__ == "__main__":
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
-    # tree.root.left.left = TreeNode(4)
+    tree.root.left.left = TreeNode(4)
     # tree.root.left.right = TreeNode(5)
+    tree.root.left.left.right = TreeNode(100)
     #################################
-    print(len(tree))
-    print(tree.get_height())
+    print("Tree Nodes:", len(tree))
+    print("Tree Height:", tree.get_height())
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
