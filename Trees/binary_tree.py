@@ -54,7 +54,7 @@ class BinaryTree():
         return level_nodes
 
 
-    def get_nodes_per_level(self):
+    def get_nodes(self):
         return self.__get_nodes_per_level(self.root, 0, [])
 
 
@@ -68,6 +68,10 @@ class BinaryTree():
         return " {} \n {} ".format(line1, line2)
 
 
+    def __repr__(self):
+        return self.__print_subtree(self.root)
+
+
     def __get_num_children(self, start_node):
         total_nodes = 0
         if start_node != None:
@@ -77,10 +81,6 @@ class BinaryTree():
             if start_node.right:
                 total_nodes += self.__get_num_children(start_node.right)
         return total_nodes
-
-
-    def __repr__(self):
-        return self.__print_subtree(self.root)
 
 
     def __len__(self):
@@ -102,6 +102,6 @@ if __name__ == "__main__":
     #################################
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
-    print("Nodes per level:", tree.get_nodes_per_level())
+    print("Nodes per level:", tree.get_nodes())
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
