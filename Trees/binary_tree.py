@@ -10,10 +10,15 @@ class TreeNode():
         return str(self.data)
 
 
+    def is_leaf(self):
+        return self.left == self.right == None
+
+
 
 class BinaryTree():
     def __init__(self, value):
         self.root = TreeNode(value)
+
 
     def __get_height(self, start_node):
         height = 0
