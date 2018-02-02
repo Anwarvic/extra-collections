@@ -20,7 +20,7 @@ class BinaryTree():
     def __init__(self, value):
         self.root = TreeNode(value)
 
-
+    ############################## HEIGHT ##############################
     def __get_height(self, start_node):
         height = 0
         if start_node != None:
@@ -38,6 +38,7 @@ class BinaryTree():
         return self.__get_height(self.root)
 
 
+    ############################## NODES ##############################
     def __get_nodes_per_level(self, start_node, level, level_nodes):
         if start_node != None:
             if level == len(level_nodes):
@@ -58,21 +59,36 @@ class BinaryTree():
         return self.__get_nodes_per_level(self.root, 0, [])
 
 
-    
-
-    def __get_num_children(self, start_node):
+    ############################## HEIGHT ##############################
+    def __count_nodes(self, start_node):
         total_nodes = 0
         if start_node != None:
             total_nodes += 1
             if start_node.left:
-                total_nodes += self.__get_num_children(start_node.left)
+                total_nodes += self.__count_nodes(start_node.left)
             if start_node.right:
-                total_nodes += self.__get_num_children(start_node.right)
+                total_nodes += self.__count_nodes(start_node.right)
         return total_nodes
 
 
     def __len__(self):
-        return self.__get_num_children(self.root)
+        return self.__count_nodes(self.root)
+
+
+    ############################## TRAVERSE ##############################
+    def __preorder_traverse(self, start_node):
+        nodes = []
+        if start_node != None:
+            nodes.append(start_node.data)
+            if start_node.left:
+                nodes.extend(self.__preorder_traverse(start_node.left))
+            if start_node.right:
+                nodes.extend(self.__preorder_traverse(start_node.right))
+        return nodes
+
+
+    def preorder_traverse(self):
+        return self.__preorder_traverse(self.root)
 
 
 
@@ -91,5 +107,7 @@ if __name__ == "__main__":
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
     print("Nodes per level:", tree.get_nodes())
-    print(tree)
+    print("PreOrder Traverse:")
+    print(tree.preorder_traverse())
+    # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
