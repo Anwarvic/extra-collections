@@ -4,7 +4,7 @@ class TreeNode():
         self.data = value
         self.left = None
         self.right = None
-        # self.level = None
+
 
     def __repr__(self):
         return str(self.data)
@@ -12,6 +12,7 @@ class TreeNode():
 
     def is_leaf(self):
         return self.left == self.right == None
+
 
 
 
@@ -35,6 +36,26 @@ class BinaryTree():
 
     def get_height(self):
         return self.__get_height(self.root)
+
+
+    def __get_nodes_per_level(self, start_node, level, level_nodes):
+        if start_node != None:
+            if level == len(level_nodes):
+                level_nodes.append([])
+            level_nodes[level].append(start_node.data)
+            if start_node.left:
+                self.__get_nodes_per_level(start_node.left,
+                                           level+1,
+                                           level_nodes)
+            if start_node.right:
+                self.__get_nodes_per_level(start_node.right,
+                                           level+1,
+                                           level_nodes)
+        return level_nodes
+
+
+    def get_nodes_per_level(self):
+        return self.__get_nodes_per_level(self.root, 0, [])
 
 
     def __print_subtree(self, start_node):
@@ -74,11 +95,13 @@ if __name__ == "__main__":
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
+    tree.root.right.right = TreeNode(7)
     tree.root.left.left = TreeNode(4)
-    # tree.root.left.right = TreeNode(5)
-    tree.root.left.left.right = TreeNode(100)
+    tree.root.left.right = TreeNode(5)
+    tree.root.left.left.right = TreeNode(10)
     #################################
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
+    print("Nodes per level:", tree.get_nodes_per_level())
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
