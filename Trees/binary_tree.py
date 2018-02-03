@@ -96,9 +96,9 @@ class BinaryTree():
         nodes = []
         if start_node != None:
             if start_node.left:
-                nodes.extend(self.__preorder_traverse(start_node.left))
+                nodes.extend(self.__postorder_traverse(start_node.left))
             if start_node.right:
-                nodes.extend(self.__preorder_traverse(start_node.right))
+                nodes.extend(self.__postorder_traverse(start_node.right))
             nodes.append(start_node.data)
         return nodes
 
