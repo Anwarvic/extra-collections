@@ -107,6 +107,21 @@ class BinaryTree():
         return self.__postorder_traverse(self.root)
 
 
+    ######################### In-Order TRAVERSE #########################
+    def __inorder_traverse(self, start_node):
+        nodes = []
+        if start_node != None:
+            if start_node.left:
+                nodes.extend(self.__inorder_traverse(start_node.left))
+            nodes.append(start_node.data)
+            if start_node.right:
+                nodes.extend(self.__inorder_traverse(start_node.right))
+        return nodes
+
+
+    def inorder_traverse(self):
+        return self.__inorder_traverse(self.root)
+
 
 
 
@@ -128,5 +143,7 @@ if __name__ == "__main__":
     print(tree.preorder_traverse())
     print("\npostOrder Traverse:")
     print(tree.postorder_traverse())
+    print("\ninOrder Traverse:")
+    print(tree.inorder_traverse())
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
