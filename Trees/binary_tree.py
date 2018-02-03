@@ -75,7 +75,7 @@ class BinaryTree():
         return self.__count_nodes(self.root)
 
 
-    ############################## TRAVERSE ##############################
+    ######################### Pre-Order TRAVERSE #########################
     def __preorder_traverse(self, start_node):
         nodes = []
         if start_node != None:
@@ -89,6 +89,23 @@ class BinaryTree():
 
     def preorder_traverse(self):
         return self.__preorder_traverse(self.root)
+
+
+    ######################### Post-Order TRAVERSE #########################
+    def __postorder_traverse(self, start_node):
+        nodes = []
+        if start_node != None:
+            if start_node.left:
+                nodes.extend(self.__preorder_traverse(start_node.left))
+            if start_node.right:
+                nodes.extend(self.__preorder_traverse(start_node.right))
+            nodes.append(start_node.data)
+        return nodes
+
+
+    def postorder_traverse(self):
+        return self.__postorder_traverse(self.root)
+
 
 
 
@@ -109,5 +126,7 @@ if __name__ == "__main__":
     print("Nodes per level:", tree.get_nodes())
     print("PreOrder Traverse:")
     print(tree.preorder_traverse())
+    print("\npostOrder Traverse:")
+    print(tree.postorder_traverse())
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
