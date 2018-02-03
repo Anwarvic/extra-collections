@@ -123,6 +123,20 @@ class BinaryTree():
         return self.__inorder_traverse(self.root)
 
 
+    ############################## TRAVERSE ##############################
+    def traverse(self, method='inorder'):
+        trav_methods = {"inorder", "postorder", "preorder"}
+        method = method.lower()
+        assert method in trav_methods, "given method must be one of these: " \
+            + str(trav_methods)
+        if method == 'inorder':
+            return self.inorder_traverse()
+        elif method == 'postorder':
+            return self.postorder_traverse()
+        elif method == "preorder":
+            return self.preorder_traverse()
+
+
 
 
 
@@ -145,5 +159,7 @@ if __name__ == "__main__":
     print(tree.postorder_traverse())
     print("\ninOrder Traverse:")
     print(tree.inorder_traverse())
+    print("\nTraverse:")
+    print(tree.traverse(method='POSTORDER'))
     # print(tree)
     # print(tree.root, tree.root.left.right, tree.root.left.left)
