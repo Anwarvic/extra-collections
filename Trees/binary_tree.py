@@ -20,7 +20,7 @@ class BinaryTree():
     def __init__(self, value):
         self.root = TreeNode(value)
 
-    ############################## HEIGHT ##############################
+    ######################### HEIGHT/DEPTH #########################
     def __get_height(self, start_node):
         height = 0
         if start_node != None:
@@ -36,6 +36,10 @@ class BinaryTree():
 
     def get_height(self):
         return self.__get_height(self.root)
+
+
+    def get_depth(self):
+        return self.get_height()
 
 
     ############################## NODES ##############################
@@ -159,6 +163,7 @@ class BinaryTree():
 
 
 
+
 if __name__ == "__main__":
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
@@ -170,6 +175,7 @@ if __name__ == "__main__":
     #################################
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
+    print("Tree Depth:", tree.get_depth())
     print("Nodes per level:", tree.get_nodes())
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("PreOrder Traverse:")
