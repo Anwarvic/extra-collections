@@ -43,7 +43,7 @@ class BinaryTree():
         if start_node != None:
             if level == len(level_nodes):
                 level_nodes.append([])
-            level_nodes[level].append(start_node.data)
+            level_nodes[level].append(start_node)
             if start_node.left:
                 self.__get_nodes_per_level(start_node.left,
                                            level+1,
