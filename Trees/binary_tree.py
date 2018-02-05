@@ -5,10 +5,8 @@ class TreeNode():
         self.left = None
         self.right = None
 
-
     def __repr__(self):
         return str(self.data)
-
 
     def is_leaf(self):
         return self.left == self.right == None
@@ -33,10 +31,8 @@ class BinaryTree():
             # print(start_node.data, left_height, right_height)
         return height
 
-
     def get_height(self):
         return self.__get_height(self.root)
-
 
     def get_depth(self):
         return self.get_height()
@@ -58,7 +54,6 @@ class BinaryTree():
                                            level_nodes)
         return level_nodes
 
-
     def get_nodes(self):
         return self.__get_nodes_per_level(self.root, 0, [])
 
@@ -73,7 +68,6 @@ class BinaryTree():
             if start_node.right:
                 total_nodes += self.__count_nodes(start_node.right)
         return total_nodes
-
 
     def __len__(self):
         return self.__count_nodes(self.root)
@@ -91,7 +85,6 @@ class BinaryTree():
                 total_nodes += self.__count_leaf_nodes(start_node.right)
         return total_nodes
 
-
     def count_leaf_nodes(self):
         return self.__count_leaf_nodes(self.root)
 
@@ -106,7 +99,6 @@ class BinaryTree():
             if start_node.right:
                 nodes.extend(self.__preorder_traverse(start_node.right))
         return nodes
-
 
     def preorder_traverse(self):
         return self.__preorder_traverse(self.root)
@@ -123,7 +115,6 @@ class BinaryTree():
             nodes.append(start_node.data)
         return nodes
 
-
     def postorder_traverse(self):
         return self.__postorder_traverse(self.root)
 
@@ -138,7 +129,6 @@ class BinaryTree():
             if start_node.right:
                 nodes.extend(self.__inorder_traverse(start_node.right))
         return nodes
-
 
     def inorder_traverse(self):
         return self.__inorder_traverse(self.root)
@@ -159,6 +149,16 @@ class BinaryTree():
                                                         + str(trav_methods))
 
 
+    ############################## BALANCE ##############################
+    def __is_balanced(self, start_node):
+        pass
+        
+    def is_balanced(self):
+        """
+        Tree is said to be balanced if the difference between the depth of any
+        two leaf nodes is one or less.
+        """
+        pass
 
 
 
