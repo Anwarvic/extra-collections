@@ -1,6 +1,6 @@
 class TreeNode():
     def __init__(self, value):
-        # assert value != None, "You can't use None as a value!!"
+        assert value != None, "You can't use None as a value!!"
         self.data = value
         self.left = None
         self.right = None
@@ -59,7 +59,7 @@ class BinaryTree():
         return self.__get_nodes_per_level(self.root, 0, [])
 
 
-    ############################## HEIGHT ##############################
+    ############################## LENGTH ##############################
     def __count_nodes(self, start_node):
         total_nodes = 0
         if start_node != None:
@@ -73,6 +73,23 @@ class BinaryTree():
 
     def __len__(self):
         return self.__count_nodes(self.root)
+
+
+    ############################## LENGTH ##############################
+    def __count_leaf_nodes(self, start_node):
+        total_nodes = 0
+        if start_node != None:
+            if start_node.is_leaf():
+                total_nodes += 1
+            if start_node.left:
+                total_nodes += self.__count_leaf_nodes(start_node.left)
+            if start_node.right:
+                total_nodes += self.__count_leaf_nodes(start_node.right)
+        return total_nodes
+
+
+    def count_leaf_nodes(self):
+        return self.__count_leaf_nodes(self.root)
 
 
     ######################### Pre-Order TRAVERSE #########################
@@ -127,14 +144,15 @@ class BinaryTree():
     def traverse(self, method='inorder'):
         trav_methods = {"inorder", "postorder", "preorder"}
         method = method.lower()
-        assert method in trav_methods, "given method must be one of these: " \
-            + str(trav_methods)
         if method == 'inorder':
             return self.inorder_traverse()
         elif method == 'postorder':
             return self.postorder_traverse()
         elif method == "preorder":
             return self.preorder_traverse()
+        else:
+            raise AssertionError("given method must be one of these: " \
+                                                        + str(trav_methods))
 
 
 
@@ -153,6 +171,7 @@ if __name__ == "__main__":
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
     print("Nodes per level:", tree.get_nodes())
+    print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("PreOrder Traverse:")
     print(tree.preorder_traverse())
     print("\npostOrder Traverse:")
