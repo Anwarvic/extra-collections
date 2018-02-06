@@ -52,26 +52,6 @@ class BinaryTree():
         return abs(left_depth - right_depth) <= 1
 
 
-    ############################## NODES ##############################
-    def __get_nodes_per_level(self, start_node, level, level_nodes):
-        if start_node != None:
-            if level == len(level_nodes):
-                level_nodes.append([])
-            level_nodes[level].append(start_node)
-            if start_node.left:
-                self.__get_nodes_per_level(start_node.left,
-                                           level+1,
-                                           level_nodes)
-            if start_node.right:
-                self.__get_nodes_per_level(start_node.right,
-                                           level+1,
-                                           level_nodes)
-        return level_nodes
-
-    def get_nodes(self):
-        return self.__get_nodes_per_level(self.root, 0, [])
-
-
     ############################## LENGTH ##############################
     def __count_nodes(self, start_node):
         total_nodes = 0
@@ -101,6 +81,26 @@ class BinaryTree():
 
     def count_leaf_nodes(self):
         return self.__count_leaf_nodes(self.root)
+
+
+    ############################## NODES ##############################
+    def __get_nodes_per_level(self, start_node, level, level_nodes):
+        if start_node != None:
+            if level == len(level_nodes):
+                level_nodes.append([])
+            level_nodes[level].append(start_node)
+            if start_node.left:
+                self.__get_nodes_per_level(start_node.left,
+                                           level+1,
+                                           level_nodes)
+            if start_node.right:
+                self.__get_nodes_per_level(start_node.right,
+                                           level+1,
+                                           level_nodes)
+        return level_nodes
+
+    def get_nodes(self):
+        return self.__get_nodes_per_level(self.root, 0, [])
 
 
     ######################### Pre-Order TRAVERSE #########################
