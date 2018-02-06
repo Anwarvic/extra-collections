@@ -150,15 +150,29 @@ class BinaryTree():
 
 
     ############################## BALANCE ##############################
-    def __is_balanced(self, start_node):
-        pass
+    # def __leaf_depth(self, start_node):
+    #     max_leaf_depth = 0
+    #     if start_node != None and not start_node.is_leaf():
+    #         max_leaf_depth += 1
+    #         left_side_depth = 0
+    #         right_side_depth = 0
+    #         if start_node.left:
+    #             left_side_depth = self.__leaf_depth(start_node.left) 
+    #         if start_node.right:
+    #             right_side_depth = self.__leaf_depth(start_node.right)
+    #         max_leaf_depth > 
+    #     return max_leaf_depth
         
     def is_balanced(self):
         """
         Tree is said to be balanced if the difference between the depth of any
         two leaf nodes is one or less.
         """
-        pass
+        left_depth = self.__get_height(self.root.left)
+        right_depth = self.__get_height(self.root.right)
+        print("LEFT DEPTH:", left_depth)
+        print("RIGHT DEPTH:", right_depth)
+        return abs(left_depth - right_depth) <= 1
 
 
 
@@ -178,6 +192,7 @@ if __name__ == "__main__":
     print("Tree Depth:", tree.get_depth())
     print("Nodes per level:", tree.get_nodes())
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
+    print("Balanced Tree:", tree.is_balanced())
     print("PreOrder Traverse:")
     print(tree.preorder_traverse())
     print("\npostOrder Traverse:")
