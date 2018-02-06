@@ -31,11 +31,25 @@ class BinaryTree():
             # print(start_node.data, left_height, right_height)
         return height
 
+    def __get_depth(self, start_node):
+        return self.__get_height(start_node)
+
     def get_height(self):
         return self.__get_height(self.root)
 
     def get_depth(self):
         return self.get_height()
+
+
+    ############################## BALANCED ##############################
+    def is_balanced(self):
+        """
+        Tree is said to be balanced if the difference between the depth of any
+        two leaf nodes is one or less.
+        """
+        left_depth = self.__get_depth(self.root.left)
+        right_depth = self.__get_depth(self.root.right)
+        return abs(left_depth - right_depth) <= 1
 
 
     ############################## NODES ##############################
@@ -149,43 +163,18 @@ class BinaryTree():
                                                         + str(trav_methods))
 
 
-    ############################## BALANCE ##############################
-    # def __leaf_depth(self, start_node):
-    #     max_leaf_depth = 0
-    #     if start_node != None and not start_node.is_leaf():
-    #         max_leaf_depth += 1
-    #         left_side_depth = 0
-    #         right_side_depth = 0
-    #         if start_node.left:
-    #             left_side_depth = self.__leaf_depth(start_node.left) 
-    #         if start_node.right:
-    #             right_side_depth = self.__leaf_depth(start_node.right)
-    #         max_leaf_depth > 
-    #     return max_leaf_depth
-        
-    def is_balanced(self):
-        """
-        Tree is said to be balanced if the difference between the depth of any
-        two leaf nodes is one or less.
-        """
-        left_depth = self.__get_height(self.root.left)
-        right_depth = self.__get_height(self.root.right)
-        print("LEFT DEPTH:", left_depth)
-        print("RIGHT DEPTH:", right_depth)
-        return abs(left_depth - right_depth) <= 1
-
 
 
 
 
 if __name__ == "__main__":
     tree = BinaryTree(1)
-    tree.root.left = TreeNode(2)
-    tree.root.right = TreeNode(3)
-    tree.root.right.right = TreeNode(7)
-    tree.root.left.left = TreeNode(4)
-    tree.root.left.right = TreeNode(5)
-    tree.root.left.left.right = TreeNode(10)
+    # tree.root.left = TreeNode(2)
+    # tree.root.right = TreeNode(3)
+    # tree.root.right.right = TreeNode(7)
+    # tree.root.left.left = TreeNode(4)
+    # tree.root.left.right = TreeNode(5)
+    # tree.root.left.left.right = TreeNode(10)
     #################################
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
