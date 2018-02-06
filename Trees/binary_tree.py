@@ -87,7 +87,7 @@ class BinaryTree():
         return self.__count_nodes(self.root)
 
 
-    ############################## LENGTH ##############################
+    ########################### LEAF NODES ###########################
     def __count_leaf_nodes(self, start_node):
         total_nodes = 0
         if start_node != None:
