@@ -121,6 +121,9 @@ class BinaryTree():
     def preorder_traverse(self):
         return self.__preorder_traverse(self.root)
 
+    def depth_first_traverse(self):
+        return self.__preorder_traverse(self.root)
+
 
     ######################### Post-Order TRAVERSE #########################
     def __postorder_traverse(self, start_node):
