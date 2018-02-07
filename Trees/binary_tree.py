@@ -21,6 +21,7 @@ class BinaryTree():
         else:
             self.root = TreeNode(value)
 
+
     ######################### HEIGHT/DEPTH #########################
     def __get_height(self, start_node):
         height = 0
@@ -151,16 +152,27 @@ class BinaryTree():
         return self.__inorder_traverse(self.root)
 
 
+    #################### breadth-first TRAVERSE ####################
+    def breadth_first_traverse(self):
+        output = []
+        for nodes in self.get_nodes():
+            output.extend(nodes)
+        return output
+
+
     ############################## TRAVERSE ##############################
     def traverse(self, method='inorder'):
-        trav_methods = {"inorder", "postorder", "preorder"}
+        trav_methods = {"inorder", "postorder", "preorder", "depth-first", \
+                        "breadth-first"}
         method = method.lower()
         if method == 'inorder':
             return self.inorder_traverse()
         elif method == 'postorder':
             return self.postorder_traverse()
-        elif method == "preorder":
+        elif method in {"preorder", "depth-first"}:
             return self.preorder_traverse()
+        elif method == "breadth-first":
+            return self.breadth_first_traverse()
         else:
             raise AssertionError("given method must be one of these: " \
                                                         + str(trav_methods))
@@ -193,8 +205,6 @@ class BinaryTree():
 
 
 
-
-
 if __name__ == "__main__":
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
@@ -204,21 +214,22 @@ if __name__ == "__main__":
     tree.root.left.right = TreeNode(5)
     tree.root.left.left.right = TreeNode(10)
     #################################
-    # print("Tree Nodes:", len(tree))
-    # print("Tree Height:", tree.get_height())
-    # print("Tree Depth:", tree.get_depth())
-    # print("Nodes per level:", tree.get_nodes())
-    # print("Total Leaf Nodes:", tree.count_leaf_nodes())
-    # print("Balanced Tree:", tree.is_balanced())
-    # print("PreOrder Traverse:")
-    # print(tree.preorder_traverse())
-    # print("\npostOrder Traverse:")
-    # print(tree.postorder_traverse())
-    # print("\ninOrder Traverse:")
-    # print(tree.inorder_traverse())
-    # print("\nTraverse:")
-    # print(tree.traverse(method='POSTORDER'))
+    print("Tree Nodes:", len(tree))
+    print("Tree Height:", tree.get_height())
+    print("Tree Depth:", tree.get_depth())
+    print("Nodes per level:", tree.get_nodes())
+    print("Total Leaf Nodes:", tree.count_leaf_nodes())
+    print("Balanced Tree:", tree.is_balanced())
+    print("PreOrder Traverse:")
+    print(tree.preorder_traverse())
+    print("\npostOrder Traverse:")
+    print(tree.postorder_traverse())
+    print("\ninOrder Traverse:")
+    print(tree.inorder_traverse())
+    print("\nbreadth-first Traverse:")
+    print(tree.breadth_first_traverse())
+    print("\nTraverse:")
+    print(tree.traverse(method='POSTORDER'))
     #####################################
     lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
     tree = BinaryTree(lst)
-    print(tree.root.left)
