@@ -11,6 +11,8 @@ class TreeNode():
     def __repr__(self):
         return str(self.data)
 
+    def is_leaf(self):
+        return self.left == self.right == None
 
 
 class BST(BinaryTree):
@@ -37,8 +39,24 @@ class BST(BinaryTree):
 
 
     ############################## INSERTION ##############################
+    def __insert(self, value, start_node):
+        if value == start_node.data:
+            return
+        elif value < start_node.data:
+            if start_node.left:
+                self.__insert(value, start_node.left)
+            else:
+                start_node.left = TreeNode(value)
+        else:
+            if start_node.right:
+                self.__insert(value, start_node.right)
+            else:
+                start_node.right = TreeNode(value)
+
     def insert(self, value):
-        pass
+        assert type(value) in {int, float}, "You can insert only numbers!"
+        self.__insert(value, self.root)
+
 
 
 
@@ -48,12 +66,18 @@ class BST(BinaryTree):
 
 if __name__ == "__main__":
     # initialize tree by numbers
-    tree = BST(4)
+    btree = BST(4)
+    # Insert elements
+    btree.insert(2)
+    btree.insert(1)
+    btree.insert(3)
+    btree.insert(5)
+    print(btree.root.left.right.left)
 
     # initialize tree by list
-    lst = [7,10,12,22,30,11,19,25,9,20,14]
-    btree = BST(lst)
-    print(btree.root.right.right.left)
+    # lst = [7,10,12,22,30,11,19,25,9,20,14]
+    # btree = BST(lst)
+    # print(btree.root.right.right.left)
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
     print("Tree Depth:", btree.get_depth())
