@@ -38,6 +38,17 @@ class BST(BinaryTree):
         return parent
 
 
+    ############################## MAX/MIN ##############################
+    def __get_max_node(self, start_node):
+        if start_node.right == None:
+            return start_node
+        else:
+            return self.__get_max_node(start_node.right)
+
+    def get_max(self):
+        return self.__get_max_node(self.root)
+
+
     ############################## INSERTION ##############################
     def __insert(self, value, start_node):
         if value == start_node.data:
@@ -102,3 +113,4 @@ if __name__ == "__main__":
     print("Tree Depth:", btree.get_depth())
     print("Balanced Tree:", btree.is_balanced())
     print(btree.traverse())
+    print("Max value:", btree.get_max())
