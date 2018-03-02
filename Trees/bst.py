@@ -57,25 +57,6 @@ class BST(BinaryTree):
     def get_min(self):
         return self.__get_min_node(self.root)
 
-    ############################## INSERTION ##############################
-    def __insert(self, value, start_node):
-        if value == start_node.data:
-            return
-        elif value < start_node.data:
-            if start_node.left:
-                self.__insert(value, start_node.left)
-            else:
-                start_node.left = TreeNode(value)
-        else:
-            if start_node.right:
-                self.__insert(value, start_node.right)
-            else:
-                start_node.right = TreeNode(value)
-
-    def insert(self, value):
-        assert type(value) in {int, float}, "You can insert only numbers!"
-        self.__insert(value, self.root)
-
 
     ############################## SEARCH ##############################
     def __search(self, find_val, start_node):
@@ -95,6 +76,26 @@ class BST(BinaryTree):
     def search(self, find_val):
         assert type(find_val) in {int, float}, "You can insert only numbers!"
         return self.__search(find_val, self.root)
+
+
+    ############################## INSERTION ##############################
+    def __insert(self, value, start_node):
+        if value == start_node.data:
+            return
+        elif value < start_node.data:
+            if start_node.left:
+                self.__insert(value, start_node.left)
+            else:
+                start_node.left = TreeNode(value)
+        else:
+            if start_node.right:
+                self.__insert(value, start_node.right)
+            else:
+                start_node.right = TreeNode(value)
+
+    def insert(self, value):
+        assert type(value) in {int, float}, "You can insert only numbers!"
+        self.__insert(value, self.root)
 
 
 
