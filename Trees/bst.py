@@ -1,14 +1,15 @@
 from binary_tree import BinaryTree
 
+
 class TreeNode():
     def __init__(self, value):
         assert type(value) in {int, float}, "BST contains only numbers!!"
-        self.number = value
+        self.data = value
         self.left = None
         self.right = None
 
     def __repr__(self):
-        return str(self.number)
+        return str(self.data)
 
 
 
@@ -57,3 +58,4 @@ if __name__ == "__main__":
     print("Tree Height:", btree.get_height())
     print("Tree Depth:", btree.get_depth())
     print("Balanced Tree:", btree.is_balanced())
+    print(btree.traverse())
