@@ -58,6 +58,25 @@ class BST(BinaryTree):
         self.__insert(value, self.root)
 
 
+    ############################## SEARCH ##############################
+    def __search(self, find_val, start_node):
+        if find_val == start_node.data:
+            return True
+        elif find_val < start_node.data:
+            if start_node.left:
+                return self.__search(find_val, start_node.left)
+            else:
+                return False
+        else:
+            if start_node.right:
+                return self.__search(find_val, start_node.right)
+            else:
+                return False
+
+    def search(self, find_val):
+        assert type(find_val) in {int, float}, "You can insert only numbers!"
+        return self.__search(find_val, self.root)
+
 
 
 
@@ -72,8 +91,8 @@ if __name__ == "__main__":
     btree.insert(1)
     btree.insert(3)
     btree.insert(5)
-    print(btree.root.left.right.left)
-
+    print(btree.search(1))
+    print(btree.search(100))
     # initialize tree by list
     # lst = [7,10,12,22,30,11,19,25,9,20,14]
     # btree = BST(lst)
