@@ -156,6 +156,7 @@ if __name__ == "__main__":
     # btree = BST(lst)
     # print(btree.root.right.right.left)
     #######################################
+    # example taken from "Data Structures and Algorithms in Python" book
     btree = BST(44)
     btree.root.left = TreeNode(17)
     btree.root.left.left = TreeNode(8)
