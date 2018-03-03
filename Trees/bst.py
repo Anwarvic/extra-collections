@@ -98,25 +98,84 @@ class BST(BinaryTree):
         self.__insert(value, self.root)
 
 
+    ############################## REMOVAL ##############################
+    def __remove(self, del_value, parent, start_node):
+        # handle edge case
+        if parent == None and start_node.is_leaf():
+            raise ValueError("Can't remove the only item in the tree!")
+        # handle general case
+        if del_value == start_node.data:
+            if start_node.is_leaf():
+                if del_value < parent.data:
+                    parent.left = None
+                else:
+                    parent.right = None
+            elif start_node.left != None and start_node.right == None:
+                if del_value < parent.data:
+                    parent.left = start_node.left
+                else:
+                    parent.right = start_node.left
+            elif start_node.left == None and start_node.right != None:
+                if del_value < parent.data:
+                    parent.left = start_node.right
+                else:
+                    parent.right = start_node.right
+            else:
+                replacement_node = self.__get_max_node(start_node.left)
+                start_node.data = replacement_node.data
+                self.__remove(replacement_node.data, start_node, start_node.left)
+        elif del_value < start_node.data:
+            self.__remove(del_value, start_node, start_node.left)
+        else:
+            self.__remove(del_value, start_node, start_node.right)
+
+
+    def remove(self, del_value):
+        if self.search(del_value):
+            self.__remove(del_value, None, self.root)
+
+
+
+
 
 
 
 
 
 if __name__ == "__main__":
-    # initialize tree by numbers
-    btree = BST(4)
-    # Insert elements
-    btree.insert(2)
-    btree.insert(1)
-    btree.insert(3)
-    btree.insert(5)
-    print(btree.search(1))
-    print(btree.search(100))
+    # btree = BST(4)
+    # btree.insert(2)
+    # btree.insert(1)
+    # btree.insert(3)
+    # btree.insert(5)
+    # print(btree.search(1))
+    # print(btree.search(100))
+    #######################################
     # initialize tree by list
     # lst = [7,10,12,22,30,11,19,25,9,20,14]
     # btree = BST(lst)
     # print(btree.root.right.right.left)
+    #######################################
+    btree = BST(44)
+    btree.root.left = TreeNode(17)
+    btree.root.left.left = TreeNode(8)
+    btree.root.left.right = TreeNode(32)
+    btree.root.left.right.left = TreeNode(28)
+    btree.root.left.right.left.right = TreeNode(29)
+    btree.root.right = TreeNode(88)
+    btree.root.right.right = TreeNode(97)
+    btree.root.right.right.left = TreeNode(93)
+    btree.root.right.left = TreeNode(65)
+    btree.root.right.left.left = TreeNode(54)
+    btree.root.right.left.right = TreeNode(82)
+    btree.root.right.left.right.left = TreeNode(76)
+    btree.root.right.left.right.left.left = TreeNode(68)
+    btree.root.right.left.right.left.right = TreeNode(80)
+
+    btree.remove(32)
+    btree.remove(44)
+
+    print("Tree Root:", btree.root)
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
     print("Tree Depth:", btree.get_depth())
