@@ -131,6 +131,7 @@ class BST(BinaryTree):
 
 
     def remove(self, del_value):
+        assert type(del_value) in {int, float}, "BST conains numbers only!"
         if self.search(del_value):
             self.__remove(del_value, None, self.root)
 
