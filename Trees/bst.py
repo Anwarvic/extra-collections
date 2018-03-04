@@ -1,18 +1,12 @@
-from binary_tree import BinaryTree
+from binary_tree import TreeNode, BinaryTree
 
 
-class TreeNode():
+class TreeNode(TreeNode):
     def __init__(self, value):
         assert type(value) in {int, float}, "BST contains only numbers!!"
         self.data = value
         self.left = None
         self.right = None
-
-    def __repr__(self):
-        return str(self.data)
-
-    def is_leaf(self):
-        return self.left == self.right == None
 
 
 class BST(BinaryTree):
