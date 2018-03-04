@@ -11,6 +11,9 @@ class TreeNode():
     def is_leaf(self):
         return self.left == self.right == None
 
+    def is_orphan(self):
+        return (self.left==None or self.right==None) and self.left!=self.right
+
 
 
 
