@@ -32,7 +32,6 @@ class BinaryTree():
             if start_node.right:
                 right_height = 1 + self.__get_height(start_node.right)
             height += max(left_height, right_height)
-            # print(start_node.data, left_height, right_height)
         return height
 
     def __get_depth(self, start_node):
@@ -51,8 +50,10 @@ class BinaryTree():
         Tree is said to be balanced if the difference between the depth of any
         two leaf nodes is one or less.
         """
-        left_depth = self.__get_depth(self.root.left)
-        right_depth = self.__get_depth(self.root.right)
+        left_depth = 1 if self.root.left != None else 0
+        left_depth += self.__get_depth(self.root.left)
+        right_depth = 1 if self.root.right != None else 0
+        right_depth += self.__get_depth(self.root.right)
         return abs(left_depth - right_depth) <= 1
 
 
