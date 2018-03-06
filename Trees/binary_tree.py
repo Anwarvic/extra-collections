@@ -29,25 +29,31 @@ class BinaryTree():
     def __print_subtree(self, start_node):
         out = []
         node = str(start_node.data)
+        first_line = node
+        second_line = ''
+        third_line = ''
+
         # left_branch
-        left_node = str(start_node.left) if start_node.left else ''
-        left_margin = len(left_node)//2
+        if start_node.left:
+            node = ('─'*2) + node  #2 is the left margin
+            left_node = str(start_node.left)
+            half_left_len = len(left_node)//2
+            first_line = (' '*half_left_len) + '┌' + ('─'*half_left_len) + node
+            second_line = (' '*half_left_len) + '│' + (' '*half_left_len)
+            third_line = left_node
 
         # right_branch
-        right_node = str(start_node.right) if start_node.right else ''
-        right_margin = len(right_node)//2
-
-        # levels
-        first_line = (' '*left_margin) + '┌' + ('─'*left_margin) \
-                   + node \
-                   + ('─'*right_margin) + '┬'
+        if start_node.right:
+            node += '─'*2  #2 is the right margin
+            right_node = str(start_node.right) if start_node.right else ''
+            half_right_len = len(right_node)//2
+            first_line += ('─'*(half_right_len+2)) + '┐'
+            second_line += (' '*len(node)) + (' '*half_right_len) + '│'
+            third_line += (' '*(len(node)+half_right_len)) + right_node                      
+        
+        # write lines
         out.append(first_line)
-        if start_node.left or start_node.right:
-            second_line = (' '*left_margin) + '│' + (' '*left_margin) \
-                        + (' '*len(node)) \
-                        + (' '*right_margin) + '│'
-            third_line = left_node + (' '*(len(node)+right_margin)) + right_node
-            print("HERE", third_line)
+        if second_line:
             out.extend([second_line, third_line])
         return "\n".join(out)
 
