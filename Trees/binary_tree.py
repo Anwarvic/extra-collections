@@ -6,34 +6,8 @@ class TreeNode():
         self.right = None
 
     def __repr__(self):
-        # return str(self.data)
-        out = []
-        node = str(self.data)
-        # left_branch
-        left_node = str(self.left) if self.left else ''
-        left_margin = len(left_node)//2
-
-        # right_branch
-        right_node = str(self.right) if self.right else ''
-        right_margin = len(right_node)//2
-
-        # levels
-        first_line = (' '*left_margin) + '┌' + ('─'*left_margin) \
-                   + node \
-                   + ('─'*right_margin) + '┬'
-        out.append(first_line)
-        if self.left or self.right:
-            second_line = (' '*left_margin) + '│' + (' '*left_margin) \
-                        + (' '*len(node)) \
-                        + (' '*right_margin) + '│'
-            third_line = left_node + (' '*(len(node)+right_margin)) + right_node
-            print("HERE", third_line)
-            out.extend([second_line, third_line])
-        return "\n".join(out)
-
-
-
-
+        return str(self.data)
+        
     def is_leaf(self):
         return self.left == self.right == None
 
@@ -52,11 +26,33 @@ class BinaryTree():
 
 
     ############################ PRINT ############################
-    def __print_subtree(self):
-        pass
+    def __print_subtree(self, start_node):
+        out = []
+        node = str(start_node.data)
+        # left_branch
+        left_node = str(start_node.left) if start_node.left else ''
+        left_margin = len(left_node)//2
+
+        # right_branch
+        right_node = str(start_node.right) if start_node.right else ''
+        right_margin = len(right_node)//2
+
+        # levels
+        first_line = (' '*left_margin) + '┌' + ('─'*left_margin) \
+                   + node \
+                   + ('─'*right_margin) + '┬'
+        out.append(first_line)
+        if start_node.left or start_node.right:
+            second_line = (' '*left_margin) + '│' + (' '*left_margin) \
+                        + (' '*len(node)) \
+                        + (' '*right_margin) + '│'
+            third_line = left_node + (' '*(len(node)+right_margin)) + right_node
+            print("HERE", third_line)
+            out.extend([second_line, third_line])
+        return "\n".join(out)
 
     def __repr__(self):
-        return ''
+        return self.__print_subtree(self.root)
 
 
     ######################### HEIGHT/DEPTH #########################
@@ -247,13 +243,10 @@ class BinaryTree():
 
 
 if __name__ == "__main__":
-    n = TreeNode(10)
-    n.left = 5
-    n.right = 1
-    print(n)
-    # tree = BinaryTree(1)
-    # tree.root.left = TreeNode(2)
-    # tree.root.right = TreeNode(3)
+    tree = BinaryTree(1)
+    tree.root.left = TreeNode(2)
+    tree.root.right = TreeNode(3)
+    print(tree)
     # tree.root.right.right = TreeNode(7)
     # tree.root.left.left = TreeNode(4)
     # tree.root.left.right = TreeNode(5)
