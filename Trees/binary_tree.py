@@ -40,7 +40,7 @@ class BinaryTree():
             half_left_len = len(left_node)//2
             first_line = (' '*half_left_len) + '┌' + ('─'*half_left_len) + node
             second_line = (' '*half_left_len) + '│' + (' '*half_left_len)
-            third_line = left_node
+            third_line = left_node + ' '
 
         # right_branch
         if start_node.right:
@@ -49,11 +49,11 @@ class BinaryTree():
             half_right_len = len(right_node)//2
             first_line += ('─'*(half_right_len+2)) + '┐'
             second_line += (' '*len(node)) + (' '*half_right_len) + '│'
-            third_line += (' '*(len(node)+half_right_len)) + right_node                      
+            third_line += (' '*len(node)) + right_node                      
         
         # write lines
         out.append(first_line)
-        if second_line:
+        if second_line and third_line:
             out.extend([second_line, third_line])
         return "\n".join(out)
 
@@ -250,8 +250,8 @@ class BinaryTree():
 
 if __name__ == "__main__":
     tree = BinaryTree(1)
-    tree.root.left = TreeNode(2)
-    tree.root.right = TreeNode(3)
+    tree.root.left = TreeNode([10, 1000000000000000000000000])
+    tree.root.right = TreeNode([200, 10])
     print(tree)
     # tree.root.right.right = TreeNode(7)
     # tree.root.left.left = TreeNode(4)
