@@ -6,7 +6,33 @@ class TreeNode():
         self.right = None
 
     def __repr__(self):
-        return str(self.data)
+        # return str(self.data)
+        out = []
+        node = str(self.data)
+        # left_branch
+        left_node = str(self.left) if self.left else ''
+        left_margin = len(left_node)//2
+
+        # right_branch
+        right_node = str(self.right) if self.right else ''
+        right_margin = len(right_node)//2
+
+        # levels
+        first_line = (' '*left_margin) + '┌' + ('─'*left_margin) \
+                   + node \
+                   + ('─'*right_margin) + '┬'
+        out.append(first_line)
+        if self.left or self.right:
+            second_line = (' '*left_margin) + '│' + (' '*left_margin) \
+                        + (' '*len(node)) \
+                        + (' '*right_margin) + '│'
+            third_line = left_node + (' '*(len(node)+right_margin)) + right_node
+            print("HERE", third_line)
+            out.extend([second_line, third_line])
+        return "\n".join(out)
+
+
+
 
     def is_leaf(self):
         return self.left == self.right == None
@@ -23,6 +49,14 @@ class BinaryTree():
             self.root = self.__create_subtree(value)
         else:
             self.root = TreeNode(value)
+
+
+    ############################ PRINT ############################
+    def __print_subtree(self):
+        pass
+
+    def __repr__(self):
+        return ''
 
 
     ######################### HEIGHT/DEPTH #########################
@@ -213,30 +247,34 @@ class BinaryTree():
 
 
 if __name__ == "__main__":
-    tree = BinaryTree(1)
-    tree.root.left = TreeNode(2)
-    tree.root.right = TreeNode(3)
-    tree.root.right.right = TreeNode(7)
-    tree.root.left.left = TreeNode(4)
-    tree.root.left.right = TreeNode(5)
-    tree.root.left.left.right = TreeNode(10)
-    #################################
-    print("Tree Nodes:", len(tree))
-    print("Tree Height:", tree.get_height())
-    print("Tree Depth:", tree.get_depth())
-    print("Nodes per level:", tree.get_nodes())
-    print("Total Leaf Nodes:", tree.count_leaf_nodes())
-    print("Balanced Tree:", tree.is_balanced())
-    print("PreOrder Traverse:")
-    print(tree.preorder_traverse())
-    print("\npostOrder Traverse:")
-    print(tree.postorder_traverse())
-    print("\ninOrder Traverse:")
-    print(tree.inorder_traverse())
-    print("\nbreadth-first Traverse:")
-    print(tree.breadth_first_traverse())
-    print("\nTraverse:")
-    print(tree.traverse(method='POSTORDER'))
-    #####################################
-    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
-    tree = BinaryTree(lst)
+    n = TreeNode(10)
+    n.left = 5
+    n.right = 1
+    print(n)
+    # tree = BinaryTree(1)
+    # tree.root.left = TreeNode(2)
+    # tree.root.right = TreeNode(3)
+    # tree.root.right.right = TreeNode(7)
+    # tree.root.left.left = TreeNode(4)
+    # tree.root.left.right = TreeNode(5)
+    # tree.root.left.left.right = TreeNode(10)
+    # #################################
+    # print("Tree Nodes:", len(tree))
+    # print("Tree Height:", tree.get_height())
+    # print("Tree Depth:", tree.get_depth())
+    # print("Nodes per level:", tree.get_nodes())
+    # print("Total Leaf Nodes:", tree.count_leaf_nodes())
+    # print("Balanced Tree:", tree.is_balanced())
+    # print("PreOrder Traverse:")
+    # print(tree.preorder_traverse())
+    # print("\npostOrder Traverse:")
+    # print(tree.postorder_traverse())
+    # print("\ninOrder Traverse:")
+    # print(tree.inorder_traverse())
+    # print("\nbreadth-first Traverse:")
+    # print(tree.breadth_first_traverse())
+    # print("\nTraverse:")
+    # print(tree.traverse(method='POSTORDER'))
+    # #####################################
+    # lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
+    # tree = BinaryTree(lst)
