@@ -1,3 +1,5 @@
+from math import floor, ceil
+
 class TreeNode():
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
@@ -38,22 +40,22 @@ class BinaryTree():
             node = ('─'*2) + node  #2 is the left margin
             left_node = str(start_node.left)
             half_left_len = len(left_node)//2
-            first_line = (' '*half_left_len) + '┌' + ('─'*half_left_len) + node
-            second_line = (' '*half_left_len) + '│' + (' '*half_left_len)
-            third_line = left_node + ' '
+            first_line  = (' '*half_left_len) + '┌' + ('─'*half_left_len) + node
+            second_line = ('-'*half_left_len) + '│' + ('-'*half_left_len)
+            third_line = left_node if len(left_node)%2 != 0 else left_node + ' '
 
         # right_branch
         if start_node.right:
             node += '─'*2  #2 is the right margin
-            right_node = str(start_node.right) if start_node.right else ''
+            right_node = str(start_node.right)
             half_right_len = len(right_node)//2
-            first_line += ('─'*(half_right_len+2)) + '┐'
+            first_line  += ('─'*(half_right_len+2)) + '┐'
             second_line += (' '*len(node)) + (' '*half_right_len) + '│'
-            third_line += (' '*len(node)) + right_node                      
+            third_line  += (' '*len(node)) +  right_node
         
         # write lines
         out.append(first_line)
-        if second_line and third_line:
+        if second_line:
             out.extend([second_line, third_line])
         return "\n".join(out)
 
@@ -250,8 +252,8 @@ class BinaryTree():
 
 if __name__ == "__main__":
     tree = BinaryTree(1)
-    tree.root.left = TreeNode([10, 1000000000000000000000000])
-    tree.root.right = TreeNode([200, 10])
+    tree.root.left = TreeNode(2)
+    tree.root.right = TreeNode(3)
     print(tree)
     # tree.root.right.right = TreeNode(7)
     # tree.root.left.left = TreeNode(4)
