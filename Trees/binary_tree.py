@@ -239,6 +239,24 @@ class BinaryTree():
             raise AssertionError("given method must be one of these: " \
                                                         + str(trav_methods))
 
+    ############################## NODES ##############################
+    def __get_nodes_per_level(self, start_node, level, level_nodes):
+        if start_node != None:
+            if level == len(level_nodes):
+                level_nodes.append([])
+            level_nodes[level].append(start_node)
+            if start_node.left:
+                self.__get_nodes_per_level(start_node.left,
+                                           level+1,
+                                           level_nodes)
+            if start_node.right:
+                self.__get_nodes_per_level(start_node.right,
+                                           level+1,
+                                           level_nodes)
+        return level_nodes
+
+    def get_nodes(self):
+        return self.__get_nodes_per_level(self.root, 0, [])
 
     ############################## PARSE ##############################
     def __create_subtree(self, lst):
@@ -280,9 +298,10 @@ if __name__ == "__main__":
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
     print("Tree Depth:", tree.get_depth())
-    print("Nodes per level:")
+    print("Nodes per level:", tree.get_nodes())
+    print("Iterate over given tree:")
     for node in tree:
-        print(node)
+        print('\t', node)
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("Balanced Tree:", tree.is_balanced())
     print("PreOrder Traverse:")
