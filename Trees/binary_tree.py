@@ -114,14 +114,37 @@ class BinaryTree():
     ############################## BALANCED ##############################
     def is_balanced(self):
         """
-        Tree is said to be balanced if the difference between the depth of any
-        two leaf nodes is one or less.
+        Binary Tree is balanced if the difference between the depth of any
+        two leaf nodes is less than or equal one.
         """
         left_depth = 1 if self.root.left != None else 0
         left_depth += self.__get_depth(self.root.left)
         right_depth = 1 if self.root.right != None else 0
         right_depth += self.__get_depth(self.root.right)
         return abs(left_depth - right_depth) <= 1
+
+
+    ############################## BALANCED ##############################
+    def __is_subtree_perfect(self, start_node):
+        left_node = start_node.left
+        right_node = start_node.right
+
+        if left_node is None and right_node is None:
+            return True
+        elif left_node is not None and right_node is None:
+            return False
+        elif left_node is None and right_node is not None:
+            return False
+        else:
+            return self.__is_subtree_perfect(start_node.left) and \
+                    self.__is_subtree_perfect(start_node.right)
+
+    def is_perfect(self):
+        """
+        A binary tree is perfect if all its levels are completely filled.
+        """
+        return self.__is_subtree_perfect(self.root)
+
 
 
     ############################## LENGTH ##############################
@@ -289,10 +312,11 @@ if __name__ == "__main__":
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
-    tree.root.right.left = TreeNode(7)
+    tree.root.right.left = TreeNode(6)
+    tree.root.right.right = TreeNode(7)
     tree.root.left.left = TreeNode(4)
     tree.root.left.right = TreeNode(5)
-    tree.root.left.left.left = TreeNode(10)
+    # tree.root.left.left.left = TreeNode(100)
     print(tree)
     #################################
     print("Tree Nodes:", len(tree))
@@ -304,6 +328,7 @@ if __name__ == "__main__":
         print('\t', node)
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("Balanced Tree:", tree.is_balanced())
+    print("Perfect Tree:", tree.is_perfect())
     print("PreOrder Traverse:")
     print(tree.preorder_traverse())
     print("\npostOrder Traverse:")
@@ -315,6 +340,6 @@ if __name__ == "__main__":
     print("\nTraverse:")
     print(tree.traverse(method='POSTORDER'))
     #####################################
-    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
-    tree = BinaryTree(lst)
-    print(tree)
+    # lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
+    # tree = BinaryTree(lst)
+    # print(tree)
