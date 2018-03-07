@@ -156,23 +156,17 @@ class BinaryTree():
 
 
     ############################## NODES ##############################
-    def __get_nodes_per_level(self, start_node, level, level_nodes):
-        if start_node != None:
-            if level == len(level_nodes):
-                level_nodes.append([])
-            level_nodes[level].append(start_node)
-            if start_node.left:
-                self.__get_nodes_per_level(start_node.left,
-                                           level+1,
-                                           level_nodes)
-            if start_node.right:
-                self.__get_nodes_per_level(start_node.right,
-                                           level+1,
-                                           level_nodes)
-        return level_nodes
-
-    def get_nodes(self):
-        return self.__get_nodes_per_level(self.root, 0, [])
+    def __iter__(self):
+        current_nodes = [self.root]
+        while len(current_nodes) > 0:
+            next_nodes = []
+            for node in current_nodes:
+                yield node
+                if node.left != None:
+                    next_nodes.append(node.left)
+                if node.right != None:
+                    next_nodes.append(node.right)
+            current_nodes = next_nodes
 
 
     ######################### Pre-Order TRAVERSE #########################
@@ -225,10 +219,7 @@ class BinaryTree():
 
     #################### breadth-first TRAVERSE ####################
     def breadth_first_traverse(self):
-        output = []
-        for nodes in self.get_nodes():
-            output.extend([node.data for node in nodes])
-        return output
+        return [tree_node.data for tree_node in self]
 
 
     ############################## TRAVERSE ##############################
@@ -277,7 +268,7 @@ class BinaryTree():
 
 
 if __name__ == "__main__":
-    tree = BinaryTree(100000)
+    tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
     tree.root.right.left = TreeNode(7)
@@ -289,7 +280,9 @@ if __name__ == "__main__":
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
     print("Tree Depth:", tree.get_depth())
-    print("Nodes per level:", tree.get_nodes())
+    print("Nodes per level:")
+    for node in tree:
+        print(node)
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("Balanced Tree:", tree.is_balanced())
     print("PreOrder Traverse:")
@@ -305,3 +298,4 @@ if __name__ == "__main__":
     #####################################
     lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
     tree = BinaryTree(lst)
+    print(tree)
