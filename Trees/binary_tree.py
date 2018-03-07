@@ -1,5 +1,3 @@
-from math import floor, ceil
-
 class TreeNode():
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
@@ -8,7 +6,7 @@ class TreeNode():
         self.right = None
 
     def __repr__(self):
-        return str(self.data)
+        return "TreeNode({})".format(self.data)
         
     def is_leaf(self):
         return self.left == self.right == None
@@ -229,7 +227,7 @@ class BinaryTree():
     def breadth_first_traverse(self):
         output = []
         for nodes in self.get_nodes():
-            output.extend(nodes)
+            output.extend([node.data for node in nodes])
         return output
 
 
@@ -282,28 +280,28 @@ if __name__ == "__main__":
     tree = BinaryTree(100000)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
-    # tree.root.right.left = TreeNode(7)
-    # tree.root.left.left = TreeNode(4)
-    # tree.root.left.right = TreeNode(5)
-    # tree.root.left.left.left = TreeNode(10)
+    tree.root.right.left = TreeNode(7)
+    tree.root.left.left = TreeNode(4)
+    tree.root.left.right = TreeNode(5)
+    tree.root.left.left.left = TreeNode(10)
     print(tree)
-    # #################################
-    # print("Tree Nodes:", len(tree))
-    # print("Tree Height:", tree.get_height())
-    # print("Tree Depth:", tree.get_depth())
-    # print("Nodes per level:", tree.get_nodes())
-    # print("Total Leaf Nodes:", tree.count_leaf_nodes())
-    # print("Balanced Tree:", tree.is_balanced())
-    # print("PreOrder Traverse:")
-    # print(tree.preorder_traverse())
-    # print("\npostOrder Traverse:")
-    # print(tree.postorder_traverse())
-    # print("\ninOrder Traverse:")
-    # print(tree.inorder_traverse())
-    # print("\nbreadth-first Traverse:")
-    # print(tree.breadth_first_traverse())
-    # print("\nTraverse:")
-    # print(tree.traverse(method='POSTORDER'))
-    # #####################################
-    # lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
-    # tree = BinaryTree(lst)
+    #################################
+    print("Tree Nodes:", len(tree))
+    print("Tree Height:", tree.get_height())
+    print("Tree Depth:", tree.get_depth())
+    print("Nodes per level:", tree.get_nodes())
+    print("Total Leaf Nodes:", tree.count_leaf_nodes())
+    print("Balanced Tree:", tree.is_balanced())
+    print("PreOrder Traverse:")
+    print(tree.preorder_traverse())
+    print("\npostOrder Traverse:")
+    print(tree.postorder_traverse())
+    print("\ninOrder Traverse:")
+    print(tree.inorder_traverse())
+    print("\nbreadth-first Traverse:")
+    print(tree.breadth_first_traverse())
+    print("\nTraverse:")
+    print(tree.traverse(method='POSTORDER'))
+    #####################################
+    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
+    tree = BinaryTree(lst)
