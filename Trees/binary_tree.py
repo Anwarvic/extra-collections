@@ -114,7 +114,7 @@ class BinaryTree():
     ############################## BALANCED ##############################
     def is_balanced(self):
         """
-        Binary Tree is balanced if the difference between the depth of any
+        BinaryTree is balanced if the difference between the depth of any
         two leaf nodes is less than or equal one.
         """
         left_depth = 1 if self.root.left != None else 0
@@ -124,8 +124,19 @@ class BinaryTree():
         return abs(left_depth - right_depth) <= 1
 
 
-    ############################## BALANCED ##############################
-    def __is_subtree_perfect(self, start_node):
+    ############################## PERFECT ##############################
+    def is_perfect(self):
+        """
+        BinaryTree is perfect if all its levels are completely filled.
+        """
+        for level, nodes in enumerate(self.get_nodes()):
+            if 2**level != len(nodes):
+                return False
+        return True
+
+
+    ############################## STRICT ##############################
+    def __is_subtree_strict(self, start_node):
         left_node = start_node.left
         right_node = start_node.right
 
@@ -136,15 +147,15 @@ class BinaryTree():
         elif left_node is None and right_node is not None:
             return False
         else:
-            return self.__is_subtree_perfect(start_node.left) and \
-                    self.__is_subtree_perfect(start_node.right)
+            return self.__is_subtree_strict(start_node.left) and \
+                    self.__is_subtree_strict(start_node.right)
 
-    def is_perfect(self):
+    def is_strict(self):
         """
-        A binary tree is perfect if all its levels are completely filled.
+        BinaryTree is strict if all its non-leaf nodes has both left and right
+        nodes.
         """
-        return self.__is_subtree_perfect(self.root)
-
+        return self.__is_subtree_strict(self.root)
 
 
     ############################## LENGTH ##############################
@@ -329,6 +340,7 @@ if __name__ == "__main__":
     print("Total Leaf Nodes:", tree.count_leaf_nodes())
     print("Balanced Tree:", tree.is_balanced())
     print("Perfect Tree:", tree.is_perfect())
+    print("Strict Tree:", tree.is_strict())
     print("PreOrder Traverse:")
     print(tree.preorder_traverse())
     print("\npostOrder Traverse:")
