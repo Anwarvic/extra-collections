@@ -28,39 +28,67 @@ class BinaryTree():
 
 
     ############################ PRINT ############################
-    def __print_subtree(self, start_node):
-        out = []
-        node = str(start_node.data)
-        first_line = node
-        second_line = ''
-        third_line = ''
+    def __print_subtree(self, root, curr_index):
+        """
+        src: https://github.com/joowani/binarytree/blob/master/binarytree
+        """
+        if root is None:
+            return [], 0, 0, 0
+        else:
+            line1 = []
+            line2 = []
+            node_repr = str(root.data)
+            new_root_width = gap_size = len(node_repr)
 
-        # left_branch
-        if start_node.left:
-            node = ('─'*2) + node  #2 is the left margin
-            left_node = str(start_node.left)
-            half_left_len = len(left_node)//2
-            first_line  = (' '*half_left_len) + '┌' + ('─'*half_left_len) + node
-            second_line = ('-'*half_left_len) + '│' + ('-'*half_left_len)
-            third_line = left_node if len(left_node)%2 != 0 else left_node + ' '
+            # Get the left and right sub-boxes, their widths, and root repr positions
+            l_box, l_box_width, l_root_start, l_root_end = \
+                self.__print_subtree(root.left, 2 * curr_index + 1)
+            r_box, r_box_width, r_root_start, r_root_end = \
+                self.__print_subtree(root.right, 2 * curr_index + 2,)
 
-        # right_branch
-        if start_node.right:
-            node += '─'*2  #2 is the right margin
-            right_node = str(start_node.right)
-            half_right_len = len(right_node)//2
-            first_line  += ('─'*(half_right_len+2)) + '┐'
-            second_line += (' '*len(node)) + (' '*half_right_len) + '│'
-            third_line  += (' '*len(node)) +  right_node
-        
-        # write lines
-        out.append(first_line)
-        if second_line:
-            out.extend([second_line, third_line])
-        return "\n".join(out)
+            # Draw the branch connecting the current root node to the left sub-box
+            # Pad the line with whitespaces where necessary
+            if l_box_width > 0:
+                l_root = (l_root_start + l_root_end) // 2 + 1
+                line1.append(' ' * (l_root + 1))
+                line1.append('_' * (l_box_width - l_root))
+                line2.append(' ' * l_root + '/')
+                line2.append(' ' * (l_box_width - l_root))
+                new_root_start = l_box_width + 1
+                gap_size += 1
+            else:
+                new_root_start = 0
+
+            # Draw the representation of the current root node
+            line1.append(node_repr)
+            line2.append(' ' * new_root_width)
+
+            # Draw the branch connecting the current root node to the right sub-box
+            # Pad the line with whitespaces where necessary
+            if r_box_width > 0:
+                r_root = (r_root_start + r_root_end) // 2
+                line1.append('_' * r_root)
+                line1.append(' ' * (r_box_width - r_root + 1))
+                line2.append(' ' * r_root + '\\')
+                line2.append(' ' * (r_box_width - r_root))
+                gap_size += 1
+            new_root_end = new_root_start + new_root_width - 1
+
+            # Combine the left and right sub-boxes with the branches drawn above
+            gap = ' ' * gap_size
+            new_box = [''.join(line1), ''.join(line2)]
+            for i in range(max(len(l_box), len(r_box))):
+                l_line = l_box[i] if i < len(l_box) else ' ' * l_box_width
+                r_line = r_box[i] if i < len(r_box) else ' ' * r_box_width
+                new_box.append(l_line + gap + r_line)
+
+            # Return the new box, its width and its root repr positions
+            return new_box, len(new_box[0]), new_root_start, new_root_end
+
 
     def __repr__(self):
-        return self.__print_subtree(self.root)
+        lines = self.__print_subtree(self.root, 0)[0]
+        return '\n'.join((line.rstrip() for line in lines))
 
 
     ######################### HEIGHT/DEPTH #########################
@@ -251,14 +279,14 @@ class BinaryTree():
 
 
 if __name__ == "__main__":
-    tree = BinaryTree(1)
+    tree = BinaryTree(100000)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
-    print(tree)
-    # tree.root.right.right = TreeNode(7)
+    # tree.root.right.left = TreeNode(7)
     # tree.root.left.left = TreeNode(4)
     # tree.root.left.right = TreeNode(5)
-    # tree.root.left.left.right = TreeNode(10)
+    # tree.root.left.left.left = TreeNode(10)
+    print(tree)
     # #################################
     # print("Tree Nodes:", len(tree))
     # print("Tree Height:", tree.get_height())
