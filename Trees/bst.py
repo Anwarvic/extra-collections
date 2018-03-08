@@ -179,3 +179,4 @@ if __name__ == "__main__":
     print(btree.traverse())
     print("Min value:", btree.get_min())
     print("Max value:", btree.get_max())
+    print(btree)
