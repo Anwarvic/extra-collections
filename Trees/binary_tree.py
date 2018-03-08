@@ -12,7 +12,8 @@ class TreeNode:
         return self.left == self.right == None
 
     def has_one_child(self):
-        return not self.is_leaf() and (self.left==None or self.right==None)
+        return not self.is_leaf() \
+                and (self.left is None or self.right is None)
 
 
 
