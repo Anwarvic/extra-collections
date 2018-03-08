@@ -85,8 +85,8 @@ class BinaryTree():
 
 
     def __repr__(self):
-        lines = self.__print_subtree(self.root, 0)[0]
-        return '\n'.join((line.rstrip() for line in lines))
+        lines, _, _, _ = self.__print_subtree(self.root, 0)
+        return '\n'.join((line.rstrip() for line in lines[:-1]))
 
 
     ######################### HEIGHT/DEPTH #########################
@@ -350,7 +350,7 @@ if __name__ == "__main__":
     print("\nbreadth-first Traverse:")
     print(tree.breadth_first_traverse())
     print("\nTraverse:")
-    print(tree.traverse(method='POSTORDER'))
+    print(tree.traverse())
     #####################################
     # lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
     # tree = BinaryTree(lst)
