@@ -34,22 +34,26 @@ class BST(BinaryTree):
 
     ############################## MAX/MIN ##############################
     def __get_max_node(self, start_node):
+        # get the right-most node
         if start_node.right == None:
             return start_node
         else:
             return self.__get_max_node(start_node.right)
 
     def get_max(self):
-        return self.__get_max_node(self.root)
+        max_node = self.__get_max_node(self.root)
+        return max_node.data
 
     def __get_min_node(self, start_node):
+        # get the left-most node
         if start_node.left == None:
             return start_node
         else:
             return self.__get_min_node(start_node.left)
 
     def get_min(self):
-        return self.__get_min_node(self.root)
+        min_node = self.__get_min_node(self.root)
+        return min_node.data
 
 
     ############################## SEARCH ##############################
@@ -138,18 +142,19 @@ class BST(BinaryTree):
 
 
 if __name__ == "__main__":
-    # btree = BST(4)
-    # btree.insert(2)
-    # btree.insert(1)
-    # btree.insert(3)
-    # btree.insert(5)
-    # print(btree.search(1))
-    # print(btree.search(100))
+    btree = BST(4)
+    btree.insert(2)
+    btree.insert(1)
+    btree.insert(3)
+    btree.insert(5)
+    print(btree)
+    print(btree.search(1))
+    print(btree.search(100))
     #######################################
     # initialize tree by list
-    # lst = [7,10,12,22,30,11,19,25,9,20,14]
-    # btree = BST(lst)
-    # print(btree.root.right.right.left)
+    lst = [7,10,12,22,30,11,19,25,9,20,14]
+    btree = BST(lst)
+    print(btree)
     #######################################
     # example taken from "Data Structures and Algorithms in Python" book
     btree = BST(44)
@@ -167,10 +172,10 @@ if __name__ == "__main__":
     btree.root.right.left.right.left = TreeNode(76)
     btree.root.right.left.right.left.left = TreeNode(68)
     btree.root.right.left.right.left.right = TreeNode(80)
-
+    
     btree.remove(32)
     btree.remove(44)
-
+    
     print("Tree Root:", btree.root)
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
