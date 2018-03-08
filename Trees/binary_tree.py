@@ -1,4 +1,4 @@
-class TreeNode():
+class TreeNode:
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
         self.data = value
@@ -12,12 +12,12 @@ class TreeNode():
         return self.left == self.right == None
 
     def has_one_child(self):
-        return (self.left==None or self.right==None) and self.left!=self.right
+        return not self.is_leaf() and (self.left==None or self.right==None)
 
 
 
 
-class BinaryTree():
+class BinaryTree:
     def __init__(self, value):
         if type(value) == list:
             self.root = self.__create_subtree(value)
@@ -152,8 +152,8 @@ class BinaryTree():
 
     def is_strict(self):
         """
-        BinaryTree is strict if all its non-leaf nodes has both left and right
-        nodes.
+        BinaryTree is strict if all its non-leaf nodes has left and right
+        children.
         """
         return self.__is_subtree_strict(self.root)
 
