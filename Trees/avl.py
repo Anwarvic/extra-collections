@@ -9,17 +9,13 @@ class TreeNode(TreeNode):
         self.left = None
         self.right = None
 
-    def set_left(self, value):
-        assert value != None, "You can't use None as a value!!"
-        new_node = TreeNode(value)
-        new_node.parent = self
+    def set_left(self, new_node):
         self.left = new_node
+        self.left.parent = self
 
-    def set_right(self, value):
-        assert value != None, "You can't use None as a value!!"
-        new_node = TreeNode(value)
-        new_node.parent = self
+    def set_right(self, new_node):
         self.right = new_node
+        self.right.parent = self
 
 
 class AVL(BST):
@@ -50,6 +46,15 @@ class AVL(BST):
         right_depth += self.__get_depth(start_node.right)
         return abs(left_depth - right_depth) <= 1
 
+    def rotate_left(self, start_node):
+        middle = start_node.right
+        middle.parent = start_node.parent
+        middle.set_left(start_node)
+        start_node.right = None
+        return middle
+
+
+
 
 
 
@@ -57,11 +62,12 @@ class AVL(BST):
 
 if __name__ == "__main__":
     avl = AVL(1)
-    avl.root.set_right(2)
-    avl.root.right.set_right(3)
-    avl.root.right.right.set_right(4)
-    avl.root.right.right.right.set_right(5)
-    # avl.root = avl.left_rotation(avl.root)
+    avl.root.set_right(TreeNode(2))
+    avl.root.right.set_right(TreeNode(3))
+    avl.root.right.right.set_right(TreeNode(4))
+    avl.root.right.right.right.set_right(TreeNode(5))
+    avl.root = avl.rotate_left(avl.root)
+    avl.root.right = avl.rotate_left(avl.root.right)
     print(avl)
 
     # avl = AVL(5)
@@ -97,11 +103,11 @@ if __name__ == "__main__":
     # avl.remove(32)
     # avl.remove(44)
 
-    print("Tree Root:", avl.root)
-    print("Tree Nodes:", len(avl))
-    print("Tree Height:", avl.get_height())
-    print("Tree Depth:", avl.get_depth())
+    # print("Tree Root:", avl.root)
+    # print("Tree Nodes:", len(avl))
+    # print("Tree Height:", avl.get_height())
+    # print("Tree Depth:", avl.get_depth())
     print("Balanced Tree:", avl.is_balanced())
-    print(avl.traverse())
-    print("Min value:", avl.get_min())
-    print("Max value:", avl.get_max())
+    # print(avl.traverse())
+    # print("Min value:", avl.get_min())
+    # print("Max value:", avl.get_max())
