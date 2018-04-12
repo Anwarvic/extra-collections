@@ -53,7 +53,12 @@ class AVL(BST):
         start_node.right = None
         return middle
 
-
+    def rotate_right(self, start_node):
+        middle = start_node.left
+        middle.parent = start_node.parent
+        middle.set_right(start_node)
+        start_node.left = None
+        return middle
 
 
 
@@ -61,14 +66,26 @@ class AVL(BST):
 
 
 if __name__ == "__main__":
-    # to test left rotation
+    # # to test left rotation
+    # avl = AVL(1)
+    # avl.root.set_right(TreeNode(2))
+    # avl.root.right.set_right(TreeNode(3))
+    # avl.root.right.right.set_right(TreeNode(4))
+    # avl.root.right.right.right.set_right(TreeNode(5))
+    # print(avl)
+    # avl.root = avl.rotate_left(avl.root)
+    # avl.root.right = avl.rotate_left(avl.root.right)
+    # print(avl)
+
+    # to test right rotation
     avl = AVL(1)
-    avl.root.set_right(TreeNode(2))
-    avl.root.right.set_right(TreeNode(3))
-    avl.root.right.right.set_right(TreeNode(4))
-    avl.root.right.right.right.set_right(TreeNode(5))
-    avl.root = avl.rotate_left(avl.root)
-    avl.root.right = avl.rotate_left(avl.root.right)
+    avl.root.set_left(TreeNode(2))
+    avl.root.left.set_left(TreeNode(3))
+    avl.root.left.left.set_left(TreeNode(4))
+    avl.root.left.left.left.set_left(TreeNode(5))
+    print(avl)
+    avl.root = avl.rotate_right(avl.root)
+    avl.root.left = avl.rotate_right(avl.root.left)
     print(avl)
 
     
