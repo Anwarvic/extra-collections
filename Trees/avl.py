@@ -61,6 +61,7 @@ class AVL(BST):
 
 
 if __name__ == "__main__":
+    # to test left rotation
     avl = AVL(1)
     avl.root.set_right(TreeNode(2))
     avl.root.right.set_right(TreeNode(3))
@@ -70,44 +71,4 @@ if __name__ == "__main__":
     avl.root.right = avl.rotate_left(avl.root.right)
     print(avl)
 
-    # avl = AVL(5)
-    # avl.root.set_left(4)
-    # avl.root.left.set_left(3)
-    # avl.root.left.left.set_left(2)
-    # avl.root.left.left.left.set_left(1)
-    # avl.root = avl.right_rotation(avl.root)
-    # print(avl.root.left)
-    #######################################
-    # initialize tree by list
-    # lst = [7,10,12,22,30,11,19,25,9,20,14]
-    # avl = BST(lst)
-    # print(avl.root.right.right.left)
-    #######################################
-    # example taken from "Data Structures and Algorithms in Python" book
-    # avl = AVL(44)
-    # avl.root.left = TreeNode(17)
-    # avl.root.left.left = TreeNode(8)
-    # avl.root.left.right = TreeNode(32)
-    # avl.root.left.right.left = TreeNode(28)
-    # avl.root.left.right.left.right = TreeNode(29)
-    # avl.root.right = TreeNode(88)
-    # avl.root.right.right = TreeNode(97)
-    # avl.root.right.right.left = TreeNode(93)
-    # avl.root.right.left = TreeNode(65)
-    # avl.root.right.left.left = TreeNode(54)
-    # avl.root.right.left.right = TreeNode(82)
-    # avl.root.right.left.right.left = TreeNode(76)
-    # avl.root.right.left.right.left.left = TreeNode(68)
-    # avl.root.right.left.right.left.right = TreeNode(80)
-
-    # avl.remove(32)
-    # avl.remove(44)
-
-    # print("Tree Root:", avl.root)
-    # print("Tree Nodes:", len(avl))
-    # print("Tree Height:", avl.get_height())
-    # print("Tree Depth:", avl.get_depth())
-    print("Balanced Tree:", avl.is_balanced())
-    # print(avl.traverse())
-    # print("Min value:", avl.get_min())
-    # print("Max value:", avl.get_max())
+    
