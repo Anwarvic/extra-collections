@@ -69,7 +69,14 @@ class AVL(BST):
         middle.set_right(start_node)
         return middle
 
-
+    def rotate_right_left(self, start_node):
+        middle = start_node.right.left
+        middle.parent = start_node.parent
+        start_node.right.left = None
+        middle.set_right(start_node.right)
+        start_node.right = None
+        middle.set_left(start_node)
+        return middle
 
 
 if __name__ == "__main__":
@@ -97,12 +104,21 @@ if __name__ == "__main__":
     print(avl)
     print('='*50)
 
-    # to test right rotation
+    # to test left-right rotation
     avl = AVL(1)
     avl.root.set_left(TreeNode(2))
     avl.root.left.set_right(TreeNode(3))
     print(avl, '\n')
     avl.root = avl.rotate_left_right(avl.root)
+    print(avl)
+    print('='*50)
+    
+    # to test righ-left rotation
+    avl = AVL(1)
+    avl.root.set_right(TreeNode(2))
+    avl.root.right.set_left(TreeNode(3))
+    print(avl, '\n')
+    avl.root = avl.rotate_right_left(avl.root)
     print(avl)
     print('='*50)
     
