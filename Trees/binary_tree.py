@@ -109,7 +109,7 @@ class BinaryTree:
         return self.__get_height(self.root)
 
     def get_depth(self):
-        return self.get_height(self.root)
+        return self.get_height()
 
 
     ############################## BALANCED ##############################
