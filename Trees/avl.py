@@ -3,11 +3,8 @@ from bst import TreeNode, BST
 
 class TreeNode(TreeNode):
     def __init__(self, value):
-        assert value != None, "You can't use None as a value!!"
-        self.data = value
+        super().__init__(value)
         self.parent = None
-        self.left = None
-        self.right = None
 
     def set_left(self, new_node):
         self.left = new_node
@@ -53,6 +50,8 @@ class AVL(BST):
         start_node.right = None
         middle.set_left(start_node)
         return middle
+
+
 
 
 if __name__ == "__main__":
