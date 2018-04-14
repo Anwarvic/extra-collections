@@ -20,9 +20,28 @@ class TreeNode(TreeNode):
 
 class AVL(BST):
     def __init__(self, value):
-        self.root = TreeNode(value)
+        if type(value) == list:
+            lst = sorted(value)
+            self.root = self.__init_avl(lst)
+        else:
+            self.root = TreeNode(value)
 
-    def __is_balanced(self, start_node):
+    def __init_avl(self, lst):
+        length = len(lst)
+        assert length >0, "Given List must have values!!"
+        if length == 1:
+            parent = TreeNode(lst[0])
+        elif length == 2:
+            parent = TreeNode(lst[0])
+            parent.set_left( TreeNode(lst[1]) )
+        else:
+            mid_idx = len(lst)//2
+            parent = TreeNode(lst[mid_idx])
+            parent.set_left( self.__init_avl(lst[0:mid_idx]) )
+            parent.set_right( self.__init_avl(lst[mid_idx+1:]) )
+        return parent
+
+    def __subtree_balanced(self, start_node):
         left_depth = 1 if start_node.left != None else 0
         left_depth += super().get_depth(start_node.left)
         right_depth = 1 if start_node.right != None else 0
@@ -108,5 +127,9 @@ if __name__ == "__main__":
     # print('='*50)
     # print(avl.is_balanced())
     
-    # general tree
-    avl = 
+    #######################################
+    # initialize tree by list
+    lst = [7,10,12,22,30,11,19,25,9,20,14]
+    avl = AVL(lst)
+    print(avl)
+    print("AVL Balanced:", avl.is_balanced())
