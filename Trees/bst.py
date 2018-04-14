@@ -179,7 +179,7 @@ if __name__ == "__main__":
     print("Tree Root:", btree.root)
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
-    print("Tree Depth:", btree.get_depth())
+    print("Right-node Depth:", btree.get_depth(btree.root.right))
     print("Balanced Tree:", btree.is_balanced())
     print(btree.traverse())
     print("Min value:", btree.get_min())
