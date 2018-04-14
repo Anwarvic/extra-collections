@@ -112,15 +112,13 @@ class AVL(BST):
                     # right child
                     else:
                         start_node = self.rotate_left(start_node)
-                else:
-                    start_node.left = self.__rebalance_subtree(start_node.left)
-                    start_node.right = self.__rebalance_subtree(start_node.right)
-        else:
-            start_node.left = self.__rebalance_subtree(start_node.left)
-            start_node.right = self.__rebalance_subtree(start_node.right)
+        start_node.left = self.__rebalance_subtree(start_node.left)
+        start_node.right = self.__rebalance_subtree(start_node.right)
+        return start_node
 
     def rebalance(self):
-        self.root = self.__rebalance_subtree(self.root)
+        new_root = self.__rebalance_subtree(self.root)
+        self.root = new_root
 
 
 
@@ -182,6 +180,6 @@ if __name__ == "__main__":
     avl = AVL(10)
     avl.root.set_left(TreeNode(5))
     avl.root.left.set_left(TreeNode(2))
-    # avl.rebalance()
-    avl.root = avl.rotate_left(avl.root)
+    print(avl)
+    avl.rebalance()
     print(avl)
