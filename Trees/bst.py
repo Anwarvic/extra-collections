@@ -19,6 +19,7 @@ class BST(BinaryTree):
 
     def __init_bst(self, lst):
         length = len(lst)
+        assert length >0, "Given List must have values!!"
         if length == 1:
             parent = TreeNode(lst[0])
         elif length == 2:
