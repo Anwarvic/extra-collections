@@ -81,6 +81,49 @@ class AVL(BST):
         return middle
 
 
+    def __rebalance_subtree(self, start_node):
+        if start_node.is_leaf():
+            return start_node
+        elif start_node.has_one_child():
+            # left child
+            if start_node.left is not None:
+                child = start_node.left
+                if child.is_leaf():
+                    return start_node
+                elif child.has_one_child():
+                    # left child
+                    if start_node.left is not None:
+                        start_node = self.rotate_right(start_node)
+                    # right child
+                    else:
+                        start_node = self.rotate_left_right(start_node)
+                else:
+                    start_node.left = self.__rebalance_subtree(start_node.left)
+                    start_node.right = self.__rebalance_subtree(start_node.right)
+            # right child
+            else:
+                child = start_node.right
+                if child.is_leaf():
+                    return start_node
+                elif child.has_one_child():
+                    # left child
+                    if start_node.left is not None:
+                        start_node = self.rotate_right_left(start_node)
+                    # right child
+                    else:
+                        start_node = self.rotate_left(start_node)
+                else:
+                    start_node.left = self.__rebalance_subtree(start_node.left)
+                    start_node.right = self.__rebalance_subtree(start_node.right)
+        else:
+            start_node.left = self.__rebalance_subtree(start_node.left)
+            start_node.right = self.__rebalance_subtree(start_node.right)
+
+    def rebalance(self):
+        self.root = self.__rebalance_subtree(self.root)
+
+
+
 
 
 if __name__ == "__main__":
@@ -129,7 +172,16 @@ if __name__ == "__main__":
     
     #######################################
     # initialize tree by list
-    lst = [7,10,12,22,30,11,19,25,9,20,14]
-    avl = AVL(lst)
+    # lst = [7,10,12,22,30,11,19,25,9,20,14]
+    # avl = AVL(lst)
+    # print(avl)
+    # print("AVL Balanced:", avl.is_balanced())
+
+    #######################################
+    # general tree
+    avl = AVL(10)
+    avl.root.set_left(TreeNode(5))
+    avl.root.left.set_left(TreeNode(2))
+    # avl.rebalance()
+    avl.root = avl.rotate_left(avl.root)
     print(avl)
-    print("AVL Balanced:", avl.is_balanced())
