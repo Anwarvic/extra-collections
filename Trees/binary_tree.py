@@ -102,14 +102,11 @@ class BinaryTree:
             height += max(left_height, right_height)
         return height
 
-    def __get_depth(self, start_node):
+    def get_depth(self, start_node):
         return self.__get_height(start_node)
 
     def get_height(self):
         return self.__get_height(self.root)
-
-    def get_depth(self):
-        return self.get_height()
 
 
     ############################## BALANCED ##############################
@@ -119,9 +116,9 @@ class BinaryTree:
         two leaf nodes is less than or equal one.
         """
         left_depth = 1 if self.root.left != None else 0
-        left_depth += self.__get_depth(self.root.left)
+        left_depth += self.__get_height(self.root.left)
         right_depth = 1 if self.root.right != None else 0
-        right_depth += self.__get_depth(self.root.right)
+        right_depth += self.__get_height(self.root.right)
         return abs(left_depth - right_depth) <= 1
 
 
@@ -333,7 +330,7 @@ if __name__ == "__main__":
     #################################
     print("Tree Nodes:", len(tree))
     print("Tree Height:", tree.get_height())
-    print("Tree Depth:", tree.get_depth())
+    print("Left-node Depth:", tree.get_depth(tree.root.left))
     print("Nodes per level:", tree.get_nodes())
     print("Iterate over given tree:")
     for node in tree:
