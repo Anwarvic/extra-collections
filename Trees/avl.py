@@ -41,6 +41,8 @@ class AVL(BST):
             parent.set_right( self.__init_avl(lst[mid_idx+1:]) )
         return parent
 
+
+    ######################### ROTATION #########################
     def __rotate_left(self, start_node):
         middle = start_node.right
         middle.parent = start_node.parent
@@ -84,14 +86,11 @@ class AVL(BST):
                     return start_node
                 elif child.has_one_child():
                     # left child
-                    if start_node.left is not None:
+                    if child.left is not None:
                         start_node = self.__rotate_right(start_node)
                     # right child
                     else:
                         start_node = self.__rotate_left_right(start_node)
-                else:
-                    start_node.left = self.__rebalance_subtree(start_node.left)
-                    start_node.right = self.__rebalance_subtree(start_node.right)
             # right child
             else:
                 child = start_node.right
@@ -99,7 +98,7 @@ class AVL(BST):
                     return start_node
                 elif child.has_one_child():
                     # left child
-                    if start_node.left is not None:
+                    if child.left is not None:
                         start_node = self.__rotate_right_left(start_node)
                     # right child
                     else:
@@ -117,48 +116,45 @@ class AVL(BST):
 
 
 if __name__ == "__main__":
-    # # to test left rotation
-    # avl = AVL(1)
-    # avl.root.set_right(TreeNode(2))
-    # avl.root.right.set_right(TreeNode(3))
-    # avl.root.right.right.set_right(TreeNode(4))
-    # avl.root.right.right.right.set_right(TreeNode(5))
-    # print(avl, '\n')
-    # avl.root = avl.__rotate_left(avl.root)
-    # avl.root.right = avl.__rotate_left(avl.root.right)
-    # print(avl)
-    # print('='*50)
+    # to test left rotation
+    avl = AVL(1)
+    avl.root.set_right(TreeNode(2))
+    avl.root.right.set_right(TreeNode(3))
+    avl.root.right.right.set_right(TreeNode(4))
+    avl.root.right.right.right.set_right(TreeNode(5))
+    print(avl, '\n')
+    avl.rebalance()
+    print(avl)
+    print('='*50)
 
-    # # to test right rotation
-    # avl = AVL(1)
-    # avl.root.set_left(TreeNode(2))
-    # avl.root.left.set_left(TreeNode(3))
-    # avl.root.left.left.set_left(TreeNode(4))
-    # avl.root.left.left.left.set_left(TreeNode(5))
-    # print(avl, '\n')
-    # avl.root = avl.__rotate_right(avl.root)
-    # avl.root.left = avl.__rotate_right(avl.root.left)
-    # print(avl)
-    # print('='*50)
+    # to test right rotation
+    avl = AVL(1)
+    avl.root.set_left(TreeNode(2))
+    avl.root.left.set_left(TreeNode(3))
+    avl.root.left.left.set_left(TreeNode(4))
+    avl.root.left.left.left.set_left(TreeNode(5))
+    print(avl, '\n')
+    avl.rebalance()
+    print(avl)
+    print('='*50)
 
-    # # to test left-right rotation
-    # avl = AVL(1)
-    # avl.root.set_left(TreeNode(2))
-    # avl.root.left.set_right(TreeNode(3))
-    # print(avl, '\n')
-    # avl.root = avl.__rotate_left_right(avl.root)
-    # print(avl)
-    # print('='*50)
+    # to test left-right rotation
+    avl = AVL(1)
+    avl.root.set_left(TreeNode(2))
+    avl.root.left.set_right(TreeNode(3))
+    print(avl, '\n')
+    avl.rebalance()
+    print(avl)
+    print('='*50)
     
-    # # to test right-left rotation
-    # avl = AVL(1)
-    # avl.root.set_right(TreeNode(2))
-    # avl.root.right.set_left(TreeNode(3))
-    # print(avl, '\n')
-    # avl.root = avl.__rotate_right_left(avl.root)
-    # print(avl)
-    # print('='*50)
-    # print(avl.is_balanced())
+    # to test right-left rotation
+    avl = AVL(1)
+    avl.root.set_right(TreeNode(2))
+    avl.root.right.set_left(TreeNode(3))
+    print(avl, '\n')
+    avl.rebalance()
+    print(avl)
+    print('='*50)
     
     #######################################
     # initialize tree by list
@@ -177,3 +173,4 @@ if __name__ == "__main__":
     print(avl)
     avl.rebalance()
     print(avl)
+    print('='*50)
