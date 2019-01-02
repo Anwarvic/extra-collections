@@ -44,6 +44,15 @@ class AVL(BST):
         return parent
 
 
+    ######################### BALANCED #########################
+    def is_subtree_balanced(self, start_node):
+        left_depth = 1 if start_node.left != None else 0
+        left_depth += super().get_depth(start_node.left)
+        right_depth = 1 if start_node.right != None else 0
+        right_depth += super().get_depth(start_node.right)
+        return abs(left_depth - right_depth) <= 1
+
+
     ######################### ROTATION #########################
     def rotate_left(self, start_node):
         middle = start_node.right
@@ -105,4 +114,7 @@ if __name__ == "__main__":
     avl.root = avl.rotate_left_right(avl.root)
     print(avl)
     print('='*50)
+
+    # test is_subtree_balanced
+    print(avl.is_subtree_balanced(avl.root))
     
