@@ -8,12 +8,14 @@ class TreeNode(TreeNode):
 
     def set_left(self, new_node):
         self.left = new_node
-        self.left.parent = self
+        if new_node is not None:
+            self.left.parent = self
 
 
     def set_right(self, new_node):
         self.right = new_node
-        self.right.parent = self
+        if new_node is not None:
+            self.right.parent = self
 
 
 
@@ -42,45 +44,36 @@ class AVL(BST):
         return parent
 
 
-    ######################### BALANCED #########################
-    def is_subtree_balanced(self, start_node):
-        left_depth = 1 if start_node.left != None else 0
-        left_depth += super().get_depth(start_node.left)
-        right_depth = 1 if start_node.right != None else 0
-        right_depth += super().get_depth(start_node.right)
-        return abs(left_depth - right_depth) <= 1
-
-
     ######################### ROTATION #########################
     def rotate_left(self, start_node):
         middle = start_node.right
         middle.parent = start_node.parent
-        start_node.right = middle.left
+        start_node.set_right(middle.left)
         middle.set_left(start_node)
         return middle
 
     def rotate_right(self, start_node):
         middle = start_node.left
         middle.parent = start_node.parent
-        start_node.left = middle.right
+        start_node.set_left(middle.right)
         middle.set_right(start_node)
         return middle
 
     def rotate_left_right(self, start_node):
         middle = start_node.left.right
         middle.parent = start_node.parent
-        start_node.left.right = None
+        start_node.left.set_right(middle.left)
         middle.set_left(start_node.left)
-        start_node.left = None
+        start_node.set_left(middle.right)
         middle.set_right(start_node)
         return middle
 
     def rotate_right_left(self, start_node):
         middle = start_node.right.left
         middle.parent = start_node.parent
-        start_node.right.left = None
+        start_node.right.set_left(middle.right)
         middle.set_right(start_node.right)
-        start_node.right = None
+        start_node.set_right(middle.left)
         middle.set_left(start_node)
         return middle
 
@@ -101,4 +94,15 @@ if __name__ == "__main__":
     print(avl)
     print('='*50)
 
+    # to test left-right rotation
+    avl = AVL(78)
+    avl.root.set_right(TreeNode(88))
+    avl.root.set_left(TreeNode(50))
+    avl.root.left.set_left(TreeNode(48))
+    avl.root.left.set_right(TreeNode(62))
+    avl.root.left.right.set_left(TreeNode(54))
+    print(avl, '\n')
+    avl.root = avl.rotate_left_right(avl.root)
+    print(avl)
+    print('='*50)
     
