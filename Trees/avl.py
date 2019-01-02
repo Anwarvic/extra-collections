@@ -42,22 +42,31 @@ class AVL(BST):
         return parent
 
 
+    ######################### BALANCED #########################
+    def is_subtree_balanced(self, start_node):
+        left_depth = 1 if start_node.left != None else 0
+        left_depth += super().get_depth(start_node.left)
+        right_depth = 1 if start_node.right != None else 0
+        right_depth += super().get_depth(start_node.right)
+        return abs(left_depth - right_depth) <= 1
+
+
     ######################### ROTATION #########################
-    def __rotate_left(self, start_node):
+    def rotate_left(self, start_node):
         middle = start_node.right
         middle.parent = start_node.parent
-        start_node.right = None
+        start_node.right = middle.left
         middle.set_left(start_node)
         return middle
 
-    def __rotate_right(self, start_node):
+    def rotate_right(self, start_node):
         middle = start_node.left
         middle.parent = start_node.parent
-        start_node.left = None
+        start_node.left = middle.right
         middle.set_right(start_node)
         return middle
 
-    def __rotate_left_right(self, start_node):
+    def rotate_left_right(self, start_node):
         middle = start_node.left.right
         middle.parent = start_node.parent
         start_node.left.right = None
@@ -66,7 +75,7 @@ class AVL(BST):
         middle.set_right(start_node)
         return middle
 
-    def __rotate_right_left(self, start_node):
+    def rotate_right_left(self, start_node):
         middle = start_node.right.left
         middle.parent = start_node.parent
         start_node.right.left = None
@@ -75,102 +84,21 @@ class AVL(BST):
         middle.set_left(start_node)
         return middle
 
-    def __rebalance_subtree(self, start_node):
-        if start_node.is_leaf():
-            return start_node
-        elif start_node.has_one_child():
-            # left child
-            if start_node.left is not None:
-                child = start_node.left
-                if child.is_leaf():
-                    return start_node
-                elif child.has_one_child():
-                    # left child
-                    if child.left is not None:
-                        start_node = self.__rotate_right(start_node)
-                    # right child
-                    else:
-                        start_node = self.__rotate_left_right(start_node)
-            # right child
-            else:
-                child = start_node.right
-                if child.is_leaf():
-                    return start_node
-                elif child.has_one_child():
-                    # left child
-                    if child.left is not None:
-                        start_node = self.__rotate_right_left(start_node)
-                    # right child
-                    else:
-                        start_node = self.__rotate_left(start_node)
-        start_node.left = self.__rebalance_subtree(start_node.left)
-        start_node.right = self.__rebalance_subtree(start_node.right)
-        return start_node
-
-    def rebalance(self):
-        new_root = self.__rebalance_subtree(self.root)
-        self.root = new_root
-
 
 
 
 
 if __name__ == "__main__":
     # to test left rotation
-    avl = AVL(1)
-    avl.root.set_right(TreeNode(2))
-    avl.root.right.set_right(TreeNode(3))
-    avl.root.right.right.set_right(TreeNode(4))
-    avl.root.right.right.right.set_right(TreeNode(5))
+    avl = AVL(22)
+    avl.root.set_right(TreeNode(43))
+    avl.root.set_left(TreeNode(18))
+    avl.root.left.set_left(TreeNode(9))
+    avl.root.left.set_right(TreeNode(21))
+    avl.root.left.left.set_left(TreeNode(6))
     print(avl, '\n')
-    avl.rebalance()
+    avl.root = avl.rotate_right(avl.root)
     print(avl)
     print('='*50)
 
-    # to test right rotation
-    avl = AVL(1)
-    avl.root.set_left(TreeNode(2))
-    avl.root.left.set_left(TreeNode(3))
-    avl.root.left.left.set_left(TreeNode(4))
-    avl.root.left.left.left.set_left(TreeNode(5))
-    print(avl, '\n')
-    avl.rebalance()
-    print(avl)
-    print('='*50)
-
-    # to test left-right rotation
-    avl = AVL(1)
-    avl.root.set_left(TreeNode(2))
-    avl.root.left.set_right(TreeNode(3))
-    print(avl, '\n')
-    avl.rebalance()
-    print(avl)
-    print('='*50)
     
-    # to test right-left rotation
-    avl = AVL(1)
-    avl.root.set_right(TreeNode(2))
-    avl.root.right.set_left(TreeNode(3))
-    print(avl, '\n')
-    avl.rebalance()
-    print(avl)
-    print('='*50)
-    
-    #######################################
-    # initialize tree by list
-    # lst = [7,10,12,22,30,11,19,25,9,20,14]
-    # avl = AVL(lst)
-    # print(avl)
-    # print("AVL Balanced:", avl.is_balanced())
-
-    #######################################
-    # general tree
-    avl = AVL(10)
-    avl.root.set_left(TreeNode(5))
-    avl.root.left.set_left(TreeNode(2))
-    avl.root.left.left.set_left(TreeNode(1))
-    avl.root.left.left.left.set_left(TreeNode(0))
-    print(avl)
-    avl.rebalance()
-    print(avl)
-    print('='*50)
