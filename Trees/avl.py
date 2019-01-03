@@ -87,6 +87,14 @@ class AVL(BST):
         return middle
 
 
+    ######################### RE-BALANCE #########################
+    def __rebalance_subtree(self, start_node):
+        pass
+
+    def rebalance(self):
+        new_root = self.__rebalance_subtree(self.root)
+        self.root = new_root
+
 
 
 
