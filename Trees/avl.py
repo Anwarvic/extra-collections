@@ -89,7 +89,15 @@ class AVL(BST):
 
     ######################### RE-BALANCE #########################
     def __rebalance_subtree(self, start_node):
-        pass
+        if not self.is_subtree_balanced(start_node):
+            pass
+        # recurssively apply reblanace subtree
+        if start_node.left is not None:
+            start_node.left = self.__rebalance_subtree(start_node.left)
+        if start_node.right is not None:
+            start_node.right = self.__rebalance_subtree(start_node.right)
+        return start_node
+
 
     def rebalance(self):
         new_root = self.__rebalance_subtree(self.root)
