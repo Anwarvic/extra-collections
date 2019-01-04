@@ -54,21 +54,21 @@ class AVL(BST):
 
 
     ######################### ROTATION #########################
-    def rotate_left(self, start_node):
+    def __rotate_left(self, start_node):
         middle = start_node.right
         middle.parent = start_node.parent
         start_node.set_right(middle.left)
         middle.set_left(start_node)
         return middle
 
-    def rotate_right(self, start_node):
+    def __rotate_right(self, start_node):
         middle = start_node.left
         middle.parent = start_node.parent
         start_node.set_left(middle.right)
         middle.set_right(start_node)
         return middle
 
-    def rotate_left_right(self, start_node):
+    def __rotate_left_right(self, start_node):
         middle = start_node.left.right
         middle.parent = start_node.parent
         start_node.left.set_right(middle.left)
@@ -77,7 +77,7 @@ class AVL(BST):
         middle.set_right(start_node)
         return middle
 
-    def rotate_right_left(self, start_node):
+    def __rotate_right_left(self, start_node):
         middle = start_node.right.left
         middle.parent = start_node.parent
         start_node.right.set_left(middle.right)
@@ -99,10 +99,10 @@ class AVL(BST):
                 right_depth= super().get_depth(child.right)
                 # left direction
                 if left_depth > right_depth:
-                    start_node = self.rotate_right(start_node)
+                    start_node = self.__rotate_right(start_node)
                 # right direction
                 else:
-                    start_node = self.rotate_left_right(start_node)
+                    start_node = self.__rotate_left_right(start_node)
             # right direction
             else:
                 child = start_node.right
@@ -110,10 +110,10 @@ class AVL(BST):
                 right_depth= super().get_depth(child.right)
                 # left direction
                 if left_depth > right_depth:
-                    start_node = self.rotate_right_left(start_node)
+                    start_node = self.__rotate_right_left(start_node)
                 # right direction
                 else:
-                    start_node = self.rotate_left(start_node)
+                    start_node = self.__rotate_left(start_node)
         # recurssively apply __reblanace_subtree()
         if start_node.left is not None:
             start_node.left = self.__rebalance_subtree(start_node.left)
@@ -138,7 +138,6 @@ if __name__ == "__main__":
     avl.root.left.set_right(TreeNode(21))
     avl.root.left.left.set_left(TreeNode(6))
     print(avl, '\n')
-    # avl.root = avl.rotate_right(avl.root)
     avl.rebalance()
     print(avl)
     print('='*50)
@@ -151,7 +150,6 @@ if __name__ == "__main__":
     avl.root.left.set_right(TreeNode(62))
     avl.root.left.right.set_left(TreeNode(54))
     print(avl, '\n')
-    # avl.root = avl.rotate_left_right(avl.root)
     avl.rebalance()
     print(avl)
     print('='*50)
