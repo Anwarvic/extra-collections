@@ -45,7 +45,7 @@ class AVL(BST):
 
 
     ######################### BALANCED #########################
-    def is_subtree_balanced(self, start_node):
+    def __is_subtree_balanced(self, start_node):
         left_depth = 1 if start_node.left != None else 0
         left_depth += super().get_depth(start_node.left)
         right_depth = 1 if start_node.right != None else 0
@@ -89,7 +89,7 @@ class AVL(BST):
 
     ######################### RE-BALANCE #########################
     def __rebalance_subtree(self, start_node):
-        if not self.is_subtree_balanced(start_node):
+        if not self.__is_subtree_balanced(start_node):
             left_depth = super().get_depth(start_node.left)
             right_depth= super().get_depth(start_node.right)
             # left direction
