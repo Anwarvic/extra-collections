@@ -90,8 +90,37 @@ class AVL(BST):
     ######################### RE-BALANCE #########################
     def __rebalance_subtree(self, start_node):
         if not self.is_subtree_balanced(start_node):
-            pass
-        # recurssively apply reblanace subtree
+            left_is_balanced = True if not start_node.left \
+                                else self.is_subtree_balanced(start_node.left)
+            right_is_balanced= True if not start_node.right \
+                                else self.is_subtree_balanced(start_node.right)
+            # left direction
+            if not left_is_balanced:
+                child = start_node.left
+                left_is_balanced = True if not child.left \
+                                else self.is_subtree_balanced(child.left)
+                right_is_balanced= True if not child.right \
+                                    else self.is_subtree_balanced(child.right)
+                # left direction
+                if not left_is_balanced:
+                    start_node = self.rotate_right(start_node)
+                # right direction
+                elif not right_is_balanced:
+                    start_node = self.rotate_left_right(start_node)
+            # right direction
+            elif not right_is_balanced:
+                child = start_node.right
+                left_is_balanced = True if not child.left \
+                                else self.is_subtree_balanced(child.left)
+                right_is_balanced= True if not child.right \
+                                    else self.is_subtree_balanced(child.right)
+                # left direction
+                if not left_is_balanced:
+                    start_node = self.rotate_right_left(start_node)
+                # right direction
+                elif not right_is_balanced:
+                    start_node = self.rotate_left(start_node)
+        # recurssively apply __reblanace_subtree()
         if start_node.left is not None:
             start_node.left = self.__rebalance_subtree(start_node.left)
         if start_node.right is not None:
@@ -115,22 +144,24 @@ if __name__ == "__main__":
     avl.root.left.set_right(TreeNode(21))
     avl.root.left.left.set_left(TreeNode(6))
     print(avl, '\n')
-    avl.root = avl.rotate_right(avl.root)
+    # avl.root = avl.rotate_right(avl.root)
+    avl.rebalance()
     print(avl)
     print('='*50)
 
-    # to test left-right rotation
-    avl = AVL(78)
-    avl.root.set_right(TreeNode(88))
-    avl.root.set_left(TreeNode(50))
-    avl.root.left.set_left(TreeNode(48))
-    avl.root.left.set_right(TreeNode(62))
-    avl.root.left.right.set_left(TreeNode(54))
-    print(avl, '\n')
-    avl.root = avl.rotate_left_right(avl.root)
-    print(avl)
-    print('='*50)
+    # # to test left-right rotation
+    # avl = AVL(78)
+    # avl.root.set_right(TreeNode(88))
+    # avl.root.set_left(TreeNode(50))
+    # avl.root.left.set_left(TreeNode(48))
+    # avl.root.left.set_right(TreeNode(62))
+    # avl.root.left.right.set_left(TreeNode(54))
+    # print(avl, '\n')
+    # avl.root = avl.rotate_left_right(avl.root)
+    # # avl.rebalance()
+    # print(avl)
+    # print('='*50)
 
-    # test is_subtree_balanced
-    print(avl.is_subtree_balanced(avl.root))
-    
+    # # test is_subtree_balanced
+    # print(avl.is_subtree_balanced(avl.root))
+    # 
