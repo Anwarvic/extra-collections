@@ -45,12 +45,12 @@ class AVL(BST):
 
 
     ######################### BALANCED #########################
-    def __is_subtree_balanced(self, start_node):
+    def __get_children_depths(self, start_node):
         left_depth = 1 if start_node.left != None else 0
         left_depth += super().get_depth(start_node.left)
         right_depth = 1 if start_node.right != None else 0
         right_depth += super().get_depth(start_node.right)
-        return abs(left_depth - right_depth) <= 1
+        return left_depth, right_depth
 
 
     ######################### ROTATION #########################
@@ -93,14 +93,13 @@ class AVL(BST):
 
     ######################### RE-BALANCE #########################
     def __rebalance_subtree(self, start_node):
-        if not self.__is_subtree_balanced(start_node):
-            left_depth = super().get_depth(start_node.left)
-            right_depth= super().get_depth(start_node.right)
+        left_depth, right_depth = self.__get_children_depths(start_node)
+        # subtree is imbalanced
+        if abs(left_depth - right_depth) > 1:
             # left direction
             if left_depth > right_depth:
                 child = start_node.left
-                left_depth = super().get_depth(child.left)
-                right_depth= super().get_depth(child.right)
+                left_depth, right_depth = self.__get_children_depths(child)
                 # left direction
                 if left_depth > right_depth:
                     start_node = self.__rotate_right(start_node)
@@ -110,8 +109,7 @@ class AVL(BST):
             # right direction
             else:
                 child = start_node.right
-                left_depth = super().get_depth(child.left)
-                right_depth= super().get_depth(child.right)
+                left_depth, right_depth = self.__get_children_depths(child)
                 # left direction
                 if left_depth > right_depth:
                     start_node = self.__rotate_right_left(start_node)
@@ -162,11 +160,13 @@ if __name__ == "__main__":
     avl.root.left.set_left(TreeNode(9))
     avl.root.left.set_right(TreeNode(21))
     avl.root.left.left.set_left(TreeNode(6))
+    avl.root.left.left.left.set_left(TreeNode(0))
     print(avl, '\n')
     avl.rebalance()
     print(avl)
     print('='*50)
 
+    #######################################
     # to test left-right rotation
     avl = AVL(78)
     avl.root.set_right(TreeNode(88))
@@ -179,6 +179,24 @@ if __name__ == "__main__":
     print(avl)
     print('='*50)
 
+    #######################################
+    # test all rotation-operations
+    # src: Data Structures and Algorithms in Python Book (page: 506)
+    avl = AVL(44)
+    avl.root.set_left(TreeNode(17))
+    avl.root.left.set_right(TreeNode(32))
+    avl.root.set_right(TreeNode(78))
+    avl.root.right.set_left(TreeNode(50))
+    avl.root.right.set_right(TreeNode(88))
+    avl.root.right.left.set_left(TreeNode(48))
+    avl.root.right.left.set_right(TreeNode(62))
+    avl.root.right.left.right.set_left(TreeNode(54))
+    print(avl)
+    avl.rebalance()
+    print(avl)
+    print('='*50)
+
+    #######################################
     # insertion test (src: https://www.youtube.com/watch?v=7m94k2Qhg68)
     avl = AVL(43)
     avl.insert(18)
@@ -193,4 +211,6 @@ if __name__ == "__main__":
     avl.insert(62)
     avl.insert(51)
     print(avl)
+    print('='*50)
+
 
