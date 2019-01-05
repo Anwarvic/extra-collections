@@ -125,6 +125,27 @@ class AVL(BST):
     def rebalance(self):
         new_root = self.__rebalance_subtree(self.root)
         self.root = new_root
+    
+    
+    ######################### INSERTION #########################
+    def __insert(self, value, start_node):
+        if value == start_node.data:
+            return
+        elif value < start_node.data:
+            if start_node.left:
+                self.__insert(value, start_node.left)
+            else:
+                start_node.set_left( TreeNode(value) )
+        else:
+            if start_node.right:
+                self.__insert(value, start_node.right)
+            else:
+                start_node.set_right( TreeNode(value) )
+
+    def insert(self, value):
+        assert type(value) in {int, float}, "You can insert only numbers!"
+        self.__insert(value, self.root)
+        self.rebalance()
 
 
 
