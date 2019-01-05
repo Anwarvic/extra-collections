@@ -212,5 +212,3 @@ if __name__ == "__main__":
     avl.insert(51)
     print(avl)
     print('='*50)
-
-
