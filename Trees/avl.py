@@ -55,6 +55,7 @@ class AVL(BST):
 
     ######################### ROTATION #########################
     def __rotate_left(self, start_node):
+        print("Rotating Left")
         middle = start_node.right
         middle.parent = start_node.parent
         start_node.set_right(middle.left)
@@ -62,6 +63,7 @@ class AVL(BST):
         return middle
 
     def __rotate_right(self, start_node):
+        print("Rotating Right")
         middle = start_node.left
         middle.parent = start_node.parent
         start_node.set_left(middle.right)
@@ -69,6 +71,7 @@ class AVL(BST):
         return middle
 
     def __rotate_left_right(self, start_node):
+        print("Rotating Left-Right")
         middle = start_node.left.right
         middle.parent = start_node.parent
         start_node.left.set_right(middle.left)
@@ -78,6 +81,7 @@ class AVL(BST):
         return middle
 
     def __rotate_right_left(self, start_node):
+        print("Rotating Right-Left")
         middle = start_node.right.left
         middle.parent = start_node.parent
         start_node.right.set_left(middle.right)
