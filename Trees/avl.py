@@ -179,7 +179,7 @@ if __name__ == "__main__":
     print(avl)
     print('='*50)
 
-    # test insertion (https://www.youtube.com/watch?v=7m94k2Qhg68)
+    # insertion test (src: https://www.youtube.com/watch?v=7m94k2Qhg68)
     avl = AVL(43)
     avl.insert(18)
     avl.insert(22)
@@ -187,6 +187,10 @@ if __name__ == "__main__":
     avl.insert(21)
     avl.insert(6)
     avl.insert(8)
+    avl.insert(20)
+    avl.insert(63)
+    avl.insert(50)
+    avl.insert(62)
+    avl.insert(51)
     print(avl)
 
-        
