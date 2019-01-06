@@ -151,11 +151,39 @@ class AVL(BST):
 
 
     ######################### REMOVAL #########################
-    def __remove(self, value, start_node):
-        pass
+    def __remove(self, del_value, start_node):
+        par = start_node.parent
+        if start_node.data == del_value:
+            if start_node.is_leaf():
+                par.set_right(None) if del_value > par else par.set_left(None)
+            elif start_node.left and not start_node.right:
+                par.set_left(start_node.left)
+            elif not start_node.left and start_node.right:
+                par.set_right(start_node.right)
+            else:
+                replacement_node = super().__get_max_node(start_node.left)
+                start_node.data = replacement_node.data
+                self.__remove(replacement_node.data, start_node.left)
+        elif del_value < start_node.data:
+            if not start_node.left:
+                # raise ValueError("Couldn't find given value in the tree!!")
+                pass
+            else:
+                self.__remove(del_value, start_node.left)
+        else:
+            if not start_node.right:
+                # raise ValueError("Couldn't find given value in the tree!!")
+                pass
+            else:
+                self.__remove(del_value, start_node.right)
 
     def remove(self, value):
-        pass
+        assert type(del_value) in {int, float}, "AVL conains numbers only!"
+        if self.root.is_leaf() and del_value == self.root.data:
+            raise ValueError("Can't remove the only item in the tree!")
+        self.__remove(del_value, self.root)
+
+
 
 
 
