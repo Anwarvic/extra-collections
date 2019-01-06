@@ -155,7 +155,7 @@ class AVL(BST):
         par = start_node.parent
         if start_node.data == del_value:
             if start_node.is_leaf():
-                par.set_right(None) if del_value > par else par.set_left(None)
+                par.set_right(None) if del_value > par.data else par.set_left(None)
             elif start_node.left and not start_node.right:
                 par.set_left(start_node.left)
             elif not start_node.left and start_node.right:
@@ -177,73 +177,92 @@ class AVL(BST):
             else:
                 self.__remove(del_value, start_node.right)
 
-    def remove(self, value):
+    def remove(self, del_value):
         assert type(del_value) in {int, float}, "AVL conains numbers only!"
         if self.root.is_leaf() and del_value == self.root.data:
             raise ValueError("Can't remove the only item in the tree!")
         self.__remove(del_value, self.root)
+        self.rebalance()
 
 
 
 
 
 if __name__ == "__main__":
-    # to test left rotation
-    avl = AVL(22)
-    avl.root.set_right(TreeNode(43))
-    avl.root.set_left(TreeNode(18))
-    avl.root.left.set_left(TreeNode(9))
-    avl.root.left.set_right(TreeNode(21))
-    avl.root.left.left.set_left(TreeNode(6))
-    avl.root.left.left.left.set_left(TreeNode(0))
-    print(avl, '\n')
-    avl.rebalance()
-    print(avl)
-    print('='*50)
+    # # to test left rotation
+    # avl = AVL(22)
+    # avl.root.set_right(TreeNode(43))
+    # avl.root.set_left(TreeNode(18))
+    # avl.root.left.set_left(TreeNode(9))
+    # avl.root.left.set_right(TreeNode(21))
+    # avl.root.left.left.set_left(TreeNode(6))
+    # avl.root.left.left.left.set_left(TreeNode(0))
+    # print(avl, '\n')
+    # avl.rebalance()
+    # print(avl)
+    # print('='*50)
 
-    #######################################
-    # to test left-right rotation
-    avl = AVL(78)
-    avl.root.set_right(TreeNode(88))
-    avl.root.set_left(TreeNode(50))
-    avl.root.left.set_left(TreeNode(48))
-    avl.root.left.set_right(TreeNode(62))
-    avl.root.left.right.set_left(TreeNode(54))
-    print(avl, '\n')
-    avl.rebalance()
-    print(avl)
-    print('='*50)
+    # #######################################
+    # # to test left-right rotation
+    # avl = AVL(78)
+    # avl.root.set_right(TreeNode(88))
+    # avl.root.set_left(TreeNode(50))
+    # avl.root.left.set_left(TreeNode(48))
+    # avl.root.left.set_right(TreeNode(62))
+    # avl.root.left.right.set_left(TreeNode(54))
+    # print(avl, '\n')
+    # avl.rebalance()
+    # print(avl)
+    # print('='*50)
 
+    # #######################################
+    # # test all rotation-operations
+    # # src: Data Structures and Algorithms in Python Book (page: 506)
+    # avl = AVL(44)
+    # avl.root.set_left(TreeNode(17))
+    # avl.root.left.set_right(TreeNode(32))
+    # avl.root.set_right(TreeNode(78))
+    # avl.root.right.set_left(TreeNode(50))
+    # avl.root.right.set_right(TreeNode(88))
+    # avl.root.right.left.set_left(TreeNode(48))
+    # avl.root.right.left.set_right(TreeNode(62))
+    # avl.root.right.left.right.set_left(TreeNode(54))
+    # print(avl)
+    # avl.rebalance()
+    # print(avl)
+    # print('='*50)
+
+    # #######################################
+    # # insertion test (src: https://www.youtube.com/watch?v=7m94k2Qhg68)
+    # avl = AVL(43)
+    # avl.insert(18)
+    # avl.insert(22)
+    # avl.insert(9)
+    # avl.insert(21)
+    # avl.insert(6)
+    # avl.insert(8)
+    # avl.insert(20)
+    # avl.insert(63)
+    # avl.insert(50)
+    # avl.insert(62)
+    # avl.insert(51)
+    # print(avl)
+    # print('='*50)
+    
     #######################################
     # test all rotation-operations
     # src: Data Structures and Algorithms in Python Book (page: 506)
     avl = AVL(44)
     avl.root.set_left(TreeNode(17))
     avl.root.left.set_right(TreeNode(32))
-    avl.root.set_right(TreeNode(78))
+    avl.root.set_right(TreeNode(62))
     avl.root.right.set_left(TreeNode(50))
-    avl.root.right.set_right(TreeNode(88))
+    avl.root.right.set_right(TreeNode(78))
     avl.root.right.left.set_left(TreeNode(48))
-    avl.root.right.left.set_right(TreeNode(62))
-    avl.root.right.left.right.set_left(TreeNode(54))
+    avl.root.right.left.set_right(TreeNode(54))
+    avl.root.right.right.set_right(TreeNode(88))
     print(avl)
+    avl.remove(32)
     avl.rebalance()
-    print(avl)
-    print('='*50)
-
-    #######################################
-    # insertion test (src: https://www.youtube.com/watch?v=7m94k2Qhg68)
-    avl = AVL(43)
-    avl.insert(18)
-    avl.insert(22)
-    avl.insert(9)
-    avl.insert(21)
-    avl.insert(6)
-    avl.insert(8)
-    avl.insert(20)
-    avl.insert(63)
-    avl.insert(50)
-    avl.insert(62)
-    avl.insert(51)
     print(avl)
     print('='*50)
