@@ -262,7 +262,7 @@ if __name__ == "__main__":
     avl.root.right.left.set_right(TreeNode(54))
     avl.root.right.right.set_right(TreeNode(88))
     print(avl)
-    avl.remove(32)
+    avl.remove(17)
     avl.rebalance()
     print(avl)
     print('='*50)
