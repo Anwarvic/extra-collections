@@ -150,6 +150,13 @@ class AVL(BST):
         self.rebalance()
 
 
+    ######################### REMOVAL #########################
+    def __remove(self, value, start_node):
+        pass
+
+    def remove(self, value):
+        pass
+
 
 
 if __name__ == "__main__":
