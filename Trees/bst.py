@@ -99,10 +99,6 @@ class BST(BinaryTree):
 
     ############################## REMOVAL ##############################
     def __remove(self, del_value, parent, start_node):
-        # handle edge case
-        if parent == None and start_node.is_leaf():
-            raise ValueError("Can't remove the only item in the tree!")
-        # handle general case
         if del_value == start_node.data:
             if start_node.is_leaf():
                 if del_value < parent.data:
@@ -124,15 +120,24 @@ class BST(BinaryTree):
                 start_node.data = replacement_node.data
                 self.__remove(replacement_node.data, start_node, start_node.left)
         elif del_value < start_node.data:
-            self.__remove(del_value, start_node, start_node.left)
+            if not start_node.left:
+                # raise ValueError("Couldn't find given value in the tree!!")
+                pass
+            else:
+                self.__remove(del_value, start_node, start_node.left)
         else:
-            self.__remove(del_value, start_node, start_node.right)
+            if not start_node.right:
+                # raise ValueError("Couldn't find given value in the tree!!")
+                pass
+            else:
+                self.__remove(del_value, start_node, start_node.right)
 
 
     def remove(self, del_value):
         assert type(del_value) in {int, float}, "BST conains numbers only!"
-        if self.search(del_value):
-            self.__remove(del_value, None, self.root)
+        if self.root.is_leaf() and del_value == self.root.data:
+            raise ValueError("Can't remove the only item in the tree!")
+        self.__remove(del_value, None, self.root)
 
 
 
@@ -179,6 +184,7 @@ if __name__ == "__main__":
 
     btree.remove(32)
     btree.remove(44)
+    btree.remove(4000)
     print(btree)
 
     print("Tree Root:", btree.root)
