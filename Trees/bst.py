@@ -21,16 +21,16 @@ class BST(BinaryTree):
         length = len(lst)
         assert length >0, "Given List must have values!!"
         if length == 1:
-            parent = TreeNode(lst[0])
+            node = TreeNode(lst[0])
         elif length == 2:
-            parent = TreeNode(lst[0])
-            parent.left = TreeNode(lst[1])
+            node = TreeNode(lst[0])
+            node.left = TreeNode(lst[1])
         else:
             mid_idx = len(lst)//2
-            parent = TreeNode(lst[mid_idx])
-            parent.left = self.__init_bst(lst[0:mid_idx])
-            parent.right = self.__init_bst(lst[mid_idx+1:])
-        return parent
+            node = TreeNode(lst[mid_idx])
+            node.left = self.__init_bst(lst[0:mid_idx])
+            node.right = self.__init_bst(lst[mid_idx+1:])
+        return node
 
 
     ############################## MAX/MIN ##############################
@@ -151,11 +151,13 @@ if __name__ == "__main__":
     print(btree)
     print(btree.search(1))
     print(btree.search(100))
+    print('='*50)
     #######################################
     # initialize tree by list
     lst = [7,10,12,22,30,11,19,25,9,20,14]
     btree = BST(lst)
     print(btree)
+    print('='*50)
     #######################################
     # example taken from "Data Structures and Algorithms in Python" book
     btree = BST(44)
@@ -173,10 +175,12 @@ if __name__ == "__main__":
     btree.root.right.left.right.left = TreeNode(76)
     btree.root.right.left.right.left.left = TreeNode(68)
     btree.root.right.left.right.left.right = TreeNode(80)
-    
+    print(btree)
+
     btree.remove(32)
     btree.remove(44)
-    
+    print(btree)
+
     print("Tree Root:", btree.root)
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
@@ -185,4 +189,3 @@ if __name__ == "__main__":
     print(btree.traverse())
     print("Min value:", btree.get_min())
     print("Max value:", btree.get_max())
-    print(btree)
