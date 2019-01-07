@@ -256,8 +256,8 @@ if __name__ == "__main__":
     print('='*50)
     
     #######################################
-    # test all rotation-operations
-    # src: Data Structures and Algorithms in Python Book (page: 506)
+    # test all remove operation
+    # src: Data Structures and Algorithms in Python Book (page: 508)
     avl = AVL(44)
     avl.root.set_left(TreeNode(17))
     avl.root.left.set_right(TreeNode(32))
