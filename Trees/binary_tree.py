@@ -20,7 +20,9 @@ class TreeNode:
 
 class BinaryTree:
     def __init__(self, value):
-        if type(value) == list:
+        if isinstance(value, TreeNode):
+            self.root = value
+        elif type(value) == list:
             self.root = self.__create_subtree(value)
         else:
             self.root = TreeNode(value)
@@ -318,6 +320,14 @@ class BinaryTree:
 
 
 if __name__ == "__main__":
+    # create tree using TreeNode
+    root = TreeNode(10)
+    root.left = TreeNode(5)
+    root.left.left = TreeNode(1)
+    root.right = TreeNode(20)
+    tree = BinaryTree(root)
+    print(tree)
+    ##############################
     tree = BinaryTree(1)
     tree.root.left = TreeNode(2)
     tree.root.right = TreeNode(3)
