@@ -74,7 +74,7 @@ class BST(BinaryTree):
             else:
                 return False
 
-    def search(self, find_val):
+    def __contains__(self, find_val):
         assert type(find_val) in {int, float}, "You can insert only numbers!"
         return self.__search(find_val, self.root)
 
@@ -156,8 +156,8 @@ if __name__ == "__main__":
     bst.insert(3)
     bst.insert(5)
     print(bst)
-    print(bst.search(1))
-    print(bst.search(100))
+    print(1 in bst)
+    print(100 in bst)
     print('='*50)
     #######################################
     # initialize tree by list
