@@ -23,9 +23,14 @@ class MinHeap(BinaryTree):
             node.right = self.heapify(lst[2::2])
         return node
 
+    def get_min(self):
+        return self.root.data
+        
+
 
 
 
 if __name__ == "__main__":
     h = MinHeap([4,3,1,2, 5, 80, 10, 20, 30, 40, 52, 10])
     print(h)
+    print(h.get_min())
