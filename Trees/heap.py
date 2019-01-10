@@ -1,27 +1,34 @@
-from binary_tree import TreeNode, BinaryTree
+from avl import TreeNode
+from bst import BST
 
 
-class MinHeap(BinaryTree):
+class MinHeap(BST):
     def __init__(self, value):
         if type(value) == list:
-            lst = sorted(value)
-            self.root = self.heapify(lst)
+            self.length = len(value)
+            self.root = self.__heapify(value)
         else:
+            self.length = 1
             self.root = TreeNode(value)
 
-    def heapify(self, lst):
+    def __heapify(self, lst):
+        lst = sorted(lst)
         length = len(lst)
         assert length >0, "Given List must have values!!"
         if length == 1:
             node = TreeNode(lst[0])
         elif length == 2:
             node = TreeNode(lst[0])
-            node.left = TreeNode(lst[1])
+            node.set_left( TreeNode(lst[1]) )
         else:
             node = TreeNode(lst[0])
-            node.left = self.heapify(lst[1::2])
-            node.right = self.heapify(lst[2::2])
+            node.set_left( self.__heapify(lst[1::2]) )
+            node.set_right( self.__heapify(lst[2::2]) )
         return node
+
+
+    def __len__(self):
+        return self.length
 
     def get_min(self):
         return self.root.data
@@ -30,10 +37,23 @@ class MinHeap(BinaryTree):
         raise NotImplementedError("This is a min-heap!!")
 
 
+    ############################## INSERTION ##############################
+    def swap(self, parent, start_node):
+        pass
+
+
+    def insert(self, value):
+        assert type(value) in {int, float}, "You can insert only numbers!"
+        self.length += 1
+        level = 
+
+
+
 
 
 if __name__ == "__main__":
     h = MinHeap([4,3,1,2, 5, 80, 10, 20, 30, 40, 52, 10])
     print(h)
     print(h.get_min())
-    print(h.get_max())
+    print("Heap Traverse:", h.traverse("depth-first"))
+    print(len(h))
