@@ -25,7 +25,9 @@ class MinHeap(BinaryTree):
 
     def get_min(self):
         return self.root.data
-        
+
+    def get_max(self):
+        raise NotImplementedError("This is a min-heap!!")
 
 
 
@@ -34,3 +36,4 @@ if __name__ == "__main__":
     h = MinHeap([4,3,1,2, 5, 80, 10, 20, 30, 40, 52, 10])
     print(h)
     print(h.get_min())
+    print(h.get_max())
