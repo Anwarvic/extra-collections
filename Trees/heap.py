@@ -45,7 +45,7 @@ class MinHeap(BST):
     def insert(self, value):
         assert type(value) in {int, float}, "You can insert only numbers!"
         self.length += 1
-        level = 
+        
 
 
 
