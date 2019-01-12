@@ -1,12 +1,9 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from binary_tree import TreeNode, BinaryTree
 
 
 class Heap():
-    def __init__(self, value):
-        assert type(value) in {int, float}, "Heap contains numbers only!!"
-        self.heap = [value]
 
     @abstractmethod
     def heapify(lst):
@@ -18,11 +15,55 @@ class Heap():
             node.left = TreeNode(lst[1])
         else:
             node = TreeNode(lst[0])
-            node.left = self.__heapify(lst[1::2])
-            node.right = self.__heapify(lst[2::2])
-        btree = BinaryTree(0)
-        btree.root = node
+            node.left = Heap.heapify(lst[1::2])
+            node.right = Heap.heapify(lst[2::2])
         return node
 
 
+    @abstractmethod
+    def insert(self, value, func):
+        # add the new value
+        self.heap.append(value)
+        # swap between parents when needed
+        idx = self.length
+        while(idx != 0):
+            parent_idx = (idx-1)//2
+            current = self.heap[idx]
+            parent = self.heap[parent_idx]
+            if func(parent, current):
+                self.heap[parent_idx], self.heap[idx] = \
+                                        self.heap[idx], self.heap[parent_idx]
+                idx = parent_idx
+            else:
+                break
 
+
+
+
+
+class MinHeap(Heap):
+
+    def __init__(self, value):
+        if type(value) in {list, set, frozenset}:
+            lst = sorted(value)
+            self.heap = lst
+        elif type(value) in {int, float}:
+            self.heap = [value]
+        else:
+            raise ValueError("Unsupported datatype!!")
+
+
+    def __repr__(self):
+        root = Heap.heapify(self.heap)
+        return str( BinaryTree(root) )
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    heap = MinHeap([1,2,3,4])
+    # heap.insert(1)
+    print(heap)
