@@ -58,6 +58,10 @@ class MinHeap():
                 break
 
 
+    def get_min(self):
+        return self.heap[0]
+
+
 
 
 
@@ -67,4 +71,9 @@ if __name__ == "__main__":
     heap = MinHeap([1,2,3,4])
     heap.insert(1)
     heap.insert(2)
+    heap.insert(20)
+    heap.insert(500)
+    heap.insert(200)
+    heap.insert(0)
     print(heap)
+    print("Min value:", heap.get_min())
