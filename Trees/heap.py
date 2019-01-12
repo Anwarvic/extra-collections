@@ -4,7 +4,6 @@ from binary_tree import TreeNode, BinaryTree
 
 
 class Heap(ABC):
-
     @abstractmethod
     def heapify(lst):
         length = len(lst)
@@ -35,12 +34,13 @@ class MinHeap():
         else:
             raise ValueError("Unsupported datatype!!")
 
+    def __len__(self):
+        return len(self.heap)
 
     def __repr__(self):
         root = Heap.heapify(self.heap)
         return str( BinaryTree(root) )
 
-    def __
     def insert(self, value):
         # add the new value
         self.heap.append(value)
@@ -78,3 +78,4 @@ if __name__ == "__main__":
     print(heap)
     print("Min value:", heap.get_min())
     print("Max value:", heap.get_max())
+    print("Heap length:", len(heap))
