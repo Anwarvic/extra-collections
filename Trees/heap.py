@@ -40,7 +40,7 @@ class MinHeap():
         root = Heap.heapify(self.heap)
         return str( BinaryTree(root) )
 
-    
+    def __
     def insert(self, value):
         # add the new value
         self.heap.append(value)
@@ -57,11 +57,11 @@ class MinHeap():
             else:
                 break
 
-
     def get_min(self):
         return self.heap[0]
 
-
+    def get_max(self):
+        return max(self.heap)
 
 
 
@@ -77,3 +77,4 @@ if __name__ == "__main__":
     heap.insert(0)
     print(heap)
     print("Min value:", heap.get_min())
+    print("Max value:", heap.get_max())
