@@ -16,12 +16,12 @@ class Heap(ABC):
         q = [root]
         idx = 1
         length = len(lst)
-        while (idx < length-1):
+        while (idx < length):
             parent_node = q.pop(0)
             parent_node.left = TreeNode(lst[idx])
             q.append(parent_node.left)
             idx += 1
-            if idx < length-1:
+            if idx < length:
                 parent_node.right = TreeNode(lst[idx])
                 q.append(parent_node.right)
                 idx += 1
@@ -80,7 +80,8 @@ class MinHeap(Heap):
 
     def __init__(self, value):
         if type(value) in {list, set, frozenset}:
-            lst = sorted(value)
+            # lst = sorted(value)
+            lst = value
             self.heap = lst
         elif type(value) in {int, float}:
             self.heap = [value]
@@ -156,5 +157,5 @@ if __name__ == "__main__":
     # print("Heap length:", len(heap))
 
     #####################################################
-    heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17])
+    heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190])
     print(heap)
