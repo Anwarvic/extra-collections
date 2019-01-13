@@ -10,18 +10,23 @@ class Heap(ABC):
         self.heap = []
         pass
 
+    
     def heapify(self, lst):
+        root = TreeNode(lst[0])
+        q = [root]
+        idx = 1
         length = len(lst)
-        if length == 1:
-            node = TreeNode(lst[0])
-        elif length == 2:
-            node = TreeNode(lst[0])
-            node.left = TreeNode(lst[1])
-        else:
-            node = TreeNode(lst[0])
-            node.left = self.heapify(lst[1::2])
-            node.right = self.heapify(lst[2::2])
-        return node
+        while (idx < length-1):
+            parent_node = q.pop(0)
+            parent_node.left = TreeNode(lst[idx])
+            q.append(parent_node.left)
+            idx += 1
+            if idx < length-1:
+                parent_node.right = TreeNode(lst[idx])
+                q.append(parent_node.right)
+                idx += 1
+        return BinaryTree(root)
+
 
     def insert(self, value, is_swap_needed):
         # add the new value
@@ -117,24 +122,24 @@ class MinHeap(Heap):
 
 if __name__ == "__main__":
     # h = Heap()
-    heap = MinHeap([1,2,3,4])
-    heap.insert(1)
-    heap.insert(2)
-    heap.insert(20)
-    heap.insert(500)
-    heap.insert(200)
-    heap.insert(15)
-    heap.insert(40)
-    heap.insert(11)
-    heap.insert(5)
-    heap.insert(8)
-    heap.insert(0)
-    print(heap)
-    print(heap.heap)
-    print("Min value:", heap.get_min())
-    print("Max value:", heap.get_max())
-    print("Heap length:", len(heap))
-    print('='*50)
+    # heap = MinHeap([1,2,3,4])
+    # heap.insert(1)
+    # heap.insert(2)
+    # heap.insert(20)
+    # heap.insert(500)
+    # heap.insert(200)
+    # heap.insert(15)
+    # heap.insert(40)
+    # heap.insert(11)
+    # heap.insert(5)
+    # heap.insert(8)
+    # heap.insert(0)
+    # print(heap)
+    # print(heap.heap)
+    # print("Min value:", heap.get_min())
+    # print("Max value:", heap.get_max())
+    # print("Heap length:", len(heap))
+    # print('='*50)
 
     # #####################################################
     # heap = MinHeap([1,2,3,4])
@@ -149,3 +154,7 @@ if __name__ == "__main__":
     # print("Min value:", heap.get_min())
     # print("Max value:", heap.get_max())
     # print("Heap length:", len(heap))
+
+    #####################################################
+    heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17])
+    print(heap)
