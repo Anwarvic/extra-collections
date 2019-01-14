@@ -4,13 +4,25 @@ from abc import ABC, abstractmethod
 from binary_tree import TreeNode, BinaryTree
 
 
+def sort_heap(lst, min_heap=True):
+    """Sort given list to the parent node will be bigger than children if
+    min_heap=False or smaller than children if min_heap=True (default)"""
+    idx = len(lst)-1
+    for idx in range(len(lst)-1, -1, -1):
+        parent_idx = (idx-1)//2
+        if (min_heap and lst[parent_idx] > lst[idx]) or \
+            (not min_heap and lst[parent_idx] < lst[idx]):
+            # sift up
+            lst[parent_idx], lst[idx] = lst[idx], lst[parent_idx]
+    return lst
+
+
 class Heap(ABC):
     @abstractmethod
     def __init__(self):
         self.heap = []
         pass
 
-    
     def heapify(self, lst):
         root = TreeNode(lst[0])
         q = [root]
@@ -26,6 +38,7 @@ class Heap(ABC):
                 q.append(parent_node.right)
                 idx += 1
         return BinaryTree(root)
+    
 
 
     def insert(self, value, is_swap_needed):
@@ -80,9 +93,7 @@ class MinHeap(Heap):
 
     def __init__(self, value):
         if type(value) in {list, set, frozenset}:
-            # lst = sorted(value)
-            lst = value
-            self.heap = lst
+            self.heap = sort_heap(value, min_heap=True)
         elif type(value) in {int, float}:
             self.heap = [value]
         else:
