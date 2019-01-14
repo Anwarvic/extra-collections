@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from binary_tree import TreeNode, BinaryTree
 
-
+# deprecated
 def sort_heap(lst, min_heap=True):
     """Sort given list to the parent node will be bigger than children if
     min_heap=False or smaller than children if min_heap=True (default)"""
@@ -16,7 +16,6 @@ def sort_heap(lst, min_heap=True):
             lst[parent_idx], lst[idx] = \
                             lst[idx], lst[parent_idx]
         idx -= 1
-    return lst
 
 
 class Heap(ABC):
@@ -25,6 +24,7 @@ class Heap(ABC):
         self._heap = []
         pass
 
+    ############################## HEAPIFY ##############################
     def heapify(self, lst):
         root = TreeNode(lst[0])
         q = [root]
@@ -65,13 +65,13 @@ class Heap(ABC):
         """Removes first utterence of given value"""
         del_idx = self._heap.index(del_val)
         last_idx = len(self._heap)-1
-        if del_idx != last_idx:
-            self._heap[last_idx], self._heap[del_idx] = \
-                                    self._heap[del_idx], self._heap[last_idx]
-        # remove this item
+        # swap between removed item and last item
+        self._heap[last_idx], self._heap[del_idx] = \
+                                self._heap[del_idx], self._heap[last_idx]
+        # remove item
         self._heap.pop()
-        idx = del_idx
-        while(idx != 0):
+        parent_idx = del_idx
+        while(parent_idx < last_idx):
             parent_idx = (idx-1)//2
             current = self._heap[idx]
             parent = self._heap[parent_idx]
@@ -92,7 +92,7 @@ class MinHeap(Heap):
 
     def __init__(self, value):
         if type(value) in {list, set, frozenset}:
-            self._heap = sort_heap(value, min_heap=True)
+            self._heap = sorted(value)
         elif type(value) in {int, float}:
             self._heap = [value]
         else:
@@ -115,6 +115,9 @@ class MinHeap(Heap):
     def insert(self, value):
         super().insert(value, lambda parent,child: parent > child)
 
+    def remove(self, del_value):
+        super().remove(del_value, lambda parent,child: parent > child)
+
 
     
 
@@ -127,15 +130,24 @@ class MinHeap(Heap):
 if __name__ == "__main__":
     # h = Heap()
 
-    heap = MinHeap([1, 3, 6, 5, 9, 8])
-    heap.insert(-2)
-    print(heap)
-    print("Min value:", heap.get_min())
-    print("Max value:", heap.get_max())
-    print("Heap length:", len(heap))
-    print('='*50)
-
-    #####################################################
     # heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190])
     # heap.insert(0)
     # print(heap)
+    # print("Min value:", heap.get_min())
+    # print("Max value:", heap.get_max())
+    # print("Heap length:", len(heap))
+    # print('='*50)
+
+    #####################################################
+    # test insert
+    heap = MinHeap(35)
+    heap.insert(33)
+    heap.insert(42)
+    heap.insert(10)
+    heap.insert(14)
+    heap.insert(19)
+    heap.insert(27)
+    heap.insert(44)
+    heap.insert(26)
+    heap.insert(31)
+    print(heap)
