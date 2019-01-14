@@ -41,6 +41,8 @@ class Heap(ABC):
                 idx += 1
         return BinaryTree(root)
     
+    
+    ############################## INSERTION ##############################
     def insert(self, value, is_swap_needed):
         # add the new value
         self._heap.append(value)
@@ -58,10 +60,7 @@ class Heap(ABC):
                 break
 
 
-    def get_level(self, idx):
-        """returns heap-level given item index"""
-        return int( log2(idx+1) )
-
+    ############################## REMOVAL ##############################
     def remove(self, del_val, is_swap_needed):
         """Removes first utterence of given value"""
         del_idx = self._heap.index(del_val)
@@ -107,24 +106,17 @@ class MinHeap(Heap):
         btree = BinaryTree(root)
         return str( btree )
 
-
-    ############################## MIN/MAX ##############################
     def get_min(self):
         return self._heap[0]
 
     def get_max(self):
         return max(self._heap)
 
-
-    ############################## INSERTION ##############################
-    def __is_parent_bigger(self, parent, child):
-        return parent > child
-
     def insert(self, value):
-        super().insert(value, self.__is_parent_bigger)
+        super().insert(value, lambda parent,child: parent > child)
 
 
-    ############################## REMOVAL ##############################
+    
 
 
 
