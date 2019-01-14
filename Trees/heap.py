@@ -8,12 +8,14 @@ def sort_heap(lst, min_heap=True):
     """Sort given list to the parent node will be bigger than children if
     min_heap=False or smaller than children if min_heap=True (default)"""
     idx = len(lst)-1
-    for idx in range(len(lst)-1, -1, -1):
+    while(idx != 0):
         parent_idx = (idx-1)//2
         if (min_heap and lst[parent_idx] > lst[idx]) or \
             (not min_heap and lst[parent_idx] < lst[idx]):
             # sift up
-            lst[parent_idx], lst[idx] = lst[idx], lst[parent_idx]
+            lst[parent_idx], lst[idx] = \
+                            lst[idx], lst[parent_idx]
+        idx -= 1
     return lst
 
 
@@ -39,7 +41,6 @@ class Heap(ABC):
                 idx += 1
         return BinaryTree(root)
     
-
 
     def insert(self, value, is_swap_needed):
         # add the new value
@@ -169,4 +170,5 @@ if __name__ == "__main__":
 
     #####################################################
     heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190])
+    print(heap.heap)
     print(heap)
