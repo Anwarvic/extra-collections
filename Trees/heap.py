@@ -22,7 +22,7 @@ def sort_heap(lst, min_heap=True):
 class Heap(ABC):
     @abstractmethod
     def __init__(self):
-        self.heap = []
+        self._heap = []
         pass
 
     def heapify(self, lst):
@@ -41,19 +41,18 @@ class Heap(ABC):
                 idx += 1
         return BinaryTree(root)
     
-
     def insert(self, value, is_swap_needed):
         # add the new value
-        self.heap.append(value)
+        self._heap.append(value)
         # swap between parents when needed
-        idx = len(self.heap)-1
+        idx = len(self._heap)-1
         while(idx != 0):
             parent_idx = (idx-1)//2
-            current = self.heap[idx]
-            parent = self.heap[parent_idx]
+            current = self._heap[idx]
+            parent = self._heap[parent_idx]
             if is_swap_needed(parent, current):
-                self.heap[parent_idx], self.heap[idx] = \
-                                        self.heap[idx], self.heap[parent_idx]
+                self._heap[parent_idx], self._heap[idx] = \
+                                        self._heap[idx], self._heap[parent_idx]
                 idx = parent_idx
             else:
                 break
@@ -65,21 +64,21 @@ class Heap(ABC):
 
     def remove(self, del_val, is_swap_needed):
         """Removes first utterence of given value"""
-        del_idx = self.heap.index(del_val)
-        last_idx = len(self.heap)-1
+        del_idx = self._heap.index(del_val)
+        last_idx = len(self._heap)-1
         if del_idx != last_idx:
-            self.heap[last_idx], self.heap[del_idx] = \
-                                    self.heap[del_idx], self.heap[last_idx]
+            self._heap[last_idx], self._heap[del_idx] = \
+                                    self._heap[del_idx], self._heap[last_idx]
         # remove this item
-        self.heap.pop()
+        self._heap.pop()
         idx = del_idx
         while(idx != 0):
             parent_idx = (idx-1)//2
-            current = self.heap[idx]
-            parent = self.heap[parent_idx]
+            current = self._heap[idx]
+            parent = self._heap[parent_idx]
             if is_swap_needed(parent, current):
-                self.heap[parent_idx], self.heap[idx] = \
-                                        self.heap[idx], self.heap[parent_idx]
+                self._heap[parent_idx], self._heap[idx] = \
+                                        self._heap[idx], self._heap[parent_idx]
                 idx = parent_idx
             else:
                 break
@@ -94,27 +93,27 @@ class MinHeap(Heap):
 
     def __init__(self, value):
         if type(value) in {list, set, frozenset}:
-            self.heap = sort_heap(value, min_heap=True)
+            self._heap = sort_heap(value, min_heap=True)
         elif type(value) in {int, float}:
-            self.heap = [value]
+            self._heap = [value]
         else:
             raise ValueError("Unsupported datatype!!")
 
     def __len__(self):
-        return len(self.heap)
+        return len(self._heap)
 
     def __repr__(self):
-        root = super().heapify(self.heap)
+        root = super().heapify(self._heap)
         btree = BinaryTree(root)
         return str( btree )
 
 
     ############################## MIN/MAX ##############################
     def get_min(self):
-        return self.heap[0]
+        return self._heap[0]
 
     def get_max(self):
-        return max(self.heap)
+        return max(self._heap)
 
 
     ############################## INSERTION ##############################
@@ -135,40 +134,16 @@ class MinHeap(Heap):
 
 if __name__ == "__main__":
     # h = Heap()
-    # heap = MinHeap([1,2,3,4])
-    # heap.insert(1)
-    # heap.insert(2)
-    # heap.insert(20)
-    # heap.insert(500)
-    # heap.insert(200)
-    # heap.insert(15)
-    # heap.insert(40)
-    # heap.insert(11)
-    # heap.insert(5)
-    # heap.insert(8)
-    # heap.insert(0)
-    # print(heap)
-    # print(heap.heap)
-    # print("Min value:", heap.get_min())
-    # print("Max value:", heap.get_max())
-    # print("Heap length:", len(heap))
-    # print('='*50)
 
-    # #####################################################
-    # heap = MinHeap([1,2,3,4])
-    # heap.insert(1)
-    # heap.insert(2)
-    # heap.insert(20)
-    # heap.insert(500)
-    # heap.insert(200)
-    # heap.insert(0)
-    # print(heap)
-    # print(heap.heap)
-    # print("Min value:", heap.get_min())
-    # print("Max value:", heap.get_max())
-    # print("Heap length:", len(heap))
+    heap = MinHeap([1, 3, 6, 5, 9, 8])
+    heap.insert(-2)
+    print(heap)
+    print("Min value:", heap.get_min())
+    print("Max value:", heap.get_max())
+    print("Heap length:", len(heap))
+    print('='*50)
 
     #####################################################
-    heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190])
-    print(heap.heap)
-    print(heap)
+    # heap = MinHeap([1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190])
+    # heap.insert(0)
+    # print(heap)
