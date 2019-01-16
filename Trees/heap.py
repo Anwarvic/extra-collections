@@ -43,7 +43,7 @@ class Heap(ABC):
     
     
     ############################## INSERTION ##############################
-    def insert(self, value, is_swap_needed):
+    def insert(self, value, min_heap):
         # add the new value
         self._heap.append(value)
         # swap between parents when needed
@@ -52,7 +52,7 @@ class Heap(ABC):
             parent_idx = (idx-1)//2
             current = self._heap[idx]
             parent = self._heap[parent_idx]
-            if is_swap_needed(parent, current):
+            if (min_heap and parent>current) or (min_heap and parent<current):
                 self._heap[parent_idx], self._heap[idx] = \
                                         self._heap[idx], self._heap[parent_idx]
                 idx = parent_idx
@@ -61,32 +61,44 @@ class Heap(ABC):
 
 
     ############################## REMOVAL ##############################
-    def remove(self, del_val):
+    def remove(self, del_val, min_heap):
         """Removes first utterence of given value"""
         del_idx = self._heap.index(del_val)
         last_idx = len(self._heap)-1
         # swap between removed item and last item
         self._heap[last_idx], self._heap[del_idx] = \
                                 self._heap[del_idx], self._heap[last_idx]
-        # remove item
-        self._heap.pop()
+        if min_heap:
+            # set last item to -inf
+            self._heap[last_idx] = float('-inf')
+        else:
+            # set last item to inf
+            self._heap[last_idx] = float('inf')
         # start swapping when needed
         parent_idx = del_idx
         while(parent_idx < last_idx):
             parent = self._heap[parent_idx]
             left_child_idx = (parent_idx*2)+1
             right_child_idx = (parent_idx*2)+2
-            # which child is smaller
-            child_idx = left_child_idx
-            if self._heap[left_child_idx] > self._heap[right_child_idx]:
-                child_idx = right_child_idx
+            # get which child is smaller
+            if right_child_idx >= last_idx:
+                if left_child_idx >= last_idx:
+                    break
+                else:
+                    child_idx = left_child_idx
+            else:
+                child_idx = left_child_idx
+                if self._heap[left_child_idx] > self._heap[right_child_idx]:
+                    child_idx = right_child_idx
             child = self._heap[child_idx]
-            if parent < child:
+            if (min_heap and parent > child) or (max_heap and parent < child):
                 self._heap[parent_idx], self._heap[child_idx] = \
                                 self._heap[child_idx], self._heap[parent_idx]
                 parent_idx = child_idx
             else:
                 break
+        # remove the (+/-)inf
+        self._heap.pop()
 
 
 
@@ -119,10 +131,10 @@ class MinHeap(Heap):
         return max(self._heap)
 
     def insert(self, value):
-        super().insert(value, lambda parent,child: parent > child)
+        super().insert(value, min_heap=True)
 
     def remove(self, del_value):
-        super().remove(del_value)
+        super().remove(del_value, min_heap=True)
 
 
     
@@ -156,5 +168,6 @@ if __name__ == "__main__":
     heap.insert(44)
     heap.insert(26)
     heap.insert(31)
-    heap.remove(33)
+    
+    heap.remove(31)
     print(heap)
