@@ -78,8 +78,7 @@ class Heap(ABC):
         parent_idx = del_idx
         while(parent_idx < last_idx):
             parent = self._heap[parent_idx]
-            left_child_idx = (parent_idx*2)+1
-            right_child_idx = (parent_idx*2)+2
+            left_child_idx, right_child_idx = (parent_idx*2)+1, (parent_idx*2)+2
             # get which child is smaller
             if right_child_idx >= last_idx:
                 if left_child_idx >= last_idx:
@@ -87,9 +86,17 @@ class Heap(ABC):
                 else:
                     child_idx = left_child_idx
             else:
-                child_idx = left_child_idx
-                if self._heap[left_child_idx] > self._heap[right_child_idx]:
-                    child_idx = right_child_idx
+                if min_heap:
+                    if self._heap[left_child_idx] < self._heap[right_child_idx]:
+                        child_idx = left_child_idx
+                    else:
+                        child_idx = right_child_idx
+                else:
+                    if self._heap[left_child_idx] > self._heap[right_child_idx]:
+                        child_idx = left_child_idx
+                    else:
+                        child_idx = right_child_idx
+            child_idx = left_child_idx
             child = self._heap[child_idx]
             if (min_heap and parent>child) or (not min_heap and parent<child):
                 self._heap[parent_idx], self._heap[child_idx] = \
