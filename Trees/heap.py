@@ -52,7 +52,7 @@ class Heap(ABC):
             parent_idx = (idx-1)//2
             current = self._heap[idx]
             parent = self._heap[parent_idx]
-            if (min_heap and parent>current) or (min_heap and parent<current):
+            if (min_heap and parent>current) or (not min_heap and parent<current):
                 self._heap[parent_idx], self._heap[idx] = \
                                         self._heap[idx], self._heap[parent_idx]
                 idx = parent_idx
@@ -91,7 +91,7 @@ class Heap(ABC):
                 if self._heap[left_child_idx] > self._heap[right_child_idx]:
                     child_idx = right_child_idx
             child = self._heap[child_idx]
-            if (min_heap and parent > child) or (max_heap and parent < child):
+            if (min_heap and parent>child) or (not min_heap and parent<child):
                 self._heap[parent_idx], self._heap[child_idx] = \
                                 self._heap[child_idx], self._heap[parent_idx]
                 parent_idx = child_idx
@@ -169,5 +169,5 @@ if __name__ == "__main__":
     heap.insert(26)
     heap.insert(31)
     
-    heap.remove(31)
+    # heap.remove(31)
     print(heap)
