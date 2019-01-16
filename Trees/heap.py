@@ -61,7 +61,7 @@ class Heap(ABC):
 
 
     ############################## REMOVAL ##############################
-    def remove(self, del_val, is_swap_needed):
+    def remove(self, del_val):
         """Removes first utterence of given value"""
         del_idx = self._heap.index(del_val)
         last_idx = len(self._heap)-1
@@ -70,15 +70,21 @@ class Heap(ABC):
                                 self._heap[del_idx], self._heap[last_idx]
         # remove item
         self._heap.pop()
+        # start swapping when needed
         parent_idx = del_idx
         while(parent_idx < last_idx):
-            parent_idx = (idx-1)//2
-            current = self._heap[idx]
             parent = self._heap[parent_idx]
-            if is_swap_needed(parent, current):
-                self._heap[parent_idx], self._heap[idx] = \
-                                        self._heap[idx], self._heap[parent_idx]
-                idx = parent_idx
+            left_child_idx = (parent_idx*2)+1
+            right_child_idx = (parent_idx*2)+2
+            # which child is smaller
+            child_idx = left_child_idx
+            if self._heap[left_child_idx] > self._heap[right_child_idx]:
+                child_idx = right_child_idx
+            child = self._heap[child_idx]
+            if parent < child:
+                self._heap[parent_idx], self._heap[child_idx] = \
+                                self._heap[child_idx], self._heap[parent_idx]
+                parent_idx = child_idx
             else:
                 break
 
@@ -116,7 +122,7 @@ class MinHeap(Heap):
         super().insert(value, lambda parent,child: parent > child)
 
     def remove(self, del_value):
-        super().remove(del_value, lambda parent,child: parent > child)
+        super().remove(del_value)
 
 
     
@@ -150,4 +156,5 @@ if __name__ == "__main__":
     heap.insert(44)
     heap.insert(26)
     heap.insert(31)
+    heap.remove(33)
     print(heap)
