@@ -83,7 +83,6 @@ class Heap(ABC):
                         child_idx = left_child_idx
                     else:
                         child_idx = right_child_idx
-            child_idx = left_child_idx
             child = self._heap[child_idx]
             if (min_heap and parent>child) or (not min_heap and parent<child):
                 self._heap[parent_idx], self._heap[child_idx] = \
@@ -162,6 +161,6 @@ if __name__ == "__main__":
     heap.insert(44)
     heap.insert(26)
     heap.insert(31)
-    
-    # heap.remove(31)
+    print(heap)
+    heap.remove(19)
     print(heap)
