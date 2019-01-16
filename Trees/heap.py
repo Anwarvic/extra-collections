@@ -3,19 +3,6 @@ from abc import ABC, abstractmethod
 
 from binary_tree import TreeNode, BinaryTree
 
-# deprecated
-def sort_heap(lst, min_heap=True):
-    """Sort given list to the parent node will be bigger than children if
-    min_heap=False or smaller than children if min_heap=True (default)"""
-    idx = len(lst)-1
-    while(idx != 0):
-        parent_idx = (idx-1)//2
-        if (min_heap and lst[parent_idx] > lst[idx]) or \
-            (not min_heap and lst[parent_idx] < lst[idx]):
-            # sift up
-            lst[parent_idx], lst[idx] = \
-                            lst[idx], lst[parent_idx]
-        idx -= 1
 
 
 class Heap(ABC):
