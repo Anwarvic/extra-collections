@@ -111,11 +111,7 @@ class Heap(ABC):
 
 
 
-
-
-
 class MinHeap(Heap):
-
     def __init__(self, value):
         if hasattr(value, '__iter__'):
             self._heap = sorted(value)
@@ -137,8 +133,9 @@ class MinHeap(Heap):
         super().remove(del_value, min_heap=True)
 
 
-class MaxHeap(Heap):
 
+
+class MaxHeap(Heap):
     def __init__(self, value):
         if hasattr(value, '__iter__'):
             self._heap = sorted(value, reverse=True)
