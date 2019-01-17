@@ -60,21 +60,8 @@ class Heap(ABC):
 
 
     ############################## REMOVAL ##############################
-    def remove(self, del_val, min_heap):
-        """Removes first utterence of given value"""
-        del_idx = self._heap.index(del_val)
+    def __rebalance(self, parent_idx, min_heap):
         last_idx = len(self._heap)-1
-        # swap between removed item and last item
-        self._heap[last_idx], self._heap[del_idx] = \
-                                self._heap[del_idx], self._heap[last_idx]
-        if min_heap:
-            # set last item to -inf
-            self._heap[last_idx] = float('-inf')
-        else:
-            # set last item to inf
-            self._heap[last_idx] = float('inf')
-        # start swapping when needed
-        parent_idx = del_idx
         while(parent_idx < last_idx):
             parent = self._heap[parent_idx]
             left_child_idx, right_child_idx = (parent_idx*2)+1, (parent_idx*2)+2
@@ -102,6 +89,22 @@ class Heap(ABC):
                 parent_idx = child_idx
             else:
                 break
+
+    def remove(self, del_val, min_heap):
+        """Removes first utterence of given value"""
+        del_idx = self._heap.index(del_val)
+        last_idx = len(self._heap)-1
+        # swap between removed item and last item
+        self._heap[last_idx], self._heap[del_idx] = \
+                                self._heap[del_idx], self._heap[last_idx]
+        if min_heap:
+            # set last item to -inf
+            self._heap[last_idx] = float('-inf')
+        else:
+            # set last item to inf
+            self._heap[last_idx] = float('inf')
+        # start swapping when needed
+        self.__rebalance(del_idx, min_heap)
         # remove the (+/-)inf
         self._heap.pop()
 
