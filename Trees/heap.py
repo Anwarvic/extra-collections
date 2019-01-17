@@ -223,3 +223,4 @@ if __name__ == "__main__":
     heap.insert(26)
     heap.insert(31)
     print(heap)
+    
