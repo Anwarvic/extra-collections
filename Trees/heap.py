@@ -11,9 +11,17 @@ class Heap(ABC):
         self._heap = []
         pass
 
+    def __len__(self):
+        return len(self._heap)
+    
     def __iter__(self):
         for node in self._heap:
             yield node
+
+    def __repr__(self):
+        root = self.heapify(self._heap)
+        btree = BinaryTree(root)
+        return str( btree )
 
     ############################## HEAPIFY ##############################
     def heapify(self, lst):
@@ -106,20 +114,12 @@ class Heap(ABC):
 class MinHeap(Heap):
 
     def __init__(self, value):
-        if type(value) in {list, set, frozenset}:
+        if hasattr(value, '__iter__'):
             self._heap = sorted(value)
         elif type(value) in {int, float}:
             self._heap = [value]
         else:
             raise ValueError("Unsupported datatype!!")
-
-    def __len__(self):
-        return len(self._heap)
-
-    def __repr__(self):
-        root = super().heapify(self._heap)
-        btree = BinaryTree(root)
-        return str( btree )
 
     def get_min(self):
         return self._heap[0]
@@ -137,20 +137,12 @@ class MinHeap(Heap):
 class MaxHeap(Heap):
 
     def __init__(self, value):
-        if type(value) in {list, set, frozenset}:
+        if hasattr(value, '__iter__'):
             self._heap = sorted(value, reverse=True)
         elif type(value) in {int, float}:
             self._heap = [value]
         else:
             raise ValueError("Unsupported datatype!!")
-
-    def __len__(self):
-        return len(self._heap)
-
-    def __repr__(self):
-        root = super().heapify(self._heap)
-        btree = BinaryTree(root)
-        return str( btree )
 
     def get_min(self):
         return min(self._heap)
