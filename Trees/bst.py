@@ -13,7 +13,7 @@ class BST(BinaryTree):
     def __init__(self, value):
         if isinstance(value, TreeNode):
             self.root = value
-        elif type(value) == list:
+        if hasattr(value, '__iter__'):
             lst = sorted(value)
             self.root = self.__init_bst(lst)
         else:
