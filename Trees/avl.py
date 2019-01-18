@@ -22,7 +22,7 @@ class TreeNode(TreeNode):
 
 class AVL(BST):
     def __init__(self, value):
-        if type(value) == list:
+        if hasattr(value, '__iter__'):
             lst = sorted(value)
             self.root = self.__init_avl(lst)
         else:
