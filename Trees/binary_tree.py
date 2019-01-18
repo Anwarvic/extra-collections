@@ -22,7 +22,7 @@ class BinaryTree:
     def __init__(self, value):
         if isinstance(value, TreeNode):
             self.root = value
-        elif type(value) == list:
+        elif hasattr(value, '__iter__'):
             self.root = self.__create_subtree(value)
         else:
             self.root = TreeNode(value)
@@ -327,6 +327,7 @@ if __name__ == "__main__":
     root.right = TreeNode(20)
     btree = BinaryTree(root)
     print(btree)
+    print('='*50)
     ##############################
     btree = BinaryTree(1)
     btree.root.left = TreeNode(2)
