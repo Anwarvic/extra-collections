@@ -1,4 +1,3 @@
-from math import log2
 from abc import ABC, abstractmethod
 
 from binary_tree import TreeNode, BinaryTree
