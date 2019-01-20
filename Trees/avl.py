@@ -1,57 +1,8 @@
 from bst import TreeNode, BST
 
 
-class TreeNode(TreeNode):
-    def __init__(self, value):
-        super().__init__(value)
-        self.parent = None
-
-    def set_left(self, new_node):
-        self.left = new_node
-        if new_node is not None:
-            self.left.parent = self
-
-
-    def set_right(self, new_node):
-        self.right = new_node
-        if new_node is not None:
-            self.right.parent = self
-
-
-
 
 class AVL(BST):
-    def __init__(self, value):
-        if hasattr(value, '__iter__'):
-            lst = sorted(value)
-            self.root = self.__init_avl(lst)
-        else:
-            self.root = TreeNode(value)
-
-    def __init_avl(self, lst):
-        length = len(lst)
-        assert length >0, "Given List must have values!!"
-        if length == 1:
-            parent = TreeNode(lst[0])
-        elif length == 2:
-            parent = TreeNode(lst[0])
-            parent.set_left( TreeNode(lst[1]) )
-        else:
-            mid_idx = len(lst)//2
-            parent = TreeNode(lst[mid_idx])
-            parent.set_left( self.__init_avl(lst[0:mid_idx]) )
-            parent.set_right( self.__init_avl(lst[mid_idx+1:]) )
-        return parent
-
-
-    ######################### BALANCED #########################
-    def __get_children_depths(self, start_node):
-        left_depth = 1 if start_node.left != None else 0
-        left_depth += super().get_depth(start_node.left)
-        right_depth = 1 if start_node.right != None else 0
-        right_depth += super().get_depth(start_node.right)
-        return left_depth, right_depth
-
 
     ######################### ROTATION #########################
     def __rotate_left(self, start_node):
@@ -92,6 +43,13 @@ class AVL(BST):
 
 
     ######################### RE-BALANCE #########################
+    def __get_children_depths(self, start_node):
+        left_depth = 1 if start_node.left != None else 0
+        left_depth += super().get_depth(start_node.left)
+        right_depth = 1 if start_node.right != None else 0
+        right_depth += super().get_depth(start_node.right)
+        return left_depth, right_depth
+
     def __rebalance_subtree(self, start_node):
         left_depth, right_depth = self.__get_children_depths(start_node)
         # subtree is imbalanced
@@ -118,9 +76,9 @@ class AVL(BST):
                     start_node = self.__rotate_left(start_node)
         # recurssively apply __reblanace_subtree()
         if start_node.left is not None:
-            start_node.left = self.__rebalance_subtree(start_node.left)
+            start_node.set_left( self.__rebalance_subtree(start_node.left) )
         if start_node.right is not None:
-            start_node.right = self.__rebalance_subtree(start_node.right)
+            start_node.set_right( self.__rebalance_subtree(start_node.right) )
         return start_node
 
 
@@ -130,64 +88,14 @@ class AVL(BST):
     
     
     ######################### INSERTION #########################
-    def __insert(self, value, start_node):
-        if value == start_node.data:
-            return
-        elif value < start_node.data:
-            if start_node.left:
-                self.__insert(value, start_node.left)
-            else:
-                start_node.set_left( TreeNode(value) )
-        else:
-            if start_node.right:
-                self.__insert(value, start_node.right)
-            else:
-                start_node.set_right( TreeNode(value) )
-
     def insert(self, value):
-        assert type(value) in {int, float}, "You can insert only numbers!"
-        self.__insert(value, self.root)
+        super().insert(value)
         self.rebalance()
 
 
     ######################### REMOVAL #########################
-    def __get_max_node(self, start_node):
-        # get the right-most node
-        if start_node.right == None:
-            return start_node
-        else:
-            return self.__get_max_node(start_node.right)
-
-    def __remove(self, del_value, start_node):
-        par = start_node.parent
-        if start_node.data == del_value:
-            if start_node.left and start_node.right:
-                replacement_node = self.__get_max_node(start_node.left)
-                start_node.data = replacement_node.data
-                self.__remove(replacement_node.data, start_node.left)
-            else:
-                replacement_node = start_node.left if start_node.left \
-                                                        else start_node.right
-                par.set_right(replacement_node) if del_value > par.data \
-                                            else par.set_left(replacement_node)
-        elif del_value < start_node.data:
-            if not start_node.left:
-                # raise ValueError("Couldn't find given value in the tree!!")
-                pass
-            else:
-                self.__remove(del_value, start_node.left)
-        else:
-            if not start_node.right:
-                # raise ValueError("Couldn't find given value in the tree!!")
-                pass
-            else:
-                self.__remove(del_value, start_node.right)
-
     def remove(self, del_value):
-        assert type(del_value) in {int, float}, "AVL conains numbers only!"
-        if self.root.is_leaf() and del_value == self.root.data:
-            raise ValueError("Can't remove the only item in the tree!")
-        self.__remove(del_value, self.root)
+        super().remove(del_value)
         self.rebalance()
 
 
