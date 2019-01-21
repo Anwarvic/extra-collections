@@ -28,9 +28,22 @@ class SplayTree(BST):
 
 
 
+
 if __name__ == "__main__":
+    # test Left zig-zig
+    stree = SplayTree(30)
+    stree.insert(20)
+    stree.insert(10)
+    print(stree)
+    stree.root = stree.zig_zig(stree.root.left.left, left_children=True)
+    print(stree)
+    print('='*50)
+
+    # test Right zig-zig
     stree = SplayTree(10)
     stree.insert(20)
     stree.insert(30)
+    print(stree)
     stree.root = stree.zig_zig(stree.root.right.right, left_children=False)
     print(stree)
+    print('='*50)
