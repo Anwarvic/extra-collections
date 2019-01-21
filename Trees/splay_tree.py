@@ -23,6 +23,27 @@ class SplayTree(BST):
         #child is now the grand-parent
         return child
 
+    def zig_zag(self, start_node, left_right_children=True):
+        child = start_node
+        parent = start_node.parent
+        grand_parent = parent.parent
+        # start zig-zag
+        if left_right_children:
+            print("Left-Right zig-zag")
+            child.parent = grand_parent.parent
+            grand_parent.set_left(child.right)
+            parent.set_right(child.left)
+            child.set_right(grand_parent)
+            child.set_left(parent)
+            pass
+        else:
+            print("Right-Left zig-zag")
+            child.parent = grand_parent.parent
+            grand_parent.set_right(child.left)
+            parent.set_left(child.right)
+            child.set_left(grand_parent)
+            child.set_right(parent)
+        return child
 
 
 
