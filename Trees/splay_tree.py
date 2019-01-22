@@ -1,5 +1,7 @@
 from bst import TreeNode, BST
 
+
+
 class SplayTree(BST):
     def zig_zig(self, start_node, left_children=True):
         child = start_node
@@ -61,6 +63,39 @@ class SplayTree(BST):
         return child
 
     def __splaying(self, start_node):
+        child = start_node
+        parent = child.parent
+        grand_parent = parent.parent
+        # get the operation type
+        if grand_parent is None:
+            if child.is_left_child():
+                root = self.zig(child, left_child=True)
+            else:
+                root = self.zig(child, left_child=False)
+        else:
+            # left -> left
+            if parent.is_left_child() and child.is_left_child():
+                grand_parent = self.zig_zig(child, left_children=True)
+            # left -> right
+            elif parent.is_left_child() and not child.is_left_child():
+                grand_parent = self.zig_zag(child, left_right_children=True)
+            # right -> left
+            elif not parent.is_left_child() and child.is_left_child():
+                grand_parent = self.zig_zag(child, left_right_children=False)
+            # right -> right
+            else:
+                grand_parent = self.zig_zig(child, left_children=False)
+            if grand_parent.parent is not None:
+                root = self.__splaying(grand_parent)
+            else:
+                root = grand_parent
+        return root
+    
+
+    def splay(self, start_node):
+        self.root = self.__splaying(start_node)
+
+
 
 
 
@@ -74,7 +109,7 @@ if __name__ == "__main__":
     stree.insert(20)
     stree.insert(10)
     print(stree)
-    stree.root = stree.zig_zig(stree.root.left.left, left_children=True)
+    stree.splay(stree.root.left.left)
     print(stree)
     print('='*50)
 
@@ -83,7 +118,7 @@ if __name__ == "__main__":
     stree.insert(20)
     stree.insert(30)
     print(stree)
-    stree.root = stree.zig_zig(stree.root.right.right, left_children=False)
+    stree.splay(stree.root.right.right)
     print(stree)
     print('='*50)
 
@@ -92,7 +127,7 @@ if __name__ == "__main__":
     stree.insert(30)
     stree.insert(20)
     print(stree)
-    stree.root = stree.zig_zag(stree.root.right.left, left_right_children=False)
+    stree.splay(stree.root.right.left)
     print(stree)
     print('='*50)
 
@@ -101,7 +136,7 @@ if __name__ == "__main__":
     stree.insert(10)
     stree.insert(20)
     print(stree)
-    stree.root = stree.zig_zag(stree.root.left.right, left_right_children=True)
+    stree.splay(stree.root.left.right)
     print(stree)
     print('='*50)
 
@@ -109,7 +144,7 @@ if __name__ == "__main__":
     stree = SplayTree(10)
     stree.insert(20)
     print(stree)
-    stree.root = stree.zig(stree.root.right, left_child=False)
+    stree.splay(stree.root.right)
     print(stree)
     print('='*50)
 
@@ -117,6 +152,6 @@ if __name__ == "__main__":
     stree = SplayTree(20)
     stree.insert(10)
     print(stree)
-    stree.root = stree.zig(stree.root.left, left_child=True)
+    stree.splay(stree.root.left)
     print(stree)
     print('='*50)
