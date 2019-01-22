@@ -60,6 +60,9 @@ class SplayTree(BST):
             child.set_left(parent)
         return child
 
+    def __splaying(self, start_node):
+
+
 
 
 
