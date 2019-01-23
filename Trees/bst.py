@@ -18,6 +18,11 @@ class TreeNode(TreeNode):
         if new_node is not None:
             self.right.parent = self
 
+    def is_left_child(self):
+        parent = self.parent
+        return parent.data > self.data
+
+
 
 class BST(BinaryTree):
     def __init__(self, value):
