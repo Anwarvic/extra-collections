@@ -96,7 +96,8 @@ class SplayTree(BST):
         self.root = self.__splaying(start_node)
 
 
-
+    def insert(self, value):
+        pass
 
 
 
