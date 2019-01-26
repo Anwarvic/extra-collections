@@ -98,6 +98,26 @@ class SplayTree(BST):
 
 
     ############################## INSERTION ##############################
+    def __find(self, find_val, start_node):
+        if find_val == start_node.data:
+            self.splay(start_node)
+        elif find_val < start_node.data:
+            if start_node.left:
+                self.__find(find_val, start_node.left)
+            else:
+                self.splay(start_node)
+        else:
+            if start_node.right:
+                self.__find(find_val, start_node.right)
+            else:
+                self.splay(start_node)
+
+    def find(self, find_val):
+        assert type(find_val) in {int, float}, "You can insert only numbers!"
+        if find_val != self.root.data:
+            self.__find(find_val, self.root)
+
+    ############################## INSERTION ##############################
     def __insert(self, value, start_node):
         if value == start_node.data:
             return
@@ -119,6 +139,7 @@ class SplayTree(BST):
     def insert(self, value):
         assert type(value) in {int, float}, "You can insert only numbers!"
         self.__insert(value, self.root)
+
 
     # don't forget to disable:
     # traverse
@@ -147,7 +168,8 @@ if __name__ == "__main__":
     stree.root.right.right.right.set_right(TreeNode(16))
     stree.root.right.right.right.right.set_left(TreeNode(13))
     stree.root.right.right.right.right.set_right(TreeNode(17))
-    stree.insert(14)
+    # stree.insert(14)
+    stree.find(10)
     print(stree)
 
     # # test Left zig-zig
