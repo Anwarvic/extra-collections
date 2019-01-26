@@ -154,7 +154,7 @@ class SplayTree(BST):
 
 
 if __name__ == "__main__":
-    # test insert()
+    # test insert
     # example from Data Structures and Algorithm in Python (page: 514)
     stree = SplayTree(8)
     stree.root.set_left(TreeNode(3))
@@ -168,8 +168,8 @@ if __name__ == "__main__":
     stree.root.right.right.right.set_right(TreeNode(16))
     stree.root.right.right.right.right.set_left(TreeNode(13))
     stree.root.right.right.right.right.set_right(TreeNode(17))
-    # stree.insert(14)
-    stree.find(10)
+    stree.insert(14)
+    stree.find(13)
     print(stree)
 
     # # test Left zig-zig
