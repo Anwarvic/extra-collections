@@ -133,6 +133,7 @@ class SplayTree(BST):
 
 
 if __name__ == "__main__":
+    # test insert()
     # example from Data Structures and Algorithm in Python (page: 514)
     stree = SplayTree(8)
     stree.root.set_left(TreeNode(3))
