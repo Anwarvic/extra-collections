@@ -3,6 +3,7 @@ from bst import TreeNode, BST
 
 
 class SplayTree(BST):
+    ############################## SPLAYING ##############################
     def zig_zig(self, start_node, left_children=True):
         child = start_node
         parent = child.parent
@@ -96,8 +97,35 @@ class SplayTree(BST):
         self.root = self.__splaying(start_node)
 
 
+    ############################## INSERTION ##############################
+    def __insert(self, value, start_node):
+        if value == start_node.data:
+            return
+        elif value < start_node.data:
+            if start_node.left:
+                self.__insert(value, start_node.left)
+            else:
+                start_node.set_left( TreeNode(value) )
+                # splay
+                self.splay(start_node.left)
+        else:
+            if start_node.right:
+                self.__insert(value, start_node.right)
+            else:
+                start_node.set_right( TreeNode(value) )
+                # splay
+                self.splay(start_node.right)
+
     def insert(self, value):
-        pass
+        assert type(value) in {int, float}, "You can insert only numbers!"
+        self.__insert(value, self.root)
+
+    # don't forget to disable:
+    # traverse
+    # height
+    # balance
+    # perfect
+    # ...
 
 
 
@@ -105,54 +133,70 @@ class SplayTree(BST):
 
 
 if __name__ == "__main__":
-    # test Left zig-zig
-    stree = SplayTree(30)
-    stree.insert(20)
-    stree.insert(10)
+    # example from Data Structures and Algorithm in Python (page: 514)
+    stree = SplayTree(8)
+    stree.root.set_left(TreeNode(3))
+    stree.root.left.set_right(TreeNode(4))
+    stree.root.left.right.set_right(TreeNode(6))
+    stree.root.left.right.right.set_left(TreeNode(5))
+    stree.root.left.right.right.set_right(TreeNode(7))
+    stree.root.set_right(TreeNode(10))
+    stree.root.right.set_right(TreeNode(11))
+    stree.root.right.right.set_right(TreeNode(12))
+    stree.root.right.right.right.set_right(TreeNode(16))
+    stree.root.right.right.right.right.set_left(TreeNode(13))
+    stree.root.right.right.right.right.set_right(TreeNode(17))
+    stree.insert(14)
     print(stree)
-    stree.splay(stree.root.left.left)
-    print(stree)
-    print('='*50)
 
-    # test Right zig-zig
-    stree = SplayTree(10)
-    stree.insert(20)
-    stree.insert(30)
-    print(stree)
-    stree.splay(stree.root.right.right)
-    print(stree)
-    print('='*50)
+    # # test Left zig-zig
+    # stree = SplayTree(30)
+    # stree.insert(20)
+    # stree.insert(10)
+    # print(stree)
+    # stree.splay(stree.root.left.left)
+    # print(stree)
+    # print('='*50)
 
-    # test Right-left zig-zig
-    stree = SplayTree(10)
-    stree.insert(30)
-    stree.insert(20)
-    print(stree)
-    stree.splay(stree.root.right.left)
-    print(stree)
-    print('='*50)
+    # # test Right zig-zig
+    # stree = SplayTree(10)
+    # stree.insert(20)
+    # stree.insert(30)
+    # print(stree)
+    # stree.splay(stree.root.right.right)
+    # print(stree)
+    # print('='*50)
 
-    # test Left-right zig-zig
-    stree = SplayTree(30)
-    stree.insert(10)
-    stree.insert(20)
-    print(stree)
-    stree.splay(stree.root.left.right)
-    print(stree)
-    print('='*50)
+    # # test Right-left zig-zig
+    # stree = SplayTree(10)
+    # stree.insert(30)
+    # stree.insert(20)
+    # print(stree)
+    # stree.splay(stree.root.right.left)
+    # print(stree)
+    # print('='*50)
 
-    # test right zig
-    stree = SplayTree(10)
-    stree.insert(20)
-    print(stree)
-    stree.splay(stree.root.right)
-    print(stree)
-    print('='*50)
+    # # test Left-right zig-zig
+    # stree = SplayTree(30)
+    # stree.insert(10)
+    # stree.insert(20)
+    # print(stree)
+    # stree.splay(stree.root.left.right)
+    # print(stree)
+    # print('='*50)
 
-    # test left zig
-    stree = SplayTree(20)
-    stree.insert(10)
-    print(stree)
-    stree.splay(stree.root.left)
-    print(stree)
-    print('='*50)
+    # # test right zig
+    # stree = SplayTree(10)
+    # stree.insert(20)
+    # print(stree)
+    # stree.splay(stree.root.right)
+    # print(stree)
+    # print('='*50)
+
+    # # test left zig
+    # stree = SplayTree(20)
+    # stree.insert(10)
+    # print(stree)
+    # stree.splay(stree.root.left)
+    # print(stree)
+    # print('='*50)
