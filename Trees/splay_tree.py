@@ -204,6 +204,10 @@ class SplayTree(BST):
     def is_balanced(self):
         raise NotImplementedError("You can't check balance of Splay Trees!!")
 
+    def is_perfect(self):
+        raise NotImplementedError("You can't check balance of Splay Trees!!")
+
+
 
     # don't forget to disable:
     # traverse
