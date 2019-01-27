@@ -12,7 +12,6 @@ class TreeNode(TreeNode):
         if new_node is not None:
             self.left.parent = self
 
-
     def set_right(self, new_node):
         self.right = new_node
         if new_node is not None:
