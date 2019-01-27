@@ -210,6 +210,8 @@ class SplayTree(BST):
     def get_height(self):
         raise NotImplementedError("You can't check height of Splay Trees!!")
 
+    def get_depth(self):
+        raise NotImplementedError("You can't check balance of Splay Trees!!")
     # don't forget to disable:
     # traverse
     # height
