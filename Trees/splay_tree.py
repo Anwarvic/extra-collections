@@ -207,17 +207,16 @@ class SplayTree(BST):
     def is_perfect(self):
         raise NotImplementedError("You can't check balance of Splay Trees!!")
 
+    def is_strict(self):
+        raise NotImplementedError("You can't check balance of Splay Trees!!")
+
     def get_height(self):
         raise NotImplementedError("You can't check height of Splay Trees!!")
 
     def get_depth(self):
         raise NotImplementedError("You can't check balance of Splay Trees!!")
-    # don't forget to disable:
-    # traverse
-    # height
-    # balance
-    # perfect
-    # ...
+    
+
 
 
 
@@ -269,6 +268,5 @@ if __name__ == "__main__":
     stree.root.right.set_right(TreeNode(80))
     stree.remove(30)
     print(stree)
-    print(stree.traverse())
 
 
