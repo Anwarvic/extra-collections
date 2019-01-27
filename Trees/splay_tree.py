@@ -207,7 +207,8 @@ class SplayTree(BST):
     def is_perfect(self):
         raise NotImplementedError("You can't check balance of Splay Trees!!")
 
-
+    def get_height(self):
+        raise NotImplementedError("You can't check height of Splay Trees!!")
 
     # don't forget to disable:
     # traverse
