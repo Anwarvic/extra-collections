@@ -196,6 +196,10 @@ class SplayTree(BST):
         if self.root.is_leaf() and del_value == self.root.data:
             raise ValueError("Can't remove the only item in the tree!")
         self.__remove(del_value, self.root)
+    
+
+    def traverse(self):
+        raise NotImplementedError("You can't traverse a Splay Tree!!")
 
 
     # don't forget to disable:
@@ -255,5 +259,6 @@ if __name__ == "__main__":
     stree.root.right.set_right(TreeNode(80))
     stree.remove(30)
     print(stree)
+    print(stree.traverse())
 
 
