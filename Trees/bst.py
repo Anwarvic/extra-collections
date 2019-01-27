@@ -122,23 +122,24 @@ class BST(BinaryTree):
         parent = start_node.parent
         if del_value == start_node.data:
             if start_node.is_leaf():
-                if del_value < parent.data:
+                if del_value <= parent.data:
                     parent.set_left( None )
                 else:
                     parent.set_right( None )
             elif start_node.left != None and start_node.right == None:
-                if del_value < parent.data:
+                if del_value <= parent.data:
                     parent.set_left( start_node.left )
                 else:
                     parent.set_right( start_node.left )
             elif start_node.left == None and start_node.right != None:
-                if del_value < parent.data:
+                if del_value <= parent.data:
                     parent.set_left( start_node.right )
                 else:
                     parent.set_right( start_node.right )
             else:
                 replacement_node = self.__get_max_node(start_node.left)
                 start_node.data = replacement_node.data
+                print(start_node.left)
                 self.__remove(replacement_node.data, start_node.left)
         elif del_value < start_node.data:
             if not start_node.left:
@@ -203,9 +204,10 @@ if __name__ == "__main__":
     bst.root.right.left.right.left.set_right( TreeNode(80) )
     print(bst)
 
-    bst.remove(32)
-    bst.remove(44)
-    bst.remove(4000)
+    # bst.remove(32)
+    # bst.remove(44)
+    # bst.remove(4000)
+    bst.remove(65)
     print(bst)
 
     print("Tree Root:", bst.root)
