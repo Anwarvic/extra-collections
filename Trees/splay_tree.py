@@ -66,6 +66,8 @@ class SplayTree(BST):
     def __splaying(self, start_node):
         child = start_node
         parent = child.parent
+        if parent is None:
+            return start_node
         grand_parent = parent.parent
         # get the operation type
         if grand_parent is None:
@@ -117,6 +119,7 @@ class SplayTree(BST):
         if find_val != self.root.data:
             self.__find(find_val, self.root)
 
+    
     ############################## INSERTION ##############################
     def __insert(self, value, start_node):
         if value == start_node.data:
@@ -141,6 +144,60 @@ class SplayTree(BST):
         self.__insert(value, self.root)
 
 
+    ############################## REMOVAL ##############################
+    def __get_max_node(self, start_node):
+        # get the right-most node
+        if start_node.right == None:
+            return start_node
+        else:
+            return self.__get_max_node(start_node.right)
+
+    def __remove(self, del_value, start_node):
+        parent = start_node.parent
+        if del_value == start_node.data:
+            if start_node.is_leaf():
+                if del_value <= parent.data:
+                    parent.set_left( None )
+                else:
+                    parent.set_right( None )
+                self.splay(parent)
+            elif start_node.left != None and start_node.right == None:
+                if del_value <= parent.data:
+                    parent.set_left( start_node.left )
+                else:
+                    parent.set_right( start_node.left )
+                self.splay(parent)
+            elif start_node.left == None and start_node.right != None:
+                if del_value <= parent.data:
+                    parent.set_left( start_node.right )
+                else:
+                    parent.set_right( start_node.right )
+                self.splay(parent)
+            else:
+                replacement_node = self.__get_max_node(start_node.left)
+                start_node.data = replacement_node.data
+                self.__remove(replacement_node.data, start_node.left)
+                self.splay(start_node)
+            
+        elif del_value < start_node.data:
+            if not start_node.left:
+                self.splay(start_node)
+            else:
+                self.__remove(del_value, start_node.left)
+        else:
+            if not start_node.right:
+                self.splay(start_node)
+            else:
+                self.__remove(del_value, start_node.right)
+
+
+    def remove(self, del_value):
+        assert type(del_value) in {int, float}, "BST conains numbers only!"
+        if self.root.is_leaf() and del_value == self.root.data:
+            raise ValueError("Can't remove the only item in the tree!")
+        self.__remove(del_value, self.root)
+
+
     # don't forget to disable:
     # traverse
     # height
@@ -156,70 +213,47 @@ class SplayTree(BST):
 if __name__ == "__main__":
     # test insert
     # example from Data Structures and Algorithm in Python (page: 514)
-    stree = SplayTree(8)
-    stree.root.set_left(TreeNode(3))
-    stree.root.left.set_right(TreeNode(4))
-    stree.root.left.right.set_right(TreeNode(6))
-    stree.root.left.right.right.set_left(TreeNode(5))
-    stree.root.left.right.right.set_right(TreeNode(7))
-    stree.root.set_right(TreeNode(10))
-    stree.root.right.set_right(TreeNode(11))
-    stree.root.right.right.set_right(TreeNode(12))
-    stree.root.right.right.right.set_right(TreeNode(16))
-    stree.root.right.right.right.right.set_left(TreeNode(13))
-    stree.root.right.right.right.right.set_right(TreeNode(17))
-    stree.insert(14)
-    stree.find(13)
+    # stree = SplayTree(8)
+    # stree.root.set_left(TreeNode(3))
+    # stree.root.left.set_right(TreeNode(4))
+    # stree.root.left.right.set_right(TreeNode(6))
+    # stree.root.left.right.right.set_left(TreeNode(5))
+    # stree.root.left.right.right.set_right(TreeNode(7))
+    # stree.root.set_right(TreeNode(10))
+    # stree.root.right.set_right(TreeNode(11))
+    # stree.root.right.right.set_right(TreeNode(12))
+    # stree.root.right.right.right.set_right(TreeNode(16))
+    # stree.root.right.right.right.right.set_left(TreeNode(13))
+    # stree.root.right.right.right.right.set_right(TreeNode(17))
+    # stree.insert(14)
+    # stree.find(13)
+    # print(stree)
+
+    # # test remove
+    # # example from Data Structures and Algorithm in Python (page: 517)
+    # stree = SplayTree(8)
+    # stree.root.set_left(TreeNode(3))
+    # stree.root.left.set_right(TreeNode(4))
+    # stree.root.left.right.set_right(TreeNode(6))
+    # stree.root.left.right.right.set_left(TreeNode(5))
+    # stree.root.left.right.right.set_right(TreeNode(7))
+    # stree.root.set_right(TreeNode(10))
+    # stree.root.right.set_right(TreeNode(11))
+    # print(stree)
+    # stree.remove(8)
+    # print(stree)
+
+    # example from https://www.codesdope.com/course/data-structures-splay-trees/
+    stree = SplayTree(50)
+    stree.root.set_left(TreeNode(20))
+    stree.root.left.set_right(TreeNode(30))
+    stree.root.left.set_left(TreeNode(2))
+    stree.root.left.right.set_left(TreeNode(28))
+    stree.root.left.right.set_right(TreeNode(35))
+    stree.root.set_right(TreeNode(70))
+    stree.root.right.set_left(TreeNode(60))
+    stree.root.right.set_right(TreeNode(80))
+    stree.remove(30)
     print(stree)
 
-    # # test Left zig-zig
-    # stree = SplayTree(30)
-    # stree.insert(20)
-    # stree.insert(10)
-    # print(stree)
-    # stree.splay(stree.root.left.left)
-    # print(stree)
-    # print('='*50)
 
-    # # test Right zig-zig
-    # stree = SplayTree(10)
-    # stree.insert(20)
-    # stree.insert(30)
-    # print(stree)
-    # stree.splay(stree.root.right.right)
-    # print(stree)
-    # print('='*50)
-
-    # # test Right-left zig-zig
-    # stree = SplayTree(10)
-    # stree.insert(30)
-    # stree.insert(20)
-    # print(stree)
-    # stree.splay(stree.root.right.left)
-    # print(stree)
-    # print('='*50)
-
-    # # test Left-right zig-zig
-    # stree = SplayTree(30)
-    # stree.insert(10)
-    # stree.insert(20)
-    # print(stree)
-    # stree.splay(stree.root.left.right)
-    # print(stree)
-    # print('='*50)
-
-    # # test right zig
-    # stree = SplayTree(10)
-    # stree.insert(20)
-    # print(stree)
-    # stree.splay(stree.root.right)
-    # print(stree)
-    # print('='*50)
-
-    # # test left zig
-    # stree = SplayTree(20)
-    # stree.insert(10)
-    # print(stree)
-    # stree.splay(stree.root.left)
-    # print(stree)
-    # print('='*50)
