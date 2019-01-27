@@ -216,6 +216,8 @@ class SplayTree(BST):
     def get_depth(self):
         raise NotImplementedError("You can't check depth of Splay Trees!!")
 
+    def count_leaf_nodes(self):
+        raise NotImplementedError("You can't get leaf nodes of Splay Trees!!")
     
 
 
