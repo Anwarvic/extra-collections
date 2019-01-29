@@ -203,9 +203,9 @@ if __name__ == "__main__":
     bst.root.right.left.right.left.set_right( TreeNode(80) )
     print(bst)
 
-    # bst.remove(32)
-    # bst.remove(44)
-    # bst.remove(4000)
+    bst.remove(32)
+    bst.remove(44)
+    bst.remove(4000)
     bst.remove(65)
     print(bst)
 
