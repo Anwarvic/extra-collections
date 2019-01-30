@@ -7,6 +7,9 @@ class TreeNode:
     def __repr__(self):
         return "TreeNode({})".format(self.data)
 
+    def get_children(self):
+        return self.children
+
 
 
 class Tree:
@@ -18,35 +21,29 @@ class Tree:
 
 
     ############################ PRINT ############################
-    def __print_subtree(self, start_node, level, lines,
-                        is_last_child, is_right_most_child):
+    def __print_subtree(self, start_node, level, lines, is_last_child):
         line = []
         if level != 0:
-            line.append((level-1)*'│ ') if not is_right_most_child \
-                                        else line.append((level-1)*'  ')
+            line.append((level-1)*'│ ')
             line.append('└─') if is_last_child else line.append('├─')
             line.append('┬ ') if start_node.children else line.append('─ ')
         line.append(start_node.data)
         lines.append("".join(line))
-        for idx, child in enumerate(start_node.children):
-            if idx == len(start_node.children) -1:
-                self.__print_subtree(child, level+1, lines, 
-                                    True, is_right_most_child)
-            else:
-                self.__print_subtree(child, level+1, lines,
-                                    False, is_right_most_child)
+        # iterate over children
+        children = start_node.get_children()
+        num_children = len(children)
+        for idx in range(num_children):
+            child = children[idx]
+            is_last_child = True if idx == num_children-1 else False
+            self.__print_subtree(child, level+1, lines, is_last_child)
         return lines
 
+
     def __repr__(self):
-        lines = [self.root.data]
-        for idx, child in enumerate(self.root.children):
-            if idx == len(self.root.children)-1:
-                self.__print_subtree(child, 1, lines, True, True)
-            else:
-                self.__print_subtree(child, 1, lines, False, False)
-        return "\n".join(lines)
-
-
+        if self.root.children:
+            return "\n".join(self.__print_subtree(self.root, 0, [], False))
+        else:
+            return self.root.data
 
 
 
@@ -65,9 +62,35 @@ if __name__ == "__main__":
     g = TreeNode('G')
     h = TreeNode('H')
     i = TreeNode('I')
-    h.children = [i]
-    b.children = [e, h, f]
+    j = TreeNode('J')
+    z = TreeNode('Z')
+    x = TreeNode('X')
+    y = TreeNode('Y')
+    a.children = [b, c, d]
     d.children = [g]
-    a.children = [b, c ,d]
+    g.children = [z]
     t = Tree(a)
     print(t)
+
+    #  # create simple tree
+    # a = TreeNode('A')
+    # b = TreeNode('B')
+    # c = TreeNode('C')
+    # d = TreeNode('D')
+    # e = TreeNode('E')
+    # f = TreeNode('F')
+    # g = TreeNode('G')
+    # h = TreeNode('H')
+    # i = TreeNode('I')
+    # j = TreeNode('J')
+    # h.children = [i, j]
+    # b.children = [e, h, f]
+    # d.children = [g]
+    # a.children = [b, c ,d]
+
+    # z = TreeNode('Z')
+    # z.children = [TreeNode('X'), TreeNode('Y')]
+    # c.children = [z]
+    # g.children = [z]
+    # t = Tree(a)
+    # print(t)
