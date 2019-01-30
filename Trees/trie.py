@@ -17,7 +17,13 @@ class Trie(Tree):
         self.root = TrieNode(' ')
         self.root.data = "root"
 
+    ############################## INSERTION ##############################
+    def __insert(self, start_node):
+        pass
 
+
+    def insert(self, word):
+        pass
 
 if __name__ == "__main__":
     t = Trie()
