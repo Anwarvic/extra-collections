@@ -68,6 +68,6 @@ if __name__ == "__main__":
     h.children = [i]
     b.children = [e, h, f]
     d.children = [g]
+    a.children = [b, c ,d]
     t = Tree(a)
-    t.root.children = [b, c ,d]
     print(t)
