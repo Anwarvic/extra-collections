@@ -46,7 +46,15 @@ class Trie(Tree):
 
 if __name__ == "__main__":
     t = Trie()
-    t.insert('abcd')
-    t.insert('axyz')
+    t.insert('car')
+    t.insert('card')
+    t.insert('cards')
+    t.insert('cot')
+    t.insert('cots')
+    t.insert('trie')
+    t.insert('tried')
+    t.insert('tries')
+    t.insert('try')
+
     print(t)
-    print(t.find('ad'))
+    print(t.find('cards'))
