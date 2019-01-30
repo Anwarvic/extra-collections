@@ -23,6 +23,7 @@ class Trie(Tree):
         self.root = TrieNode(' ')
         self.root.data = "root"
 
+    ############################## INSERTION ##############################
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         start_node = self.root
@@ -33,6 +34,7 @@ class Trie(Tree):
         start_node.is_word = True
 
 
+    ############################## FIND ##############################
     def find(self, word):
         start_node = self.root
         for ch in word:
@@ -40,6 +42,39 @@ class Trie(Tree):
                 return False
             start_node = start_node.children[ch]
         return start_node.is_word
+
+
+    ######################### AUTO-COMPLETION #########################
+    def __parse(self, start_node, prefix):
+        output = []
+        new_prefix = prefix.copy()
+        new_prefix += start_node.data
+        if start_node.is_word:
+            output.append("".join(new_prefix))
+        # iterate over children
+        for child in start_node.get_children():
+            output.extend( self.__parse(child, new_prefix) )
+        return output
+
+
+    def get_candidates(self, prefix):
+        assert type(prefix) == str, "A character-sequence is expected!!"
+        start_node = self.root
+        # parse the prefix
+        for ch in prefix:
+            if ch not in start_node.children:
+                return []
+            start_node = start_node.children[ch]
+        # get candidates starting from given prefix
+        candidates = []
+        if start_node.is_word:
+            candidates.append(prefix)
+        prefix = [prefix]
+        for child in start_node.get_children():
+            candidates.extend(self.__parse(child, prefix))
+        return candidates
+
+
 
 
 
@@ -58,3 +93,6 @@ if __name__ == "__main__":
 
     print(t)
     print(t.find('cards'))
+    print(t.find('c'))
+    print(t.get_candidates('tri'))
+
