@@ -57,7 +57,7 @@ class Trie(Tree):
         return output
 
 
-    def get_candidates(self, prefix):
+    def get_candidates(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
         start_node = self.root
         # parse the prefix
@@ -69,9 +69,8 @@ class Trie(Tree):
         candidates = []
         if start_node.is_word:
             candidates.append(prefix)
-        prefix = [prefix]
         for child in start_node.get_children():
-            candidates.extend(self.__parse(child, prefix))
+            candidates.extend(self.__parse(child, [prefix]))
         return candidates
 
 
@@ -94,5 +93,7 @@ if __name__ == "__main__":
     print(t)
     print(t.find('cards'))
     print(t.find('c'))
+    print(t.get_candidates())
+    print(t.get_candidates('c'))
     print(t.get_candidates('tri'))
 
