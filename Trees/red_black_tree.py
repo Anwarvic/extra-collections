@@ -19,10 +19,16 @@ class RedBlackTree(BST):
         self.root = TreeNode(value)
         self.root.color = Color.BLACK
 
+    def insert(self, value):
+        pass
+
+
+
 
 
 
 
 if __name__ == "__main__":
-    rbt = RedBlackTree(1)
-    print(rbt.root.color)
+    rbtree = RedBlackTree(1)
+    print(rbtree)
+    print(rbtree.root.color)
