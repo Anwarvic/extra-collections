@@ -47,7 +47,10 @@ class TreeNode(TreeNode):
 
 class RedBlackTree(BST):
     def __init__(self, value):
-        self.root = TreeNode(value)
+        if isinstance(value, TreeNode):
+            self.root = value
+        else:
+            self.root = TreeNode(value)
         self.root.color = Color.BLACK
 
 
