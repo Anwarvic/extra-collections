@@ -99,12 +99,12 @@ class SplayTree(BST):
         self.root = self.__splaying(start_node)
 
 
-    ############################## INSERTION ##############################
+    ############################## SEARCH ##############################
     def find(self, find_val):
         node = super().search(find_val)
         self.splay(node)
 
-    
+
     ############################## INSERTION ##############################
     def insert(self, value):
         new_node = super().insert(value)
@@ -112,59 +112,12 @@ class SplayTree(BST):
 
 
     ############################## REMOVAL ##############################
-    def __get_max_node(self, start_node):
-        # get the right-most node
-        if start_node.right == None:
-            return start_node
-        else:
-            return self.__get_max_node(start_node.right)
-
-    def __remove(self, del_value, start_node):
-        parent = start_node.parent
-        if del_value == start_node.data:
-            if start_node.is_leaf():
-                if del_value <= parent.data:
-                    parent.set_left( None )
-                else:
-                    parent.set_right( None )
-                self.splay(parent)
-            elif start_node.left != None and start_node.right == None:
-                if del_value <= parent.data:
-                    parent.set_left( start_node.left )
-                else:
-                    parent.set_right( start_node.left )
-                self.splay(parent)
-            elif start_node.left == None and start_node.right != None:
-                if del_value <= parent.data:
-                    parent.set_left( start_node.right )
-                else:
-                    parent.set_right( start_node.right )
-                self.splay(parent)
-            else:
-                replacement_node = self.__get_max_node(start_node.left)
-                start_node.data = replacement_node.data
-                self.__remove(replacement_node.data, start_node.left)
-                self.splay(start_node)
-            
-        elif del_value < start_node.data:
-            if not start_node.left:
-                self.splay(start_node)
-            else:
-                self.__remove(del_value, start_node.left)
-        else:
-            if not start_node.right:
-                self.splay(start_node)
-            else:
-                self.__remove(del_value, start_node.right)
-
-
     def remove(self, del_value):
-        assert type(del_value) in {int, float}, "BST conains numbers only!"
-        if self.root.is_leaf() and del_value == self.root.data:
-            raise ValueError("Can't remove the only item in the tree!")
-        self.__remove(del_value, self.root)
-    
+        node = super().remove(del_value)
+        self.splay(node)
 
+
+    ############################## OTHERS ##############################
     def traverse(self):
         raise NotImplementedError("You can't traverse Splay Trees!!")
 
@@ -182,7 +135,6 @@ class SplayTree(BST):
 
     def get_depth(self):
         raise NotImplementedError("You can't check depth of Splay Trees!!")
-    
 
 
 
