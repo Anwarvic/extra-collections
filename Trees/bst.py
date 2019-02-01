@@ -77,23 +77,25 @@ class BST(BinaryTree):
 
 
     ############################## SEARCH ##############################
-    def __search(self, find_val, start_node):
+    def search(self, find_val, start_node = None):
+        if start_node is None: start_node = self.root
         if find_val == start_node.data:
-            return True
+            return start_node
         elif find_val < start_node.data:
             if start_node.left:
-                return self.__search(find_val, start_node.left)
+                return self.search(find_val, start_node.left)
             else:
-                return False
+                return start_node
         else:
             if start_node.right:
-                return self.__search(find_val, start_node.right)
+                return self.search(find_val, start_node.right)
             else:
-                return False
+                return start_node
 
     def __contains__(self, find_val):
-        assert type(find_val) in {int, float}, "You can insert only numbers!"
-        return self.__search(find_val, self.root)
+        assert type(find_val) in {int, float}, "BST contains only numbers!"
+        found_node = self.search(find_val)
+        return found_node.data == find_val
 
 
     ############################## INSERTION ##############################
@@ -140,7 +142,6 @@ class BST(BinaryTree):
             else:
                 replacement_node = self.__get_max_node(start_node.left)
                 start_node.data = replacement_node.data
-                print(start_node.left)
                 self.__remove(replacement_node.data, start_node.left)
         elif del_value < start_node.data:
             if not start_node.left:
