@@ -41,7 +41,13 @@ class Color(Enum):
 class TreeNode(TreeNode):
     def __init__(self, value):
         super().__init__(value)
-        self.color = None
+        self.color = Color.RED
+
+    def represent_data(self):
+        if self.color == Color.RED:
+            return str(self.data)+'r'
+        elif self.color == Color.BLACK:
+            return str(self.data)+'b'
 
 
 
@@ -54,7 +60,16 @@ class RedBlackTree(BST):
         self.root.color = Color.BLACK
 
 
+    ############################## INSERTION ##############################
     def insert(self, value):
+        """
+        When inserting a value, we set color as red and then re-color it
+        according to these three cases:
+        - uncle is 'red'
+        - uncle is 'black' and parent is 'red and 
+            - uncle is right/left child and new_node is right/left child.
+            - uncle is left/right child and new_node is righ/left child.
+        """
         pass
 
 
@@ -68,8 +83,3 @@ if __name__ == "__main__":
     print(rbtree)
     print(rbtree.root.color)
 
-
-
-    bst = BST([0,2,3])
-    bst.insert(1)
-    print(bst)
