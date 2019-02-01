@@ -121,27 +121,9 @@ class SplayTree(BST):
 
     
     ############################## INSERTION ##############################
-    def __insert(self, value, start_node):
-        if value == start_node.data:
-            return
-        elif value < start_node.data:
-            if start_node.left:
-                self.__insert(value, start_node.left)
-            else:
-                start_node.set_left( TreeNode(value) )
-                # splay
-                self.splay(start_node.left)
-        else:
-            if start_node.right:
-                self.__insert(value, start_node.right)
-            else:
-                start_node.set_right( TreeNode(value) )
-                # splay
-                self.splay(start_node.right)
-
     def insert(self, value):
-        assert type(value) in {int, float}, "You can insert only numbers!"
-        self.__insert(value, self.root)
+        new_node = super().insert(value)
+        self.splay(new_node)
 
 
     ############################## REMOVAL ##############################
