@@ -129,41 +129,43 @@ class BST(BinaryTree):
                     parent.set_left( None )
                 else:
                     parent.set_right( None )
+                return parent
             elif start_node.left != None and start_node.right == None:
                 if del_value <= parent.data:
                     parent.set_left( start_node.left )
                 else:
                     parent.set_right( start_node.left )
+                return parent
             elif start_node.left == None and start_node.right != None:
                 if del_value <= parent.data:
                     parent.set_left( start_node.right )
                 else:
                     parent.set_right( start_node.right )
+                return parent
             else:
                 replacement_node = self.__get_max_node(start_node.left)
                 start_node.data = replacement_node.data
                 self.__remove(replacement_node.data, start_node.left)
+                return start_node
         elif del_value < start_node.data:
             if not start_node.left:
                 # raise ValueError("Couldn't find given value in the tree!!")
-                pass
+                return start_node
             else:
-                self.__remove(del_value, start_node.left)
+                return self.__remove(del_value, start_node.left)
         else:
             if not start_node.right:
                 # raise ValueError("Couldn't find given value in the tree!!")
-                pass
+                return start_node
             else:
-                self.__remove(del_value, start_node.right)
+                return self.__remove(del_value, start_node.right)
 
 
     def remove(self, del_value):
         assert type(del_value) in {int, float}, "BST conains numbers only!"
         if self.root.is_leaf() and del_value == self.root.data:
             raise ValueError("Can't remove the only item in the tree!")
-        self.__remove(del_value, self.root)
-
-
+        return self.__remove(del_value, self.root)
 
 
 
