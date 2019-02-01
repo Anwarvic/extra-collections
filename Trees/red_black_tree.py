@@ -1,5 +1,5 @@
 """
-Red-Black Trees are self-balanced BSTs (Binary Search Trees) which means that
+Red-Black Trees are self-balancing BSTs (Binary Search Trees) which means that
 they have a guaranteed height of O(log(n)) where n is the number of nodes within
 the tree. The color is used only to re-balance trees and has nothing to do with
 any thing else.
@@ -49,6 +49,17 @@ class TreeNode(TreeNode):
         elif self.color == Color.BLACK:
             return str(self.data)+'b'
 
+    def get_uncle(self):
+        parent = self.parent
+        if parent is None:
+            return None
+        grand_parent = parent.parent
+        if grand_parent is None:
+            return None
+        return grand_parent.right if parent.is_left_child() \
+                                    else grand_parent.left
+
+
 
 
 class RedBlackTree(BST):
@@ -61,16 +72,16 @@ class RedBlackTree(BST):
 
 
     ############################## INSERTION ##############################
-    def insert(self, value):
-        """
-        When inserting a value, we set color as red and then re-color it
-        according to these three cases:
-        - uncle is 'red'
-        - uncle is 'black' and parent is 'red and 
-            - uncle is right/left child and new_node is right/left child.
-            - uncle is left/right child and new_node is righ/left child.
-        """
-        pass
+    # def insert(self, value):
+    #     """
+    #     When inserting a value, we set color as red and then re-color it
+    #     according to these three cases:
+    #     - parent is 'black'
+    #     - parent is 'red' and uncle is 'red'
+    #     - parent is 'red' and uncle is 'black'
+    #     """
+    #     grand_pa
+    #     pass
 
 
 
@@ -79,7 +90,13 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    rbtree = RedBlackTree(1)
+    rbtree = RedBlackTree(10)
+    rbtree.root.set_right(TreeNode(50))
+    rbtree.root.right.set_right(TreeNode(100))
+    rbtree.root.set_left(TreeNode(5))
+    rbtree.root.left.set_left(TreeNode(3))
     print(rbtree)
-    print(rbtree.root.color)
+
+    # check uncle
+    print(rbtree.root.right.get_uncle())
 
