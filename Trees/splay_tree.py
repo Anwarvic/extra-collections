@@ -12,16 +12,16 @@ class SplayTree(BST):
         if left_children:
             print("Left zig-zig")
             child.parent = grand_parent.parent
-            grand_parent.set_left(parent.right)
+            grand_parent.set_left(parent.get_right())
             parent.set_right(grand_parent)
-            parent.set_left(child.right)
+            parent.set_left(child.get_right())
             child.set_right(parent)
         else:
             print("Right zig-zig")
             child.parent = grand_parent.parent
-            grand_parent.set_right(parent.left)
+            grand_parent.set_right(parent.get_left())
             parent.set_left(grand_parent)
-            parent.set_right(child.left)
+            parent.set_right(child.get_left())
             child.set_left(parent)
         #child is now the grand-parent
         return child
@@ -34,16 +34,16 @@ class SplayTree(BST):
         if left_right_children:
             print("Left-Right zig-zag")
             child.parent = grand_parent.parent
-            grand_parent.set_left(child.right)
-            parent.set_right(child.left)
+            grand_parent.set_left(child.get_right())
+            parent.set_right(child.get_left())
             child.set_right(grand_parent)
             child.set_left(parent)
             pass
         else:
             print("Right-Left zig-zag")
             child.parent = grand_parent.parent
-            grand_parent.set_right(child.left)
-            parent.set_left(child.right)
+            grand_parent.set_right(child.get_left())
+            parent.set_left(child.get_right())
             child.set_left(grand_parent)
             child.set_right(parent)
         return child
@@ -54,12 +54,12 @@ class SplayTree(BST):
         if left_child:
             print("Left zig")
             child.parent = parent.parent
-            parent.set_left(child.right)
+            parent.set_left(child.get_right())
             child.set_right(parent)
         else:
             print("Right zig")
             child.parent = parent.parent
-            parent.set_right(child.left)
+            parent.set_right(child.get_left())
             child.set_left(parent)
         return child
 
@@ -147,16 +147,16 @@ if __name__ == "__main__":
     # example from Data Structures and Algorithm in Python (page: 514)
     stree = SplayTree(8)
     stree.root.set_left(TreeNode(3))
-    stree.root.left.set_right(TreeNode(4))
-    stree.root.left.right.set_right(TreeNode(6))
-    stree.root.left.right.right.set_left(TreeNode(5))
-    stree.root.left.right.right.set_right(TreeNode(7))
+    stree.root.get_left().set_right(TreeNode(4))
+    stree.root.get_left().get_right().set_right(TreeNode(6))
+    stree.root.get_left().get_right().get_right().set_left(TreeNode(5))
+    stree.root.get_left().get_right().get_right().set_right(TreeNode(7))
     stree.root.set_right(TreeNode(10))
-    stree.root.right.set_right(TreeNode(11))
-    stree.root.right.right.set_right(TreeNode(12))
-    stree.root.right.right.right.set_right(TreeNode(16))
-    stree.root.right.right.right.right.set_left(TreeNode(13))
-    stree.root.right.right.right.right.set_right(TreeNode(17))
+    stree.root.get_right().set_right(TreeNode(11))
+    stree.root.get_right().get_right().set_right(TreeNode(12))
+    stree.root.get_right().get_right().get_right().set_right(TreeNode(16))
+    stree.root.get_right().get_right().get_right().get_right().set_left(TreeNode(13))
+    stree.root.get_right().get_right().get_right().get_right().set_right(TreeNode(17))
     stree.insert(14)
     stree.find(13)
     print(stree)
@@ -167,12 +167,12 @@ if __name__ == "__main__":
     # example from Data Structures and Algorithm in Python (page: 517)
     stree = SplayTree(8)
     stree.root.set_left(TreeNode(3))
-    stree.root.left.set_right(TreeNode(4))
-    stree.root.left.right.set_right(TreeNode(6))
-    stree.root.left.right.right.set_left(TreeNode(5))
-    stree.root.left.right.right.set_right(TreeNode(7))
+    stree.root.get_left().set_right(TreeNode(4))
+    stree.root.get_left().get_right().set_right(TreeNode(6))
+    stree.root.get_left().get_right().get_right().set_left(TreeNode(5))
+    stree.root.get_left().get_right().get_right().set_right(TreeNode(7))
     stree.root.set_right(TreeNode(10))
-    stree.root.right.set_right(TreeNode(11))
+    stree.root.get_right().set_right(TreeNode(11))
     print(stree)
     stree.remove(8)
     print(stree)
@@ -180,13 +180,13 @@ if __name__ == "__main__":
     # example from https://www.codesdope.com/course/data-structures-splay-trees/
     stree = SplayTree(50)
     stree.root.set_left(TreeNode(20))
-    stree.root.left.set_right(TreeNode(30))
-    stree.root.left.set_left(TreeNode(2))
-    stree.root.left.right.set_left(TreeNode(28))
-    stree.root.left.right.set_right(TreeNode(35))
+    stree.root.get_left().set_right(TreeNode(30))
+    stree.root.get_left().set_left(TreeNode(2))
+    stree.root.get_left().get_right().set_left(TreeNode(28))
+    stree.root.get_left().get_right().set_right(TreeNode(35))
     stree.root.set_right(TreeNode(70))
-    stree.root.right.set_left(TreeNode(60))
-    stree.root.right.set_right(TreeNode(80))
+    stree.root.get_right().set_left(TreeNode(60))
+    stree.root.get_right().set_right(TreeNode(80))
     stree.remove(30)
     print(stree)
 
