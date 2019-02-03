@@ -55,65 +55,65 @@ class BST(BinaryTree):
     ############################## MAX/MIN ##############################
     def __get_max_node(self, start_node):
         # get the right-most node
-        if start_node.right == None:
+        if start_node.get_right() == None:
             return start_node
         else:
-            return self.__get_max_node(start_node.right)
+            return self.__get_max_node(start_node.get_right())
 
     def get_max(self):
         max_node = self.__get_max_node(self.root)
-        return max_node.data
+        return max_node.get_data()
 
     def __get_min_node(self, start_node):
         # get the left-most node
-        if start_node.left == None:
+        if start_node.get_left() == None:
             return start_node
         else:
-            return self.__get_min_node(start_node.left)
+            return self.__get_min_node(start_node.get_left())
 
     def get_min(self):
         min_node = self.__get_min_node(self.root)
-        return min_node.data
+        return min_node.get_data()
 
 
     ############################## SEARCH ##############################
     def search(self, find_val, start_node = None):
         if start_node is None: start_node = self.root
-        if find_val == start_node.data:
+        if find_val == start_node.get_data():
             return start_node
-        elif find_val < start_node.data:
-            if start_node.left:
-                return self.search(find_val, start_node.left)
+        elif find_val < start_node.get_data():
+            if start_node.get_left():
+                return self.search(find_val, start_node.get_left())
             else:
                 return start_node
         else:
-            if start_node.right:
-                return self.search(find_val, start_node.right)
+            if start_node.get_right():
+                return self.search(find_val, start_node.get_right())
             else:
                 return start_node
 
     def __contains__(self, find_val):
         assert type(find_val) in {int, float}, "BST contains only numbers!"
         found_node = self.search(find_val)
-        return found_node.data == find_val
+        return found_node.get_data() == find_val
 
 
     ############################## INSERTION ##############################
     def __insert(self, value, start_node):
-        if value == start_node.data:
+        if value == start_node.get_data():
             return
-        elif value < start_node.data:
-            if start_node.left:
-                return self.__insert(value, start_node.left)
+        elif value < start_node.get_data():
+            if start_node.get_left():
+                return self.__insert(value, start_node.get_left())
             else:
                 start_node.set_left( TreeNode(value) )
-                return start_node.left
+                return start_node.get_left()
         else:
-            if start_node.right:
-                return self.__insert(value, start_node.right)
+            if start_node.get_right():
+                return self.__insert(value, start_node.get_right())
             else:
                 start_node.set_right( TreeNode(value) )
-                return start_node.right
+                return start_node.get_right()
 
     def insert(self, value):
         assert type(value) in {int, float}, "You can insert only numbers!"
@@ -123,47 +123,47 @@ class BST(BinaryTree):
     ############################## REMOVAL ##############################
     def __remove(self, del_value, start_node):
         parent = start_node.parent
-        if del_value == start_node.data:
+        if del_value == start_node.get_data():
             if start_node.is_leaf():
-                if del_value <= parent.data:
+                if del_value <= parent.get_data():
                     parent.set_left( None )
                 else:
                     parent.set_right( None )
                 return parent
-            elif start_node.left != None and start_node.right == None:
-                if del_value <= parent.data:
-                    parent.set_left( start_node.left )
+            elif start_node.get_left()!=None and start_node.get_right()==None:
+                if del_value <= parent.get_data():
+                    parent.set_left( start_node.get_left() )
                 else:
-                    parent.set_right( start_node.left )
+                    parent.set_right( start_node.get_left() )
                 return parent
-            elif start_node.left == None and start_node.right != None:
-                if del_value <= parent.data:
-                    parent.set_left( start_node.right )
+            elif start_node.get_left()==None and start_node.get_right()!=None:
+                if del_value <= parent.get_data():
+                    parent.set_left( start_node.get_right() )
                 else:
-                    parent.set_right( start_node.right )
+                    parent.set_right( start_node.get_right() )
                 return parent
             else:
-                replacement_node = self.__get_max_node(start_node.left)
+                replacement_node = self.__get_max_node(start_node.get_left())
                 start_node.data = replacement_node.data
-                self.__remove(replacement_node.data, start_node.left)
+                self.__remove(replacement_node.data, start_node.get_left())
                 return start_node
-        elif del_value < start_node.data:
-            if not start_node.left:
+        elif del_value < start_node.get_data():
+            if not start_node.get_left():
                 # raise ValueError("Couldn't find given value in the tree!!")
                 return start_node
             else:
-                return self.__remove(del_value, start_node.left)
+                return self.__remove(del_value, start_node.get_left())
         else:
-            if not start_node.right:
+            if not start_node.get_right():
                 # raise ValueError("Couldn't find given value in the tree!!")
                 return start_node
             else:
-                return self.__remove(del_value, start_node.right)
+                return self.__remove(del_value, start_node.get_right())
 
 
     def remove(self, del_value):
         assert type(del_value) in {int, float}, "BST conains numbers only!"
-        if self.root.is_leaf() and del_value == self.root.data:
+        if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         return self.__remove(del_value, self.root)
 
