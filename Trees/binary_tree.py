@@ -21,17 +21,17 @@ class TreeNode:
         self.right = new_node
 
     def __repr__(self):
-        return "TreeNode({})".format(self.get_data())
+        return "TreeNode({})".format(self.data)
 
     def represent_data(self):
-        return str(self.get_data())
+        return str(self.data)
         
     def is_leaf(self):
-        return self.get_left() == self.get_right() == None
+        return self.left == self.right == None
 
     def has_one_child(self):
         return not self.is_leaf() \
-                and (self.get_left() is None or self.get_right() is None)
+                and (self.left is None or self.right is None)
 
 
 
