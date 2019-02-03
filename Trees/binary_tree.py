@@ -5,18 +5,33 @@ class TreeNode:
         self.left = None
         self.right = None
 
+    def get_data(self):
+        return self.data
+
+    def get_left(self):
+        return self.left
+
+    def get_right(self):
+        return self.right
+
+    def set_left(self, new_node):
+        self.left = new_node
+
+    def set_right(self, new_node):
+        self.right = new_node
+
     def __repr__(self):
-        return "TreeNode({})".format(self.data)
+        return "TreeNode({})".format(self.get_data())
 
     def represent_data(self):
-        return str(self.data)
+        return str(self.get_data())
         
     def is_leaf(self):
-        return self.left == self.right == None
+        return self.get_left() == self.get_right() == None
 
     def has_one_child(self):
         return not self.is_leaf() \
-                and (self.left is None or self.right is None)
+                and (self.get_left() is None or self.get_right() is None)
 
 
 
@@ -46,7 +61,7 @@ class BinaryTree:
 
             # Get the left and right sub-boxes, their widths, and root repr positions
             l_box, l_box_width, l_root_start, l_root_end = \
-                self.__print_subtree(root.left, 2 * curr_index + 1)
+                self.__print_subtree(root.get_left(), 2 * curr_index + 1)
             r_box, r_box_width, r_root_start, r_root_end = \
                 self.__print_subtree(root.right, 2 * curr_index + 2,)
 
@@ -100,10 +115,10 @@ class BinaryTree:
         height = 0
         if start_node != None:
             left_height, right_height = 0, 0
-            if start_node.left:
-                left_height = 1 + self.__get_height(start_node.left)
-            if start_node.right:
-                right_height = 1 + self.__get_height(start_node.right)
+            if start_node.get_left():
+                left_height = 1 + self.__get_height(start_node.get_left())
+            if start_node.get_right():
+                right_height = 1 + self.__get_height(start_node.get_right())
             height += max(left_height, right_height)
         return height
 
@@ -120,10 +135,10 @@ class BinaryTree:
         BinaryTree is balanced if the difference between the depth of any
         two leaf nodes is less than or equal one.
         """
-        left_depth = 1 if self.root.left != None else 0
-        left_depth += self.__get_height(self.root.left)
-        right_depth = 1 if self.root.right != None else 0
-        right_depth += self.__get_height(self.root.right)
+        left_depth = 1 if self.root.get_left() != None else 0
+        left_depth += self.__get_height(self.root.get_left())
+        right_depth = 1 if self.root.get_right() != None else 0
+        right_depth += self.__get_height(self.root.get_right())
         return abs(left_depth - right_depth) <= 1
 
 
@@ -140,8 +155,8 @@ class BinaryTree:
 
     ############################## STRICT ##############################
     def __is_subtree_strict(self, start_node):
-        left_node = start_node.left
-        right_node = start_node.right
+        left_node = start_node.get_left()
+        right_node = start_node.get_right()
 
         if left_node is None and right_node is None:
             return True
@@ -150,8 +165,8 @@ class BinaryTree:
         elif left_node is None and right_node is not None:
             return False
         else:
-            return self.__is_subtree_strict(start_node.left) and \
-                    self.__is_subtree_strict(start_node.right)
+            return self.__is_subtree_strict(start_node.get_left()) and \
+                    self.__is_subtree_strict(start_node.get_right())
 
     def is_strict(self):
         """
@@ -166,10 +181,10 @@ class BinaryTree:
         total_nodes = 0
         if start_node != None:
             total_nodes += 1
-            if start_node.left:
-                total_nodes += self.__count_nodes(start_node.left)
-            if start_node.right:
-                total_nodes += self.__count_nodes(start_node.right)
+            if start_node.get_left():
+                total_nodes += self.__count_nodes(start_node.get_left())
+            if start_node.get_right():
+                total_nodes += self.__count_nodes(start_node.get_right())
         return total_nodes
 
     def __len__(self):
@@ -182,10 +197,10 @@ class BinaryTree:
         if start_node != None:
             if start_node.is_leaf():
                 total_nodes += 1
-            if start_node.left:
-                total_nodes += self.__count_leaf_nodes(start_node.left)
-            if start_node.right:
-                total_nodes += self.__count_leaf_nodes(start_node.right)
+            if start_node.get_left():
+                total_nodes += self.__count_leaf_nodes(start_node.get_left())
+            if start_node.get_right():
+                total_nodes += self.__count_leaf_nodes(start_node.get_right())
         return total_nodes
 
     def count_leaf_nodes(self):
@@ -199,10 +214,10 @@ class BinaryTree:
             next_nodes = []
             for node in current_nodes:
                 yield node
-                if node.left != None:
-                    next_nodes.append(node.left)
-                if node.right != None:
-                    next_nodes.append(node.right)
+                if node.get_left() != None:
+                    next_nodes.append(node.get_left())
+                if node.get_right() != None:
+                    next_nodes.append(node.get_right())
             current_nodes = next_nodes
 
 
@@ -210,11 +225,11 @@ class BinaryTree:
     def __preorder_traverse(self, start_node):
         nodes = []
         if start_node != None:
-            nodes.append(start_node.data)
-            if start_node.left:
-                nodes.extend(self.__preorder_traverse(start_node.left))
-            if start_node.right:
-                nodes.extend(self.__preorder_traverse(start_node.right))
+            nodes.append(start_node.get_data())
+            if start_node.get_left():
+                nodes.extend(self.__preorder_traverse(start_node.get_left()))
+            if start_node.get_right():
+                nodes.extend(self.__preorder_traverse(start_node.get_right()))
         return nodes
 
     def preorder_traverse(self):
@@ -228,11 +243,11 @@ class BinaryTree:
     def __postorder_traverse(self, start_node):
         nodes = []
         if start_node != None:
-            if start_node.left:
-                nodes.extend(self.__postorder_traverse(start_node.left))
-            if start_node.right:
-                nodes.extend(self.__postorder_traverse(start_node.right))
-            nodes.append(start_node.data)
+            if start_node.get_left():
+                nodes.extend(self.__postorder_traverse(start_node.get_left()))
+            if start_node.get_right():
+                nodes.extend(self.__postorder_traverse(start_node.get_right()))
+            nodes.append(start_node.get_data())
         return nodes
 
     def postorder_traverse(self):
@@ -243,11 +258,11 @@ class BinaryTree:
     def __inorder_traverse(self, start_node):
         nodes = []
         if start_node != None:
-            if start_node.left:
-                nodes.extend(self.__inorder_traverse(start_node.left))
-            nodes.append(start_node.data)
-            if start_node.right:
-                nodes.extend(self.__inorder_traverse(start_node.right))
+            if start_node.get_left():
+                nodes.extend(self.__inorder_traverse(start_node.get_left()))
+            nodes.append(start_node.get_data())
+            if start_node.get_right():
+                nodes.extend(self.__inorder_traverse(start_node.get_right()))
         return nodes
 
     def inorder_traverse(self):
@@ -256,7 +271,7 @@ class BinaryTree:
 
     #################### breadth-first TRAVERSE ####################
     def breadth_first_traverse(self):
-        return [tree_node.data for tree_node in self]
+        return [tree_node.get_data() for tree_node in self]
 
 
     ############################## TRAVERSE ##############################
@@ -282,12 +297,12 @@ class BinaryTree:
             if level == len(level_nodes):
                 level_nodes.append([])
             level_nodes[level].append(start_node)
-            if start_node.left:
-                self.__get_nodes_per_level(start_node.left,
+            if start_node.get_left():
+                self.__get_nodes_per_level(start_node.get_left(),
                                            level+1,
                                            level_nodes)
-            if start_node.right:
-                self.__get_nodes_per_level(start_node.right,
+            if start_node.get_right():
+                self.__get_nodes_per_level(start_node.get_right(),
                                            level+1,
                                            level_nodes)
         return level_nodes
@@ -302,11 +317,11 @@ class BinaryTree:
                 parent = TreeNode(lst[0])
             elif len(lst) == 2:
                 parent = TreeNode(lst[0])
-                parent.left = self.__create_subtree(lst[1])
+                parent.set_left( self.__create_subtree(lst[1]) )
             elif len(lst) == 3:
                 parent = TreeNode(lst[0])
-                parent.left = self.__create_subtree(lst[1])
-                parent.right = self.__create_subtree(lst[2])
+                parent.set_left( self.__create_subtree(lst[1]) )
+                parent.set_right( self.__create_subtree(lst[2]) )
             else:
                 raise AssertionError("Given list can not be parsed!")
             return parent
