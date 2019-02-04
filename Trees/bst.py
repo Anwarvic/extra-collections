@@ -7,6 +7,9 @@ class TreeNode(TreeNode):
         super().__init__(value)
         self.parent = None
 
+    def get_parent(self):
+        return self.parent
+
     def set_left(self, new_node):
         self.left = new_node
         if new_node is not None:
@@ -16,6 +19,9 @@ class TreeNode(TreeNode):
         self.right = new_node
         if new_node is not None:
             self.right.parent = self
+
+    def set_parent(self, new_node):
+        self.parent = new_node
 
     def is_left_child(self):
         parent = self.parent
@@ -122,7 +128,7 @@ class BST(BinaryTree):
 
     ############################## REMOVAL ##############################
     def __remove(self, del_value, start_node):
-        parent = start_node.parent
+        parent = start_node.get_parent()
         if del_value == start_node.get_data():
             if start_node.is_leaf():
                 if del_value <= parent.get_data():
