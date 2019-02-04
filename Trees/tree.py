@@ -30,15 +30,13 @@ class Tree:
     def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
         """
         seq (list): is a boolean list containing values
-
-        NOTE: get_children() is essential here!!
         """
         line = []
         if seq:
             for is_parent_last_child in seq[1:]:
                 line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
-            line.append('┬ ') if start_node.children else line.append('─ ')
+            line.append('┬ ') if start_node.get_children() else line.append('─ ')
         line.append(start_node.get_data())
         lines.append("".join(line))
         # append node status
@@ -55,7 +53,7 @@ class Tree:
 
 
     def __repr__(self):
-        if self.root.children:
+        if self.root.get_children():
             return "\n".join(self.__print_subtree(self.root, [], False))
         else:
             return self.root.get_data()
