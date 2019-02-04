@@ -9,11 +9,18 @@ class TrieNode(TreeNode):
         self.children = {}
         self.is_word = False
 
-    def __repr__(self):
-        return "TrieNode({})".format(self.data)
+    def get_characters(self):
+        return self.children.keys()
 
     def get_children(self):
         return list(self.children.values())
+
+    def get_child(self, ch):
+        return self.children[ch]
+
+    def set_child(self, ch, new_node):
+        self.children[ch] = new_node
+
 
 
 
@@ -28,9 +35,9 @@ class Trie(Tree):
         assert type(word) == str, "You can insert String objects only!!"
         start_node = self.root
         for ch in word:
-            if ch not in start_node.children:
-                start_node.children[ch] = TrieNode(ch)
-            start_node = start_node.children[ch]
+            if ch not in start_node.get_characters():
+                start_node.set_child(ch, TrieNode(ch))
+            start_node = start_node.get_child(ch)
         start_node.is_word = True
 
 
@@ -40,7 +47,7 @@ class Trie(Tree):
         for ch in word:
             if ch not in start_node.children:
                 return False
-            start_node = start_node.children[ch]
+            start_node = start_node.get_child(ch)
         return start_node.is_word
 
 
@@ -48,7 +55,7 @@ class Trie(Tree):
     def __parse(self, start_node, prefix):
         output = []
         new_prefix = prefix.copy()
-        new_prefix += start_node.data
+        new_prefix += start_node.get_data()
         if start_node.is_word:
             output.append("".join(new_prefix))
         # iterate over children
@@ -62,9 +69,9 @@ class Trie(Tree):
         start_node = self.root
         # parse the prefix
         for ch in prefix:
-            if ch not in start_node.children:
+            if ch not in start_node.get_characters():
                 return []
-            start_node = start_node.children[ch]
+            start_node = start_node.get_child(ch)
         # get candidates starting from given prefix
         candidates = []
         if start_node.is_word:
@@ -96,4 +103,9 @@ if __name__ == "__main__":
     print(t.get_candidates())
     print(t.get_candidates('c'))
     print(t.get_candidates('tri'))
-
+    print('='*50)
+    
+    # explort Trie
+    print(t.root)
+    print(t.root.get_child('t').data)
+    print(t.root.get_child('c').children)
