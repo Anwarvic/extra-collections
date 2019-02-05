@@ -10,6 +10,19 @@ class TreeNode(TreeNode):
     def get_parent(self):
         return self.parent
 
+    def get_grand_parent(self):
+        return self.parent.parent if self.parent else None
+
+    def get_uncle(self):
+        parent = self.parent
+        if parent is None:
+            return None
+        grand_parent = parent.parent
+        if grand_parent is None:
+            return None
+        return grand_parent.right if parent.is_left_child() \
+                                    else grand_parent.left
+
     def set_left(self, new_node):
         self.left = new_node
         if new_node is not None:
@@ -26,16 +39,6 @@ class TreeNode(TreeNode):
     def is_left_child(self):
         parent = self.parent
         return parent.data > self.data
-
-    def get_uncle(self):
-        parent = self.parent
-        if parent is None:
-            return None
-        grand_parent = parent.parent
-        if grand_parent is None:
-            return None
-        return grand_parent.right if parent.is_left_child() \
-                                    else grand_parent.left
 
 
 
