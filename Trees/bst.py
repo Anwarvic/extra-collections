@@ -27,6 +27,16 @@ class TreeNode(TreeNode):
         parent = self.parent
         return parent.data > self.data
 
+    def get_uncle(self):
+        parent = self.parent
+        if parent is None:
+            return None
+        grand_parent = parent.parent
+        if grand_parent is None:
+            return None
+        return grand_parent.right if parent.is_left_child() \
+                                    else grand_parent.left
+
 
 
 class BST(BinaryTree):

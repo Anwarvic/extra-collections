@@ -72,16 +72,16 @@ class RedBlackTree(BST):
 
 
     ############################## INSERTION ##############################
-    # def insert(self, value):
-    #     """
-    #     When inserting a value, we set color as red and then re-color it
-    #     according to these three cases:
-    #     - parent is 'black'
-    #     - parent is 'red' and uncle is 'red'
-    #     - parent is 'red' and uncle is 'black'
-    #     """
-    #     grand_pa
-    #     pass
+    def insert(self, value):
+        """
+        When inserting a value, we set color as red and then re-color it
+        according to these three cases:
+        - parent is 'black'
+        - parent is 'red' and uncle is 'red'
+        - parent is 'red' and uncle is 'black'
+        """
+        new_node = super().insert(value)
+        return new_node
 
 
 
@@ -95,8 +95,9 @@ if __name__ == "__main__":
     rbtree.root.right.set_right(TreeNode(100))
     rbtree.root.set_left(TreeNode(5))
     rbtree.root.left.set_left(TreeNode(3))
+    nnode = rbtree.insert(6)
     print(rbtree)
 
     # check uncle
-    print(rbtree.root.right.get_uncle())
+    print(nnode.get_uncle())
 
