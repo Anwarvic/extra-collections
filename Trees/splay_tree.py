@@ -7,7 +7,7 @@ class SplayTree(BST):
     def __zig_zig(self, start_node, left_children=True):
         child = start_node
         parent = child.get_parent()
-        grand_parent = parent.get_parent()
+        grand_parent = child.get_grand_parent()
         # start __zig-__zig
         if left_children:
             # print("Left zig-zig")
@@ -29,7 +29,7 @@ class SplayTree(BST):
     def __zig_zag(self, start_node, left_right_children=True):
         child = start_node
         parent = child.get_parent()
-        grand_parent = parent.get_parent()
+        grand_parent = child.get_grand_parent()
         # start __zig-zag
         if left_right_children:
             # print("Left-Right zig-zag")
@@ -68,7 +68,7 @@ class SplayTree(BST):
         parent = child.get_parent()
         if parent is None:
             return start_node
-        grand_parent = parent.get_parent()
+        grand_parent = child.get_grand_parent()
         # get the operation type
         if grand_parent is None:
             if child.is_left_child():
