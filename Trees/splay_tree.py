@@ -10,14 +10,14 @@ class SplayTree(BST):
         grand_parent = parent.get_parent()
         # start __zig-__zig
         if left_children:
-            print("Left zig-__zig")
+            # print("Left zig-zig")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_left(parent.get_right())
             parent.set_right(grand_parent)
             parent.set_left(child.get_right())
             child.set_right(parent)
         else:
-            print("Right zig-zig")
+            # print("Right zig-zig")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_right(parent.get_left())
             parent.set_left(grand_parent)
@@ -32,7 +32,7 @@ class SplayTree(BST):
         grand_parent = parent.get_parent()
         # start __zig-zag
         if left_right_children:
-            print("Left-Right zig-zag")
+            # print("Left-Right zig-zag")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_left(child.get_right())
             parent.set_right(child.get_left())
@@ -40,7 +40,7 @@ class SplayTree(BST):
             child.set_left(parent)
             pass
         else:
-            print("Right-Left zig-zag")
+            # print("Right-Left zig-zag")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_right(child.get_left())
             parent.set_left(child.get_right())
@@ -52,12 +52,12 @@ class SplayTree(BST):
         child = start_node
         parent = child.get_parent()
         if left_child:
-            print("Left zig")
+            # print("Left zig")
             child.set_parent( parent.get_parent() )
             parent.set_left(child.get_right())
             child.set_right(parent)
         else:
-            print("Right zig")
+            # print("Right zig")
             child.set_parent( parent.get_parent() )
             parent.set_right(child.get_left())
             child.set_left(parent)
@@ -162,6 +162,7 @@ if __name__ == "__main__":
     print(stree)
     stree.find(8)
     print(stree)
+    print('='*50)
 
     # test remove
     # example from Data Structures and Algorithm in Python (page: 517)
@@ -176,6 +177,7 @@ if __name__ == "__main__":
     print(stree)
     stree.remove(8)
     print(stree)
+    print('='*50)
 
     # example from https://www.codesdope.com/course/data-structures-splay-trees/
     stree = SplayTree(50)
@@ -189,5 +191,6 @@ if __name__ == "__main__":
     stree.root.get_right().set_right(TreeNode(80))
     stree.remove(30)
     print(stree)
+    print('='*50)
 
 
