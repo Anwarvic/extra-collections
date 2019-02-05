@@ -4,13 +4,13 @@ from bst import TreeNode, BST
 
 class SplayTree(BST):
     ############################## SPLAYING ##############################
-    def zig_zig(self, start_node, left_children=True):
+    def __zig_zig(self, start_node, left_children=True):
         child = start_node
         parent = child.get_parent()
         grand_parent = parent.get_parent()
-        # start zig-zig
+        # start __zig-__zig
         if left_children:
-            print("Left zig-zig")
+            print("Left zig-__zig")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_left(parent.get_right())
             parent.set_right(grand_parent)
@@ -26,11 +26,11 @@ class SplayTree(BST):
         #child is now the grand-parent
         return child
 
-    def zig_zag(self, start_node, left_right_children=True):
+    def __zig_zag(self, start_node, left_right_children=True):
         child = start_node
         parent = child.get_parent()
         grand_parent = parent.get_parent()
-        # start zig-zag
+        # start __zig-zag
         if left_right_children:
             print("Left-Right zig-zag")
             child.set_parent( grand_parent.get_parent() )
@@ -48,7 +48,7 @@ class SplayTree(BST):
             child.set_right(parent)
         return child
 
-    def zig(self, start_node, left_child=True):
+    def __zig(self, start_node, left_child=True):
         child = start_node
         parent = child.get_parent()
         if left_child:
@@ -72,22 +72,22 @@ class SplayTree(BST):
         # get the operation type
         if grand_parent is None:
             if child.is_left_child():
-                root = self.zig(child, left_child=True)
+                root = self.__zig(child, left_child=True)
             else:
-                root = self.zig(child, left_child=False)
+                root = self.__zig(child, left_child=False)
         else:
             # left -> left
             if parent.is_left_child() and child.is_left_child():
-                grand_parent = self.zig_zig(child, left_children=True)
+                grand_parent = self.__zig_zig(child, left_children=True)
             # left -> right
             elif parent.is_left_child() and not child.is_left_child():
-                grand_parent = self.zig_zag(child, left_right_children=True)
+                grand_parent = self.__zig_zag(child, left_right_children=True)
             # right -> left
             elif not parent.is_left_child() and child.is_left_child():
-                grand_parent = self.zig_zag(child, left_right_children=False)
+                grand_parent = self.__zig_zag(child, left_right_children=False)
             # right -> right
             else:
-                grand_parent = self.zig_zig(child, left_children=False)
+                grand_parent = self.__zig_zig(child, left_children=False)
             if grand_parent.get_parent() is not None:
                 root = self.__splaying(grand_parent)
             else:
