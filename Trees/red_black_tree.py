@@ -124,14 +124,26 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    rbtree = RedBlackTree(10)
-    rbtree.root.set_right(TreeNode(50))
-    rbtree.root.right.set_right(TreeNode(100))
-    rbtree.root.set_left(TreeNode(5))
-    rbtree.root.left.set_left(TreeNode(3))
-    nnode = rbtree.insert(6)
-    print(rbtree)
+    # rbtree = RedBlackTree(10)
+    # rbtree.root.set_right(TreeNode(50))
+    # rbtree.root.right.set_right(TreeNode(100))
+    # rbtree.root.set_left(TreeNode(5))
+    # rbtree.root.left.set_left(TreeNode(3))
+    # nnode = rbtree.insert(6)
+    # print(rbtree)
+    # # check uncle
+    # print(nnode.get_uncle())
 
-    # check uncle
-    print(nnode.get_uncle())
+    # test rotate_left
+    rbtree = RedBlackTree(5)
+    rbtree.insert(2)
+    rbtree.insert(10)
+    rbtree.insert(8)
+    rbtree.insert(12)
+    rbtree.insert(6)
+    rbtree.insert(9)
+    # print(rbtree)
+
+    rbtree.root = rbtree.rotate_left(rbtree.root)
+    print(rbtree)
 
