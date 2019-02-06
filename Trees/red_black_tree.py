@@ -43,21 +43,19 @@ class TreeNode(TreeNode):
         super().__init__(value)
         self.color = Color.RED
 
+    def get_color(self):
+        return self.color
+
+    def set_color(self, color):
+        assert color in {Color.RED, Color.BLACK}, "Invalid color!!"
+        self.color = color
+
     def represent_data(self):
         if self.color == Color.RED:
             return str(self.data)+'r'
         elif self.color == Color.BLACK:
             return str(self.data)+'b'
 
-    def get_uncle(self):
-        parent = self.parent
-        if parent is None:
-            return None
-        grand_parent = parent.parent
-        if grand_parent is None:
-            return None
-        return grand_parent.right if parent.is_left_child() \
-                                    else grand_parent.left
 
 
 
@@ -71,17 +69,42 @@ class RedBlackTree(BST):
         self.root.color = Color.BLACK
 
 
+    ############################## ROTATION ##############################
+    def rotate_left(self, start_node):
+        pass
+
+    def rotate_right(self, start_node):
+        pass
+
     ############################## INSERTION ##############################
-    def insert(self, value):
-        """
-        When inserting a value, we set color as red and then re-color it
-        according to these three cases:
-        - parent is 'black'
-        - parent is 'red' and uncle is 'red'
-        - parent is 'red' and uncle is 'black'
-        """
-        new_node = super().insert(value)
-        return new_node
+    # def insert(self, value):
+    #     """
+    #     When inserting a value, we set color as red and then re-color it
+    #     according to these three cases:
+    #     - parent is 'black'
+    #     - parent is 'red' and uncle is 'red'
+    #     - parent is 'red' and uncle is 'black'
+    #     """
+    #     new_node = super().insert(value)
+    #     parent = new_node.get_parent()
+    #     grand_parent = parent.get_parent() if parent else None
+    #     uncle = new_node.get_uncle()
+    #     if parent.get_color() == Color.BLACK:
+    #         pass #do nothing
+    #     elif parent.get_color() == Color.RED:
+    #         if uncle.get_color() == Color.RED:
+    #             parent.set_color(Color.BLACK)
+    #             uncle.set_color(Color.BLACK)
+    #             grand_parent.set_color(Color.RED) if grand_parent
+
+
+
+
+    #         GetParent(n)->color = BLACK;
+    #         GetUncle(n)->color = BLACK;
+    #         GetGrandParent(n)->color = RED;
+    #         InsertRepairTree(GetGrandParent(n));
+
 
 
 
