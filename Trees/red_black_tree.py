@@ -71,10 +71,16 @@ class RedBlackTree(BST):
 
     ############################## ROTATION ##############################
     def rotate_left(self, start_node):
-        pass
+        # print("Rotating Left")
+        middle = start_node.get_right()
+        middle.set_parent( start_node.get_parent() )
+        start_node.set_right(middle.get_left())
+        middle.set_left(start_node)
+        return middle
 
     def rotate_right(self, start_node):
         pass
+
 
     ############################## INSERTION ##############################
     # def insert(self, value):
