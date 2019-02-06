@@ -134,16 +134,29 @@ if __name__ == "__main__":
     # # check uncle
     # print(nnode.get_uncle())
 
-    # test rotate_left
-    rbtree = RedBlackTree(5)
+    # # test rotate_left
+    # rbtree = RedBlackTree(5)
+    # rbtree.insert(2)
+    # rbtree.insert(10)
+    # rbtree.insert(8)
+    # rbtree.insert(12)
+    # rbtree.insert(6)
+    # rbtree.insert(9)
+    # print(rbtree)
+    # rbtree.root = rbtree.rotate_left(rbtree.root)
+    # print(rbtree)
+    # print('='*50)
+
+    # test rotate_right
+    rbtree = RedBlackTree(10)
+    rbtree.insert(5)
     rbtree.insert(2)
-    rbtree.insert(10)
     rbtree.insert(8)
     rbtree.insert(12)
     rbtree.insert(6)
     rbtree.insert(9)
-    # print(rbtree)
-
-    rbtree.root = rbtree.rotate_left(rbtree.root)
     print(rbtree)
+    rbtree.root = rbtree.rotate_right(rbtree.root)
+    print(rbtree)
+    print('='*50)    
 
