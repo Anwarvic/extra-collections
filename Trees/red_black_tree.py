@@ -88,6 +88,21 @@ class RedBlackTree(BST):
 
 
     ############################## INSERTION ##############################
+    def __insert(self, value):
+        # insert new node
+        node = super().insert(value)
+        parent = node.get_parent()
+        # cast into TreeNode with color
+        new_node = TreeNode(value)
+        new_node.set_color(Color.RED)
+        # take care of node-parrent connection
+        if value > parent.get_data():
+            parent.set_right(new_node)
+        elif value < parent.get_data():
+            parent.set_left(new_node)
+        return new_node
+
+
     def insert(self, value):
         """
         When inserting a value, we set color as red and then re-color it
@@ -96,10 +111,8 @@ class RedBlackTree(BST):
         - case II:  parent is 'red' and uncle is 'red'
         - case III: parent is 'red' and uncle is 'black'
         """
-        # insert new node
-        new_node = super().insert(value)
-        # adjust the color
-        new_node.set_color(Color.RED)
+        new_node = self.__insert(value)
+        # get necessary info
         parent = new_node.get_parent()
         uncle = new_node.get_uncle()
         grand_parent = parent.get_parent()
@@ -108,10 +121,10 @@ class RedBlackTree(BST):
             pass #do nothing
         else:
             # case II
-            if uncle.get_color() == Color.RED:
+            if uncle and uncle.get_color() == Color.RED:
                 parent.set_color(Color.BLACK)
                 uncle.set_color(Color.BLACK)
-                grand_parent.set_color(Color.RED) if grand_parent
+                grand_parent.set_color(Color.RED)
             # case III
             else:
                 # parent is left-child and node is left-child
@@ -130,6 +143,8 @@ class RedBlackTree(BST):
                     grand_parent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
                     grand_parent = self.__rotate_left(grand_parent)
+        # make sure the root is black
+        self.root.set_color(Color.BLACK)
 
 
 
@@ -138,39 +153,12 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    # rbtree = RedBlackTree(10)
-    # rbtree.root.set_right(TreeNode(50))
-    # rbtree.root.right.set_right(TreeNode(100))
-    # rbtree.root.set_left(TreeNode(5))
-    # rbtree.root.left.set_left(TreeNode(3))
-    # nnode = rbtree.insert(6)
-    # print(rbtree)
-    # # check uncle
-    # print(nnode.get_uncle())
-
-    # # test rotate_left
-    # rbtree = RedBlackTree(5)
-    # rbtree.insert(2)
-    # rbtree.insert(10)
-    # rbtree.insert(8)
-    # rbtree.insert(12)
-    # rbtree.insert(6)
-    # rbtree.insert(9)
-    # print(rbtree)
-    # rbtree.root = rbtree.rotate_left(rbtree.root)
-    # print(rbtree)
-    # print('='*50)
-
-    # # test rotate_right
-    # rbtree = RedBlackTree(10)
-    # rbtree.insert(5)
-    # rbtree.insert(2)
-    # rbtree.insert(8)
-    # rbtree.insert(12)
-    # rbtree.insert(6)
-    # rbtree.insert(9)
-    # print(rbtree)
-    # rbtree.root = rbtree.rotate_right(rbtree.root)
-    # print(rbtree)
-    # print('='*50)    
-
+    rbtree = RedBlackTree(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    print(rbtree)
