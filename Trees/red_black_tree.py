@@ -70,7 +70,7 @@ class RedBlackTree(BST):
 
 
     ############################## ROTATION ##############################
-    def __rotate_left(self, start_node):
+    def rotate_left(self, start_node):
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -78,7 +78,7 @@ class RedBlackTree(BST):
         middle.set_left(start_node)
         return middle
 
-    def __rotate_right(self, start_node):
+    def rotate_right(self, start_node):
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -88,34 +88,13 @@ class RedBlackTree(BST):
 
 
     ############################## INSERTION ##############################
-    def __insert(self, value):
-        # insert new node
-        node = super().insert(value)
-        parent = node.get_parent()
-        # cast into TreeNode with color
-        new_node = TreeNode(value)
-        new_node.set_color(Color.RED)
-        # take care of node-parrent connection
-        if value > parent.get_data():
-            parent.set_right(new_node)
-        elif value < parent.get_data():
-            parent.set_left(new_node)
-        return new_node
-
-
-    def insert(self, value):
+    def __recolor(self, start_node, parent, uncle, grandparent):
         """
-        When inserting a value, we set color as red and then re-color it
-        according to these three cases:
+        Recoloring can be done according to these three cases:
         - case I:   parent is 'black'
         - case II:  parent is 'red' and uncle is 'red'
         - case III: parent is 'red' and uncle is 'black'
         """
-        new_node = self.__insert(value)
-        # get necessary info
-        parent = new_node.get_parent()
-        uncle = new_node.get_uncle()
-        grand_parent = parent.get_parent()
         # case I
         if parent.get_color() == Color.BLACK:
             pass #do nothing
@@ -124,25 +103,59 @@ class RedBlackTree(BST):
             if uncle and uncle.get_color() == Color.RED:
                 parent.set_color(Color.BLACK)
                 uncle.set_color(Color.BLACK)
-                grand_parent.set_color(Color.RED)
+                grandparent.set_color(Color.RED)
             # case III
             else:
                 # parent is left-child and node is left-child
-                if parent.is_left_child() and new_node.is_left_child():
-                    grand_parent.set_color(Color.RED)
+                if parent.is_left_child() and start_node.is_left_child():
+                    grandparent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
-                    grand_parent = self.__rotate_right(grand_parent)
+                    grandparent = self.rotate_right(grandparent)
                 # parent is left-child and node is right-child
-                elif parent.is_left_child() and not new_node.is_left_child():
-                    parent = self.__rotate_left(parent)
+                elif parent.is_left_child() and not start_node.is_left_child():
+                    parent = self.rotate_left(parent)
                 # parent is right-child and node is left-child
-                elif not parent.is_left_child() and new_node.is_left_child():
-                    parent = self.__rotate_right(parent)
+                elif not parent.is_left_child() and start_node.is_left_child():
+                    parent = self.rotate_right(parent)
                 # parent is right-child and node is right-child
                 else:
-                    grand_parent.set_color(Color.RED)
+                    grandparent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
-                    grand_parent = self.__rotate_left(grand_parent)
+                    grandparent = self.rotate_left(grandparent)
+        return grandparent
+
+
+    def __insert(self, value):
+        """
+        When inserting a value, we set color as red and then re-color it
+        """
+        # insert new node
+        node = super().insert(value)
+        # cast into TreeNode-with-color
+        new_node = TreeNode(value) # red is the default color
+        parent = node.get_parent()
+        # take care of node-parrent connection
+        if value > parent.get_data():
+            parent.set_right(new_node)
+        elif value < parent.get_data():
+            parent.set_left(new_node)
+        # get necessary info
+        uncle = new_node.get_uncle()
+        grandparent = parent.get_parent()
+        # start recoloring when inserted node has a grandparent
+        if grandparent:
+            # recolor
+            recolored_grandparent = \
+                        self.__recolor(new_node, parent, uncle, grandparent)
+            if recolored_grandparent.get_parent():
+                grandparent.set_parent(recolored_grandparent)
+            else:
+                self.root = recolored_grandparent
+
+
+    def insert(self, value):
+        # insert new value
+        self.__insert(value)
         # make sure the root is black
         self.root.set_color(Color.BLACK)
 
@@ -153,12 +166,22 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    rbtree = RedBlackTree(8)
+    # rbtree = RedBlackTree(8)
+    # rbtree.insert(5)
+    # rbtree.insert(15)
+    # rbtree.insert(12)
+    # rbtree.insert(19)
+    # rbtree.insert(9)
+    # rbtree.insert(13)
+    # rbtree.insert(23)
+    # print(rbtree)
+
+    # test all cases
+    rbtree = RedBlackTree(15)
     rbtree.insert(5)
-    rbtree.insert(15)
-    rbtree.insert(12)
-    rbtree.insert(19)
-    rbtree.insert(9)
-    rbtree.insert(13)
-    rbtree.insert(23)
+    rbtree.insert(1)
+    # rbtree.root = rbtree.rotate_right(rbtree.root)
     print(rbtree)
+
+
+    # to test rotate
