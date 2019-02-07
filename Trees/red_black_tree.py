@@ -70,7 +70,7 @@ class RedBlackTree(BST):
 
 
     ############################## ROTATION ##############################
-    def rotate_left(self, start_node):
+    def __rotate_left(self, start_node):
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -78,7 +78,7 @@ class RedBlackTree(BST):
         middle.set_left(start_node)
         return middle
 
-    def rotate_right(self, start_node):
+    def __rotate_right(self, start_node):
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -88,34 +88,48 @@ class RedBlackTree(BST):
 
 
     ############################## INSERTION ##############################
-    # def insert(self, value):
-    #     """
-    #     When inserting a value, we set color as red and then re-color it
-    #     according to these three cases:
-    #     - parent is 'black'
-    #     - parent is 'red' and uncle is 'red'
-    #     - parent is 'red' and uncle is 'black'
-    #     """
-    #     new_node = super().insert(value)
-    #     parent = new_node.get_parent()
-    #     grand_parent = parent.get_parent() if parent else None
-    #     uncle = new_node.get_uncle()
-    #     if parent.get_color() == Color.BLACK:
-    #         pass #do nothing
-    #     elif parent.get_color() == Color.RED:
-    #         if uncle.get_color() == Color.RED:
-    #             parent.set_color(Color.BLACK)
-    #             uncle.set_color(Color.BLACK)
-    #             grand_parent.set_color(Color.RED) if grand_parent
-
-
-
-
-    #         GetParent(n)->color = BLACK;
-    #         GetUncle(n)->color = BLACK;
-    #         GetGrandParent(n)->color = RED;
-    #         InsertRepairTree(GetGrandParent(n));
-
+    def insert(self, value):
+        """
+        When inserting a value, we set color as red and then re-color it
+        according to these three cases:
+        - case I:   parent is 'black'
+        - case II:  parent is 'red' and uncle is 'red'
+        - case III: parent is 'red' and uncle is 'black'
+        """
+        # insert new node
+        new_node = super().insert(value)
+        # adjust the color
+        new_node.set_color(Color.RED)
+        parent = new_node.get_parent()
+        uncle = new_node.get_uncle()
+        grand_parent = parent.get_parent()
+        # case I
+        if parent.get_color() == Color.BLACK:
+            pass #do nothing
+        else:
+            # case II
+            if uncle.get_color() == Color.RED:
+                parent.set_color(Color.BLACK)
+                uncle.set_color(Color.BLACK)
+                grand_parent.set_color(Color.RED) if grand_parent
+            # case III
+            else:
+                # parent is left-child and node is left-child
+                if parent.is_left_child() and new_node.is_left_child():
+                    grand_parent.set_color(Color.RED)
+                    parent.set_color(Color.BLACK)
+                    grand_parent = self.__rotate_right(grand_parent)
+                # parent is left-child and node is right-child
+                elif parent.is_left_child() and not new_node.is_left_child():
+                    parent = self.__rotate_left(parent)
+                # parent is right-child and node is left-child
+                elif not parent.is_left_child() and new_node.is_left_child():
+                    parent = self.__rotate_right(parent)
+                # parent is right-child and node is right-child
+                else:
+                    grand_parent.set_color(Color.RED)
+                    parent.set_color(Color.BLACK)
+                    grand_parent = self.__rotate_left(grand_parent)
 
 
 
@@ -147,16 +161,16 @@ if __name__ == "__main__":
     # print(rbtree)
     # print('='*50)
 
-    # test rotate_right
-    rbtree = RedBlackTree(10)
-    rbtree.insert(5)
-    rbtree.insert(2)
-    rbtree.insert(8)
-    rbtree.insert(12)
-    rbtree.insert(6)
-    rbtree.insert(9)
-    print(rbtree)
-    rbtree.root = rbtree.rotate_right(rbtree.root)
-    print(rbtree)
-    print('='*50)    
+    # # test rotate_right
+    # rbtree = RedBlackTree(10)
+    # rbtree.insert(5)
+    # rbtree.insert(2)
+    # rbtree.insert(8)
+    # rbtree.insert(12)
+    # rbtree.insert(6)
+    # rbtree.insert(9)
+    # print(rbtree)
+    # rbtree.root = rbtree.rotate_right(rbtree.root)
+    # print(rbtree)
+    # print('='*50)    
 
