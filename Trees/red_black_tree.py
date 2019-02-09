@@ -95,14 +95,17 @@ class RedBlackTree(BST):
         - case II:  parent is 'red' and uncle is 'red'
         - case III: parent is 'red' and uncle is 'black'
         """
-        # check if start_node is root (parent is None)
-        if start_node.get_parent() is None:
-            return start_node
         # get basic info
         uncle = start_node.get_uncle()
         parent = start_node.get_parent()
-        grandparent = parent.get_parent()
-
+        grandparent = parent.get_parent() if parent else None
+        # recolor when node has a grandparent
+        if parent is None:
+            return start_node
+        elif grandparent is None:
+            return parent
+        
+        # check the different cases
         # case I
         if parent.get_color() == Color.BLACK:
             pass #do nothing
@@ -143,10 +146,8 @@ class RedBlackTree(BST):
                     grandparent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
                     grandparent = self.rotate_left(grandparent)
-        if grandparent:
+            # recursively do the same over grandparent 
             return self.__recolor(grandparent)
-        else:
-            return self.__recolor(parent)
 
 
     def insert(self, value):
@@ -201,9 +202,9 @@ if __name__ == "__main__":
     # print(rbtree)
 
     # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    rbtree = RedBlackTree(8)
-    rbtree.insert(18)
-    rbtree.insert(5)
+    rbtree = RedBlackTree(18)
+    # rbtree.insert(18)
+    # rbtree.insert(5)
     rbtree.insert(15)
     rbtree.insert(17)
     print(rbtree)
