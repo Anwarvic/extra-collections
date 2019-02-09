@@ -122,15 +122,21 @@ class RedBlackTree(BST):
                 # parent is left-child and node is right-child
                 elif parent.is_left_child() and not start_node.is_left_child():
                     parent = self.rotate_left(parent)
+                    grandparent.set_left(parent)
                 # parent is right-child and node is left-child
                 elif not parent.is_left_child() and start_node.is_left_child():
                     parent = self.rotate_right(parent)
+                    grandparent.set_right(parent)
                 # parent is right-child and node is right-child
                 else:
                     grandparent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
                     grandparent = self.rotate_left(grandparent)
-        return self.__recolor(grandparent)
+        if grandparent:
+            return self.__recolor(grandparent)
+        else:
+            return self.__recolor(parent)
+
 
 
     def __insert(self, value):
@@ -167,20 +173,20 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(12)
-    # rbtree.insert(19)
-    # rbtree.insert(9)
-    # rbtree.insert(13)
-    # rbtree.insert(23)
-    # rbtree.insert(10)
-    # print(rbtree)
+    rbtree = RedBlackTree(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    rbtree.insert(10)
+    print(rbtree)
 
     # test special cases
-    rbtree = RedBlackTree(15)
-    rbtree.insert(5)
-    rbtree.insert(1)
-    print(rbtree)
+    # rbtree = RedBlackTree(15)
+    # rbtree.insert(5)
+    # rbtree.insert(1)
+    # print(rbtree)
 
