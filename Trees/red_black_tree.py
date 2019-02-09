@@ -114,6 +114,7 @@ class RedBlackTree(BST):
                 grandparent.set_color(Color.RED)
             # case III
             else:
+                great_grandparent = grandparent.get_parent()
                 # parent is left-child and start_node is left-child
                 if parent.is_left_child() and start_node.is_left_child():
                     grandparent.set_color(Color.RED)
@@ -121,8 +122,18 @@ class RedBlackTree(BST):
                     grandparent = self.rotate_right(grandparent)
                 # parent is left-child and start_node is right-child
                 elif parent.is_left_child() and not start_node.is_left_child():
+                    # first rotation
                     parent = self.rotate_left(parent)
                     grandparent.set_left(parent)
+                    grandparent.set_color(Color.RED)
+                    # second rotation
+                    grandparent = self.rotate_right(grandparent)
+                    grandparent.set_color(Color.BLACK)
+                    if great_grandparent:
+                        if great_grandparent.data > grandparent.get_data():
+                            great_grandparent.set_left(grandparent)
+                        else:
+                            great_grandparent.set_right(grandparent)
                 # parent is right-child and start_node is left-child
                 elif not parent.is_left_child() and start_node.is_left_child():
                     parent = self.rotate_right(parent)
