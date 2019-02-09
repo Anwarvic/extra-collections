@@ -104,11 +104,13 @@ class RedBlackTree(BST):
             return start_node
         elif grandparent is None:
             return parent
-        
+
         # check the different cases
         # case I
         if parent.get_color() == Color.BLACK:
-            pass #do nothing
+            #do nothing
+            return self.root
+
         else:
             # case II
             if uncle and uncle.get_color() == Color.RED:
@@ -139,8 +141,18 @@ class RedBlackTree(BST):
                             great_grandparent.set_right(grandparent)
                 # parent is right-child and start_node is left-child
                 elif not parent.is_left_child() and start_node.is_left_child():
+                    # first rotation
                     parent = self.rotate_right(parent)
                     grandparent.set_right(parent)
+                    grandparent.set_color(Color.RED)
+                    # second rotation
+                    grandparent = self.rotate_left(grandparent)
+                    grandparent.set_color(Color.BLACK)
+                    if great_grandparent:
+                        if great_grandparent.data > grandparent.get_data():
+                            great_grandparent.set_left(grandparent)
+                        else:
+                            great_grandparent.set_right(grandparent)
                 # parent is right-child and start_node is right-child
                 else:
                     grandparent.set_color(Color.RED)
@@ -175,18 +187,18 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(8)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(12)
-    # rbtree.insert(19)
-    # rbtree.insert(9)
-    # rbtree.insert(13)
-    # rbtree.insert(23)
-    # rbtree.insert(10)
-    # print(rbtree)
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
+    rbtree = RedBlackTree(8)
+    rbtree.insert(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    rbtree.insert(10)
+    print(rbtree)
 
     # # test special cases
     # rbtree = RedBlackTree(15)
