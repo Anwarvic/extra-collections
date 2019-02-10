@@ -183,6 +183,9 @@ class RedBlackTree(BST):
         # root is black (isn't essential tho!!)
         self.root.set_color(Color.BLACK)
 
+    ############################## REMOVAL ##############################
+    def remove(self, value):
+        pass
 
 
 
@@ -191,55 +194,57 @@ class RedBlackTree(BST):
 
 if __name__ == "__main__":
     ######################### Test insertion #########################
-    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    rbtree = RedBlackTree(8)
-    rbtree.insert(8)
-    rbtree.insert(5)
-    rbtree.insert(15)
-    rbtree.insert(12)
-    rbtree.insert(19)
-    rbtree.insert(9)
-    rbtree.insert(13)
-    rbtree.insert(23)
-    rbtree.insert(10)
-    print(rbtree)
-    print('='*50, '\n')
+    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
+    # rbtree = RedBlackTree(8)
+    # rbtree.insert(8)
+    # rbtree.insert(5)
+    # rbtree.insert(15)
+    # rbtree.insert(12)
+    # rbtree.insert(19)
+    # rbtree.insert(9)
+    # rbtree.insert(13)
+    # rbtree.insert(23)
+    # rbtree.insert(10)
+    # print(rbtree)
+    # print('='*50, '\n')
 
-    # test special case
-    rbtree = RedBlackTree(15)
-    rbtree.insert(5)
-    rbtree.insert(1)
-    print(rbtree)
-    print('='*50, '\n')
+    # # test special case
+    # rbtree = RedBlackTree(15)
+    # rbtree.insert(5)
+    # rbtree.insert(1)
+    # print(rbtree)
+    # print('='*50, '\n')
 
-    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    rbtree = RedBlackTree(10)
-    rbtree.insert(20)
-    rbtree.insert(30)
-    rbtree.insert(15)
-    print(rbtree)
-    print('='*50, '\n')
+    # # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    # rbtree = RedBlackTree(10)
+    # rbtree.insert(20)
+    # rbtree.insert(30)
+    # rbtree.insert(15)
+    # print(rbtree)
+    # print('='*50, '\n')
 
-    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    rbtree = RedBlackTree(8)
-    rbtree.insert(18)
-    rbtree.insert(5)
-    rbtree.insert(15)
-    rbtree.insert(17)
-    rbtree.insert(25)
-    rbtree.insert(40)
-    rbtree.insert(80)
-    print(rbtree)
-    print('='*50, '\n')
+    # # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
+    # rbtree = RedBlackTree(8)
+    # rbtree.insert(18)
+    # rbtree.insert(5)
+    # rbtree.insert(15)
+    # rbtree.insert(17)
+    # rbtree.insert(25)
+    # rbtree.insert(40)
+    # rbtree.insert(80)
+    # print(rbtree)
+    # print('='*50, '\n')
 
-    # src: Data Structures and Algorithms in Python Book (Page: 539)
-    rbtree = RedBlackTree(4)
-    rbtree.insert(7)
-    rbtree.insert(12)
-    rbtree.insert(15)
-    rbtree.insert(3)
-    rbtree.insert(5)
-    rbtree.insert(14)
-    rbtree.insert(18)
-    print(rbtree)
-    print('='*50, '\n')
+    # # src: Data Structures and Algorithms in Python Book (Page: 539)
+    # rbtree = RedBlackTree(4)
+    # rbtree.insert(7)
+    # rbtree.insert(12)
+    # rbtree.insert(15)
+    # rbtree.insert(3)
+    # rbtree.insert(5)
+    # rbtree.insert(14)
+    # rbtree.insert(18)
+    # print(rbtree)
+    # print('='*50, '\n')
+
+    ######################### Test Removal #########################
