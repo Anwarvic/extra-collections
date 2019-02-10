@@ -87,7 +87,43 @@ class RedBlackTree(BST):
         return middle
 
 
-    ############################## INSERTION ##############################
+    ############################## RE-COLOR ##############################
+    def __recolor_case3(self, start_node):
+        # get basic info
+        uncle = start_node.get_uncle()
+        parent = start_node.get_parent()
+        grandparent = parent.get_parent() if parent else None
+        # parent is left-child and start_node is left-child
+        if parent.is_left_child() and start_node.is_left_child():
+            grandparent.set_color(Color.RED)
+            parent.set_color(Color.BLACK)
+            grandparent = self.rotate_right(grandparent)
+        # parent is left-child and start_node is right-child
+        elif parent.is_left_child() and not start_node.is_left_child():
+            # first rotation
+            parent = self.rotate_left(parent)
+            grandparent.set_left(parent)
+            grandparent.set_color(Color.RED)
+            # second rotation
+            grandparent = self.rotate_right(grandparent)
+            grandparent.set_color(Color.BLACK)
+        # parent is right-child and start_node is left-child
+        elif not parent.is_left_child() and start_node.is_left_child():
+            # first rotation
+            parent = self.rotate_right(parent)
+            grandparent.set_right(parent)
+            grandparent.set_color(Color.RED)
+            # second rotation
+            grandparent = self.rotate_left(grandparent)
+            grandparent.set_color(Color.BLACK)
+        # parent is right-child and start_node is right-child
+        else:
+            grandparent.set_color(Color.RED)
+            parent.set_color(Color.BLACK)
+            grandparent = self.rotate_left(grandparent)
+        return grandparent
+
+
     def __recolor(self, start_node):
         """
         Recoloring can be done according to these three cases:
@@ -120,34 +156,7 @@ class RedBlackTree(BST):
             # case III
             else:
                 great_grandparent = grandparent.get_parent()
-                # parent is left-child and start_node is left-child
-                if parent.is_left_child() and start_node.is_left_child():
-                    grandparent.set_color(Color.RED)
-                    parent.set_color(Color.BLACK)
-                    grandparent = self.rotate_right(grandparent)
-                # parent is left-child and start_node is right-child
-                elif parent.is_left_child() and not start_node.is_left_child():
-                    # first rotation
-                    parent = self.rotate_left(parent)
-                    grandparent.set_left(parent)
-                    grandparent.set_color(Color.RED)
-                    # second rotation
-                    grandparent = self.rotate_right(grandparent)
-                    grandparent.set_color(Color.BLACK)
-                # parent is right-child and start_node is left-child
-                elif not parent.is_left_child() and start_node.is_left_child():
-                    # first rotation
-                    parent = self.rotate_right(parent)
-                    grandparent.set_right(parent)
-                    grandparent.set_color(Color.RED)
-                    # second rotation
-                    grandparent = self.rotate_left(grandparent)
-                    grandparent.set_color(Color.BLACK)
-                # parent is right-child and start_node is right-child
-                else:
-                    grandparent.set_color(Color.RED)
-                    parent.set_color(Color.BLACK)
-                    grandparent = self.rotate_left(grandparent)
+                grandparent = self.__recolor_case3(start_node)
                 # set connection
                 if great_grandparent:
                     if great_grandparent.data > grandparent.get_data():
@@ -158,6 +167,7 @@ class RedBlackTree(BST):
             return self.__recolor(grandparent)
 
 
+    ############################## INSERTION ##############################
     def insert(self, value):
         # insert new node
         tmp_node = super().insert(value)
