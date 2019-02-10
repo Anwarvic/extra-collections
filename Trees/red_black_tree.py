@@ -70,7 +70,7 @@ class RedBlackTree(BST):
 
 
     ############################## ROTATION ##############################
-    def rotate_left(self, start_node):
+    def __rotate_left(self, start_node):
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -78,7 +78,7 @@ class RedBlackTree(BST):
         middle.set_left(start_node)
         return middle
 
-    def rotate_right(self, start_node):
+    def __rotate_right(self, start_node):
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -93,44 +93,35 @@ class RedBlackTree(BST):
         uncle = start_node.get_uncle()
         parent = start_node.get_parent()
         grandparent = parent.get_parent() if parent else None
-        # get great grandparent
-        great_grandparent = grandparent.get_parent()
         # parent is left-child and start_node is left-child
         if parent.is_left_child() and start_node.is_left_child():
             grandparent.set_color(Color.RED)
             parent.set_color(Color.BLACK)
-            grandparent = self.rotate_right(grandparent)
+            grandparent = self.__rotate_right(grandparent)
         # parent is left-child and start_node is right-child
         elif parent.is_left_child() and not start_node.is_left_child():
             # first rotation
-            parent = self.rotate_left(parent)
+            parent = self.__rotate_left(parent)
             grandparent.set_left(parent)
             grandparent.set_color(Color.RED)
             # second rotation
-            grandparent = self.rotate_right(grandparent)
+            grandparent = self.__rotate_right(grandparent)
             grandparent.set_color(Color.BLACK)
         # parent is right-child and start_node is left-child
         elif not parent.is_left_child() and start_node.is_left_child():
             # first rotation
-            parent = self.rotate_right(parent)
+            parent = self.__rotate_right(parent)
             grandparent.set_right(parent)
             grandparent.set_color(Color.RED)
             # second rotation
-            grandparent = self.rotate_left(grandparent)
+            grandparent = self.__rotate_left(grandparent)
             grandparent.set_color(Color.BLACK)
         # parent is right-child and start_node is right-child
         else:
             grandparent.set_color(Color.RED)
             parent.set_color(Color.BLACK)
-            grandparent = self.rotate_left(grandparent)
-        # set connection
-        if great_grandparent:
-            if great_grandparent.data > grandparent.get_data():
-                great_grandparent.set_left(grandparent)
-            else:
-                great_grandparent.set_right(grandparent)
+            grandparent = self.__rotate_left(grandparent)
         return grandparent
-
 
     def __recolor(self, start_node):
         """
@@ -159,7 +150,15 @@ class RedBlackTree(BST):
                 grandparent.set_color(Color.RED)
             # case III
             else:
+                # get great grandparent
+                great_grandparent = grandparent.get_parent()
                 grandparent = self.__recolor_case3(start_node)
+                # set connection
+                if great_grandparent:
+                    if great_grandparent.data > grandparent.get_data():
+                        great_grandparent.set_left(grandparent)
+                    else:
+                        great_grandparent.set_right(grandparent)
             # recursively do the same over grandparent 
             return self.__recolor(grandparent)
 
@@ -194,57 +193,57 @@ class RedBlackTree(BST):
 
 if __name__ == "__main__":
     ######################### Test insertion #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(8)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(12)
-    # rbtree.insert(19)
-    # rbtree.insert(9)
-    # rbtree.insert(13)
-    # rbtree.insert(23)
-    # rbtree.insert(10)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
+    rbtree = RedBlackTree(8)
+    rbtree.insert(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    rbtree.insert(10)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # test special case
-    # rbtree = RedBlackTree(15)
-    # rbtree.insert(5)
-    # rbtree.insert(1)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # test special case
+    rbtree = RedBlackTree(15)
+    rbtree.insert(5)
+    rbtree.insert(1)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    # rbtree = RedBlackTree(10)
-    # rbtree.insert(20)
-    # rbtree.insert(30)
-    # rbtree.insert(15)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    rbtree = RedBlackTree(10)
+    rbtree.insert(20)
+    rbtree.insert(30)
+    rbtree.insert(15)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(18)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(17)
-    # rbtree.insert(25)
-    # rbtree.insert(40)
-    # rbtree.insert(80)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
+    rbtree = RedBlackTree(8)
+    rbtree.insert(18)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(17)
+    rbtree.insert(25)
+    rbtree.insert(40)
+    rbtree.insert(80)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: Data Structures and Algorithms in Python Book (Page: 539)
-    # rbtree = RedBlackTree(4)
-    # rbtree.insert(7)
-    # rbtree.insert(12)
-    # rbtree.insert(15)
-    # rbtree.insert(3)
-    # rbtree.insert(5)
-    # rbtree.insert(14)
-    # rbtree.insert(18)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: Data Structures and Algorithms in Python Book (Page: 539)
+    rbtree = RedBlackTree(4)
+    rbtree.insert(7)
+    rbtree.insert(12)
+    rbtree.insert(15)
+    rbtree.insert(3)
+    rbtree.insert(5)
+    rbtree.insert(14)
+    rbtree.insert(18)
+    print(rbtree)
+    print('='*50, '\n')
 
     ######################### Test Removal #########################
