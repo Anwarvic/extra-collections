@@ -134,11 +134,6 @@ class RedBlackTree(BST):
                     # second rotation
                     grandparent = self.rotate_right(grandparent)
                     grandparent.set_color(Color.BLACK)
-                    if great_grandparent:
-                        if great_grandparent.data > grandparent.get_data():
-                            great_grandparent.set_left(grandparent)
-                        else:
-                            great_grandparent.set_right(grandparent)
                 # parent is right-child and start_node is left-child
                 elif not parent.is_left_child() and start_node.is_left_child():
                     # first rotation
@@ -148,16 +143,17 @@ class RedBlackTree(BST):
                     # second rotation
                     grandparent = self.rotate_left(grandparent)
                     grandparent.set_color(Color.BLACK)
-                    if great_grandparent:
-                        if great_grandparent.data > grandparent.get_data():
-                            great_grandparent.set_left(grandparent)
-                        else:
-                            great_grandparent.set_right(grandparent)
                 # parent is right-child and start_node is right-child
                 else:
                     grandparent.set_color(Color.RED)
                     parent.set_color(Color.BLACK)
                     grandparent = self.rotate_left(grandparent)
+                # set connection
+                if great_grandparent:
+                    if great_grandparent.data > grandparent.get_data():
+                        great_grandparent.set_left(grandparent)
+                    else:
+                        great_grandparent.set_right(grandparent)
             # recursively do the same over grandparent 
             return self.__recolor(grandparent)
 
@@ -187,6 +183,7 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
+    ######################### Test insertion #########################
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree(8)
     rbtree.insert(8)
@@ -199,25 +196,32 @@ if __name__ == "__main__":
     rbtree.insert(23)
     rbtree.insert(10)
     print(rbtree)
+    print('='*50, '\n')
 
-    # # test special cases
-    # rbtree = RedBlackTree(15)
-    # rbtree.insert(5)
-    # rbtree.insert(1)
-    # print(rbtree)
+    # test special cases
+    rbtree = RedBlackTree(15)
+    rbtree.insert(5)
+    rbtree.insert(1)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    # rbtree = RedBlackTree(10)
-    # rbtree.insert(20)
-    # rbtree.insert(30)
-    # rbtree.insert(15)
-    # print(rbtree)
+    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    rbtree = RedBlackTree(10)
+    rbtree.insert(20)
+    rbtree.insert(30)
+    rbtree.insert(15)
+    print(rbtree)
+    print('='*50, '\n')
 
     # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    rbtree = RedBlackTree(18)
-    # rbtree.insert(18)
-    # rbtree.insert(5)
+    rbtree = RedBlackTree(8)
+    rbtree.insert(18)
+    rbtree.insert(5)
     rbtree.insert(15)
     rbtree.insert(17)
+    rbtree.insert(25)
+    rbtree.insert(40)
+    rbtree.insert(80)
     print(rbtree)
+    print('='*50, '\n')
 
