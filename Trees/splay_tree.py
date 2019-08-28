@@ -107,13 +107,13 @@ class SplayTree(BST):
 
     ############################## INSERTION ##############################
     def insert(self, value):
-        new_node = super().insert(value)
+        new_node = super()._insert(value)
         self.splay(new_node)
 
 
     ############################## REMOVAL ##############################
     def remove(self, del_value):
-        node = super().remove(del_value)
+        node = super()._remove(del_value)
         self.splay(node)
 
 
