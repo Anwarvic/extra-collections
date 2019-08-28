@@ -134,9 +134,13 @@ class BST(BinaryTree):
                 start_node.set_right( TreeNode(value) )
                 return start_node.get_right()
 
-    def insert(self, value):
+    def _insert(self, value):
+        # used mainly for inheritance
         assert type(value) in {int, float}, "You can insert only numbers!"
         return self.__insert(value, self.root)
+
+    def insert(self, value):
+        self._insert(value)
 
 
     ############################## REMOVAL ##############################
@@ -180,12 +184,15 @@ class BST(BinaryTree):
                 return self.__remove(del_value, start_node.get_right())
 
 
-    def remove(self, del_value):
+    def _remove(self, del_value):
+        # used mainly for inheritance
         assert type(del_value) in {int, float}, "BST conains numbers only!"
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         return self.__remove(del_value, self.root)
 
+    def remove(self, del_value):
+        self._remove(del_value)
 
 
 
