@@ -166,7 +166,7 @@ class RedBlackTree(BST):
     ############################## INSERTION ##############################
     def insert(self, value):
         # insert new node
-        tmp_node = super().insert(value)
+        tmp_node = super()._insert(value)
         # create new TreeNode with red color
         new_node = TreeNode(value) #red by default
         parent = tmp_node.get_parent()
@@ -243,6 +243,8 @@ if __name__ == "__main__":
     rbtree.insert(5)
     rbtree.insert(14)
     rbtree.insert(18)
+    rbtree.insert(16)
+    rbtree.insert(17)
     print(rbtree)
     print('='*50, '\n')
 
