@@ -91,13 +91,13 @@ class AVL(BST):
     
     ######################### INSERTION #########################
     def insert(self, value):
-        super().insert(value)
+        _ = super()._insert(value)
         self.rebalance()
 
 
     ######################### REMOVAL #########################
     def remove(self, del_value):
-        super().remove(del_value)
+        _ = super()._remove(del_value)
         self.rebalance()
 
 
