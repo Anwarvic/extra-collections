@@ -120,7 +120,7 @@ class BST(BinaryTree):
     ############################## INSERTION ##############################
     def __insert(self, value, start_node):
         if value == start_node.get_data():
-            return
+            return start_node
         elif value < start_node.get_data():
             if start_node.get_left():
                 return self.__insert(value, start_node.get_left())
@@ -162,9 +162,9 @@ class BST(BinaryTree):
                     parent.set_right( start_node.get_right() )
                 return parent
             else:
-                replacement_node = self.__get_max_node(start_node.get_left())
+                replacement_node = self.__get_min_node(start_node.get_right())
                 start_node.data = replacement_node.data
-                self.__remove(replacement_node.data, start_node.get_left())
+                self.__remove(replacement_node.data, start_node.get_right())
                 return start_node
         elif del_value < start_node.get_data():
             if not start_node.get_left():
