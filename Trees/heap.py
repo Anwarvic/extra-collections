@@ -123,6 +123,7 @@ class MinHeap(Heap):
         return self._heap[0]
 
     def get_max(self):
+        # TODO: optimize as you don't have to iterate over the whole list
         return max(self._heap)
 
     def insert(self, value):
@@ -144,6 +145,7 @@ class MaxHeap(Heap):
             raise ValueError("Unsupported datatype!!")
 
     def get_min(self):
+        # TODO: optimize as you don't have to iterate over the whole list
         return min(self._heap)
 
     def get_max(self):
