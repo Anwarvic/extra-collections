@@ -145,39 +145,38 @@ class BST(BinaryTree):
 
     ############################## REMOVAL ##############################
     def __remove(self, del_value, start_node):
-        parent = start_node.get_parent()
-        if del_value == start_node.get_data():
-            if start_node.is_leaf():
-                if del_value <= parent.get_data():
-                    parent.set_left( None )
+        curr_value = start_node.get_data()
+        # when del_value is found
+        if del_value == curr_value:
+            # get replacement_node
+            replacement_node = start_node.get_left() \
+                if not start_node.get_right() \
+                else self.__get_min_node(start_node.get_right())
+            # leaf node or has one child
+            if replacement_node is None:
+                parent = start_node.get_parent()
+                if curr_value < parent.get_data():
+                    parent.set_left(replacement_node)
                 else:
-                    parent.set_right( None )
-                return parent
-            elif start_node.get_left()!=None and start_node.get_right()==None:
-                if del_value <= parent.get_data():
-                    parent.set_left( start_node.get_left() )
-                else:
-                    parent.set_right( start_node.get_left() )
-                return parent
-            elif start_node.get_left()==None and start_node.get_right()!=None:
-                if del_value <= parent.get_data():
-                    parent.set_left( start_node.get_right() )
-                else:
-                    parent.set_right( start_node.get_right() )
-                return parent
+                    parent.set_right(replacement_node)
+            # do the replacement
             else:
-                replacement_node = self.__get_min_node(start_node.get_right())
                 start_node.data = replacement_node.data
-                self.__remove(replacement_node.data, start_node.get_right())
+                if start_node.get_right():
+                    self.__remove(replacement_node.data, start_node.get_right())
+                else:
+                    self.__remove(replacement_node.data, start_node.get_left())
                 return start_node
-        elif del_value < start_node.get_data():
-            if not start_node.get_left():
+        # when del_value < current value
+        elif del_value < curr_value:
+            if start_node.get_left() is None:
                 # raise ValueError("Couldn't find given value in the tree!!")
                 return start_node
             else:
                 return self.__remove(del_value, start_node.get_left())
+        # when del_value > current value
         else:
-            if not start_node.get_right():
+            if start_node.get_right() is None:
                 # raise ValueError("Couldn't find given value in the tree!!")
                 return start_node
             else:
@@ -234,6 +233,7 @@ if __name__ == "__main__":
     bst.root.right.left.right.left.set_right( TreeNode(80) )
     print(bst)
 
+    bst.remove(80)
     bst.remove(32)
     bst.remove(44)
     bst.remove(4000)
