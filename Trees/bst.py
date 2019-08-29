@@ -72,26 +72,26 @@ class BST(BinaryTree):
 
 
     ############################## MAX/MIN ##############################
-    def __get_max_node(self, start_node):
+    def _get_max_node(self, start_node):
         # get the right-most node
         if start_node.get_right() == None:
             return start_node
         else:
-            return self.__get_max_node(start_node.get_right())
+            return self._get_max_node(start_node.get_right())
 
     def get_max(self):
-        max_node = self.__get_max_node(self.root)
+        max_node = self._get_max_node(self.root)
         return max_node.get_data()
 
-    def __get_min_node(self, start_node):
+    def _get_min_node(self, start_node):
         # get the left-most node
         if start_node.get_left() == None:
             return start_node
         else:
-            return self.__get_min_node(start_node.get_left())
+            return self._get_min_node(start_node.get_left())
 
     def get_min(self):
-        min_node = self.__get_min_node(self.root)
+        min_node = self._get_min_node(self.root)
         return min_node.get_data()
 
 
@@ -150,7 +150,7 @@ class BST(BinaryTree):
         if del_value == curr_value:
             replacement_node = start_node.get_left() \
                 if not start_node.get_right() \
-                else self.__get_min_node(start_node.get_right())
+                else self._get_min_node(start_node.get_right())
             if replacement_node is None:
                 parent = start_node.get_parent()
                 if curr_value < parent.get_data():
@@ -179,7 +179,6 @@ class BST(BinaryTree):
                 return start_node
             else:
                 return self.__remove(del_value, start_node.get_right())
-
 
     def _remove(self, del_value):
         # used mainly for inheritance
