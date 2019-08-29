@@ -148,18 +148,16 @@ class BST(BinaryTree):
         curr_value = start_node.get_data()
         # when del_value is found
         if del_value == curr_value:
-            # get replacement_node
             replacement_node = start_node.get_left() \
                 if not start_node.get_right() \
                 else self.__get_min_node(start_node.get_right())
-            # leaf node or has one child
             if replacement_node is None:
                 parent = start_node.get_parent()
                 if curr_value < parent.get_data():
                     parent.set_left(replacement_node)
                 else:
                     parent.set_right(replacement_node)
-            # do the replacement
+                return parent
             else:
                 start_node.data = replacement_node.data
                 if start_node.get_right():
