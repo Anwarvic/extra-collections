@@ -87,7 +87,7 @@ class RedBlackTree(BST):
         return middle
 
 
-    ############################## RE-COLOR ##############################
+    ############################## INSERTION ##############################
     def __recolor_case3(self, start_node):
         # get basic info
         uncle = start_node.get_uncle()
@@ -141,15 +141,18 @@ class RedBlackTree(BST):
         # case I
         if parent.get_color() == Color.BLACK:
             #do nothing
+            # print("Case I")
             return self.root
         else:
             # case II
             if uncle and uncle.get_color() == Color.RED:
+                # print("Case II")
                 parent.set_color(Color.BLACK)
                 uncle.set_color(Color.BLACK)
                 grandparent.set_color(Color.RED)
             # case III
             else:
+                # print("Case III")
                 # get great grandparent
                 great_grandparent = grandparent.get_parent()
                 grandparent = self.__recolor_case3(start_node)
@@ -163,7 +166,6 @@ class RedBlackTree(BST):
             return self.__recolor(grandparent)
 
 
-    ############################## INSERTION ##############################
     def insert(self, value):
         # insert new node
         tmp_node = super()._insert(value)
@@ -241,23 +243,24 @@ class RedBlackTree(BST):
         # case I
         if removed_node.get_color() == Color.RED and \
             (replacement is None or replacement.get_color() == Color.RED):
-            pass
+            print("Case I")
+            self.__transplant(removed_node, replacement)
         # case II
         elif removed_node.get_color() == Color.RED and \
             replacement.get_color() == Color.BLACK:
+            print("Case II")
             pass
         # case III
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
-            pass
+            print("Case III")
+            replacement.set_color(Color.BLACK)
+            self.__transplant(removed_node, replacement)
         # case IV
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
-            pass
+            print("Case IV")
 
-        self.__transplant(removed_node, replacement)
-        
-        if removed_node.get_color() == Color.RED
 
 
 
@@ -323,6 +326,7 @@ if __name__ == "__main__":
     # print('='*50, '\n')
 
     ######################### Test Removal #########################
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
     rbtree = RedBlackTree(13)
     rbtree.insert(8)
     rbtree.insert(17)
@@ -335,5 +339,5 @@ if __name__ == "__main__":
     rbtree.insert(22)
     rbtree.insert(27)
     print(rbtree, '\n')
-    rbtree.remove(13)
+    rbtree.remove(1)
     print(rbtree)
