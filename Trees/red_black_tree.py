@@ -192,7 +192,7 @@ class RedBlackTree(BST):
                 if not start_node.get_right() \
                 else super()._get_min_node(start_node.get_right())
             return start_node, replacement_node
-        # when del_value < current value
+        # search left-side
         elif del_value < curr_value:
             if start_node.get_left() is None:
                 # raise ValueError("Couldn't find given value in the tree!!")
@@ -200,7 +200,7 @@ class RedBlackTree(BST):
             else:
                 return self.__get_node_and_replacement(del_value,
                                                        start_node.get_left())
-        # when del_value > current value
+        # search right-side
         else:
             if start_node.get_right() is None:
                 # raise ValueError("Couldn't find given value in the tree!!")
@@ -226,9 +226,38 @@ class RedBlackTree(BST):
 
 
     def remove(self, del_value):
-        node, repl = self.__get_node_and_replacement(del_value, self.root)
-        self.__transplant(node, repl)
-        print(node, repl)
+        """
+        Case I:   removed_node is 'red', replacement is either 'red' or None
+        Case II:  removed_node is 'red', replacement is 'black'
+        Case III: removed_node is 'black', replacement is 'red'
+        Case IV:  removed_node is 'black', replacement is either 'black' or None
+        """
+        removed_node, replacement = self.__get_node_and_replacement(del_value,
+                                                                    self.root)
+        # couldn't find the del_value in the tree
+        if removed_node.get_data() != del_value:
+            return
+        # check different cases
+        # case I
+        if removed_node.get_color() == Color.RED and \
+            (replacement is None or replacement.get_color() == Color.RED):
+            pass
+        # case II
+        elif removed_node.get_color() == Color.RED and \
+            replacement.get_color() == Color.BLACK:
+            pass
+        # case III
+        elif removed_node.get_color() == Color.BLACK and \
+            replacement.get_color() == Color.RED:
+            pass
+        # case IV
+        elif removed_node.get_color() == Color.BLACK and \
+            (replacement is None or replacement.get_color() == Color.BLACK):
+            pass
+
+        self.__transplant(removed_node, replacement)
+        
+        if removed_node.get_color() == Color.RED
 
 
 
