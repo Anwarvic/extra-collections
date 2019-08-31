@@ -212,26 +212,27 @@ class RedBlackTree(BST):
                                                        start_node.get_right())
 
     def __transplant(self, node, replacement):
-        parent = node.get_parent()
-        if parent is None:
-            self.__transplant(replacement, None)
-            node.data = replacement.data
-        else:
-            if replacement is None:
-                if node.get_data() > parent.get_data():
-                    parent.set_right(replacement)
-                else:
-                    parent.set_left(replacement)
+        if replacement is None:
+            parent = node.get_parent()
+            if parent is None:
+                self.__transplant(replacement, None)
+                node.data = replacement.data
             else:
-                if replacement.is_leaf():
-                    self.__transplant(replacement, None)
-                    node.data = replacement.data
-                elif replacement.get_left():
-                    node.data = replacement.data
-                    self.__transplant(replacement, replacement.get_left())
+                if node.is_left_child():
+                    parent.set_left(replacement)
                 else:
-                    node.data = replacement.data
-                    self.__transplant(replacement, replacement.get_right())
+                    parent.set_right(replacement)
+        else:
+            if replacement.is_leaf():
+                new_replacement = None
+            elif replacement.get_left():
+                new_replacement = replacement.get_left()
+            else:
+                new_replacement = replacement.get_right()
+            # transplant data & color
+            node.data = replacement.data
+            node.color = replacement.color
+            self.__transplant(replacement, new_replacement)
 
 
     def __get_x_w(self, node, replacement):
@@ -257,7 +258,31 @@ class RedBlackTree(BST):
         return x, w
 
 
-    # def __deep_transplant(self, node, )
+    def __deep_transplant(self, node, replacement):
+        """
+        Case I:   x is 'red'
+        Case II:  x is 'black' and w is 'red'
+        Case III: x is 'black' and w is 'black' and w children are 'black'
+        Case IV:  x is 'black' and w is 'black':
+            1: x is left-child, w's left-child is 'red' and right is 'black'
+            2: x is right-child, w's left-child is 'black' and right is 'red'
+        Case V:   x is 'black' and w is 'black'
+            1: x is left-child, w's right child is 'red'
+            2: x is right-child, w's left child is 'red'
+        """
+        x, w = self.__get_x_w(node, replacement)
+        # print("x:", x, "w:", w)
+        # check different cases
+        # Case I
+        if x.get_color() == Color.RED:
+            x.set_color(Color.BLACK)
+        # case II
+        elif x.get_color() == Color.BLACK and w.get_color() == Color.RED:
+            pass
+        # case III
+        elif x.get_color() == Color.BLACK:
+            pass
+        self.__transplant(node, replacement)
 
 
     def remove(self, del_value):
@@ -273,25 +298,27 @@ class RedBlackTree(BST):
         if removed_node.get_data() != del_value:
             return
         # check different cases
-        x, w = self.__get_x_w(removed_node, replacement)
-        print("x:", x, "w:", w)
+
         # case I
         if removed_node.get_color() == Color.RED and \
             (replacement is None or replacement.get_color() == Color.RED):
             print("Case I")
             self.__transplant(removed_node, replacement)
+        
         # case II
         elif removed_node.get_color() == Color.RED and \
             replacement.get_color() == Color.BLACK:
             print("Case II")
             replacement.set_color(Color.RED)
-            self.__transplant(removed_node, replacement)
+            self.__deep_transplant(removed_node, replacement)
+            
 
         # case IV
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
             print("Case IV")
             self.__transplant(removed_node, replacement)
+        
         # case III
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
@@ -389,5 +416,5 @@ if __name__ == "__main__":
     rbtree.insert(11)
     rbtree.insert(26)
     print(rbtree, '\n')
-    rbtree.remove(7)
+    rbtree.remove(18)
     print(rbtree)
