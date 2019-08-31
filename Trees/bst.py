@@ -23,6 +23,13 @@ class TreeNode(TreeNode):
         return grand_parent.right if parent.is_left_child() \
                                     else grand_parent.left
 
+    def get_sibling(self):
+        # return the brother if found
+        parent = self.parent
+        if parent is None:
+            return None
+        return parent.right if self.is_left_child() else parent.left        
+
     def set_left(self, new_node):
         self.left = new_node
         if new_node is not None:
@@ -204,44 +211,45 @@ if __name__ == "__main__":
     print(bst)
     print(1 in bst)
     print(100 in bst)
+    print(bst.root.left.get_sibling())
     print('='*50)
     #######################################
-    # initialize tree by list
-    lst = [7,10,12,22,30,11,19,25,9,20,14,12]
-    bst = BST(lst)
-    print(bst)
-    print('='*50)
-    #######################################
-    # example taken from "Data Structures and Algorithms in Python" book
-    bst = BST(44)
-    bst.root.set_left(TreeNode(17))
-    bst.root.left.set_left(TreeNode(8))
-    bst.root.left.set_right( TreeNode(32) )
-    bst.root.left.right.set_left( TreeNode(28) )
-    bst.root.left.right.left.set_right( TreeNode(29) )
-    bst.root.set_right( TreeNode(88) )
-    bst.root.right.set_right( TreeNode(97) )
-    bst.root.right.right.set_left( TreeNode(93) )
-    bst.root.right.set_left( TreeNode(65) )
-    bst.root.right.left.set_left( TreeNode(54) )
-    bst.root.right.left.set_right( TreeNode(82) )
-    bst.root.right.left.right.set_left( TreeNode(76) )
-    bst.root.right.left.right.left.set_left( TreeNode(68) )
-    bst.root.right.left.right.left.set_right( TreeNode(80) )
-    print(bst)
+    # # initialize tree by list
+    # lst = [7,10,12,22,30,11,19,25,9,20,14,12]
+    # bst = BST(lst)
+    # print(bst)
+    # print('='*50)
+    # #######################################
+    # # example taken from "Data Structures and Algorithms in Python" book
+    # bst = BST(44)
+    # bst.root.set_left(TreeNode(17))
+    # bst.root.left.set_left(TreeNode(8))
+    # bst.root.left.set_right( TreeNode(32) )
+    # bst.root.left.right.set_left( TreeNode(28) )
+    # bst.root.left.right.left.set_right( TreeNode(29) )
+    # bst.root.set_right( TreeNode(88) )
+    # bst.root.right.set_right( TreeNode(97) )
+    # bst.root.right.right.set_left( TreeNode(93) )
+    # bst.root.right.set_left( TreeNode(65) )
+    # bst.root.right.left.set_left( TreeNode(54) )
+    # bst.root.right.left.set_right( TreeNode(82) )
+    # bst.root.right.left.right.set_left( TreeNode(76) )
+    # bst.root.right.left.right.left.set_left( TreeNode(68) )
+    # bst.root.right.left.right.left.set_right( TreeNode(80) )
+    # print(bst)
 
-    bst.remove(80)
-    bst.remove(32)
-    bst.remove(44)
-    bst.remove(4000)
-    bst.remove(65)
-    print(bst)
+    # bst.remove(80)
+    # bst.remove(32)
+    # bst.remove(44)
+    # bst.remove(4000)
+    # bst.remove(65)
+    # print(bst)
 
-    print("Tree Root:", bst.root)
-    print("Tree Nodes:", len(bst))
-    print("Tree Height:", bst.get_height())
-    print("Right-node Depth:", bst.get_depth(bst.root.right))
-    print("Balanced Tree:", bst.is_balanced())
-    print(bst.traverse())
-    print("Min value:", bst.get_min())
-    print("Max value:", bst.get_max())
+    # print("Tree Root:", bst.root)
+    # print("Tree Nodes:", len(bst))
+    # print("Tree Height:", bst.get_height())
+    # print("Right-node Depth:", bst.get_depth(bst.root.right))
+    # print("Balanced Tree:", bst.is_balanced())
+    # print(bst.traverse())
+    # print("Min value:", bst.get_min())
+    # print("Max value:", bst.get_max())
