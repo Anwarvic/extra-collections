@@ -223,8 +223,15 @@ class RedBlackTree(BST):
                 else:
                     parent.set_left(replacement)
             else:
-                self.__transplant(replacement, None)
-                node.data = replacement.data
+                if replacement.is_leaf():
+                    self.__transplant(replacement, None)
+                    node.data = replacement.data
+                elif replacement.get_left():
+                    node.data = replacement.data
+                    self.__transplant(replacement, replacement.get_left())
+                else:
+                    node.data = replacement.data
+                    self.__transplant(replacement, replacement.get_right())
 
 
     def __get_x_w(self, node, replacement):
@@ -248,6 +255,9 @@ class RedBlackTree(BST):
             x = node.get_right() if node.get_right() else node.get_left()
             w = None
         return x, w
+
+
+    # def __deep_transplant(self, node, )
 
 
     def remove(self, del_value):
@@ -275,18 +285,19 @@ class RedBlackTree(BST):
             replacement.get_color() == Color.BLACK:
             print("Case II")
             replacement.set_color(Color.RED)
-            x = replacement.get_right()
-            
+            self.__transplant(removed_node, replacement)
+
+        # case IV
+        elif removed_node.get_color() == Color.BLACK and \
+            (replacement is None or replacement.get_color() == Color.BLACK):
+            print("Case IV")
+            self.__transplant(removed_node, replacement)
         # case III
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
             print("Case III")
             replacement.set_color(Color.BLACK)
             self.__transplant(removed_node, replacement)
-        # case IV
-        elif removed_node.get_color() == Color.BLACK and \
-            (replacement is None or replacement.get_color() == Color.BLACK):
-            print("Case IV")
 
 
 
@@ -354,17 +365,29 @@ if __name__ == "__main__":
 
     ######################### Test Removal #########################
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
-    rbtree = RedBlackTree(13)
-    rbtree.insert(8)
-    rbtree.insert(17)
-    rbtree.insert(1)
-    rbtree.insert(11)
-    rbtree.insert(1)
-    rbtree.insert(15)
-    rbtree.insert(25)
-    rbtree.insert(6)
+    # rbtree = RedBlackTree(13)
+    # rbtree.insert(8)
+    # rbtree.insert(17)
+    # rbtree.insert(1)
+    # rbtree.insert(11)
+    # rbtree.insert(1)
+    # rbtree.insert(15)
+    # rbtree.insert(25)
+    # rbtree.insert(6)
+    # rbtree.insert(22)
+    # rbtree.insert(27)
+    # print(rbtree, '\n')
+    # rbtree.remove(25)
+    # print(rbtree)
+
+    rbtree = RedBlackTree(7)
+    rbtree.insert(3)
+    rbtree.insert(18)
+    rbtree.insert(10)
     rbtree.insert(22)
-    rbtree.insert(27)
+    rbtree.insert(8)
+    rbtree.insert(11)
+    rbtree.insert(26)
     print(rbtree, '\n')
-    rbtree.remove(25)
+    rbtree.remove(7)
     print(rbtree)
