@@ -211,7 +211,6 @@ class RedBlackTree(BST):
                 replacement_node = successor if successor else predecessor
         return replacement_node
 
-
     def __get_node_and_replacement(self, del_value, start_node):
         #TODO: try to get rid of this function and use find() or search instead.
         curr_value = start_node.get_data()
@@ -237,16 +236,19 @@ class RedBlackTree(BST):
                                                        start_node.get_right())
 
     def __transplant(self, node, replacement):
+        parent = node.get_parent()
         if replacement is None:
-            parent = node.get_parent()
             if parent is None:
                 self.__transplant(replacement, None)
                 node.data = replacement.data
+                return parent, node
             else:
                 if node.is_left_child():
                     parent.set_left(replacement)
+                    return parent, parent.get_left()
                 else:
                     parent.set_right(replacement)
+                    return parent, parent.get_right()
         else:
             if replacement.is_leaf():
                 new_replacement = None
@@ -258,10 +260,18 @@ class RedBlackTree(BST):
             node.data = replacement.data
             node.color = replacement.color
             self.__transplant(replacement, new_replacement)
+            return parent, node
 
 
-    def __handle_double_black(self, db_node, parent):
-        pass
+    def __handle_double_black(self, parent, double_black_node):
+        print("parent:", parent)
+        print("double black:", double_black_node)
+        # handle if double_black_node is ROOT
+        if parent is None:
+            pass
+        else:
+            pass
+
 
 
     def remove(self, del_value):
@@ -276,7 +286,6 @@ class RedBlackTree(BST):
         # couldn't find the del_value in the tree
         if removed_node.get_data() != del_value:
             return
-        # check different cases
 
         # case I
         if removed_node.get_color() == Color.RED and \
@@ -293,13 +302,11 @@ class RedBlackTree(BST):
         # case III
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
-            print("Case III... double black")
-            self.__transplant(removed_node, replacement)
-            parent = removed_node.get_parent()
-            double_black_node = parent.get_left() \
-                if removed_node.is_left_child() else parent.get_right()
+            print("Case III") #... double black
+            parent, transplanted = self.__transplant(removed_node, replacement)
+            double_black_node = transplanted
             # handle this double black
-            self.__handle_double_black(double_black_node, parent)
+            self.__handle_double_black(parent, double_black_node)
 
         
         # case IV
@@ -375,6 +382,18 @@ if __name__ == "__main__":
 
     ######################### Test Removal #########################
     # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    # rbtree = RedBlackTree(7)
+    # rbtree.insert(3)
+    # rbtree.insert(18)
+    # rbtree.insert(10)
+    # rbtree.insert(22)
+    # rbtree.insert(8)
+    # rbtree.insert(11)
+    # rbtree.insert(26)
+    # print(rbtree, '\n')
+    # rbtree.remove(18)
+    # print(rbtree)
+
     rbtree = RedBlackTree(13)
     rbtree.insert(8)
     rbtree.insert(17)
@@ -387,18 +406,8 @@ if __name__ == "__main__":
     rbtree.insert(22)
     rbtree.insert(27)
     print(rbtree, '\n')
-    rbtree.remove(25)
+    rbtree.remove(13)
+    # rbtree.remove(11)
     print(rbtree)
 
-    # rbtree = RedBlackTree(7)
-    # rbtree.insert(3)
-    # rbtree.insert(18)
-    # rbtree.insert(10)
-    # rbtree.insert(22)
-    # rbtree.insert(8)
-    # rbtree.insert(11)
-    # rbtree.insert(26)
-    # print(rbtree, '\n')
-    # rbtree.remove(18)
-    # print(rbtree)
 
