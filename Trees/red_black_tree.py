@@ -186,14 +186,38 @@ class RedBlackTree(BST):
 
 
     ############################## REMOVAL ##############################
+    def _find_replacement(self, start_node):
+        """
+        NOTE: Here, we're tyring to exploit two characteristics of Red-black
+        trees and they are: 
+            - red-nodes are good replacements.
+            - two-children nodes have one red-node as a replacement at least.
+        """
+        if start_node.is_leaf():
+            replacement_node = None
+        else:
+            # in-order successor
+            successor = super()._get_min_node(start_node.get_right()) \
+                if start_node.get_right() else None
+            # in-order predecessor
+            predecessor = super()._get_max_node(start_node.get_left()) \
+                if start_node.get_left() else None
+            # find the red-node
+            if successor and successor.get_color() == Color.RED:
+                replacement_node = successor
+            elif predecessor and predecessor.get_color() == Color.RED:
+                replacement_node = predecessor
+            else:
+                replacement_node = successor if successor else predecessor
+        return replacement_node
+
+
     def __get_node_and_replacement(self, del_value, start_node):
         curr_value = start_node.get_data()
         # when del_value is found
         if del_value == curr_value:
-            replacement_node = start_node.get_left() \
-                if not start_node.get_right() \
-                else super()._get_min_node(start_node.get_right())
-            return start_node, replacement_node
+            replacement = self._find_replacement(start_node)
+            return start_node, replacement
         # search left-side
         elif del_value < curr_value:
             if start_node.get_left() is None:
@@ -239,8 +263,8 @@ class RedBlackTree(BST):
         """
         Case I:   removed_node is 'red', replacement is either 'red' or None
         Case II:  removed_node is 'red', replacement is 'black'
-        Case III: removed_node is 'black', replacement is 'red'
-        Case IV:  removed_node is 'black', replacement is either 'black' or None
+        Case III: removed_node is 'black', replacement is either 'black' or None
+        Case IV:  removed_node is 'black', replacement is 'red'
         """
         removed_node, replacement = self.__get_node_and_replacement(del_value,
                                                                     self.root)
@@ -259,22 +283,24 @@ class RedBlackTree(BST):
         elif removed_node.get_color() == Color.RED and \
             replacement.get_color() == Color.BLACK:
             print("Case II")
-            replacement.set_color(Color.RED)
-            self.__transplant(removed_node, replacement)
-            
-
-        # case IV
-        elif removed_node.get_color() == Color.BLACK and \
-            (replacement is None or replacement.get_color() == Color.BLACK):
-            print("Case IV")
-            self.__transplant(removed_node, replacement)
+            raise ValueError("This case shouldn't occur!!")
         
         # case III
         elif removed_node.get_color() == Color.BLACK and \
-            replacement.get_color() == Color.RED:
-            print("Case III")
-            replacement.set_color(Color.BLACK)
+            (replacement is None or replacement.get_color() == Color.BLACK):
+            print("Case III... double black")
             self.__transplant(removed_node, replacement)
+            parent = removed_node.get_parent()
+            double_black_node = parent.get_left() \
+                if removed_node.is_left_child() else parent.get_right()
+            print(double_black_node)
+        
+        # case IV
+        elif removed_node.get_color() == Color.BLACK and \
+            replacement.get_color() == Color.BLACK:
+            print("Case IV")
+            self.__transplant(removed_node, replacement)
+        
 
 
 
@@ -365,6 +391,7 @@ if __name__ == "__main__":
     rbtree.insert(8)
     rbtree.insert(11)
     rbtree.insert(26)
+    # rbtree.insert(13)
     print(rbtree, '\n')
-    rbtree.remove(18)
+    rbtree.remove(3)
     print(rbtree)
