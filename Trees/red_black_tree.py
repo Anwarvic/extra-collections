@@ -191,7 +191,8 @@ class RedBlackTree(BST):
         NOTE: Here, we're tyring to exploit two characteristics of Red-black
         trees and they are: 
             - red-nodes are good replacements.
-            - two-children nodes have one red-node as a replacement at least.
+            - when removing a red node, there must be at least one red-node as
+              a replacement at least.
         """
         if start_node.is_leaf():
             replacement_node = None
@@ -213,6 +214,7 @@ class RedBlackTree(BST):
 
 
     def __get_node_and_replacement(self, del_value, start_node):
+        #TODO: try to get rid of this function and use find() or search instead.
         curr_value = start_node.get_data()
         # when del_value is found
         if del_value == curr_value:
@@ -297,7 +299,7 @@ class RedBlackTree(BST):
         
         # case IV
         elif removed_node.get_color() == Color.BLACK and \
-            replacement.get_color() == Color.BLACK:
+            replacement.get_color() == Color.RED:
             print("Case IV")
             self.__transplant(removed_node, replacement)
         
@@ -367,7 +369,7 @@ if __name__ == "__main__":
     # print('='*50, '\n')
 
     ######################### Test Removal #########################
-    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
     # rbtree = RedBlackTree(13)
     # rbtree.insert(8)
     # rbtree.insert(17)
@@ -391,7 +393,17 @@ if __name__ == "__main__":
     rbtree.insert(8)
     rbtree.insert(11)
     rbtree.insert(26)
-    # rbtree.insert(13)
     print(rbtree, '\n')
-    rbtree.remove(3)
+    rbtree.remove(18)
     print(rbtree)
+
+    # rbtree = RedBlackTree(5)
+    # rbtree.insert(2)
+    # rbtree.insert(8)
+    # rbtree.insert(1)
+    # rbtree.insert(4)
+    # rbtree.insert(7)
+    # rbtree.insert(9)
+    # print(rbtree, '\n')
+    # rbtree.remove(2)
+    # print(rbtree)
