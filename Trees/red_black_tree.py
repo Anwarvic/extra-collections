@@ -165,7 +165,6 @@ class RedBlackTree(BST):
             # recursively do the same over grandparent 
             return self.__recolor(grandparent)
 
-
     def insert(self, value):
         # insert new node
         tmp_node = super()._insert(value)
@@ -261,6 +260,10 @@ class RedBlackTree(BST):
             self.__transplant(replacement, new_replacement)
 
 
+    def __handle_double_black(self, db_node, parent):
+        pass
+
+
     def remove(self, del_value):
         """
         Case I:   removed_node is 'red', replacement is either 'red' or None
@@ -295,7 +298,9 @@ class RedBlackTree(BST):
             parent = removed_node.get_parent()
             double_black_node = parent.get_left() \
                 if removed_node.is_left_child() else parent.get_right()
-            print(double_black_node)
+            # handle this double black
+            self.__handle_double_black(double_black_node, parent)
+
         
         # case IV
         elif removed_node.get_color() == Color.BLACK and \
