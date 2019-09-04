@@ -69,6 +69,11 @@ class RedBlackTree(BST):
         self.root.color = Color.BLACK
 
 
+    ############################## HEIGHT ##############################
+    def get_black_height(self):
+        #TODO
+        pass
+
     ############################## ROTATION ##############################
     def __rotate_left(self, start_node):
         # print("Rotating Left")
@@ -264,13 +269,49 @@ class RedBlackTree(BST):
 
 
     def __handle_double_black(self, parent, double_black_node):
+        """
+        Note: (s) is the sibling of double_black_node
+        We have multiple cases:
+        Case I: if double_black_node is root
+        Case II: (s) is black and a child of sibling's children is red (r):
+            1) (s) is left-child and (r) is left child
+            2) (s) is left-child and (r) is right child
+            3) (s) is right-child and (r) is left child
+            4) (s) is right-child and (r) is right child
+        Case III: (s) is black and the two children of s are black
+        Case IV: (s) is red
+        """
         print("parent:", parent)
         print("double black:", double_black_node)
-        # handle if double_black_node is ROOT
+        # Case I
         if parent is None:
             pass
         else:
-            pass
+            sibling = double_black_node.get_sibling() \
+                    if double_black_node \
+                    else parent.get_left() \
+                        if parent.get_left() else parent.get_right()
+            print("sibling:", sibling)
+            if sibling and sibling.get_color() == Color.BLACK:
+                s_left_child = sibling.get_left()
+                s_right_child = sibling.get_right()
+                # get colors of them both
+                s_left_color = s_left_child.get_color() if s_left_child \
+                                                        else Color.BLACK
+                s_right_color = s_right_child.get_color() if s_right_child \
+                                                        else Color.BLACK
+                
+                # one child is red
+                if s_left_child == Color.RED or s_right_color == Color.BLACK:
+                    r = s_left_child \
+                        if s_left_color == Color.RED else s_right_child
+                # Case III
+                else:
+                    pass 
+            # Case IV
+            elif sibling.get_color() == Color.RED:
+                pass
+
 
 
 
@@ -394,20 +435,27 @@ if __name__ == "__main__":
     # rbtree.remove(18)
     # print(rbtree)
 
-    rbtree = RedBlackTree(13)
-    rbtree.insert(8)
-    rbtree.insert(17)
-    rbtree.insert(1)
-    rbtree.insert(11)
-    rbtree.insert(1)
-    rbtree.insert(15)
-    rbtree.insert(25)
-    rbtree.insert(6)
-    rbtree.insert(22)
-    rbtree.insert(27)
-    print(rbtree, '\n')
-    rbtree.remove(13)
-    # rbtree.remove(11)
+    # rbtree = RedBlackTree(13)
+    # rbtree.insert(8)
+    # rbtree.insert(17)
+    # rbtree.insert(1)
+    # rbtree.insert(11)
+    # rbtree.insert(1)
+    # rbtree.insert(15)
+    # rbtree.insert(25)
+    # rbtree.insert(6)
+    # rbtree.insert(22)
+    # rbtree.insert(27)
+    # print(rbtree, '\n')
+    # rbtree.remove(13)
+    # # rbtree.remove(11)
+    # print(rbtree)
+
+
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(35)
+    rbtree.insert(50)
+    rbtree.remove(20)
     print(rbtree)
-
-
