@@ -295,7 +295,7 @@ class RedBlackTree(BST):
             if sibling.get_color() == Color.BLACK:
                 s_left_child = sibling.get_left()
                 s_right_child = sibling.get_right()
-                # get colors of them both
+                # get colors of sibling's children
                 s_left_color = s_left_child.get_color() if s_left_child \
                                                         else Color.BLACK
                 s_right_color = s_right_child.get_color() if s_right_child \
@@ -303,13 +303,14 @@ class RedBlackTree(BST):
                 
                 # Case II
                 if s_left_color == Color.RED or s_right_color == Color.RED:
-                    # r = s_left_child if s_left_color == Color.RED\
-                    #                  else s_right_child
-                    r = s_right_child if s_right_color == Color.RED\
-                                     else s_left_child
+                    r = s_left_child if s_left_color == Color.RED\
+                                     else s_right_child
                     grandparent = parent.get_parent()
                     # Case 2.1 (s: left, r: left)
                     if sibling.is_left_child() and r.is_left_child():
+                        print("Case 2.1: s: left, r: left")
+                        s_left_child.color = sibling.color
+                        sibling.color = parent.color
                         parent = self.__rotate_right(parent)
                         if grandparent is None:
                             self.root = parent
@@ -317,6 +318,8 @@ class RedBlackTree(BST):
                             pass
                     # Case 2.2 (s: left, r: right)
                     elif sibling.is_left_child() and not r.is_left_child():
+                        print("Case 2.2: s: left, r: left")
+                        s_right_child.color = parent.color
                         sibling = self.__rotate_left(sibling)
                         parent.set_left(sibling)
                         parent = self.__rotate_right(parent)
@@ -326,6 +329,8 @@ class RedBlackTree(BST):
                             pass
                     # Case 2.3 (s: right, r: left)
                     elif not sibling.is_left_child() and r.is_left_child():
+                        print("Case 2.3: s: right, r: left")
+                        s_left_child.color = parent.color
                         sibling = self.__rotate_right(sibling)
                         parent.set_right(sibling)
                         parent = self.__rotate_left(parent)
@@ -335,11 +340,14 @@ class RedBlackTree(BST):
                             pass
                     # Case 2.4 (s: right, r: right)
                     else:
+                        print("Case 2.4: s: right, r: right")
+                        s_right_child.color = sibling.color
                         parent = self.__rotate_left(parent)
                         if grandparent is None:
                             self.root = parent
                         else:
                             pass
+                    parent.color = Color.BLACK
                 # Case III
                 else:
                     pass 
