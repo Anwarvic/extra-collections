@@ -267,7 +267,6 @@ class RedBlackTree(BST):
             self.__transplant(replacement, new_replacement)
             return parent, node
 
-
     def __handle_double_black(self, parent, double_black_node):
         """
         Note: (s) is the sibling of double_black_node
@@ -287,6 +286,7 @@ class RedBlackTree(BST):
         if parent is None:
             pass
         else:
+            grandparent = parent.get_parent()
             sibling = double_black_node.get_sibling() \
                     if double_black_node \
                     else parent.get_left() \
@@ -305,7 +305,6 @@ class RedBlackTree(BST):
                 if s_left_color == Color.RED or s_right_color == Color.RED:
                     r = s_left_child if s_left_color == Color.RED\
                                      else s_right_child
-                    grandparent = parent.get_parent()
                     # Case 2.1 (s: left, r: left)
                     if sibling.is_left_child() and r.is_left_child():
                         print("Case 2.1: s: left, r: left")
@@ -347,15 +346,23 @@ class RedBlackTree(BST):
                             self.root = parent
                         else:
                             pass
+                    # make sure parent is black
                     parent.color = Color.BLACK
                 # Case III
                 else:
-                    pass 
+                    sibling.color = Color.RED
+                    if parent.get_color() == Color.RED:
+                        self.__handle_double_black(grandparent, parent)
+                    else:
+                        parent.color = Color.BLACK
             # Case IV
             elif sibling.get_color() == Color.RED:
-                pass
-
-
+                parent.set_color(Color.RED)
+                sibling.set_color(Color.BLACK)
+                if sibling.is_left_child():
+                    parent = self.__rotate_right(parent)
+                else:
+                    parent = self.__rotate_left(parent)
 
 
     def remove(self, del_value):
@@ -390,7 +397,8 @@ class RedBlackTree(BST):
             parent, transplanted = self.__transplant(removed_node, replacement)
             double_black_node = transplanted
             # handle this double black
-            self.__handle_double_black(parent, double_black_node)
+            root = self.__handle_double_black(parent, double_black_node)
+            self.root = root
 
         
         # case IV
