@@ -524,11 +524,12 @@ if __name__ == "__main__":
     # # rbtree.remove(11)
     # print(rbtree)
 
-
-    rbtree = RedBlackTree(30)
-    rbtree.insert(20)
-    rbtree.insert(40)
-    rbtree.insert(35)
+    #################### THESE TO TEST double-black nodes ####################
+    # test case 2.1 (left-left)
+    rbtree = RedBlackTree(40)
+    rbtree.insert(30)
     rbtree.insert(50)
-    rbtree.remove(20)
-    print(rbtree)
+    rbtree.insert(20)
+    rbtree.remove(50)
+    print(rbtree, '\n')
+
