@@ -281,7 +281,9 @@ class RedBlackTree(BST):
         """
         s_left_child = s.get_left()
         s_right_child = s.get_right()
-        r = s_left_child if s_left_child.get_color() == Color.RED \
+
+        r = s_left_child \
+            if (s_left_child and s_left_child.get_color() == Color.RED) \
             else s_right_child
 
         # Case I (s: left, r: left)
@@ -415,8 +417,8 @@ class RedBlackTree(BST):
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
             print("Case III") #... double black
+            print("replacement:", replacement)
             parent, transplanted = self.__transplant(removed_node, replacement)
-            grandparent = parent.get_parent()
             double_black_node = transplanted
             # handle this double black
             root = self.__handle_double_black(parent, double_black_node)
@@ -525,18 +527,36 @@ if __name__ == "__main__":
     # print(rbtree)
 
     #################### THESE TO TEST double-black nodes ####################
-    # test case 2.1 (left-left)
-    rbtree = RedBlackTree(40)
-    rbtree.insert(30)
-    rbtree.insert(50)
-    rbtree.insert(20)
-    rbtree.remove(50)
-    print(rbtree, '\n')
+    # # test case 2.1 (left-left)
+    # rbtree = RedBlackTree(40)
+    # rbtree.insert(30)
+    # rbtree.insert(50)
+    # rbtree.insert(20)
+    # rbtree.insert(35)
+    # rbtree.remove(50)
+    # print(rbtree, '\n')
 
-    # test case 2.3 (right-left)
+    # test case 2.2 (left-right)
     rbtree = RedBlackTree(30)
     rbtree.insert(20)
     rbtree.insert(40)
-    rbtree.insert(35)
+    rbtree.insert(50)
     rbtree.remove(20)
     print(rbtree)
+
+    # # test case 2.3 (right-left)
+    # rbtree = RedBlackTree(30)
+    # rbtree.insert(20)
+    # rbtree.insert(40)
+    # rbtree.insert(35)
+    # rbtree.remove(20)
+    # print(rbtree)
+
+    # # test case 2.4 (right-right)
+    # rbtree = RedBlackTree(30)
+    # rbtree.insert(20)
+    # rbtree.insert(40)
+    # rbtree.insert(35)
+    # rbtree.insert(50)
+    # rbtree.remove(20)
+    # print(rbtree)
