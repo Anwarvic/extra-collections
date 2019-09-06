@@ -216,6 +216,7 @@ class RedBlackTree(BST):
                 replacement_node = successor if successor else predecessor
         return replacement_node
 
+
     def __get_node_and_replacement(self, del_value, start_node):
         #TODO: try to get rid of this function and use find() or search instead.
         curr_value = start_node.get_data()
@@ -239,6 +240,7 @@ class RedBlackTree(BST):
             else:
                 return self.__get_node_and_replacement(del_value,
                                                        start_node.get_right())
+
 
     def __transplant(self, node, replacement):
         parent = node.get_parent()
@@ -309,8 +311,10 @@ class RedBlackTree(BST):
         else:
             print("Case 2.4: s: right, r: right")
             s_right_child.set_color(s.get_color())
+            s.set_color(parent.get_color())
             parent = self.__rotate_left(parent)
-        
+        # make sure parent is black
+        parent.set_color(Color.BLACK)
         return parent
 
 
@@ -325,14 +329,17 @@ class RedBlackTree(BST):
         """
         # Case I
         if parent is None:
-            pass
+            return double_black_node
         else:
             grandparent = parent.get_parent()
             sibling = double_black_node.get_sibling() \
                     if double_black_node \
                     else parent.get_left() \
                         if parent.get_left() else parent.get_right()
-            if sibling.get_color() == Color.BLACK:
+            if sibling is None:
+                # no sibiling, check the parent 
+                return self.__handle_double_black(grandparent, parent)
+            elif sibling.get_color() == Color.BLACK:
                 s_left_child = sibling.get_left()
                 s_right_child = sibling.get_right()
                 # get colors of sibling's children
@@ -343,17 +350,22 @@ class RedBlackTree(BST):
                 # Case II
                 if s_left_color == Color.RED or s_right_color == Color.RED:
                     parent = self.__handle_double_black_case2(parent, sibling)
-                    # make sure parent is black
-                    parent.set_color(Color.BLACK)
-                    # TODO: remove this
-                    self.root = parent
+                    if grandparent is None:
+                        self.root = parent
+                    else:
+                        if grandparent.data > parent.data:
+                            grandparent.set_left(parent)
+                        else:
+                            grandparent.set_right(parent)
+                    return self.root
                 # Case III
                 else:
                     sibling.set_color(Color.RED)
                     if parent.get_color() == Color.RED:
-                        self.__handle_double_black(grandparent, parent)
+                        return self.__handle_double_black(grandparent, parent)
                     else:
                         parent.set_color(Color.BLACK)
+                        return self.root
             # Case IV
             elif sibling.get_color() == Color.RED:
                 parent.set_color(Color.RED)
@@ -362,6 +374,16 @@ class RedBlackTree(BST):
                     parent = self.__rotate_right(parent)
                 else:
                     parent = self.__rotate_left(parent)
+                if grandparent is None:
+                        self.root = parent
+                else:
+                    if grandparent.data > parent.data:
+                        grandparent.set_left(parent)
+                    else:
+                        grandparent.set_right(parent)
+                #TODO: debug this 
+                # new_double_black_node = parent.get_left() if sibling.is_left_child()
+                # self.__handle_double_black(parent, parent.get_left)
 
 
     def remove(self, del_value):
@@ -394,10 +416,11 @@ class RedBlackTree(BST):
             (replacement is None or replacement.get_color() == Color.BLACK):
             print("Case III") #... double black
             parent, transplanted = self.__transplant(removed_node, replacement)
+            grandparent = parent.get_parent()
             double_black_node = transplanted
             # handle this double black
-            self.__handle_double_black(parent, double_black_node)
-            # self.root = root
+            root = self.__handle_double_black(parent, double_black_node)
+            self.root = root
 
         
         # case IV
