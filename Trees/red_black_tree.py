@@ -533,3 +533,10 @@ if __name__ == "__main__":
     rbtree.remove(50)
     print(rbtree, '\n')
 
+    # test case 2.3 (right-left)
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(35)
+    rbtree.remove(20)
+    print(rbtree)
