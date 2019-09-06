@@ -391,10 +391,10 @@ class RedBlackTree(BST):
 
     def remove(self, del_value):
         """
-        Case I:   removed_node is 'red', replacement is either 'red' or None
-        Case II:  removed_node is 'red', replacement is 'black'
+        Case I  : removed_node is 'red', replacement is either 'red' or None
+        Case II : removed_node is 'red', replacement is 'black'
         Case III: removed_node is 'black', replacement is either 'black' or None
-        Case IV:  removed_node is 'black', replacement is 'red'
+        Case IV : removed_node is 'black', replacement is 'red'
         """
         removed_node, replacement = self.__get_node_and_replacement(del_value,
                                                                     self.root)
@@ -556,11 +556,11 @@ if __name__ == "__main__":
     # rbtree.remove(20)
     # print(rbtree)
 
-    # test case 2.4 (right-right)
-    rbtree = RedBlackTree(30)
-    rbtree.insert(20)
-    rbtree.insert(40)
-    rbtree.insert(50)
-    print(rbtree)
-    rbtree.remove(20)
-    print(rbtree)
+    # # test case 2.4 (right-right)
+    # rbtree = RedBlackTree(30)
+    # rbtree.insert(20)
+    # rbtree.insert(40)
+    # rbtree.insert(50)
+    # print(rbtree)
+    # rbtree.remove(20)
+    # print(rbtree)
