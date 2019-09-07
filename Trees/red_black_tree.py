@@ -288,14 +288,14 @@ class RedBlackTree(BST):
 
         # Case I (s: left, r: left)
         if s.is_left_child() and r.is_left_child():
-            print("Case 2.1: s: left, r: left")
+            print("Case 2.1 (s: left, r: left)")
             s_left_child.set_color(s.get_color())
             s.set_color(parent.get_color())
             parent = self.__rotate_right(parent)
 
         # Case II (s: left, r: right)
         elif s.is_left_child() and not r.is_left_child():
-            print("Case 2.2: s: left, r: right")
+            print("Case 2.2 (s: left, r: right)")
             s_right_child.set_color(parent.get_color())
             s = self.__rotate_left(s)
             parent.set_left(s)
@@ -303,7 +303,7 @@ class RedBlackTree(BST):
 
         # Case III (s: right, r: left)
         elif not s.is_left_child() and r.is_left_child():
-            print("Case 2.3: s: right, r: left")
+            print("Case 2.3 (s: right, r: left)")
             s_left_child.set_color(parent.get_color())
             s = self.__rotate_right(s)
             parent.set_right(s)
@@ -311,7 +311,7 @@ class RedBlackTree(BST):
 
         # Case IV (s: right, r: right)
         else:
-            print("Case 2.4: s: right, r: right")
+            print("Case 2.4 (s: right, r: right)")
             s_right_child.set_color(s.get_color())
             s.set_color(parent.get_color())
             parent = self.__rotate_left(parent)
@@ -327,7 +327,9 @@ class RedBlackTree(BST):
         Case II : (s) is black and one child of sibling's children is red (r)
         Case III: (s) is black and the two children of s are black
         Case IV : (s) is red
+        
         Note: (s) is the sibling of the double_black_node
+        SRC: https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
         """
         # Case I
         if parent is None:
@@ -349,7 +351,7 @@ class RedBlackTree(BST):
                 s_left_color = s_left_child.get_color() if s_left_child \
                                                         else Color.BLACK
                 s_right_color = s_right_child.get_color() if s_right_child \
-                                                        else Color.BLACK
+                                                          else Color.BLACK
                 # Case II
                 if s_left_color == Color.RED or s_right_color == Color.RED:
                     parent = self.__handle_double_black_case2(parent, sibling)
@@ -375,8 +377,12 @@ class RedBlackTree(BST):
                 sibling.set_color(Color.BLACK)
                 if sibling.is_left_child():
                     parent = self.__rotate_right(parent)
+                    new_parent = parent.get_right()
+                    new_double_black_node = new_parent.get_right()
                 else:
                     parent = self.__rotate_left(parent)
+                    new_parent = parent.get_left()
+                    new_double_black_node = new_parent.get_left()
                 if grandparent is None:
                         self.root = parent
                 else:
@@ -384,9 +390,7 @@ class RedBlackTree(BST):
                         grandparent.set_left(parent)
                     else:
                         grandparent.set_right(parent)
-                #TODO: debug this 
-                # new_double_black_node = parent.get_left() if sibling.is_left_child()
-                # self.__handle_double_black(parent, parent.get_left)
+                return self.__handle_double_black(new_parent, new_double_black_node)
 
 
     def remove(self, del_value):
@@ -398,27 +402,27 @@ class RedBlackTree(BST):
         """
         removed_node, replacement = self.__get_node_and_replacement(del_value,
                                                                     self.root)
+        print("replacement:", replacement)
         # couldn't find the del_value in the tree
         if removed_node.get_data() != del_value:
             return
 
-        # case I
+        # Case I (replace red-node with red-node/None)
         if removed_node.get_color() == Color.RED and \
             (replacement is None or replacement.get_color() == Color.RED):
-            print("Case I")
+            print("Case I (replace red-node with red-node/None)")
             self.__transplant(removed_node, replacement)
         
-        # case II
+        # Case II (replace red-node with black-node)
         elif removed_node.get_color() == Color.RED and \
             replacement.get_color() == Color.BLACK:
-            print("Case II")
+            print("Case II (replace red-node with black-node)")
             raise ValueError("This case shouldn't occur!!")
         
-        # case III
+        # Case III (replace black-node with black-node)
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
-            print("Case III") #... double black
-            print("replacement:", replacement)
+            print("Case III (double black-node)")
             parent, transplanted = self.__transplant(removed_node, replacement)
             double_black_node = transplanted
             # handle this double black
@@ -426,10 +430,10 @@ class RedBlackTree(BST):
             self.root = root
 
         
-        # case IV
+        # Case IV (replace black-node with red-node/None)
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
-            print("Case IV")
+            print("Case IV (replace black-node with black-node/None)")
             self.__transplant(removed_node, replacement)
         
 
@@ -498,18 +502,18 @@ if __name__ == "__main__":
     # print('='*50, '\n')
 
     ######################### Test Removal #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
-    # rbtree = RedBlackTree(7)
-    # rbtree.insert(3)
-    # rbtree.insert(18)
-    # rbtree.insert(10)
-    # rbtree.insert(22)
-    # rbtree.insert(8)
-    # rbtree.insert(11)
-    # rbtree.insert(26)
-    # print(rbtree, '\n')
-    # rbtree.remove(18)
-    # print(rbtree)
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    rbtree = RedBlackTree(7)
+    rbtree.insert(3)
+    rbtree.insert(18)
+    rbtree.insert(10)
+    rbtree.insert(22)
+    rbtree.insert(8)
+    rbtree.insert(11)
+    rbtree.insert(26)
+    print(rbtree, '\n')
+    rbtree.remove(3)
+    print(rbtree)
 
     # rbtree = RedBlackTree(13)
     # rbtree.insert(8)
@@ -523,8 +527,7 @@ if __name__ == "__main__":
     # rbtree.insert(22)
     # rbtree.insert(27)
     # print(rbtree, '\n')
-    # rbtree.remove(13)
-    # # rbtree.remove(11)
+    # rbtree.remove(11)
     # print(rbtree)
 
     #################### THESE TO TEST double-black nodes ####################
@@ -556,7 +559,7 @@ if __name__ == "__main__":
     # rbtree.remove(20)
     # print(rbtree)
 
-    # # test case 2.4 (right-right)
+    # test case 2.4 (right-right)
     # rbtree = RedBlackTree(30)
     # rbtree.insert(20)
     # rbtree.insert(40)
@@ -564,3 +567,4 @@ if __name__ == "__main__":
     # print(rbtree)
     # rbtree.remove(20)
     # print(rbtree)
+
