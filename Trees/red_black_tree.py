@@ -342,8 +342,12 @@ class RedBlackTree(BST):
                         if parent.get_left() else parent.get_right()
             print("sibling:", sibling)
             if sibling is None:
-                # no sibiling, check the parent 
-                return self.__handle_double_black(grandparent, parent)
+                # no sibling
+                if parent.get_color() == Color.BLACK:
+                    # check the parent 
+                    return self.__handle_double_black(grandparent, parent)
+                else:
+                    return self.root
             elif sibling.get_color() == Color.BLACK:
                 s_left_child = sibling.get_left()
                 s_right_child = sibling.get_right()
@@ -383,14 +387,18 @@ class RedBlackTree(BST):
                     parent = self.__rotate_left(parent)
                     new_parent = parent.get_left()
                     new_double_black_node = new_parent.get_left()
+                # maintain connection to the original tree
                 if grandparent is None:
-                        self.root = parent
+                    self.root = parent
                 else:
                     if grandparent.data > parent.data:
                         grandparent.set_left(parent)
                     else:
                         grandparent.set_right(parent)
+                
+                print(self)
                 return self.__handle_double_black(new_parent, new_double_black_node)
+                # return self.root
 
 
     def remove(self, del_value):
@@ -428,7 +436,6 @@ class RedBlackTree(BST):
             # handle this double black
             root = self.__handle_double_black(parent, double_black_node)
             self.root = root
-
         
         # Case IV (replace black-node with red-node/None)
         elif removed_node.get_color() == Color.BLACK and \
@@ -568,3 +575,4 @@ if __name__ == "__main__":
     # rbtree.remove(20)
     # print(rbtree)
 
+    
