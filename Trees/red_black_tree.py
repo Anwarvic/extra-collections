@@ -273,7 +273,7 @@ class RedBlackTree(BST):
     def __handle_double_black_case1(self, parent, double_black_node):
         pass
     
-    def __handle_double_black_case2(self, parent, double_black_node):
+    def __handle_double_black_case2(self, parent, double_black_node, sibling):
         parent.set_color(Color.RED)
         sibling.set_color(Color.BLACK)
         if sibling.is_left_child():
@@ -283,14 +283,9 @@ class RedBlackTree(BST):
         return parent
 
     def __handle_double_black_case3(self, parent, double_black_node, sibling):
-        
-        if ((n->parent->color == BLACK) && (s->color == BLACK) &&
-            (s->left->color == BLACK) && (s->right->color == BLACK)) {
-            s->color = RED;
-            DeleteCase1(n->parent);
-        } else {
-            DeleteCase4(n);
-        }
+            sibling.set_color(Color.RED)
+            grandparent = parent.get_parent()
+            if 
 
     def __handle_double_black_case4(self, parent, double_black_node):
         pass
@@ -340,8 +335,12 @@ class RedBlackTree(BST):
                 if sibling.get_color() == Color.RED:
                     parent = self.__handle_double_black_case2(parent,
                                                             double_black_node)
-                elif (parent.get_color() == Color.BLACK and s.get_color() == Color.BLACK
-                and )
+                # Case III
+                elif (parent.get_color() == Color.BLACK and
+                    sibling.get_color() == Color.BLACK and
+                    s_left_color == Color.BLACK and
+                    s_right_color == Color.BLACK):
+
 
     def remove(self, del_value):
         """
