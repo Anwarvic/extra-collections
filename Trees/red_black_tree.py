@@ -270,25 +270,38 @@ class RedBlackTree(BST):
             return parent, node
 
     
-    def __handle_double_black_case1(self, double_black_node):
+    def __handle_double_black_case1(self, parent, double_black_node):
         pass
     
-    def __handle_double_black_case2(self, double_black_node):
+    def __handle_double_black_case2(self, parent, double_black_node):
+        parent.set_color(Color.RED)
+        sibling.set_color(Color.BLACK)
+        if sibling.is_left_child():
+            parent = self.__rotate_right(parent)
+        else:
+            parent = self.__rotate_left(parent)
+        return parent
+
+    def __handle_double_black_case3(self, parent, double_black_node, sibling):
+        
+        if ((n->parent->color == BLACK) && (s->color == BLACK) &&
+            (s->left->color == BLACK) && (s->right->color == BLACK)) {
+            s->color = RED;
+            DeleteCase1(n->parent);
+        } else {
+            DeleteCase4(n);
+        }
+
+    def __handle_double_black_case4(self, parent, double_black_node):
         pass
 
-    def __handle_double_black_case3(self, double_black_node):
+    def __handle_double_black_case5(self, parent, double_black_node):
         pass
 
-    def __handle_double_black_case4(self, double_black_node):
-        pass
-
-    def __handle_double_black_case5(self, double_black_node):
-        pass
-
-    def __handle_double_black_case6(self, double_black_node):
+    def __handle_double_black_case6(self, parent, double_black_node):
         pass
     
-    def __handle_double_black(self, double_black_node):
+    def __handle_double_black(self, parent, double_black_node):
         """
         SRC: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
         When dealing with double black nodes, we have six cases to consider:
@@ -305,7 +318,7 @@ class RedBlackTree(BST):
         """
          # Case I
         if parent is None:
-            self.__handle_double_black_case2(parent, double_black_node)
+            return double_black_node
         else:
             grandparent = parent.get_parent()
             sibling = double_black_node.get_sibling() \
@@ -313,6 +326,22 @@ class RedBlackTree(BST):
                     else parent.get_left() \
                         if parent.get_left() else parent.get_right()
             print("sibling:", sibling)
+            if sibling is None:
+                pass
+            else:
+                s_left_child = sibling.get_left()
+                s_right_child = sibling.get_right()
+                # get colors of sibling's children
+                s_left_color = s_left_child.get_color() if s_left_child \
+                                                        else Color.BLACK
+                s_right_color = s_right_child.get_color() if s_right_child \
+                                                          else Color.BLACK
+                # Case II
+                if sibling.get_color() == Color.RED:
+                    parent = self.__handle_double_black_case2(parent,
+                                                            double_black_node)
+                elif (parent.get_color() == Color.BLACK and s.get_color() == Color.BLACK
+                and )
 
     def remove(self, del_value):
         """
