@@ -269,137 +269,22 @@ class RedBlackTree(BST):
             self.__transplant(replacement, new_replacement)
             return parent, node
 
-
-    def __handle_double_black_case2(self, parent, s):
-        """
-        Case I  : (s) is left-child and (r) is left child
-        Case II : (s) is left-child and (r) is right child
-        Case III: (s) is right-child and (r) is left child
-        Case IV : (s) is right-child and (r) is right child
-
-        NOTE: (r) is the red child of (s)
-        """
-        s_left_child = s.get_left()
-        s_right_child = s.get_right()
-
-        r = s_left_child \
-            if (s_left_child and s_left_child.get_color() == Color.RED) \
-            else s_right_child
-
-        # Case I (s: left, r: left)
-        if s.is_left_child() and r.is_left_child():
-            print("Case 2.1 (s: left, r: left)")
-            s_left_child.set_color(s.get_color())
-            s.set_color(parent.get_color())
-            parent = self.__rotate_right(parent)
-
-        # Case II (s: left, r: right)
-        elif s.is_left_child() and not r.is_left_child():
-            print("Case 2.2 (s: left, r: right)")
-            s_right_child.set_color(parent.get_color())
-            s = self.__rotate_left(s)
-            parent.set_left(s)
-            parent = self.__rotate_right(parent)
-
-        # Case III (s: right, r: left)
-        elif not s.is_left_child() and r.is_left_child():
-            print("Case 2.3 (s: right, r: left)")
-            s_left_child.set_color(parent.get_color())
-            s = self.__rotate_right(s)
-            parent.set_right(s)
-            parent = self.__rotate_left(parent)
-
-        # Case IV (s: right, r: right)
-        else:
-            print("Case 2.4 (s: right, r: right)")
-            s_right_child.set_color(s.get_color())
-            s.set_color(parent.get_color())
-            parent = self.__rotate_left(parent)
-        # make sure parent is black
-        parent.set_color(Color.BLACK)
-        return parent
-
-
     def __handle_double_black(self, parent, double_black_node):
         """
-        When dealing with double black nodes, we have multiple cases:
+        SRC: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
+        When dealing with double black nodes, we have six cases to consider:
         Case I  : if double_black_node is root
-        Case II : (s) is black and one child of sibling's children is red (r)
-        Case III: (s) is black and the two children of s are black
-        Case IV : (s) is red
+        Case II : (s) is red
+        Case III: (p) and (s) are black and the two children of (s) are black
+        Case IV : (p) is red, (s) is black and the two children of (s) are black
+        Case V  : (s) is black, left-child of (s) is red, right-child of (s) is
+                  black and (s) is the right-child
+        Case VI : (s) is black, right-child of (s) is red, and (s) is the right-
+                  child
         
-        Note: (s) is the sibling of the double_black_node
-        SRC: https://www.geeksforgeeks.org/red-black-tree-set-3-delete-2/
+        Note: (s) is the sibling of the double_black_node and (p) is the parent
         """
-        # Case I
-        if parent is None:
-            return double_black_node
-        else:
-            grandparent = parent.get_parent()
-            sibling = double_black_node.get_sibling() \
-                    if double_black_node \
-                    else parent.get_left() \
-                        if parent.get_left() else parent.get_right()
-            print("sibling:", sibling)
-            if sibling is None:
-                # no sibling
-                if parent.get_color() == Color.BLACK:
-                    # check the parent 
-                    return self.__handle_double_black(grandparent, parent)
-                else:
-                    return self.root
-            elif sibling.get_color() == Color.BLACK:
-                s_left_child = sibling.get_left()
-                s_right_child = sibling.get_right()
-                # get colors of sibling's children
-                s_left_color = s_left_child.get_color() if s_left_child \
-                                                        else Color.BLACK
-                s_right_color = s_right_child.get_color() if s_right_child \
-                                                          else Color.BLACK
-                # Case II
-                if s_left_color == Color.RED or s_right_color == Color.RED:
-                    parent = self.__handle_double_black_case2(parent, sibling)
-                    if grandparent is None:
-                        self.root = parent
-                    else:
-                        if grandparent.data > parent.data:
-                            grandparent.set_left(parent)
-                        else:
-                            grandparent.set_right(parent)
-                    return self.root
-                # Case III
-                else:
-                    sibling.set_color(Color.RED)
-                    if parent.get_color() == Color.RED:
-                        return self.__handle_double_black(grandparent, parent)
-                    else:
-                        parent.set_color(Color.BLACK)
-                        return self.root
-            # Case IV
-            elif sibling.get_color() == Color.RED:
-                parent.set_color(Color.RED)
-                sibling.set_color(Color.BLACK)
-                if sibling.is_left_child():
-                    parent = self.__rotate_right(parent)
-                    new_parent = parent.get_right()
-                    new_double_black_node = new_parent.get_right()
-                else:
-                    parent = self.__rotate_left(parent)
-                    new_parent = parent.get_left()
-                    new_double_black_node = new_parent.get_left()
-                # maintain connection to the original tree
-                if grandparent is None:
-                    self.root = parent
-                else:
-                    if grandparent.data > parent.data:
-                        grandparent.set_left(parent)
-                    else:
-                        grandparent.set_right(parent)
-                
-                print(self)
-                return self.__handle_double_black(new_parent, new_double_black_node)
-                # return self.root
-
+        pass
 
     def remove(self, del_value):
         """
