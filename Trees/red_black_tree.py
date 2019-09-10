@@ -269,7 +269,26 @@ class RedBlackTree(BST):
             self.__transplant(replacement, new_replacement)
             return parent, node
 
-    def __handle_double_black(self, parent, double_black_node):
+    
+    def __handle_double_black_case1(self, double_black_node):
+        pass
+    
+    def __handle_double_black_case2(self, double_black_node):
+        pass
+
+    def __handle_double_black_case3(self, double_black_node):
+        pass
+
+    def __handle_double_black_case4(self, double_black_node):
+        pass
+
+    def __handle_double_black_case5(self, double_black_node):
+        pass
+
+    def __handle_double_black_case6(self, double_black_node):
+        pass
+    
+    def __handle_double_black(self, double_black_node):
         """
         SRC: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
         When dealing with double black nodes, we have six cases to consider:
@@ -284,7 +303,16 @@ class RedBlackTree(BST):
         
         Note: (s) is the sibling of the double_black_node and (p) is the parent
         """
-        pass
+         # Case I
+        if parent is None:
+            self.__handle_double_black_case2(parent, double_black_node)
+        else:
+            grandparent = parent.get_parent()
+            sibling = double_black_node.get_sibling() \
+                    if double_black_node \
+                    else parent.get_left() \
+                        if parent.get_left() else parent.get_right()
+            print("sibling:", sibling)
 
     def remove(self, del_value):
         """
