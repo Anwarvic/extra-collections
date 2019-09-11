@@ -3,8 +3,7 @@ from tree import TreeNode, Tree
 
 class TrieNode(TreeNode):
     def __init__(self, value):
-        assert type(value)==str and len(value)==1, \
-                    "Trie nodes accept characters only!!"
+        assert type(value)==str, "Trie nodes accept characters only!!"
         self.data = value
         self.children = {}
         self.is_word = False
