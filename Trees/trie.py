@@ -25,6 +25,8 @@ class TrieNode(TreeNode):
     def get_parent(self):
         return self.parent
     
+    def has_no_children(self):
+        return self.children == {}        
 
 
 
