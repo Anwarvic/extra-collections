@@ -4,6 +4,7 @@ from tree import TreeNode, Tree
 class TrieNode(TreeNode):
     def __init__(self, value):
         assert type(value)==str, "Trie nodes accept characters only!!"
+        self.parent = None
         self.data = value
         self.children = {}
         self.is_word = False
@@ -19,7 +20,10 @@ class TrieNode(TreeNode):
 
     def set_child(self, ch, new_node):
         self.children[ch] = new_node
+        new_node.parent = self
 
+    def get_parent(self):
+        return self.parent
 
 
 
