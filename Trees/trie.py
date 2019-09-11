@@ -33,6 +33,7 @@ class Trie(Tree):
         self.root = TrieNode(' ')
         self.root.data = "root"
 
+
     ############################## INSERTION ##############################
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
@@ -42,6 +43,26 @@ class Trie(Tree):
                 start_node.set_child(ch, TrieNode(ch))
             start_node = start_node.get_child(ch)
         start_node.is_word = True
+
+
+    ############################## REMOVE ##############################
+    def remove(self, word):
+        assert type(word) == str, "You can remove String objects only!!"
+        start_node = self.root
+        for ch in word:
+            if ch not in start_node.children:
+                return
+            start_node = start_node.get_child(ch)
+        
+        # if word is found, clear it
+        if start_node.is_word:
+            start_node.is_word = False
+            # clear its traces
+            for ch_idx in range(len(word)-1, -1, -1):
+                if len(start_node.children) == 1:
+                    start_node = start_node.get_parent()
+                del start_node.children[ch]
+                start_node = start_node.get_parent()
 
 
     ############################## FIND ##############################
@@ -89,26 +110,26 @@ class Trie(Tree):
 
 
 if __name__ == "__main__":
-    t = Trie()
-    t.insert('car')
-    t.insert('card')
-    t.insert('cards')
-    t.insert('cot')
-    t.insert('cots')
-    t.insert('trie')
-    t.insert('tried')
-    t.insert('tries')
-    t.insert('try')
+    # t = Trie()
+    # t.insert('car')
+    # t.insert('card')
+    # t.insert('cards')
+    # t.insert('cot')
+    # t.insert('cots')
+    # t.insert('trie')
+    # t.insert('tried')
+    # t.insert('tries')
+    # t.insert('try')
 
-    print(t)
-    print(t.find('cards'))
-    print(t.find('c'))
-    print(t.get_candidates())
-    print(t.get_candidates('c'))
-    print(t.get_candidates('tri'))
-    print('='*50)
+    # print(t)
+    # print(t.find('cards'))
+    # print(t.find('c'))
+    # print(t.get_candidates())
+    # print(t.get_candidates('c'))
+    # print(t.get_candidates('tri'))
+    # print('='*50)
     
-    # explort Trie
-    print(t.root)
-    print(t.root.get_child('t').data)
-    print(t.root.get_child('c').children)
+    # # explort Trie
+    # print(t.root)
+    # print(t.root.get_child('t').data)
+    # print(t.root.get_child('c').children)
