@@ -24,7 +24,7 @@ class TrieNode(TreeNode):
 
     def get_parent(self):
         return self.parent
-
+    
 
 
 
@@ -57,12 +57,12 @@ class Trie(Tree):
         # if word is found, clear it
         if start_node.is_word:
             start_node.is_word = False
-            # clear its traces
-            for ch_idx in range(len(word)-1, -1, -1):
-                if len(start_node.children) == 1:
-                    start_node = start_node.get_parent()
-                del start_node.children[ch]
-                start_node = start_node.get_parent()
+        if not start_node.children:
+            while(not start_node.is_word):
+                ch = start_node.get_data()
+                parent = start_node.get_parent()
+                del parent.children[ch]
+                start_node = parent
 
 
     ############################## FIND ##############################
@@ -133,3 +133,8 @@ if __name__ == "__main__":
     # print(t.root)
     # print(t.root.get_child('t').data)
     # print(t.root.get_child('c').children)
+    t = Trie()
+    t.insert("tre")
+    t.insert("trees")
+    t.remove("trees")
+    print(t)
