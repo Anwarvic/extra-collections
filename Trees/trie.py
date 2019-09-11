@@ -59,12 +59,11 @@ class Trie(Tree):
         # if word is found, clear it
         if start_node.is_word:
             start_node.is_word = False
-        if not start_node.children:
-            while(not start_node.is_word):
-                ch = start_node.get_data()
-                parent = start_node.get_parent()
-                del parent.children[ch]
-                start_node = parent
+        while(not start_node.is_word and start_node.has_no_children()):
+            ch = start_node.get_data()
+            parent = start_node.get_parent()
+            del parent.children[ch]
+            start_node = parent
 
 
     ############################## FIND ##############################
@@ -112,31 +111,36 @@ class Trie(Tree):
 
 
 if __name__ == "__main__":
-    # t = Trie()
-    # t.insert('car')
-    # t.insert('card')
-    # t.insert('cards')
-    # t.insert('cot')
-    # t.insert('cots')
-    # t.insert('trie')
-    # t.insert('tried')
-    # t.insert('tries')
-    # t.insert('try')
+    t = Trie()
+    t.insert('car')
+    t.insert('card')
+    t.insert('cards')
+    t.insert('cot')
+    t.insert('cots')
+    t.insert('trie')
+    t.insert('tried')
+    t.insert('tries')
+    t.insert('try')
 
-    # print(t)
-    # print(t.find('cards'))
-    # print(t.find('c'))
-    # print(t.get_candidates())
-    # print(t.get_candidates('c'))
-    # print(t.get_candidates('tri'))
-    # print('='*50)
+    print(t)
+    print(t.find('cards'))
+    print(t.find('c'))
+    print(t.get_candidates())
+    print(t.get_candidates('c'))
+    print(t.get_candidates('tri'))
+    print('='*50)
     
-    # # explort Trie
-    # print(t.root)
-    # print(t.root.get_child('t').data)
-    # print(t.root.get_child('c').children)
+    # explort Trie
+    print(t.root)
+    print(t.root.get_child('t').data)
+    print(t.root.get_child('c').children)
+    
+    # Test Remove
     t = Trie()
     t.insert("tre")
     t.insert("trees")
+    t.insert("treed")
     t.remove("trees")
+    t.remove("tre")
     print(t)
+    print(t.get_candidates("t"))
