@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print(t.root.get_child('t').data)
     print(t.root.get_child('c').children)
     
-    # Test Remove
+    # test remove()
     t = Trie()
     t.insert("tre")
     t.insert("trees")
