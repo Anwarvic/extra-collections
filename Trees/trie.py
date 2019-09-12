@@ -32,13 +32,14 @@ class TrieNode(TreeNode):
 
 class Trie(Tree):
     def __init__(self):
-        self.root = TrieNode(' ')
-        self.root.data = "root"
+        self.root = TrieNode('')
+        self.root.data = "ROOT"
 
 
     ############################## INSERTION ##############################
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
+        assert len(word) > 0, "You can't insert any empty String!!"
         start_node = self.root
         for ch in word:
             if ch not in start_node.get_characters():
@@ -144,3 +145,10 @@ if __name__ == "__main__":
     t.remove("tre")
     print(t)
     print(t.get_candidates("t"))
+
+    # sanity checks
+    t = Trie()
+    t.insert('a')
+    t.insert('A')
+    t.remove('AA')
+    print(t)
