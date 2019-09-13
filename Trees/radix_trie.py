@@ -1,5 +1,15 @@
 from trie import TrieNode, Trie
 
+#helper function
+def find_last_common_idx(word1, word2):
+    idx = 0
+    while(idx < len(word1)):
+        if idx < len(word2) and word1[idx] == word2[idx]:
+            idx += 1
+        else:
+            break
+    return idx
+
 
 
 class RadixTrie(Trie):
