@@ -15,6 +15,24 @@ def find_last_common_idx(word1, word2):
 class RadixTrie(Trie):
    
     ############################## INSERTION ##############################
+    def __insert(self, start_node, word):
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if not child:
+                start_node.set_child(word[0], TrieNode(word))
+                return
+            else:
+                child_data = child.get_data()
+                idx = find_last_common_idx(child_data, word)
+                # child has the given word as prefix
+                if idx <= len(word):
+                    child.data = child_data[:idx]
+                    self.__insert(child, child_data[idx:])
+                start_node = child
+                word = word[idx:]
+
+
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
@@ -23,26 +41,7 @@ class RadixTrie(Trie):
             self.root.set_child(word[0], TrieNode(word))
         else:
             start_node = self.root
-            while(word):
-                ch = word[0]
-                child = start_node.get_child(ch)
-                if not child:
-                    start_node.set_child(word[0], TrieNode(word))
-                    return
-                else:
-                    child_data = child.get_data()
-                    idx = find_last_common_idx(child_data, word)
-                    # whole word is found
-                    if idx == len(word):
-                        return
-                    # child has the given word as prefix
-                    elif idx > len(word):
-                        child.data = word
-                        word = child_data
-                    # child has prefix of the word
-                    else:
-                        start_node = child
-                        word = word[idx:]
+            self.__insert(start_node, word)
 
             
             
@@ -63,9 +62,20 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
+    # t = RadixTrie()
+    # t.insert("shear")
+    # t.insert("she")
+    # t.insert("shepard")
+    # print(t)
+    
+    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     t = RadixTrie()
-    t.insert("shear")
-    t.insert("she")
-    t.insert("shepard")
+    t.insert("romane")
+    t.insert("romanus")
+    t.insert("romulus")
+    t.insert("rubens")
+    t.insert("ruber")
+    t.insert("rubicon")
+    t.insert("rubicundus")
+
     print(t)
-    # print(t.root.children)
