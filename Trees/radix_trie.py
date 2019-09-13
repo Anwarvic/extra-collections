@@ -73,9 +73,9 @@ if __name__ == "__main__":
     t.insert("romane")
     t.insert("romanus")
     t.insert("romulus")
-    t.insert("rubens")
-    t.insert("ruber")
-    t.insert("rubicon")
-    t.insert("rubicundus")
+    # t.insert("rubens")
+    # t.insert("ruber")
+    # t.insert("rubicon")
+    # t.insert("rubicundus")
 
     print(t)
