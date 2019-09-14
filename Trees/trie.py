@@ -16,7 +16,10 @@ class TrieNode(TreeNode):
         return list(self.children.values())
 
     def get_child(self, ch):
-        return self.children[ch]
+        try:
+            return self.children[ch]
+        except KeyError:
+            return ""
 
     def set_child(self, ch, new_node):
         self.children[ch] = new_node
@@ -26,7 +29,10 @@ class TrieNode(TreeNode):
         return self.parent
     
     def has_no_children(self):
-        return self.children == {}        
+        return self.children == {}
+
+    def __repr__(self):
+        return "TrieNode({})".format(self.data)     
 
 
 
