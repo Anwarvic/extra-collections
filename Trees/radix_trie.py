@@ -28,8 +28,8 @@ class RadixTrie(Trie):
             else:
                 child_data = child.get_data()
                 idx = find_last_common_idx(child_data, word)
-                # child has the given word as a prefix
-                if idx < len(word):
+                # child has part of the given word as a prefix
+                if idx < len(word) and idx != len(child_data):
                     new_node = TrieNode(child_data[:idx])
                     child.data = child_data[idx:]
                     new_node.set_child(child_data[idx], child)
@@ -84,5 +84,4 @@ if __name__ == "__main__":
     t.insert("ruber")
     t.insert("rubicon")
     t.insert("rubicundus")
-
     print(t)
