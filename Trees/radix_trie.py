@@ -21,14 +21,18 @@ class RadixTrie(Trie):
             child = start_node.get_child(ch)
             if not child:
                 start_node.set_child(word[0], TrieNode(word))
-                return
+                break
             else:
                 child_data = child.get_data()
                 idx = find_last_common_idx(child_data, word)
-                # child has the given word as prefix
+                # child has the given word as a prefix
                 if idx <= len(word):
-                    child.data = child_data[:idx]
-                    self.__insert(child, child_data[idx:])
+                    new_node = TrieNode(child_data[:idx])
+                    child.data = child_data[idx:]
+                    new_node.set_child(child_data[idx], child)
+                    start_node.set_child(child_data[0], new_node)
+                    child = new_node
+                    # self.__insert(child, child_data[idx:])
                 start_node = child
                 word = word[idx:]
 
