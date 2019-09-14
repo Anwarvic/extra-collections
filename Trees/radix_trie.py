@@ -22,9 +22,6 @@ class RadixTrie(Trie):
             if not child:
                 start_node.set_child(word[0], TrieNode(word))
                 break
-            # elif child.get_data() == ch:
-            #     start_node = child
-            #     word = word[1:]
             else:
                 child_data = child.get_data()
                 idx = find_last_common_idx(child_data, word)
@@ -35,7 +32,6 @@ class RadixTrie(Trie):
                     new_node.set_child(child_data[idx], child)
                     start_node.set_child(child_data[0], new_node)
                     child = new_node
-                    # self.__insert(child, child_data[idx:])
                 start_node = child
                 word = word[idx:]
 
@@ -49,9 +45,6 @@ class RadixTrie(Trie):
         else:
             start_node = self.root
             self.__insert(start_node, word)
-
-            
-            
 
 
     ############################## FIND ##############################
@@ -69,19 +62,22 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # t = RadixTrie()
-    # t.insert("shear")
-    # t.insert("she")
-    # t.insert("shepard")
-    # print(t)
-    
-    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     t = RadixTrie()
-    t.insert("romane")
-    t.insert("romanus")
-    t.insert("romulus")
-    t.insert("rubens")
-    t.insert("ruber")
-    t.insert("rubicon")
-    t.insert("rubicundus")
+    t.insert("shear")
+    t.insert("she")
+    t.insert("shepard")
+    t.insert("shepard")
+    t.insert("she")
+    t.insert('s')
     print(t)
+    
+    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    # t = RadixTrie()
+    # t.insert("romane")
+    # t.insert("romanus")
+    # t.insert("romulus")
+    # t.insert("rubens")
+    # t.insert("ruber")
+    # t.insert("rubicon")
+    # t.insert("rubicundus")
+    # print(t)
