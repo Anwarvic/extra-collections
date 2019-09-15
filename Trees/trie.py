@@ -21,18 +21,24 @@ class TrieNode(TreeNode):
         except KeyError:
             return ""
 
+    def get_parent(self):
+        return self.parent
+
     def set_child(self, ch, new_node):
         self.children[ch] = new_node
         new_node.parent = self
-
-    def get_parent(self):
-        return self.parent
     
     def has_no_children(self):
         return self.children == {}
 
     def __repr__(self):
-        return "TrieNode({})".format(self.data)     
+        return "TrieNode({})".format(self.data)
+
+    def represent_data(self):
+        if self.is_word:
+            return self.data + ' ✓'
+        else:
+            return self.data
 
 
 
@@ -128,33 +134,34 @@ if __name__ == "__main__":
     t.insert('tried')
     t.insert('tries')
     t.insert('try')
+    print(t)
 
-    print(t)
-    print(t.find('cards'))
-    print(t.find('c'))
-    print(t.get_candidates())
-    print(t.get_candidates('c'))
-    print(t.get_candidates('tri'))
-    print('='*50)
+    # # explort Trie
+    # print(t.root)
+    # print(t.root.get_child('t').data)
+    # print(t.root.get_child('c').children)
     
-    # explort Trie
-    print(t.root)
-    print(t.root.get_child('t').data)
-    print(t.root.get_child('c').children)
+    # # test find() and get_cadidates()
+    # print(t.find('cards'))
+    # print(t.find('c'))
+    # print(t.get_candidates())
+    # print(t.get_candidates('c'))
+    # print(t.get_candidates('tri'))
+    # print('='*50)
     
-    # test remove()
-    t = Trie()
-    t.insert("tre")
-    t.insert("trees")
-    t.insert("treed")
-    t.remove("trees")
-    t.remove("tre")
-    print(t)
-    print(t.get_candidates("t"))
+    # # test remove()
+    # t = Trie()
+    # t.insert("tre")
+    # t.insert("trees")
+    # t.insert("treed")
+    # t.remove("trees")
+    # t.remove("tre")
+    # print(t)
+    # print(t.get_candidates("t"))
 
-    # sanity checks
-    t = Trie()
-    t.insert('a')
-    t.insert('A')
-    t.remove('AA')
-    print(t)
+    # # sanity checks
+    # t = Trie()
+    # t.insert('a')
+    # t.insert('A')
+    # t.remove('AA')
+    # print(t)
