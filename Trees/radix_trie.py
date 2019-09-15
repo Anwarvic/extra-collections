@@ -21,12 +21,15 @@ class RadixTrie(Trie):
             child = start_node.get_child(ch)
             if not child:
                 start_node.set_child(word[0], TrieNode(word))
-                break
+                return
             else:
                 child_data = child.get_data()
+                # child has exactly the given word
+                if child_data == word:
+                    return
                 idx = find_last_common_idx(child_data, word)
                 # child has part of the given word as a prefix
-                if idx < len(word) and idx != len(child_data):
+                if idx <= len(word) and idx != len(child_data):
                     new_node = TrieNode(child_data[:idx])
                     child.data = child_data[idx:]
                     new_node.set_child(child_data[idx], child)
@@ -69,15 +72,16 @@ if __name__ == "__main__":
     t.insert("shepard")
     t.insert("she")
     t.insert('s')
+    t.insert("ahly")
     print(t)
     
-    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    # t = RadixTrie()
-    # t.insert("romane")
-    # t.insert("romanus")
-    # t.insert("romulus")
-    # t.insert("rubens")
-    # t.insert("ruber")
-    # t.insert("rubicon")
-    # t.insert("rubicundus")
-    # print(t)
+    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    t = RadixTrie()
+    t.insert("romane")
+    t.insert("romanus")
+    t.insert("romulus")
+    t.insert("rubens")
+    t.insert("ruber")
+    t.insert("rubicon")
+    t.insert("rubicundus")
+    print(t)
