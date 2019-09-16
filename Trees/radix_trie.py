@@ -66,7 +66,7 @@ class RadixTrie(Trie):
         while(word):
             ch = word[0]
             child = start_node.get_child(ch)
-            if child is None:
+            if not child:
                 return False
             else:
                 child_data = child.get_data()
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # print(rt)
 
     rt = RadixTrie()
-    # rt.insert('test')
+    rt.insert('test')
     rt.insert('toaster')
     rt.insert('toasting')
     rt.insert('slow')
@@ -119,6 +119,6 @@ if __name__ == "__main__":
     rt.insert('toast')
     rt.insert('slower')
     print(rt)
-    print(rt.find("test"))
+    print(rt.find("slowerr"))
 
 
