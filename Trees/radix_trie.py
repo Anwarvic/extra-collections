@@ -63,19 +63,19 @@ class RadixTrie(Trie):
     ############################## FIND ##############################
     def find(self, word):
         start_node = self.root
-        ch = word[0]
-        child = start_node.get_child(ch)
-        if child is None:
-            return False
-        else:
-            while(word):
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if child is None:
+                return False
+            else:
                 child_data = child.get_data()
                 if child_data == word[:len(child_data)]:
                     start_node = child
-                    word = word[:len(child_data)]
+                    word = word[len(child_data):]
                 else:
                     return False
-            return True
+        return start_node.is_word
 
 
     ######################### AUTO-COMPLETION #########################
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # print(rt)
 
     rt = RadixTrie()
-    rt.insert('test')
+    # rt.insert('test')
     rt.insert('toaster')
     rt.insert('toasting')
     rt.insert('slow')
@@ -119,5 +119,6 @@ if __name__ == "__main__":
     rt.insert('toast')
     rt.insert('slower')
     print(rt)
+    print(rt.find("test"))
 
 
