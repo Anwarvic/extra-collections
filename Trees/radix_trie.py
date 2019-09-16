@@ -62,7 +62,20 @@ class RadixTrie(Trie):
 
     ############################## FIND ##############################
     def find(self, word):
-        pass
+        start_node = self.root
+        ch = word[0]
+        child = start_node.get_child(ch)
+        if child is None:
+            return False
+        else:
+            while(word):
+                child_data = child.get_data()
+                if child_data == word[:len(child_data)]:
+                    start_node = child
+                    word = word[:len(child_data)]
+                else:
+                    return False
+            return True
 
 
     ######################### AUTO-COMPLETION #########################
@@ -75,26 +88,26 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    rt = RadixTrie()
-    rt.insert("shear")
-    rt.insert("she")
-    rt.insert("shepard")
-    rt.insert("shepard")
-    rt.insert("she")
-    rt.insert('s')
-    rt.insert("ahly")
-    print(rt)
+    # rt = RadixTrie()
+    # rt.insert("shear")
+    # rt.insert("she")
+    # rt.insert("shepard")
+    # rt.insert("shepard")
+    # rt.insert("she")
+    # rt.insert('s')
+    # rt.insert("ahly")
+    # print(rt)
     
-    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    rt = RadixTrie()
-    rt.insert("romane")
-    rt.insert("romanus")
-    rt.insert("romulus")
-    rt.insert("rubens")
-    rt.insert("ruber")
-    rt.insert("rubicon")
-    rt.insert("rubicundus")
-    print(rt)
+    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    # rt = RadixTrie()
+    # rt.insert("romane")
+    # rt.insert("romanus")
+    # rt.insert("romulus")
+    # rt.insert("rubens")
+    # rt.insert("ruber")
+    # rt.insert("rubicon")
+    # rt.insert("rubicundus")
+    # print(rt)
 
     rt = RadixTrie()
     rt.insert('test')
@@ -106,3 +119,5 @@ if __name__ == "__main__":
     rt.insert('toast')
     rt.insert('slower')
     print(rt)
+
+
