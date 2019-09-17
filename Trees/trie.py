@@ -81,6 +81,9 @@ class Trie(Tree):
 
     ############################## FIND ##############################
     def find(self, word):
+        assert type(word) == str, \
+        "Can't find {} since tries contain only characters!!".format(type(word))
+        
         start_node = self.root
         for ch in word:
             if ch not in start_node.children:
