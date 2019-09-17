@@ -62,6 +62,8 @@ class RadixTrie(Trie):
 
     ############################## FIND ##############################
     def find(self, word):
+        assert type(word) == str, \
+        "Can't find {} since tries contain only characters!!".format(type(word))
         start_node = self.root
         while(word):
             ch = word[0]
@@ -88,16 +90,6 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # rt = RadixTrie()
-    # rt.insert("shear")
-    # rt.insert("she")
-    # rt.insert("shepard")
-    # rt.insert("shepard")
-    # rt.insert("she")
-    # rt.insert('s')
-    # rt.insert("ahly")
-    # print(rt)
-    
     # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     # rt = RadixTrie()
     # rt.insert("romane")
@@ -108,17 +100,35 @@ if __name__ == "__main__":
     # rt.insert("rubicon")
     # rt.insert("rubicundus")
     # print(rt)
+    # print('='*50)
 
+    # rt = RadixTrie()
+    # rt.insert("shear")
+    # rt.insert("she")
+    # rt.insert("shepard")
+    # rt.insert("shepard")
+    # rt.insert("she")
+    # rt.insert('s')
+    # print(rt)
+    # print(rt.find('s'))
+    # print(rt.find("shea"))
+    # print('='*50)
+
+    # rt = RadixTrie()
+    # rt.insert("test")
+    # rt.insert("toaster")
+    # rt.insert("toasting")
+    # rt.insert("slow")
+    # rt.insert("slowly")
+    # rt.insert("slowlier")
+    # rt.insert("toast")
+    # rt.insert("slower")
+    # print(rt)
+    # print(rt.find("slowlie"))
+    # print('='*50)
+    
+    # sanity checks
     rt = RadixTrie()
-    rt.insert('test')
-    rt.insert('toaster')
-    rt.insert('toasting')
-    rt.insert('slow')
-    rt.insert('slowly')
-    rt.insert('slowlier')
-    rt.insert('toast')
-    rt.insert('slower')
-    print(rt)
-    print(rt.find("slowerr"))
+    print(rt.find(2))
 
 
