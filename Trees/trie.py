@@ -52,6 +52,7 @@ class Trie(Tree):
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
+
         start_node = self.root
         for ch in word:
             if ch not in start_node.get_characters():
@@ -85,10 +86,18 @@ class Trie(Tree):
         "Can't find {} since tries contain only characters!!".format(type(word))
         
         start_node = self.root
-        for ch in word:
-            if ch not in start_node.children:
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if not child:
                 return False
-            start_node = start_node.get_child(ch)
+            else:
+                child_data = child.get_data()
+                if child_data == word[:len(child_data)]:
+                    start_node = child
+                    word = word[len(child_data):]
+                else:
+                    return False
         return start_node.is_word
 
 
@@ -139,32 +148,32 @@ if __name__ == "__main__":
     t.insert('try')
     print(t)
 
-    # # explort Trie
-    # print(t.root)
-    # print(t.root.get_child('t').data)
-    # print(t.root.get_child('c').children)
+    # explort Trie
+    print(t.root)
+    print(t.root.get_child('t').data)
+    print(t.root.get_child('c').children)
     
-    # # test find() and get_cadidates()
-    # print(t.find('cards'))
-    # print(t.find('c'))
-    # print(t.get_candidates())
-    # print(t.get_candidates('c'))
-    # print(t.get_candidates('tri'))
-    # print('='*50)
+    # test find() and get_cadidates()
+    print(t.find('cards'))
+    print(t.find('c'))
+    print(t.get_candidates())
+    print(t.get_candidates('c'))
+    print(t.get_candidates('tri'))
+    print('='*50)
     
-    # # test remove()
-    # t = Trie()
-    # t.insert("tre")
-    # t.insert("trees")
-    # t.insert("treed")
-    # t.remove("trees")
-    # t.remove("tre")
-    # print(t)
-    # print(t.get_candidates("t"))
+    # test remove()
+    t = Trie()
+    t.insert("tre")
+    t.insert("trees")
+    t.insert("treed")
+    t.remove("trees")
+    t.remove("tre")
+    print(t)
+    print(t.get_candidates("t"))
 
-    # # sanity checks
-    # t = Trie()
-    # t.insert('a')
-    # t.insert('A')
-    # t.remove('AA')
-    # print(t)
+    # sanity checks
+    t = Trie()
+    t.insert('a')
+    t.insert('A')
+    t.remove('AA')
+    print(t)
