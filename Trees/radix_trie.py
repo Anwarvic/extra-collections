@@ -60,6 +60,34 @@ class RadixTrie(Trie):
             self.__insert(start_node, word)
 
 
+    ############################## REMOVE ##############################
+    def remove(self, word):
+        assert type(word) == str, "You can remove String objects only!!"
+        # search for the word
+        start_node = self.root
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if not child:
+                return
+            else:
+                child_data = child.get_data()
+                if child_data == word[:len(child_data)]:
+                    start_node = child
+                    word = word[len(child_data):]
+                else:
+                    return
+                
+        # if word is found, clear it
+        if start_node.is_word:
+            start_node.is_word = False
+        while(not start_node.is_word and start_node.has_no_children()):
+            ch = start_node.get_data()[0]
+            parent = start_node.get_parent()
+            del parent.children[ch]
+            start_node = parent
+
+
     ############################## FIND ##############################
     def find(self, word):
         assert type(word) == str, \
@@ -114,21 +142,25 @@ if __name__ == "__main__":
     # print(rt.find("shea"))
     # print('='*50)
 
-    # rt = RadixTrie()
-    # rt.insert("test")
-    # rt.insert("toaster")
-    # rt.insert("toasting")
-    # rt.insert("slow")
-    # rt.insert("slowly")
-    # rt.insert("slowlier")
-    # rt.insert("toast")
-    # rt.insert("slower")
-    # print(rt)
-    # print(rt.find("slowlie"))
-    # print('='*50)
-    
-    # sanity checks
     rt = RadixTrie()
-    print(rt.find(2))
+    rt.insert("test")
+    rt.insert("toaster")
+    rt.insert("toasting")
+    rt.insert("slow")
+    rt.insert("slowly")
+    rt.insert("slowlier")
+    rt.insert("toast")
+    rt.insert("slower")
+    print(rt)
+    print(rt.find("slowlie"))
+    rt.remove("test")  # remove 'est' from tree
+    rt.remove("slowl") # remove is_word
+    rt.remove("slowl") # do nothin'
+    print(rt)
+    print('='*50)
+    
+    # # sanity checks
+    # rt = RadixTrie()
+    # print(rt.find(2))
 
 
