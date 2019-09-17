@@ -88,26 +88,6 @@ class RadixTrie(Trie):
             start_node = parent
 
 
-    ############################## FIND ##############################
-    def find(self, word):
-        assert type(word) == str, \
-        "Can't find {} since tries contain only characters!!".format(type(word))
-        start_node = self.root
-        while(word):
-            ch = word[0]
-            child = start_node.get_child(ch)
-            if not child:
-                return False
-            else:
-                child_data = child.get_data()
-                if child_data == word[:len(child_data)]:
-                    start_node = child
-                    word = word[len(child_data):]
-                else:
-                    return False
-        return start_node.is_word
-
-
     ######################### AUTO-COMPLETION #########################
     def get_candidates(self, prefix=''):
         pass
@@ -118,29 +98,29 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    # rt = RadixTrie()
-    # rt.insert("romane")
-    # rt.insert("romanus")
-    # rt.insert("romulus")
-    # rt.insert("rubens")
-    # rt.insert("ruber")
-    # rt.insert("rubicon")
-    # rt.insert("rubicundus")
-    # print(rt)
-    # print('='*50)
+    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    rt = RadixTrie()
+    rt.insert("romane")
+    rt.insert("romanus")
+    rt.insert("romulus")
+    rt.insert("rubens")
+    rt.insert("ruber")
+    rt.insert("rubicon")
+    rt.insert("rubicundus")
+    print(rt)
+    print('='*50)
 
-    # rt = RadixTrie()
-    # rt.insert("shear")
-    # rt.insert("she")
-    # rt.insert("shepard")
-    # rt.insert("shepard")
-    # rt.insert("she")
-    # rt.insert('s')
-    # print(rt)
-    # print(rt.find('s'))
-    # print(rt.find("shea"))
-    # print('='*50)
+    rt = RadixTrie()
+    rt.insert("shear")
+    rt.insert("she")
+    rt.insert("shepard")
+    rt.insert("shepard")
+    rt.insert("she")
+    rt.insert('s')
+    print(rt)
+    print(rt.find('s'))
+    print(rt.find("shea"))
+    print('='*50)
 
     rt = RadixTrie()
     rt.insert("test")
@@ -159,8 +139,8 @@ if __name__ == "__main__":
     print(rt)
     print('='*50)
     
-    # # sanity checks
-    # rt = RadixTrie()
-    # print(rt.find(2))
+    # sanity checks
+    rt = RadixTrie()
+    print(rt.find(2))
 
 
