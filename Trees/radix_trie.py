@@ -28,8 +28,7 @@ class RadixTrie(Trie):
                 child_data = child.get_data()
                 # child has exactly the given word
                 if child_data == word:
-                    if not child.is_word:
-                        child.is_word = True
+                    child.is_word = True
                     return
                 idx = find_last_common_idx(child_data, word)
                 # child has part of the given word as a prefix
@@ -105,26 +104,38 @@ class RadixTrie(Trie):
         start_node = self.root
         # parse the prefix
         word = prefix
+        new_perfix = []
         while(word):
-            ch = word[0]
-            child = start_node.get_child(ch)
+            child = start_node.get_child(word[0])
             if not child:
                 return []
             else:
                 child_data = child.get_data()
-                if child_data == word[:len(child_data)]:
+                idx = find_last_common_idx(child_data, word)
+                if idx:
+                    new_perfix += [word[:idx]]
+                    word = word[idx:]
                     start_node = child
-                    word = word[len(child_data):]
                 else:
-                    break
-        # get candidates starting from given prefix
+                    return []
+            
         candidates = []
-        prefix = prefix[:len(word)]
-        if start_node.is_word and word == prefix:
+        curr_node = start_node
+        if curr_node != self.root:
+            new_perfix.pop()
+            new_perfix += [curr_node.get_data()]
+            prefix = "".join(new_perfix)
+        # check the current node
+        if curr_node.is_word:
             candidates.append(prefix)
-        for child in start_node.get_children():
+        # get candidates starting from given prefix
+        for child in curr_node.get_children():
             candidates.extend(self.__get_candidates(child, [prefix]))
         return candidates
+        
+
+
+        
 
 
 
@@ -149,12 +160,11 @@ if __name__ == "__main__":
     rt.insert("she")
     rt.insert("shepard")
     rt.insert("shepard")
-    rt.insert("she")
     rt.insert('s')
     print(rt)
     print(rt.find('s'))
     print(rt.find("shea"))
-    print(rt.get_candidates("sh"))
+    print(rt.get_candidates("she"))
     print('='*50)
 
     # rt = RadixTrie()
