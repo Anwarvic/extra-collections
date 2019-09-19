@@ -116,10 +116,11 @@ class RadixTrie(Trie):
                     start_node = child
                     word = word[len(child_data):]
                 else:
-                    return []
+                    break
         # get candidates starting from given prefix
         candidates = []
-        if start_node.is_word:
+        prefix = prefix[:len(word)]
+        if start_node.is_word and word == prefix:
             candidates.append(prefix)
         for child in start_node.get_children():
             candidates.extend(self.__get_candidates(child, [prefix]))
