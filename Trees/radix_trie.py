@@ -89,8 +89,41 @@ class RadixTrie(Trie):
 
 
     ######################### AUTO-COMPLETION #########################
+    def __get_candidates(self, start_node, prefix):
+        output = []
+        new_prefix = prefix.copy()
+        new_prefix += start_node.get_data()
+        if start_node.is_word:
+            output.append("".join(new_prefix))
+        # iterate over children
+        for child in start_node.get_children():
+            output.extend( self.__get_candidates(child, new_prefix) )
+        return output
+    
     def get_candidates(self, prefix=''):
-        pass
+        assert type(prefix) == str, "A character-sequence is expected!!"
+        start_node = self.root
+        # parse the prefix
+        word = prefix
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if not child:
+                return []
+            else:
+                child_data = child.get_data()
+                if child_data == word[:len(child_data)]:
+                    start_node = child
+                    word = word[len(child_data):]
+                else:
+                    return []
+        # get candidates starting from given prefix
+        candidates = []
+        if start_node.is_word:
+            candidates.append(prefix)
+        for child in start_node.get_children():
+            candidates.extend(self.__get_candidates(child, [prefix]))
+        return candidates
 
 
 
@@ -98,17 +131,17 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    rt = RadixTrie()
-    rt.insert("romane")
-    rt.insert("romanus")
-    rt.insert("romulus")
-    rt.insert("rubens")
-    rt.insert("ruber")
-    rt.insert("rubicon")
-    rt.insert("rubicundus")
-    print(rt)
-    print('='*50)
+    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    # rt = RadixTrie()
+    # rt.insert("romane")
+    # rt.insert("romanus")
+    # rt.insert("romulus")
+    # rt.insert("rubens")
+    # rt.insert("ruber")
+    # rt.insert("rubicon")
+    # rt.insert("rubicundus")
+    # print(rt)
+    # print('='*50)
 
     rt = RadixTrie()
     rt.insert("shear")
@@ -120,27 +153,29 @@ if __name__ == "__main__":
     print(rt)
     print(rt.find('s'))
     print(rt.find("shea"))
+    print(rt.get_candidates("sh"))
     print('='*50)
 
-    rt = RadixTrie()
-    rt.insert("test")
-    rt.insert("toaster")
-    rt.insert("toasting")
-    rt.insert("slow")
-    rt.insert("slowly")
-    rt.insert("slowlier")
-    rt.insert("toast")
-    rt.insert("slower")
-    print(rt)
-    print(rt.find("slowlie"))
-    rt.remove("test")  # remove 'est' from tree
-    rt.remove("slowl") # remove is_word
-    rt.remove("slowl") # do nothin'
-    print(rt)
-    print('='*50)
+    # rt = RadixTrie()
+    # rt.insert("test")
+    # rt.insert("toaster")
+    # rt.insert("toasting")
+    # rt.insert("slow")
+    # rt.insert("slowly")
+    # rt.insert("slowlier")
+    # rt.insert("toast")
+    # rt.insert("slower")
+    # print(rt)
+    # print(rt.find("slowlie"))
+    # rt.remove("test")  # remove 'est' from tree
+    # rt.remove("slow") # remove is_word
+    # rt.remove("slowl") # do nothin'
+    # print(rt)
+    # print('='*50)
     
     # sanity checks
     rt = RadixTrie()
-    print(rt.find(2))
+    print(rt.find(''))
+    # print(rt.find(2)) #throws error
 
 
