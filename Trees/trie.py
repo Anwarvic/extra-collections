@@ -102,7 +102,7 @@ class Trie(Tree):
 
 
     ######################### AUTO-COMPLETION #########################
-    def __parse(self, start_node, prefix):
+    def __get_candidates(self, start_node, prefix):
         output = []
         new_prefix = prefix.copy()
         new_prefix += start_node.get_data()
@@ -110,9 +110,8 @@ class Trie(Tree):
             output.append("".join(new_prefix))
         # iterate over children
         for child in start_node.get_children():
-            output.extend( self.__parse(child, new_prefix) )
+            output.extend( self.__get_candidates(child, new_prefix) )
         return output
-
 
     def get_candidates(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
@@ -127,7 +126,7 @@ class Trie(Tree):
         if start_node.is_word:
             candidates.append(prefix)
         for child in start_node.get_children():
-            candidates.extend(self.__parse(child, [prefix]))
+            candidates.extend(self.__get_candidates(child, [prefix]))
         return candidates
 
 
