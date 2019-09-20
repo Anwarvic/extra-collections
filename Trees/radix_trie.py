@@ -103,28 +103,32 @@ class RadixTrie(Trie):
         assert type(prefix) == str, "A character-sequence is expected!!"
         start_node = self.root
         # parse the prefix
-        word = prefix
         new_perfix = []
-        while(word):
-            child = start_node.get_child(word[0])
+        while(prefix):
+            ch = prefix[0]
+            child = start_node.get_child(ch)
             if not child:
                 return []
             else:
                 child_data = child.get_data()
-                idx = find_last_common_idx(child_data, word)
-                if idx:
-                    new_perfix += [word[:idx]]
-                    word = word[idx:]
-                    start_node = child
+                start_node =  child
+                if len(prefix) <= len(child_data):
+                    if child_data[:len(prefix)] == prefix:
+                        prefix = ''
+                        new_perfix.append(child_data)
+                    else:
+                        return []
                 else:
-                    return []
-            
+                    if prefix[:len(child_data)] == child_data:
+                        prefix = prefix[len(child_data):]
+                        new_perfix.append(child_data)
+                    else:
+                        new_perfix.append(ch)
+                        prefix = prefix[1:]
+        
         candidates = []
         curr_node = start_node
-        if curr_node != self.root:
-            new_perfix.pop()
-            new_perfix += [curr_node.get_data()]
-            prefix = "".join(new_perfix)
+        prefix = "".join(new_perfix)
         # check the current node
         if curr_node.is_word:
             candidates.append(prefix)
@@ -164,7 +168,15 @@ if __name__ == "__main__":
     print(rt)
     print(rt.find('s'))
     print(rt.find("shea"))
-    print(rt.get_candidates("she"))
+    print(rt.get_candidates(""))    # ['s', 'she', 'shear', 'shepard']
+    print(rt.get_candidates("a"))   # []
+    print(rt.get_candidates("s"))   # ['s', 'she', 'shear', 'shepard']
+    print(rt.get_candidates("sh"))  # ['she', 'shear', 'shepard']
+    print(rt.get_candidates("sha")) # []
+    print(rt.get_candidates("she")) # ['she', 'shear', 'shepard']
+    print(rt.get_candidates("shee"))# []
+    print(rt.get_candidates("shea"))# ['shear']
+    print(rt.get_candidates("sheaa"))# []
     print('='*50)
 
     # rt = RadixTrie()
@@ -184,9 +196,9 @@ if __name__ == "__main__":
     # print(rt)
     # print('='*50)
     
-    # sanity checks
-    rt = RadixTrie()
-    print(rt.find(''))
+    # # sanity checks
+    # rt = RadixTrie()
+    # print(rt.find(''))
     # print(rt.find(2)) #throws error
 
 
