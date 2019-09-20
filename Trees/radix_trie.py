@@ -110,8 +110,8 @@ class RadixTrie(Trie):
             if not child:
                 return []
             else:
-                child_data = child.get_data()
                 start_node =  child
+                child_data = child.get_data()
                 if len(prefix) <= len(child_data):
                     if child_data[:len(prefix)] == prefix:
                         prefix = ''
@@ -147,17 +147,17 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    # rt = RadixTrie()
-    # rt.insert("romane")
-    # rt.insert("romanus")
-    # rt.insert("romulus")
-    # rt.insert("rubens")
-    # rt.insert("ruber")
-    # rt.insert("rubicon")
-    # rt.insert("rubicundus")
-    # print(rt)
-    # print('='*50)
+    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    rt = RadixTrie()
+    rt.insert("romane")
+    rt.insert("romanus")
+    rt.insert("romulus")
+    rt.insert("rubens")
+    rt.insert("ruber")
+    rt.insert("rubicon")
+    rt.insert("rubicundus")
+    print(rt)
+    print('='*50)
 
     rt = RadixTrie()
     rt.insert("shear")
@@ -168,14 +168,14 @@ if __name__ == "__main__":
     print(rt)
     print(rt.find('s'))
     print(rt.find("shea"))
-    print(rt.get_candidates(""))    # ['s', 'she', 'shear', 'shepard']
-    print(rt.get_candidates("a"))   # []
-    print(rt.get_candidates("s"))   # ['s', 'she', 'shear', 'shepard']
-    print(rt.get_candidates("sh"))  # ['she', 'shear', 'shepard']
-    print(rt.get_candidates("sha")) # []
-    print(rt.get_candidates("she")) # ['she', 'shear', 'shepard']
-    print(rt.get_candidates("shee"))# []
-    print(rt.get_candidates("shea"))# ['shear']
+    print(rt.get_candidates(""))     # ['s', 'she', 'shear', 'shepard']
+    print(rt.get_candidates("a"))    # []
+    print(rt.get_candidates("s"))    # ['s', 'she', 'shear', 'shepard']
+    print(rt.get_candidates("sh"))   # ['she', 'shear', 'shepard']
+    print(rt.get_candidates("sha"))  # []
+    print(rt.get_candidates("she"))  # ['she', 'shear', 'shepard']
+    print(rt.get_candidates("shee")) # []
+    print(rt.get_candidates("shea")) # ['shear']
     print(rt.get_candidates("sheaa"))# []
     print('='*50)
 
