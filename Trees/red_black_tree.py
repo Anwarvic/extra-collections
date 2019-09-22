@@ -270,60 +270,43 @@ class RedBlackTree(BST):
             return parent, node
 
     
-    def __handle_double_black_case1(self, parent, double_black_node):
-        pass
-    
-    def __handle_double_black_case2(self, parent, double_black_node, sibling):
-        parent.set_color(Color.RED)
-        sibling.set_color(Color.BLACK)
-        if sibling.is_left_child():
-            parent = self.__rotate_right(parent)
+    # helpful method
+    def __attach(self, parent, child):
+        if parent is None:
+            self.root = child
         else:
-            parent = self.__rotate_left(parent)
-        return parent
+            if parent.get_data() > child.get_data():
+                parent.set_left(child) 
+            else:
+                parent.set_right(child)
 
-    def __handle_double_black_case3(self, parent, double_black_node, sibling):
-            sibling.set_color(Color.RED)
-            grandparent = parent.get_parent()
-            if 
 
-    def __handle_double_black_case4(self, parent, double_black_node):
-        pass
-
-    def __handle_double_black_case5(self, parent, double_black_node):
-        pass
-
-    def __handle_double_black_case6(self, parent, double_black_node):
-        pass
-    
     def __handle_double_black(self, parent, double_black_node):
         """
-        SRC: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
-        When dealing with double black nodes, we have six cases to consider:
+        When dealing with double black nodes, we have four cases:
         Case I  : if double_black_node is root
-        Case II : (s) is red
-        Case III: (p) and (s) are black and the two children of (s) are black
-        Case IV : (p) is red, (s) is black and the two children of (s) are black
-        Case V  : (s) is black, left-child of (s) is red, right-child of (s) is
-                  black and (s) is the right-child
-        Case VI : (s) is black, right-child of (s) is red, and (s) is the right-
-                  child
+        Case II : (s) is black and one child of sibling's children is red (r)
+        Case III: (s) is black and the two children of s are black
+        Case IV : (s) is red
         
-        Note: (s) is the sibling of the double_black_node and (p) is the parent
+        Note: (s) is the sibling of the double_black_node
+        SRC: https://www.programiz.com/dsa/deletion-from-a-red-black-tree
         """
-         # Case I
-        if parent is None:
-            return double_black_node
-        else:
-            grandparent = parent.get_parent()
-            sibling = double_black_node.get_sibling() \
-                    if double_black_node \
-                    else parent.get_left() \
-                        if parent.get_left() else parent.get_right()
-            print("sibling:", sibling)
-            if sibling is None:
-                pass
-            else:
+        while double_black_node != self.root and \
+            (not double_black_node or double_black_node.get_color() == Color.BLACK):
+            if double_black_node == parent.get_left():
+                sibling = parent.get_right()
+                # Case IV
+                if sibling and sibling.get_color() == Color.RED:
+                    sibling.set_color(Color.BLACK)
+                    parent.set_color(Color.RED)
+                    grandparent = parent.get_parent()
+                    parent = self.__rotate_left(parent)
+                    self.__attach(grandparent, parent)
+                    # update parent and sibling
+                    parent = parent.get_left()
+                    sibling = parent.get_right()
+                # check sibling children
                 s_left_child = sibling.get_left()
                 s_right_child = sibling.get_right()
                 # get colors of sibling's children
@@ -331,15 +314,69 @@ class RedBlackTree(BST):
                                                         else Color.BLACK
                 s_right_color = s_right_child.get_color() if s_right_child \
                                                           else Color.BLACK
-                # Case II
-                if sibling.get_color() == Color.RED:
-                    parent = self.__handle_double_black_case2(parent,
-                                                            double_black_node)
                 # Case III
-                elif (parent.get_color() == Color.BLACK and
-                    sibling.get_color() == Color.BLACK and
-                    s_left_color == Color.BLACK and
-                    s_right_color == Color.BLACK):
+                if s_left_color==Color.BLACK and s_right_color==Color.BLACK:
+                    sibling.set_color(Color.RED)
+                    double_black_node = parent
+                # Case II
+                else:
+                    if s_right_color == Color.BLACK:
+                        s_left_child.set_color(Color.BLACK)
+                        sibling.set_color(Color.RED)
+                        sibling = self.__rotate_right(sibling)
+                        self.__attach(parent, sibling)
+                        sibling = parent.get_right()
+
+                    sibling.set_color(parent.get_color())
+                    parent.set_color(Color.BLACK)
+                    s_right_child.set_color(Color.BLACK)
+                    grandparent = parent.get_parent()
+                    parent = self.__rotate_left(parent)
+                    self.__attach(grandparent, parent)
+                    double_black_node = self.root
+            ##### Mirror image of the previous if-condition ######
+            # Case IV
+            else:
+                sibling = parent.get_left()
+                if sibling and sibling.get_color() == Color.RED:
+                    sibling.set_color(Color.BLACK)
+                    parent.set_color(Color.RED)
+                    grandparent = parent.get_parent()
+                    parent = self.__rotate_right(parent)
+                    self.__attach(grandparent, parent)
+                    # update parent and sibling
+                    parent = parent.get_right()
+                    sibling = parent.get_left()
+                # check sibling children
+                s_left_child = sibling.get_left()
+                s_right_child = sibling.get_right()
+                # get colors of sibling's children
+                s_left_color = s_left_child.get_color() if s_left_child \
+                                                        else Color.BLACK
+                s_right_color = s_right_child.get_color() if s_right_child \
+                                                          else Color.BLACK
+                # Case III
+                if s_right_color==Color.BLACK and s_right_color==Color.BLACK:
+                    sibling.set_color(Color.RED)
+                    double_black_node = parent
+                # Case II
+                else:
+                    if s_left_color == Color.BLACK:
+                        s_right_child.set_color(Color.BLACK)
+                        sibling.set_color(Color.RED)
+                        sibling = self.__rotate_left(sibling)
+                        self.__attach(parent, sibling)
+                        sibling = parent.get_left() 
+
+                    sibling.set_color(parent.get_color())
+                    parent.set_color(Color.BLACK)
+                    s_left_child.set_color(Color.BLACK)
+                    grandparent = parent.get_parent()
+                    parent = self.__rotate_right(parent)
+                    self.__attach(grandparent, parent)
+                    double_black_node = self.root
+        # make sure root is always black
+        self.root.set_color(Color.BLACK)
 
 
     def remove(self, del_value):
@@ -375,8 +412,7 @@ class RedBlackTree(BST):
             parent, transplanted = self.__transplant(removed_node, replacement)
             double_black_node = transplanted
             # handle this double black
-            root = self.__handle_double_black(parent, double_black_node)
-            self.root = root
+            self.__handle_double_black(parent, double_black_node)
         
         # Case IV (replace black-node with red-node/None)
         elif removed_node.get_color() == Color.BLACK and \
