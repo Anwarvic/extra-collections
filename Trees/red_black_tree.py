@@ -417,6 +417,7 @@ class RedBlackTree(BST):
         # Case IV (replace black-node with red-node/None)
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
+            replacement.set_color(Color.BLACK)
             print("Case IV (replace black-node with black-node/None)")
             self.__transplant(removed_node, replacement)
         
@@ -486,33 +487,33 @@ if __name__ == "__main__":
     # print('='*50, '\n')
 
     ######################### Test Removal #########################
-    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
-    rbtree = RedBlackTree(7)
-    rbtree.insert(3)
-    rbtree.insert(18)
-    rbtree.insert(10)
-    rbtree.insert(22)
-    rbtree.insert(8)
-    rbtree.insert(11)
-    rbtree.insert(26)
-    print(rbtree, '\n')
-    rbtree.remove(3)
-    print(rbtree)
-
-    # rbtree = RedBlackTree(13)
-    # rbtree.insert(8)
-    # rbtree.insert(17)
-    # rbtree.insert(1)
-    # rbtree.insert(11)
-    # rbtree.insert(1)
-    # rbtree.insert(15)
-    # rbtree.insert(25)
-    # rbtree.insert(6)
+    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    # rbtree = RedBlackTree(7)
+    # rbtree.insert(3)
+    # rbtree.insert(18)
+    # rbtree.insert(10)
     # rbtree.insert(22)
-    # rbtree.insert(27)
+    # rbtree.insert(8)
+    # rbtree.insert(11)
+    # rbtree.insert(26)
     # print(rbtree, '\n')
-    # rbtree.remove(11)
+    # rbtree.remove(3)
     # print(rbtree)
+
+    rbtree = RedBlackTree(13)
+    rbtree.insert(8)
+    rbtree.insert(17)
+    rbtree.insert(1)
+    rbtree.insert(11)
+    rbtree.insert(1)
+    rbtree.insert(15)
+    rbtree.insert(25)
+    rbtree.insert(6)
+    rbtree.insert(22)
+    rbtree.insert(27)
+    print(rbtree, '\n')
+    rbtree.remove(1)
+    print(rbtree)
 
     #################### THESE TO TEST double-black nodes ####################
     # # test case 2.1 (left-left)
