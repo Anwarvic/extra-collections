@@ -248,14 +248,11 @@ class RedBlackTree(BST):
             if parent is None:
                 self.__transplant(replacement, None)
                 node.data = replacement.data
-                return parent, node
             else:
                 if node.is_left_child():
                     parent.set_left(replacement)
-                    return parent, parent.get_left()
                 else:
                     parent.set_right(replacement)
-                    return parent, parent.get_right()
         else:
             if replacement.is_leaf():
                 new_replacement = None
@@ -267,7 +264,6 @@ class RedBlackTree(BST):
             node.data = replacement.data
             node.set_color(replacement.get_color())
             self.__transplant(replacement, new_replacement)
-            return parent, node
 
     
     # helpful method
@@ -329,6 +325,7 @@ class RedBlackTree(BST):
 
                     sibling.set_color(parent.get_color())
                     parent.set_color(Color.BLACK)
+                    s_right_child = sibling.get_right()
                     s_right_child.set_color(Color.BLACK)
                     grandparent = parent.get_parent()
                     parent = self.__rotate_left(parent)
@@ -370,6 +367,7 @@ class RedBlackTree(BST):
 
                     sibling.set_color(parent.get_color())
                     parent.set_color(Color.BLACK)
+                    s_left_child = sibling.get_left()
                     s_left_child.set_color(Color.BLACK)
                     grandparent = parent.get_parent()
                     parent = self.__rotate_right(parent)
@@ -409,8 +407,23 @@ class RedBlackTree(BST):
         elif removed_node.get_color() == Color.BLACK and \
             (replacement is None or replacement.get_color() == Color.BLACK):
             print("Case III (double black-node)")
-            parent, transplanted = self.__transplant(removed_node, replacement)
-            double_black_node = transplanted
+            if replacement:
+                parent = replacement.get_parent()
+            else:
+                parent = removed_node.get_parent()
+            # do the transplant
+            self.__transplant(removed_node, replacement)
+            # get double black node
+            if replacement is None:
+                if parent.get_left() is None:
+                    double_black_node = parent.get_left()
+                else:
+                    double_black_node = parent.get_right()
+            else:
+                if replacement.get_data() < parent.get_data():
+                    double_black_node = parent.get_left() 
+                else:
+                    double_black_node = parent.get_right() 
             # handle this double black
             self.__handle_double_black(parent, double_black_node)
         
@@ -487,7 +500,19 @@ if __name__ == "__main__":
     # print('='*50, '\n')
 
     ######################### Test Removal #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+
+    # rbtree = RedBlackTree(5)
+    # rbtree.insert(2)
+    # rbtree.insert(8)
+    # rbtree.insert(1)
+    # rbtree.insert(4)
+    # rbtree.insert(7)
+    # rbtree.insert(9)
+    # print(rbtree, '\n')
+    # rbtree.remove(2)
+    # print(rbtree)
+
     # rbtree = RedBlackTree(7)
     # rbtree.insert(3)
     # rbtree.insert(18)
@@ -512,7 +537,7 @@ if __name__ == "__main__":
     rbtree.insert(22)
     rbtree.insert(27)
     print(rbtree, '\n')
-    rbtree.remove(1)
+    rbtree.remove(11)
     print(rbtree)
 
     #################### THESE TO TEST double-black nodes ####################
