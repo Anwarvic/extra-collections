@@ -111,22 +111,20 @@ class BinaryTree:
 
 
     ######################### HEIGHT/DEPTH #########################
-    def __get_height(self, start_node):
-        height = 0
+    def _get_depth(self, start_node):
+        assert isinstance(start_node, TreeNode),"Given input isn't a TreeNode!!"
+        depth = 0
         if start_node != None:
-            left_height, right_height = 0, 0
+            left_depth, right_depth = 0, 0
             if start_node.get_left():
-                left_height = 1 + self.__get_height(start_node.get_left())
+                left_depth = 1 + self._get_depth(start_node.get_left())
             if start_node.get_right():
-                right_height = 1 + self.__get_height(start_node.get_right())
-            height += max(left_height, right_height)
-        return height
-
-    def get_depth(self, start_node):
-        return self.__get_height(start_node)
+                right_depth = 1 + self._get_depth(start_node.get_right())
+            depth += max(left_depth, right_depth)
+        return depth
 
     def get_height(self):
-        return self.__get_height(self.root)
+        return self._get_depth(self.root)
 
 
     ############################## BALANCED ##############################
@@ -136,9 +134,9 @@ class BinaryTree:
         two leaf nodes is less than or equal one.
         """
         left_depth = 1 if self.root.get_left() != None else 0
-        left_depth += self.__get_height(self.root.get_left())
+        left_depth += self._get_depth(self.root.get_left())
         right_depth = 1 if self.root.get_right() != None else 0
-        right_depth += self.__get_height(self.root.get_right())
+        right_depth += self._get_depth(self.root.get_right())
         return abs(left_depth - right_depth) <= 1
 
 
@@ -359,7 +357,7 @@ if __name__ == "__main__":
     #################################
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
-    print("Left-node Depth:", btree.get_depth(btree.root.left))
+    print("Left-node Depth:", btree._get_depth(btree.root.left))
     print("Nodes per level:", btree.get_nodes())
     print("Iterate over given tree:")
     for node in btree:
