@@ -78,7 +78,7 @@ class BST(BinaryTree):
         return node
 
 
-    ############################## MAX/MIN ##############################
+    ##############################    MAX    ##############################
     def _get_max_node(self, start_node):
         # get the right-most node
         if start_node.get_right() == None:
@@ -90,6 +90,8 @@ class BST(BinaryTree):
         max_node = self._get_max_node(self.root)
         return max_node.get_data()
 
+
+    ##############################    MIN    ##############################
     def _get_min_node(self, start_node):
         # get the left-most node
         if start_node.get_left() == None:
@@ -102,7 +104,7 @@ class BST(BinaryTree):
         return min_node.get_data()
 
 
-    ############################## SEARCH ##############################
+    ##############################   SEARCH  ##############################
     def _search(self, find_val, start_node = None):
         if start_node is None: start_node = self.root
         if find_val == start_node.get_data():
@@ -146,7 +148,7 @@ class BST(BinaryTree):
         self._insert(value, self.root)
 
 
-    ############################## REMOVAL ##############################
+    ##############################   REMOVAL  ##############################
     def _find_replacement(self, start_node):
         if start_node.get_right():
             # in-order successor
