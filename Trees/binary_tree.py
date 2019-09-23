@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 class TreeNode:
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
@@ -32,6 +34,10 @@ class TreeNode:
     def has_one_child(self):
         return not self.is_leaf() \
                 and (self.left is None or self.right is None)
+
+    @abstractmethod
+    def swap(node1, node2):
+        node1.data, node2.data = node2.data, node1.data
 
 
 
