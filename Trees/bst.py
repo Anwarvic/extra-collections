@@ -125,29 +125,25 @@ class BST(BinaryTree):
 
 
     ############################## INSERTION ##############################
-    def __insert(self, value, start_node):
+    def _insert(self, value, start_node):
+        assert type(value) in {int, float}, "You can insert only numbers!"
         if value == start_node.get_data():
             return start_node
         elif value < start_node.get_data():
             if start_node.get_left():
-                return self.__insert(value, start_node.get_left())
+                return self._insert(value, start_node.get_left())
             else:
                 start_node.set_left( TreeNode(value) )
                 return start_node.get_left()
         else:
             if start_node.get_right():
-                return self.__insert(value, start_node.get_right())
+                return self._insert(value, start_node.get_right())
             else:
                 start_node.set_right( TreeNode(value) )
                 return start_node.get_right()
 
-    def _insert(self, value):
-        # used mainly for inheritance
-        assert type(value) in {int, float}, "You can insert only numbers!"
-        return self.__insert(value, self.root),
-
     def insert(self, value):
-        self._insert(value)
+        self._insert(value, self.root)
 
 
     ############################## REMOVAL ##############################
