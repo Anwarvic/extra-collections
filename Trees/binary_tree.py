@@ -118,7 +118,6 @@ class BinaryTree:
 
     ######################### HEIGHT/DEPTH #########################
     def _get_depth(self, start_node):
-        assert isinstance(start_node, TreeNode),"Given input isn't a TreeNode!!"
         depth = 0
         if start_node != None:
             left_depth, right_depth = 0, 0
