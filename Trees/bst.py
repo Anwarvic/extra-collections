@@ -105,8 +105,7 @@ class BST(BinaryTree):
 
 
     ##############################   SEARCH  ##############################
-    def _search(self, find_val, start_node = None):
-        if start_node is None: start_node = self.root
+    def _search(self, find_val, start_node):
         if find_val == start_node.get_data():
             return start_node
         elif find_val < start_node.get_data():
@@ -122,7 +121,7 @@ class BST(BinaryTree):
 
     def __contains__(self, find_val):
         assert type(find_val) in {int, float}, "BST contains only numbers!"
-        found_node = self._search(find_val)
+        found_node = self._search(find_val, self.root)
         return found_node.get_data() == find_val
 
 
@@ -190,7 +189,7 @@ class BST(BinaryTree):
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         # find the del_value node
-        del_node = self._search(del_value)
+        del_node = self._search(del_value, self.root)
         if del_node.get_data() != del_value:
             # couldn't find the node
             return
