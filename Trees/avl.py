@@ -45,9 +45,9 @@ class AVL(BST):
     ######################### RE-BALANCE #########################
     def __get_children_depths(self, start_node):
         left_depth = 1 if start_node.get_left() != None else 0
-        left_depth += super().get_depth(start_node.get_left())
+        left_depth += super()._get_depth(start_node.get_left())
         right_depth = 1 if start_node.get_right() != None else 0
-        right_depth += super().get_depth(start_node.get_right())
+        right_depth += super()._get_depth(start_node.get_right())
         return left_depth, right_depth
 
     def __rebalance_subtree(self, start_node):
@@ -83,7 +83,6 @@ class AVL(BST):
                 self.__rebalance_subtree(start_node.get_right()) )
         return start_node
 
-
     def rebalance(self):
         new_root = self.__rebalance_subtree(self.root)
         self.root = new_root
@@ -91,13 +90,13 @@ class AVL(BST):
     
     ######################### INSERTION #########################
     def insert(self, value):
-        _ = super()._insert(value)
+        super().insert(value)
         self.rebalance()
 
 
     ######################### REMOVAL #########################
     def remove(self, del_value):
-        _ = super()._remove(del_value)
+        super().remove(del_value)
         self.rebalance()
 
 
