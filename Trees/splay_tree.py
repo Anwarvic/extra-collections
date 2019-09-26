@@ -94,26 +94,25 @@ class SplayTree(BST):
                 root = grand_parent
         return root
     
-
     def splay(self, start_node):
         self.root = self.__splaying(start_node)
 
 
     ############################## SEARCH ##############################
     def find(self, find_val):
-        node = super().search(find_val)
+        node = super()._search(find_val, self.root)
         self.splay(node)
 
 
     ############################## INSERTION ##############################
     def insert(self, value):
-        new_node = super()._insert(value)
+        new_node = super()._insert(value, self.root)
         self.splay(new_node)
 
 
     ############################## REMOVAL ##############################
     def remove(self, del_value):
-        node = super()._remove(del_value)
+        node = super()._remove(del_value, self.root)
         self.splay(node)
 
 
