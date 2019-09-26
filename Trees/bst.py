@@ -189,14 +189,23 @@ class BST(BinaryTree):
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         # find the del_value node
-        del_node = self._search(del_value, self.root)
-        if del_node.get_data() != del_value:
+        removed_node = self._search(del_value, self.root)
+        if removed_node.get_data() != del_value:
             # couldn't find the node
-            return
+            last_accessed_node = removed_node
+            return last_accessed_node
         # find replacement
-        replacement = self._find_replacement(del_node)
+        replacement = self._find_replacement(removed_node)
+        # get last accessed node after replacement
+        if replacement is None:
+            parent = removed_node.get_parent()
+        else:
+            parent = replacement.get_parent()
         # replace 'del_node' with 'replacement'
-        self._transplant(del_node, replacement)
+        self._transplant(removed_node, replacement)
+        # return last accessed node when removing
+        last_accessed_node = parent
+        return last_accessed_node
 
     def remove(self, del_value):
         self._remove(del_value, self.root)
