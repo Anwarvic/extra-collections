@@ -29,6 +29,7 @@ We can say that:
 - A is parent of Z
 - C is uncle of Z (important)
 """
+from abc import abstractmethod
 from enum import Enum
 from bst import TreeNode, BST
 
@@ -36,6 +37,8 @@ from bst import TreeNode, BST
 class Color(Enum):
     BLACK = 0
     RED = 1
+
+
 
 
 class TreeNode(TreeNode):
@@ -56,6 +59,10 @@ class TreeNode(TreeNode):
         elif self.color == Color.BLACK:
             return str(self.data)+'b'
 
+    @abstractmethod
+    def swap(node1, node2):
+        node1.data, node2.data = node2.data, node1.data
+        node1.color, node2.color = node2.color, node1.color
 
 
 
@@ -172,7 +179,7 @@ class RedBlackTree(BST):
 
     def insert(self, value):
         # insert new node
-        tmp_node = super()._insert(value)
+        tmp_node = super()._insert(value, self.root)
         # create new TreeNode with red color
         new_node = TreeNode(value) #red by default
         parent = tmp_node.get_parent()
@@ -217,55 +224,6 @@ class RedBlackTree(BST):
         return replacement_node
 
 
-    def __get_node_and_replacement(self, del_value, start_node):
-        #TODO: try to get rid of this function and use find() or search instead.
-        curr_value = start_node.get_data()
-        # when del_value is found
-        if del_value == curr_value:
-            replacement = self._find_replacement(start_node)
-            return start_node, replacement
-        # search left-side
-        elif del_value < curr_value:
-            if start_node.get_left() is None:
-                # raise ValueError("Couldn't find given value in the tree!!")
-                return start_node, None
-            else:
-                return self.__get_node_and_replacement(del_value,
-                                                       start_node.get_left())
-        # search right-side
-        else:
-            if start_node.get_right() is None:
-                # raise ValueError("Couldn't find given value in the tree!!")
-                return start_node, None
-            else:
-                return self.__get_node_and_replacement(del_value,
-                                                       start_node.get_right())
-
-
-    def __transplant(self, node, replacement):
-        parent = node.get_parent()
-        if replacement is None:
-            if parent is None:
-                self.__transplant(replacement, None)
-                node.data = replacement.data
-            else:
-                if node.is_left_child():
-                    parent.set_left(replacement)
-                else:
-                    parent.set_right(replacement)
-        else:
-            if replacement.is_leaf():
-                new_replacement = None
-            elif replacement.get_left():
-                new_replacement = replacement.get_left()
-            else:
-                new_replacement = replacement.get_right()
-            # transplant data & color
-            node.data = replacement.data
-            node.set_color(replacement.get_color())
-            self.__transplant(replacement, new_replacement)
-
-    
     # helpful method
     def __attach(self, parent, child):
         if parent is None:
@@ -384,18 +342,21 @@ class RedBlackTree(BST):
         Case III: removed_node is 'black', replacement is either 'black' or None
         Case IV : removed_node is 'black', replacement is 'red'
         """
-        removed_node, replacement = self.__get_node_and_replacement(del_value,
-                                                                    self.root)
-        print("replacement:", replacement)
-        # couldn't find the del_value in the tree
+
+        # search for the del_value node
+        removed_node = self._search(del_value, self.root)
+        # couldn't find the node
         if removed_node.get_data() != del_value:
             return
+        # find replacement
+        replacement = self._find_replacement(removed_node)
+        print("replacement:", replacement)
 
         # Case I (replace red-node with red-node/None)
         if removed_node.get_color() == Color.RED and \
             (replacement is None or replacement.get_color() == Color.RED):
             print("Case I (replace red-node with red-node/None)")
-            self.__transplant(removed_node, replacement)
+            super()._transplant(removed_node, replacement)
         
         # Case II (replace red-node with black-node)
         elif removed_node.get_color() == Color.RED and \
@@ -412,7 +373,7 @@ class RedBlackTree(BST):
             else:
                 parent = removed_node.get_parent()
             # do the transplant
-            self.__transplant(removed_node, replacement)
+            super()._transplant(removed_node, replacement)
             # get double black node
             if replacement is None:
                 if parent.get_left() is None:
@@ -432,7 +393,7 @@ class RedBlackTree(BST):
             replacement.get_color() == Color.RED:
             replacement.set_color(Color.BLACK)
             print("Case IV (replace black-node with black-node/None)")
-            self.__transplant(removed_node, replacement)
+            super()._transplant(removed_node, replacement)
         
 
 
@@ -444,138 +405,138 @@ class RedBlackTree(BST):
 
 if __name__ == "__main__":
     ######################### Test insertion #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(8)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(12)
-    # rbtree.insert(19)
-    # rbtree.insert(9)
-    # rbtree.insert(13)
-    # rbtree.insert(23)
-    # rbtree.insert(10)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
+    rbtree = RedBlackTree(8)
+    rbtree.insert(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    rbtree.insert(10)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # test special case
-    # rbtree = RedBlackTree(15)
-    # rbtree.insert(5)
-    # rbtree.insert(1)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # test special case
+    rbtree = RedBlackTree(15)
+    rbtree.insert(5)
+    rbtree.insert(1)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    # rbtree = RedBlackTree(10)
-    # rbtree.insert(20)
-    # rbtree.insert(30)
-    # rbtree.insert(15)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    rbtree = RedBlackTree(10)
+    rbtree.insert(20)
+    rbtree.insert(30)
+    rbtree.insert(15)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(18)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(17)
-    # rbtree.insert(25)
-    # rbtree.insert(40)
-    # rbtree.insert(80)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
+    rbtree = RedBlackTree(8)
+    rbtree.insert(18)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(17)
+    rbtree.insert(25)
+    rbtree.insert(40)
+    rbtree.insert(80)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: Data Structures and Algorithms in Python Book (Page: 539)
-    # rbtree = RedBlackTree(4)
-    # rbtree.insert(7)
-    # rbtree.insert(12)
-    # rbtree.insert(15)
-    # rbtree.insert(3)
-    # rbtree.insert(5)
-    # rbtree.insert(14)
-    # rbtree.insert(18)
-    # rbtree.insert(16)
-    # rbtree.insert(17)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: Data Structures and Algorithms in Python Book (Page: 539)
+    rbtree = RedBlackTree(4)
+    rbtree.insert(7)
+    rbtree.insert(12)
+    rbtree.insert(15)
+    rbtree.insert(3)
+    rbtree.insert(5)
+    rbtree.insert(14)
+    rbtree.insert(18)
+    rbtree.insert(16)
+    rbtree.insert(17)
+    print(rbtree)
+    print('='*50, '\n')
 
-    ######################### Test Removal #########################
+    ######################## Test Removal #########################
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
 
-    # rbtree = RedBlackTree(5)
-    # rbtree.insert(2)
-    # rbtree.insert(8)
-    # rbtree.insert(1)
-    # rbtree.insert(4)
-    # rbtree.insert(7)
-    # rbtree.insert(9)
-    # print(rbtree, '\n')
-    # rbtree.remove(2)
-    # print(rbtree)
+    rbtree = RedBlackTree(5)
+    rbtree.insert(2)
+    rbtree.insert(8)
+    rbtree.insert(1)
+    rbtree.insert(4)
+    rbtree.insert(7)
+    rbtree.insert(9)
+    print(rbtree, '\n')
+    rbtree.remove(2)
+    print(rbtree)
 
-    # rbtree = RedBlackTree(7)
-    # rbtree.insert(3)
-    # rbtree.insert(18)
-    # rbtree.insert(10)
-    # rbtree.insert(22)
-    # rbtree.insert(8)
-    # rbtree.insert(11)
-    # rbtree.insert(26)
-    # print(rbtree, '\n')
-    # rbtree.remove(3)
-    # print(rbtree)
+    rbtree = RedBlackTree(7)
+    rbtree.insert(3)
+    rbtree.insert(18)
+    rbtree.insert(10)
+    rbtree.insert(22)
+    rbtree.insert(8)
+    rbtree.insert(11)
+    rbtree.insert(26)
+    print(rbtree, '\n')
+    rbtree.remove(3)
+    print(rbtree)
 
-    # rbtree = RedBlackTree(13)
-    # rbtree.insert(8)
-    # rbtree.insert(17)
-    # rbtree.insert(1)
-    # rbtree.insert(11)
-    # rbtree.insert(1)
-    # rbtree.insert(15)
-    # rbtree.insert(25)
-    # rbtree.insert(6)
-    # rbtree.insert(22)
-    # rbtree.insert(27)
-    # print(rbtree, '\n')
-    # rbtree.remove(11)
-    # print(rbtree)
+    rbtree = RedBlackTree(13)
+    rbtree.insert(8)
+    rbtree.insert(17)
+    rbtree.insert(1)
+    rbtree.insert(11)
+    rbtree.insert(1)
+    rbtree.insert(15)
+    rbtree.insert(25)
+    rbtree.insert(6)
+    rbtree.insert(22)
+    rbtree.insert(27)
+    print(rbtree, '\n')
+    rbtree.remove(11)
+    print(rbtree)
 
-    #################### THESE TO TEST double-black nodes ####################
-    # # test case (left-left)
-    # rbtree = RedBlackTree(40)
-    # rbtree.insert(30)
-    # rbtree.insert(50)
-    # rbtree.insert(20)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(50)
-    # print(rbtree, '\n')
+    ################### THESE TO TEST double-black nodes ####################
+    # test case (left-left)
+    rbtree = RedBlackTree(40)
+    rbtree.insert(30)
+    rbtree.insert(50)
+    rbtree.insert(20)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(50)
+    print(rbtree, '\n')
 
-    # # test case (left-right)
-    # rbtree = RedBlackTree(40)
-    # rbtree.insert(30)
-    # rbtree.insert(50)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(50)
-    # print(rbtree)
+    # test case (left-right)
+    rbtree = RedBlackTree(40)
+    rbtree.insert(30)
+    rbtree.insert(50)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(50)
+    print(rbtree)
 
-    # # test case (right-left)
-    # rbtree = RedBlackTree(30)
-    # rbtree.insert(20)
-    # rbtree.insert(40)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(20)
-    # print(rbtree)
+    # test case (right-left)
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(20)
+    print(rbtree)
 
     # test case (right-right)
-    # rbtree = RedBlackTree(30)
-    # rbtree.insert(20)
-    # rbtree.insert(40)
-    # rbtree.insert(50)
-    # print(rbtree)
-    # rbtree.remove(20)
-    # print(rbtree)
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(50)
+    print(rbtree)
+    rbtree.remove(20)
+    print(rbtree)
 
     
