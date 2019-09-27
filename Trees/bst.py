@@ -7,11 +7,14 @@ class TreeNode(TreeNode):
         super().__init__(value)
         self.parent = None
 
+
     def get_parent(self):
         return self.parent
 
+
     def get_grand_parent(self):
         return self.parent.parent if self.parent else None
+
 
     def get_uncle(self):
         parent = self.parent
@@ -23,6 +26,7 @@ class TreeNode(TreeNode):
         return grand_parent.right if parent.is_left_child() \
                                     else grand_parent.left
 
+
     def get_sibling(self):
         # return the brother if found
         parent = self.parent
@@ -30,18 +34,22 @@ class TreeNode(TreeNode):
             return None
         return parent.right if self.is_left_child() else parent.left        
 
+
     def set_left(self, new_node):
         self.left = new_node
         if new_node is not None:
             self.left.parent = self
+
 
     def set_right(self, new_node):
         self.right = new_node
         if new_node is not None:
             self.right.parent = self
 
+
     def set_parent(self, new_node):
         self.parent = new_node
+
 
     def is_left_child(self):
         parent = self.parent
@@ -61,6 +69,7 @@ class BST(BinaryTree):
             self.root = self.__init_bst(lst)
         else:
             self.root = TreeNode(value)
+
 
     def __init_bst(self, lst):
         length = len(lst)
@@ -86,6 +95,7 @@ class BST(BinaryTree):
         else:
             return self._get_max_node(start_node.get_right())
 
+
     def get_max(self):
         max_node = self._get_max_node(self.root)
         return max_node.get_data()
@@ -98,6 +108,7 @@ class BST(BinaryTree):
             return start_node
         else:
             return self._get_min_node(start_node.get_left())
+
 
     def get_min(self):
         min_node = self._get_min_node(self.root)
@@ -118,6 +129,7 @@ class BST(BinaryTree):
                 return self._search(find_val, start_node.get_right())
             else:
                 return start_node
+
 
     def __contains__(self, find_val):
         assert type(find_val) in {int, float}, "BST contains only numbers!"
@@ -143,6 +155,7 @@ class BST(BinaryTree):
                 start_node.set_right( TreeNode(value) )
                 return start_node.get_right()
 
+
     def insert(self, value):
         self._insert(value, self.root)
 
@@ -160,6 +173,7 @@ class BST(BinaryTree):
             replacement_node = None
         return replacement_node
     
+
     def _transplant(self, node, replacement):
         # replace 'node' with 'replacement'
         if replacement is None:
@@ -178,6 +192,7 @@ class BST(BinaryTree):
             # swap data
             TreeNode.swap(node, replacement)
             self._transplant(replacement, new_replacement)
+
 
     def _remove(self, del_value, start_node):
         assert type(del_value) in {int, float}, "BST conains numbers only!"
@@ -201,6 +216,7 @@ class BST(BinaryTree):
         # return last accessed node when removing
         last_accessed_node = parent
         return last_accessed_node
+
 
     def remove(self, del_value):
         self._remove(del_value, self.root)
