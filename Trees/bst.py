@@ -164,14 +164,10 @@ class BST(BinaryTree):
         # replace 'node' with 'replacement'
         if replacement is None:
             parent = node.get_parent()
-            if parent is None: #TODO the next three lines need to be deleted
-                self._transplant(replacement, None)
-                TreeNode.swap(node, replacement)
+            if parent.get_left() == node:
+                parent.set_left(replacement)
             else:
-                if parent.get_left() == node:
-                    parent.set_left(replacement)
-                else:
-                    parent.set_right(replacement)
+                parent.set_right(replacement)
         else:
             if replacement.is_leaf():
                 new_replacement = None
