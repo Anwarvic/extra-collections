@@ -78,8 +78,13 @@ class RedBlackTree(BST):
 
     ############################## HEIGHT ##############################
     def get_black_height(self):
-        #TODO
-        pass
+        black_height = 0
+        start_node = self.root
+        while(start_node is not None):
+            if start_node.get_color() == Color.BLACK:
+                black_height += 1
+            start_node = start_node.get_left()
+        return black_height + 1
 
     ############################## ROTATION ##############################
     def __rotate_left(self, start_node):
@@ -224,7 +229,6 @@ class RedBlackTree(BST):
         return replacement_node
 
 
-    # helpful method
     def __attach(self, parent, child):
         if parent is None:
             self.root = child
@@ -246,8 +250,9 @@ class RedBlackTree(BST):
         Note: (s) is the sibling of the double_black_node
         SRC: https://www.programiz.com/dsa/deletion-from-a-red-black-tree
         """
-        while double_black_node != self.root and \
-            (not double_black_node or double_black_node.get_color() == Color.BLACK):
+        while double_black_node != self.root and (not double_black_node \
+            or double_black_node.get_color() == Color.BLACK):
+            # double black node is the left-child
             if double_black_node == parent.get_left():
                 sibling = parent.get_right()
                 # Case IV
@@ -290,9 +295,10 @@ class RedBlackTree(BST):
                     self.__attach(grandparent, parent)
                     double_black_node = self.root
             ##### Mirror image of the previous if-condition ######
-            # Case IV
+            # double black node is the right-child
             else:
                 sibling = parent.get_left()
+                # Case IV
                 if sibling and sibling.get_color() == Color.RED:
                     sibling.set_color(Color.BLACK)
                     parent.set_color(Color.RED)
@@ -497,6 +503,7 @@ if __name__ == "__main__":
     rbtree.insert(22)
     rbtree.insert(27)
     print(rbtree, '\n')
+    print(rbtree.get_black_height())
     rbtree.remove(11)
     print(rbtree)
 
