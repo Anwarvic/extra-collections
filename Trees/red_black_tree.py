@@ -503,6 +503,7 @@ if __name__ == "__main__":
     rbtree.insert(22)
     rbtree.insert(27)
     print(rbtree, '\n')
+    print(rbtree.get_height())
     print(rbtree.get_black_height())
     rbtree.remove(11)
     print(rbtree)
