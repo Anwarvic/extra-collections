@@ -106,7 +106,7 @@ class SplayTree(BST):
 
     ############################## INSERTION ##############################
     def insert(self, value):
-        new_node = super()._insert(value, self.root)
+        new_node = super()._insert(TreeNode(value), self.root)
         self.splay(new_node)
 
 
