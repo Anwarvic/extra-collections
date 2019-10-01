@@ -19,6 +19,12 @@ class Treap(BST):
         else:
             self.root = TreapNode(key)
 
+    
+    ############################## INSERTION ##############################
+    def insert(self, ):
+        pass
+
+
 
 
 if __name__ == "__main__":

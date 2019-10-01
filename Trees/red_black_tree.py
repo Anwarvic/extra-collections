@@ -55,9 +55,9 @@ class TreeNode(TreeNode):
 
     def represent_data(self):
         if self.color == Color.RED:
-            return str(self.data)+'r'
+            return str(self.data)+'|R'
         elif self.color == Color.BLACK:
-            return str(self.data)+'b'
+            return str(self.data)+'|B'
 
     @abstractmethod
     def swap(node1, node2):
@@ -184,17 +184,7 @@ class RedBlackTree(BST):
 
     def insert(self, value):
         # insert new node
-        tmp_node = super()._insert(value, self.root)
-        # create new TreeNode with red color
-        new_node = TreeNode(value) #red by default
-        parent = tmp_node.get_parent()
-        # take care of node-parent connection
-        if not parent or value == parent.get_data():
-            return
-        elif value > parent.get_data():
-            parent.set_right(new_node)
-        elif value < parent.get_data():
-            parent.set_left(new_node)
+        new_node = super()._insert(TreeNode(value), self.root)
         # recolor starting from new_node till root
         self.root = self.__recolor(new_node)
         # root is black (isn't essential tho!!)
@@ -411,85 +401,85 @@ class RedBlackTree(BST):
 
 if __name__ == "__main__":
     ######################### Test insertion #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(12)
-    # rbtree.insert(19)
-    # rbtree.insert(9)
-    # rbtree.insert(13)
-    # rbtree.insert(23)
-    # rbtree.insert(10)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
+    rbtree = RedBlackTree(8)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(12)
+    rbtree.insert(19)
+    rbtree.insert(9)
+    rbtree.insert(13)
+    rbtree.insert(23)
+    rbtree.insert(10)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # test special case
-    # rbtree = RedBlackTree(15)
-    # rbtree.insert(5)
-    # rbtree.insert(1)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # test special case
+    rbtree = RedBlackTree(15)
+    rbtree.insert(5)
+    rbtree.insert(1)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    # rbtree = RedBlackTree(10)
-    # rbtree.insert(20)
-    # rbtree.insert(30)
-    # rbtree.insert(15)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    rbtree = RedBlackTree(10)
+    rbtree.insert(20)
+    rbtree.insert(30)
+    rbtree.insert(15)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    # rbtree = RedBlackTree(8)
-    # rbtree.insert(18)
-    # rbtree.insert(5)
-    # rbtree.insert(15)
-    # rbtree.insert(17)
-    # rbtree.insert(25)
-    # rbtree.insert(40)
-    # rbtree.insert(80)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
+    rbtree = RedBlackTree(8)
+    rbtree.insert(18)
+    rbtree.insert(5)
+    rbtree.insert(15)
+    rbtree.insert(17)
+    rbtree.insert(25)
+    rbtree.insert(40)
+    rbtree.insert(80)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # # src: Data Structures and Algorithms in Python Book (Page: 539)
-    # rbtree = RedBlackTree(4)
-    # rbtree.insert(7)
-    # rbtree.insert(12)
-    # rbtree.insert(15)
-    # rbtree.insert(3)
-    # rbtree.insert(5)
-    # rbtree.insert(14)
-    # rbtree.insert(18)
-    # rbtree.insert(16)
-    # rbtree.insert(17)
-    # print(rbtree)
-    # print('='*50, '\n')
+    # src: Data Structures and Algorithms in Python Book (Page: 539)
+    rbtree = RedBlackTree(4)
+    rbtree.insert(7)
+    rbtree.insert(12)
+    rbtree.insert(15)
+    rbtree.insert(3)
+    rbtree.insert(5)
+    rbtree.insert(14)
+    rbtree.insert(18)
+    rbtree.insert(16)
+    rbtree.insert(17)
+    print(rbtree)
+    print('='*50, '\n')
 
-    # ######################## Test Removal #########################
-    # # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    ######################## Test Removal #########################
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
 
-    # rbtree = RedBlackTree(5)
-    # rbtree.insert(2)
-    # rbtree.insert(8)
-    # rbtree.insert(1)
-    # rbtree.insert(4)
-    # rbtree.insert(7)
-    # rbtree.insert(9)
-    # print(rbtree, '\n')
-    # rbtree.remove(2)
-    # print(rbtree)
+    rbtree = RedBlackTree(5)
+    rbtree.insert(2)
+    rbtree.insert(8)
+    rbtree.insert(1)
+    rbtree.insert(4)
+    rbtree.insert(7)
+    rbtree.insert(9)
+    print(rbtree, '\n')
+    rbtree.remove(2)
+    print(rbtree)
 
-    # rbtree = RedBlackTree(7)
-    # rbtree.insert(3)
-    # rbtree.insert(18)
-    # rbtree.insert(10)
-    # rbtree.insert(22)
-    # rbtree.insert(8)
-    # rbtree.insert(11)
-    # rbtree.insert(26)
-    # print(rbtree, '\n')
-    # rbtree.remove(3)
-    # print(rbtree)
+    rbtree = RedBlackTree(7)
+    rbtree.insert(3)
+    rbtree.insert(18)
+    rbtree.insert(10)
+    rbtree.insert(22)
+    rbtree.insert(8)
+    rbtree.insert(11)
+    rbtree.insert(26)
+    print(rbtree, '\n')
+    rbtree.remove(3)
+    print(rbtree)
 
     rbtree = RedBlackTree(13)
     rbtree.insert(8)
@@ -508,42 +498,42 @@ if __name__ == "__main__":
     rbtree.remove(11)
     print(rbtree)
 
-    # ################### THESE TO TEST double-black nodes ####################
-    # # test case (left-left)
-    # rbtree = RedBlackTree(40)
-    # rbtree.insert(30)
-    # rbtree.insert(50)
-    # rbtree.insert(20)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(50)
-    # print(rbtree, '\n')
+    ################### THESE TO TEST double-black nodes ####################
+    # test case (left-left)
+    rbtree = RedBlackTree(40)
+    rbtree.insert(30)
+    rbtree.insert(50)
+    rbtree.insert(20)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(50)
+    print(rbtree, '\n')
 
-    # # test case (left-right)
-    # rbtree = RedBlackTree(40)
-    # rbtree.insert(30)
-    # rbtree.insert(50)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(50)
-    # print(rbtree)
+    # test case (left-right)
+    rbtree = RedBlackTree(40)
+    rbtree.insert(30)
+    rbtree.insert(50)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(50)
+    print(rbtree)
 
-    # # test case (right-left)
-    # rbtree = RedBlackTree(30)
-    # rbtree.insert(20)
-    # rbtree.insert(40)
-    # rbtree.insert(35)
-    # print(rbtree)
-    # rbtree.remove(20)
-    # print(rbtree)
+    # test case (right-left)
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(35)
+    print(rbtree)
+    rbtree.remove(20)
+    print(rbtree)
 
-    # # test case (right-right)
-    # rbtree = RedBlackTree(30)
-    # rbtree.insert(20)
-    # rbtree.insert(40)
-    # rbtree.insert(50)
-    # print(rbtree)
-    # rbtree.remove(20)
-    # print(rbtree)
+    # test case (right-right)
+    rbtree = RedBlackTree(30)
+    rbtree.insert(20)
+    rbtree.insert(40)
+    rbtree.insert(50)
+    print(rbtree)
+    rbtree.remove(20)
+    print(rbtree)
 
     # 
