@@ -7,6 +7,16 @@ class TreapNode(TreeNode):
         super().__init__(key)
         self.priority = randint(0, 1000)
 
+    def get_priority(self):
+        return self.priority
+
+
+    def set_priority(self, new_priority):
+        assert type(new_priority) in {int, float},\
+                "Given priority has to be a number!!"
+        self.priority = new_priority
+
+
     def represent_data(self):
         return "{}|{}".format(self.data, self.priority)
 
