@@ -50,8 +50,23 @@ class Treap(BST):
 
 
     ############################## INSERTION ##############################
-    def insert(self, ):
-        pass
+    def insert(self, value):
+        # perform standard BST-insert
+        new_node = super()._insert(TreapNode(value), self.root)
+        # using rotations when necessary
+        parent = new_node.get_parent()
+        while(parent is not None):
+            grandparent = parent.get_parent() if parent else None
+            if parent.get_priority() > new_node.get_priority():
+                break
+            else:
+                if new_node.is_left_child():
+                    parent = self.__rotate_right(parent)
+                else:
+                    parent = self.__rotate_left(parent)
+                self.__attach(grandparent, parent)
+                new_node = parent
+                parent = grandparent
 
 
 
