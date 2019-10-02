@@ -49,6 +49,16 @@ class Treap(BST):
         return middle
 
 
+    def __attach(self, parent, child):
+        if parent is None:
+            self.root = child
+        else:
+            if parent.get_data() > child.get_data():
+                parent.set_left(child) 
+            else:
+                parent.set_right(child)
+    
+
     ############################## INSERTION ##############################
     def insert(self, value):
         # perform standard BST-insert
