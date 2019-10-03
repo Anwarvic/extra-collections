@@ -1,3 +1,9 @@
+"""
+Treap is a data structure which is a hyprid of (Tree + Heap) where every node
+of it maintains two values.
+    - Key: Follows standard BST ordering (left is smaller and right is greater)
+    - Priority: Randomly assigned value that follows Max-Heap property.
+"""
 from random import seed, randint
 from bst import TreeNode, BST
 
