@@ -1,7 +1,12 @@
 from random import seed, randint
 from bst import TreeNode, BST
 
-seed(0)
+
+
+
+#To keep consistency
+# seed(0)
+
 class TreapNode(TreeNode):
     def __init__(self, key):
         super().__init__(key)
@@ -20,6 +25,8 @@ class TreapNode(TreeNode):
 
     def represent_data(self):
         return "{}|{}".format(self.data, self.priority)
+
+
 
 
 
