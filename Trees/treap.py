@@ -79,6 +79,42 @@ class Treap(BST):
                 parent = grandparent
 
 
+    ##############################  REMOVAL  ##############################
+    def remove(self, del_value):
+        assert type(del_value) in {int, float}, "BST conains numbers only!"
+        if self.root.is_leaf() and del_value == self.root.get_data():
+            raise ValueError("Can't remove the only item in the treap!")
+
+        # search for the del_value node
+        removed_node = super()._search(del_value, self.root)
+        # couldn't find the node
+        if removed_node.get_data() != del_value:
+            return
+        # rotate till removed_node is leaf
+        parent = removed_node.get_parent()
+        while(not removed_node.is_leaf()):
+            # get children's priority
+            left_child = removed_node.get_left()
+            right_child = removed_node.get_right()
+            left_priority = left_child.get_priority() if left_child else -1
+            right_priority = right_child.get_priority() if right_child else -1
+            # perform rotation
+            if left_priority > right_priority:
+                removed_node = self.__rotate_right(removed_node)
+                self.__attach(parent, removed_node)
+                parent = removed_node
+                removed_node = parent.get_right()
+            else:
+                removed_node = self.__rotate_left(removed_node)
+                self.__attach(parent, removed_node)
+                parent = removed_node
+                removed_node = parent.get_left()
+        # perform the removal
+        if removed_node.is_left_child():
+            parent.set_left(None)
+        else:
+            parent.set_right(None)
+
 
 
 if __name__ == "__main__":
