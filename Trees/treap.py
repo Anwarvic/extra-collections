@@ -118,5 +118,14 @@ class Treap(BST):
 
 
 if __name__ == "__main__":
-    t = Treap(1)
+    t = Treap(50)
+    t.insert(30)
+    t.insert(70)
+    t.insert(20)
+    t.insert(40)
+    t.insert(80)
+    t.insert(0)
     print(t)
+    t.remove(30)
+    print(t)
+
