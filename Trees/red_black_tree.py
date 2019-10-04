@@ -338,6 +338,11 @@ class RedBlackTree(BST):
         Case III: removed_node is 'black', replacement is either 'black' or None
         Case IV : removed_node is 'black', replacement is 'red'
         """
+        assert type(del_value) in {int, float}, \
+                    "Red-Black Tree conains only numbers!"
+        # check edge case
+        if self.root.is_leaf() and del_value == self.root.get_data():
+            raise ValueError("Can't remove the only item in the tree!")
 
         # search for the del_value node
         removed_node = self._search(del_value, self.root)
