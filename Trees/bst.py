@@ -195,7 +195,7 @@ class BST(BinaryTree):
 
 
     def _remove(self, del_value, start_node):
-        assert type(del_value) in {int, float}, "BST conains numbers only!"
+        assert type(del_value) in {int, float}, "BST conains only numbers!"
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         # search for the del_value node
