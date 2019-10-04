@@ -345,7 +345,7 @@ class RedBlackTree(BST):
             raise ValueError("Can't remove the only item in the tree!")
 
         # search for the del_value node
-        removed_node = self._search(del_value, self.root)
+        removed_node = super()._search(del_value, self.root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
             return
