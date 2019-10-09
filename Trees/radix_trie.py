@@ -15,48 +15,50 @@ def find_last_common_idx(word1, word2):
 class RadixTrie(Trie):
    
     ############################## INSERTION ##############################
-    def __insert(self, start_node, word):
-        while(word):
-            ch = word[0]
-            child = start_node.get_child(ch)
-            if not child:
-                new_node = TrieNode(word)
-                new_node.is_word = True
-                start_node.set_child(word[0], new_node)
-                return
-            else:
-                child_data = child.get_data()
-                # child has exactly the given word
-                if child_data == word:
-                    child.is_word = True
+    def _insert(self, new_node):
+        word = new_node.get_data()
+        if self.root.children == {}:
+            self.root.set_child(word[0], new_node)
+        else:
+            start_node = self.root
+            while(word):
+                ch = word[0]
+                child = start_node.get_child(ch)
+                if not child:
+                    new_node = TrieNode(word)
+                    new_node.is_word = True
+                    start_node.set_child(word[0], new_node)
                     return
-                idx = find_last_common_idx(child_data, word)
-                # child has part of the given word as a prefix
-                if idx <= len(word) and idx != len(child_data):
-                    # split child
-                    new_node = TrieNode(child_data[:idx])
-                    child.data = child_data[idx:]
-                    new_node.set_child(child_data[idx], child)
-                    # connect new_node to start_node
-                    start_node.set_child(child_data[0], new_node)
-                    child = new_node
-                start_node = child
-                word = word[idx:]
-                if word == "":
-                    start_node.is_word = True
+                else:
+                    child_data = child.get_data()
+                    # child has exactly the given word
+                    if child_data == word:
+                        child.is_word = True
+                        return
+                    idx = find_last_common_idx(child_data, word)
+                    # child has part of the given word as a prefix
+                    if idx <= len(word) and idx != len(child_data):
+                        # split child
+                        new_node = TrieNode(child_data[:idx])
+                        child.data = child_data[idx:]
+                        new_node.set_child(child_data[idx], child)
+                        # connect new_node to start_node
+                        start_node.set_child(child_data[0], new_node)
+                        child = new_node
+                    start_node = child
+                    word = word[idx:]
+                    if word == "":
+                        start_node.is_word = True
 
 
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-
-        if self.root.children == {}:
-            new_node = TrieNode(word)
-            new_node.is_word = True
-            self.root.set_child(word[0], new_node)
-        else:
-            start_node = self.root
-            self.__insert(start_node, word)
+        # create new node using given word
+        new_node = TrieNode(word)
+        new_node.is_word = True
+        # insert it
+        self._insert(new_node)
 
 
     ############################## REMOVE ##############################
