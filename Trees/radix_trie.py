@@ -15,50 +15,44 @@ def find_last_common_idx(word1, word2):
 class RadixTrie(Trie):
    
     ############################## INSERTION ##############################
-    def _insert(self, new_node):
-        word = new_node.get_data()
-        if self.root.children == {}:
-            self.root.set_child(word[0], new_node)
-        else:
-            start_node = self.root
-            while(word):
-                ch = word[0]
-                child = start_node.get_child(ch)
-                if not child:
-                    new_node = TrieNode(word)
-                    new_node.is_word = True
-                    start_node.set_child(word[0], new_node)
+    def _insert(self, word):
+        start_node = self.root
+        while(word):
+            ch = word[0]
+            child = start_node.get_child(ch)
+            if not child:
+                new_node = TrieNode(word)
+                new_node.is_word = True
+                start_node.set_child(word[0], new_node)
+                return
+            else:
+                child_data = child.get_data()
+                # child has exactly the given word
+                if child_data == word:
+                    child.is_word = True
                     return
-                else:
-                    child_data = child.get_data()
-                    # child has exactly the given word
-                    if child_data == word:
-                        child.is_word = True
-                        return
-                    idx = find_last_common_idx(child_data, word)
-                    # child has part of the given word as a prefix
-                    if idx <= len(word) and idx != len(child_data):
-                        # split child
-                        new_node = TrieNode(child_data[:idx])
-                        child.data = child_data[idx:]
-                        new_node.set_child(child_data[idx], child)
-                        # connect new_node to start_node
-                        start_node.set_child(child_data[0], new_node)
-                        child = new_node
-                    start_node = child
-                    word = word[idx:]
-                    if word == "":
-                        start_node.is_word = True
+                idx = find_last_common_idx(child_data, word)
+                # child has part of the given word as a prefix
+                if idx <= len(word) and idx != len(child_data):
+                    # split child
+                    new_node = TrieNode(child_data[:idx])
+                    child.data = child_data[idx:]
+                    new_node.set_child(child_data[idx], child)
+                    # connect new_node to start_node
+                    start_node.set_child(child_data[0], new_node)
+                    child = new_node
+                start_node = child
+                word = word[idx:]
+                if word == "":
+                    start_node.is_word = True
+
 
 
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-        # create new node using given word
-        new_node = TrieNode(word)
-        new_node.is_word = True
         # insert it
-        self._insert(new_node)
+        self._insert(word)
 
 
     ############################## REMOVE ##############################
@@ -181,22 +175,22 @@ if __name__ == "__main__":
     print(rt.get_candidates("sheaa"))# []
     print('='*50)
 
-    # rt = RadixTrie()
-    # rt.insert("test")
-    # rt.insert("toaster")
-    # rt.insert("toasting")
-    # rt.insert("slow")
-    # rt.insert("slowly")
-    # rt.insert("slowlier")
-    # rt.insert("toast")
-    # rt.insert("slower")
-    # print(rt)
-    # print(rt.find("slowlie"))
-    # rt.remove("test")  # remove 'est' from tree
-    # rt.remove("slow") # remove is_word
-    # rt.remove("slowl") # do nothin'
-    # print(rt)
-    # print('='*50)
+    rt = RadixTrie()
+    rt.insert("test")
+    rt.insert("toaster")
+    rt.insert("toasting")
+    rt.insert("slow")
+    rt.insert("slowly")
+    rt.insert("slowlier")
+    rt.insert("toast")
+    rt.insert("slower")
+    print(rt)
+    print(rt.find("slowlie"))
+    rt.remove("test")  # remove 'est' from tree
+    rt.remove("slow") # remove is_word
+    rt.remove("slowl") # do nothin'
+    print(rt)
+    print('='*50)
     
     # # sanity checks
     # rt = RadixTrie()
