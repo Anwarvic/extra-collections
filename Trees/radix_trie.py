@@ -15,15 +15,18 @@ def find_last_common_idx(word1, word2):
 class RadixTrie(Trie):
    
     ############################## INSERTION ##############################
-    def _insert(self, word):
-        start_node = self.root
+    def insert(self, word):
+        assert type(word) == str, "You can insert String objects only!!"
+        assert len(word) > 0, "You can't insert any empty String!!"
+        # insert it
+        curr_node = self.root
         while(word):
             ch = word[0]
-            child = start_node.get_child(ch)
+            child = curr_node.get_child(ch)
             if not child:
                 new_node = TrieNode(word)
                 new_node.is_word = True
-                start_node.set_child(word[0], new_node)
+                curr_node.set_child(word[0], new_node)
                 return
             else:
                 child_data = child.get_data()
@@ -38,21 +41,13 @@ class RadixTrie(Trie):
                     new_node = TrieNode(child_data[:idx])
                     child.data = child_data[idx:]
                     new_node.set_child(child_data[idx], child)
-                    # connect new_node to start_node
-                    start_node.set_child(child_data[0], new_node)
+                    # connect new_node to curr_node
+                    curr_node.set_child(child_data[0], new_node)
                     child = new_node
-                start_node = child
+                curr_node = child
                 word = word[idx:]
                 if word == "":
-                    start_node.is_word = True
-
-
-
-    def insert(self, word):
-        assert type(word) == str, "You can insert String objects only!!"
-        assert len(word) > 0, "You can't insert any empty String!!"
-        # insert it
-        self._insert(word)
+                    curr_node.is_word = True
 
 
     ############################## REMOVE ##############################
