@@ -10,9 +10,9 @@ class SuffixTrie(RadixTrie):
         assert len(word) > 0, "You can't insert any empty String!!"
         
         # Ukkonen's algorithm
-        for idx in range(len(word)+1):
+        for idx in range(len(word)):
             # create new node using given word
-            sub_word = word[idx:]+'$' #'$': string termination symbol
+            sub_word = word[idx:]
             super().insert(sub_word)
 
     ############################## FIND ##############################
@@ -21,7 +21,6 @@ class SuffixTrie(RadixTrie):
         "Can't find {} since tries contain only characters!!".format(type(word))
         
         start_node = self.root
-        word += '$'
         while(word):
             ch = word[0]
             child = start_node.get_child(ch)
@@ -40,10 +39,11 @@ class SuffixTrie(RadixTrie):
 
 
 if __name__ == "__main__":
-    st = SuffixTrie()
-    st.insert("banana")
-    print(st)
-    print(st.find('nan'))
-
     # st = SuffixTrie()
-    # st.insert("m")
+    # st.insert("banana")
+    # print(st)
+    # print(st.find('nan'))
+
+    st = SuffixTrie()
+    st.insert("minimize")
+    print(st)
