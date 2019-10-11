@@ -13,7 +13,7 @@ class SuffixTrie(RadixTrie):
         for idx in range(len(word)+1):
             # create new node using given word
             sub_word = word[idx:]+'$' #'$': string termination symbol
-            super()._insert(sub_word)
+            super().insert(sub_word)
 
     ############################## FIND ##############################
     def find(self, word):
