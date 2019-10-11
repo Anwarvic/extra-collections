@@ -2,17 +2,6 @@ from radix_trie import TrieNode, RadixTrie
 
 
 
-class TrieNode(TrieNode):
-    def __init__(self, value):
-        super().__init__(value)
-        delattr(self, 'is_word')
-
-    def represent_data(self):
-        return self.data
-
-
-
-
 class SuffixTrie(RadixTrie):
     
     ############################## INSERTION ##############################
@@ -54,7 +43,7 @@ if __name__ == "__main__":
     st = SuffixTrie()
     st.insert("banana")
     print(st)
-    print(st.find('na'))
+    print(st.find('nan'))
 
     # st = SuffixTrie()
     # st.insert("m")
