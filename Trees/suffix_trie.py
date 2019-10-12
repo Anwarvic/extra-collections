@@ -15,25 +15,9 @@ class SuffixTrie(RadixTrie):
             sub_word = word[idx:]
             super().insert(sub_word)
 
-    ############################## FIND ##############################
-    def find(self, word):
-        assert type(word) == str, \
-        "Can't find {} since tries contain only characters!!".format(type(word))
-        
-        start_node = self.root
-        while(word):
-            ch = word[0]
-            child = start_node.get_child(ch)
-            if not child:
-                return False
-            else:
-                child_data = child.get_data()
-                if child_data == word[:len(child_data)]:
-                    start_node = child
-                    word = word[len(child_data):]
-                else:
-                    return False
-        return start_node.is_word
+    ############################## remove ##############################
+    def remove(self):
+        raise NotImplementedError("Can't remove from SuffixTries!!")
 
 
 
