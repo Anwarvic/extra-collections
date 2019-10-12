@@ -113,7 +113,7 @@ class Trie(Tree):
             output.extend( self.__get_candidates(child, new_prefix) )
         return output
 
-    def get_candidates(self, prefix=''):
+    def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
         start_node = self.root
         # parse the prefix
@@ -155,9 +155,9 @@ if __name__ == "__main__":
     # test find() and get_cadidates()
     print('cards' in t)
     print('c' in t)
-    print(t.get_candidates())
-    print(t.get_candidates('c'))
-    print(t.get_candidates('tri'))
+    print(t.auto_complete())
+    print(t.auto_complete('c'))
+    print(t.auto_complete('tri'))
     print('='*50)
     
     # test remove()
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     t.remove("trees")
     t.remove("tre")
     print(t)
-    print(t.get_candidates("t"))
+    print(t.auto_complete("t"))
 
     # sanity checks
     t = Trie()
