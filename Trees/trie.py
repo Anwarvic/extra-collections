@@ -81,7 +81,7 @@ class Trie(Tree):
 
 
     ############################## FIND ##############################
-    def find(self, word):
+    def __contains__(self, word):
         assert type(word) == str, \
         "Can't find {} since tries contain only characters!!".format(type(word))
         
@@ -153,8 +153,8 @@ if __name__ == "__main__":
     print(t.root.get_child('c').children)
     
     # test find() and get_cadidates()
-    print(t.find('cards'))
-    print(t.find('c'))
+    print('cards' in t)
+    print('c' in t)
     print(t.get_candidates())
     print(t.get_candidates('c'))
     print(t.get_candidates('tri'))
