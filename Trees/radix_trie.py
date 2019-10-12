@@ -12,6 +12,7 @@ def find_last_common_idx(word1, word2):
 
 
 
+
 class RadixTrie(Trie):
    
     ############################## INSERTION ##############################
@@ -90,7 +91,7 @@ class RadixTrie(Trie):
             output.extend( self.__get_candidates(child, new_prefix) )
         return output
     
-    def get_candidates(self, prefix=''):
+    def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
         start_node = self.root
         # parse the prefix
@@ -127,10 +128,7 @@ class RadixTrie(Trie):
         for child in curr_node.get_children():
             candidates.extend(self.__get_candidates(child, [prefix]))
         return candidates
-        
 
-
-        
 
 
 
@@ -157,17 +155,17 @@ if __name__ == "__main__":
     rt.insert("shepard")
     rt.insert('s')
     print(rt)
-    print(rt.find('s'))
-    print(rt.find("shea"))
-    print(rt.get_candidates(""))     # ['s', 'she', 'shear', 'shepard']
-    print(rt.get_candidates("a"))    # []
-    print(rt.get_candidates("s"))    # ['s', 'she', 'shear', 'shepard']
-    print(rt.get_candidates("sh"))   # ['she', 'shear', 'shepard']
-    print(rt.get_candidates("sha"))  # []
-    print(rt.get_candidates("she"))  # ['she', 'shear', 'shepard']
-    print(rt.get_candidates("shee")) # []
-    print(rt.get_candidates("shea")) # ['shear']
-    print(rt.get_candidates("sheaa"))# []
+    print('s' in rt)
+    print("shea" in rt)
+    print(rt.auto_complete(""))     # ['s', 'she', 'shear', 'shepard']
+    print(rt.auto_complete("a"))    # []
+    print(rt.auto_complete("s"))    # ['s', 'she', 'shear', 'shepard']
+    print(rt.auto_complete("sh"))   # ['she', 'shear', 'shepard']
+    print(rt.auto_complete("sha"))  # []
+    print(rt.auto_complete("she"))  # ['she', 'shear', 'shepard']
+    print(rt.auto_complete("shee")) # []
+    print(rt.auto_complete("shea")) # ['shear']
+    print(rt.auto_complete("sheaa"))# []
     print('='*50)
 
     rt = RadixTrie()
@@ -180,7 +178,7 @@ if __name__ == "__main__":
     rt.insert("toast")
     rt.insert("slower")
     print(rt)
-    print(rt.find("slowlie"))
+    print("slowlie" in rt)
     rt.remove("test")  # remove 'est' from tree
     rt.remove("slow") # remove is_word
     rt.remove("slowl") # do nothin'
