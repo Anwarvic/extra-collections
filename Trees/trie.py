@@ -116,10 +116,6 @@ class Trie(Tree):
                 curr_node = parent
 
 
-
-
-
-
     ######################### AUTO-COMPLETION #########################
     def __get_candidates(self, start_node, prefix):
         output = []
@@ -134,18 +130,15 @@ class Trie(Tree):
 
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
-        start_node = self.root
-        # parse the prefix
-        for ch in prefix:
-            if ch not in start_node.get_characters():
-                return []
-            start_node = start_node.get_child(ch)
-        # get candidates starting from given prefix
+        last_node, remaining = self._follow_path(prefix)
         candidates = []
-        if start_node.is_word:
-            candidates.append(prefix)
-        for child in start_node.get_children():
-            candidates.extend(self.__get_candidates(child, [prefix]))
+        if remaining == "":
+            curr_node = last_node
+            # get candidates starting from given prefix
+            if curr_node.is_word:
+                candidates.append(prefix)
+            for child in curr_node.get_children():
+                candidates.extend(self.__get_candidates(child, [prefix]))
         return candidates
 
 
@@ -179,6 +172,7 @@ if __name__ == "__main__":
     print(t.auto_complete())
     print(t.auto_complete('c'))
     print(t.auto_complete('tri'))
+    print(t.auto_complete('caa'))
     print('='*50)
     
     # test remove()
