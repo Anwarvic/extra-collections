@@ -49,7 +49,12 @@ class Trie(Tree):
         self.nodes_count = 1
 
 
-    ##############################  SEARCH  ##############################
+    ############################## LENGTH ##############################
+    def __len__(self):
+        return self.nodes_count
+
+
+    ############################## FIND ##############################
     def _follow_path(self, word):
         curr_node = self.root
         while(word):
@@ -64,6 +69,21 @@ class Trie(Tree):
             else:
                 break
         return curr_node, word
+
+
+    def __contains__(self, word):
+        assert type(word) == str, \
+        "Can't find {} since tries contain only characters!!".format(type(word))
+        last_node, remaining_word = self._follow_path(word)
+        return remaining_word == "" and last_node.is_word
+
+
+    def has_substring(self, substr):
+        assert type(substr) == str, \
+        "Can't find {} since tries have only characters!!".format(type(substr))
+        last_node, remaining_substr = self._follow_path(substr)
+        return remaining_substr == ""
+
 
     ############################## INSERTION ##############################
     def insert(self, word):
@@ -82,60 +102,22 @@ class Trie(Tree):
     ############################## REMOVE ##############################
     def remove(self, word):
         assert type(word) == str, "You can remove String objects only!!"
-        start_node = self.root
-        for ch in word:
-            if ch not in start_node.children:
-                return
-            start_node = start_node.get_child(ch)
-        
+        last_node, remaining_word = self._follow_path(word)
         # if word is found, clear it
-        if start_node.is_word:
-            start_node.is_word = False
-        while(not start_node.is_word and start_node.has_no_children()):
-            ch = start_node.get_data()
-            parent = start_node.get_parent()
-            del parent.children[ch]
-            self.nodes_count -= 1
-            start_node = parent
+        if remaining_word == "":
+            curr_node = last_node
+            if curr_node.is_word:
+                curr_node.is_word = False
+            while(not curr_node.is_word and curr_node.has_no_children()):
+                ch = curr_node.get_data()
+                parent = curr_node.get_parent()
+                del parent.children[ch]
+                self.nodes_count -= 1
+                curr_node = parent
 
 
-    ############################## FIND ##############################
-    def __follow_path(self, word):
-        curr_node = self.root
-        while(word):
-            ch = word[0]
-            child = curr_node.get_child(ch)
-            child_data = child.get_data() if child else "_"
-            if child_data == word[:len(child_data)] or child_data[:len(word)] == word:
-                curr_node = child
-                word = word[len(child_data):]
-            else:
-                return None
-        return curr_node
-
-    def __contains__(self, word):
-        assert type(word) == str, \
-        "Can't find {} since tries contain only characters!!".format(type(word))
-        
-        last_node = self.__follow_path(word)
-        if last_node is None:
-            return False
-        return last_node.is_word
 
 
-    def has_substring(self, substr):
-        assert type(substr) == str, \
-        "Can't find {} since tries have only characters!!".format(type(substr))
-        
-        last_node = self.__follow_path(substr)
-        if last_node is None:
-            return False
-        return True
-
-
-    ######################### LENGTH #########################
-    def __len__(self):
-        return self.nodes_count
 
 
     ######################### AUTO-COMPLETION #########################
@@ -183,36 +165,36 @@ if __name__ == "__main__":
     t.insert('tries')
     t.insert('try')
     print(t.has_substring('ca'))
+    print("Total Nodes:", len(t))
+    print(t)
+
+    # explort Trie
+    print(t.root)
+    print(t.root.get_child('t').data)
+    print(t.root.get_child('c').children)
+    
+    # test find() and get_cadidates()
+    print('cards' in t)
+    print('c' in t)
+    print(t.auto_complete())
+    print(t.auto_complete('c'))
+    print(t.auto_complete('tri'))
+    print('='*50)
+    
+    # test remove()
+    t = Trie()
+    t.insert("tre")
+    t.insert("trees")
+    t.insert("treed")
+    t.remove("trees")
+    t.remove("tre")
     print(t)
     print("Total Nodes:", len(t))
+    print(t.auto_complete("t"))
 
-    # # explort Trie
-    # print(t.root)
-    # print(t.root.get_child('t').data)
-    # print(t.root.get_child('c').children)
-    
-    # # test find() and get_cadidates()
-    # print('cards' in t)
-    # print('c' in t)
-    # print(t.auto_complete())
-    # print(t.auto_complete('c'))
-    # print(t.auto_complete('tri'))
-    # print('='*50)
-    
-    # # test remove()
-    # t = Trie()
-    # t.insert("tre")
-    # t.insert("trees")
-    # t.insert("treed")
-    # t.remove("trees")
-    # t.remove("tre")
-    # print(t)
-    # print("Total Nodes:", len(t))
-    # print(t.auto_complete("t"))
-
-    # # sanity checks
-    # t = Trie()
-    # t.insert('a')
-    # t.insert('A')
-    # t.remove('AA')
-    # print(t)
+    # sanity checks
+    t = Trie()
+    t.insert('a')
+    t.insert('A')
+    t.remove('AA')
+    print(t)
