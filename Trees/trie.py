@@ -55,7 +55,7 @@ class Trie(Tree):
 
 
     ############################## FIND ##############################
-    def _follow_path(self, word):
+    def __follow_path(self, word):
         """
         This method parses the Trie and returns the last accessed node and
         the part of the word that can't be parsed.
@@ -78,14 +78,14 @@ class Trie(Tree):
     def __contains__(self, word):
         assert type(word) == str, \
         "Can't find {} since tries contain only characters!!".format(type(word))
-        last_node, remaining_word = self._follow_path(word)
+        last_node, remaining_word = self.__follow_path(word)
         return remaining_word == "" and last_node.is_word
 
 
     def has_substring(self, substr):
         assert type(substr) == str, \
         "Can't find {} since tries have only characters!!".format(type(substr))
-        _, remaining_substr = self._follow_path(substr)
+        _, remaining_substr = self.__follow_path(substr)
         return remaining_substr == ""
 
 
@@ -93,7 +93,7 @@ class Trie(Tree):
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-        last_node, remaining_word = self._follow_path(word)
+        last_node, remaining_word = self.__follow_path(word)
         curr_node = last_node
         for ch in remaining_word:
             child = TrieNode(ch)
@@ -106,7 +106,7 @@ class Trie(Tree):
     ############################## REMOVE ##############################
     def remove(self, word):
         assert type(word) == str, "You can remove String objects only!!"
-        last_node, remaining_word = self._follow_path(word)
+        last_node, remaining_word = self.__follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
             curr_node.is_word = False
@@ -131,7 +131,7 @@ class Trie(Tree):
 
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
-        last_node, remaining = self._follow_path(prefix)
+        last_node, remaining = self.__follow_path(prefix)
         candidates = []
         if remaining == "":
             curr_node = last_node
