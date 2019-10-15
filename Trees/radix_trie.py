@@ -1,7 +1,6 @@
 from trie import TrieNode, Trie
 
 
-
 #helper function
 def find_last_common_idx(word1, word2):
     idx = 0
@@ -14,43 +13,38 @@ def find_last_common_idx(word1, word2):
 
 
 
-
 class RadixTrie(Trie):
-   
+
     ############################## INSERTION ##############################
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-        # insert it
-        curr_node = self.root
-        while(word):
-            ch = word[0]
+        last_node, remaining_word = super()._follow_path(word)
+        curr_node = last_node
+        while(remaining_word):
+            ch = remaining_word[0]
             child = curr_node.get_child(ch)
-            if not child:
-                new_node = TrieNode(word)
-                new_node.is_word = True
-                curr_node.set_child(word[0], new_node)
-                return
-            else:
-                child_data = child.get_data()
-                # child has exactly the given word
-                if child_data == word:
-                    child.is_word = True
-                    return
-                idx = find_last_common_idx(child_data, word)
-                # child has part of the given word as a prefix
-                if idx <= len(word) and idx != len(child_data):
-                    # split child
-                    new_node = TrieNode(child_data[:idx])
-                    child.data = child_data[idx:]
-                    new_node.set_child(child_data[idx], child)
-                    # connect new_node to curr_node
-                    curr_node.set_child(child_data[0], new_node)
-                    child = new_node
-                curr_node = child
-                word = word[idx:]
-                if word == "":
-                    curr_node.is_word = True
+            child_data = child.get_data() if child else ''
+
+            idx = find_last_common_idx(child_data, remaining_word)
+            # couldn't find the remaining_word
+            if idx == 0:
+                new_node = TrieNode(remaining_word)
+                curr_node.set_child(ch, new_node)
+                remaining_word = ''
+            # child is prefix of the remaining_word
+            elif idx <= len(remaining_word) and idx != len(child_data):
+                # split child
+                new_node = TrieNode(child_data[:idx])
+                child.data = child_data[idx:]
+                new_node.set_child(child_data[idx], child)
+                # connect new_node to curr_node
+                curr_node.set_child(child_data[0], new_node)
+                remaining_word = remaining_word[idx:]
+            curr_node = new_node
+        # mark current node as a word
+        curr_node.is_word = True
+        self.nodes_count += 1
 
 
     ############################## REMOVE ##############################
@@ -81,18 +75,7 @@ class RadixTrie(Trie):
             start_node = parent
 
 
-    ######################### AUTO-COMPLETION #########################
-    def __get_candidates(self, start_node, prefix):
-        output = []
-        new_prefix = prefix.copy()
-        new_prefix += start_node.get_data()
-        if start_node.is_word:
-            output.append("".join(new_prefix))
-        # iterate over children
-        for child in start_node.get_children():
-            output.extend( self.__get_candidates(child, new_prefix) )
-        return output
-    
+    ######################### AUTO-COMPLETION #########################    
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
         start_node = self.root
@@ -128,7 +111,7 @@ class RadixTrie(Trie):
             candidates.append(prefix)
         # get candidates starting from given prefix
         for child in curr_node.get_children():
-            candidates.extend(self.__get_candidates(child, [prefix]))
+            candidates.extend(super()._get_candidates(child, [prefix]))
         return candidates
 
 
@@ -140,6 +123,7 @@ class RadixTrie(Trie):
 if __name__ == "__main__":
     # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     rt = RadixTrie()
+    rt.insert("romane")
     rt.insert("romane")
     rt.insert("romanus")
     rt.insert("romulus")
@@ -158,7 +142,7 @@ if __name__ == "__main__":
     rt.insert('s')
     print(rt)
     print('s' in rt)
-    print("shea" in rt)
+    print("sha" in rt)
     print(rt.auto_complete(""))     # ['s', 'she', 'shear', 'shepard']
     print(rt.auto_complete("a"))    # []
     print(rt.auto_complete("s"))    # ['s', 'she', 'shear', 'shepard']
@@ -186,7 +170,8 @@ if __name__ == "__main__":
     rt.remove("slowl") # do nothin'
     print(rt)
     print('='*50)
-    print(rt.has_substring("slowy"))
+    print(rt.has_substring("slow"))
+    print('slow' in rt)
     
     # # sanity checks
     # rt = RadixTrie()
