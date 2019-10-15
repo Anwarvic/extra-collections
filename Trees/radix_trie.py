@@ -93,18 +93,18 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    rt = RadixTrie()
-    rt.insert("romane")
-    rt.insert("romane")
-    rt.insert("romanus")
-    rt.insert("romulus")
-    rt.insert("rubens")
-    rt.insert("ruber")
-    rt.insert("rubicon")
-    rt.insert("rubicundus")
-    print(rt)
-    print('='*50)
+    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    # rt = RadixTrie()
+    # rt.insert("romane")
+    # rt.insert("romane")
+    # rt.insert("romanus")
+    # rt.insert("romulus")
+    # rt.insert("rubens")
+    # rt.insert("ruber")
+    # rt.insert("rubicon")
+    # rt.insert("rubicundus")
+    # print(rt)
+    # print('='*50)
 
     rt = RadixTrie()
     rt.insert("shear")
@@ -126,30 +126,30 @@ if __name__ == "__main__":
     print(rt.auto_complete("sheaa"))# []
     print('='*50)
 
-    rt = RadixTrie()
-    rt.insert("test")
-    rt.insert("toaster")
-    rt.insert("toasting")
-    rt.insert("slow")
-    rt.insert("slowly")
-    rt.insert("slowlier")
-    rt.insert("toast")
-    rt.insert("slower")
-    print(rt)
-    print(len(rt))
-    print("slowlie" in rt)
-    rt.remove("test")  # remove 'est' from tree
-    rt.remove("slow") # remove is_word
-    rt.remove("slowl") # do nothin'
-    print(rt)
-    print(len(rt))
-    print('='*50)
-    print(rt.has_substring("slow"))
-    print('slow' in rt)
-    
-    # # sanity checks
     # rt = RadixTrie()
-    # print(rt.find(''))
-    # print(rt.find(2)) #throws error
+    # rt.insert("test")
+    # rt.insert("toaster")
+    # rt.insert("toasting")
+    # rt.insert("slow")
+    # rt.insert("slowly")
+    # rt.insert("slowlier")
+    # rt.insert("toast")
+    # rt.insert("slower")
+    # print(rt)
+    # print(len(rt))
+    # print("slowlie" in rt)
+    # rt.remove("test")  # remove 'est' from tree
+    # rt.remove("slow") # remove is_word
+    # rt.remove("slowl") # do nothin'
+    # print(rt)
+    # print(len(rt))
+    # print('='*50)
+    # print(rt.has_substring("slow"))
+    # print('slow' in rt)
+    
+    # # # sanity checks
+    # # rt = RadixTrie()
+    # # print(rt.find(''))
+    # # print(rt.find(2)) #throws error
 
 
