@@ -56,6 +56,10 @@ class Trie(Tree):
 
     ############################## FIND ##############################
     def _follow_path(self, word):
+        """
+        This method parses the Trie and returns the last accessed node and
+        the part of the word that can't be parsed.
+        """
         curr_node = self.root
         while(word):
             ch = word[0]
@@ -81,7 +85,7 @@ class Trie(Tree):
     def has_substring(self, substr):
         assert type(substr) == str, \
         "Can't find {} since tries have only characters!!".format(type(substr))
-        last_node, remaining_substr = self._follow_path(substr)
+        _, remaining_substr = self._follow_path(substr)
         return remaining_substr == ""
 
 
@@ -103,11 +107,9 @@ class Trie(Tree):
     def remove(self, word):
         assert type(word) == str, "You can remove String objects only!!"
         last_node, remaining_word = self._follow_path(word)
-        # if word is found, clear it
-        if remaining_word == "":
+        if remaining_word == "": #found the whole word
             curr_node = last_node
-            if curr_node.is_word:
-                curr_node.is_word = False
+            curr_node.is_word = False
             while(not curr_node.is_word and curr_node.has_no_children()):
                 ch = curr_node.get_data()
                 parent = curr_node.get_parent()
@@ -119,8 +121,7 @@ class Trie(Tree):
     ######################### AUTO-COMPLETION #########################
     def __get_candidates(self, start_node, prefix):
         output = []
-        new_prefix = prefix.copy()
-        new_prefix += start_node.get_data()
+        new_prefix = prefix + [start_node.get_data()]
         if start_node.is_word:
             output.append("".join(new_prefix))
         # iterate over children
