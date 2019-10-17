@@ -75,6 +75,16 @@ class RadixTrie(Trie):
             candidates.extend(super()._get_candidates(child, [prefix]))
         return candidates
 
+    ############################## FIND ##############################
+    def has_substring(self, substr):
+        assert type(substr) == str, \
+        "Can't find {} since tries have only characters!!".format(type(substr))
+        last_node, remaining = self._follow_path(substr)
+        if remaining:
+            child = last_node.get_child(remaining[0])
+            child_data = child.get_data() if child else ''
+            return child_data[:len(remaining)] == remaining
+        return True
 
 
 
@@ -136,9 +146,12 @@ if __name__ == "__main__":
     rt.remove("slowl") # do nothin'
     print(rt)
     print(len(rt))
+    print('slow' in rt)
     print('='*50)
     print(rt.has_substring("slo"))
-    print('slow' in rt)
+    print(rt.has_substring("s"))
+    print(rt.has_substring("sloww"))
+    print(rt.has_substring("slow"))
     
     # # sanity checks
     # rt = RadixTrie()
