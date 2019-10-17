@@ -85,8 +85,12 @@ class Trie(Tree):
         assert type(substr) == str, \
         "Can't find {} since tries have only characters!!".format(type(substr))
         assert len(substr) > 0, "You can't search for any empty String!!"
-        _, remaining_substr = self._follow_path(substr)
-        return remaining_substr == ""
+        last_node, remaining = self._follow_path(substr)
+        if remaining:
+            child = last_node.get_child(remaining[0])
+            child_data = child.get_data() if child else ''
+            return child_data[:len(remaining)] == remaining
+        return True
 
 
     ############################## INSERTION ##############################
@@ -158,22 +162,23 @@ if __name__ == "__main__":
     t.insert('tried')
     t.insert('tries')
     t.insert('try')
-    print(t.has_substring('ca'))
-    print("Total Nodes:", len(t))
+    print(t.has_substring('ca')) #True
+    print("Total Nodes:", len(t)) #16
     print(t)
 
     # explort Trie
-    print(t.root)
-    print(t.root.get_child('t').data)
-    print(t.root.get_child('c').children)
+    print(t.root) #TrieNode(ROOT)
+    print(t.root.get_child('t').data) #t
+    print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
     
     # test find() and get_cadidates()
-    print('cards' in t)
-    print('c' in t)
+    print('cards' in t) #True
+    print('c' in t) #False
     print(t.auto_complete())
-    print(t.auto_complete('c'))
-    print(t.auto_complete('tri'))
-    print(t.auto_complete('caa'))
+    #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
+    print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
+    print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
+    print(t.auto_complete('caa')) #[]
     print('='*50)
     
     # test remove()
@@ -184,8 +189,8 @@ if __name__ == "__main__":
     t.remove("trees")
     t.remove("tre")
     print(t)
-    print("Total Nodes:", len(t))
-    print(t.auto_complete("t"))
+    print("Total Nodes:", len(t)) #6
+    print(t.auto_complete("t")) #['treed']
 
     # sanity checks
     t = Trie()
