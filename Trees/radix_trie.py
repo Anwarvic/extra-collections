@@ -25,7 +25,6 @@ class RadixTrie(Trie):
             ch = remaining_word[0]
             child = curr_node.get_child(ch)
             child_data = child.get_data() if child else ''
-
             idx = find_last_common_idx(child_data, remaining_word)
             # couldn't find the remaining_word
             if idx == 0:
@@ -50,34 +49,24 @@ class RadixTrie(Trie):
     ######################### AUTO-COMPLETION #########################    
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
-        start_node = self.root
-        # parse the prefix
-        new_perfix = []
-        while(prefix):
-            ch = prefix[0]
-            child = start_node.get_child(ch)
-            if not child:
-                return []
-            else:
-                start_node =  child
-                child_data = child.get_data()
-                if len(prefix) <= len(child_data):
-                    if child_data[:len(prefix)] == prefix:
-                        prefix = ''
-                        new_perfix.append(child_data)
-                    else:
-                        return []
-                else:
-                    if prefix[:len(child_data)] == child_data:
-                        prefix = prefix[len(child_data):]
-                        new_perfix.append(child_data)
-                    else:
-                        new_perfix.append(ch)
-                        prefix = prefix[1:]
-        
         candidates = []
-        curr_node = start_node
-        prefix = "".join(new_perfix)
+        last_node, remaining = self._follow_path(prefix)
+        # update values
+        curr_node = last_node
+        prefix = prefix[:-len(remaining)] if remaining else prefix
+        while(remaining):
+            ch = remaining[0]
+            child = curr_node.get_child(ch)
+            child_data = child.get_data() if child else ''
+            # couldn't find the remaining prefix
+            if len(remaining) > len(child_data) or \
+                child_data[:len(remaining)] != remaining:
+                return candidates
+            else:
+                remaining = ''
+                prefix += child_data
+                curr_node = child
+       
         # check the current node
         if curr_node.is_word:
             candidates.append(prefix)
@@ -107,23 +96,27 @@ if __name__ == "__main__":
     # print('='*50)
 
     rt = RadixTrie()
+    rt.insert('s')
     rt.insert("shear")
     rt.insert("she")
+    rt.insert("shears")
     rt.insert("shepard")
     rt.insert("shepard")
-    rt.insert('s')
+    rt.remove('s')
     print(rt)
-    print('s' in rt)
+    print('she' in rt)
     print("sha" in rt)
-    print(rt.auto_complete(""))     # ['s', 'she', 'shear', 'shepard']
-    print(rt.auto_complete("a"))    # []
-    print(rt.auto_complete("s"))    # ['s', 'she', 'shear', 'shepard']
-    print(rt.auto_complete("sh"))   # ['she', 'shear', 'shepard']
-    print(rt.auto_complete("sha"))  # []
-    print(rt.auto_complete("she"))  # ['she', 'shear', 'shepard']
+    print(rt.auto_complete("")) # ['s', 'she', 'shear', 'shears', 'shepard']
+    print(rt.auto_complete("a")) # []
+    print(rt.auto_complete("s")) # ['s', 'she', 'shear', 'shears', 'shepard']
+    print(rt.auto_complete("sh")) # ['she', 'shear', 'shears', 'shepard']
+    print(rt.auto_complete("sha")) # []
+    print(rt.auto_complete("she")) # ['she', 'shear', 'shears', 'shepard']
     print(rt.auto_complete("shee")) # []
-    print(rt.auto_complete("shea")) # ['shear']
-    print(rt.auto_complete("sheaa"))# []
+    print(rt.auto_complete("shea")) # ['shear' 'shears']
+    print(rt.auto_complete("sheaa")) # []
+    print(rt.auto_complete("shearr")) # []
+    print(rt.auto_complete("shep")) # ['shepard']
     print('='*50)
 
     # rt = RadixTrie()
