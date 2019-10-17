@@ -75,18 +75,6 @@ class RadixTrie(Trie):
             candidates.extend(super()._get_candidates(child, [prefix]))
         return candidates
 
-    ############################## FIND ##############################
-    def has_substring(self, substr):
-        assert type(substr) == str, \
-        "Can't find {} since tries have only characters!!".format(type(substr))
-        last_node, remaining = self._follow_path(substr)
-        if remaining:
-            child = last_node.get_child(remaining[0])
-            child_data = child.get_data() if child else ''
-            return child_data[:len(remaining)] == remaining
-        return True
-
-
 
 
 
@@ -114,11 +102,11 @@ if __name__ == "__main__":
     rt.insert("shepard")
     rt.remove('s')
     print(rt)
-    print('she' in rt)
-    print("sha" in rt)
-    print(rt.auto_complete("")) # ['s', 'she', 'shear', 'shears', 'shepard']
+    print('she' in rt) #True
+    print("sha" in rt) #False
+    print(rt.auto_complete("")) # [she', 'shear', 'shears', 'shepard']
     print(rt.auto_complete("a")) # []
-    print(rt.auto_complete("s")) # ['s', 'she', 'shear', 'shears', 'shepard']
+    print(rt.auto_complete("s")) # ['she', 'shear', 'shears', 'shepard']
     print(rt.auto_complete("sh")) # ['she', 'shear', 'shears', 'shepard']
     print(rt.auto_complete("sha")) # []
     print(rt.auto_complete("she")) # ['she', 'shear', 'shears', 'shepard']
@@ -127,6 +115,7 @@ if __name__ == "__main__":
     print(rt.auto_complete("sheaa")) # []
     print(rt.auto_complete("shearr")) # []
     print(rt.auto_complete("shep")) # ['shepard']
+    print(rt.auto_complete("apple")) # []
     print('='*50)
 
     rt = RadixTrie()
@@ -139,19 +128,21 @@ if __name__ == "__main__":
     rt.insert("toast")
     rt.insert("slower")
     print(rt)
-    print(len(rt))
-    print("slowlie" in rt)
-    rt.remove("test")  # remove 'est' from tree
-    rt.remove("slow") # remove is_word
-    rt.remove("slowl") # do nothin'
+    print(len(rt)) #
+    print("slowlie" in rt) #False
+    print("slowl" in rt) #False
+    print("slowly" in rt) #True
+    rt.remove("test")
+    rt.remove("slow")
+    rt.remove("slowl")
     print(rt)
-    print(len(rt))
-    print('slow' in rt)
+    print(len(rt)) #
+    print('slow' in rt) #False
     print('='*50)
-    print(rt.has_substring("slo"))
-    print(rt.has_substring("s"))
-    print(rt.has_substring("sloww"))
-    print(rt.has_substring("slow"))
+    print(rt.has_substring("slo")) #True
+    print(rt.has_substring("s")) #True
+    print(rt.has_substring("sloww")) #False
+    print(rt.has_substring("slow")) #True
     
     # # sanity checks
     # rt = RadixTrie()
