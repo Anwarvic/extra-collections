@@ -19,7 +19,7 @@ class TrieNode(TreeNode):
         try:
             return self.children[ch]
         except KeyError:
-            return ""
+            return None
 
     def get_parent(self):
         return self.parent
@@ -55,7 +55,7 @@ class Trie(Tree):
 
 
     ############################## FIND ##############################
-    def __follow_path(self, word):
+    def _follow_path(self, word):
         """
         This method parses the Trie and returns the last accessed node and
         the part of the word that can't be parsed.
@@ -66,8 +66,7 @@ class Trie(Tree):
             child = curr_node.get_child(ch)
             #'}' is used to break the following if-condition
             child_data = child.get_data() if child else "}"
-            if child_data == word[:len(child_data)] \
-                or child_data[:len(word)] == word:
+            if child_data == word[:len(child_data)]:
                 word = word[len(child_data):]
                 curr_node = child
             else:
@@ -78,14 +77,15 @@ class Trie(Tree):
     def __contains__(self, word):
         assert type(word) == str, \
         "Can't find {} since tries contain only characters!!".format(type(word))
-        last_node, remaining_word = self.__follow_path(word)
+        last_node, remaining_word = self._follow_path(word)
         return remaining_word == "" and last_node.is_word
 
 
     def has_substring(self, substr):
         assert type(substr) == str, \
         "Can't find {} since tries have only characters!!".format(type(substr))
-        _, remaining_substr = self.__follow_path(substr)
+        assert len(substr) > 0, "You can't search for any empty String!!"
+        _, remaining_substr = self._follow_path(substr)
         return remaining_substr == ""
 
 
@@ -93,7 +93,7 @@ class Trie(Tree):
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-        last_node, remaining_word = self.__follow_path(word)
+        last_node, remaining_word = self._follow_path(word)
         curr_node = last_node
         for ch in remaining_word:
             child = TrieNode(ch)
@@ -106,12 +106,12 @@ class Trie(Tree):
     ############################## REMOVE ##############################
     def remove(self, word):
         assert type(word) == str, "You can remove String objects only!!"
-        last_node, remaining_word = self.__follow_path(word)
+        last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
             curr_node.is_word = False
             while(not curr_node.is_word and curr_node.has_no_children()):
-                ch = curr_node.get_data()
+                ch = curr_node.get_data()[0]
                 parent = curr_node.get_parent()
                 del parent.children[ch]
                 self.nodes_count -= 1
@@ -119,19 +119,19 @@ class Trie(Tree):
 
 
     ######################### AUTO-COMPLETION #########################
-    def __get_candidates(self, start_node, prefix):
+    def _get_candidates(self, start_node, prefix):
         output = []
         new_prefix = prefix + [start_node.get_data()]
         if start_node.is_word:
             output.append("".join(new_prefix))
         # iterate over children
         for child in start_node.get_children():
-            output.extend( self.__get_candidates(child, new_prefix) )
+            output.extend( self._get_candidates(child, new_prefix) )
         return output
 
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
-        last_node, remaining = self.__follow_path(prefix)
+        last_node, remaining = self._follow_path(prefix)
         candidates = []
         if remaining == "":
             curr_node = last_node
@@ -139,7 +139,7 @@ class Trie(Tree):
             if curr_node.is_word:
                 candidates.append(prefix)
             for child in curr_node.get_children():
-                candidates.extend(self.__get_candidates(child, [prefix]))
+                candidates.extend(self._get_candidates(child, [prefix]))
         return candidates
 
 
