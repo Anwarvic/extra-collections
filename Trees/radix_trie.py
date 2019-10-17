@@ -31,6 +31,7 @@ class RadixTrie(Trie):
                 new_node = TrieNode(remaining_word)
                 curr_node.set_child(ch, new_node)
                 remaining_word = ''
+                self.nodes_count += 1
             # child is prefix of the remaining_word
             elif idx <= len(remaining_word) and idx != len(child_data):
                 # split child
@@ -40,10 +41,10 @@ class RadixTrie(Trie):
                 # connect new_node to curr_node
                 curr_node.set_child(child_data[0], new_node)
                 remaining_word = remaining_word[idx:]
+                self.nodes_count += 1
             curr_node = new_node
         # mark current node as a word
         curr_node.is_word = True
-        self.nodes_count += 1
 
 
     ######################### AUTO-COMPLETION #########################    
@@ -91,6 +92,7 @@ if __name__ == "__main__":
     rt.insert("rubicon")
     rt.insert("rubicundus")
     print(rt)
+    print("Total Nodes:", len(rt)) #14
     print('='*50)
 
     rt = RadixTrie()
@@ -102,6 +104,7 @@ if __name__ == "__main__":
     rt.insert("shepard")
     rt.remove('s')
     print(rt)
+    print("Total Nodes:", len(rt)) #6
     print('she' in rt) #True
     print("sha" in rt) #False
     print(rt.auto_complete("")) # [she', 'shear', 'shears', 'shepard']
@@ -128,7 +131,7 @@ if __name__ == "__main__":
     rt.insert("toast")
     rt.insert("slower")
     print(rt)
-    print(len(rt)) #
+    print("Total Nodes:", len(rt)) #11
     print("slowlie" in rt) #False
     print("slowl" in rt) #False
     print("slowly" in rt) #True
@@ -136,13 +139,13 @@ if __name__ == "__main__":
     rt.remove("slow")
     rt.remove("slowl")
     print(rt)
-    print(len(rt)) #
+    print("Total Nodes:", len(rt)) #10
     print('slow' in rt) #False
-    print('='*50)
     print(rt.has_substring("slo")) #True
     print(rt.has_substring("s")) #True
     print(rt.has_substring("sloww")) #False
     print(rt.has_substring("slow")) #True
+    print('='*50)
     
     # # sanity checks
     # rt = RadixTrie()
