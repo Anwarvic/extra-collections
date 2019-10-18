@@ -51,7 +51,7 @@ class RadixTrie(Trie):
     def auto_complete(self, prefix=''):
         assert type(prefix) == str, "A character-sequence is expected!!"
         candidates = []
-        last_node, remaining = self._follow_path(prefix)
+        last_node, remaining = super()._follow_path(prefix)
         # update values
         curr_node = last_node
         prefix = prefix[:-len(remaining)] if remaining else prefix
