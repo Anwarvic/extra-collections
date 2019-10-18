@@ -140,4 +140,6 @@ if __name__ == "__main__":
     print(t, '\n')
     t.remove(30)
     print(t)
+    print("Total nodes:", len(t))
+    print("Biggest Value is:", t.get_max())
 
