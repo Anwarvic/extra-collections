@@ -4,19 +4,16 @@ of it maintains two values.
     - Key: Follows standard BST ordering (left is smaller and right is greater)
     - Priority: Randomly assigned value that follows Max-Heap property.
 """
-from random import seed, randint
+import random
 from bst import TreeNode, BST
 
 
 
 
-#To keep consistency
-# seed(0)
-
 class TreapNode(TreeNode):
     def __init__(self, key):
         super().__init__(key)
-        self.priority = randint(0, 1000)
+        self.priority = random.randint(0, 1000)
 
 
     def get_priority(self):
@@ -35,9 +32,10 @@ class TreapNode(TreeNode):
 
 
 
-
 class Treap(BST):
-    def __init__(self, key):
+    def __init__(self, key, seed=None):
+        # to keep consistency
+        if seed is not None: random.seed(seed)
         if isinstance(key, TreapNode):
             self.root = key
         else:
@@ -79,7 +77,7 @@ class Treap(BST):
         # using rotations when necessary
         parent = new_node.get_parent()
         while(parent is not None):
-            grandparent = parent.get_parent() if parent else None
+            grandparent = parent.get_parent()
             if parent.get_priority() > new_node.get_priority():
                 break
             else:
@@ -130,15 +128,16 @@ class Treap(BST):
 
 
 
+
 if __name__ == "__main__":
-    t = Treap(50)
+    t = Treap(50, seed=0)
     t.insert(30)
     t.insert(70)
     t.insert(20)
     t.insert(40)
     t.insert(80)
     t.insert(0)
-    print(t)
+    print(t, '\n')
     t.remove(30)
     print(t)
 
