@@ -39,7 +39,7 @@ class Tree:
             for is_parent_last_child in seq[1:]:
                 line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
-            line.append('┬ ') if start_node.get_children() else line.append('─ ')
+            line.append('┬ ')if start_node.get_children() else line.append('─ ')
         line.append(start_node.represent_data())
         lines.append("".join(line))
         # append node status
