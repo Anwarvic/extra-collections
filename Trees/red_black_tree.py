@@ -29,8 +29,8 @@ We can say that:
 - A is parent of Z
 - C is uncle of Z (important)
 """
-from abc import abstractmethod
 from enum import Enum
+from abc import abstractmethod
 from bst import TreeNode, BST
 
 
@@ -53,7 +53,7 @@ class TreeNode(TreeNode):
         assert color in {Color.RED, Color.BLACK}, "Invalid color!!"
         self.color = color
 
-    def represent_data(self):
+    def stringify(self):
         if self.color == Color.RED:
             return str(self.data)+'|R'
         elif self.color == Color.BLACK:
