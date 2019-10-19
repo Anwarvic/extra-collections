@@ -15,6 +15,10 @@ class SuffixTrie:
 
     def __repr__(self):
         return str(self.rt)
+
+
+    def __len__(self):
+        return len(self.rt)
     
     ############################## PATTERN ##############################        
     def hasSuffix(self, s):
@@ -32,3 +36,4 @@ if __name__ == "__main__":
 
     st = SuffixTrie("minimize")
     print(st)
+    print("Total Nodes:", len(st))
