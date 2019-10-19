@@ -15,7 +15,7 @@ class TreeNode:
     def __repr__(self):
         return "TreeNode({})".format(self.data)
     
-    def represent_data(self):
+    def stringify(self):
         return self.data
 
 
@@ -40,7 +40,7 @@ class Tree:
                 line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
             line.append('┬ ')if start_node.get_children() else line.append('─ ')
-        line.append(start_node.represent_data())
+        line.append(start_node.stringify())
         lines.append("".join(line))
         # append node status
         my_seq = seq.copy()
@@ -59,7 +59,7 @@ class Tree:
         if self.root.get_children():
             return "\n".join(self.__print_subtree(self.root, [], False))
         else:
-            return self.root.represent_data()
+            return self.root.stringify()
 
 
 
