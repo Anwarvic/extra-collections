@@ -8,6 +8,8 @@ import random
 from bst import TreeNode, BST
 
 
+superscript_map = {"0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵",
+                   "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹"}
 
 
 class TreapNode(TreeNode):
@@ -27,7 +29,8 @@ class TreapNode(TreeNode):
 
 
     def represent_data(self):
-        return "{}|{}".format(self.data, self.priority)
+        priority = "".join([superscript_map[ch] for ch in str(self.priority)])
+        return "{}|⁽{}⁾".format(self.data, priority)
 
 
 
