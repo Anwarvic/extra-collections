@@ -3,13 +3,16 @@ Treap is a data structure which is a hyprid of (Tree + Heap) where every node
 of it maintains two values.
     - Key: Follows standard BST ordering (left is smaller and right is greater)
     - Priority: Randomly assigned value that follows Max-Heap property.
+
+A treap node is represented like the following 0|⁽²⁶⁵⁾ where 0 is the key and 
+205 is the priority. The higher the number is, the more priority it has.
 """
 import random
 from bst import TreeNode, BST
 
 
-superscript_map = {"0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵",
-                   "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹"}
+superscript_map = {"0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
+                   "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹"}
 
 
 class TreapNode(TreeNode):
@@ -28,7 +31,7 @@ class TreapNode(TreeNode):
         self.priority = new_priority
 
 
-    def represent_data(self):
+    def stringify(self):
         priority = "".join([superscript_map[ch] for ch in str(self.priority)])
         return "{}|⁽{}⁾".format(self.data, priority)
 
