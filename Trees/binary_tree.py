@@ -4,8 +4,7 @@ class TreeNode:
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
         self.data = value
-        self.left = None
-        self.right = None
+        self.left = self.right = None
 
     def get_data(self):
         return self.data
@@ -118,15 +117,10 @@ class BinaryTree:
 
     ######################### HEIGHT/DEPTH #########################
     def _get_depth(self, start_node):
-        depth = 0
-        if start_node != None:
-            left_depth, right_depth = 0, 0
-            if start_node.get_left():
-                left_depth = 1 + self._get_depth(start_node.get_left())
-            if start_node.get_right():
-                right_depth = 1 + self._get_depth(start_node.get_right())
-            depth += max(left_depth, right_depth)
-        return depth
+        if start_node is None:
+            return -1
+        return max( 1 + self._get_depth(start_node.left), #left depth
+                    1 + self._get_depth(start_node.right)) # right depth
 
     def get_height(self):
         return self._get_depth(self.root)
@@ -362,6 +356,7 @@ if __name__ == "__main__":
     #################################
     print("Tree Nodes:", len(btree))
     print("Tree Height:", btree.get_height())
+    print("Left-tree Node:", btree.root.left)
     print("Left-node Depth:", btree._get_depth(btree.root.left))
     print("Nodes per level:", btree.get_nodes())
     print("Iterate over given tree:")
