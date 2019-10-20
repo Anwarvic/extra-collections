@@ -133,9 +133,9 @@ class BinaryTree:
         two leaf nodes is less than or equal one.
         """
         left_depth = 0 if self.root.get_left() is None \
-                        else self._get_depth(self.root.get_left()) 
+                        else 1 + self._get_depth(self.root.get_left()) 
         right_depth = 0 if self.root.get_right() is None \
-                        else self._get_depth(self.root.get_right()) 
+                        else 1 + self._get_depth(self.root.get_right()) 
         return abs(left_depth - right_depth) <= 1
 
 
