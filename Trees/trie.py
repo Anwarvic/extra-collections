@@ -81,7 +81,7 @@ class Trie(Tree):
         return remaining_word == "" and last_node.is_word
 
 
-    def has_substring(self, substr):
+    def has_prefix(self, substr):
         assert type(substr) == str, \
         "Can't find {} since tries have only characters!!".format(type(substr))
         assert len(substr) > 0, "You can't search for any empty String!!"
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     t.insert('tried')
     t.insert('tries')
     t.insert('try')
-    print(t.has_substring('ca')) #True
+    print(t.has_prefix('ca')) #True
     print("Total Nodes:", len(t)) #16
     print(t)
 
