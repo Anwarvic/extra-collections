@@ -68,45 +68,30 @@ class Tree:
 
 
 if __name__ == "__main__":
-    # create simple tree
-    a = TreeNode('A')
-    b = TreeNode('B')
-    c = TreeNode('C')
-    d = TreeNode('D')
-    e = TreeNode('E')
-    f = TreeNode('F')
-    g = TreeNode('G')
-    h = TreeNode('H')
-    i = TreeNode('I')
-    j = TreeNode('J')
-    z = TreeNode('Z')
-    x = TreeNode('X')
-    y = TreeNode('Y')
-    a.children = [b, c, d]
-    d.children = [g]
-    g.children = [z]
-    t = Tree(a)
-    print(t)
+    # create Simpsons tree
+    root = TreeNode('TheSimpsons')
+    # homer-side
+    abraham = TreeNode('Abraham + Mona')
+    herb = TreeNode('Herb')
+    homer = TreeNode('Homer')
+    abraham.children = [herb, homer]
+    
+    # marge-side
+    jackie = TreeNode('Clancy + Jackie')
+    marge = TreeNode('Marge')
+    patty = TreeNode('Patty')
+    selma = TreeNode('Selma')
+    ling = TreeNode('Ling')
+    selma.children = [ling]
+    jackie.children = [marge, patty, selma]
 
-    # create simple tree
-    a = TreeNode('A')
-    b = TreeNode('B')
-    c = TreeNode('C')
-    d = TreeNode('D')
-    e = TreeNode('E')
-    f = TreeNode('F')
-    g = TreeNode('G')
-    h = TreeNode('H')
-    i = TreeNode('I')
-    j = TreeNode('J')
-    h.children = [i, j]
-    b.children = [e, h, f]
-    d.children = [g]
-    a.children = [b, c ,d]
-
-    z = TreeNode('Z')
-    z.children = [TreeNode('X'), TreeNode('Y')]
-    c.children = [z]
-    g.children = [z]
-    t = Tree(a)
+    # homer-marge children
+    bart = TreeNode('Bart')
+    lisa = TreeNode('Lisa')
+    maggie = TreeNode('Maggie')
+    homer.children = [bart, lisa, maggie]
+    marge.children = homer.children
+    # set root
+    root.children = [abraham, jackie]
+    t = Tree(root)
     print(t)
