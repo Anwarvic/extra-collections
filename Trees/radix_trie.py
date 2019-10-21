@@ -52,10 +52,10 @@ class RadixTrie(Trie):
         assert type(prefix) == str, "A character-sequence is expected!!"
         candidates = []
         last_node, remaining = super()._follow_path(prefix)
-        # update values
+        # update prefix
         curr_node = last_node
         prefix = prefix[:-len(remaining)] if remaining else prefix
-        while(remaining):
+        if remaining:
             ch = remaining[0]
             child = curr_node.get_child(ch)
             child_data = child.get_data() if child else ''
@@ -141,10 +141,10 @@ if __name__ == "__main__":
     print(rt)
     print("Total Nodes:", len(rt)) #10
     print('slow' in rt) #False
-    print(rt.has_substring("slo")) #True
-    print(rt.has_substring("s")) #True
-    print(rt.has_substring("sloww")) #False
-    print(rt.has_substring("slow")) #True
+    print(rt.has_prefix("slo")) #True
+    print(rt.has_prefix("s")) #True
+    print(rt.has_prefix("sloww")) #False
+    print(rt.has_prefix("slow")) #True
     print('='*50)
     
     # # sanity checks
