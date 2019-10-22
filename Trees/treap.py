@@ -31,7 +31,7 @@ class TreapNode(TreeNode):
         self.priority = new_priority
 
 
-    def stringify(self):
+    def __str__(self):
         priority = "".join([superscript_map[ch] for ch in str(self.priority)])
         return "{}|⁽{}⁾".format(self.data, priority)
 
