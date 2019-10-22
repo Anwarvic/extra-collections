@@ -24,7 +24,7 @@ class TreeNode:
     def __repr__(self):
         return "TreeNode({})".format(self.data)
 
-    def stringify(self):
+    def __str__(self):
         return str(self.data)
         
     def is_leaf(self):
@@ -61,7 +61,7 @@ class BinaryTree:
         else:
             line1 = []
             line2 = []
-            node_repr = root.stringify()
+            node_repr = str(root)
             new_root_width = gap_size = len(node_repr)
 
             # Get the left and right sub-boxes, their widths, and root repr positions
