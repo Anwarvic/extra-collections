@@ -53,7 +53,7 @@ class TreeNode(TreeNode):
         assert color in {Color.RED, Color.BLACK}, "Invalid color!!"
         self.color = color
 
-    def stringify(self):
+    def __str__(self):
         if self.color == Color.RED:
             return str(self.data)+'|R'
         elif self.color == Color.BLACK:
