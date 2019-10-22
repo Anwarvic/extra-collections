@@ -34,7 +34,7 @@ class TrieNode(TreeNode):
     def __repr__(self):
         return "TrieNode({})".format(self.data)
 
-    def stringify(self):
+    def __str__(self):
         if self.is_word:
             return self.data + ' ✓'
         else:
