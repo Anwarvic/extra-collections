@@ -21,6 +21,9 @@ class SuffixTrie:
     def __len__(self):
         return len(self.rt)
 
+    def has_suffix(self, suffix):
+        return self.rt.has_prefix(suffix)
+
 
 
 
@@ -30,6 +33,7 @@ if __name__ == "__main__":
     # print(st.find('nan'))
 
     st = SuffixTrie("minimize")
-    st = SuffixTrie("ATCGATCGA")
+    # st = SuffixTrie("ATCGATCGA")
     print(st)
     print("Total Nodes:", len(st))
+    print(st.has_suffix('ize'))    
