@@ -32,7 +32,7 @@ class TrieNode(TreeNode):
         return self.children == {}
 
     def __repr__(self):
-        return "TrieNode({})".format(self.data)
+        return f"TrieNode({self.data})"
 
     def __str__(self):
         if self.is_word:
