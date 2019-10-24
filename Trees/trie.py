@@ -81,11 +81,11 @@ class Trie(Tree):
         return remaining_word == "" and last_node.is_word
 
 
-    def has_prefix(self, substr):
-        assert type(substr) == str, \
-        "Can't find {} since tries have only characters!!".format(type(substr))
-        assert len(substr) > 0, "You can't search for any empty String!!"
-        last_node, remaining = self._follow_path(substr)
+    def has_prefix(self, prefix):
+        assert type(prefix) == str, \
+        "Can't find {} since tries have only characters!!".format(type(prefix))
+        assert len(prefix) > 0, "You can't search for any empty String!!"
+        last_node, remaining = self._follow_path(prefix)
         if remaining:
             child = last_node.get_child(remaining[0])
             child_data = child.get_data() if child else ''
