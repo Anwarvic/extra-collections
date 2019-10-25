@@ -1,8 +1,9 @@
 
 
 class TreeNode:
-    def __init__(self, value=None):
-        assert value != None, "You can't use None as a value!!"
+    def __init__(self, value):
+        assert value != '',   "TreeNode's value can't be empty string!!"
+        assert value != None, "TreeNode's value can't be None!!"
         self.data = value
         self.children = []
 
