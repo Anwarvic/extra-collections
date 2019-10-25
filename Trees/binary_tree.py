@@ -1,19 +1,26 @@
 from abc import abstractmethod
+from tree import TreeNode
 
-class TreeNode:
+
+
+
+class TreeNode(TreeNode):
     def __init__(self, value):
         assert value != None, "You can't use None as a value!!"
         self.data = value
         self.left = self.right = None
-
-    def get_data(self):
-        return self.data
 
     def get_left(self):
         return self.left
 
     def get_right(self):
         return self.right
+
+    def get_children(self):
+        children = []
+        if self.left != None: children.append(self.left)
+        if self.right != None: children.append(self.right)
+        return children
 
     def set_left(self, new_node):
         self.left = new_node
