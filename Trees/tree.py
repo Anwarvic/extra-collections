@@ -29,6 +29,18 @@ class Tree:
             self.root = TreeNode(value)
 
 
+    ############################ LENGTH ############################
+    def __get_length(self, curr_node):
+        length = 1
+        for child in curr_node.get_children():
+            length += self.__get_length(child)
+        return length
+
+
+    def __len__(self):
+        return self.__get_length(self.root)
+
+
     ############################ PRINT ############################
     def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
         """
@@ -66,7 +78,6 @@ class Tree:
 
 
 
-
 if __name__ == "__main__":
     # create Simpsons tree
     root = TreeNode('TheSimpsons')
@@ -95,3 +106,4 @@ if __name__ == "__main__":
     root.children = [abraham, jackie]
     t = Tree(root)
     print(t)
+    print(len(t))
