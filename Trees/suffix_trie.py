@@ -3,7 +3,6 @@ Suffix trees store information about a single string and exports a huge amount
 of structural information about that string.
 """
 from radix_trie import RadixTrie
-from trie import Trie
 
 
 
@@ -16,6 +15,11 @@ class SuffixTrie:
         self.rt = RadixTrie()
         for idx in range(len(word)):
             self.rt.insert(word[idx:])
+
+
+    def from_iterable(self, iterable):
+        #TODO:
+        pass
 
 
     def __repr__(self):
@@ -57,7 +61,6 @@ class SuffixTrie:
         pass
 
 
-    def 
 
 
 
