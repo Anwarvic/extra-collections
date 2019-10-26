@@ -14,7 +14,7 @@ class TreeNode:
         return self.children
 
     def __repr__(self):
-        return "TreeNode({})".format(self.data)
+        return f"TreeNode({self.data})"
     
     def __str__(self):
         return str(self.data)
