@@ -17,7 +17,7 @@ class TreeNode:
         return "TreeNode({})".format(self.data)
     
     def __str__(self):
-        return self.data
+        return str(self.data)
 
 
 
