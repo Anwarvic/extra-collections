@@ -23,7 +23,7 @@ class TreeNode:
 
 
 class Tree:
-    def __init__(self, value=None):
+    def __init__(self, value):
         if isinstance(value, TreeNode):
             self.root = value
         else:
