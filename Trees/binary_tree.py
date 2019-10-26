@@ -27,12 +27,6 @@ class TreeNode(TreeNode):
 
     def set_right(self, new_node):
         self.right = new_node
-
-    def __repr__(self):
-        return "TreeNode({})".format(self.data)
-
-    def __str__(self):
-        return str(self.data)
         
     def is_leaf(self):
         return self.left == self.right == None
