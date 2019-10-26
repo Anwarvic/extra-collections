@@ -6,7 +6,8 @@ from tree import TreeNode
 
 class TreeNode(TreeNode):
     def __init__(self, value):
-        assert value != None, "You can't use None as a value!!"
+        assert value != None, "TreeNode's value can't be None!!"
+        assert value != '',   "TreeNode's value can't be empty string!!"
         self.data = value
         self.left = self.right = None
 
