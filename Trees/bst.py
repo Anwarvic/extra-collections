@@ -56,6 +56,7 @@ class TreeNode(TreeNode):
 
 
 
+
 class BST(BinaryTree):
     def __init__(self, value):
         if isinstance(value, TreeNode):
