@@ -7,15 +7,19 @@ class TreeNode:
         self.data = value
         self.children = []
 
+
     def get_data(self):
         return self.data
+
 
     def get_children(self):
         return self.children
 
+
     def __repr__(self):
         return f"TreeNode({self.data})"
     
+
     def __str__(self):
         return str(self.data)
 
