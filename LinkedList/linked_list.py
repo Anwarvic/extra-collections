@@ -1,8 +1,11 @@
-class Node():
+
+
+class Node:
     """Basic object for the Node used for linked lists"""
     def __init__(self, item=None):
         self.data = item
         self.next = None
+
 
     def __repr__(self):
         """Represents Node object as a string"""
@@ -12,11 +15,11 @@ class Node():
     
 
 
-class LinkedList():
+class LinkedList:
     """Basic object for the linked list"""
     def __init__(self, item=None):
         self.head = Node(item)
-        self.length = 1 if item else 0
+        self.length = 1 if item != None else 0
 
 
     def __repr__(self):
@@ -84,9 +87,6 @@ class LinkedList():
             if counter == idx:
                 return pointer
 
-
-    def __setitem__(self, idx):
-        pass
 
 
     def is_empty(self):
@@ -158,6 +158,10 @@ class LinkedList():
             new_node.next = pointer.next
             pointer.next = new_node
             self.length += 1
+
+
+    def __setitem__(self, idx, item):
+        self.insert(idx, item)
 
 
     def remove(self, idx):
@@ -240,6 +244,7 @@ if __name__ == "__main__":
     print(l)
     print("LENGTH:", len(l))
 
+
     l.remove(-9)     #6 10 1 2 3 4 999 20
     l.remove(-2)     #6 10 1 2 3 4 20
     l.remove_front() #10 1 2 3 4 20
@@ -258,4 +263,6 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
+
+
 
