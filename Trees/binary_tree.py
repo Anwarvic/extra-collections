@@ -11,11 +11,14 @@ class TreeNode(TreeNode):
         self.data = value
         self.left = self.right = None
 
+
     def get_left(self):
         return self.left
 
+
     def get_right(self):
         return self.right
+
 
     def get_children(self):
         children = []
@@ -23,18 +26,23 @@ class TreeNode(TreeNode):
         if self.right != None: children.append(self.right)
         return children
 
+
     def set_left(self, new_node):
         self.left = new_node
+
 
     def set_right(self, new_node):
         self.right = new_node
         
+
     def is_leaf(self):
         return self.left == self.right == None
+
 
     def has_one_child(self):
         return not self.is_leaf() \
                 and (self.left is None or self.right is None)
+
 
     @abstractmethod
     def swap(node1, node2):
