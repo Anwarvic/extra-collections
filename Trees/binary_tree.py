@@ -338,10 +338,10 @@ class BinaryTree:
 
 if __name__ == "__main__":
     # create tree using TreeNode
-    root = TreeNode(10)
-    root.left = TreeNode(5)
-    root.left.left = TreeNode(1)
-    root.right = TreeNode(20)
+    root = TreeNode("GrandFather")
+    root.left = TreeNode("Father")
+    root.left.left = TreeNode("Me")
+    root.right = TreeNode("Uncle")
     btree = BinaryTree(root)
     print(btree)
     print('='*50)
