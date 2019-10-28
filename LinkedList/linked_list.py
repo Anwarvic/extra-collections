@@ -166,36 +166,37 @@ class LinkedList:
 
     def remove(self, idx):
         """Removes a node at index=idx from the linked list"""
-        idx = self.__fix_index(idx)
+        idx = self.__validate_index(idx)
         # handle edge case
         if idx == 0:
             self.remove_front()
         # handle general case
         else:
             counter = 0
-            pointer = self.head
+            curr_node = self.head
             while(counter != idx-1):  
-                pointer = pointer.next
+                curr_node = curr_node.get_next()
                 counter += 1
             # pointer is now at (idx-1)
-            pointer.next = pointer.next.next
+            curr_node.set_next(curr_node.get_next().get_next())
             self.length -= 1
 
 
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
-        self.head = Node()
-        self.length = 0
+        if not self.is_empty():
+            self.head = Node()
+            self.length = 0
 
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = LinkedList()
-        pointer = self.head
-        while(pointer.next != None):
-            rev.add_front(pointer.data)
-            pointer = pointer.next
-        rev.add_front(pointer.data)
+        curr_node = self.head
+        while(curr_node.next != None):
+            rev.add_front(curr_node.get_data())
+            curr_node = curr_node.get_next()
+        rev.add_front(pointer.get_data())
         return rev
 
 
