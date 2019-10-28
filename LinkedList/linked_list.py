@@ -88,7 +88,6 @@ class LinkedList:
                 return pointer
 
 
-
     def is_empty(self):
         """Checks if linked list is empty"""
         return self.length == 0
