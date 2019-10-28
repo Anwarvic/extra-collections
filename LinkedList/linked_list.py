@@ -23,7 +23,7 @@ class Node:
     
 
     def set_next(self, next_item):
-        if not isinstance(next_item, Node):
+        if not isinstance(next_item, Node) or next_item != None:
             raise TypeError("Linked List elemnts have to be Node()")
         self.next = next_item
     
