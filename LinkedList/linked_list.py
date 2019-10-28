@@ -114,8 +114,8 @@ class LinkedList:
             curr_node = self.head
             while(curr_node.get_next() != None):
                 curr_node = curr_node.get_next()
-            # now pointer is the last node
-            pointer.next = Node(item)
+            # now curr_node is the last node
+            pointer.set_next(Node(item))
         self.length += 1
 
 
