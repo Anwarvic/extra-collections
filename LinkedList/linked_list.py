@@ -49,32 +49,21 @@ class LinkedList:
         return self.length
 
 
-    def __fix_index(self, idx):
-        """
-        private method to make a sanity-check over the given index and fix it
-        if it was -ve. It should return the index if it's valid. If the index is
-        negative, then it converts it to positive index if possible.
-        If the index has any error of any kind, it raises an appropriate error.
-        """
+    def __validate_index(self, idx):
         if type(idx) != int:
             msg = "idx must be an integer!"
             raise TypeError(msg)
-        # handle negative index
-        if idx <=-1 and abs(idx) <= self.length:
-            idx += self.length
-        # handle positive/negative indices
-        elif abs(idx) >= self.length:
+        elif idx < -self.length or idx >= self.length:
             msg = "max index for this linked list is " + str(self.length-1)
             raise IndexError(msg)
-        else:
-            pass #direct
-        return idx
-            
+          
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
-        idx = self.__fix_index(idx)
+        self.__validate_index(idx)
+        # convert idx to positive if -ve
+        if idx <= -1: idx += self.length
         # handle edge case
         if idx == 0:
             return self.head
@@ -179,36 +168,6 @@ class LinkedList:
             # pointer is now at (idx-1)
             pointer.next = pointer.next.next
             self.length -= 1
-
-
-    def insert_multiple(self, idx, lst):
-        """Inserts multiple items into the linked list at once"""
-        if idx <= -1 and abs(idx) <= self.length+1:
-            idx += self.length+1
-        else:
-            idx = self.__fix_index(idx)
-        # handle edge case
-        if idx == 0:
-            # NOTE: iterate over given list in reverse-order as add_front() is
-            # faster than add_end()
-            for i in range(len(lst)-1, -1, -1):
-                self.add_front(lst[i])
-        # handle general case
-        else:
-            counter = 0
-            pointer = self.head
-            while(counter != idx-1):  
-                pointer = pointer.next
-                counter += 1
-            # pointer is now at (idx-1)
-            # iterate over given list in reverse-order
-            for item in lst:
-                new_node = Node(item)
-                new_node.next = pointer.next
-                pointer.next = new_node
-                # update pointer
-                pointer = pointer.next
-                self.length += 1
 
 
     def clear(self):
