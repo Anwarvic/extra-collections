@@ -99,21 +99,21 @@ class LinkedList:
         if self.is_empty():
             self.head = Node(item)
         else:
-            new_node = Node(self.head.data)
-            new_node.set_next(self.head.next)
+            new_node = Node(self.head.get_data())
+            new_node.set_next(self.head.get_next())
             self.head = Node(item)
-            self.head.next = new_node
+            self.head.set_next(new_node)
         self.length += 1
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        if self.length == 0:
+        if self.is_empty():
             self.head = Node(item)
         else:
-            pointer = self.head
-            while(pointer.next != None):
-                pointer = pointer.next
+            curr_node = self.head
+            while(curr_node.get_next() != None):
+                curr_node = curr_node.get_next()
             # now pointer is the last node
             pointer.next = Node(item)
         self.length += 1
