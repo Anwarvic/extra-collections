@@ -12,7 +12,14 @@ class Node:
         data = self.data
         nxt = self.next.data if self.next else None
         return "Node: (item: {}, next: {})".format(data, nxt)
+
+
+    def set_next(self, next_item):
+        if not isinstance(next_item, Node):
+            raise TypeError("Linked List elemnts have to be Node()")
+        self.next = next_item
     
+
 
 
 class LinkedList:
@@ -197,7 +204,6 @@ if __name__ == "__main__":
     print(l)
     l.insert(1, 10)  #6 10 20
     l.insert(-2, 999)#6 10 999 20
-    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
     l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
     print(l)
     print("LENGTH:", len(l))
