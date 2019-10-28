@@ -14,6 +14,14 @@ class Node:
         return "Node: (item: {}, next: {})".format(data, nxt)
 
 
+    def get_data(self):
+        return self.data
+    
+
+    def get_next(self):
+        return self.next
+    
+
     def set_next(self, next_item):
         if not isinstance(next_item, Node):
             raise TypeError("Linked List elemnts have to be Node()")
@@ -70,18 +78,19 @@ class LinkedList:
         # sanity check over given index
         self.__validate_index(idx)
         # convert idx to positive if -ve
-        if idx <= -1: idx += self.length
+        if idx <= -1:
+            idx += self.length
         # handle edge case
         if idx == 0:
             return self.head
         # iterate over the linked list
         counter = 0
-        pointer = self.head
-        while(pointer.next != None):
+        curr_node = self.head
+        while(curr_node.next != None):
             counter += 1
-            pointer = pointer.next
-            if counter == idx:
-                return pointer
+            curr_node = curr_node.next
+            if curr_node == idx:
+                return curr_node
 
 
     def is_empty(self):
@@ -91,11 +100,11 @@ class LinkedList:
 
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        if self.length == 0:
+        if self.is_empty():
             self.head = Node(item)
         else:
             new_node = Node(self.head.data)
-            new_node.next = self.head.next
+            new_node.set_next(self.head.next)
             self.head = Node(item)
             self.head.next = new_node
         self.length += 1
