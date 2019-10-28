@@ -122,18 +122,18 @@ class LinkedList:
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
         if self.length > 0:
-            self.head = self.head.next
+            self.head = self.head.get_next()
             self.length -= 1
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
         if self.length > 0:
-            pointer = self.head
-            while(pointer.next.next != None):
-                pointer = pointer.next
+            curr_node = self.head
+            while(curr_node.next.next != None):
+                curr_node = curr_node.get_next()
             # now the pointer is the second last node
-            pointer.next = None
+            pointer.set_next(None)
             self.length -= 1
 
 
