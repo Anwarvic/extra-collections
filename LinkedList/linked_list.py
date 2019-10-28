@@ -80,17 +80,13 @@ class LinkedList:
         # convert idx to positive if -ve
         if idx <= -1:
             idx += self.length
-        # handle edge case
-        if idx == 0:
-            return self.head
         # iterate over the linked list
         counter = 0
         curr_node = self.head
-        while(curr_node.next != None):
+        while(counter != idx):
             counter += 1
             curr_node = curr_node.next
-            if curr_node == idx:
-                return curr_node
+        return curr_node
 
 
     def is_empty(self):
