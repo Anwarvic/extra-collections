@@ -93,6 +93,33 @@ class LinkedList:
             return curr_node
 
 
+    def __setitem__(self, idx, item):
+        self.insert(idx, item)
+
+
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the linked list"""
+        if type(idx) != int:
+            msg = "idx must be an integer!"
+            raise TypeError(msg)
+        elif idx <= -1:
+            msg = "Linked List doesn't support -ve indexing with removal!!"
+            raise IndexError(msg)
+        # handle edge case
+        if idx == 0:
+            self.remove_front()
+        # handle general case
+        else:
+            counter = 0
+            curr_node = self.head
+            while(counter != idx-1):  
+                curr_node = curr_node.get_next()
+                counter += 1
+            # curr_node is now at (idx-1)
+            curr_node.set_next(curr_node.get_next().get_next())
+            self.length -= 1
+
+
     def is_empty(self):
         """Checks if linked list is empty"""
         return self.length == 0
@@ -123,24 +150,6 @@ class LinkedList:
         self.length += 1
 
 
-    def remove_front(self):
-        """Removes the linked list head with complexity of O(1)"""
-        if self.length > 0:
-            self.head = self.head.get_next()
-            self.length -= 1
-
-
-    def remove_end(self):
-        """Removes the linked list tail with complexity of O(n)"""
-        if self.length > 0:
-            curr_node = self.head
-            while(curr_node.get_next().get_next() != None):
-                curr_node = curr_node.get_next()
-            # now the curr_node is the second last node
-            curr_node.set_next(None)
-            self.length -= 1
-
-
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         if type(idx) != int:
@@ -164,30 +173,21 @@ class LinkedList:
             self.length += 1
 
 
-    def __setitem__(self, idx, item):
-        self.insert(idx, item)
+    def remove_front(self):
+        """Removes the linked list head with complexity of O(1)"""
+        if self.length > 0:
+            self.head = self.head.get_next()
+            self.length -= 1
 
 
-    def __delitem__(self, idx):
-        """Removes a node at index=idx from the linked list"""
-        if type(idx) != int:
-            msg = "idx must be an integer!"
-            raise TypeError(msg)
-        elif idx <= -1:
-            msg = "Linked List doesn't support -ve indexing with removal!!"
-            raise IndexError(msg)
-        # handle edge case
-        if idx == 0:
-            self.remove_front()
-        # handle general case
-        else:
-            counter = 0
+    def remove_end(self):
+        """Removes the linked list tail with complexity of O(n)"""
+        if self.length > 0:
             curr_node = self.head
-            while(counter != idx-1):  
+            while(curr_node.get_next().get_next() != None):
                 curr_node = curr_node.get_next()
-                counter += 1
-            # curr_node is now at (idx-1)
-            curr_node.set_next(curr_node.get_next().get_next())
+            # now the curr_node is the second last node
+            curr_node.set_next(None)
             self.length -= 1
 
 
