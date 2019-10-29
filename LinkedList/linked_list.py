@@ -62,30 +62,32 @@ class LinkedList:
     def __len__(self):
         """Gets the length of the linked list with complexity of O(1)"""
         return self.length
+    
 
+    def __iter__(self):
+        #TODO
+        pass
 
-    def __validate_index(self, idx):
+    def __getitem__(self, idx):
+        """Retrieves the element at the given index. It allows -ve indexing"""
+        # sanity check over given index
         if type(idx) != int:
             msg = "idx must be an integer!"
             raise TypeError(msg)
         elif idx < -self.length or idx >= self.length:
             msg = "max index for this linked list is " + str(self.length-1)
             raise IndexError(msg)
-          
-
-    def __getitem__(self, idx):
-        """Retrieves the element at the given index. It allows -ve indexing"""
-        # sanity check over given index
-        self.__validate_index(idx)
-        # convert idx to positive if -ve
-        if idx <= -1: idx += self.length
-        # iterate over the linked list
-        counter = 0
-        curr_node = self.head
-        while(counter != idx):
-            counter += 1
-            curr_node = curr_node.get_next()
-        return curr_node
+        else:
+            # convert idx to positive if -ve
+            if idx <= -1:
+                idx += self.length
+            # iterate over the linked list
+            counter = 0
+            curr_node = self.head
+            while(counter != idx):
+                counter += 1
+                curr_node = curr_node.get_next()
+            return curr_node
 
 
     def is_empty(self):
@@ -163,9 +165,14 @@ class LinkedList:
         self.insert(idx, item)
 
 
-    def remove(self, idx):
+    def remove_at(self, idx):
         """Removes a node at index=idx from the linked list"""
-        self.__validate_index(idx)
+        if type(idx) != int:
+            msg = "idx must be an integer!"
+            raise TypeError(msg)
+        elif idx <= -1:
+            msg = "Linked List doesn't support -ve indexing with removal!!"
+            raise IndexError(msg)
         # handle edge case
         if idx == 0:
             self.remove_front()
@@ -179,6 +186,11 @@ class LinkedList:
             # curr_node is now at (idx-1)
             curr_node.set_next(curr_node.get_next().get_next())
             self.length -= 1
+
+
+    def remove(self, value, all=True):
+        #removes all occurrences (when all==True) of `value` if found.
+        pass
 
 
     def clear(self):
