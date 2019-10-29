@@ -65,8 +65,11 @@ class LinkedList:
     
 
     def __iter__(self):
-        #TODO
-        pass
+        curr_node = self.head
+        while(curr_node != None):
+            yield curr_node
+            curr_node = curr_node.get_next()
+
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
