@@ -165,7 +165,7 @@ class LinkedList:
         self.insert(idx, item)
 
 
-    def remove_at(self, idx):
+    def __delitem__(self, idx):
         """Removes a node at index=idx from the linked list"""
         if type(idx) != int:
             msg = "idx must be an integer!"
@@ -222,6 +222,8 @@ if __name__ == "__main__":
     l.insert(2, 77)   #6 10 77 20
     l.insert(4, 43)   #6 10 77 20 43
     l.insert(0, 2)    #2 6 10 77 20 43
+    print(l)
+    del l[1]
     print(l)
     print("LENGTH:", len(l))
 
