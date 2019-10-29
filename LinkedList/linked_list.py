@@ -23,8 +23,8 @@ class Node:
     
 
     def set_next(self, next_item):
-        if not isinstance(next_item, Node) or next_item != None:
-            raise TypeError("Linked List elemnts have to be Node()")
+        if not isinstance(next_item, Node) and next_item != None:
+            raise TypeError("Linked List elements have to be of type `Node`")
         self.next = next_item
     
 
@@ -43,15 +43,15 @@ class LinkedList:
         top_border = ['┌']
         middle = ['│']
         down_border = ['└']
-        pointer = self.head
-        while(pointer != None):
-            item = pointer.data
+        curr_node = self.head
+        while(curr_node != None):
+            item = curr_node.get_data()
             if item:
                 width = len(str(item))+2 #2: for a space before & after an item
                 top_border += (['─']*width) + ['┬']
                 middle += [" {} →".format(item)]
                 down_border += (['─']*width) + ['┴']
-            pointer = pointer.next
+            curr_node = curr_node.get_next()
         top_border += ['─']
         middle += [' ']
         down_border += ['─']
@@ -78,14 +78,13 @@ class LinkedList:
         # sanity check over given index
         self.__validate_index(idx)
         # convert idx to positive if -ve
-        if idx <= -1:
-            idx += self.length
+        if idx <= -1: idx += self.length
         # iterate over the linked list
         counter = 0
         curr_node = self.head
         while(counter != idx):
             counter += 1
-            curr_node = curr_node.next
+            curr_node = curr_node.get_next()
         return curr_node
 
 
@@ -115,7 +114,7 @@ class LinkedList:
             while(curr_node.get_next() != None):
                 curr_node = curr_node.get_next()
             # now curr_node is the last node
-            pointer.set_next(Node(item))
+            curr_node.set_next(Node(item))
         self.length += 1
 
 
@@ -130,33 +129,33 @@ class LinkedList:
         """Removes the linked list tail with complexity of O(n)"""
         if self.length > 0:
             curr_node = self.head
-            while(curr_node.next.next != None):
+            while(curr_node.get_next().get_next() != None):
                 curr_node = curr_node.get_next()
-            # now the pointer is the second last node
-            pointer.set_next(None)
+            # now the curr_node is the second last node
+            curr_node.set_next(None)
             self.length -= 1
 
 
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
-        if idx <= -1 and abs(idx) <= self.length+1:
-            idx += self.length+1
-        else:
-            idx = self.__fix_index(idx)
-        # handle edge case
-        if idx == 0:
+        if type(idx) != int:
+            msg = "idx must be an integer!"
+            raise TypeError(msg)
+        elif idx <= -1:
+            msg = "Linked List doesn't support -ve indexing with insertion!!"
+            raise IndexError(msg)
+        elif idx == 0:
             self.add_front(item)
-        # handle general case
         else:
             counter = 0
-            pointer = self.head
+            curr_node = self.head
             while(counter != idx-1):  
-                pointer = pointer.next
+                curr_node = curr_node.get_next()
                 counter += 1
-            # pointer is now at (idx-1)
+            # curr_node is now at (idx-1)
             new_node = Node(item)
-            new_node.next = pointer.next
-            pointer.next = new_node
+            new_node.set_next(curr_node.get_next())
+            curr_node.set_next(new_node)
             self.length += 1
 
 
@@ -166,7 +165,7 @@ class LinkedList:
 
     def remove(self, idx):
         """Removes a node at index=idx from the linked list"""
-        idx = self.__validate_index(idx)
+        self.__validate_index(idx)
         # handle edge case
         if idx == 0:
             self.remove_front()
@@ -177,7 +176,7 @@ class LinkedList:
             while(counter != idx-1):  
                 curr_node = curr_node.get_next()
                 counter += 1
-            # pointer is now at (idx-1)
+            # curr_node is now at (idx-1)
             curr_node.set_next(curr_node.get_next().get_next())
             self.length -= 1
 
@@ -193,10 +192,10 @@ class LinkedList:
         """Reverses the whole linked list with complexity of O(n)"""
         rev = LinkedList()
         curr_node = self.head
-        while(curr_node.next != None):
+        while(curr_node.get_next() != None):
             rev.add_front(curr_node.get_data())
             curr_node = curr_node.get_next()
-        rev.add_front(pointer.get_data())
+        rev.add_front(curr_node.get_data())
         return rev
 
 
@@ -204,13 +203,13 @@ class LinkedList:
 
 if __name__ == "__main__":
     l = LinkedList()
-    print(l)
     l.add_front(6)   #6
     l.add_end(20)    #6 20
     print(l)
-    l.insert(1, 10)  #6 10 20
-    l.insert(-2, 999)#6 10 999 20
-    l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
+    l.insert(1, 10)   #6 10 20
+    l.insert(2, 77)   #6 10 77 20
+    l.insert(4, 43)   #6 10 77 20 43
+    l.insert(0, 2)    #2 6 10 77 20 43
     print(l)
     print("LENGTH:", len(l))
 
