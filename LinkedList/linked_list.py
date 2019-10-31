@@ -195,13 +195,12 @@ class LinkedList:
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
         if not self.is_empty():
-            if self.length == 1:
-                self.remove_front()
-            else:
-                curr_node = self.head
-                while(curr_node.get_next().get_next() != None):
-                    curr_node = curr_node.get_next()
-                self._remove_node(prev=curr_node, node=curr_node.get_next())
+            prev = None
+            curr_node = self.head
+            while(curr_node.get_next() != None):
+                prev = curr_node
+                curr_node = curr_node.get_next()
+            self._remove_node(prev, curr_node)
 
 
     def remove(self, value, all=True):
@@ -210,7 +209,7 @@ class LinkedList:
         curr_node = self.head
         FOUND_FIRST = False #True when the first occurrence is found
         while(curr_node != None):
-            if FOUND_FIRST and all==False:
+            if all==False and FOUND_FIRST:
                 return
             if curr_node.get_data() == value:
                 FOUND_FIRST = True
@@ -283,18 +282,9 @@ if __name__ == "__main__":
     print(l)
     print("LENGTH:", len(l))
 
-
-    l.remove(-9)     #6 10 1 2 3 4 999 20
-    l.remove(-2)     #6 10 1 2 3 4 20
-    l.remove_front() #10 1 2 3 4 20
-    l.remove_end()   #10 1 2 3 4
-    l.remove(0)      #1 2 3 4
-    print(l)
-    print("LENGTH:", len(l))
-    
     print(l[0], l[3], "\n")
 
-    rev = l.reverse()#4 3 2 1
+    rev = l.reverse()#43 20 77 10 2
     print(rev)
     print("REV LENGTH:", len(rev))
     print(rev[1], rev[2])
@@ -302,6 +292,3 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
-
-
-
