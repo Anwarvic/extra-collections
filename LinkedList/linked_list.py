@@ -100,7 +100,7 @@ class LinkedList:
     def __delitem__(self, idx):
         """Removes a node at index=idx from the linked list"""
         if type(idx) != int:
-            msg = "idx must be an integer!"
+            msg = "Indices must be an integer!"
             raise TypeError(msg)
         elif idx <= -1:
             msg = "Linked List doesn't support -ve indexing with removal!!"
@@ -153,7 +153,7 @@ class LinkedList:
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         if type(idx) != int:
-            msg = "idx must be an integer!"
+            msg = "Indices must be an integer!"
             raise TypeError(msg)
         elif idx <= -1:
             msg = "Linked List doesn't support -ve indexing with insertion!!"
@@ -173,27 +173,47 @@ class LinkedList:
             self.length += 1
 
 
+    def _remove_node(self, prev, node):
+        # if node to be removed is the first
+        if prev == None:
+            self.head = node.get_next() if node else None
+        else:
+            prev.set_next(node.get_next())
+        self.length -= 1
+    
+
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
-        if self.length > 0:
-            self.head = self.head.get_next()
-            self.length -= 1
+        if not self.is_empty():
+            self._remove_node(prev=None, node=self.head)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
-        if self.length > 0:
-            curr_node = self.head
-            while(curr_node.get_next().get_next() != None):
-                curr_node = curr_node.get_next()
-            # now the curr_node is the second last node
-            curr_node.set_next(None)
-            self.length -= 1
+        if not self.is_empty():
+            if self.length == 1:
+                self.remove_front()
+            else:
+                curr_node = self.head
+                while(curr_node.get_next().get_next() != None):
+                    curr_node = curr_node.get_next()
+                self._remove_node(prev=curr_node, node=curr_node.get_next())
 
 
     def remove(self, value, all=True):
         #removes all occurrences (when all==True) of `value` if found.
-        pass
+        curr_node = self.head
+        while(curr_node.get_next() != None):
+            if curr_node.get_data() == value:
+                if all == False:
+                    next_node = curr_node.get_next()
+                    curr_node.data = next_node.data
+                    curr_node.set_next(next_node.get_next())
+                    break
+                else:
+                    pass
+            curr_node = curr_node.get_next()
+        
 
 
     def clear(self):
