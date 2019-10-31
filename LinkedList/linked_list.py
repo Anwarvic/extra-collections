@@ -78,7 +78,7 @@ class LinkedList:
             msg = "Indices must be an integer!"
             raise TypeError(msg)
         elif idx < -self.length or idx >= self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
+            msg = "Can't find any element at the given index!!"
             raise IndexError(msg)
         else:
             # convert idx to positive if -ve
@@ -100,10 +100,13 @@ class LinkedList:
     def __delitem__(self, idx):
         """Removes a node at index=idx from the linked list"""
         if type(idx) != int:
-            msg = "Indices must be an integer!"
+            msg = "Indices must be an integer!!"
             raise TypeError(msg)
         elif idx <= -1:
             msg = "Linked List doesn't support -ve indexing with removal!!"
+            raise IndexError(msg)
+        elif idx >= self.length:
+            msg = "Can't find any element at the given index!!"
             raise IndexError(msg)
         # handle edge case
         if idx == 0:
@@ -209,13 +212,12 @@ class LinkedList:
             FOUND_FIRST = False #True: when the first occurrence is found
             while(curr_node.get_next() != None):
                 if FOUND_FIRST and all==False:
-                    break
+                    return
                 if curr_node.get_data() == value:
                     self._remove_node(prev, curr_node)
                     FOUND_FIRST = True
                 prev = curr_node
                 curr_node = curr_node.get_next()
-        
 
 
     def clear(self):
@@ -240,6 +242,13 @@ class LinkedList:
 
 if __name__ == "__main__":
     l = LinkedList()
+    # test removing from empty list:
+    l.remove_front() #Nothing
+    l.remove_end()   #Nothing
+    l.remove(10)     #Nothing
+    del l[0]         #throughs IndexError
+
+    # addinng
     l.add_front(6)   #6
     l.add_end(20)    #6 20
     print(l)
