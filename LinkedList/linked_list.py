@@ -46,7 +46,7 @@ class LinkedList:
         curr_node = self.head
         while(curr_node != None):
             item = curr_node.get_data()
-            if item:
+            if item != None:
                 width = len(str(item))+2 #2: for a space before & after an item
                 top_border += (['─']*width) + ['┬']
                 middle += [" {} →".format(item)]
