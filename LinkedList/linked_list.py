@@ -75,7 +75,7 @@ class LinkedList:
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
         if type(idx) != int:
-            msg = "idx must be an integer!"
+            msg = "Indices must be an integer!"
             raise TypeError(msg)
         elif idx < -self.length or idx >= self.length:
             msg = "max index for this linked list is " + str(self.length-1)
@@ -174,6 +174,7 @@ class LinkedList:
 
 
     def _remove_node(self, prev, node):
+        assert node != None, "Can't remove `None` node"
         # if node to be removed is the first
         if prev == None:
             self.head = node.get_next() if node else None
@@ -202,17 +203,18 @@ class LinkedList:
 
     def remove(self, value, all=True):
         #removes all occurrences (when all==True) of `value` if found.
-        curr_node = self.head
-        while(curr_node.get_next() != None):
-            if curr_node.get_data() == value:
-                if all == False:
-                    next_node = curr_node.get_next()
-                    curr_node.data = next_node.data
-                    curr_node.set_next(next_node.get_next())
+        if not self.is_empty():
+            prev = None
+            curr_node = self.head
+            FOUND_FIRST = False #True: when the first occurrence is found
+            while(curr_node.get_next() != None):
+                if FOUND_FIRST and all==False:
                     break
-                else:
-                    pass
-            curr_node = curr_node.get_next()
+                if curr_node.get_data() == value:
+                    self._remove_node(prev, curr_node)
+                    FOUND_FIRST = True
+                prev = curr_node
+                curr_node = curr_node.get_next()
         
 
 
