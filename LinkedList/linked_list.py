@@ -206,16 +206,17 @@ class LinkedList:
 
     def remove(self, value, all=True):
         #removes all occurrences (when all==True) of `value` if found.
-        if not self.is_empty():
-            prev = None
-            curr_node = self.head
-            FOUND_FIRST = False #True: when the first occurrence is found
-            while(curr_node.get_next() != None):
-                if FOUND_FIRST and all==False:
-                    return
-                if curr_node.get_data() == value:
-                    self._remove_node(prev, curr_node)
-                    FOUND_FIRST = True
+        prev = None
+        curr_node = self.head
+        FOUND_FIRST = False #True when the first occurrence is found
+        while(curr_node != None):
+            if FOUND_FIRST and all==False:
+                return
+            if curr_node.get_data() == value:
+                FOUND_FIRST = True
+                self._remove_node(prev, curr_node)
+                curr_node = prev.get_next() if prev != None else self.head
+            else:
                 prev = curr_node
                 curr_node = curr_node.get_next()
 
@@ -246,7 +247,28 @@ if __name__ == "__main__":
     l.remove_front() #Nothing
     l.remove_end()   #Nothing
     l.remove(10)     #Nothing
-    del l[0]         #throughs IndexError
+    # del l[0]       #throughs IndexError
+
+    l.add_front(10)  #10 
+    l.add_front(5)   #5 10
+    print(l)
+    l.remove(20)     #nothing
+    l.remove_front() #10
+    print(l)
+    l.remove_end()   #[]
+    print(l)
+    l.insert(0, 100) #100
+    l.insert(1, 200) #100 200
+    l.insert(1, 100) #100 100 200
+    print(l)
+    l.remove(100)    #200
+    print(l)
+    l.clear()
+
+    # test remove() alone
+    l.add_end(0)
+    l.remove(0)
+    print(l)
 
     # addinng
     l.add_front(6)   #6
