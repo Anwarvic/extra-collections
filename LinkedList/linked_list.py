@@ -135,6 +135,16 @@ class LinkedList:
         return self.length == 0
 
 
+    def _insert_node(self, prev_node, new_node):
+        assert new_node != None, "Can't insert `None` value as a node!!"
+        if prev_node == None:
+            self.head = new_node
+        else:
+            prev_node.set_next(new_node)
+            new_node.set_next(prev_node.get_next())
+        self.length += 1
+        return new_node
+
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
         if self.is_empty():
@@ -184,7 +194,7 @@ class LinkedList:
 
 
     def _remove_node(self, prev, node):
-        assert node != None, "Can't remove `None` node"
+        assert node != None, "Can't remove `None`!!"
         # if node to be removed is the first
         if prev == None:
             self.head = node.get_next() if node else None
