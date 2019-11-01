@@ -43,14 +43,15 @@ class LinkedList:
         top_border = ['┌']
         middle = ['│']
         down_border = ['└']
-        curr_node = self.head
-        while(curr_node != None):
-            item = curr_node.get_data()
-            width = len(str(item))+2 #2: for a space before & after an item
-            top_border += (['─']*width) + ['┬']
-            middle += [" {} →".format(item)]
-            down_border += (['─']*width) + ['┴']
-            curr_node = curr_node.get_next()
+        if not self.is_empty():
+            curr_node = self.head
+            while(curr_node != None):
+                item = curr_node.get_data()
+                width = len(str(item))+2 #2: for a space before & after an item
+                top_border += (['─']*width) + ['┬']
+                middle += [" {} →".format(item)]
+                down_border += (['─']*width) + ['┴']
+                curr_node = curr_node.get_next()
         top_border += ['─']
         middle += [' ']
         down_border += ['─']
@@ -280,11 +281,11 @@ if __name__ == "__main__":
     print(l)
     l.remove(100)    #200
     print(l)
-    l.clear()
+    l.clear()        #[]
 
     # test remove() alone
-    l.add_end(0)
-    l.remove(0)
+    l.add_end(0)     #0
+    l.remove(0)      #[]
     print(l)
 
     # addinng
@@ -297,7 +298,7 @@ if __name__ == "__main__":
     l.insert(0, 2)    #2 6 10 77 20 43
     print(43 in l)
     print(l)
-    del l[1]
+    del l[len(l)-1]
     print(l)
     print("LENGTH:", len(l))
 
