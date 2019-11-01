@@ -46,11 +46,10 @@ class LinkedList:
         curr_node = self.head
         while(curr_node != None):
             item = curr_node.get_data()
-            if item != None:
-                width = len(str(item))+2 #2: for a space before & after an item
-                top_border += (['─']*width) + ['┬']
-                middle += [" {} →".format(item)]
-                down_border += (['─']*width) + ['┴']
+            width = len(str(item))+2 #2: for a space before & after an item
+            top_border += (['─']*width) + ['┬']
+            middle += [" {} →".format(item)]
+            down_border += (['─']*width) + ['┴']
             curr_node = curr_node.get_next()
         top_border += ['─']
         middle += [' ']
@@ -138,9 +137,11 @@ class LinkedList:
     def _insert_node(self, prev_node, new_node):
         assert new_node != None, "Can't insert `None` value as a node!!"
         if prev_node == None:
-            prev_node = self.head
-        new_node.set_next(prev_node.get_next())
-        prev_node.set_next(new_node)
+            new_node.set_next(self.head)
+            self.head = new_node
+        else:
+            new_node.set_next(prev_node.get_next())
+            prev_node.set_next(new_node)
         self.length += 1
         return new_node
 
@@ -183,7 +184,7 @@ class LinkedList:
         assert node != None, "Can't remove `None`!!"
         # if node to be removed is the first
         if prev_node == None:
-            self.head = node.get_next() if node else None
+            self.head = node.get_next()
         else:
             prev_node.set_next(node.get_next())
         self.length -= 1
