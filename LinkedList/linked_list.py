@@ -138,36 +138,26 @@ class LinkedList:
     def _insert_node(self, prev_node, new_node):
         assert new_node != None, "Can't insert `None` value as a node!!"
         if prev_node == None:
-            self.head = new_node
-        else:
-            prev_node.set_next(new_node)
-            new_node.set_next(prev_node.get_next())
+            prev_node = self.head
+        new_node.set_next(prev_node.get_next())
+        prev_node.set_next(new_node)
         self.length += 1
         return new_node
 
+
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        if self.is_empty():
-            self.head = Node(item)
-        else:
-            new_node = Node(self.head.get_data())
-            new_node.set_next(self.head.get_next())
-            self.head = Node(item)
-            self.head.set_next(new_node)
-        self.length += 1
+        self._insert_node(prev_node=None, new_node=Node(item))
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        if self.is_empty():
-            self.head = Node(item)
-        else:
-            curr_node = self.head
-            while(curr_node.get_next() != None):
-                curr_node = curr_node.get_next()
-            # now curr_node is the last node
-            curr_node.set_next(Node(item))
-        self.length += 1
+        prev_node = None
+        curr_node = self.head
+        while(curr_node != None):
+            prev_node = curr_node
+            curr_node = curr_node.get_next()
+        self._insert_node(prev_node, Node(item))
 
 
     def insert(self, idx, item):
@@ -178,46 +168,42 @@ class LinkedList:
         elif idx <= -1:
             msg = "Linked List doesn't support -ve indexing with insertion!!"
             raise IndexError(msg)
-        elif idx == 0:
-            self.add_front(item)
         else:
             counter = 0
+            prev_node = None
             curr_node = self.head
-            while(counter != idx-1):  
-                curr_node = curr_node.get_next()
+            while(counter != idx):
                 counter += 1
-            # curr_node is now at (idx-1)
-            new_node = Node(item)
-            new_node.set_next(curr_node.get_next())
-            curr_node.set_next(new_node)
-            self.length += 1
+                prev_node = curr_node
+                curr_node = curr_node.get_next()
+            self._insert_node(prev_node, Node(item))
 
 
-    def _remove_node(self, prev, node):
+    def _remove_node(self, prev_node, node):
         assert node != None, "Can't remove `None`!!"
         # if node to be removed is the first
-        if prev == None:
+        if prev_node == None:
             self.head = node.get_next() if node else None
         else:
-            prev.set_next(node.get_next())
+            prev_node.set_next(node.get_next())
         self.length -= 1
     
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
         if not self.is_empty():
-            self._remove_node(prev=None, node=self.head)
+            self._remove_node(prev_node=None, node=self.head)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
         if not self.is_empty():
-            prev = None
+            prev_node = None
             curr_node = self.head
             while(curr_node.get_next() != None):
-                prev = curr_node
+                prev_node = curr_node
                 curr_node = curr_node.get_next()
-            self._remove_node(prev, curr_node)
+            self._remove_node(prev_node, curr_node)
 
 
     def remove(self, value, all=True):
