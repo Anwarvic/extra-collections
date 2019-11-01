@@ -71,6 +71,13 @@ class LinkedList:
             curr_node = curr_node.get_next()
 
 
+    def __contains__(self, value):
+        found_node = self._search(value)
+        if found_node == None or found_node.get_data() != value:
+            return False
+        return True
+
+
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
@@ -238,6 +245,20 @@ class LinkedList:
         return rev
 
 
+    def _search(self, value):
+        # Search the Linked List for a given `value` and returns the first node
+        # containing that value if found. If not found, it returns the last node
+        # in the Linked List.
+        curr_node = self.head
+        # returns `None` if Linked List is empty
+        if self.is_empty(): return curr_node
+        while(curr_node.get_next() != None):
+            if curr_node.get_data() == value:
+                return curr_node
+            curr_node = curr_node.get_next()
+        return curr_node
+
+
 
 
 if __name__ == "__main__":
@@ -277,6 +298,7 @@ if __name__ == "__main__":
     l.insert(2, 77)   #6 10 77 20
     l.insert(4, 43)   #6 10 77 20 43
     l.insert(0, 2)    #2 6 10 77 20 43
+    print(43 in l)
     print(l)
     del l[1]
     print(l)
