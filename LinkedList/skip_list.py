@@ -39,7 +39,7 @@ class SkipNode(Node):
 
 class SkipList:
     def __init__(self, value=None):
-        self.top_level = 0
+        self.num_levels = 1
         #SkipList is an array of LinkedList objects
         self.skiplist = [LinkedList( SkipNode(float("-inf")) )]
         if value != None:
@@ -48,26 +48,32 @@ class SkipList:
 
     def _search(self, value):
         # returns the last accessed node when searching a certain value.
-        start_node = self.skiplist[self.top_level].head
-        curr_level = self.top_level
+        top_list = self.skiplist[self.num_levels-1]
+        start_node = top_list.head
+        curr_level = self.num_levels - 1
+        last_accessed_nodes = []
         while(curr_level > 0):
             found_node = search(start_node, value)
+            last_accessed_nodes.append(found_node)
             curr_level -= 1
             start_node = found_node.get_down()
         found_node = search(start_node, value)
-        return found_node
+        assert len(last_accessed_nodes) == self.num_levels-1
+        return found_node, last_accessed_nodes[::-1]
 
 
     def search(self, value):
-        found_node = self._search(value)
+        found_node, _ = self._search(value)
         return found_node.get_data() == value
         
 
-
-
     def insert(self, value):
         #insertion is done in O(log(n))
-        pass
+        found_node, last_accessed_nodes = self._search(value)
+        if found_node.get_data() != value:
+            self.skiplist[0].
+
+
 
 
     def remove(self, item):
