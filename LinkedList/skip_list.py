@@ -39,14 +39,19 @@ class SkipNode(Node):
         self.down = None
 
 
-    def __repr__(self):
-        data = self.data
-        nxt = self.next.data if self.next else None
-        return "Node: (item: {}, next: {})".format(data, nxt)
+    def __str__(self):
+        if self.data == float("-inf"):
+            return "-∞"
+        return str(self.data)
+
     
     def set_down(self, other_node):
+        other_node.up = self
         self.down = other_node
-        other_node.
+    
+    def set_up(self, other_ndoe):
+        other_ndoe.down = self
+        self.up = other_ndoe
 
 
 
