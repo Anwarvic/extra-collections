@@ -1,33 +1,74 @@
-"""
-num_levels in SkipList is Log(n)
-
-"""
 import random
+from linked_list import Node, LinkedList
+
+
+
 
 #helper function
 def flip_coin():
     return random.choice(['head','tail'])
 
+def search(start_node, value):
+    # search a sorted linked list and return the last accessed node.
+    prev = curr_node = start_node
+    while(curr_node != None and curr_node.get_data() < value):
+        prev = curr_node
+        curr_node = curr_node.get_next()
+    return prev
 
-class Node:
-    def __init__(self, value):
-        assert type(value) in {int, float}, "SkipList contains numbers only!!"
-        pass
+
+
+
+class SkipNode(Node):
+    def __init__(self, item):
+        assert type(item) in {int, float, str}, \
+            "Skip Lists support only native data-types like: [int, float, str]!"
+        self.data = item
+        self.next = None
+        self.up = None
+        self.down = None
+
+
+    def __repr__(self):
+        data = self.data
+        nxt = self.next.data if self.next else None
+        return "Node: (item: {}, next: {})".format(data, nxt)
 
 
 
 
 class SkipList:
     def __init__(self, value=None):
-        pass
-    
-    def search(self, item):
-        #Search is done, with high probability, in O(log(n))
-        pass
+        self.top_level = 0
+        #SkipList is an array of LinkedList objects
+        self.skiplist = [LinkedList( SkipNode(float("-inf")) )]
+        if value != None:
+            self.insert(value)
 
-    def insert(self, item):
+
+    def _search(self, value):
+        # returns the last accessed node when searching a certain value.
+        start_node = self.skiplist[self.top_level].head
+        curr_level = self.top_level
+        while(curr_level > 0):
+            found_node = search(start_node, value)
+            curr_level -= 1
+            start_node = found_node.get_down()
+        found_node = search(start_node, value)
+        return found_node
+
+
+    def search(self, value):
+        found_node = self._search(value)
+        return found_node.get_data() == value
+        
+
+
+
+    def insert(self, value):
         #insertion is done in O(log(n))
         pass
+
 
     def remove(self, item):
         #removal is done in O(log(n))
