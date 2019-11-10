@@ -1,3 +1,13 @@
+"""
+Skip List is gonna look like this:
+┌────┬─────────────┬───┬─
+│ -∞ →→→→→→→→→→→→→→→ 2 → 
+├────┼─────────┼───┼───┼─
+│ -∞ →→→→→→→→→→→ 6 → 2 → 
+├────┼────┬────┼───┼───┬─
+│ -∞ → 77 → 10 → 6 → 2 → 
+└────┴────┴────┴───┴───┴─
+"""
 import random
 from linked_list import Node, LinkedList
 
@@ -33,7 +43,10 @@ class SkipNode(Node):
         data = self.data
         nxt = self.next.data if self.next else None
         return "Node: (item: {}, next: {})".format(data, nxt)
-
+    
+    def set_down(self, other_node):
+        self.down = other_node
+        other_node.
 
 
 
@@ -73,12 +86,26 @@ class SkipList:
         return found_node.get_data() == value
         
 
+    def promote(self, upper_node, curr_node):
+        new_node = SkipNode(curr_node.get_data())
+        upper_node.set_next(new_node)
+        curr_node.set_up(new_node)
+
+
+    
     def insert(self, value):
         #insertion is done in O(log(n))
         found_node, last_accessed_nodes = self._search(value)
-        if found_node.get_data() != value:
-            self.skiplist[0].
-
+        # `value` already exists in our SkipList
+        if found_node.get_data() == value:
+            return
+        curr_level = 0
+        new_node = SkipNode(value)
+        found_node.set_next(new_node)
+        # promote the new_node if coin is `Head`
+        while flip_coin() == "Head":
+            curr_level += 1
+            self._promote()
 
 
 
