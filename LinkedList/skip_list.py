@@ -44,6 +44,12 @@ class SkipList:
         self.skiplist = [LinkedList( SkipNode(float("-inf")) )]
         if value != None:
             self.insert(value)
+    
+    def __repr__(self):
+        pass
+    
+    def __contains__(self, value):
+        return self.search(value)
 
 
     def _search(self, value):
