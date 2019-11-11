@@ -35,15 +35,8 @@ class LinkedList:
     def __init__(self, item=None):
         self.head = Node(item)
         self.length = 1 if item != None else 0
-
-
-    def __str__(self):
-        output = []
-        for item in self:
-            output.append(f"{str(item.get_data())}")
-        output.append(']')
-        return "".join
     
+
     def __repr__(self):
         """Represents the linked list as a string."""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
@@ -238,8 +231,9 @@ class LinkedList:
             self.head = Node()
             self.length = 0
     
+
     def to_list(self):
-        return [item for item in self]
+        return [item.get_data() for item in self]
 
 
     def reverse(self):
@@ -311,6 +305,7 @@ if __name__ == "__main__":
     del l[len(l)-1]
     print(l)
     print("LENGTH:", len(l))
+    print(l.to_list())
 
     print(l[0], l[3], "\n")
 
