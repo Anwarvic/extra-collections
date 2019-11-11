@@ -11,7 +11,7 @@ class Node:
         """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
-        return "Node: (item: {}, next: {})".format(data, nxt)
+        return "Node: (data: {}, next: {})".format(data, nxt)
 
 
     def get_data(self):
@@ -33,7 +33,10 @@ class Node:
 class LinkedList:
     """Basic object for the linked list"""
     def __init__(self, item=None):
-        self.head = Node(item)
+        if isinstance(item, Node):
+            self.head = item
+        else:
+            self.head = Node(item)
         self.length = 1 if item != None else 0
     
 
