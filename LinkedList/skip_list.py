@@ -42,6 +42,8 @@ class SkipNode(Node):
     def __str__(self):
         if self.data == float("-inf"):
             return "-∞"
+        elif self.data == float("inf"):
+            return "∞"
         return str(self.data)
 
     
