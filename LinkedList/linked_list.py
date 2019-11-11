@@ -49,10 +49,10 @@ class LinkedList:
         if not self.is_empty():
             curr_node = self.head
             while(curr_node != None):
-                item = curr_node.get_data()
-                width = len(str(item))+2 #2: for a space before & after an item
+                item = str(curr_node.get_data())
+                width = len(item)+2 #2: for a space before & after an item
                 top_border += (['─']*width) + ['┬']
-                middle += [" {} →".format(item)]
+                middle += [f" {item} →"]
                 down_border += (['─']*width) + ['┴']
                 curr_node = curr_node.get_next()
         top_border += ['─']
