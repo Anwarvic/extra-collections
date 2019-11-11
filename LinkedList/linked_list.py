@@ -7,6 +7,10 @@ class Node:
         self.next = None
 
 
+    def __str__(self):
+        return str(self.data)
+
+    
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
@@ -49,7 +53,7 @@ class LinkedList:
         if not self.is_empty():
             curr_node = self.head
             while(curr_node != None):
-                item = str(curr_node.get_data())
+                item = str(curr_node)
                 width = len(item)+2 #2: for a space before & after an item
                 top_border += (['─']*width) + ['┬']
                 middle += [f" {item} →"]
