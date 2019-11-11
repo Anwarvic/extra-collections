@@ -93,13 +93,17 @@ class SkipList:
         return found_node.get_data() == value
         
 
-    def promote(self, upper_node, curr_node):
+    def _add_extra_level(self):
+        self.skiplist.append(LinkedList( SkipNode(float("-inf")) ))
+        self.num_levels += 1
+
+    
+    def _promote(self, upper_node, curr_node):
         new_node = SkipNode(curr_node.get_data())
         upper_node.set_next(new_node)
         curr_node.set_up(new_node)
 
 
-    
     def insert(self, value):
         #insertion is done in O(log(n))
         found_node, last_accessed_nodes = self._search(value)
@@ -111,8 +115,14 @@ class SkipList:
         found_node.set_next(new_node)
         # promote the new_node if coin is `Head`
         while flip_coin() == "Head":
+            if curr_level >= self.num_levels-1:
+                self._add_extra_level()
+                top_list = self.skiplist[self.num_levels-1]
+                upper_node = top_list.head
+            else:
+                upper_node = last_accessed_nodes[curr_level]
+            self._promote(upper_node, new_node)
             curr_level += 1
-            self._promote()
 
 
 
