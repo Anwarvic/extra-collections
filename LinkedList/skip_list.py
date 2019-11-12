@@ -20,6 +20,17 @@ def flip_coin():
     return 'head'
 
 
+def search(start_node, value):
+    # search a sorted linked list and return the last accessed node.
+    prev = curr_node = start_node
+    while(curr_node != None and curr_node.get_data() < value):
+        prev = curr_node
+        curr_node = curr_node.get_next()
+    return prev
+
+
+
+
 class SkipNode(Node):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
@@ -55,27 +66,6 @@ class SkipNode(Node):
     def set_up(self, other_ndoe):
         other_ndoe.down = self
         self.up = other_ndoe
-
-
-
-
-class SortedLinkedList(LinkedList):
-    def __init__(self, item=float("-inf")):
-        super().__init__(item)
-        self.length = 1
-    
-
-    def _search_node(self, start_node, value):
-        # search a sorted linked list and return the last accessed node.
-        prev = curr_node = start_node
-        while(curr_node != None and curr_node.get_data() < value):
-            prev = curr_node
-            curr_node = curr_node.get_next()
-        return prev
-    
-
-    def _search(self, value):
-        return self._search_node(self.head, value)
 
 
 
@@ -124,7 +114,7 @@ class SkipList:
         new_llist.head.set_down(top_list.head)
         self.skiplist.append(new_llist)
         self.num_levels += 1
-
+    
     
     def _promote(self, upper_prev_node, curr_node):
         upper_node = SkipNode(curr_node.get_data())
