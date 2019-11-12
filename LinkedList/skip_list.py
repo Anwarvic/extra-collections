@@ -16,7 +16,9 @@ from linked_list import Node, LinkedList
 
 #helper function
 def flip_coin():
-    return random.choice(['head','tail'])
+    # return random.choice(['head','tail'])
+    return 'head'
+
 
 def search(start_node, value):
     # search a sorted linked list and return the last accessed node.
@@ -44,16 +46,18 @@ class SkipNode(Node):
             return "-∞"
         elif self.data == float("inf"):
             return "∞"
-        return str(self.data)
+        return super().__str__()
 
     
     def set_down(self, other_node):
         other_node.up = self
         self.down = other_node
     
+
     def set_up(self, other_ndoe):
         other_ndoe.down = self
         self.up = other_ndoe
+
 
 
 
@@ -65,8 +69,10 @@ class SkipList:
         if value != None:
             self.insert(value)
     
+
     def __repr__(self):
         pass
+    
     
     def __contains__(self, value):
         return self.search(value)
@@ -98,10 +104,10 @@ class SkipList:
         self.num_levels += 1
 
     
-    def _promote(self, upper_node, curr_node):
-        new_node = SkipNode(curr_node.get_data())
-        upper_node.set_next(new_node)
-        curr_node.set_up(new_node)
+    def _promote(self, upper_prev_node, curr_node):
+        upper_node = SkipNode(curr_node.get_data())
+        upper_prev_node.set_next(upper_node)
+        curr_node.set_up(upper_node)
 
 
     def insert(self, value):
@@ -114,14 +120,15 @@ class SkipList:
         new_node = SkipNode(value)
         found_node.set_next(new_node)
         # promote the new_node if coin is `Head`
-        while flip_coin() == "Head":
+        # TODO: change `if` to `while`
+        if flip_coin() == "head":
             if curr_level >= self.num_levels-1:
                 self._add_extra_level()
                 top_list = self.skiplist[self.num_levels-1]
-                upper_node = top_list.head
+                upper_prev_node = top_list.head
             else:
-                upper_node = last_accessed_nodes[curr_level]
-            self._promote(upper_node, new_node)
+                upper_prev_node = last_accessed_nodes[curr_level]
+            self._promote(upper_prev_node, new_node)
             curr_level += 1
 
 
@@ -129,3 +136,13 @@ class SkipList:
     def remove(self, item):
         #removal is done in O(log(n))
         pass
+
+
+
+
+if __name__ == "__main__":
+    sk = SkipList()
+    sk.insert(2)
+    sk.insert(2)
+    for level, lst in enumerate(sk.skiplist):
+        print(lst)
