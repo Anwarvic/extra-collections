@@ -23,7 +23,7 @@ def flip_coin():
 def search(start_node, value):
     # search a sorted linked list and return the last accessed node.
     prev = curr_node = start_node
-    while(curr_node != None and curr_node.get_data() < value):
+    while(curr_node != None and curr_node.get_data() <= value):
         prev = curr_node
         curr_node = curr_node.get_next()
     return prev
@@ -163,7 +163,7 @@ class SkipList:
 if __name__ == "__main__":
     sk = SkipList()
     sk.insert(2)
-    # sk.insert(2)
+    sk.insert(2)
     sk.insert(0)
     for level, lst in enumerate(sk.skiplist):
         print(lst)
