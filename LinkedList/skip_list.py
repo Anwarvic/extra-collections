@@ -14,7 +14,7 @@ from linked_list import Node, LinkedList
 
 
 
-#helper function
+#helper functions
 def flip_coin():
     # return random.choice(['head','tail'])
     return 'head'
@@ -89,14 +89,12 @@ class SkipList:
 
     def _search(self, value):
         # returns the last accessed node when searching a certain value.
+        last_accessed_nodes = []
         top_list = self.skiplist[self.num_levels-1]
         start_node = top_list.head
-        curr_level = self.num_levels - 1
-        last_accessed_nodes = []
-        while(curr_level > 0):
+        while(start_node.get_down() != None):
             found_node = search(start_node, value)
             last_accessed_nodes.append(found_node)
-            curr_level -= 1
             start_node = found_node.get_down()
         found_node = search(start_node, value)
         assert len(last_accessed_nodes) == self.num_levels-1
@@ -116,12 +114,14 @@ class SkipList:
         # add new linked list to the SkipList
         self.skiplist.append(new_llist)
         self.num_levels += 1
+        return new_llist
     
     
     def _promote(self, upper_prev_node, curr_node):
         # create new node with the same data as curr_data
         upper_node = SkipNode(curr_node.get_data())
         # connect the upper list to the new node
+        upper_node.set_next(upper_prev_node.get_next())
         upper_prev_node.set_next(upper_node)
         # connect the curruent list with the upper one
         curr_node.set_up(upper_node)
@@ -137,16 +137,17 @@ class SkipList:
             return
         curr_level = 0
         new_node = SkipNode(value)
+        new_node.set_next(found_node.get_next())
         found_node.set_next(new_node)
         # promote the new_node if coin is `Head`
         # TODO: change `if` to `while`
         if flip_coin() == "head":
             if curr_level >= self.num_levels-1:
-                self._add_extra_level()
-                top_list = self.skiplist[self.num_levels-1]
+                top_list = self._add_extra_level()
                 upper_prev_node = top_list.head
             else:
                 upper_prev_node = last_accessed_nodes[curr_level]
+            # promote new_node
             self._promote(upper_prev_node, new_node)
             curr_level += 1
 
@@ -162,6 +163,7 @@ class SkipList:
 if __name__ == "__main__":
     sk = SkipList()
     sk.insert(2)
-    sk.insert(2)
+    # sk.insert(2)
+    sk.insert(0)
     for level, lst in enumerate(sk.skiplist):
         print(lst)
