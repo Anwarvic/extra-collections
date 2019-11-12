@@ -111,19 +111,26 @@ class SkipList:
     def _add_extra_level(self):
         top_list = self.skiplist[self.num_levels-1]
         new_llist = LinkedList(SkipNode(float("-inf")))
+        # connect the head of the new linked list to the lower linked list
         new_llist.head.set_down(top_list.head)
+        # add new linked list to the SkipList
         self.skiplist.append(new_llist)
         self.num_levels += 1
     
     
     def _promote(self, upper_prev_node, curr_node):
+        # create new node with the same data as curr_data
         upper_node = SkipNode(curr_node.get_data())
+        # connect the upper list to the new node
         upper_prev_node.set_next(upper_node)
+        # connect the curruent list with the upper one
         curr_node.set_up(upper_node)
 
 
     def insert(self, value):
-        #insertion is done in O(log(n))
+        """
+        Inserts a value into our Skip List. Insertion is done in O(log(n)) time
+        """
         found_node, last_accessed_nodes = self._search(value)
         # `value` already exists in our SkipList
         if found_node.get_data() == value:
