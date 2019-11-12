@@ -35,6 +35,7 @@ class SkipNode(Node):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
             "Skip Lists support only native data-types like: [int, float, str]!"
+        #TODO: is self.up necessary... I think not
         self.data = item
         self.next = None
         self.up = None
@@ -48,6 +49,14 @@ class SkipNode(Node):
             return "∞"
         return super().__str__()
 
+
+    def get_down(self):
+        return self.down
+    
+
+    def get_up(self):
+        return self.up
+    
     
     def set_down(self, other_node):
         other_node.up = self
