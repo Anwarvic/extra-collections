@@ -1,13 +1,3 @@
-"""
-Skip List is gonna look like this:
-┌────┬─────────────┬───┬─
-│ -∞ →→→→→→→→→→→→→→→ 2 → 
-├────┼─────────┼───┼───┼─
-│ -∞ →→→→→→→→→→→ 6 → 2 → 
-├────┼────┬────┼───┼───┬─
-│ -∞ → 77 → 10 → 6 → 2 → 
-└────┴────┴────┴───┴───┴─
-"""
 import random
 from linked_list import Node, LinkedList
 
@@ -16,8 +6,7 @@ from linked_list import Node, LinkedList
 
 #helper functions
 def flip_coin():
-    # return random.choice(['head','tail'])
-    return 'head'
+    return random.choice(['head','tail'])
 
 
 def search(start_node, value):
@@ -80,6 +69,16 @@ class SkipList:
     
 
     def __repr__(self):
+        """
+        Skip List is gonna look like this:
+        ┌────┬─────────────┬───┬─
+        │ -∞ →→→→→→→→→→→→→→→ 2 → 
+        ├────┼─────────┼───┼───┼─
+        │ -∞ →→→→→→→→→→→ 6 → 2 → 
+        ├────┼────┬────┼───┼───┬─
+        │ -∞ → 77 → 10 → 6 → 2 → 
+        └────┴────┴────┴───┴───┴─
+        """
         pass
     
     
@@ -141,7 +140,7 @@ class SkipList:
         found_node.set_next(new_node)
         # promote the new_node if coin is `Head`
         # TODO: change `if` to `while`
-        if flip_coin() == "head":
+        while flip_coin() == "head":
             if curr_level >= self.num_levels-1:
                 top_list = self._add_extra_level()
                 upper_prev_node = top_list.head
@@ -152,10 +151,11 @@ class SkipList:
             curr_level += 1
 
 
-
-    def remove(self, item):
-        #removal is done in O(log(n))
+    def remove(self, value):
+        """removal is done in O(log(n))"""
         pass
+
+
 
 
 
