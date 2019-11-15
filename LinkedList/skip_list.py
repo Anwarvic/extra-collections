@@ -168,14 +168,15 @@ class SkipList:
         return new_llist
     
     
-    def _promote(self, upper_prev_node, curr_node):
+    def _promote(self, upper_prev_node, curr_node, curr_level):
         # create new node with the same data as curr_data
         upper_node = SkipNode(curr_node.get_data())
         # connect the upper list to the new node
-        upper_node.set_next(upper_prev_node.get_next())
-        upper_prev_node.set_next(upper_node)
-        # connect the curruent list with the upper one
+        upper_node = self.skiplist[curr_level+1]._insert_node(upper_prev_node,
+                                                              upper_node)
+        # connect the current list with the upper one
         curr_node.set_up(upper_node)
+        return upper_node
 
 
     def insert(self, value):
@@ -186,20 +187,21 @@ class SkipList:
         # `value` already exists in our SkipList
         if found_node.get_data() == value:
             return
-        curr_level = 0
+        # create new_node with the new value
         new_node = SkipNode(value)
-        new_node.set_next(found_node.get_next())
-        found_node.set_next(new_node)
-        # promote the new_node if coin is `Head`
-        # TODO: change `if` to `while`
-        while flip_coin() == "head":
+        # insert new_node to the 0th linkedlist
+        curr_node = self.skiplist[0]._insert_node(found_node, new_node) 
+        
+        # promote the new_node if flipping the coin results `Head`
+        curr_level = 0
+        while flip_coin() == "head":# TODO: change `if` to `while`
             if curr_level >= self.num_levels-1:
                 top_list = self._add_extra_level()
                 upper_prev_node = top_list.head
             else:
                 upper_prev_node = last_accessed_nodes[curr_level]
             # promote new_node
-            self._promote(upper_prev_node, new_node)
+            curr_node = self._promote(upper_prev_node, curr_node, curr_level)
             curr_level += 1
 
 
@@ -215,6 +217,7 @@ class SkipList:
 if __name__ == "__main__":
     sk = SkipList()
     sk.insert(2)
+    print(sk)
     sk.insert(2)
     sk.insert(0)
     sk.insert(10)
