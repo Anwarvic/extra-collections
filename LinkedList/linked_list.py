@@ -58,9 +58,10 @@ class LinkedList:
     def __init__(self, item=None):
         if isinstance(item, Node):
             self.head = item
+            self.length = 1 if item.get_data() != None else 0
         else:
             self.head = Node(item)
-        self.length = 1 if item != None else 0
+            self.length = 1 if item != None else 0
     
     def __repr__(self):
         """Represents the linked list as a string."""
