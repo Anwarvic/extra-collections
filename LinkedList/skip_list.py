@@ -6,7 +6,8 @@ from linked_list import Node, LinkedList
 
 #helper functions
 def flip_coin():
-    return random.choice(['head','tail'])
+    # return random.choice(['head','tail'])
+    return "head"
 
 
 def search(start_node, value):
@@ -68,6 +69,33 @@ class SkipList:
             self.insert(value)
     
 
+    def __print_level(self, level):
+        lower_list = self.skiplist[0]
+        curr_list = self.skiplist[level]
+        # the following two lists will represent the output of this function
+        bottom_border = ['└'] if curr_list.head.get_down() == None else ['├']
+        middle = ['│']
+        # iterate over two lists in parallel
+        lower_node = lower_list.head
+        curr_node = curr_list.head
+        while(lower_node != None):
+            item = str(curr_node)
+            width = len(item)+2 #2: for a space before & after an item
+            if lower_node.get_data() == curr_node.get_data():
+                middle += [f" {item} →"]
+                bottom_border += (['─']*width)
+                bottom_border +=  ['┴'] if level == 0 else ['┼']
+                curr_node = curr_node.get_next()
+            else:
+                placeholder = '→'*width
+                middle += [f"{placeholder}→"]
+                bottom_border += (['─']*width) + ['┬']
+            lower_node = lower_node.get_next()
+        middle += [' ']
+        bottom_border += ['─']
+        return "{}\n{}".format("".join(middle), "".join(bottom_border))
+
+
     def __repr__(self):
         """
         Skip List is gonna look like this:
@@ -79,7 +107,9 @@ class SkipList:
         │ -∞ → 77 → 10 → 6 → 2 → 
         └────┴────┴────┴───┴───┴─
         """
-        pass
+        output = [self.__print_level(level) \
+                    for level in range(self.num_levels-1, -1, -1)]
+        return "\n".join(output)
     
     
     def __contains__(self, value):
@@ -140,7 +170,7 @@ class SkipList:
         found_node.set_next(new_node)
         # promote the new_node if coin is `Head`
         # TODO: change `if` to `while`
-        while flip_coin() == "head":
+        if flip_coin() == "head":
             if curr_level >= self.num_levels-1:
                 top_list = self._add_extra_level()
                 upper_prev_node = top_list.head
@@ -165,5 +195,6 @@ if __name__ == "__main__":
     sk.insert(2)
     sk.insert(2)
     sk.insert(0)
-    for level, lst in enumerate(sk.skiplist):
-        print(lst)
+    # for level, lst in enumerate(sk.skiplist):
+    #     print(lst)
+    print(sk)
