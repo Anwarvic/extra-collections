@@ -31,6 +31,14 @@ class Node:
             raise TypeError("Linked List elements have to be of type `Node`")
         self.next = next_item
     
+    # relational operators
+    def __eq__(self, other):
+        return self.data == other.data
+    
+    def __ne__(self, other):
+        return self.data != other.data
+    
+    def __lte__(self,)
 
 
 
@@ -43,7 +51,6 @@ class LinkedList:
             self.head = Node(item)
         self.length = 1 if item != None else 0
     
-
     def __repr__(self):
         """Represents the linked list as a string."""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
@@ -64,6 +71,11 @@ class LinkedList:
         down_border += ['─']
         return "{}\n{}\n{}".format(\
             "".join(top_border), "".join(middle), "".join(down_border))
+
+
+    # def __repr__(self): #TODO: comment this operator
+    #     output = [str(item) for item in self]
+    #     return '[' + ", ".join(output) + ']'
 
 
     def __len__(self):
@@ -255,9 +267,11 @@ class LinkedList:
 
 
     def _search(self, value):
-        # Search the Linked List for a given `value` and returns the first node
-        # containing that value if found. If not found, it returns the last node
-        # in the Linked List.
+        """
+        Search the Linked List for a given `value` and returns the first node
+        containing that value if found. If not found, it returns the last node
+        in the Linked List.
+        """
         curr_node = self.head
         # returns `None` if Linked List is empty
         if self.is_empty(): return curr_node
