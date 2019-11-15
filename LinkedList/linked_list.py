@@ -38,7 +38,18 @@ class Node:
     def __ne__(self, other):
         return self.data != other.data
     
-    def __lte__(self,)
+    def __lt__(self, other):
+        return self.data < other.data
+    
+    def __le__(self, other):
+        return self.data <= other.data
+    
+    def __gt__(self, other):
+        return self.data > other.data
+    
+    def __ge__(self, other):
+        return self.data >= other.data
+
 
 
 
