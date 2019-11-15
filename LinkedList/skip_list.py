@@ -79,7 +79,7 @@ class SkipList:
         lower_node = lower_list.head
         curr_node = curr_list.head
         while(lower_node != None):
-            item = str(curr_node)
+            item = str(lower_node)
             width = len(item)+2 #2: for a space before & after an item
             if lower_node.get_data() == curr_node.get_data():
                 middle += [f" {item} →"]
@@ -87,13 +87,33 @@ class SkipList:
                 bottom_border +=  ['┴'] if level == 0 else ['┼']
                 curr_node = curr_node.get_next()
             else:
-                placeholder = '→'*width
-                middle += [f"{placeholder}→"]
+                middle += [f" {'→'*width} →"]
                 bottom_border += (['─']*width) + ['┬']
             lower_node = lower_node.get_next()
         middle += [' ']
         bottom_border += ['─']
-        return "{}\n{}".format("".join(middle), "".join(bottom_border))
+        return "{}\n{}".format(''.join(middle), ''.join(bottom_border))
+
+
+    def __print_top_border(self):
+        lower_list = self.skiplist[0]
+        top_list = self.skiplist[self.num_levels-1]
+        # the following two lists will represent the output of this function
+        top_border = ['┌']
+        # iterate over two lists in parallel
+        lower_node = lower_list.head
+        curr_node = top_list.head
+        while(lower_node != None):
+            item = str(lower_node)
+            width = len(item)+2 #2: for a space before & after an item
+            if lower_node.get_data() == curr_node.get_data():
+                top_border += (['─']*width) + ['┬']
+                curr_node = curr_node.get_next()
+            else:
+                top_border += (['─']*width) + ['─']
+            lower_node = lower_node.get_next()
+        top_border += ['─']
+        return "{}".format(''.join(top_border))
 
 
     def __repr__(self):
@@ -107,7 +127,8 @@ class SkipList:
         │ -∞ → 77 → 10 → 6 → 2 → 
         └────┴────┴────┴───┴───┴─
         """
-        output = [self.__print_level(level) \
+        output = [self.__print_top_border()]
+        output += [self.__print_level(level) \
                     for level in range(self.num_levels-1, -1, -1)]
         return "\n".join(output)
     
