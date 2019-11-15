@@ -30,25 +30,6 @@ class Node:
         if not isinstance(next_item, Node) and next_item != None:
             raise TypeError("Linked List elements have to be of type `Node`")
         self.next = next_item
-    
-    # relational operators
-    def __eq__(self, other):
-        return self.data == other.data
-    
-    def __ne__(self, other):
-        return self.data != other.data
-    
-    def __lt__(self, other):
-        return self.data < other.data
-    
-    def __le__(self, other):
-        return self.data <= other.data
-    
-    def __gt__(self, other):
-        return self.data > other.data
-    
-    def __ge__(self, other):
-        return self.data >= other.data
 
 
 
