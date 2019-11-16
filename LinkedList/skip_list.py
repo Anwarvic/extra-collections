@@ -11,7 +11,7 @@ def flip_coin():
 
 
 
-def search(start_node, value):
+def search_sorted(start_node, value):
     # search a sorted linked list and return the last accessed node.
     prev = curr_node = start_node
     while(curr_node != None and curr_node.get_data() <= value):
@@ -144,15 +144,16 @@ class SkipList:
         top_list = self.skiplist[self.num_levels-1]
         start_node = top_list.head
         while(start_node.get_down() != None):
-            found_node = search(start_node, value)
+            found_node = search_sorted(start_node, value)
             last_accessed_nodes.append(found_node)
             start_node = found_node.get_down()
-        found_node = search(start_node, value)
+        found_node = search_sorted(start_node, value)
         assert len(last_accessed_nodes) == self.num_levels-1
         return found_node, last_accessed_nodes[::-1]
 
 
     def search(self, value):
+        """Search Skip List is one in O(log(n)) time"""
         found_node, _ = self._search(value)
         return found_node.get_data() == value
         
@@ -181,7 +182,7 @@ class SkipList:
 
     def insert(self, value):
         """
-        Inserts a value into our Skip List. Insertion is done in O(log(n)) time
+        Inserts a value to our Skip List. Insertion is done in O(log(n)) time
         """
         found_node, last_accessed_nodes = self._search(value)
         # `value` already exists in our SkipList
@@ -217,7 +218,6 @@ class SkipList:
 if __name__ == "__main__":
     sk = SkipList()
     sk.insert(2)
-    print(sk)
     sk.insert(2)
     sk.insert(0)
     sk.insert(10)
