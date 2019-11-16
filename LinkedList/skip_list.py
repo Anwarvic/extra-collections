@@ -145,6 +145,8 @@ class SkipList:
         start_node = top_list.head
         while(start_node.get_down() != None):
             found_node = search_sorted(start_node, value)
+            if found_node.get_data() == value:
+                return found_node, []
             last_accessed_nodes.append(found_node)
             start_node = found_node.get_down()
         found_node = search_sorted(start_node, value)
@@ -225,3 +227,6 @@ if __name__ == "__main__":
     # for level, lst in enumerate(sk.skiplist):
     #     print(lst)
     print(sk)
+    print(2 in sk)
+    print(100 in sk)
+    print(20 in sk)
