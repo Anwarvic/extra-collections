@@ -1,16 +1,31 @@
-class Node():
+from linked_list import Node, LinkedList
+
+
+
+class DoubleNode(Node):
     """Basic object for the Node used for double linked lists"""
     def __init__(self, item=None):
         self.data = item
         self.prev = None
         self.next = None
 
+
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
         prv = self.prev.data if self.prev else None
-        return "Node: (item: {}, previous: {}, next: {})".format(data, prv, nxt)
+        return "Node: (data: {}, prev: {}, next: {})".format(data, prv, nxt)
+    
+
+    def get_prev(self):
+        return self.prev
+    
+
+    def set_prev(self, other):
+        other.next = self
+        self.prev = other
+
 
 
 class DoubleLinkedList():
@@ -102,7 +117,7 @@ class DoubleLinkedList():
                     return pointer
 
 
-    def __setitem__(self, idx):
+    def __setitem__(self, idx, value):
         pass
 
 
