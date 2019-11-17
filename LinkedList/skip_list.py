@@ -234,8 +234,6 @@ class SkipList:
 
 
 
-
-
 if __name__ == "__main__":
     sk = SkipList()
     sk.insert(2)
