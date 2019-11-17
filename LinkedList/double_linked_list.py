@@ -40,26 +40,29 @@ class DoubleNode(Node):
 class DoubleLinkedList():
     """Basic object for the double linked list"""
     def __init__(self, item=None):
-        self.head = self.tail = Node(item)
-        self.length = 1 if item else 0
+        if isinstance(item, Node):
+            self.head = item
+            self.length = 1 if item.get_data() != None else 0
+        else:
+            self.head = DoubleNode(item)
+            self.length = 1 if item != None else 0
 
     
     def __repr__(self):
         """Represents the double linked list as a string"""
-        # NOTE:
-        # complexity of + operator in lists is O(1) while it's O(n) in string
+        # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = ['─┬']
         middle = [' ↔']
         down_border = ['─┴']
-        pointer = self.head
-        while(pointer != None):
-            item = pointer.data
-            if item:
+        if not self.is_empty():
+            curr_node = self.head
+            while(curr_node != None):
+                item = str(curr_node)
                 width = len(str(item))+2 #2: for a space before & after an item
                 top_border += (['─']*width) + ['┬']
-                middle += [" {} ↔".format(item)]
+                middle += [f" {item} ↔"]
                 down_border += (['─']*width) + ['┴']
-            pointer = pointer.next
+                curr_node = curr_node.get_next()
         top_border += ['─']
         middle += [' ']
         down_border += ['─']
