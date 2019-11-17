@@ -71,6 +71,17 @@ class SkipList:
     
 
     def __print_level(self, level):
+        """
+        This private method is responsible for representing each level in the 
+        Skip List. To do its job, it needs to use three iterators:
+        - zeroth_node: iterator over the first level of the Skip List 
+        - curr_node: iterator over the list at the given level
+        - lower_node: iterator over the list below the given level
+        The complexity of this method is O(n*l) where:
+            - n: is the number of nodes in the first list
+            - l: is the number of levels
+        NOTE: I know this isn't the best way to do it, but that's what I knew
+        """
         zeroth_list = self.skiplist[0]
         curr_list = self.skiplist[level]
         # the following two lists will represent the output of this function
