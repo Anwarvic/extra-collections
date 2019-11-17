@@ -88,11 +88,12 @@ class SkipList:
                 bottom_border += (['─']*width)
                 bottom_border +=  ['┴'] if level == 0 else ['┼']
                 curr_node = curr_node.get_next()
+                if level>0: lower_node = lower_node.get_next()
             else:
                 assert level > 0
                 middle += [f"{'→'*width}→"]
                 bottom_border += (['─']*width)
-                if lower_node.get_data() == curr_node.get_data():
+                if lower_node != None and lower_node.data == zeroth_node.data:
                     bottom_border += ['┬']
                     lower_node = lower_node.get_next()
                 else:
