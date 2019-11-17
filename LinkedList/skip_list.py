@@ -243,6 +243,8 @@ if __name__ == "__main__":
     sk.insert(0)
     sk.insert(10)
     sk.insert(100)
+    sk.insert(50)
+    sk.insert(-20)
     # for level, lst in enumerate(sk.skiplist):
     #     print(lst)
     print(sk)
