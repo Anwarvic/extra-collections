@@ -71,26 +71,33 @@ class SkipList:
     
 
     def __print_level(self, level):
-        lower_list = self.skiplist[0]
+        zeroth_list = self.skiplist[0]
         curr_list = self.skiplist[level]
         # the following two lists will represent the output of this function
         bottom_border = ['└'] if curr_list.head.get_down() == None else ['├']
         middle = ['│']
         # iterate over two lists in parallel
-        lower_node = lower_list.head
+        zeroth_node = zeroth_list.head
         curr_node = curr_list.head
-        while(lower_node != None):
-            item = str(lower_node)
+        if level > 0: lower_node = self.skiplist[level-1].head
+        while(zeroth_node != None):
+            item = str(zeroth_node)
             width = len(item)+2 #2: for a space before & after an item
-            if curr_node != None and lower_node.data == curr_node.data:
+            if curr_node != None and zeroth_node.data == curr_node.data:
                 middle += [f" {item} →"]
                 bottom_border += (['─']*width)
                 bottom_border +=  ['┴'] if level == 0 else ['┼']
                 curr_node = curr_node.get_next()
             else:
+                assert level > 0
                 middle += [f"{'→'*width}→"]
-                bottom_border += (['─']*width) + ['┬']
-            lower_node = lower_node.get_next()
+                bottom_border += (['─']*width)
+                if lower_node.get_data() == curr_node.get_data():
+                    bottom_border += ['┬']
+                    lower_node = lower_node.get_next()
+                else:
+                    bottom_border += ['─']
+            zeroth_node = zeroth_node.get_next()
         middle += [' ']
         bottom_border += ['─']
         return "{}\n{}".format(''.join(middle), ''.join(bottom_border))
