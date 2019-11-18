@@ -148,12 +148,12 @@ class LinkedList:
 
 
     def _insert_node(self, prev_node, item):
-        msg = "Can't insert `None` value as a node!!"
         if isinstance(item, Node):
-            assert item.get_data() != None, msg
+            assert item.get_data() != None, \
+                "Can't insert `None` value as a node!!"
             new_node = item
         else:
-            assert item != None, msg
+            assert item != None, "Can't insert `None` value as a node!!"
             new_node = Node(item)
         if prev_node == None:
             if not self.is_empty(): new_node.set_next(self.head)
