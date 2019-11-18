@@ -26,10 +26,10 @@ class Node:
         return self.next
     
 
-    def set_next(self, next_item):
-        if not isinstance(next_item, Node) and next_item != None:
+    def set_next(self, next_node):
+        if not isinstance(next_node, Node) and next_node != None:
             raise TypeError("Linked List elements have to be of type `Node`")
-        self.next = next_item
+        self.next = next_node
 
 
 
@@ -63,7 +63,7 @@ class LinkedList:
         middle += [' ']
         down_border += ['─']
         return "{}\n{}\n{}".format(\
-            "".join(top_border), "".join(middle), "".join(down_border))
+            ''.join(top_border), ''.join(middle), ''.join(down_border))
 
 
     # def __repr__(self): #TODO: comment this operator
@@ -147,8 +147,14 @@ class LinkedList:
         return self.length == 0
 
 
-    def _insert_node(self, prev_node, new_node):
-        assert new_node != None, "Can't insert `None` value as a node!!"
+    def _insert_node(self, prev_node, item):
+        msg = "Can't insert `None` value as a node!!"
+        if isinstance(item, Node):
+            assert item.get_data() != None, msg
+            new_node = item
+        else:
+            assert item != None, msg
+            new_node = Node(item)
         if prev_node == None:
             if not self.is_empty(): new_node.set_next(self.head)
             self.head = new_node
@@ -161,7 +167,7 @@ class LinkedList:
 
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        self._insert_node(prev_node=None, new_node=Node(item))
+        self._insert_node(prev_node=None, item=item)
 
 
     def add_end(self, item):
@@ -171,7 +177,7 @@ class LinkedList:
         while(curr_node != None):
             prev_node = curr_node
             curr_node = curr_node.get_next()
-        self._insert_node(prev_node, Node(item))
+        self._insert_node(prev_node, item)
 
 
     def insert(self, idx, item):
@@ -190,7 +196,7 @@ class LinkedList:
                 counter += 1
                 prev_node = curr_node
                 curr_node = curr_node.get_next()
-            self._insert_node(prev_node, Node(item))
+            self._insert_node(prev_node, item)
 
 
     def _remove_node(self, prev_node, node):
