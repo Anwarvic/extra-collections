@@ -83,6 +83,22 @@ class LinkedList:
             curr_node = curr_node.get_next()
 
 
+    def _search(self, value):
+        """
+        Search the Linked List for a given `value` and returns the first node
+        containing that value if found. If not found, it returns the last node
+        in the Linked List.
+        """
+        curr_node = self.head
+        # returns `None` if Linked List is empty
+        if self.is_empty(): return curr_node
+        while(curr_node.get_next() != None):
+            if curr_node.get_data() == value:
+                return curr_node
+            curr_node = curr_node.get_next()
+        return curr_node
+
+
     def __contains__(self, value):
         found_node = self._search(value)
         if found_node == None or found_node.get_data() != value:
@@ -108,30 +124,6 @@ class LinkedList:
                 counter += 1
                 curr_node = curr_node.get_next()
             return curr_node
-
-
-    def __setitem__(self, idx, item):
-        self.insert(idx, item)
-
-
-    def __delitem__(self, idx):
-        """Removes a node at index=idx from the linked list"""
-        self._validate_index(idx)
-        if idx == self.length:
-            raise IndexError("Can't find any element at the given index!!")
-        # handle edge case
-        if idx == 0:
-            self.remove_front()
-        # handle general case
-        else:
-            counter = 0
-            curr_node = self.head
-            while(counter != idx-1):  
-                curr_node = curr_node.get_next()
-                counter += 1
-            # curr_node is now at (idx-1)
-            curr_node.set_next(curr_node.get_next().get_next())
-            self.length -= 1
 
 
     def is_empty(self):
@@ -195,20 +187,24 @@ class LinkedList:
         self._insert_node(prev_node, item)
 
 
-    def _remove_node(self, prev_node, node):
-        assert node != None, "Can't remove `None`!!"
+    def __setitem__(self, idx, item):
+        self.insert(idx, item)
+
+
+    def _remove_node(self, prev_node, node_to_be_removed):
+        assert node_to_be_removed != None, "Can't remove `None`!!"
         # if node to be removed is the first
         if prev_node == None:
-            self.head = node.get_next()
+            self.head = node_to_be_removed.get_next()
         else:
-            prev_node.set_next(node.get_next())
+            prev_node.set_next(node_to_be_removed.get_next())
         self.length -= 1
     
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
         if not self.is_empty():
-            self._remove_node(prev_node=None, node=self.head)
+            self._remove_node(prev_node=None, node_to_be_removed=self.head)
 
 
     def remove_end(self):
@@ -239,6 +235,27 @@ class LinkedList:
                 curr_node = curr_node.get_next()
 
 
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the linked list"""
+        self._validate_index(idx)
+        if idx == self.length:
+            raise IndexError("Can't find any element at the given index!!")
+        # handle edge case
+        if idx == 0:
+            self.remove_front()
+        # handle general case
+        #TODO: refactor this
+        else:
+            counter = 0
+            curr_node = self.head
+            while(counter != idx-1):  
+                curr_node = curr_node.get_next()
+                counter += 1
+            # curr_node is now at (idx-1)
+            curr_node.set_next(curr_node.get_next().get_next())
+            self.length -= 1
+
+
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
         if not self.is_empty():
@@ -260,21 +277,6 @@ class LinkedList:
         rev.add_front(curr_node.get_data())
         return rev
 
-
-    def _search(self, value):
-        """
-        Search the Linked List for a given `value` and returns the first node
-        containing that value if found. If not found, it returns the last node
-        in the Linked List.
-        """
-        curr_node = self.head
-        # returns `None` if Linked List is empty
-        if self.is_empty(): return curr_node
-        while(curr_node.get_next() != None):
-            if curr_node.get_data() == value:
-                return curr_node
-            curr_node = curr_node.get_next()
-        return curr_node
 
 
 
