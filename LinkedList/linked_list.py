@@ -94,11 +94,9 @@ class LinkedList:
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
         if type(idx) != int:
-            msg = "Indices must be an integer!"
-            raise TypeError(msg)
+            raise TypeError("Indices must be an integer!")
         elif idx < -self.length or idx >= self.length:
-            msg = "Can't find any element at the given index!!"
-            raise IndexError(msg)
+            raise IndexError("Can't find any element at the given index!!")
         else:
             # convert idx to positive if -ve
             if idx <= -1:
@@ -118,15 +116,9 @@ class LinkedList:
 
     def __delitem__(self, idx):
         """Removes a node at index=idx from the linked list"""
-        if type(idx) != int:
-            msg = "Indices must be an integer!!"
-            raise TypeError(msg)
-        elif idx <= -1:
-            msg = "Linked List doesn't support -ve indexing with removal!!"
-            raise IndexError(msg)
-        elif idx >= self.length:
-            msg = "Can't find any element at the given index!!"
-            raise IndexError(msg)
+        self._validate_index(idx)
+        if idx == self.length:
+            raise IndexError("Can't find any element at the given index!!")
         # handle edge case
         if idx == 0:
             self.remove_front()
@@ -180,23 +172,27 @@ class LinkedList:
         self._insert_node(prev_node, item)
 
 
+    def _validate_index(self, idx):
+        if type(idx) != int:
+            raise TypeError("Indices must be an integer!")
+        elif idx <= -1:
+            raise IndexError(\
+                "Negative indexing isn't allowed with insertion/removal!!")
+        elif idx > self.length:
+            raise IndexError("Can't find any element at the given index!!")
+
+
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
-        if type(idx) != int:
-            msg = "Indices must be an integer!"
-            raise TypeError(msg)
-        elif idx <= -1:
-            msg = "Linked List doesn't support -ve indexing with insertion!!"
-            raise IndexError(msg)
-        else:
-            counter = 0
-            prev_node = None
-            curr_node = self.head
-            while(counter != idx):
-                counter += 1
-                prev_node = curr_node
-                curr_node = curr_node.get_next()
-            self._insert_node(prev_node, item)
+        self._validate_index(idx)
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        while(counter != idx):
+            counter += 1
+            prev_node = curr_node
+            curr_node = curr_node.get_next()
+        self._insert_node(prev_node, item)
 
 
     def _remove_node(self, prev_node, node):
