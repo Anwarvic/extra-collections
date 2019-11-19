@@ -192,7 +192,7 @@ class LinkedList:
 
 
     def _remove_node(self, prev_node, node_to_be_removed):
-        assert node_to_be_removed != None, "Can't remove `None`!!"
+        assert node_to_be_removed != None, "Can't remove `None` node!!"
         # if node to be removed is the first
         if prev_node == None:
             self.head = node_to_be_removed.get_next()
@@ -240,20 +240,14 @@ class LinkedList:
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
-        # handle edge case
-        if idx == 0:
-            self.remove_front()
-        # handle general case
-        #TODO: refactor this
-        else:
-            counter = 0
-            curr_node = self.head
-            while(counter != idx-1):  
-                curr_node = curr_node.get_next()
-                counter += 1
-            # curr_node is now at (idx-1)
-            curr_node.set_next(curr_node.get_next().get_next())
-            self.length -= 1
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        while(counter != idx):  
+            counter += 1
+            prev_node = curr_node
+            curr_node = curr_node.get_next()
+        self._remove_node(prev_node, curr_node)
 
 
     def clear(self):
