@@ -37,7 +37,7 @@ class DoubleNode(Node):
 
 
 
-class DoubleLinkedList():
+class DoubleLinkedList(LinkedList):
     """Basic object for the double linked list"""
     def __init__(self, item=None):
         if isinstance(item, Node):
@@ -51,9 +51,9 @@ class DoubleLinkedList():
     def __repr__(self):
         """Represents the double linked list as a string"""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
-        top_border = ['─┬']
-        middle = [' ↔']
-        down_border = ['─┴']
+        top_border = ["─┬"]
+        middle = [" ↔"]
+        down_border = ["─┴"]
         if not self.is_empty():
             curr_node = self.head
             while(curr_node != None):
@@ -67,109 +67,44 @@ class DoubleLinkedList():
         middle += [' ']
         down_border += ['─']
         return "{}\n{}\n{}".format(\
-            "".join(top_border), "".join(middle), "".join(down_border))
+            ''.join(top_border), ''.join(middle), ''.join(down_border))
 
 
-    def __len__(self):
-        """Gets the length of the double linked list"""
-        return self.length
-
-
-    def __fix_index(self, idx):
-        """
-        private method to make a sanity-check over the given index and fix it
-        if it was -ve. It should return the index if it's valid. If the index is
-        negative, then it converts it to positive index if possible.
-        If the index has any error of any kind, it raises an appropriate error.
-        """
-        if type(idx) != int:
-            msg = "idx must be an integer!"
-            raise TypeError(msg)
-        # handle negative index
-        if idx <=-1 and abs(idx) <= self.length:
-            idx += self.length
-        # handle positive/negative indices
-        elif abs(idx) >= self.length:
-            msg = "max index for this linked list is " + str(self.length-1)
-            raise IndexError(msg)
+    def _insert_node(self, prev_node, item):
+        if isinstance(item, Node):
+            assert item.get_data() != None, \
+                "Can't insert `None` value as a node!!"
+            new_node = item
         else:
-            pass #direct
-        return idx
-
-
-    def __getitem__(self, idx):
-        """Retrieves the element at the given index with complexity of O(n/2).
-        It supports negative indexing."""
-        idx = self.__fix_index(idx)
-        # handle edge cases
-        if idx == 0:
-            return self.head
-        elif idx == self.length-1:
-            return self.tail
-        # handle general case
-        # when idx is smaller than half of the linked list length
-        elif idx < self.length//2:
-            # iterate over the double linked list (forwards)
-            pointer = self.head
-            counter = 0
-            while(pointer.next != None):
-                counter += 1
-                pointer = pointer.next
-                if counter == idx:
-                    return pointer
-        # when idx is bigger than or equal half the linked list length
+            assert item != None, "Can't insert `None` value as a node!!"
+            new_node = DoubleNode(item)
+        if prev_node == None:
+            if self.is_empty():
+                self.head = self.tail = new_node
+            else:
+                self.head = new_node
+                self.head.set_next(self.tail)
         else:
-            # iterate over the double linked list (backwards)
-            pointer = self.tail
-            counter = self.length-1
-            while(pointer.prev != None):
-                counter -= 1
-                pointer = pointer.prev
-                if counter == idx:
-                    return pointer
-
-
-    def __setitem__(self, idx, value):
-        pass
-
-
-    def is_empty(self):
-        """Checks if double linked list is empty"""
-        return self.length == 0
-
-
-    def add_front(self, item):
-        """Adds node at the head of the linked list with complexity of O(1)"""
-        if self.length == 0:
-            self.head = self.tail = Node(item)
-        elif self.length == 1:
-            self.head = Node(item)
-            self.head.next = self.tail
-            self.tail.prev = self.head
-        else:
-            new_node = self.head
-            # update head
-            self.head = Node(item)
-            self.head.next = new_node
-            new_node.prev = self.head
+            new_node.set_next(prev_node.get_next())
+            prev_node.set_next(new_node)
         self.length += 1
+        return new_node
 
 
     def add_end(self, item):
         """Adds node at the tail of the double linked list with O(1) complexity.
         """
-        if self.length == 0:
-            self.head = self.tail = Node(item)
-        elif self.length == 1:
-            self.tail = Node(item)
-            self.tail.prev = self.head
-            self.head.next = self.tail
+        self._insert_node(self.tail, item)
+
+
+    def _remove_node(self, prev_node, node):
+        assert node != None, "Can't remove `None`!!"
+        # if node to be removed is the first
+        if prev_node == None:
+            self.head = node.get_next()
         else:
-            new_node = self.tail
-            self.tail = Node(item)
-            self.tail.prev = new_node
-            new_node.next = self.tail
-        self.length += 1
+            prev_node.set_next(node.get_next())
+        self.length -= 1
 
 
     def remove_front(self):
