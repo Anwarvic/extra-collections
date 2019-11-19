@@ -116,26 +116,10 @@ class DoubleLinkedList(LinkedList):
             super()._remove_node(prev_node, node)
 
 
-    def remove_front(self):
-        """Removes the double linked list head with complexity of O(1)"""
-        if self.length > 0:
-            if self.length == 1:
-                self.head = self.tail = Node()
-            else:
-                self.head = self.head.next
-                self.head.prev = None
-            self.length -= 1
-
-
     def remove_end(self):
         """Removes the double linked list tail with complexity of O(1)"""
-        if self.length > 0:
-            if self.length == 1:
-                self.tail = self.head = Node()
-            else:
-                self.tail = self.tail.prev
-                self.tail.next = None
-            self.length -= 1
+        if not self.is_empty():
+            self._remove_node(self.tail.get_prev(), self.tail)
 
 
     def insert(self, idx, item):
