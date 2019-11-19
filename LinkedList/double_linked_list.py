@@ -25,14 +25,14 @@ class DoubleNode(Node):
     def set_prev(self, prev_node):
         if not isinstance(prev_node, Node) and prev_node != None:
             raise TypeError("Linked List elements have to be of type `Node`")
-        prev_node.next = self
+        if prev_node != None: prev_node.next = self 
         self.prev = prev_node
     
 
     def set_next(self, next_node):
         if not isinstance(next_node, Node) and next_node != None:
             raise TypeError("Linked List elements have to be of type `Node`")
-        next_node.prev = self
+        if next_node != None: next_node.prev = self
         self.next = next_node
 
 
