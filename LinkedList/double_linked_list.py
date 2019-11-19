@@ -71,6 +71,7 @@ class DoubleLinkedList(LinkedList):
 
 
     def _insert_node(self, prev_node, item):
+        # handle different types of `item`
         if isinstance(item, Node):
             assert item.get_data() != None, \
                 "Can't insert `None` value as a node!!"
@@ -78,6 +79,7 @@ class DoubleLinkedList(LinkedList):
         else:
             assert item != None, "Can't insert `None` value as a node!!"
             new_node = DoubleNode(item)
+        
         if prev_node == None:
             if self.is_empty():
                 self.head = self.tail = new_node
@@ -99,9 +101,19 @@ class DoubleLinkedList(LinkedList):
 
     def _remove_node(self, prev_node, node):
         assert node != None, "Can't remove `None`!!"
+        next_node = node.get_next()
         # if node to be removed is the first
         if prev_node == None:
-            self.head = node.get_next()
+            if self.length == 1:
+                self.head = self.tail = DoubleNode()
+            elif self.length == 2:
+                self.head = node.get_next()
+                self.tail.set_prev(self.head)
+            else:
+                next_node.set_prev(None)
+                self.head = next_node
+        elif next_node == None:
+            pass
         else:
             prev_node.set_next(node.get_next())
         self.length -= 1
@@ -340,3 +352,4 @@ if __name__ == "__main__":
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
 
+    ### additional testing
