@@ -103,20 +103,17 @@ class DoubleLinkedList(LinkedList):
         assert node != None, "Can't remove `None`!!"
         next_node = node.get_next()
         # if node to be removed is the first
-        if prev_node == None:
-            if self.length == 1:
-                self.head = self.tail = DoubleNode()
-            elif self.length == 2:
-                self.head = node.get_next()
-                self.tail.set_prev(self.head)
-            else:
-                next_node.set_prev(None)
+        if self.length == 1:
+            self.head = self.tail = DoubleNode()
+        elif self.length == 2:
+            if prev_node == None:
                 self.head = next_node
-        elif next_node == None:
-            pass
+                self.tail.set_prev(self.head)
+            elif next_node == None:
+                self.tail = prev_node
+                self.head.set_next(self.tail)
         else:
-            prev_node.set_next(node.get_next())
-        self.length -= 1
+            super()._remove_node(prev_node, node)
 
 
     def remove_front(self):
