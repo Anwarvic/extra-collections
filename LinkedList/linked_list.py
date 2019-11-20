@@ -43,10 +43,7 @@ class LinkedList:
         else:
             self.head = Node(item)
             self.length = 1 if item != None else 0
-    
 
-    def __create_instance(self):
-        return LinkedList()
 
     def __repr__(self):
         """Represents the linked list as a string."""
@@ -272,7 +269,7 @@ class LinkedList:
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
-        rev = self.__create_instance()
+        rev = LinkedList()
         if not self.is_empty():
             curr_node = self.head
             while(curr_node.get_next() != None):
@@ -322,16 +319,16 @@ if __name__ == "__main__":
     l.insert(2, 77)   #6 10 77 20
     l.insert(4, 43)   #6 10 77 20 43
     l.insert(0, 2)    #2 6 10 77 20 43
-    print(43 in l)
+    print(43 in l)    #true
     print(l)
-    del l[len(l)-1]
+    del l[len(l)-1]   #2 6 10 77 20
     print(l)
-    print("LENGTH:", len(l))
-    print(l.to_list())
+    print("LENGTH:", len(l)) #5
+    print(l.to_list())#[2, 6, 10, 77, 20]
 
     print(l[0], l[3], "\n")
 
-    rev = l.reverse()#43 20 77 10 2
+    rev = l.reverse() #20 77 10 6 2
     print(rev)
     print("REV LENGTH:", len(rev))
     print(rev[1], rev[2])
