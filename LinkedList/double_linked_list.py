@@ -103,6 +103,24 @@ class DoubleLinkedList(LinkedList):
         self._insert_node(self.tail, item)
 
 
+    def insert(self, idx, item):
+        """Inserts a certain item at a given index into the double linked list.
+        """
+        self._validate_index(idx)
+        # when idx is smaller than half the linked list length
+        if idx < self.length//2:
+            super().insert(idx, item)
+        # when idx is bigger than half the linked list length
+        else:
+            # iterate over the double linked list (backwards)
+            counter = self.length
+            curr_node = self.tail
+            while(counter != idx):
+                counter -= 1
+                curr_node = curr_node.get_prev()
+            self._insert_node(curr_node, item)
+
+
     def _remove_node(self, prev_node, node):
         assert node != None, "Can't remove `None`!!"
         next_node = node.get_next()
@@ -126,58 +144,23 @@ class DoubleLinkedList(LinkedList):
             self._remove_node(self.tail.get_prev(), self.tail)
 
 
-    def insert(self, idx, item):
-        """Inserts a certain item at a given index into the double linked list.
-        """
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the double linked list"""
         self._validate_index(idx)
+        if idx == self.length:
+            raise IndexError("Can't find any element at the given index!!")
         # when idx is smaller than half the linked list length
         if idx < self.length//2:
-            super().insert(idx, item)
+            super().__delitem__(idx)
         # when idx is bigger than half the linked list length
         else:
-            # iterate over the double linked list (backwards)
+            # iterate over the double linked list (forwards)
             counter = self.length
             curr_node = self.tail
-            while(counter != idx):
+            while(counter != idx):  
                 counter -= 1
                 curr_node = curr_node.get_prev()
-            self._insert_node(curr_node, item)
-
-    def remove(self, idx):
-        """Removes a node at index=idx from the double linked list"""
-        idx = self.__fix_index(idx)
-        # handle edge cases
-        if idx == 0:
-            self.remove_front()
-        elif idx == self.length-1:
-            self.remove_end()
-        # handle general case
-        # when idx is smaller than half the linked list length
-        elif idx < self.length//2:
-            # iterate over the double linked list (forwards)
-            counter = 0
-            pointer = self.head
-            while(counter != idx-1):  
-                pointer = pointer.next
-                counter += 1
-            # pointer is now at (idx-1)
-            next_pointer = pointer.next.next
-            next_pointer.prev = pointer
-            pointer.next = next_pointer
-            self.length -= 1
-        # when idx is bigger than half the linked list length
-        else:
-            # iterate over the double linked list (forwards)
-            pointer = self.tail
-            counter = self.length-1
-            while(counter != idx+1):  
-                pointer = pointer.prev
-                counter -= 1
-            # pointer is now at (idx+1)
-            prev_pointer = pointer.prev.prev
-            prev_pointer.next = pointer
-            pointer.prev = prev_pointer
-            self.length -= 1
+            self._remove_node(curr_node.get_prev(), curr_node)
 
 
     def insert_multiple(self, idx, lst):
