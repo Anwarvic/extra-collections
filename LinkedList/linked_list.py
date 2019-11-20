@@ -256,9 +256,6 @@ class LinkedList:
 
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
-        # if not self.is_empty():
-        #     self.head = Node()
-        #     self.length = 0
         self.__init__()
     
 
