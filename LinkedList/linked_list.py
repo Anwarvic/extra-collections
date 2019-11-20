@@ -266,11 +266,12 @@ class LinkedList:
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = LinkedList()
-        curr_node = self.head
-        while(curr_node.get_next() != None):
+        if not self.is_empty():
+            curr_node = self.head
+            while(curr_node.get_next() != None):
+                rev.add_front(curr_node.get_data())
+                curr_node = curr_node.get_next()
             rev.add_front(curr_node.get_data())
-            curr_node = curr_node.get_next()
-        rev.add_front(curr_node.get_data())
         return rev
 
 
@@ -331,4 +332,5 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
+    l.add_end(20)  #TODO: fix this bug!!
     print(l)
