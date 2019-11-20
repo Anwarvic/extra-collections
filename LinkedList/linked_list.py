@@ -132,6 +132,7 @@ class LinkedList:
 
 
     def _insert_node(self, prev_node, item):
+        # handle different types of `item`
         if isinstance(item, Node):
             assert item.get_data() != None, \
                 "Can't insert `None` value as a node!!"
@@ -139,6 +140,8 @@ class LinkedList:
         else:
             assert item != None, "Can't insert `None` value as a node!!"
             new_node = Node(item)
+        
+        # start inserting the node
         if prev_node == None:
             if not self.is_empty(): new_node.set_next(self.head)
             self.head = new_node
@@ -180,6 +183,7 @@ class LinkedList:
         counter = 0
         prev_node = None
         curr_node = self.head
+        # iterate over the double linked list (forwards)
         while(counter != idx):
             counter += 1
             prev_node = curr_node
@@ -252,9 +256,10 @@ class LinkedList:
 
     def clear(self):
         """Removes all nodes within the linked list with complexity of O(1)"""
-        if not self.is_empty():
-            self.head = Node()
-            self.length = 0
+        # if not self.is_empty():
+        #     self.head = Node()
+        #     self.length = 0
+        self.__init__()
     
 
     def to_list(self):
@@ -329,3 +334,4 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
+    print(l)
