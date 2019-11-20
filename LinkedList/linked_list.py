@@ -163,12 +163,15 @@ class LinkedList:
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        prev_node = None
-        curr_node = self.head
-        while(curr_node != None):
-            prev_node = curr_node
-            curr_node = curr_node.get_next()
-        self._insert_node(prev_node, item)
+        if self.is_empty():
+            self.add_front(item)
+        else:
+            prev_node = None
+            curr_node = self.head
+            while(curr_node != None):
+                prev_node = curr_node
+                curr_node = curr_node.get_next()
+            self._insert_node(prev_node, item)
 
 
     def _validate_index(self, idx):
@@ -336,5 +339,4 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
-    l.add_end(20)  #TODO: fix this bug!!
     print(l)
