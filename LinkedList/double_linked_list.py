@@ -155,72 +155,12 @@ class DoubleLinkedList(LinkedList):
         # when idx is bigger than half the linked list length
         else:
             # iterate over the double linked list (forwards)
-            counter = self.length
+            counter = self.length-1
             curr_node = self.tail
-            while(counter != idx):  
+            while(counter != idx):
                 counter -= 1
                 curr_node = curr_node.get_prev()
             self._remove_node(curr_node.get_prev(), curr_node)
-
-
-    def insert_multiple(self, idx, lst):
-        """Inserts multiple items into the double linked list at once.
-        Its complexity is O(n/2)."""
-        if idx <= -1 and abs(idx) <= self.length+1:
-            idx += self.length+1
-        else:
-            idx = self.__fix_index(idx)
-        # handle edge cases
-        if idx == 0:
-            # iterate over given list in reverse-order
-            for i in range(len(lst)-1, -1, -1):
-                self.add_front(lst[i])
-        elif idx == self.length:
-            for i in range(0, len(lst)):
-                self.add_end(lst[i])
-        # handle general case
-        elif idx < self.length//2:
-            # iterate over the double linked list (forwards)
-            counter = 0
-            pointer = self.head
-            while(counter != idx-1):  
-                pointer = pointer.next
-                counter += 1
-            # pointer is now at (idx-1)
-            # iterate over given list
-            for i in range(0, len(lst)):
-                # define main nodes
-                new_node = Node(lst[i])
-                next_pointer = pointer.next
-                # adjuct connections
-                new_node.next = next_pointer
-                next_pointer.prev = new_node
-                new_node.prev = pointer
-                pointer.next = new_node
-                # update pointer
-                pointer = pointer.next
-                self.length += 1
-        else:
-            # iterate over the double linked list (backwords)
-            pointer = self.tail
-            counter = self.length-1
-            while(counter != idx):
-                pointer = pointer.prev
-                counter -= 1
-            # pointer is now at (idx)
-            # iterate over given list in reverse-order
-            for i in range(len(lst)-1, -1, -1):
-                # define main nodes
-                new_node = Node(lst[i])
-                prev_pointer = pointer.prev
-                # adjust connections
-                new_node.prev = prev_pointer
-                prev_pointer.next = new_node
-                new_node.next = pointer
-                pointer.prev = new_node
-                # update pointer
-                pointer = pointer.prev
-                self.length += 1
 
     
     def clear(self):
