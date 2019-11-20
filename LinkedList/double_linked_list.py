@@ -47,7 +47,10 @@ class DoubleLinkedList(LinkedList):
             self.head = DoubleNode(item)
             self.length = 1 if item != None else 0
 
-    
+
+    def __create_instance(self):
+        return DoubleLinkedList()
+
     def __repr__(self):
         """Represents the double linked list as a string"""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
@@ -162,24 +165,8 @@ class DoubleLinkedList(LinkedList):
                 curr_node = curr_node.get_prev()
             self._remove_node(curr_node.get_prev(), curr_node)
 
-    
-    def clear(self):
-        """Removes all nodes within the linked list with complexity of O(1)"""
-        self.head = self.tail = Node()
-        self.length = 0
 
 
-    def reverse(self):
-        """Reverses the whole double linked list with complexity of O(n)"""
-        rev = DoubleLinkedList()
-        if self.length == 0:
-            return DoubleLinkedList()
-        # iterate over original double linked list in (forward)
-        pointer = self.head
-        while(pointer != None):
-            rev.add_front(pointer.data)
-            pointer = pointer.next
-        return rev
 
 
 
