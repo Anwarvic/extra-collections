@@ -143,7 +143,9 @@ class LinkedList:
             new_node = Node(item)
         
         # start inserting the node
-        if prev_node == None:
+        if self.length == 0:
+            self.head = new_node
+        elif prev_node == None:
             if not self.is_empty(): new_node.set_next(self.head)
             self.head = new_node
         else:
