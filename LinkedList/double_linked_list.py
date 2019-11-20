@@ -129,52 +129,19 @@ class DoubleLinkedList(LinkedList):
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the double linked list.
         """
-        if idx <= -1 and abs(idx) <= self.length+1:
-            idx += self.length+1
-        else:
-            idx = self.__fix_index(idx)
-        # handle edge cases
-        if idx == 0:
-            self.add_front(item)
-        elif idx == self.length:
-            self.add_end(item)
-        # handle general case
+        self._validate_index(idx)
         # when idx is smaller than half the linked list length
-        elif idx < self.length//2:
-            # iterate over the double linked list (forwards)
-            counter = 0
-            pointer = self.head
-            while(counter != idx-1):  
-                pointer = pointer.next
-                counter += 1
-            # pointer is now at (idx-1)
-            # define main nodes
-            new_node = Node(item)
-            next_pointer = pointer.next
-            # adjust connections
-            new_node.next = next_pointer
-            next_pointer.prev = new_node
-            new_node.prev = pointer
-            pointer.next = new_node
-            self.length += 1
+        if idx < self.length//2:
+            super().insert(idx, item)
         # when idx is bigger than half the linked list length
         else:
             # iterate over the double linked list (backwards)
-            pointer = self.tail
-            counter = self.length-1
+            counter = self.length
+            curr_node = self.tail
             while(counter != idx):
-                pointer = pointer.prev
                 counter -= 1
-            # pointer is now at (idx)
-            # define main nodes
-            new_node = Node(item)
-            prev_pointer = pointer.prev
-            # adjust connections
-            new_node.prev = prev_pointer
-            prev_pointer.next = new_node
-            new_node.next = pointer
-            pointer.prev = new_node
-            self.length += 1
+                curr_node = curr_node.get_prev()
+            self._insert_node(curr_node, item)
 
     def remove(self, idx):
         """Removes a node at index=idx from the double linked list"""
