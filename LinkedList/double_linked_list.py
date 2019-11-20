@@ -48,9 +48,6 @@ class DoubleLinkedList(LinkedList):
             self.length = 1 if item != None else 0
 
 
-    def __create_instance(self):
-        return DoubleLinkedList()
-
     def __repr__(self):
         """Represents the double linked list as a string"""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
@@ -84,18 +81,26 @@ class DoubleLinkedList(LinkedList):
             new_node = DoubleNode(item)
         
         # start inserting the node
-        if prev_node == None:
-            if self.length == 0:
-                self.head = self.tail = new_node
-            elif self.length == 1:
+        if self.length == 0:
+            self.head = self.tail = new_node
+        elif self.length == 1:
+            if prev_node == None:
                 new_node.set_next(self.tail)
                 self.head = new_node
             else:
-                new_node.set_next(self.head.get_next())
-                self.head = new_node
+                self.tail = new_node
+                self.head.set_next(self.tail)
         else:
-            new_node.set_next(prev_node.get_next())
-            prev_node.set_next(new_node)
+            if prev_node == None:
+                new_node.set_next(self.head)
+                self.head = new_node
+            else:
+                if prev_node.get_next() == None:
+                    self.tail.set_next(new_node)
+                    self.tail = new_node
+                else:
+                    new_node.set_next(prev_node.get_next())
+                    prev_node.set_next(new_node)
         self.length += 1
         return new_node
 
@@ -154,7 +159,7 @@ class DoubleLinkedList(LinkedList):
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
         # when idx is smaller than half the linked list length
-        if idx < self.length//2:
+        if idx <= self.length//2:
             super().__delitem__(idx)
         # when idx is bigger than half the linked list length
         else:
@@ -167,62 +172,73 @@ class DoubleLinkedList(LinkedList):
             self._remove_node(curr_node.get_prev(), curr_node)
 
 
+    def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
+        #TODO: find a way to inherit this method
+        rev = DoubleLinkedList()
+        if not self.is_empty():
+            curr_node = self.head
+            while(curr_node.get_next() != None):
+                rev.add_front(curr_node.get_data())
+                curr_node = curr_node.get_next()
+            rev.add_front(curr_node.get_data())
+        return rev
 
 
 
 
 if __name__ == "__main__":
-    l = DoubleLinkedList()
+    dl = DoubleLinkedList()
     # test removing from empty list:
-    l.remove_front() #Nothing
-    l.remove_end()   #Nothing
-    l.remove(10)     #Nothing
+    dl.remove_front() #Nothing
+    dl.remove_end()   #Nothing
+    dl.remove(10)     #Nothing
     # del l[0]       #throughs IndexError
 
-    l.add_front(10)  #10 
-    l.add_front(5)   #5 10
-    print(l)
-    l.remove(20)     #nothing
-    l.remove_front() #10
-    print(l)
-    l.remove_end()   #[]
-    print(l)
-    l.insert(0, 100) #100
-    l.insert(1, 200) #100 200
-    l.insert(1, 100) #100 100 200
-    print(l)
-    l.remove(100)    #200
-    print(l)
-    l.clear()        #[]
+    dl.add_front(10)  #10 
+    dl.add_front(5)   #5 10
+    print(dl)
+    dl.remove(20)     #nothing
+    dl.remove_front() #10
+    print(dl)
+    dl.remove_end()   #[]
+    print(dl)
+    dl.insert(0, 100) #100
+    dl.insert(1, 200) #100 200
+    dl.insert(1, 100) #100 100 200
+    print(dl)
+    dl.remove(100)    #200
+    print(dl)
+    dl.clear()        #[]
 
     # test remove() alone
-    l.add_end(0)     #0
-    l.remove(0)      #[]
-    print(l)
+    dl.add_end(0)     #0
+    dl.remove(0)      #[]
+    print(dl)
 
     # addinng
-    l.add_front(6)   #6
-    l.add_end(20)    #6 20
-    print(l)
-    l.insert(1, 10)   #6 10 20
-    l.insert(2, 77)   #6 10 77 20
-    l.insert(4, 43)   #6 10 77 20 43
-    l.insert(0, 2)    #2 6 10 77 20 43
-    print(43 in l)
-    print(l)
-    del l[len(l)-1]
-    print(l)
-    print("LENGTH:", len(l))
-    print(l.to_list())
+    dl.add_front(6)   #6
+    dl.add_end(20)    #6 20
+    print(dl)
+    dl.insert(1, 10)   #6 10 20
+    dl.insert(2, 77)   #6 10 77 20
+    dl.insert(4, 43)   #6 10 77 20 43
+    dl.insert(0, 2)    #2 6 10 77 20 43
+    print(43 in dl)    #true
+    print(dl)
+    del dl[len(dl)-1]   #2 6 10 77 20
+    print(dl)
+    print("LENGTH:", len(dl))
+    print(dl.to_list())#[2, 6, 10, 77, 20]
 
-    print(l[0], l[3], "\n")
+    print(dl[0], dl[3], "\n")
 
-    rev = l.reverse()#43 20 77 10 2
+    rev = dl.reverse() #20 77 10 6 2
     print(rev)
     print("REV LENGTH:", len(rev))
     print(rev[1], rev[2])
 
-    l.clear()
-    print("Linked List is empty?", l.is_empty())
+    dl.clear()
+    print("Linked List is empty?", dl.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
-    print(l)
+    print(dl)
