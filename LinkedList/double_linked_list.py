@@ -80,12 +80,16 @@ class DoubleLinkedList(LinkedList):
             assert item != None, "Can't insert `None` value as a node!!"
             new_node = DoubleNode(item)
         
+        # start inserting the node
         if prev_node == None:
-            if self.is_empty():
+            if self.length == 0:
                 self.head = self.tail = new_node
-            else:
+            elif self.length == 1:
+                new_node.set_next(self.tail)
                 self.head = new_node
-                self.head.set_next(self.tail)
+            else:
+                new_node.set_next(self.head.get_next())
+                self.head = new_node
         else:
             new_node.set_next(prev_node.get_next())
             prev_node.set_next(new_node)
