@@ -44,6 +44,10 @@ class LinkedList:
             self.head = Node(item)
             self.length = 1 if item != None else 0
     
+
+    def __create_instance(self):
+        return LinkedList()
+
     def __repr__(self):
         """Represents the linked list as a string."""
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
@@ -265,7 +269,7 @@ class LinkedList:
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
-        rev = LinkedList()
+        rev = self.__create_instance()
         if not self.is_empty():
             curr_node = self.head
             while(curr_node.get_next() != None):
