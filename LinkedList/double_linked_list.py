@@ -44,7 +44,7 @@ class DoubleLinkedList(LinkedList):
             self.head = item
             self.length = 1 if item.get_data() != None else 0
         else:
-            self.head = DoubleNode(item)
+            self.head = self.tail = DoubleNode(item)
             self.length = 1 if item != None else 0
 
 
@@ -111,7 +111,7 @@ class DoubleLinkedList(LinkedList):
         """
         self._validate_index(idx)
         # when idx is smaller than half the linked list length
-        if idx < self.length//2:
+        if idx <= self.length//2:
             super().insert(idx, item)
         # when idx is bigger than half the linked list length
         else:
@@ -124,21 +124,22 @@ class DoubleLinkedList(LinkedList):
             self._insert_node(curr_node, item)
 
 
-    def _remove_node(self, prev_node, node):
-        assert node != None, "Can't remove `None`!!"
-        next_node = node.get_next()
+    def _remove_node(self, prev_node, node_to_be_removed):
+        assert node_to_be_removed != None, "Can't remove `None`!!"
+        next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if self.length == 1:
             self.head = self.tail = DoubleNode()
+            self.length -= 1
         elif self.length == 2:
             if prev_node == None:
-                self.head = next_node
-                self.tail.set_prev(self.head)
+                new_node = DoubleNode(next_node.get_data())
             elif next_node == None:
-                self.tail = prev_node
-                self.head.set_next(self.tail)
+                new_node = DoubleNode(prev_node.get_data())
+            self.head = self.tail = new_node
+            self.length -= 1
         else:
-            super()._remove_node(prev_node, node)
+            super()._remove_node(prev_node, node_to_be_removed)
 
 
     def remove_end(self):
@@ -170,48 +171,58 @@ class DoubleLinkedList(LinkedList):
 
 
 
-
 if __name__ == "__main__":
     l = DoubleLinkedList()
+    # test removing from empty list:
+    l.remove_front() #Nothing
+    l.remove_end()   #Nothing
+    l.remove(10)     #Nothing
+    # del l[0]       #throughs IndexError
+
+    l.add_front(10)  #10 
+    l.add_front(5)   #5 10
+    print(l)
+    l.remove(20)     #nothing
+    l.remove_front() #10
+    print(l)
+    l.remove_end()   #[]
+    print(l)
+    l.insert(0, 100) #100
+    l.insert(1, 200) #100 200
+    l.insert(1, 100) #100 100 200
+    print(l)
+    l.remove(100)    #200
+    print(l)
+    l.clear()        #[]
+
+    # test remove() alone
+    l.add_end(0)     #0
+    l.remove(0)      #[]
+    print(l)
+
+    # addinng
     l.add_front(6)   #6
     l.add_end(20)    #6 20
-    l.insert(1, 10)  #6 10 20
-    l.insert(-2, 999)#6 10 999 20
-    l.insert_multiple(2, [1, 2, 3, 4])  #6 10 1 2 3 4 999 20
-    l.insert(-9, -555)#-555 6 10 1 2 3 4 999 20
+    print(l)
+    l.insert(1, 10)   #6 10 20
+    l.insert(2, 77)   #6 10 77 20
+    l.insert(4, 43)   #6 10 77 20 43
+    l.insert(0, 2)    #2 6 10 77 20 43
+    print(43 in l)
+    print(l)
+    del l[len(l)-1]
     print(l)
     print("LENGTH:", len(l))
+    print(l.to_list())
 
-    l.remove(-9)     #6 10 1 2 3 4 999 20
-    l.remove(-2)     #6 10 1 2 3 4 20
-    l.remove_front() #10 1 2 3 4 20
-    l.remove_end()   #10 1 2 3 4
-    l.remove(0)      #1 2 3 4
-    print(l)
-    print("LENGTH:", len(l))
-    
     print(l[0], l[3], "\n")
 
-    rev = l.reverse()#4 3 2 1
+    rev = l.reverse()#43 20 77 10 2
     print(rev)
     print("REV LENGTH:", len(rev))
     print(rev[1], rev[2])
 
-    # iterate over l backwards
-    print("===== Backward Iteration =====")
-    pointer = l.tail
-    while(pointer != None):
-        print(pointer)
-        pointer = pointer.prev
-    # iterate over l forward
-    print("===== Forward Iteration =====")
-    pointer = l.head
-    while(pointer != None):
-        print(pointer)
-        pointer = pointer.next
-
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
-
-    ### additional testing
+    print(l)
