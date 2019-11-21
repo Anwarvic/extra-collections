@@ -10,7 +10,6 @@ def flip_coin():
     return random.choice(['head','tail'])
 
 
-
 def search_sorted(start_node, value):
     # search a sorted linked list and return the last accessed node.
     prev = curr_node = start_node
