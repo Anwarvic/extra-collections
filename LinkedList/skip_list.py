@@ -20,7 +20,6 @@ def search_sorted(start_node, value):
 
 
 
-
 class SkipNode(DoubleNode):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
@@ -95,14 +94,14 @@ class SkipList:
             item = str(zeroth_node)
             width = len(item)+2 #2: for a space before & after an item
             if curr_node != None and zeroth_node.data == curr_node.data:
-                middle += [f" {item} →"]
+                middle += [f" {item} ↔"]
                 bottom_border += (['─']*width)
                 bottom_border +=  ['┴'] if level == 0 else ['┼']
                 curr_node = curr_node.get_next()
                 if level>0: lower_node = lower_node.get_next()
             else:
                 assert level > 0
-                middle += [f"{'→'*width}→"]
+                middle += [f"{'↔'*width}↔"]
                 bottom_border += (['─']*width)
                 if lower_node != None and lower_node.data == zeroth_node.data:
                     bottom_border += ['┬']
@@ -140,11 +139,11 @@ class SkipList:
         """
         Skip List is gonna look like this:
         ┌────┬─────────────────┬─
-        │ -∞ →→→→→→→→→→→→→→→ 2 → 
+        │ -∞ ↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔ 2 ↔ 
         ├────┼─────────────┼───┼─
-        │ -∞ →→→→→→→→→→→ 6 → 2 → 
+        │ -∞ ↔↔↔↔↔↔↔↔↔↔↔ 6 ↔ 2 ↔ 
         ├────┼────┬────┼───┼───┬─
-        │ -∞ → 77 → 10 → 6 → 2 → 
+        │ -∞ ↔ 77 ↔ 10 ↔ 6 ↔ 2 ↔ 
         └────┴────┴────┴───┴───┴─
         """
         output = [self.__print_top_border()]
@@ -229,7 +228,16 @@ class SkipList:
 
     def remove(self, value):
         """removal is done in O(log(n))"""
-        pass
+        found_node, last_accessed_nodes = self._search(value)
+        if found_node.get_data() == value:
+            level = self.num_levels - 1 - len(last_accessed_nodes)
+            while(level >= 0):
+                self.skiplist[level]._remove_node(found_node.get_prev(),
+                                                  found_node)
+                level -= 1
+                found_node = found_node.get_down()
+        
+
 
 
 
@@ -249,3 +257,5 @@ if __name__ == "__main__":
     print(2 in sk)
     print(100 in sk)
     print(20 in sk)
+    sk.remove(2)
+    print(sk)
