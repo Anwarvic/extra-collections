@@ -164,7 +164,7 @@ class SkipList:
         while(start_node.get_down() != None):
             found_node = search_sorted(start_node, value)
             if found_node.get_data() == value:
-                return found_node, []
+                return found_node, last_accessed_nodes
             last_accessed_nodes.append(found_node)
             start_node = found_node.get_down()
         found_node = search_sorted(start_node, value)
@@ -257,5 +257,5 @@ if __name__ == "__main__":
     print(2 in sk)
     print(100 in sk)
     print(20 in sk)
-    sk.remove(2)
+    sk.remove(0)
     print(sk)
