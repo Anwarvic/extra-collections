@@ -45,7 +45,7 @@ class LinkedList:
             self.length = 1 if item != None else 0
 
 
-    def __print_node(self, node):
+    def _print_node(self, node):
         top_border = ['┌']
         middle = ['│']
         lower_border = ['└']
@@ -74,7 +74,7 @@ class LinkedList:
         else:
             curr_node = self.head
             while(curr_node != None):
-                top_part, middle_part, lower_part = self.__print_node(curr_node)
+                top_part, middle_part, lower_part = self._print_node(curr_node)
                 top_border += top_part
                 middle += middle_part
                 lower_border += lower_part
