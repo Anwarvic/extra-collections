@@ -45,26 +45,42 @@ class LinkedList:
             self.length = 1 if item != None else 0
 
 
-    def __repr__(self):
-        """Represents the linked list as a string."""
-        # NOTE: complexity of + operator is O(1) in lists and O(n) in string
+    def __print_node(self, node):
         top_border = ['┌']
         middle = ['│']
-        down_border = ['└']
-        if not self.is_empty():
+        lower_border = ['└']
+        item = str(node)
+        width = len(item)+2 #2: for a space before & after an item
+        top_border += (['─']*width) + ['┐ ']
+        middle += [f" {item} │→"]
+        lower_border += (['─']*width) + ['┘ ']
+        return top_border, middle, lower_border
+    
+    
+    def __repr__(self):
+        """Represents the linked list as a string like so:
+        ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 20 │→│ 77 │→│ 10 │→│ 6 │→│ 2 │→ 
+        └────┘ └────┘ └────┘ └───┘ └───┘ 
+        """
+        # NOTE: complexity of + operator is O(1) in lists and O(n) in string
+        top_border = []
+        middle = []
+        lower_border = []
+        if self.is_empty():
+            top_border += ['┌─']
+            middle += ['│']
+            lower_border += ['└─']
+        else:
             curr_node = self.head
             while(curr_node != None):
-                item = str(curr_node)
-                width = len(item)+2 #2: for a space before & after an item
-                top_border += (['─']*width) + ['┬']
-                middle += [f" {item} →"]
-                down_border += (['─']*width) + ['┴']
+                top_part, middle_part, lower_part = self.__print_node(curr_node)
+                top_border += top_part
+                middle += middle_part
+                lower_border += lower_part
                 curr_node = curr_node.get_next()
-        top_border += ['─']
-        middle += [' ']
-        down_border += ['─']
         return "{}\n{}\n{}".format(\
-            ''.join(top_border), ''.join(middle), ''.join(down_border))
+            ''.join(top_border), ''.join(middle), ''.join(lower_border))
 
 
     # def __repr__(self): #TODO: comment this operator
