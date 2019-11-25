@@ -71,7 +71,11 @@ class SkipList:
 
     def __print_node(self, node, zeroth_node, lower_node):
         """
-        Takes a node and its associated node at the zeroth level.
+        This private method is responsible for representing each node in the 
+        Skip List. To do its job, it needs to use two other nodes:
+        - zeroth_node: node of the 0th level of the Skip List where all nodes
+            are represented.
+        - lower_node: node of the lower level.
         """
         middle = []
         bottom_border = []
@@ -94,14 +98,9 @@ class SkipList:
     def __print_level(self, level):
         """
         This private method is responsible for representing each level in the 
-        Skip List. To do its job, it needs to use three iterators:
-        - zeroth_node: iterator over the first level of the Skip List 
-        - curr_node: iterator over the list at the given level
-        - lower_node: iterator over the list below the given level
-        The complexity of this method is O(n*l) where:
-            - n: is the number of nodes in the first list
-            - l: is the number of levels
-        NOTE: I know this isn't the best way to do it, but that's what I knew
+        Skip List.
+        NOTE: I know this isn't the best way to do it, but that's what popped up
+        first into my mind.
         """
         zeroth_list = self.skiplist[0]
         curr_list = self.skiplist[level]
@@ -126,6 +125,10 @@ class SkipList:
 
 
     def __print_top_border(self):
+        """
+        This method is only responsible for just one thing, to print out the 
+        top border of the Skip List.
+        """
         lower_list = self.skiplist[0]
         top_list = self.skiplist[self.num_levels-1]
         # the following two lists will represent the output of this function
@@ -147,6 +150,9 @@ class SkipList:
 
     def __repr__(self):
         """
+        The complexity of this method is O(n*l) where:
+            - n: is the number of nodes in the first list
+            - l: is the number of levels
         Skip List is gonna look like this:
         ┌────┐                     ┌───┐
         │ -∞ │⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷│ 2 │⟷
@@ -254,6 +260,7 @@ class SkipList:
 
 if __name__ == "__main__":
     sk = SkipList()
+    print(sk)
     sk.insert(2)
     sk.insert(2)
     sk.insert(0)
@@ -261,8 +268,6 @@ if __name__ == "__main__":
     sk.insert(100)
     sk.insert(50)
     sk.insert(-20)
-    # for level, lst in enumerate(sk.skiplist):
-    #     print(lst)
     print(sk)
     print(2 in sk)
     print(100 in sk)
