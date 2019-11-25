@@ -50,37 +50,15 @@ class DoubleLinkedList(LinkedList):
 
     def _print_node(self, node):
         top_border = [' ┌']
-        middle = ['↔│']
+        middle = ['⟷│']
         lower_border = [' └']
         item = str(node)
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐']
         middle += [f" {item} │"]
-        if node.get_next() == None: middle += ['↔']
+        if node.get_next() == None: middle += ['⟷']
         lower_border += (['─']*width) + ['┘']
         return top_border, middle, lower_border
-
-
-    # def __repr__(self):
-    #     """Represents the double linked list as a string"""
-    #     # NOTE: complexity of + operator is O(1) in lists and O(n) in string
-    #     top_border = ["─┬"]
-    #     middle = [" ↔"]
-    #     down_border = ["─┴"]
-    #     if not self.is_empty():
-    #         curr_node = self.head
-    #         while(curr_node != None):
-    #             item = str(curr_node)
-    #             width = len(str(item))+2 #2: for a space before & after an item
-    #             top_border += (['─']*width) + ['┬']
-    #             middle += [f" {item} ↔"]
-    #             down_border += (['─']*width) + ['┴']
-    #             curr_node = curr_node.get_next()
-    #     top_border += ['─']
-    #     middle += [' ']
-    #     down_border += ['─']
-    #     return "{}\n{}\n{}".format(\
-    #         ''.join(top_border), ''.join(middle), ''.join(down_border))
 
 
     def _insert_node(self, prev_node, item):
