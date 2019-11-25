@@ -69,6 +69,28 @@ class SkipList:
             self.insert(value)
     
 
+    def __print_node(self, node, zeroth_node, lower_node):
+        """
+        Takes a node and its associated node at the zeroth level.
+        """
+        middle = []
+        bottom_border = []
+        item = str(zeroth_node)
+        width = len(item)+2 #2: for a space before & after an item
+        if node != None and zeroth_node.get_data() == node.get_data():
+            bottom_border += ['└'] if lower_node == None else ['├']
+            bottom_border += (['─']*width)
+            bottom_border += ['┘ '] if lower_node == None else ['┤ ']
+            middle += [f"| {item} │⟷"]
+        else:
+            middle += [f"⟷{'⟷'*width}⟷⟷"]
+            if lower_node != None and lower_node.data == zeroth_node.data:
+                bottom_border += ['┌'] + (['─']*width) + ['┐ ']
+            else:
+                bottom_border += [' '] + ([' ']*width) + ['  ']
+        return middle, bottom_border
+
+
     def __print_level(self, level):
         """
         This private method is responsible for representing each level in the 
@@ -84,33 +106,22 @@ class SkipList:
         zeroth_list = self.skiplist[0]
         curr_list = self.skiplist[level]
         # the following two lists will represent the output of this function
-        bottom_border = ['└'] if curr_list.head.get_down() == None else ['├']
-        middle = ['│']
+        bottom_border = []
+        middle = []
         # iterate over two lists in parallel
         zeroth_node = zeroth_list.head
         curr_node = curr_list.head
-        if level > 0: lower_node = self.skiplist[level-1].head
+        lower_node = self.skiplist[level-1].head if level > 0 else None
         while(zeroth_node != None):
-            item = str(zeroth_node)
-            width = len(item)+2 #2: for a space before & after an item
+            middle_part, bottom_part = \
+                self.__print_node(curr_node, zeroth_node, lower_node)
+            middle += middle_part
+            bottom_border += bottom_part
             if curr_node != None and zeroth_node.data == curr_node.data:
-                middle += [f" {item} ↔"]
-                bottom_border += (['─']*width)
-                bottom_border +=  ['┴'] if level == 0 else ['┼']
                 curr_node = curr_node.get_next()
-                if level>0: lower_node = lower_node.get_next()
-            else:
-                assert level > 0
-                middle += [f"{'↔'*width}↔"]
-                bottom_border += (['─']*width)
-                if lower_node != None and lower_node.data == zeroth_node.data:
-                    bottom_border += ['┬']
-                    lower_node = lower_node.get_next()
-                else:
-                    bottom_border += ['─']
+            if lower_node != None and zeroth_node.data == lower_node.data:
+                lower_node = lower_node.get_next()
             zeroth_node = zeroth_node.get_next()
-        middle += [' ']
-        bottom_border += ['─']
         return "{}\n{}".format(''.join(middle), ''.join(bottom_border))
 
 
@@ -118,7 +129,7 @@ class SkipList:
         lower_list = self.skiplist[0]
         top_list = self.skiplist[self.num_levels-1]
         # the following two lists will represent the output of this function
-        top_border = ['┌']
+        top_border = []
         # iterate over two lists in parallel
         lower_node = lower_list.head
         curr_node = top_list.head
@@ -126,25 +137,24 @@ class SkipList:
             item = str(lower_node)
             width = len(item)+2 #2: for a space before & after an item
             if curr_node != None and lower_node.data == curr_node.data:
-                top_border += (['─']*width) + ['┬']
+                top_border += ['┌'] + (['─']*width) + ['┐ ']
                 curr_node = curr_node.get_next()
             else:
-                top_border += (['─']*width) + ['─']
+                top_border += [' '] + ([' ']*width) + ['  ']
             lower_node = lower_node.get_next()
-        top_border += ['─']
         return "{}".format(''.join(top_border))
 
 
     def __repr__(self):
         """
         Skip List is gonna look like this:
-        ┌────┬─────────────────┬─
-        │ -∞ ↔↔↔↔↔↔↔↔↔↔↔↔↔↔↔ 2 ↔ 
-        ├────┼─────────────┼───┼─
-        │ -∞ ↔↔↔↔↔↔↔↔↔↔↔ 6 ↔ 2 ↔ 
-        ├────┼────┬────┼───┼───┬─
-        │ -∞ ↔ 77 ↔ 10 ↔ 6 ↔ 2 ↔ 
-        └────┴────┴────┴───┴───┴─
+        ┌────┐                     ┌───┐
+        │ -∞ │⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷│ 2 │⟷
+        ├────┤        ┌────┐       ├───┤
+        │ -∞ │⟷⟷⟷⟷⟷⟷⟷⟷│ 10 │⟷⟷⟷⟷⟷⟷⟷│ 2 │⟷
+        ├────┤ ┌────┐ ├────┤ ┌───┐ ├───┤
+        │ -∞ │⟷│ 77 │⟷│ 10 │⟷│ 6 │⟷│ 2 │⟷
+        └────┘ └────┘ └────┘ └───┘ └───┘
         """
         output = [self.__print_top_border()]
         output += [self.__print_level(level) \
