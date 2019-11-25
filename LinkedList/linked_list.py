@@ -52,7 +52,7 @@ class LinkedList:
         item = str(node)
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐ ']
-        middle += [f" {item} │→"]
+        middle += [f" {item} │⟶"]
         lower_border += (['─']*width) + ['┘ ']
         return top_border, middle, lower_border
     
@@ -60,7 +60,7 @@ class LinkedList:
     def __repr__(self):
         """Represents the linked list as a string like so:
         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
-        │ 20 │→│ 77 │→│ 10 │→│ 6 │→│ 2 │→ 
+        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ 
         └────┘ └────┘ └────┘ └───┘ └───┘ 
         """
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
