@@ -56,13 +56,8 @@ class LinkedList:
         lower_border += (['─']*width) + ['┘ ']
         return top_border, middle, lower_border
     
-    
-    def __repr__(self):
-        """Represents the linked list as a string like so:
-        ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
-        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ 
-        └────┘ └────┘ └────┘ └───┘ └───┘ 
-        """
+        
+    def _print_linked_list(self, stop_node=None):
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle = []
@@ -73,12 +68,23 @@ class LinkedList:
             lower_border += ['└─']
         else:
             curr_node = self.head
-            while(curr_node != None):
+            while(curr_node != stop_node):
                 top_part, middle_part, lower_part = self._print_node(curr_node)
                 top_border += top_part
                 middle += middle_part
                 lower_border += lower_part
+                # update curr_node
                 curr_node = curr_node.get_next()
+        return top_border, middle, lower_border
+
+    
+    def __repr__(self):
+        """Represents the linked list as a string like so:
+        ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ 
+        └────┘ └────┘ └────┘ └───┘ └───┘ 
+        """
+        top_border, middle, lower_border = self._print_linked_list()
         return "{}\n{}\n{}".format(\
             ''.join(top_border), ''.join(middle), ''.join(lower_border))
 
