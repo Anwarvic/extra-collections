@@ -140,7 +140,7 @@ class DoubleLinkedList(LinkedList):
 
     def remove_end(self):
         """Removes the double linked list tail with complexity of O(1)"""
-        if not self.is_empty():
+        if not super().is_empty():
             self._remove_node(self.tail.get_prev(), self.tail)
 
 
@@ -167,7 +167,7 @@ class DoubleLinkedList(LinkedList):
         """Reverses the whole linked list with complexity of O(n)"""
         #TODO: find a way to inherit this method
         rev = DoubleLinkedList()
-        if not self.is_empty():
+        if not super().is_empty():
             curr_node = self.head
             while(curr_node.get_next() != None):
                 rev.add_front(curr_node.get_data())
