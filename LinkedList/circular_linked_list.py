@@ -32,6 +32,7 @@ class CircularLinkedList(LinkedList):
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
+        self._validate_index(idx)
         idx = idx % (self.length)
         return super().__getitem__(idx)
 
@@ -41,67 +42,15 @@ class CircularLinkedList(LinkedList):
         super().__setitem__(idx, item)
 
 
-    def add_front(self, item):
-        """Adds node at the head of the circular linked list in O(1)"""
-        if self.head.data == None:
-            self.head.data = item
-        else:
-            old_head = Node()
-            old_head.data = self.head.data
-            old_head.next = self.head.next
-            self.head.data = item
-            self.head.next = old_head
-        self.length += 1
-
-
     def add_end(self, item):
         raise NotImplementedError(\
-            "You can't insert at the end of a Circular Linked List!!")
+            "Can't insert at the end of a Circular Linked List!!")
 
-
-    def remove_front(self):
-        """Removes the circular linked list head with complexity of O(1)"""
-        if self.length == 1:
-            self.head.data = None
-            self.length -= 1
-        elif self.length > 1:
-            pointer = self.head
-            while(pointer.next != self.head ):
-                pointer = pointer.next
-            #pointer is the last item in the circular linked list
-            self.head = self.head.next
-            pointer.next = self.head
-            self.length -= 1
-    
 
     def remove_end(self):
         """Removes the circular linked list tail with complexity of O(n)"""
         raise NotImplementedError(\
-            "You can't remove from the end of a Circular Linked List!!")
-
-
-    def insert(self, idx, item):
-        """Inserts an item at a given index into the circular linked list"""
-        pass
-        # idx = self.__fix_index(idx)
-        # print("IDX", idx)
-        # if idx == 0:
-        #     self.add_front(item)
-        # else:
-        #     pointer = self.head
-        #     counter = 0
-        #     while(counter != idx-1):
-        #         counter += 1
-        #         pointer = pointer.next
-        #     new_node = Node(item)
-        #     new_node.next = pointer.next
-        #     pointer.next = new_node
-        #     self.length += 1
-
-
-    def remove(self, idx):
-        """Removes a node at index=idx from the circular linked list"""
-        pass
+            "Can't remove from the end of a Circular Linked List!!")
 
 
     def reverse(self):
