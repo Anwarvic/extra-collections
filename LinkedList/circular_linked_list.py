@@ -56,11 +56,11 @@ class CircularLinkedList(LinkedList):
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = CircularLinkedList()
-        pointer = self.head
-        while(pointer.next != self.head):
-            rev.add_front(pointer.data)
-            pointer = pointer.next
-        rev.add_front(pointer.data)
+        curr_node = self.head
+        while(curr_node.next != self.head):
+            rev.add_front(curr_node.get_data())
+            curr_node = curr_node.get_next()
+        rev.add_front(curr_node.get_data())
         return rev
 
 
