@@ -22,6 +22,10 @@ class Node:
         return self.data
     
 
+    def set_data(self, data):
+        self.data = data
+    
+
     def get_next(self):
         return self.next
     
@@ -57,7 +61,7 @@ class LinkedList:
         return top_border, middle, lower_border
     
         
-    def _print_linked_list(self, stop_node=None):
+    def _print_linked_list(self, start_node, stop_node=None):
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle = []
@@ -67,7 +71,7 @@ class LinkedList:
             middle += ['│']
             lower_border += ['└─']
         else:
-            curr_node = self.head
+            curr_node = start_node
             while(curr_node != stop_node):
                 top_part, middle_part, lower_part = self._print_node(curr_node)
                 top_border += top_part
@@ -84,7 +88,7 @@ class LinkedList:
         │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ 
         └────┘ └────┘ └────┘ └───┘ └───┘ 
         """
-        top_border, middle, lower_border = self._print_linked_list()
+        top_border, middle, lower_border = self._print_linked_list(self.head)
         return "{}\n{}\n{}".format(\
             ''.join(top_border), ''.join(middle), ''.join(lower_border))
 
@@ -200,7 +204,7 @@ class LinkedList:
             raise TypeError("Indices must be an integer!")
         elif idx <= -1:
             raise IndexError(\
-                "Negative indexing isn't allowed with insertion/removal!!")
+                "Negative indexing isn't supported with this functinoality!!")
         elif idx > self.length:
             raise IndexError("Can't find any element at the given index!!")
 
