@@ -209,9 +209,7 @@ class LinkedList:
             raise IndexError("Can't find any element at the given index!!")
 
 
-    def insert(self, idx, item):
-        """Inserts a certain item at a given index into the linked list"""
-        self._validate_index(idx)
+    def _insert(self, idx, item):
         counter = 0
         prev_node = None
         curr_node = self.head
@@ -221,6 +219,12 @@ class LinkedList:
             prev_node = curr_node
             curr_node = curr_node.get_next()
         self._insert_node(prev_node, item)
+    
+    
+    def insert(self, idx, item):
+        """Inserts a certain item at a given index into the linked list"""
+        self._validate_index(idx)
+        self._insert(idx, item)
 
 
     def __setitem__(self, idx, item):
