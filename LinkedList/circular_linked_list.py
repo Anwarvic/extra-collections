@@ -31,10 +31,11 @@ class CircularLinkedList(LinkedList):
             second_line += middle_part
             third_line += lower_part
         # backtrace representation
+        head_data = str(self.head.get_data())
+        left_offset = (len(head_data)+4)//2
+        remaining = len("".join(second_line)) - left_offset
         second_line += [' ┐']
         third_line += [' │']
-        left_offset = (len(str(self.head.get_data()))+4)//2
-        remaining = len(first_line) - left_offset + 1
         fourth_line = (' '*left_offset) + '↑' + (' '*(remaining)) + '│'
         fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
         return "{}\n{}\n{}\n{}\n{}".format(\
