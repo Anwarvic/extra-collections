@@ -49,6 +49,7 @@ class LinkedList:
             self.length = 1 if item != None else 0
 
 
+    ############################## PRINT ##############################
     def _print_node(self, node):
         top_border = ['┌']
         middle = ['│']
@@ -98,11 +99,19 @@ class LinkedList:
     #     return '[' + ", ".join(output) + ']'
 
 
+    ############################## LENGTH ##############################
     def __len__(self):
         """Gets the length of the linked list with complexity of O(1)"""
         return self.length
     
 
+    def is_empty(self):
+        """Checks if linked list is empty"""
+        return self.length == 0
+
+    
+
+    ############################# ITERATOR #############################
     def __iter__(self):
         curr_node = self.head
         while(curr_node != None):
@@ -110,6 +119,7 @@ class LinkedList:
             curr_node = curr_node.get_next()
 
 
+    ############################## SEARCH ##############################
     def _search(self, value):
         """
         Search the Linked List for a given `value` and returns the first node
@@ -133,6 +143,16 @@ class LinkedList:
         return True
 
 
+    def _get_item(self, idx):
+        # iterate over the linked list
+        counter = 0
+        curr_node = self.head
+        while(counter != idx):
+            counter += 1
+            curr_node = curr_node.get_next()
+        return curr_node
+
+
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
@@ -140,24 +160,13 @@ class LinkedList:
             raise TypeError("Indices must be an integer!")
         elif idx < -self.length or idx >= self.length:
             raise IndexError("Can't find any element at the given index!!")
-        else:
-            # convert idx to positive if -ve
-            if idx <= -1:
-                idx += self.length
-            # iterate over the linked list
-            counter = 0
-            curr_node = self.head
-            while(counter != idx):
-                counter += 1
-                curr_node = curr_node.get_next()
-            return curr_node
+        # convert idx to positive if -ve
+        if idx <= -1: idx += self.length
+        # get the item
+        return self._get_item(idx)
 
 
-    def is_empty(self):
-        """Checks if linked list is empty"""
-        return self.length == 0
-
-
+    ############################## INSERT ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
         if isinstance(item, Node):
@@ -188,15 +197,7 @@ class LinkedList:
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        if self.is_empty():
-            self.add_front(item)
-        else:
-            prev_node = None
-            curr_node = self.head
-            while(curr_node != None):
-                prev_node = curr_node
-                curr_node = curr_node.get_next()
-            self._insert_node(prev_node, item)
+        self._insert(len(self), item)
 
 
     def _validate_index(self, idx):
@@ -227,10 +228,15 @@ class LinkedList:
         self._insert(idx, item)
 
 
+    ############################### SET ################################
     def __setitem__(self, idx, item):
-        self.insert(idx, item)
+        assert isinstance(item, Node), \
+            f"Can't set an {type(item)}, it needs to be a `Node` object!"
+        node = self._get_item(idx)
+        node.set_data(item.get_data())
 
 
+    ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed != None, "Can't remove `None` node!!"
         # if node to be removed is the first
@@ -294,7 +300,8 @@ class LinkedList:
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.__init__()
     
-
+    
+    ############################## MISC ##############################
     def to_list(self):
         return [item.get_data() for item in self]
 
