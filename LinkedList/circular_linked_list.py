@@ -13,9 +13,9 @@ class CircularLinkedList(LinkedList):
         """Represents the Circular linked list as a string"""
         first_line, second_line, third_line = [], [], []
         if self.is_empty():
-            first_line += ['┌─']
+            first_line  += ['┌─']
             second_line += ['│']
-            third_line += ['└─']
+            third_line  += ['└─']
             return "{}\n{}\n{}".format(\
             ''.join(first_line), ''.join(second_line), ''.join(third_line))
         else:
@@ -79,6 +79,7 @@ class CircularLinkedList(LinkedList):
             else:
                 new_node.set_next(self.head.get_next())
                 self.head.set_next(new_node)
+                #swap data between new_node and self.head
                 new_node.data, self.head.data = self.head.data, new_node.data
                 new_node = self.head
         else:
@@ -89,25 +90,15 @@ class CircularLinkedList(LinkedList):
 
 
     def __setitem__(self, idx, item):
+        self._validate_index(idx)
         idx = idx % (self.length)
         super().__setitem__(idx, item)
     
     
     def insert(self, idx, item):
-        idx = idx % (self.length) if self.length > 0 else 0
-        super().insert(idx, item)
-
-
-
-    def add_end(self, item):
-        raise NotImplementedError(\
-            "Can't insert at the end of a Circular Linked List!!")
-
-
-    def remove_end(self):
-        """Removes the circular linked list tail with complexity of O(n)"""
-        raise NotImplementedError(\
-            "Can't remove from the end of a Circular Linked List!!")
+        self._validate_index((idx))
+        idx = idx % (self.length+1)
+        super()._insert(idx, item)
 
 
     def reverse(self):
@@ -126,26 +117,22 @@ class CircularLinkedList(LinkedList):
 if __name__ == "__main__":
     l = CircularLinkedList()
     l.insert(100, 'answer')
-    l.add_front('item')     #answer item
-    # l.insert(2, 'item2')  #answer item item2
-    # l.insert(-1, 'item3') #answer item item3 item2
-    # l.insert(-20, 'item4') #item item2 item3
+    l.add_front('item')     # item answer
+    l.insert(2, 'item2')    # item answer item2
+    l.insert(1, 'hey')      # item hey answer item2
+    l.add_front("yes")      # yes item hey answer item2
+    l.insert(len(l)-1, "no")# yes item hey answer no item2
+    l.add_end("now")        # yes item hey answer no item2 now
     print(l)
-    # l.add_front(100)
-    # l.add_front(700)
-    # l.add_end(90)
-    # l.add_front("B")
-    # print(l)
-    # print(l[-10])
+    print(l[2])
+    print("Length:", len(l))
 
-    # l.insert(10, 'item')
-    # print(l)
-
-    # rev = l.reverse()
-    # rev.remove_end()
-    # print(rev)
-    # print(rev[-1])
-    # print(rev.is_empty())
+    rev = l.reverse()
+    print(rev)
+    rev.remove_end()        # now item2 no answer hey item
+    rev.remove_front()      # item2 no answer hey item
+    print(rev.is_empty())
     
-    # rev.remove_front()
-    # print(rev.is_empty())
+    rev.clear()
+    print(rev.is_empty())
+    print(rev)
