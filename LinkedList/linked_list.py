@@ -145,24 +145,36 @@ class LinkedList:
     def _get_node(self, idx):
         # iterate over the linked list
         counter = 0
+        prev_node = None
         curr_node = self.head
-        while(counter != idx):
+        while(counter != idx):  
             counter += 1
+            prev_node = curr_node
             curr_node = curr_node.get_next()
-        return curr_node
+        return prev_node, curr_node
+
+
+    def _validate_index(self, idx, accept_negative=False):
+        if type(idx) != int:
+            raise TypeError("Indices must be an integer!")
+        elif idx <= -1 and accept_negative==False:
+            raise IndexError(\
+                "Negative indexing isn't supported with this functinoality!!")
+        elif idx < -self.length or idx > self.length:
+            raise IndexError("Can't find any element at the given index!!")
 
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
         # sanity check over given index
-        if type(idx) != int:
-            raise TypeError("Indices must be an integer!")
-        elif idx < -self.length or idx >= self.length:
+        self._validate_index(idx, accept_negative=True)
+        if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
         # convert idx to positive if -ve
         if idx <= -1: idx += self.length
         # get the item
-        return self._get_node(idx)
+        _, node = self._get_node(idx)
+        return node
 
 
     ############################## INSERT ##############################
@@ -186,7 +198,6 @@ class LinkedList:
             new_node.set_next(prev_node.get_next())
             prev_node.set_next(new_node)
         self.length += 1
-        return new_node
 
 
     def _insert(self, idx, item):
@@ -209,16 +220,6 @@ class LinkedList:
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
         self._insert(len(self), item)
-
-
-    def _validate_index(self, idx):
-        if type(idx) != int:
-            raise TypeError("Indices must be an integer!")
-        elif idx <= -1:
-            raise IndexError(\
-                "Negative indexing isn't supported with this functinoality!!")
-        elif idx > self.length:
-            raise IndexError("Can't find any element at the given index!!")
     
     
     def insert(self, idx, item):
@@ -231,7 +232,7 @@ class LinkedList:
     def __setitem__(self, idx, item):
         assert isinstance(item, Node), \
             f"Can't set an {type(item)}, it needs to be a `Node` object!"
-        node = self._get_node(idx)
+        _, node = self._get_node(idx)
         node.set_data(item.get_data())
 
 
@@ -244,31 +245,37 @@ class LinkedList:
         else:
             prev_node.set_next(node_to_be_removed.get_next())
         self.length -= 1
+
+
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the linked list"""
+        self._validate_index(idx)
+        if idx == self.length:
+            raise IndexError("Can't find any element at the given index!!")
+        prev_node, node = self._get_node(idx)
+        self._remove_node(prev_node, node)
     
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
+        #NOTE: I check the length, 'cause I don't wanna throw an IndexError
         if not self.is_empty():
-            self._remove_node(prev_node=None, node_to_be_removed=self.head)
+            self.__delitem__(0)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
+        #NOTE: I check the length, 'cause I don't wanna throw an IndexError
         if not self.is_empty():
-            prev_node = None
-            curr_node = self.head
-            while(curr_node.get_next() != None):
-                prev_node = curr_node
-                curr_node = curr_node.get_next()
-            self._remove_node(prev_node, curr_node)
+            self.__delitem__( self.length-1 )
 
 
-    def remove(self, value, all=True):
-        #removes all occurrences (when all==True) of `value` if found.
+    def _remove_value(self, value, stop_node, all):
+        # removes all occurrences (when all==True) of `value` if found.
         prev = None
         curr_node = self.head
         FOUND_FIRST = False #True when the first occurrence is found
-        while(curr_node != None):
+        while(curr_node != stop_node):
             if all==False and FOUND_FIRST:
                 return
             if curr_node.get_data() == value:
@@ -279,20 +286,9 @@ class LinkedList:
                 prev = curr_node
                 curr_node = curr_node.get_next()
 
-
-    def __delitem__(self, idx):
-        """Removes a node at index=idx from the linked list"""
-        self._validate_index(idx)
-        if idx == self.length:
-            raise IndexError("Can't find any element at the given index!!")
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        while(counter != idx):  
-            counter += 1
-            prev_node = curr_node
-            curr_node = curr_node.get_next()
-        self._remove_node(prev_node, curr_node)
+    
+    def remove(self, value, all=True):
+        self._remove_value(value, stop_node=None, all=all)
 
 
     def clear(self):
