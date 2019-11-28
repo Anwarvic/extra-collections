@@ -110,7 +110,6 @@ class LinkedList:
         return self.length == 0
 
     
-
     ############################# ITERATOR #############################
     def __iter__(self):
         curr_node = self.head
@@ -143,7 +142,7 @@ class LinkedList:
         return True
 
 
-    def _get_item(self, idx):
+    def _get_node(self, idx):
         # iterate over the linked list
         counter = 0
         curr_node = self.head
@@ -163,7 +162,7 @@ class LinkedList:
         # convert idx to positive if -ve
         if idx <= -1: idx += self.length
         # get the item
-        return self._get_item(idx)
+        return self._get_node(idx)
 
 
     ############################## INSERT ##############################
@@ -181,7 +180,7 @@ class LinkedList:
         if self.length == 0:
             self.head = new_node
         elif prev_node == None:
-            if not self.is_empty(): new_node.set_next(self.head)
+            new_node.set_next(self.head)
             self.head = new_node
         else:
             new_node.set_next(prev_node.get_next())
@@ -190,9 +189,21 @@ class LinkedList:
         return new_node
 
 
+    def _insert(self, idx, item):
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        # iterate over the double linked list (forwards)
+        while(counter != idx):
+            counter += 1
+            prev_node = curr_node
+            curr_node = curr_node.get_next()
+        self._insert_node(prev_node, item)
+
+
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        self._insert_node(prev_node=None, item=item)
+        self._insert(0, item)
 
 
     def add_end(self, item):
@@ -208,18 +219,6 @@ class LinkedList:
                 "Negative indexing isn't supported with this functinoality!!")
         elif idx > self.length:
             raise IndexError("Can't find any element at the given index!!")
-
-
-    def _insert(self, idx, item):
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        # iterate over the double linked list (forwards)
-        while(counter != idx):
-            counter += 1
-            prev_node = curr_node
-            curr_node = curr_node.get_next()
-        self._insert_node(prev_node, item)
     
     
     def insert(self, idx, item):
@@ -232,7 +231,7 @@ class LinkedList:
     def __setitem__(self, idx, item):
         assert isinstance(item, Node), \
             f"Can't set an {type(item)}, it needs to be a `Node` object!"
-        node = self._get_item(idx)
+        node = self._get_node(idx)
         node.set_data(item.get_data())
 
 
