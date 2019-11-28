@@ -69,6 +69,10 @@ class SkipList:
             self.insert(value)
     
 
+    def __len__(self):
+        return len(self.skiplist[0]) - 1
+
+
     def __print_node(self, node, zeroth_node, lower_node):
         """
         This private method is responsible for representing each node in the 
