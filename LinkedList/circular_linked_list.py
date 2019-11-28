@@ -99,6 +99,13 @@ class CircularLinkedList(LinkedList):
         self._validate_index((idx))
         idx = idx % (self.length+1)
         super()._insert(idx, item)
+    
+
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the Circular Linked List"""
+        self._validate_index((idx))
+        idx = idx % (self.length+1)
+        super().__delitem__(idx)
 
 
     def reverse(self):
