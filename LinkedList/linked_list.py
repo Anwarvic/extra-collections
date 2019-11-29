@@ -119,7 +119,7 @@ class LinkedList:
 
 
     ############################## SEARCH ##############################
-    def _search(self, value):
+    def _search(self, value, stop_node=None):
         """
         Search the Linked List for a given `value` and returns the first node
         containing that value if found. If not found, it returns the last node
@@ -241,10 +241,18 @@ class LinkedList:
         assert node_to_be_removed != None, "Can't remove `None` node!!"
         # if node to be removed is the first
         if prev_node == None:
-            self.head = node_to_be_removed.get_next()
+            if self.length == 1:
+                self.head.set_data(None)
+            else:
+                self.head = node_to_be_removed.get_next()
         else:
             prev_node.set_next(node_to_be_removed.get_next())
         self.length -= 1
+
+
+    def _remove_idx(self, idx):
+        prev_node, node = self._get_node(idx)
+        self._remove_node(prev_node, node)
 
 
     def __delitem__(self, idx):
@@ -252,20 +260,19 @@ class LinkedList:
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
-        prev_node, node = self._get_node(idx)
-        self._remove_node(prev_node, node)
+        self._remove_idx(idx)
     
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
-        #NOTE: I check the length, 'cause I don't wanna throw an IndexError
+        #NOTE: I check the length 'cause I don't wanna throw an IndexError
         if not self.is_empty():
             self.__delitem__(0)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
-        #NOTE: I check the length, 'cause I don't wanna throw an IndexError
+        #NOTE: I check the length 'cause I don't wanna throw an IndexError
         if not self.is_empty():
             self.__delitem__( self.length-1 )
 
