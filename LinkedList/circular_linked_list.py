@@ -66,11 +66,14 @@ class CircularLinkedList(LinkedList):
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
+        if self.is_empty():
+            raise IndexError("Circular Linked List is empty!!")
         self._validate_index(idx)
-        idx = idx % (self.length)
+        idx = idx % self.length if self.length != 0 else 0
         return super().__getitem__(idx)
 
 
+    ############################## INSERT ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
         if isinstance(item, Node):
@@ -100,20 +103,24 @@ class CircularLinkedList(LinkedList):
             prev_node.set_next(new_node)
         self.length += 1
         return new_node
-
-
-    def __setitem__(self, idx, item):
-        self._validate_index(idx)
-        idx = idx % (self.length)
-        super().__setitem__(idx, item)
     
     
     def insert(self, idx, item):
         self._validate_index((idx))
         idx = idx % (self.length+1)
         super()._insert(idx, item)
+
+
+    ############################### SET ################################
+    def __setitem__(self, idx, item):
+        if self.is_empty():
+            raise IndexError("Circular Linked List is empty!!")
+        self._validate_index(idx)
+        idx = idx % self.length if self.length != 0 else 0
+        super()._replace_node(idx, item)
     
 
+    ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed != None, "Can't remove `None` node!!"
         # if node to be removed is the first
@@ -132,10 +139,11 @@ class CircularLinkedList(LinkedList):
     def __delitem__(self, idx):
         """Removes a node at index=idx from the Circular Linked List"""
         self._validate_index((idx))
-        idx = idx % (self.length+1)
+        idx = idx % self.length if self.length != 0 else 0
         super()._remove_idx(idx)
 
 
+    ############################## MISC ##############################
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = CircularLinkedList()
@@ -166,10 +174,14 @@ if __name__ == "__main__":
     rev.remove_end()        # now item2 no answer hey item
     rev.remove_front()      # item2 no answer hey item
     print(rev)
+    print("Length:", len(rev))
     print("item2" in rev)
     print("item" in rev)
     print("apple" in rev)
     
     rev.clear()
+    rev.add_front('')
+    rev[0] = Node(10)
+    del rev[1]
     print(rev)
     print(rev.is_empty())
