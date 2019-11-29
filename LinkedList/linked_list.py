@@ -229,11 +229,17 @@ class LinkedList:
 
 
     ############################### SET ################################
+    def _replace_node(self, idx, new_node):
+        assert isinstance(new_node, Node), \
+            f"Can't set an {type(new_node)}, it needs to be a `Node` object!"
+        _, old_node = self._get_node(idx)
+        old_node.set_data(new_node.get_data())
+    
+
     def __setitem__(self, idx, item):
-        assert isinstance(item, Node), \
-            f"Can't set an {type(item)}, it needs to be a `Node` object!"
-        _, node = self._get_node(idx)
-        node.set_data(item.get_data())
+        self._validate_index(idx)
+        self._replace_node(idx, item)
+        
 
 
     ############################## REMOVE ##############################
