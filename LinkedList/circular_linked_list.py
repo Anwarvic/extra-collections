@@ -9,6 +9,7 @@ class CircularLinkedList(LinkedList):
         self.head.set_next(self.head)
 
 
+    ############################## PRINT ##############################
     def __repr__(self):
         """Represents the Circular linked list as a string"""
         first_line, second_line, third_line = [], [], []
@@ -43,13 +44,16 @@ class CircularLinkedList(LinkedList):
             fourth_line, fifth_line)
 
 
-    def _validate_index(self, idx):
+    def _validate_index(self, idx, accept_negative=False):
         if type(idx) != int:
             raise TypeError("Indices must be an integer!")
-        elif idx <= -1:
+        elif idx <= -1 and accept_negative==False:
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
 
+
+    ############################## SEARCH ##############################
+    
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
@@ -101,11 +105,26 @@ class CircularLinkedList(LinkedList):
         super()._insert(idx, item)
     
 
+    def _remove_node(self, prev_node, node_to_be_removed):
+        assert node_to_be_removed != None, "Can't remove `None` node!!"
+        # if node to be removed is the first
+        if prev_node == None:
+            if self.length == 1:
+                self.head.set_data(None)
+            else:
+                next_to_head = self.head.get_next()
+                self.head.set_data(next_to_head.get_data())
+                self.head.set_next(next_to_head.get_next())
+        else:
+            prev_node.set_next(node_to_be_removed.get_next())
+        self.length -= 1
+    
+
     def __delitem__(self, idx):
         """Removes a node at index=idx from the Circular Linked List"""
         self._validate_index((idx))
         idx = idx % (self.length+1)
-        super().__delitem__(idx)
+        super()._remove_idx(idx)
 
 
     def reverse(self):
@@ -134,12 +153,12 @@ if __name__ == "__main__":
     print(l[2])
     print("Length:", len(l))
 
-    rev = l.reverse()
-    print(rev)
+    rev = l.reverse()       # now item2 no answer hey item yes
     rev.remove_end()        # now item2 no answer hey item
     rev.remove_front()      # item2 no answer hey item
+    print(rev)
     print(rev.is_empty())
     
     rev.clear()
-    print(rev.is_empty())
     print(rev)
+    print(rev.is_empty())
