@@ -44,6 +44,18 @@ class CircularLinkedList(LinkedList):
             fourth_line, fifth_line)
 
 
+    ############################## SEARCH ##############################
+    def __contains__(self, value):
+        if self.head.get_data() == value:
+            return True
+        found_node = self._search( value,
+                                start_node = self.head.get_next(),
+                                stop_node = self.head)
+        if found_node == None or found_node.get_data() != value:
+            return False
+        return True
+
+
     def _validate_index(self, idx, accept_negative=False):
         if type(idx) != int:
             raise TypeError("Indices must be an integer!")
@@ -51,9 +63,6 @@ class CircularLinkedList(LinkedList):
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
 
-
-    ############################## SEARCH ##############################
-    
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
@@ -157,7 +166,9 @@ if __name__ == "__main__":
     rev.remove_end()        # now item2 no answer hey item
     rev.remove_front()      # item2 no answer hey item
     print(rev)
-    print(rev.is_empty())
+    print("item2" in rev)
+    print("item" in rev)
+    print("apple" in rev)
     
     rev.clear()
     print(rev)
