@@ -119,16 +119,16 @@ class LinkedList:
 
 
     ############################## SEARCH ##############################
-    def _search(self, value, stop_node=None):
+    def _search(self, value, start_node, stop_node=None):
         """
         Search the Linked List for a given `value` and returns the first node
         containing that value if found. If not found, it returns the last node
         in the Linked List.
         """
-        curr_node = self.head
         # returns `None` if Linked List is empty
-        if self.is_empty(): return curr_node
-        while(curr_node.get_next() != None):
+        if self.is_empty(): return start_node
+        curr_node = start_node
+        while(curr_node.get_next() != stop_node):
             if curr_node.get_data() == value:
                 return curr_node
             curr_node = curr_node.get_next()
@@ -136,7 +136,7 @@ class LinkedList:
 
 
     def __contains__(self, value):
-        found_node = self._search(value)
+        found_node = self._search(value, self.head)
         if found_node == None or found_node.get_data() != value:
             return False
         return True
