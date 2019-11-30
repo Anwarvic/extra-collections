@@ -112,9 +112,11 @@ class LinkedList:
     
     ############################# ITERATOR #############################
     def __iter__(self):
+        counter = 0
         curr_node = self.head
-        while(curr_node != None):
+        while(counter < self.length):
             yield curr_node
+            counter += 1
             curr_node = curr_node.get_next()
 
 
@@ -231,7 +233,7 @@ class LinkedList:
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
         assert isinstance(new_node, Node), \
-            f"Can't set an {type(new_node)}, it needs to be a `Node` object!"
+            f"Can't set a {type(new_node)} object, it needs to be a `Node`!"
         _, old_node = self._get_node(idx)
         old_node.set_data(new_node.get_data())
     
@@ -240,7 +242,6 @@ class LinkedList:
         self._validate_index(idx)
         self._replace_node(idx, item)
         
-
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
