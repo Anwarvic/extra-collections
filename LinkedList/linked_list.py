@@ -203,14 +203,7 @@ class LinkedList:
 
 
     def _insert(self, idx, item):
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        # iterate over the double linked list (forwards)
-        while(counter != idx):
-            counter += 1
-            prev_node = curr_node
-            curr_node = curr_node.get_next()
+        prev_node, _ = self._get_node(idx)
         self._insert_node(prev_node, item)
 
 
@@ -374,12 +367,12 @@ if __name__ == "__main__":
     print("LENGTH:", len(l)) #5
     print(l.to_list())#[2, 6, 10, 77, 20]
 
-    print(l[0], l[3], "\n")
+    print(l[0], l[3], "\n") #2 77
 
     rev = l.reverse() #20 77 10 6 2
     print(rev)
     print("REV LENGTH:", len(rev))
-    print(rev[1], rev[2])
+    print(rev[1], rev[2]) #77 10
 
     l.clear()
     print("Linked List is empty?", l.is_empty())
