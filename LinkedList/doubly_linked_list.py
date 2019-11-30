@@ -2,7 +2,7 @@ from linked_list import Node, LinkedList
 
 
 
-class DoubleNode(Node):
+class DoublyNode(Node):
     """Basic object for the Node used for double linked lists"""
     def __init__(self, item=None):
         self.data = item
@@ -37,14 +37,14 @@ class DoubleNode(Node):
 
 
 
-class DoubleLinkedList(LinkedList):
+class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
     def __init__(self, item=None):
         if isinstance(item, Node):
             self.head = item
             self.length = 1 if item.get_data() != None else 0
         else:
-            self.head = self.tail = DoubleNode(item)
+            self.head = self.tail = DoublyNode(item)
             self.length = 1 if item != None else 0
     
 
@@ -69,7 +69,7 @@ class DoubleLinkedList(LinkedList):
             new_node = item
         else:
             assert item != None, "Can't insert `None` value as a node!!"
-            new_node = DoubleNode(item)
+            new_node = DoublyNode(item)
         
         # start inserting the node
         if self.length == 0:
@@ -108,7 +108,7 @@ class DoubleLinkedList(LinkedList):
         self._validate_index(idx)
         # when idx is smaller than half the linked list length
         if idx <= self.length//2:
-            super().insert(idx, item)
+            super()._insert(idx, item)
         # when idx is bigger than half the linked list length
         else:
             # iterate over the double linked list (backwards)
@@ -125,13 +125,13 @@ class DoubleLinkedList(LinkedList):
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if self.length == 1:
-            self.head = self.tail = DoubleNode()
+            self.head = self.tail = DoublyNode()
             self.length -= 1
         elif self.length == 2:
             if prev_node == None:
-                new_node = DoubleNode(next_node.get_data())
+                new_node = DoublyNode(next_node.get_data())
             elif next_node == None:
-                new_node = DoubleNode(prev_node.get_data())
+                new_node = DoublyNode(prev_node.get_data())
             self.head = self.tail = new_node
             self.length -= 1
         else:
@@ -166,7 +166,7 @@ class DoubleLinkedList(LinkedList):
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         #TODO: find a way to inherit this method
-        rev = DoubleLinkedList()
+        rev = DoublyLinkedList()
         if not super().is_empty():
             curr_node = self.head
             while(curr_node.get_next() != None):
@@ -179,7 +179,7 @@ class DoubleLinkedList(LinkedList):
 
 
 if __name__ == "__main__":
-    dl = DoubleLinkedList()
+    dl = DoublyLinkedList()
     # test removing from empty list:
     dl.remove_front() #Nothing
     dl.remove_end()   #Nothing
