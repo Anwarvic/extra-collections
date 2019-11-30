@@ -48,6 +48,7 @@ class DoublyLinkedList(LinkedList):
             self.length = 1 if item != None else 0
     
 
+    ############################## PRINT ##############################
     def _print_node(self, node):
         top_border = [' ┌']
         middle = ['⟷│']
@@ -61,6 +62,7 @@ class DoublyLinkedList(LinkedList):
         return top_border, middle, lower_border
 
 
+    ############################## INSERT ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
         if isinstance(item, Node):
@@ -102,14 +104,10 @@ class DoublyLinkedList(LinkedList):
         self._insert_node(self.tail, item)
 
 
-    def insert(self, idx, item):
-        """Inserts a certain item at a given index into the double linked list.
-        """
-        self._validate_index(idx)
-        # when idx is smaller than half the linked list length
+    def _get_node(self, idx):
+        # iterate over the double linked list (forwards)
         if idx <= self.length//2:
-            super()._insert(idx, item)
-        # when idx is bigger than half the linked list length
+            return super()._get_node(idx)
         else:
             # iterate over the double linked list (backwards)
             counter = self.length
@@ -117,9 +115,9 @@ class DoublyLinkedList(LinkedList):
             while(counter != idx):
                 counter -= 1
                 curr_node = curr_node.get_prev()
-            self._insert_node(curr_node, item)
+            return curr_node.get_prev(), curr_node
 
-
+    ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed != None, "Can't remove `None`!!"
         next_node = node_to_be_removed.get_next()
@@ -138,31 +136,7 @@ class DoublyLinkedList(LinkedList):
             super()._remove_node(prev_node, node_to_be_removed)
 
 
-    def remove_end(self):
-        """Removes the double linked list tail with complexity of O(1)"""
-        if not super().is_empty():
-            self._remove_node(self.tail.get_prev(), self.tail)
-
-
-    def __delitem__(self, idx):
-        """Removes a node at index=idx from the double linked list"""
-        self._validate_index(idx)
-        if idx == self.length:
-            raise IndexError("Can't find any element at the given index!!")
-        # when idx is smaller than half the linked list length
-        if idx <= self.length//2:
-            super().__delitem__(idx)
-        # when idx is bigger than half the linked list length
-        else:
-            # iterate over the double linked list (forwards)
-            counter = self.length-1
-            curr_node = self.tail
-            while(counter != idx):
-                counter -= 1
-                curr_node = curr_node.get_prev()
-            self._remove_node(curr_node.get_prev(), curr_node)
-
-
+    ############################## MISC ##############################
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         #TODO: find a way to inherit this method
