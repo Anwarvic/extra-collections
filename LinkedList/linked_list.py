@@ -239,14 +239,15 @@ class LinkedList:
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed != None, "Can't remove `None` node!!"
+        next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if prev_node == None:
             if self.length == 1:
                 self.head.set_data(None)
             else:
-                self.head = node_to_be_removed.get_next()
+                self.head = next_node
         else:
-            prev_node.set_next(node_to_be_removed.get_next())
+            prev_node.set_next(next_node)
         self.length -= 1
 
 
