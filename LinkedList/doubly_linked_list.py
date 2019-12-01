@@ -112,10 +112,10 @@ class DoublyLinkedList(LinkedList):
             # iterate over the double linked list (backwards)
             counter = self.length
             curr_node = self.tail
-            while(counter != idx):
+            while(counter > idx):
                 counter -= 1
                 curr_node = curr_node.get_prev()
-            return curr_node.get_prev(), curr_node
+            return curr_node, curr_node.get_next()
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
@@ -133,7 +133,12 @@ class DoublyLinkedList(LinkedList):
             self.head = self.tail = new_node
             self.length -= 1
         else:
-            super()._remove_node(prev_node, node_to_be_removed)
+            if next_node == None:
+                prev_node.set_next(next_node)
+                self.tail = prev_node
+                self.length -= 1
+            else:
+                super()._remove_node(prev_node, node_to_be_removed)
 
 
     ############################## MISC ##############################
@@ -196,12 +201,12 @@ if __name__ == "__main__":
     print("LENGTH:", len(dl))
     print(dl.to_list())#[2, 6, 10, 77, 20]
 
-    print(dl[0], dl[3], "\n")
+    print(dl[0], dl[3], "\n") #2 77
 
     rev = dl.reverse() #20 77 10 6 2
     print(rev)
     print("REV LENGTH:", len(rev))
-    print(rev[1], rev[2])
+    print(rev[1], rev[2]) #77 10
 
     dl.clear()
     print("Linked List is empty?", dl.is_empty())
