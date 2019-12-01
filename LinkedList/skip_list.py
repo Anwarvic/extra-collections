@@ -1,5 +1,5 @@
 import random
-from double_linked_list import DoubleNode, DoubleLinkedList
+from doubly_linked_list import DoublyNode, DoublyLinkedList
 
 
 
@@ -20,7 +20,7 @@ def search_sorted(start_node, value):
 
 
 
-class SkipNode(DoubleNode):
+class SkipNode(DoublyNode):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
             "Skip Lists support only native data-types like: [int, float, str]!"
@@ -64,7 +64,7 @@ class SkipList:
     def __init__(self, value=None):
         self.num_levels = 1
         #SkipList is an array of LinkedList objects
-        self.skiplist = [DoubleLinkedList( SkipNode(float("-inf")) )]
+        self.skiplist = [DoublyLinkedList( SkipNode(float("-inf")) )]
         if value != None:
             self.insert(value)
     
@@ -200,7 +200,7 @@ class SkipList:
 
     def _add_extra_level(self):
         top_list = self.skiplist[self.num_levels-1]
-        new_llist = DoubleLinkedList(SkipNode(float("-inf")))
+        new_llist = DoublyLinkedList(SkipNode(float("-inf")))
         # connect the head of the new linked list to the lower linked list
         new_llist.head.set_down(top_list.head)
         # add new linked list to the SkipList
