@@ -278,7 +278,12 @@ class SkipList:
 
     def clear(self):
         self.__init__()
-        
+    
+
+    ############################## MISC ##############################
+    def to_list(self):
+        return [item.get_data() for item in self]
+
 
 
 
