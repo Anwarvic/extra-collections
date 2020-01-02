@@ -174,10 +174,7 @@ class SkipList:
             yield item
 
     
-    def __contains__(self, value):
-        return self.search(value)
-
-
+    ############################## SEARCH ##############################
     def _search(self, value):
         # returns the last accessed node when searching a certain value.
         last_accessed_nodes = []
@@ -198,8 +195,17 @@ class SkipList:
         """Search Skip List is one in O(log(n)) time"""
         found_node, _ = self._search(value)
         return found_node.get_data() == value
-        
 
+
+    def __contains__(self, value):
+        return self.search(value)
+    
+
+    def __getitem__(self, idx):
+        return self.skiplist[0].__getitem__(idx+1)
+
+
+    ############################## INSERT ##############################
     def _add_extra_level(self):
         top_list = self.skiplist[self.num_levels-1]
         new_llist = DoublyLinkedList(SkipNode(float("-inf")))
