@@ -20,15 +20,14 @@ def search_sorted(start_node, value):
 
 
 
+
 class SkipNode(DoublyNode):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
             "Skip Lists support only native data-types like: [int, float, str]!"
-        #TODO: is self.up necessary... I think not
         self.data = item
-        self.next = None
         self.prev = None
-        self.up = None
+        self.next = None
         self.down = None
 
 
@@ -44,18 +43,8 @@ class SkipNode(DoublyNode):
         return self.down
     
 
-    def get_up(self):
-        return self.up
-    
-    
     def set_down(self, other_node):
-        other_node.up = self
         self.down = other_node
-    
-
-    def set_up(self, other_ndoe):
-        other_ndoe.down = self
-        self.up = other_ndoe
 
 
 
@@ -69,10 +58,7 @@ class SkipList:
             self.insert(value)
     
 
-    def __len__(self):
-        return len(self.skiplist[0]) - 1
-
-
+    ############################## PRINT ##############################
     def __print_node(self, node, zeroth_node, lower_node):
         """
         This private method is responsible for representing each node in the 
@@ -171,6 +157,22 @@ class SkipList:
                     for level in range(self.num_levels-1, -1, -1)]
         return "\n".join(output)
     
+
+    ############################## LENGTH ##############################    
+    def __len__(self):
+        return len(self.skiplist[0]) - 1
+    
+
+    def is_empty(self):
+        return len(self) == 0
+
+
+    ############################# ITERATOR #############################
+    #TODO: fix the bug where -∞ is yielded
+    def __iter__(self):
+        for item in self.skiplist[0]:
+            yield item
+
     
     def __contains__(self, value):
         return self.search(value)
@@ -216,7 +218,7 @@ class SkipList:
         upper_node = self.skiplist[curr_level+1]._insert_node(upper_prev_node,
                                                               upper_node)
         # connect the current list with the upper one
-        curr_node.set_up(upper_node)
+        upper_node.set_down(curr_node)
         return upper_node
 
 
@@ -278,3 +280,4 @@ if __name__ == "__main__":
     print(20 in sk)
     sk.remove(0)
     print(sk)
+    for item in sk: print(item)
