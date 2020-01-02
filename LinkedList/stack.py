@@ -5,6 +5,7 @@ class Stack():
         self.max_capacity = max_capacity
 
 
+    ############################## PRINT ##############################
     def __repr__(self):
         """Represents the stack as a string."""
         top_border = '┌'
@@ -22,25 +23,29 @@ class Stack():
         return "{}\n{}\n{}".format(top_border, middle, down_border)
 
 
+    ############################## LENGTH ##############################
     def __len__(self):
         """Gets the length of the stack with complexity of O(1)"""
         return len(self.container)
 
 
+    ############################## PUSH ###############################
     def push(self, item):
         """Pushs item to the stack"""
         if self.max_capacity and len(self) < self.max_capacity:
             self.container.append(item)
 
 
-    def pop(self):
-        """Pops item from the stack"""
-        return self.container.pop()
-
-
+    ############################## PEEK ###############################
     def peek(self):
         """Returns the top item from the stack"""
         return self.container[-1]
+
+
+    ############################# REMOVE #############################
+    def pop(self):
+        """Pops item from the stack"""
+        return self.container.pop()
 
 
     def is_empty(self):
@@ -50,7 +55,8 @@ class Stack():
 
     def clear(self):
         """Clears the stack"""
-        self.container = []
+        self.__init__()
+
 
 
 
