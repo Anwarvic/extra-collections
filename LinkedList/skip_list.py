@@ -202,7 +202,9 @@ class SkipList:
     
 
     def __getitem__(self, idx):
-        return self.skiplist[0].__getitem__(idx+1)
+        assert idx > 0, \
+            "Negative indexing isn't supported with this functinoality!!"
+        return self.skiplist[0].__getitem__(idx+1) #idx+1 to skip -∞
 
 
     ############################## INSERT ##############################
@@ -253,7 +255,8 @@ class SkipList:
             curr_node = self._promote(upper_prev_node, curr_node, curr_level)
             curr_level += 1
 
-
+    
+    ############################## REMOVE ##############################
     def remove(self, value):
         """removal is done in O(log(n))"""
         found_node, last_accessed_nodes = self._search(value)
@@ -264,6 +267,17 @@ class SkipList:
                                                   found_node)
                 level -= 1
                 found_node = found_node.get_down()
+    
+
+    def __delitem__(self, idx):
+        assert idx > 0, \
+            "Negative indexing isn't supported with this functinoality!!"
+        node = self.skiplist[0]._get_node(idx+1)
+        self.remove(node)
+    
+
+    def clear(self):
+        self.__init__()
         
 
 
