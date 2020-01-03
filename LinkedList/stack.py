@@ -2,6 +2,7 @@
 class Stack:
     """Basic object for the Stack data structure"""
     def __init__(self, max_capacity=float("inf")):
+        assert type(max_capacity) in {int, float}, "Max Capacity is a number!!"
         self.container = []
         self.max_capacity = max_capacity
 
