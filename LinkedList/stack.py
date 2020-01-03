@@ -1,6 +1,7 @@
-class Stack():
+
+class Stack:
     """Basic object for the Stack data structure"""
-    def __init__(self, max_capacity=None):
+    def __init__(self, max_capacity=float("inf")):
         self.container = []
         self.max_capacity = max_capacity
 
@@ -32,8 +33,9 @@ class Stack():
     ############################## PUSH ###############################
     def push(self, item):
         """Pushs item to the stack"""
-        if self.max_capacity and len(self) < self.max_capacity:
-            self.container.append(item)
+        if len(self.container) >= self.max_capacity:
+            raise OverflowError("Stackoverflow! Can't push into a full stack!")
+        self.container.append(item)
 
 
     ############################## PEEK ###############################
