@@ -10,10 +10,9 @@ class Queue():
 
 
     ############################## PRINT ##############################
-    def __repr__(self):
-        """Represents the queue as a string."""
+    def _print_queue(self, dir_char=' '):
         top_border = '─┬'
-        middle = '⟶│'
+        middle = dir_char+'│'
         down_border = '─┴'
         for item in self.container:
             width = len(str(item))+2 #2: for a space before & after item
@@ -23,9 +22,14 @@ class Queue():
         # add extension
         if not self.is_empty():
             top_border += '─'
-            middle += '⟶'
+            middle += dir_char
             down_border += '─'
         return "{}\n{}\n{}".format(top_border, middle, down_border)
+
+
+    def __repr__(self):
+        """Represents the queue as a string."""
+        return self._print_queue(dir_char='⟶')
 
 
     ############################## LENGTH ##############################
