@@ -53,12 +53,12 @@ class Stack:
 
     def is_empty(self):
         """Checks if the stack is empty"""
-        return len(self) == 0
+        return len(self.container) == 0
 
 
     def clear(self):
         """Clears the stack"""
-        self.__init__()
+        self.__init__(max_capacity=self.max_capacity)
 
 
 
