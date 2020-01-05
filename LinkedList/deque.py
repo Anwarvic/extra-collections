@@ -1,4 +1,6 @@
-class Deque():
+from queue import Queue
+
+class Deque(Queue):
     """Basic object for the Deque data structure"""
     def __init__(self, max_capacity=None):
         self.container = []
