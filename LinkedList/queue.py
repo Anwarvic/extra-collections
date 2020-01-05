@@ -34,19 +34,7 @@ class Queue():
         return len(self.container)
 
 
-    def enqueue(self, item):
-        """Insert value into the Queue"""
-        if len(self.container) >= self.max_capacity:
-            # raise OverflowError("Can't push into a full queue!")
-            self.container.remove_end()
-        self.container.add_front(item)
-
-
-    def dequeue(self):
-        """Removes value from the Queue (Queue's head)"""
-        return self.container.remove_end()
-
-
+    ############################## PEEK ################################
     def get_left(self):
         """Returns the Qeueu head (first element to be enqueued) """
         return self.container.head.get_data()
@@ -55,6 +43,21 @@ class Queue():
     def get_right(self):
         """Returns the Qeueu tail (last element to be enqueued) """
         return self.container.tail.get_data()
+
+
+    ############################# ENQUEUE ##############################
+    def enqueue(self, item):
+        """Insert value into the Queue"""
+        if len(self.container) >= self.max_capacity:
+            # raise OverflowError("Can't push into a full queue!")
+            self.container.remove_end()
+        self.container.add_front(item)
+
+
+    ############################# DEQUEUE ##############################
+    def dequeue(self):
+        """Removes value from the Queue (Queue's head)"""
+        return self.container.remove_end()
 
 
     def is_empty(self):
@@ -73,17 +76,17 @@ if __name__ == "__main__":
     q = Queue(max_capacity=3)
     q.enqueue(2)  #2
     print(q)
-    q.enqueue(40) #2 40
+    q.enqueue(40) #40 2
     print(q)
-    q.enqueue(800)#2 40 800
-    q.enqueue('hello') #40 800 'hello' (replaces most left item)
+    q.enqueue(800)#800 42 2
+    q.enqueue('hello') #hello 800 40 (replaces most right item)
     print(q)
     
     print('='*20)
-    print(q.get_left()) #40
-    print(q.get_right()) #'hello'
+    print(q.get_left()) #hello
+    print(q.get_right()) #'40
     q.dequeue()
-    print(q) #800 'hello'
+    print(q) #hello 800
 
     print('='*20)
     print(q.is_empty()) #False
