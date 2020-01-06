@@ -6,11 +6,13 @@ from queue import Queue
 class Deque(Queue):
     """Basic object for the Deque data structure"""
 
+    ############################## PRINT ##############################
     def __repr__(self):
         """Represents the deque as a string."""
         return super()._print_queue('⟷')
 
 
+    ############################# APPEND ##############################
     def append_left(self, item):
         """Insert value into the front of the Deque"""
         super().enqueue(item)
@@ -23,6 +25,7 @@ class Deque(Queue):
         self.container.add_end(item)
 
 
+    ############################## POP ###############################
     def pop_left(self):
         """Removes value from the Deque (first-inserted item)"""
         return self.container.remove_front()
