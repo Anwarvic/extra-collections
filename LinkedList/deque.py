@@ -1,30 +1,24 @@
 from queue import Queue
 
+
+
+
 class Deque(Queue):
     """Basic object for the Deque data structure"""
-    def __init__(self, max_capacity=None):
-        self.container = []
-        self.max_capacity = max_capacity
-
 
     def __repr__(self):
         """Represents the deque as a string."""
         return super()._print_queue('⟷')
 
 
-    def __len__(self):
-        """Gets the length of the deque with complexity of O(1)"""
-        return len(self.container)
-
-
-    def add_left(self, item):
+    def append_left(self, item):
         """Insert value into the front of the Deque"""
         if self.max_capacity and len(self) == self.max_capacity:
             self.remove_right()
         self.container.insert(0, item)
 
 
-    def add_right(self, item):
+    def append_right(self, item):
         """Insert value into the end of the Deque"""
         if self.max_capacity and len(self) == self.max_capacity:
             self.remove_left()
@@ -46,23 +40,13 @@ class Deque(Queue):
         return self.container[-1]
 
 
-    def is_empty(self):
-        """Checks if the Deque is empty"""
-        return len(self) == 0
-
-
-    def clear(self):
-        """Clears the whole Deque"""
-        self.container = []
-
-
 
 
 if __name__ == "__main__":
     q = Deque(max_capacity=3)
-    q.add_left(0) #0
-    q.add_right(1)   #0 1
-    q.add_right(8)   #0 1 8
-    q.add_left(9) #9 0 1
+    q.append_left(0) #0
+    q.append_right(1)   #0 1
+    q.append_right(8)   #0 1 8
+    q.append_left(9) #9 0 1
     print(q)
     
