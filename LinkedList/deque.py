@@ -9,19 +9,7 @@ class Deque(Queue):
 
     def __repr__(self):
         """Represents the deque as a string."""
-        top_border = '─┬'
-        middle = ' │'
-        down_border = '─┴'
-        for item in self.container:
-            width = len(str(item))+2 #2: for a space before & after an item
-            top_border += ('─'*width) + '┬'
-            middle += " {} │".format(item)
-            down_border += ('─'*width) + '┴'
-        # add extension
-        top_border += '─'
-        middle += ' '
-        down_border += '─'
-        return "{}\n{}\n{}".format(top_border, middle, down_border)
+        return super()._print_queue('⟷')
 
 
     def __len__(self):
