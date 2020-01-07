@@ -321,6 +321,16 @@ class LinkedList:
         return rev
 
 
+    def count(self, value):
+        total_count = 0
+        for node in self:
+            if node.get_data() == value:
+                total_count += 1
+        return total_count
+
+
+
+
 
 
 
