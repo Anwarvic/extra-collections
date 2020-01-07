@@ -352,16 +352,24 @@ class LinkedList:
         So, idx=0, then the left_list will be empty while the right_list will be
         the rest. And the opposite when idx=self.length
         """
-        left_list, right_list = LinkedList(), LinkedList()
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        while(counter < idx):
-            left_list._insert_value(prev_node, curr_node.get_data())
-            prev_node = curr_node
-            curr_node = curr_node.get_next()
-        right_list.head = curr_node
-        return left_list, right_list
+        self._validate_index(idx)
+        if idx == 0:
+            return LinkedList(), self
+        elif idx == self.length:
+            return self, LinkedList()
+        else:
+            left_list, right_list = LinkedList(), LinkedList()
+            counter = 0
+            prev_node = None
+            curr_node = self.head
+            while(counter < idx):
+                new_node = Node(curr_node.get_data())
+                left_list._insert_node(prev_node, new_node)
+                prev_node = new_node
+                curr_node = curr_node.get_next()
+            if curr_node != None:
+                right_list.head = curr_node
+            return left_list, right_list
         
 
 
@@ -375,8 +383,21 @@ class LinkedList:
 
 
     def copy(self):
-        pass 
-        #TODO: know a way to initialize object to be inheritable
+        if self.is_empty():
+            return LinkedList()
+        curr_node = self.head
+        copied_list = LinkedList(curr_node.get_data())
+        copied_node = copied_list.head
+        curr_node = curr_node.get_next()
+        while(curr_node != None):
+            new_node = Node(curr_node.get_data())
+            copied_node.set_next(new_node)
+            curr_node = curr_node.get_next()
+            copied_node = copied_node.get_next()
+        copied_list.length = self.length
+        return copied_list
+
+
 
 
 
@@ -437,5 +458,14 @@ if __name__ == "__main__":
     print("Reversed Linked List is empty?", rev.is_empty())
     print(l)
 
+    print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    clone = l.copy()
+    clone.add_front(0)
+    print(clone)
     print(l)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # left_list, right_list = l.split(100)
+    # print(left_list)
+    # print(right_list)
+    # print(l)
