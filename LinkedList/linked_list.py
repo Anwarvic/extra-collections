@@ -1,5 +1,3 @@
-
-
 class Node:
     """Basic object for the Node used for linked lists"""
     def __init__(self, item=None):
@@ -48,6 +46,19 @@ class LinkedList:
             self.head = Node(item)
             self.length = 1 if item != None else 0
 
+
+    @staticmethod
+    def from_iterable(iterable):
+        l = LinkedList()
+        curr_node = l.head
+        for item in iterable:
+            if l.is_empty():
+                l.head.set_data(item)
+            else:
+                curr_node.set_next(Node(item))
+                curr_node = curr_node.get_next()
+            l.length += 1
+        return l
 
     ############################## PRINT ##############################
     def _print_node(self, node):
@@ -424,4 +435,7 @@ if __name__ == "__main__":
     l.clear()
     print("Linked List is empty?", l.is_empty())
     print("Reversed Linked List is empty?", rev.is_empty())
+    print(l)
+
+    l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     print(l)
