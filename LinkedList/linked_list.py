@@ -180,15 +180,11 @@ class LinkedList:
 
 
     ############################## INSERT ##############################
-    def _insert_node(self, prev_node, item):
-        # handle different types of `item`
-        if isinstance(item, Node):
-            assert item.get_data() != None, \
-                "Can't insert `None` value as a node!!"
-            new_node = item
-        else:
-            assert item != None, "Can't insert `None` value as a node!!"
-            new_node = Node(item)
+    def _insert_node(self, prev_node, new_node):
+        assert isinstance(new_node, Node),\
+            "The inserted item needs to be a `Node` object!!"
+        assert new_node.get_data() != None,\
+            "Can't insert `None` value as a node!!"
         
         # start inserting the node
         if self.length == 0:
@@ -201,6 +197,12 @@ class LinkedList:
             prev_node.set_next(new_node)
         self.length += 1
 
+
+    def _insert_value(self, prev_node, value):
+        assert item != None, "Can't insert `None` value as a node!!"
+        new_node = Node(item)
+        self._insert_node(prev_node, new_node)
+    
 
     def _insert(self, idx, item):
         prev_node, _ = self._get_node(idx)
