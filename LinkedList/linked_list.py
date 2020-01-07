@@ -199,14 +199,17 @@ class LinkedList:
 
 
     def _insert_value(self, prev_node, value):
-        assert item != None, "Can't insert `None` value as a node!!"
-        new_node = Node(item)
+        assert value != None, "Can't insert `None` value as a node!!"
+        new_node = Node(value)
         self._insert_node(prev_node, new_node)
     
 
     def _insert(self, idx, item):
         prev_node, _ = self._get_node(idx)
-        self._insert_node(prev_node, item)
+        if isinstance(item, Node):
+            self._insert_node(prev_node, item)
+        else:
+            self._insert_value(prev_node, item)
 
 
     def add_front(self, item):
@@ -332,6 +335,37 @@ class LinkedList:
 
 
 
+    def split(self, idx):
+        """
+        idx is the start index of the second list after splitting.
+        So, idx=0, then the left_list will be empty while the right_list will be
+        the rest. And the opposite when idx=self.length
+        """
+        left_list, right_list = LinkedList(), LinkedList()
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        while(counter < idx):
+            left_list._insert_value(prev_node, curr_node.get_data())
+            prev_node = curr_node
+            curr_node = curr_node.get_next()
+        right_list.head = curr_node
+        return left_list, right_list
+        
+
+
+    # def _rotate(self, amount, direction):
+    #     assert type(amount) == int, "Amount of Rotation needs to be `int`!!'"
+    #     amount = amount % self.length if self.length > 0 else 0
+    #     curr_node = self.head
+    #     while(amount > 0):
+    #         curr_node = curr_node.get_next()
+    #     left_list = 
+
+
+    def copy(self):
+        pass 
+        #TODO: know a way to initialize object to be inheritable
 
 
 
