@@ -345,7 +345,6 @@ class LinkedList:
         return total_count
 
 
-
     def split(self, idx):
         """
         idx is the start index of the second list after splitting.
@@ -353,23 +352,24 @@ class LinkedList:
         the rest. And the opposite when idx=self.length
         """
         self._validate_index(idx)
-        if idx == 0:
-            return LinkedList(), self
-        elif idx == self.length:
-            return self, LinkedList()
-        else:
-            left_list, right_list = LinkedList(), LinkedList()
-            counter = 0
-            prev_node = None
-            curr_node = self.head
-            while(counter < idx):
-                new_node = Node(curr_node.get_data())
-                left_list._insert_node(prev_node, new_node)
-                prev_node = new_node
-                curr_node = curr_node.get_next()
-            if curr_node != None:
-                right_list.head = curr_node
-            return left_list, right_list
+        left_list, right_list = LinkedList(), LinkedList()
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        # create left list
+        while(counter < idx):
+            new_node = Node(curr_node.get_data())
+            left_list._insert_node(prev_node, new_node)
+            prev_node = new_node
+            curr_node = curr_node.get_next()
+            counter += 1
+        # create right list
+        while(curr_node != None):
+            new_node = Node(curr_node.get_data())
+            right_list._insert_node(prev_node, new_node)
+            prev_node = new_node
+            curr_node = curr_node.get_next()
+        return left_list, right_list
         
 
 
@@ -385,10 +385,10 @@ class LinkedList:
     def copy(self):
         if self.is_empty():
             return LinkedList()
-        curr_node = self.head
-        copied_list = LinkedList(curr_node.get_data())
+        #insert first_item
+        copied_list = LinkedList(self.head.get_data())
         copied_node = copied_list.head
-        curr_node = curr_node.get_next()
+        curr_node = self.head.get_next()
         while(curr_node != None):
             new_node = Node(curr_node.get_data())
             copied_node.set_next(new_node)
@@ -403,69 +403,75 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    l = LinkedList()
-    # test removing from empty list:
-    l.remove_front() #Nothing
-    l.remove_end()   #Nothing
-    l.remove(10)     #Nothing
-    # del l[0]       #throughs IndexError
+    # l = LinkedList()
+    # # test removing from empty list:
+    # l.remove_front() #Nothing
+    # l.remove_end()   #Nothing
+    # l.remove(10)     #Nothing
+    # # del l[0]       #throughs IndexError
 
-    l.add_front(10)  #10 
-    l.add_front(5)   #5 10
-    print(l)
-    l.remove(20)     #nothing
-    l.remove_front() #10
-    print(l)
-    l.remove_end()   #[]
-    print(l)
-    l.insert(0, 100) #100
-    l.insert(1, 200) #100 200
-    l.insert(1, 100) #100 100 200
-    print(l)
-    l.remove(100)    #200
-    print(l)
-    l.clear()        #[]
+    # l.add_front(10)  #10 
+    # l.add_front(5)   #5 10
+    # print(l)
+    # l.remove(20)     #nothing
+    # l.remove_front() #10
+    # print(l)
+    # l.remove_end()   #[]
+    # print(l)
+    # l.insert(0, 100) #100
+    # l.insert(1, 200) #100 200
+    # l.insert(1, 100) #100 100 200
+    # print(l)
+    # l.remove(100)    #200
+    # print(l)
+    # l.clear()        #[]
 
-    # test remove() alone
-    l.add_end(0)     #0
-    l.remove(0)      #[]
-    print(l)
+    # # test remove() alone
+    # l.add_end(0)     #0
+    # l.remove(0)      #[]
+    # print(l)
 
-    # addinng
-    l.add_front(6)   #6
-    l.add_end(20)    #6 20
-    print(l)
-    l.insert(1, 10)   #6 10 20
-    l.insert(2, 77)   #6 10 77 20
-    l.insert(4, 43)   #6 10 77 20 43
-    l.insert(0, 2)    #2 6 10 77 20 43
-    print(43 in l)    #true
-    print(l)
-    del l[len(l)-1]   #2 6 10 77 20
-    print(l)
-    print("LENGTH:", len(l)) #5
-    print(l.to_list())#[2, 6, 10, 77, 20]
+    # # addinng
+    # l.add_front(6)   #6
+    # l.add_end(20)    #6 20
+    # print(l)
+    # l.insert(1, 10)   #6 10 20
+    # l.insert(2, 77)   #6 10 77 20
+    # l.insert(4, 43)   #6 10 77 20 43
+    # l.insert(0, 2)    #2 6 10 77 20 43
+    # print(43 in l)    #true
+    # print(l)
+    # del l[len(l)-1]   #2 6 10 77 20
+    # print(l)
+    # print("LENGTH:", len(l)) #5
+    # print(l.to_list())#[2, 6, 10, 77, 20]
 
-    print(l[0], l[3], "\n") #2 77
+    # print(l[0], l[3], "\n") #2 77
 
-    rev = l.reverse() #20 77 10 6 2
-    print(rev)
-    print("REV LENGTH:", len(rev))
-    print(rev[1], rev[2]) #77 10
+    # rev = l.reverse() #20 77 10 6 2
+    # print(rev)
+    # print("REV LENGTH:", len(rev))
+    # print(rev[1], rev[2]) #77 10
 
-    l.clear()
-    print("Linked List is empty?", l.is_empty())
-    print("Reversed Linked List is empty?", rev.is_empty())
-    print(l)
+    # l.clear()
+    # print("Linked List is empty?", l.is_empty())
+    # print("Reversed Linked List is empty?", rev.is_empty())
+    # print(l)
+
+    # print('='*50)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # clone = l.copy()
+    # clone.add_front(0)
+    # print(clone)
+    # print(l)
 
     print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    clone = l.copy()
-    clone.add_front(0)
-    print(clone)
+    left_list, right_list = l.split(1)
+    print("Left list:")
+    print(left_list)
+    print("Right list:")
+    print(right_list)
+    print("Original List:")
+    l.add_end("200")
     print(l)
-    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    # left_list, right_list = l.split(100)
-    # print(left_list)
-    # print(right_list)
-    # print(l)
