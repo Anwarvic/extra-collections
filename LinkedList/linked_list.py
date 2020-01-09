@@ -207,12 +207,13 @@ class LinkedList:
             new_node.set_next(prev_node.get_next())
             prev_node.set_next(new_node)
         self.length += 1
+        return new_node
 
 
     def _insert_value(self, prev_node, value):
         assert value != None, "Can't insert `None` value as a node!!"
         new_node = Node(value)
-        self._insert_node(prev_node, new_node)
+        return self._insert_node(prev_node, new_node)
     
 
     def _insert(self, idx, item):
@@ -345,43 +346,6 @@ class LinkedList:
         return total_count
 
 
-    def split(self, idx):
-        """
-        idx is the start index of the second list after splitting.
-        So, idx=0, then the left_list will be empty while the right_list will be
-        the rest. And the opposite when idx=self.length
-        """
-        self._validate_index(idx)
-        left_list, right_list = LinkedList(), LinkedList()
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        # create left list
-        while(counter < idx):
-            new_node = Node(curr_node.get_data())
-            left_list._insert_node(prev_node, new_node)
-            prev_node = new_node
-            curr_node = curr_node.get_next()
-            counter += 1
-        # create right list
-        while(curr_node != None):
-            new_node = Node(curr_node.get_data())
-            right_list._insert_node(prev_node, new_node)
-            prev_node = new_node
-            curr_node = curr_node.get_next()
-        return left_list, right_list
-        
-
-
-    # def _rotate(self, amount, direction):
-    #     assert type(amount) == int, "Amount of Rotation needs to be `int`!!'"
-    #     amount = amount % self.length if self.length > 0 else 0
-    #     curr_node = self.head
-    #     while(amount > 0):
-    #         curr_node = curr_node.get_next()
-    #     left_list = 
-
-
     def copy(self):
         if self.is_empty():
             return LinkedList()
@@ -396,6 +360,42 @@ class LinkedList:
             copied_node = copied_node.get_next()
         copied_list.length = self.length
         return copied_list
+
+
+    def split(self, idx):
+        """
+        idx is the start index of the second list after splitting.
+        So, idx=0, then the left_list will be empty while the right_list will be
+        the rest. And the opposite when idx=self.length
+        """
+        self._validate_index(idx)
+        left_list, right_list = LinkedList(), LinkedList()
+        counter = 0
+        prev_node = None
+        curr_node = self.head
+        # left list
+        while(counter < idx):
+            value = curr_node.get_data()
+            prev_node = left_list._insert_value(prev_node, value)
+            curr_node = curr_node.get_next()
+            counter += 1
+        # right list
+        while(curr_node != None):
+            value = curr_node.get_data()
+            prev_node = right_list._insert_value(prev_node, value)
+            curr_node = curr_node.get_next()
+        return left_list, right_list
+        
+
+
+    # def _rotate(self, amount, direction):
+    #     assert type(amount) == int, "Amount of Rotation needs to be `int`!!'"
+    #     amount = amount % self.length if self.length > 0 else 0
+    #     curr_node = self.head
+    #     while(amount > 0):
+    #         curr_node = curr_node.get_next()
+    #     left_list = 
+
 
 
 
@@ -467,7 +467,7 @@ if __name__ == "__main__":
 
     print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    left_list, right_list = l.split(1)
+    left_list, right_list = l.split(5)
     print("Left list:")
     print(left_list)
     print("Right list:")
