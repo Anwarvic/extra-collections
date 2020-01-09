@@ -219,25 +219,25 @@ class LinkedList:
     def _insert(self, idx, item):
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):
-            self._insert_node(prev_node, item)
+            return self._insert_node(prev_node, item)
         else:
-            self._insert_value(prev_node, item)
+            return self._insert_value(prev_node, item)
 
 
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        self._insert(0, item)
+        return self._insert(0, item)
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        self._insert(len(self), item)
+        return self._insert(len(self), item)
     
     
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         self._validate_index(idx)
-        self._insert(idx, item)
+        return self._insert(idx, item)
 
 
     ############################### SET ################################
