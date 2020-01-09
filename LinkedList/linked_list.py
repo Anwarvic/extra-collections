@@ -347,18 +347,13 @@ class LinkedList:
 
 
     def copy(self):
-        if self.is_empty():
-            return LinkedList()
-        #insert first_item
-        copied_list = LinkedList(self.head.get_data())
-        copied_node = copied_list.head
-        curr_node = self.head.get_next()
+        copied_list = LinkedList()
+        copied_node = None
+        curr_node = self.head
         while(curr_node != None):
-            new_node = Node(curr_node.get_data())
-            copied_node.set_next(new_node)
+            copied_node = copied_list._insert_value(copied_node,
+                                                    curr_node.get_data())
             curr_node = curr_node.get_next()
-            copied_node = copied_node.get_next()
-        copied_list.length = self.length
         return copied_list
 
 
@@ -375,14 +370,14 @@ class LinkedList:
         curr_node = self.head
         # left list
         while(counter < idx):
-            value = curr_node.get_data()
-            prev_node = left_list._insert_value(prev_node, value)
+            prev_node = left_list._insert_value(prev_node,
+                                                curr_node.get_data())
             curr_node = curr_node.get_next()
             counter += 1
         # right list
         while(curr_node != None):
-            value = curr_node.get_data()
-            prev_node = right_list._insert_value(prev_node, value)
+            prev_node = right_list._insert_value(prev_node,
+                                                 curr_node.get_data())
             curr_node = curr_node.get_next()
         return left_list, right_list
         
@@ -458,12 +453,12 @@ if __name__ == "__main__":
     # print("Reversed Linked List is empty?", rev.is_empty())
     # print(l)
 
-    # print('='*50)
-    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    # clone = l.copy()
-    # clone.add_front(0)
-    # print(clone)
-    # print(l)
+    print('='*50)
+    l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    clone = l.copy()
+    clone.add_front(0)
+    print(clone)
+    print(l)
 
     print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
