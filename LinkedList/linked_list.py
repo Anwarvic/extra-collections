@@ -383,17 +383,19 @@ class LinkedList:
         
 
     def _rotate(self, distance, direction):
-        assert type(distance) == int and distance > 0, \
+        assert type(distance) == int and distance >= 0, \
             "Amount of Rotation needs to be `int` value bigger than zero!!'"
         distance = distance % self.length if self.length > 0 else 0
         left_list, right_list = self.split(distance)
         if direction == "LEFT":
             last_right_node, _ = right_list._get_node(len(right_list))
-            last_right_node.set_next(left_list.head)
+            if len(left_list) > 0:
+                last_right_node.set_next(left_list.head)
             return right_list
         elif direction == "RIGHT":
             last_left_node, _ = left_list._get_node(len(left_list))
-            last_left_node.set_next(right_list.head)
+            if len(right_list) != None:
+                last_left_node.set_next(right_list.head)
             return left_list
 
 
@@ -466,20 +468,25 @@ if __name__ == "__main__":
     # print("Reversed Linked List is empty?", rev.is_empty())
     # print(l)
 
-    print('='*50)
-    l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    clone = l.copy()
-    clone.add_front(0)
-    print(clone)
-    print(l)
+    # print('='*50)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # clone = l.copy()
+    # clone.add_front(0)
+    # print(clone)
+    # print(l)
+
+    # print('='*50)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # left_list, right_list = l.split(5)
+    # print("Left list:")
+    # print(left_list)
+    # print("Right list:")
+    # print(right_list)
+    # print("Original List:")
+    # l.add_end("200")
+    # print(l)
 
     print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    left_list, right_list = l.split(5)
-    print("Left list:")
-    print(left_list)
-    print("Right list:")
-    print(right_list)
-    print("Original List:")
-    l.add_end("200")
-    print(l)
+    print(l.left_rotate(0))
+
