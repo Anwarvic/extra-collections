@@ -382,14 +382,27 @@ class LinkedList:
         return left_list, right_list
         
 
+    def _rotate(self, distance, direction):
+        assert type(distance) == int and distance > 0, \
+            "Amount of Rotation needs to be `int` value bigger than zero!!'"
+        distance = distance % self.length if self.length > 0 else 0
+        left_list, right_list = self.split(distance)
+        if direction == "LEFT":
+            last_right_node, _ = right_list._get_node(len(right_list))
+            last_right_node.set_next(left_list.head)
+            return right_list
+        elif direction == "RIGHT":
+            last_left_node, _ = left_list._get_node(len(left_list))
+            last_left_node.set_next(right_list.head)
+            return left_list
 
-    # def _rotate(self, amount, direction):
-    #     assert type(amount) == int, "Amount of Rotation needs to be `int`!!'"
-    #     amount = amount % self.length if self.length > 0 else 0
-    #     curr_node = self.head
-    #     while(amount > 0):
-    #         curr_node = curr_node.get_next()
-    #     left_list = 
+
+    def left_rotate(self, distance):
+        return self._rotate(distance, "LEFT")
+    
+
+    def right_rotate(self, distance):
+        return self._rotate(distance, "RIGHT")
 
 
 
