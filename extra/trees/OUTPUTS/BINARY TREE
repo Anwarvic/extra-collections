@@ -1,0 +1,42 @@
+    10
+   /  \
+  5    20
+ /
+1
+==================================================
+    __1__
+   /     \
+  2       3
+ / \     / \
+4   5   6   7
+Tree Nodes: 7
+Tree Height: 2
+Left-node Depth: 1
+Nodes per level: [[TreeNode(1)], [TreeNode(2), TreeNode(3)], [TreeNode(4), TreeNode(5), TreeNode(6), TreeNode(7)]]
+Iterate over given tree:
+	 TreeNode(1)
+	 TreeNode(2)
+	 TreeNode(3)
+	 TreeNode(4)
+	 TreeNode(5)
+	 TreeNode(6)
+	 TreeNode(7)
+Total Leaf Nodes: 4
+Balanced Tree: True
+Perfect Tree: True
+Strict Tree: True
+PreOrder Traverse:
+[1, 2, 4, 5, 3, 6, 7]
+
+postOrder Traverse:
+[4, 5, 2, 6, 7, 3, 1]
+
+inOrder Traverse:
+[4, 2, 5, 1, 6, 3, 7]
+
+breadth-first Traverse:
+[1, 2, 3, 4, 5, 6, 7]
+
+Traverse:
+[4, 2, 5, 1, 6, 3, 7]
+[Finished in 0.1s]

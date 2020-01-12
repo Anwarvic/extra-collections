@@ -1,0 +1,188 @@
+from linked_list import Node, LinkedList
+
+
+
+class CircularLinkedList(LinkedList):
+    """Basic object for the Circular Linked List"""
+    def __init__(self, item=None):
+        super().__init__(item)
+        self.head.set_next(self.head)
+
+
+    ############################## PRINT ##############################
+    def __repr__(self):
+        """Represents the Circular linked list as a string"""
+        first_line, second_line, third_line = [], [], []
+        if self.is_empty():
+            first_line  += ['┌─']
+            second_line += ['│']
+            third_line  += ['└─']
+            return "{}\n{}\n{}".format(\
+            ''.join(first_line), ''.join(second_line), ''.join(third_line))
+        else:
+            # print just the head
+            top_part, middle_part, lower_part = self._print_node(self.head)
+            first_line += top_part
+            second_line += middle_part
+            third_line += lower_part
+            # print the remaining nodes if found
+            top_part, middle_part, lower_part = \
+                self._print_linked_list(self.head.get_next(), self.head)
+            first_line += top_part
+            second_line += middle_part
+            third_line += lower_part
+        # backtrace representation
+        head_data = str(self.head.get_data())
+        left_offset = (len(head_data)+4)//2
+        remaining = len("".join(second_line)) - left_offset
+        second_line += [' ┐']
+        third_line += [' │']
+        fourth_line = (' '*left_offset) + '↑' + (' '*(remaining)) + '│'
+        fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
+        return "{}\n{}\n{}\n{}\n{}".format(\
+            "".join(first_line), "".join(second_line), "".join(third_line),\
+            fourth_line, fifth_line)
+
+
+    ############################## SEARCH ##############################
+    def __contains__(self, value):
+        if self.head.get_data() == value:
+            return True
+        found_node = self._search( value,
+                                start_node = self.head.get_next(),
+                                stop_node = self.head)
+        if found_node == None or found_node.get_data() != value:
+            return False
+        return True
+
+
+    def _validate_index(self, idx, accept_negative=False):
+        if type(idx) != int:
+            raise TypeError("Indices must be an integer!")
+        elif idx <= -1 and accept_negative==False:
+            raise IndexError(\
+                "Negative indexing isn't supported with this functinoality!!")
+
+
+    def __getitem__(self, idx):
+        """Retrieves the element at the given index."""
+        if self.is_empty():
+            raise IndexError("Circular Linked List is empty!!")
+        self._validate_index(idx)
+        idx = idx % self.length if self.length != 0 else 0
+        return super().__getitem__(idx)
+
+
+    ############################## INSERT ##############################
+    def _insert_node(self, prev_node, item):
+        # handle different types of `item`
+        if isinstance(item, Node):
+            assert item.get_data() != None, \
+                "Can't insert `None` value as a node!!"
+            new_node = item
+        else:
+            assert item != None, "Can't insert `None` value as a node!!"
+            new_node = Node(item)
+        
+        # start inserting the node
+        if prev_node == None:
+            if self.is_empty():
+                self.head.set_data(new_node.get_data())
+            elif self.length == 1:
+                new_node.set_next(self.head.get_next())
+                self.head.set_next(new_node)
+                self.head = new_node
+            else:
+                new_node.set_next(self.head.get_next())
+                self.head.set_next(new_node)
+                #swap data between new_node and self.head
+                new_node.data, self.head.data = self.head.data, new_node.data
+                new_node = self.head
+        else:
+            new_node.set_next(prev_node.get_next())
+            prev_node.set_next(new_node)
+        self.length += 1
+        return new_node
+    
+    
+    def insert(self, idx, item):
+        self._validate_index((idx))
+        idx = idx % (self.length+1)
+        super()._insert(idx, item)
+
+
+    ############################### SET ################################
+    def __setitem__(self, idx, item):
+        if self.is_empty():
+            raise IndexError("Circular Linked List is empty!!")
+        self._validate_index(idx)
+        idx = idx % self.length if self.length != 0 else 0
+        super()._replace_node(idx, item)
+    
+
+    ############################## REMOVE ##############################
+    def _remove_node(self, prev_node, node_to_be_removed):
+        assert node_to_be_removed != None, "Can't remove `None` node!!"
+        # if node to be removed is the first
+        if prev_node == None:
+            if self.length == 1:
+                self.head.set_data(None)
+            else:
+                next_to_head = self.head.get_next()
+                self.head.set_data(next_to_head.get_data())
+                self.head.set_next(next_to_head.get_next())
+        else:
+            prev_node.set_next(node_to_be_removed.get_next())
+        self.length -= 1
+    
+
+    def __delitem__(self, idx):
+        """Removes a node at index=idx from the Circular Linked List"""
+        self._validate_index((idx))
+        idx = idx % self.length if self.length != 0 else 0
+        super()._remove_idx(idx)
+
+
+    ############################## MISC ##############################
+    def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
+        rev = CircularLinkedList()
+        curr_node = self.head
+        while(curr_node.next != self.head):
+            rev.add_front(curr_node.get_data())
+            curr_node = curr_node.get_next()
+        rev.add_front(curr_node.get_data())
+        return rev
+
+
+
+
+if __name__ == "__main__":
+    l = CircularLinkedList()
+    l.insert(100, 'answer')
+    l.add_front('item')     # item answer
+    l.insert(2, 'item2')    # item answer item2
+    l.insert(1, 'hey')      # item hey answer item2
+    l.add_front("yes")      # yes item hey answer item2
+    l.insert(len(l)-1, "no")# yes item hey answer no item2
+    l.add_end("now")        # yes item hey answer no item2 now
+    print(l)
+    print(l[2])
+    print("Length:", len(l))
+
+    rev = l.reverse()       # now item2 no answer hey item yes
+    rev.remove_end()        # now item2 no answer hey item
+    rev.remove_front()      # item2 no answer hey item
+    print(rev)
+    print("Length:", len(rev))
+    print("item2" in rev)
+    print("item" in rev)
+    print("apple" in rev)
+    print(rev.to_list())
+    
+    rev.clear()
+    rev.add_front('')
+    rev[0] = Node(10)
+    del rev[1]
+    print(rev)
+    print(rev.is_empty())
