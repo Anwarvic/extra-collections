@@ -1,4 +1,4 @@
-from linked_list import Node, LinkedList
+from extra.lists.linked_list import Node, LinkedList
 
 
 
