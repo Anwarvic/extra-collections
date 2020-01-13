@@ -179,15 +179,32 @@ class LinkedList:
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
-        # sanity check over given index
-        self._validate_index(idx, accept_negative=True)
-        if idx == self.length:
-            raise IndexError("Can't find any element at the given index!!")
-        # convert idx to positive if -ve
-        if idx <= -1: idx += self.length
-        # get the item
-        _, node = self._get_node(idx)
-        return node
+        if isinstance(idx, slice):
+            indices = range(*idx.indices(self.length))
+            max_idx = indices[-1]
+            indices = set(indices)
+            # start getting wanted nodes
+            counter = 0
+            prev_node = None
+            curr_node = self.head
+            out_llist = LinkedList()
+            while(counter <= max_idx):
+                if counter in indices:
+                    prev_node = out_llist._insert_value(prev_node,
+                                                        curr_node.get_data())
+                curr_node = curr_node.get_next()
+                counter += 1
+            return out_llist
+        else:
+            self._validate_index(idx, accept_negative=True)
+            # sanity check over given index
+            if idx == self.length:
+                raise IndexError("Can't find any element at the given index!!")
+            # convert idx to positive if -ve
+            if idx <= -1: idx += self.length
+            # get the item
+            _, node = self._get_node(idx)
+            return node
 
 
     ############################## INSERT ##############################
@@ -477,7 +494,10 @@ if __name__ == "__main__":
     # l.add_end("200")
     # print(l)
 
+    # print('='*50)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # print(l.right_rotate(1))
+
     print('='*50)
     l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    print(l.right_rotate(1))
-
+    print(l[1:4])
