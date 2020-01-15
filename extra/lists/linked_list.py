@@ -208,6 +208,17 @@ class LinkedList:
 
 
     ############################## INSERT ##############################
+    def _validate_inserted_item(self, item):
+        if not isinstance(item, Node):
+            if item == None:
+                raise TypeError("Can't set a `None` into Linked List!")
+            item = Node(item)
+        else:
+            if item.get_data() == None:
+                raise TypeError(\
+                    "Can't set a Node whose value is `None` into Linked List!")
+        
+
     def _insert_node(self, prev_node, new_node):
         assert isinstance(new_node, Node),\
             "The inserted item needs to be a `Node` object!!"
@@ -229,15 +240,20 @@ class LinkedList:
 
     def _insert_value(self, prev_node, value):
         assert value != None, "Can't insert `None` value as a node!!"
+        assert not isinstance(value, Node),\
+            "Passed argument is a `Node`, use _insert_node() instead!"
         new_node = Node(value)
         return self._insert_node(prev_node, new_node)
     
 
     def _insert(self, idx, item):
+        assert 0 <= idx <= self.length, "Invalid index in while inserting"
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):
+            assert item.get_data() != None
             return self._insert_node(prev_node, item)
         else:
+            assert item != None
             return self._insert_value(prev_node, item)
 
 
@@ -254,19 +270,19 @@ class LinkedList:
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         self._validate_index(idx)
+        self._validate_inserted_item(item)
         return self._insert(idx, item)
 
 
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
-        assert isinstance(new_node, Node), \
-            f"Can't set a {type(new_node)} object, it needs to be a `Node`!"
         _, old_node = self._get_node(idx)
         old_node.set_data(new_node.get_data())
     
 
     def __setitem__(self, idx, item):
         self._validate_index(idx)
+        self._validate_inserted_item(item)
         self._replace_node(idx, item)
         
 
@@ -422,6 +438,10 @@ class LinkedList:
 
 
 if __name__ == "__main__":
+    ll = LinkedList()
+    left_list, right_list = ll.split(0)
+    print(left_list)
+    print(right_list)
     # l = LinkedList()
     # # test removing from empty list:
     # l.remove_front() #Nothing
@@ -499,6 +519,6 @@ if __name__ == "__main__":
     # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     # print(l.right_rotate(1))
 
-    print('='*50)
-    l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    print(l[1:4])
+    # print('='*50)
+    # l = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    # print(l[1:4])
