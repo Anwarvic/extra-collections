@@ -382,21 +382,21 @@ class LinkedList:
         """
         self._validate_index(idx)
         left_list, right_list = LinkedList(), LinkedList()
-        if notself.is_empty():
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        # left list
-        while(counter < idx):
-            prev_node = left_list._insert_value(prev_node,
-                                                curr_node.get_data())
-            curr_node = curr_node.get_next()
-            counter += 1
-        # right list
-        while(curr_node != None):
-            prev_node = right_list._insert_value(prev_node,
-                                                 curr_node.get_data())
-            curr_node = curr_node.get_next()
+        if not self.is_empty():
+            counter = 0
+            prev_node = None
+            curr_node = self.head
+            # left list
+            while(counter < idx):
+                prev_node = left_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
+                counter += 1
+            # right list
+            while(curr_node != None):
+                prev_node = right_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
         return left_list, right_list
         
 
