@@ -21,6 +21,19 @@ def test_empty_list():
     assert str(ll) == "┌─\n│\n└─"
     assert ll.is_empty()
     assert ll.to_list() == []
+    assert [_ for _ in ll ] == []
+    assert 0 not in ll
+    assert ll.count(0)
+    with pytest.raises(IndexError):
+        _ = ll[0]
+        ll.insert(1, 20)
+        del ll[0]
+        del ll[10]
+    # these shouldn't raise any errors
+    ll.split(0)
+    ll.rotate_left(0)
+    ll.rotate_right(0)
+    
 
 
 
