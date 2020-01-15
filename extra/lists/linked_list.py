@@ -382,6 +382,7 @@ class LinkedList:
         """
         self._validate_index(idx)
         left_list, right_list = LinkedList(), LinkedList()
+        if notself.is_empty():
         counter = 0
         prev_node = None
         curr_node = self.head
@@ -411,11 +412,11 @@ class LinkedList:
         return right_list
 
 
-    def left_rotate(self, distance):
+    def rotate_left(self, distance):
         return self._rotate(distance, "LEFT")
     
 
-    def right_rotate(self, distance):
+    def rotate_right(self, distance):
         return self._rotate(distance, "RIGHT")
 
 
