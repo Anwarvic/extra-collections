@@ -8,7 +8,17 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 def test_empty_node():
-    pass
+    _node = Node()
+    assert _node.get_data() == _node.data == None
+    assert _node.get_next() == _node.next == None
+    _node = Node(None)
+    assert _node.get_data() == None
+    assert _node.get_next() == None
+    _node.set_next(None)
+    with pytest.raises(AssertionError):
+        _node.set_data(None)
+        _node.set_next(Node())
+
 
 
 def test_not_empty_node():
