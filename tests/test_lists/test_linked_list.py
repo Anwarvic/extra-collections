@@ -1,6 +1,6 @@
 import pytest
 
-from utils import *
+from tests import *
 from extra.lists.linked_list import Node, LinkedList
 
 
@@ -20,7 +20,7 @@ def test_empty_node():
 
 
 def test_not_empty_node():
-    # given value is string
+    # Given value: str
     s = get_string()
     _node = Node(s)
     assert _node.get_data() == _node.data == s
@@ -31,22 +31,42 @@ def test_not_empty_node():
         _node.set_next(Node())
         _node.set_next(get_string())
         _node.set_next(get_value())
-    # given value has __iter__ attribute
+    # Given value: has __iter__ attribute
     lst = get_list()
     _node = Node(lst)
     assert _node.get_data() == lst
     assert _node.get_next() == None
     _node.set_next(Node(get_string()))
-    # given value is LinkedList
+    # Given value: LinkedList()
     ll = LinkedList.from_iterable(get_list())
     _node = Node(ll)
     assert _node.get_data() == ll
     
 
 
-
 def test_creating_linked_list():
-    pass
+    # Using constructor
+    val = get_value()
+    ll = LinkedList(val)
+    ll.head.get_data() == val
+    ll.head.get_next() == ll.head.next == None
+    assert len(ll) == ll.length == 1
+    assert ll.to_list() == [item.get_data() for item in ll] == [val]
+    # Using from_iterable (small length)
+    lst = get_list()
+    ll = LinkedList.from_iterable(lst)
+    ll.head.get_data() == lst[0]
+    assert len(ll) == ll.length == len(lst)
+    assert ll.to_list() == [item.get_data() for item in ll] == lst
+    # Using from_iterable (big length)
+    lst = get_list(length = 10000)
+    ll = LinkedList.from_iterable(lst)
+    ll.head.get_data() == lst[0]
+    assert len(ll) == ll.length == len(lst)
+    assert ll.to_list() == [item.get_data() for item in ll] == lst
+    for _ in range(100): #check the indices
+        idx = get_pos_int(b=10000)
+        assert ll[idx].get_data() == lst[idx]
 
 
 def test_empty_list():
