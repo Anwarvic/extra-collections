@@ -56,15 +56,13 @@ def test_empty_list():
         ll.split(-1)
         ll.split(get_int())
     #################### test rotate ####################
-    assert len(ll.rotate_left(get_pos_int())) == \
-            len(ll.rotate_left(get_pos_int())) == 0
-    assert len(ll.rotate_right(get_pos_int())) == \
-            len(ll.rotate_right(get_pos_int())) == 0
+    assert len(ll.rotate_left(get_pos_int())) == 0
+    assert len(ll.rotate_right(get_pos_int())) == 0
     with pytest.raises(TypeError):
         ll.rotate_left(get_string())
         ll.rotate_right(get_float())
         ll.rotate_left([])
-    with pytest.raises(IndexError):
+    with pytest.raises(ValueError):
         ll.rotate_left(get_neg_int())
         ll.rotate_right(get_neg_int())
     #################### test remove/del ####################
