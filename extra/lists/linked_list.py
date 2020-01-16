@@ -363,7 +363,7 @@ class LinkedList:
     
     def remove(self, value, all=True):
         if type(all) != bool:
-            raise ValueError("`all` is a boolean flag (True by default)!")
+            raise TypeError("`all` is a boolean flag (True by default)!")
         self._validate_inserted_item(value)
         self._remove_value(value, stop_node=None, all=all)
 
