@@ -154,6 +154,18 @@ class LinkedList:
         return not self.__eq__(other)
     
 
+    def __lt__(self, other):
+        if isinstance(other, LinkedList):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+        # start comparing
+        pointer1 = self.head
+        pointer2 = other.head
+        while(pointer1 != None and pointer2 != None):
+            if pointer1.get_data() > pointer2.get_data():
+                return False
+            pointer1 = pointer1.get_next()
+            pointer2 = pointer2.get_next()
+        return False if pointer2 == None else True
 
 
     ############################## SEARCH ##############################
