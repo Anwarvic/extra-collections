@@ -21,6 +21,7 @@ class Node:
     
 
     def set_data(self, data):
+        assert data != None
         self.data = data
     
 
@@ -29,8 +30,8 @@ class Node:
     
 
     def set_next(self, next_node):
-        if not isinstance(next_node, Node) and next_node != None:
-            raise TypeError("Linked List elements have to be of type `Node`")
+        assert (isinstance(next_node, Node) and next_node.get_data() != None)\
+            or next_node == None
         self.next = next_node
 
 
@@ -122,7 +123,7 @@ class LinkedList:
         return self.length == 0
 
     
-    ############################# ITERATOR #############################
+    ############################# OPERATOR #############################
     def __iter__(self):
         counter = 0
         curr_node = self.head
@@ -130,6 +131,20 @@ class LinkedList:
             yield curr_node
             counter += 1
             curr_node = curr_node.get_next()
+
+
+    def __eq__(self, other):
+        if isinstance(other, LinkedList):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+        # start_comparing
+        pointer1 = self.head
+        pointer2 = other.head
+        while(pointer1 != None or pointer2 != None):
+            if pointer1.get_data() != pointer2.get_data():
+                return False
+            pointer1 = pointer1.get_next()
+            pointer2 = pointer2.get_next()
+        return True if pointer1 == None and pointer2 == None else False
 
 
     ############################## SEARCH ##############################
@@ -372,6 +387,30 @@ class LinkedList:
         """Removes all nodes within the linked list with complexity of O(1)"""
         self.__init__()
     
+
+    ############################## ROTATION #############################
+    def _rotate(self, distance, direction):
+        if type(distance) != int:
+            raise TypeError("Rotation distance has to be an `int`!!")
+        if distance < 0:
+            raise ValueError("Rotation distance has to be >= zero!!")
+        distance = distance % self.length if self.length > 0 else 0
+        if direction == "RIGHT": distance = self.length - distance
+        left_list, right_list = self.split(distance)
+        if not self.is_empty():
+            last_right_node, _ = right_list._get_node(len(right_list))
+            if len(left_list) > 0:
+                last_right_node.set_next(left_list.head)
+        return right_list
+
+
+    def rotate_left(self, distance):
+        return self._rotate(distance, "LEFT")
+    
+
+    def rotate_right(self, distance):
+        return self._rotate(distance, "RIGHT")
+
     
     ############################## MISC ##############################
     def to_list(self):
@@ -438,29 +477,6 @@ class LinkedList:
         return left_list, right_list
         
 
-    def _rotate(self, distance, direction):
-        if type(distance) != int:
-            raise TypeError("Rotation distance has to be an `int`!!")
-        if distance < 0:
-            raise ValueError("Rotation distance has to be >= zero!!")
-        distance = distance % self.length if self.length > 0 else 0
-        if direction == "RIGHT": distance = self.length - distance
-        left_list, right_list = self.split(distance)
-        if not self.is_empty():
-            last_right_node, _ = right_list._get_node(len(right_list))
-            if len(left_list) > 0:
-                last_right_node.set_next(left_list.head)
-        return right_list
-
-
-    def rotate_left(self, distance):
-        return self._rotate(distance, "LEFT")
-    
-
-    def rotate_right(self, distance):
-        return self._rotate(distance, "RIGHT")
-
-
     def sort(self):
         #TODO: use comparators with sorted()
         pass
@@ -469,10 +485,8 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    ll = LinkedList()
-    left_list, right_list = ll.split(0)
-    print(left_list)
-    print(right_list)
+    ll = LinkedList.from_iterable([1, 2, 3, 4])
+    print(list(ll))
     # l = LinkedList()
     # # test removing from empty list:
     # l.remove_front() #Nothing
