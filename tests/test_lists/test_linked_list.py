@@ -212,3 +212,32 @@ def test_empty_list_given_empty_node():
         ll.insert(0, Node())
 
 
+def test_list_with_same_value():
+    length = get_pos_int()
+    val = get_value()
+    ll = LinkedList()
+    #test add_end
+    for _ in range(length):
+        ll.add_end(val)
+    #test add_front
+    for _ in range(length):
+        ll.add_front(val)
+    assert ll == ll.reverse()
+    assert ll == ll.copy()
+    assert not ll.is_empty()
+    assert len(ll) == 2*length
+    assert ll.count(val) == 2*length
+    assert ll.to_list() == [val]*(2*length)
+    # test split
+    left_list, right_list = ll.split(length)
+    assert len(left_list) == len(right_list) == length
+    # test remove
+    ll.remove(val, all=True)
+    assert ll.is_empty()
+    assert len(ll) == 0
+
+    
+
+
+def test_random_insertions():
+    pass
