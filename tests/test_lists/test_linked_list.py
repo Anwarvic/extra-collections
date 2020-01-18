@@ -69,7 +69,6 @@ def test_creating_linked_list():
 
 
 def test_empty_list():
-    assert LinkedList() == LinkedList(Node())
     EMPTY = "┌─\n│\n└─" #represents empty LinkedList
     ll = LinkedList()
     assert isinstance(ll.head, Node)
@@ -83,6 +82,15 @@ def test_empty_list():
     assert [_ for _ in ll ] == []
     assert len(ll.copy()) == 0
     assert len(ll.reverse()) == 0
+    # test operators
+    assert LinkedList() == LinkedList(Node())
+    assert ll == ll.copy()
+    assert ll == ll.reverse()
+    assert LinkedList() != LinkedList(get_value())
+    assert LinkedList() < LinkedList(get_value())
+    assert LinkedList() <= LinkedList(get_value())
+    assert LinkedList(get_value()) > LinkedList()
+    assert LinkedList(get_value()) >= LinkedList()
     #################### test count ####################
     assert ll.count(0) == 0
     assert ll.count(None) == 0
@@ -178,3 +186,7 @@ def test_list_with_same_value():
 
 def test_random_insertions():
     pass
+
+
+def test_operators():
+    first_list = LinkedList()
