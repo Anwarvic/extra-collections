@@ -134,7 +134,7 @@ class LinkedList:
 
 
     def __eq__(self, other):
-        if isinstance(other, LinkedList):
+        if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # check length
         if self.length != other.length:
@@ -155,7 +155,7 @@ class LinkedList:
     
 
     def __lt__(self, other):
-        if isinstance(other, LinkedList):
+        if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # start comparing
         pointer1 = self.head
@@ -169,7 +169,7 @@ class LinkedList:
     
 
     def __lte__(self, other):
-        if isinstance(other, LinkedList):
+        if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # start comparing
         pointer1 = self.head
@@ -183,31 +183,11 @@ class LinkedList:
     
 
     def __gt__(self, other):
-        if isinstance(other, LinkedList):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
-        # start comparing
-        pointer1 = self.head
-        pointer2 = other.head
-        while(pointer1 != None and pointer2 != None):
-            if pointer1.get_data() <= pointer2.get_data():
-                return False
-            pointer1 = pointer1.get_next()
-            pointer2 = pointer2.get_next()
-        return False if pointer2 == None else True
+        return not self.__lt__(other)
     
 
     def __ge__(self, other):
-        if isinstance(other, LinkedList):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
-        # start comparing
-        pointer1 = self.head
-        pointer2 = other.head
-        while(pointer1 != None and pointer2 != None):
-            if pointer1.get_data() < pointer2.get_data():
-                return False
-            pointer1 = pointer1.get_next()
-            pointer2 = pointer2.get_next()
-        return False if pointer2 == None else True
+        return not self.__le__(other)
 
 
     ############################## SEARCH ##############################
