@@ -140,8 +140,8 @@ class LinkedList:
         if self.length != other.length:
             return False
         # start_comparing
-        pointer1 = self.head
-        pointer2 = other.head
+        pointer1 = self.head if not self.is_empty() else None
+        pointer2 = other.head if not other.is_empty() else None
         while(pointer1 != None and pointer2 != None):
             if pointer1.get_data() != pointer2.get_data():
                 return False
@@ -158,8 +158,8 @@ class LinkedList:
         if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # start comparing
-        pointer1 = self.head
-        pointer2 = other.head
+        pointer1 = self.head if not self.is_empty() else None
+        pointer2 = other.head if not other.is_empty() else None
         while(pointer1 != None and pointer2 != None):
             if pointer1.get_data() >= pointer2.get_data():
                 return False
@@ -172,8 +172,8 @@ class LinkedList:
         if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # start comparing
-        pointer1 = self.head
-        pointer2 = other.head
+        pointer1 = self.head if not self.is_empty() else None
+        pointer2 = other.head if not other.is_empty() else None
         while(pointer1 != None and pointer2 != None):
             if pointer1.get_data() > pointer2.get_data():
                 return False
