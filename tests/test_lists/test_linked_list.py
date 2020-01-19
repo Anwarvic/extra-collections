@@ -82,7 +82,7 @@ def test_empty_list():
     assert [_ for _ in ll ] == []
     assert len(ll.copy()) == 0
     assert len(ll.reverse()) == 0
-    # test operators
+    #################### test operators ####################
     assert LinkedList() == LinkedList(Node())
     assert ll == ll.copy()
     assert ll == ll.reverse()
@@ -102,7 +102,7 @@ def test_empty_list():
     assert 0 not in ll
     assert get_value() not in ll
     assert Node(get_float()) not in ll
-    assert LinkedList(get_value()) not in ll
+    # assert LinkedList(get_value()) not in ll
     #################### test split ####################
     left_list, right_list = ll.split(0)
     assert str(left_list) == str(right_list) == EMPTY
@@ -114,6 +114,8 @@ def test_empty_list():
         ll.split(-1)
         ll.split(get_int())
     #################### test rotate ####################
+    assert ll.rotate_left(get_pos_int()) == ll
+    assert ll.rotate_right(get_pos_int()) == ll
     assert len(ll.rotate_left(get_pos_int())) == 0
     assert len(ll.rotate_right(get_pos_int())) == 0
     with pytest.raises(TypeError):
@@ -182,6 +184,43 @@ def test_list_with_same_value():
     ll.remove(val, all=True)
     assert ll.is_empty()
     assert len(ll) == 0
+
+
+def test_list_with_one_element():
+    val = get_value()
+    ll = LinkedList(val)
+    assert len(ll) == 1
+    assert not ll.is_empty()
+    assert val in ll
+    assert [item.get_data() for item in ll] == [val]
+    assert ll.to_list() == [val]
+    assert ll == ll.copy()
+    assert ll == ll.reverse()
+    #################### test rotate ####################
+    assert ll == ll.rotate_left(get_pos_int())
+    assert ll == ll.rotate_right(get_pos_int())
+    #################### test operators ####################
+    assert ll != LinkedList()
+    assert ll > LinkedList()
+    assert ll >= LinkedList()
+    assert LinkedList() < ll
+    assert LinkedList() <= ll
+    #################### test add/remove ####################
+    new_value = get_value()
+    ll.add_front(new_value)
+    ll.remove_front()
+    ll.add_end(new_value)
+    ll.remove_end()
+    assert ll == LinkedList(val)
+    #################### test insert/split ####################
+    with pytest.raises(IndexError):
+        ll.insert(2, get_value())
+        ll.insert(-1, get_value())
+        ll.split(get_pos_int(a=2))
+
+
+def test_list_with_random_values():
+    pass
 
 
 def test_random_insertions():
