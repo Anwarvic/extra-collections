@@ -1,3 +1,7 @@
+import operator
+
+
+
 class Node:
     """Basic object for the Node used for linked lists"""
     def __init__(self, item=None):
@@ -133,12 +137,14 @@ class LinkedList:
             curr_node = curr_node.get_next()
 
 
-    def __eq__(self, other):
+    def _compare(self, other, op):
+        """
+        Returns the last two nodes that don't match the given operator. They
+        could be the end of both LinkedList or just some random nodes in the
+        middle.
+        """
         if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
-        # check length
-        if self.length != other.length:
-            return False
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
         pointer2 = other.head if not other.is_empty() else None
@@ -148,11 +154,20 @@ class LinkedList:
             if type(pointer1_data) != type(pointer2_data):
                 raise TypeError(\
                     "Inconsists data-types between the two LinkedLists!!")
-            if pointer1_data != pointer2.data:
-                return False
+            if not op(pointer1_data, pointer2.data):
+                return pointer1, pointer2
             pointer1 = pointer1.get_next()
             pointer2 = pointer2.get_next()
-        return True
+        return pointer1, pointer2
+
+
+    def __eq__(self, other):
+        # check length
+        if self.length != other.length:
+            return False
+        # start_comparing
+        pointer1, pointer2 = self._compare(other, operator.eq)
+        return True if pointer1 == pointer2 == None else False
     
 
     def __ne__(self, other):
@@ -160,31 +175,13 @@ class LinkedList:
     
 
     def __lt__(self, other):
-        if type(self) != type(other):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
-        # start comparing
-        pointer1 = self.head if not self.is_empty() else None
-        pointer2 = other.head if not other.is_empty() else None
-        while(pointer1 != None and pointer2 != None):
-            if pointer1.get_data() >= pointer2.get_data():
-                return False
-            pointer1 = pointer1.get_next()
-            pointer2 = pointer2.get_next()
-        return False if pointer2 == None else True
+        pointer1, _ = self._compare(other, operator.lt)
+        return True if pointer1 == None else False
     
 
     def __lte__(self, other):
-        if type(self) != type(other):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
-        # start comparing
-        pointer1 = self.head if not self.is_empty() else None
-        pointer2 = other.head if not other.is_empty() else None
-        while(pointer1 != None and pointer2 != None):
-            if pointer1.get_data() > pointer2.get_data():
-                return False
-            pointer1 = pointer1.get_next()
-            pointer2 = pointer2.get_next()
-        return False if pointer2 == None else True
+        pointer1, _ = self._compare(other, operator.le)
+        return True if pointer1 == None else False
     
 
     def __gt__(self, other):
