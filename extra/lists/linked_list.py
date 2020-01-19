@@ -165,13 +165,15 @@ class LinkedList:
         # check length
         if self.length != other.length:
             return False
-        # start_comparing
         pointer1, pointer2 = self._compare(other, operator.eq)
         return True if pointer1 == pointer2 == None else False
     
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        if self.length != other.length:
+            return True
+        pointer1, pointer2 = self._compare(other, operator.ne)
+        return False if pointer1 == pointer2 == None else True
     
 
     def __lt__(self, other):
@@ -185,11 +187,13 @@ class LinkedList:
     
 
     def __gt__(self, other):
-        return not self.__lt__(other)
+        _, pointer2 = self._compare(other, operator.le)
+        return True if pointer2 == None else False
     
 
     def __ge__(self, other):
-        return not self.__le__(other)
+        _, pointer2 = self._compare(other, operator.le)
+        return True if pointer2 == None else False
 
 
     ############################## SEARCH ##############################
