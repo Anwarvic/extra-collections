@@ -457,11 +457,14 @@ class LinkedList:
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT": distance = self.length - distance
         left_list, right_list = self.split(distance)
-        if not self.is_empty():
+        # perform rotation
+        if len(right_list) == 0:
+            return left_list
+        else:
+            # get last_right_node
             last_right_node, _ = right_list._get_node(len(right_list))
-            if len(left_list) > 0:
-                last_right_node.set_next(left_list.head)
-        return right_list
+            last_right_node.set_next(left_list.head)
+            return right_list
 
 
     def rotate_left(self, distance):
@@ -539,14 +542,20 @@ class LinkedList:
 
     def sort(self):
         #TODO: use comparators with sorted()
+        #Raises: TypeError if LinkedList has more than one type
         pass
 
 
 
 
 if __name__ == "__main__":
-    ll = LinkedList.from_iterable([1, 2, 3, 4])
-    print(list(ll))
+    # ll = LinkedList.from_iterable([1, 2, 3, 4])
+    # print(list(ll))
+    ll = LinkedList(10)
+    ll.rotate_right(10)
+    print(ll == ll.rotate_right(10))
+    print(ll)
+
     # l = LinkedList()
     # # test removing from empty list:
     # l.remove_front() #Nothing
