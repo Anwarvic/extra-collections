@@ -143,8 +143,7 @@ class LinkedList:
         could be the end of both LinkedList or just some random nodes in the
         middle.
         """
-        if type(self) != type(other):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+        assert type(self) == type(other)
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
         pointer2 = other.head if not other.is_empty() else None
@@ -153,7 +152,7 @@ class LinkedList:
             pointer2_data = pointer2.get_data()
             if type(pointer1_data) != type(pointer2_data):
                 raise TypeError(\
-                    "Inconsists data-types between the two LinkedLists!!")
+                    "Inconsists data-types within the two LinkedLists!!")
             if not op(pointer1_data, pointer2.data):
                 return pointer1, pointer2
             pointer1 = pointer1.get_next()
@@ -162,6 +161,8 @@ class LinkedList:
 
 
     def __eq__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # check length
         if self.length != other.length:
             return False
@@ -170,6 +171,8 @@ class LinkedList:
     
 
     def __ne__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         if self.length != other.length:
             return True
         pointer1, pointer2 = self._compare(other, operator.ne)
@@ -177,21 +180,29 @@ class LinkedList:
     
 
     def __lt__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
         return True if pointer1 == None else False
     
 
     def __lte__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
         return True if pointer1 == None else False
     
 
     def __gt__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 == None else False
     
 
     def __ge__(self, other):
+        if type(self) != type(other):
+            raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 == None else False
 
