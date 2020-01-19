@@ -380,7 +380,7 @@ class LinkedList:
         # if node to be removed is the first
         if prev_node == None:
             if self.length == 1:
-                self.head.set_data(None)
+                self.head.data = None #NOTE: don't use set_data() here
             else:
                 self.head = next_node
         else:
