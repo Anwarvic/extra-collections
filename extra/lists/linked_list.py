@@ -460,6 +460,8 @@ class LinkedList:
         # perform rotation
         if len(right_list) == 0:
             return left_list
+        elif len(left_list) == 0:
+            return right_list
         else:
             # get last_right_node
             last_right_node, _ = right_list._get_node(len(right_list))
@@ -549,13 +551,6 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    # ll = LinkedList.from_iterable([1, 2, 3, 4])
-    # print(list(ll))
-    ll = LinkedList(10)
-    ll.rotate_right(10)
-    print(ll == ll.rotate_right(10))
-    print(ll)
-
     # l = LinkedList()
     # # test removing from empty list:
     # l.remove_front() #Nothing
