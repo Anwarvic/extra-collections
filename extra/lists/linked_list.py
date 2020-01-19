@@ -143,7 +143,12 @@ class LinkedList:
         pointer1 = self.head if not self.is_empty() else None
         pointer2 = other.head if not other.is_empty() else None
         while(pointer1 != None and pointer2 != None):
-            if pointer1.get_data() != pointer2.get_data():
+            pointer1_data = pointer1.get_data()
+            pointer2_data = pointer2.get_data()
+            if type(pointer1_data) != type(pointer2_data):
+                raise TypeError(\
+                    "Inconsists data-types between the two LinkedLists!!")
+            if pointer1_data != pointer2.data:
                 return False
             pointer1 = pointer1.get_next()
             pointer2 = pointer2.get_next()
