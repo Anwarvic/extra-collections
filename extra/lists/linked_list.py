@@ -55,17 +55,16 @@ class LinkedList:
     @staticmethod
     def from_iterable(iterable):
         if not hasattr(iterable, "__iter__"):
-            raise TypeError("Given object has no `iter` attribute")
-        l = LinkedList()
-        curr_node = l.head
+            raise TypeError("Given object has no `iter` attribute!!")
+        ll = LinkedList()
+        prev_node = None
         for item in iterable:
-            if l.is_empty():
-                l.head.set_data(item)
+            ll._validate_inserted_item(item)
+            if isinstance(item, Node):
+                prev_node = ll._insert_node(prev_node, item)
             else:
-                curr_node.set_next(Node(item))
-                curr_node = curr_node.get_next()
-            l.length += 1
-        return l
+                prev_node = ll._insert_value(prev_node, item)
+        return ll
 
 
     ############################## PRINT ##############################
@@ -144,12 +143,15 @@ class LinkedList:
         middle.
         """
         assert type(self) == type(other)
+        assert op.__name__ in dir(operator)
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
         pointer2 = other.head if not other.is_empty() else None
         while(pointer1 != None and pointer2 != None):
             try:
-                if not op(pointer1.get_data(), pointer2.get_data()):
+                if pointer1.get_data() == pointer2.get_data():
+                    pass
+                elif not op(pointer1.get_data(), pointer2.get_data()):
                     return pointer1, pointer2
             except TypeError:
                 raise TypeError(
@@ -290,14 +292,10 @@ class LinkedList:
 
     ############################## INSERT ##############################
     def _validate_inserted_item(self, item):
-        if not isinstance(item, Node):
-            if item == None:
-                raise TypeError("Can't set a `None` into Linked List!")
-            item = Node(item)
-        else:
-            if item.get_data() == None:
-                raise TypeError(\
-                    "Can't set a Node whose value is `None` into Linked List!")
+        if item == None:
+            raise TypeError("Can't set a `None` into Linked List!")
+        elif isinstance(item, Node) and item.get_data() == None:
+            raise TypeError("Can't set a Node with `None` into Linked List!")
         
 
     def _insert_node(self, prev_node, new_node):
@@ -317,8 +315,8 @@ class LinkedList:
 
 
     def _insert_value(self, prev_node, value):
-        assert value != None
-        assert not isinstance(value, Node)
+        assert prev_node == None or isinstance(prev_node, Node)
+        assert value != None and not isinstance(value, Node)
         new_node = Node(value)
         return self._insert_node(prev_node, new_node)
     
@@ -547,3 +545,13 @@ class LinkedList:
         pass
 
 
+if __name__ == "__main__":
+    llist1 = LinkedList.from_iterable([1, '2', 3.14])
+    llist2 = LinkedList.from_iterable([1, '2', 5.14])
+    assert llist1 == llist1
+    assert llist2 == llist2
+    assert llist1 != llist2
+    assert llist1 < llist2
+    assert llist1 <= llist2
+    assert llist2 > llist2
+    assert llist2 >= llist2
