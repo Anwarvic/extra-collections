@@ -244,6 +244,22 @@ def test_list_with_values():
     assert ll.is_empty()
 
 
+def test_list_with_values_2():
+    ll = LinkedList()
+    ll.add_front(6)
+    ll.add_end(20)
+    ll.insert(1, 10)
+    ll.insert(2, 77)
+    ll.insert(4, 43)
+    ll.insert(0, 2)
+    assert 43 in ll
+    assert ll[1:4].to_list() == [6, 10, 77]
+    assert ll.copy().to_list() == [2, 6, 10, 77, 20, 43]
+    del ll[len(ll)-1]
+    assert ll.reverse().to_list() == [20, 77, 10, 6, 2]
+    assert ll.length == len(ll) == 5
+    ll.clear()
+    assert ll.is_empty()
 
 
 def test_random_insertions():
