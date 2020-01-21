@@ -239,9 +239,11 @@ def test_list_with_values():
     ll.remove(100)
     rev = ll.reverse()
     assert ll == rev == LinkedList(200)
-    ll.clear()        #[]
+    ll.clear()
     assert not rev.is_empty()
     assert ll.is_empty()
+
+
 
 
 def test_random_insertions():
@@ -249,4 +251,22 @@ def test_random_insertions():
 
 
 def test_relational_operators():
-    first_list = LinkedList()
+    llist1 = LinkedList.from_iterable([1, '2', 3.14])
+
+
+def test_nested_linked_lists():
+    pass
+
+
+def test_rotate_split():
+    ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    left_list, right_list = ll.split(5)
+    assert left_list.to_list() == [1, 2, 3, 4, 5]
+    assert right_list.reverse() == LinkedList(6)
+    ll.add_end("200")
+    assert ll.length == len(ll) == 6
+    ll.rotate_right(1)
+    ll.to_list() == [6, 1, 2, 3, 4 ,5]
+    ll.rotate_left(3)
+    ll.to_list() == [3, 4 ,5, 6, 1, 2]
+
