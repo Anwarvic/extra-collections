@@ -219,13 +219,34 @@ def test_list_with_one_element():
         ll.split(get_pos_int(a=2))
 
 
-def test_list_with_random_values():
-    pass
+def test_list_with_values():
+    ll = LinkedList()
+    ll.add_front(10)
+    ll.add_front(5)
+    assert ll.to_list() == [5, 10]
+    ll.remove(20)
+    ll.remove_front()
+    assert ll == LinkedList(10)
+    ll.remove_end()
+    assert ll == LinkedList() 
+    ll.insert(0, 100)
+    ll.insert(1, 200)
+    ll.insert(1, 100)
+    assert 100 in ll and 200 in ll
+    assert ll == LinkedList.from_iterable([100, 100, 200])
+    assert ll.copy().to_list() == [100, 100, 200]
+    assert ll.reverse() == LinkedList.from_iterable([200, 100, 100])
+    ll.remove(100)
+    rev = ll.reverse()
+    assert ll == rev == LinkedList(200)
+    ll.clear()        #[]
+    assert not rev.is_empty()
+    assert ll.is_empty()
 
 
 def test_random_insertions():
     pass
 
 
-def test_operators():
+def test_relational_operators():
     first_list = LinkedList()
