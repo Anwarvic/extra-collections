@@ -51,16 +51,25 @@ def test_creating_linked_list():
     ll.head.get_next() == ll.head.next == None
     assert len(ll) == ll.length == 1
     assert ll.to_list() == [item.get_data() for item in ll] == [val]
+    # Using from_iterable (has None)
+    with pytest.raises(TypeError):
+        LinkedList.from_iterable([1, 2, None, 3])
+    # Using Linked List
+    lst = get_list()
+    tmp_ll = LinkedList.from_iterable(lst)
+    ll = LinkedList.from_iterable(tmp_ll)
+    assert len(ll) == ll.length == len(lst)
+    assert ll.to_list() == [item.get_data() for item in ll] == lst
     # Using from_iterable (small length)
     lst = get_list()
     ll = LinkedList.from_iterable(lst)
-    ll.head.get_data() == lst[0]
+    assert ll.head.get_data() == lst[0]
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     ll = LinkedList.from_iterable(lst)
-    ll.head.get_data() == lst[0]
+    assert ll.head.get_data() == lst[0]
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
     for _ in range(100): #check the indices
@@ -262,12 +271,15 @@ def test_list_with_values_2():
     assert ll.is_empty()
 
 
-def test_random_insertions():
-    pass
-
-
-def test_relational_operators():
-    llist1 = LinkedList.from_iterable([1, '2', 3.14])
+# def test_relational_operators():
+#     llist1 = LinkedList.from_iterable([1, '2', 3.14])
+#     llist2 = LinkedList.from_iterable([1, '2', 5.14])
+#     assert llist1 == llist1
+#     assert llist1 != llist2
+#     assert llist1 < llist2
+#     assert llist1 <= llist2
+#     assert llist2 > llist2
+#     assert llist2 >= llist2
 
 
 def test_nested_linked_lists():
@@ -276,13 +288,13 @@ def test_nested_linked_lists():
 
 def test_rotate_split():
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    left_list, right_list = ll.split(5)
-    assert left_list.to_list() == [1, 2, 3, 4, 5]
-    assert right_list.reverse() == LinkedList(6)
-    ll.add_end("200")
-    assert ll.length == len(ll) == 6
     ll.rotate_right(1)
     ll.to_list() == [6, 1, 2, 3, 4 ,5]
     ll.rotate_left(3)
     ll.to_list() == [3, 4 ,5, 6, 1, 2]
+    left_list, right_list = ll.split(5)
+    assert left_list.to_list() == [1, 2, 3, 4, 5]
+    assert right_list.reverse() == LinkedList(6)
+    ll.add_front(0)
+    assert ll.length == len(ll) == 7
 
