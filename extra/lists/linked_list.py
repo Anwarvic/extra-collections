@@ -62,7 +62,6 @@ class LinkedList:
             ll = LinkedList()
             prev_node = None
             for item in iterable:
-                print(item)
                 ll._validate_inserted_item(item)
                 if isinstance(item, Node):
                     prev_node = ll._insert_node(prev_node, item)
@@ -146,7 +145,7 @@ class LinkedList:
         could be the end of both LinkedList or just some random nodes in the
         middle.
         """
-        assert type(self) == type(other)
+        assert isinstance(other, LinkedList)
         assert op.__name__ in dir(operator)
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
@@ -166,7 +165,7 @@ class LinkedList:
 
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # check length
         if self.length != other.length:
@@ -176,37 +175,37 @@ class LinkedList:
     
 
     def __ne__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         if self.length != other.length:
             return True
-        pointer1, pointer2 = self._compare(other, operator.ne)
+        pointer1, pointer2 = self._compare(other, operator.eq)
         return False if pointer1 == pointer2 == None else True
     
 
     def __lt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
         return True if pointer1 == None else False
     
 
     def __le__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
         return True if pointer1 == None else False
     
 
     def __gt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 == None else False
     
 
     def __ge__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 == None else False
@@ -553,14 +552,13 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    # llist1 = LinkedList.from_iterable([1, '2', 3.14])
-    # llist2 = LinkedList.from_iterable([1, '2', 5.14])
-    # assert llist1 == llist1
-    # assert llist2 == llist2
-    # assert llist1 != llist2
-    # assert llist1 < llist2
-    # assert llist1 <= llist2
-    # assert llist2 > llist2
-    # assert llist2 >= llist2
-    # llist2.add_end(llist1)
-    # print(llist2)
+    llist1 = LinkedList.from_iterable([1, '2', 3.14])
+    llist2 = LinkedList.from_iterable([1, '2', 5.14])
+    assert llist1 == llist1
+    assert llist2 == llist2
+    assert llist1 != llist2
+    assert llist1 < llist2
+    assert llist1 <= llist2
+    assert llist2 > llist2
+    assert llist2 >= llist2
+    print(llist2)
