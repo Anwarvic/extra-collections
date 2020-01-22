@@ -187,7 +187,7 @@ class LinkedList:
         return True if pointer1 == None else False
     
 
-    def __lte__(self, other):
+    def __le__(self, other):
         if type(self) != type(other):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
@@ -292,10 +292,12 @@ class LinkedList:
 
     ############################## INSERT ##############################
     def _validate_inserted_item(self, item):
-        if item == None:
+        if item is None:
             raise TypeError("Can't set a `None` into Linked List!")
         elif isinstance(item, Node) and item.get_data() == None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
+        elif type(self) == item:
+            raise TypeError("Can't add LinkedList into a LinkedList!")
         
 
     def _insert_node(self, prev_node, new_node):
@@ -548,10 +550,12 @@ class LinkedList:
 if __name__ == "__main__":
     llist1 = LinkedList.from_iterable([1, '2', 3.14])
     llist2 = LinkedList.from_iterable([1, '2', 5.14])
-    assert llist1 == llist1
-    assert llist2 == llist2
-    assert llist1 != llist2
-    assert llist1 < llist2
-    assert llist1 <= llist2
-    assert llist2 > llist2
-    assert llist2 >= llist2
+    # assert llist1 == llist1
+    # assert llist2 == llist2
+    # assert llist1 != llist2
+    # assert llist1 < llist2
+    # assert llist1 <= llist2
+    # assert llist2 > llist2
+    # assert llist2 >= llist2
+    llist2.add_end(llist1)
+    print(llist2)
