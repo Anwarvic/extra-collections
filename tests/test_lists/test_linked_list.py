@@ -54,10 +54,12 @@ def test_creating_linked_list():
     # Using from_iterable (has None)
     with pytest.raises(TypeError):
         LinkedList.from_iterable([1, 2, None, 3])
+        ll.add_end(LinkedList(10))
     # Using Linked List
     lst = get_list()
     tmp_ll = LinkedList.from_iterable(lst)
     ll = LinkedList.from_iterable(tmp_ll)
+    assert ll == tmp_ll
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
     # Using from_iterable (small length)
@@ -197,7 +199,10 @@ def test_list_with_same_value():
 
 def test_list_with_one_element():
     val = get_value()
-    ll = LinkedList(val)
+    ll = LinkedList()
+    ll.insert(0, val)
+    assert ll.head.get_data() == val
+    assert ll.head.get_next() == None
     assert len(ll) == 1
     assert not ll.is_empty()
     assert val in ll
@@ -271,15 +276,15 @@ def test_list_with_values_2():
     assert ll.is_empty()
 
 
-# def test_relational_operators():
-#     llist1 = LinkedList.from_iterable([1, '2', 3.14])
-#     llist2 = LinkedList.from_iterable([1, '2', 5.14])
-#     assert llist1 == llist1
-#     assert llist1 != llist2
-#     assert llist1 < llist2
-#     assert llist1 <= llist2
-#     assert llist2 > llist2
-#     assert llist2 >= llist2
+def test_relational_operators():
+    llist1 = LinkedList.from_iterable([1, '2', 3.14])
+    llist2 = LinkedList.from_iterable([1, '2', 5.14])
+    assert llist1 == llist1
+    assert llist1 != llist2
+    assert llist1 < llist2
+    assert llist1 <= llist2
+    assert llist2 > llist2
+    assert llist2 >= llist2
 
 
 def test_nested_linked_lists():
