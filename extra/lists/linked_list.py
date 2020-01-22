@@ -551,14 +551,3 @@ class LinkedList:
         pass
 
 
-if __name__ == "__main__":
-    llist1 = LinkedList.from_iterable([1, '2', 3.14])
-    llist2 = LinkedList.from_iterable([1, '2', 5.14])
-    assert llist1 == llist1
-    assert llist2 == llist2
-    assert llist1 != llist2
-    assert llist1 < llist2
-    assert llist1 <= llist2
-    assert llist2 > llist2
-    assert llist2 >= llist2
-    print(llist2)
