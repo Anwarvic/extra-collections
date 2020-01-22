@@ -56,15 +56,19 @@ class LinkedList:
     def from_iterable(iterable):
         if not hasattr(iterable, "__iter__"):
             raise TypeError("Given object has no `iter` attribute!!")
-        ll = LinkedList()
-        prev_node = None
-        for item in iterable:
-            ll._validate_inserted_item(item)
-            if isinstance(item, Node):
-                prev_node = ll._insert_node(prev_node, item)
-            else:
-                prev_node = ll._insert_value(prev_node, item)
-        return ll
+        elif isinstance(iterable, LinkedList):
+            return iterable
+        else:
+            ll = LinkedList()
+            prev_node = None
+            for item in iterable:
+                print(item)
+                ll._validate_inserted_item(item)
+                if isinstance(item, Node):
+                    prev_node = ll._insert_node(prev_node, item)
+                else:
+                    prev_node = ll._insert_value(prev_node, item)
+            return ll
 
 
     ############################## PRINT ##############################
@@ -296,8 +300,8 @@ class LinkedList:
             raise TypeError("Can't set a `None` into Linked List!")
         elif isinstance(item, Node) and item.get_data() == None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
-        elif type(self) == item:
-            raise TypeError("Can't add LinkedList into a LinkedList!")
+        elif isinstance(item, LinkedList):
+            raise TypeError("Can't add LinkedList into a LinkedList!!")
         
 
     def _insert_node(self, prev_node, new_node):
@@ -305,6 +309,7 @@ class LinkedList:
         assert new_node.get_data() != None
         # start inserting the node
         if self.length == 0:
+            new_node.set_next(None)
             self.head = new_node
         elif prev_node == None:
             new_node.set_next(self.head)
@@ -548,8 +553,8 @@ class LinkedList:
 
 
 if __name__ == "__main__":
-    llist1 = LinkedList.from_iterable([1, '2', 3.14])
-    llist2 = LinkedList.from_iterable([1, '2', 5.14])
+    # llist1 = LinkedList.from_iterable([1, '2', 3.14])
+    # llist2 = LinkedList.from_iterable([1, '2', 5.14])
     # assert llist1 == llist1
     # assert llist2 == llist2
     # assert llist1 != llist2
@@ -557,5 +562,5 @@ if __name__ == "__main__":
     # assert llist1 <= llist2
     # assert llist2 > llist2
     # assert llist2 >= llist2
-    llist2.add_end(llist1)
-    print(llist2)
+    # llist2.add_end(llist1)
+    # print(llist2)
