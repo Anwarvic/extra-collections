@@ -2,6 +2,7 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 
+
 class DoublyNode(Node):
     """Basic object for the Node used for double linked lists"""
     def __init__(self, item=None):
@@ -23,8 +24,9 @@ class DoublyNode(Node):
     
 
     def set_prev(self, prev_node):
-        if not isinstance(prev_node, Node) and prev_node != None:
-            raise TypeError("Linked List elements have to be of type `Node`")
+        assert ( isinstance(prev_node, Node) and \
+                prev_node.get_data() is not None)\
+                or prev_node is None
         if prev_node != None: prev_node.next = self 
         self.prev = prev_node
     
