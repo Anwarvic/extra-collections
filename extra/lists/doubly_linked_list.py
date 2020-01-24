@@ -27,27 +27,26 @@ class DoublyNode(Node):
         assert ( isinstance(prev_node, Node) and \
                 prev_node.get_data() is not None)\
                 or prev_node is None
-        if prev_node != None: prev_node.next = self 
         self.prev = prev_node
+        if prev_node != None: prev_node.next = self 
     
 
     def set_next(self, next_node):
-        if not isinstance(next_node, Node) and next_node != None:
-            raise TypeError("Linked List elements have to be of type `Node`")
+        super().set_next(next_node)
         if next_node != None: next_node.prev = self
-        self.next = next_node
 
 
 
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
     def __init__(self, item=None):
-        if isinstance(item, Node):
-            self.head = item
-            self.length = 1 if item.get_data() != None else 0
+        if isinstance(item, DoublyNode):
+            item.set_next(None)
+            self.head = self.tail = item
+            self.length = 1 if item.get_data() is not None else 0
         else:
             self.head = self.tail = DoublyNode(item)
-            self.length = 1 if item != None else 0
+            self.length = 1 if item is not None else 0
     
 
     ############################## PRINT ##############################
@@ -59,9 +58,24 @@ class DoublyLinkedList(LinkedList):
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐']
         middle += [f" {item} │"]
-        if node.get_next() == None: middle += ['⟷']
+        if node.get_next() is None: middle += ['⟷']
         lower_border += (['─']*width) + ['┘']
         return top_border, middle, lower_border
+
+
+    ############################## SEARCH ##############################
+    def _get_node(self, idx):
+        # iterate over the double linked list (forwards)
+        if idx <= self.length//2:
+            return super()._get_node(idx)
+        else:
+            # iterate over the double linked list (backwards)
+            counter = self.length
+            curr_node = self.tail
+            while(counter > idx):
+                counter -= 1
+                curr_node = curr_node.get_prev()
+            return curr_node, curr_node.get_next()
 
 
     ############################## INSERT ##############################
@@ -98,26 +112,14 @@ class DoublyLinkedList(LinkedList):
                     prev_node.set_next(new_node)
         self.length += 1
         return new_node
+    
 
+    def _insert_value(self, prev_node, value):
+        assert prev_node is None or isinstance(prev_node, Node)
+        assert value is not None and not isinstance(value, Node)
+        new_node = DoublyNode(value)
+        return self._insert_node(prev_node, new_node)
 
-    def add_end(self, item):
-        """Adds node at the tail of the double linked list with O(1) complexity.
-        """
-        self._insert_node(self.tail, item)
-
-
-    def _get_node(self, idx):
-        # iterate over the double linked list (forwards)
-        if idx <= self.length//2:
-            return super()._get_node(idx)
-        else:
-            # iterate over the double linked list (backwards)
-            counter = self.length
-            curr_node = self.tail
-            while(counter > idx):
-                counter -= 1
-                curr_node = curr_node.get_prev()
-            return curr_node, curr_node.get_next()
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
