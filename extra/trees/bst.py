@@ -1,7 +1,7 @@
-from binary_tree import TreeNode, BinaryTree
+from binary_tree import BinaryTreeNode, BinaryTree
 
 
-class TreeNode(TreeNode):
+class BSTNode(BinaryTreeNode):
     def __init__(self, value):
         assert type(value) in {int, float}, "BST contains only numbers!!"
         super().__init__(value)
@@ -59,7 +59,7 @@ class TreeNode(TreeNode):
 
 class BST(BinaryTree):
     def __init__(self, value):
-        if isinstance(value, TreeNode):
+        if isinstance(value, BSTNode):
             self.root = value
         elif type(value) in {set, frozenset}:
             lst = sorted(value)
@@ -68,20 +68,20 @@ class BST(BinaryTree):
             lst = sorted(set(value))
             self.root = self.__init_bst(lst)
         else:
-            self.root = TreeNode(value)
+            self.root = BSTNode(value)
 
 
     def __init_bst(self, lst):
         length = len(lst)
         assert length >0, "Given list must have t lease on item!!"
         if length == 1:
-            node = TreeNode(lst[0])
+            node = BSTNode(lst[0])
         elif length == 2:
-            node = TreeNode(lst[0])
-            node.set_left( TreeNode(lst[1]) )
+            node = BSTNode(lst[0])
+            node.set_left( BSTNode(lst[1]) )
         else:
             mid_idx = len(lst)//2
-            node = TreeNode(lst[mid_idx])
+            node = BSTNode(lst[mid_idx])
             node.set_left( self.__init_bst(lst[0:mid_idx]) )
             node.set_right( self.__init_bst(lst[mid_idx+1:]) )
         return node
@@ -157,7 +157,7 @@ class BST(BinaryTree):
 
 
     def insert(self, value):
-        inserted_node = TreeNode(value)
+        inserted_node = BSTNode(value)
         self._insert(inserted_node, self.root)
 
 
@@ -191,7 +191,7 @@ class BST(BinaryTree):
             else:
                 new_replacement = replacement.get_right()
             # swap data
-            TreeNode.swap(node, replacement)
+            BSTNode.swap(node, replacement)
             self._transplant(replacement, new_replacement)
 
 
@@ -247,20 +247,20 @@ if __name__ == "__main__":
     #######################################
     # example taken from "Data Structures and Algorithms in Python" book
     bst = BST(44)
-    bst.root.set_left(TreeNode(17))
-    bst.root.left.set_left(TreeNode(8))
-    bst.root.left.set_right( TreeNode(32) )
-    bst.root.left.right.set_left( TreeNode(28) )
-    bst.root.left.right.left.set_right( TreeNode(29) )
-    bst.root.set_right( TreeNode(88) )
-    bst.root.right.set_right( TreeNode(97) )
-    bst.root.right.right.set_left( TreeNode(93) )
-    bst.root.right.set_left( TreeNode(65) )
-    bst.root.right.left.set_left( TreeNode(54) )
-    bst.root.right.left.set_right( TreeNode(82) )
-    bst.root.right.left.right.set_left( TreeNode(76) )
-    bst.root.right.left.right.left.set_left( TreeNode(68) )
-    bst.root.right.left.right.left.set_right( TreeNode(80) )
+    bst.root.set_left(BSTNode(17))
+    bst.root.left.set_left(BSTNode(8))
+    bst.root.left.set_right( BSTNode(32) )
+    bst.root.left.right.set_left( BSTNode(28) )
+    bst.root.left.right.left.set_right( BSTNode(29) )
+    bst.root.set_right( BSTNode(88) )
+    bst.root.right.set_right( BSTNode(97) )
+    bst.root.right.right.set_left( BSTNode(93) )
+    bst.root.right.set_left( BSTNode(65) )
+    bst.root.right.left.set_left( BSTNode(54) )
+    bst.root.right.left.set_right( BSTNode(82) )
+    bst.root.right.left.right.set_left( BSTNode(76) )
+    bst.root.right.left.right.left.set_left( BSTNode(68) )
+    bst.root.right.left.right.left.set_right( BSTNode(80) )
     print(bst)
 
     bst.remove(80)
