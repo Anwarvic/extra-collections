@@ -59,6 +59,30 @@ class BinaryTree:
             self.root = self.__create_subtree(value)
         else:
             self.root = TreeNode(value)
+    
+
+    @staticmethod
+    def __create_subtree(lst):
+        if len(lst) == 0 or len(lst) >= 4:
+            raise ValueError(f"Given {type(lst)} can not be parsed!")
+        if len(lst) == 1:
+            parent = TreeNode(lst[0])
+        elif len(lst) == 2:
+            parent = TreeNode(lst[0])
+            parent.set_left( BinaryTree.__create_subtree(lst[1]) )
+        elif len(lst) == 3:
+            parent = TreeNode(lst[0])
+            parent.set_left( BinaryTree.__create_subtree(lst[1]) )
+            parent.set_right( BinaryTree.__create_subtree(lst[2]) )
+        return parent
+
+
+    @staticmethod
+    def parse(lst):
+        if type(lst) not in {list, tuple}:
+            raise TypeError("Given object must be a `list` or `tupel`!!")
+        root = BinaryTree.__create_subtree(lst)
+        return BinaryTree(root)
 
 
     ############################ PRINT ############################
@@ -317,23 +341,7 @@ class BinaryTree:
     def get_nodes(self):
         return self.__get_nodes_per_level(self.root, 0, [])
 
-    ############################## PARSE ##############################
-    def __create_subtree(self, lst):
-        if type(lst) == list:
-            if len(lst) == 1:
-                parent = TreeNode(lst[0])
-            elif len(lst) == 2:
-                parent = TreeNode(lst[0])
-                parent.set_left( self.__create_subtree(lst[1]) )
-            elif len(lst) == 3:
-                parent = TreeNode(lst[0])
-                parent.set_left( self.__create_subtree(lst[1]) )
-                parent.set_right( self.__create_subtree(lst[2]) )
-            else:
-                raise AssertionError("Given list can not be parsed!")
-            return parent
-        else:
-            return TreeNode(lst)
+
 
 
 
