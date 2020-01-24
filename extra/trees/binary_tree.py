@@ -1,13 +1,12 @@
-from abc import abstractmethod
 from tree import TreeNode
 
 
 
 
-class TreeNode(TreeNode):
+class BinaryTreeNode(TreeNode):
     def __init__(self, value):
-        assert value != None, "TreeNode's value can't be None!!"
-        assert value != '',   "TreeNode's value can't be empty string!!"
+        assert value != None, "Binary TreeNode's value can't be None!!"
+        assert value != '',   "Binary TreeNode's value can't be empty string!!"
         self.data = value
         self.left = self.right = None
 
@@ -44,7 +43,7 @@ class TreeNode(TreeNode):
                 and (self.left is None or self.right is None)
 
 
-    @abstractmethod
+    @staticmethod
     def swap(node1, node2):
         node1.data, node2.data = node2.data, node1.data
 
@@ -53,12 +52,12 @@ class TreeNode(TreeNode):
 
 class BinaryTree:
     def __init__(self, value):
-        if isinstance(value, TreeNode):
+        if isinstance(value, BinaryTreeNode):
             self.root = value
         elif hasattr(value, '__iter__'):
             self.root = self.__create_subtree(value)
         else:
-            self.root = TreeNode(value)
+            self.root = BinaryTreeNode(value)
     
 
     @staticmethod
@@ -66,12 +65,12 @@ class BinaryTree:
         if len(lst) == 0 or len(lst) >= 4:
             raise ValueError(f"Given {type(lst)} can not be parsed!")
         if len(lst) == 1:
-            parent = TreeNode(lst[0])
+            parent = BinaryTreeNode(lst[0])
         elif len(lst) == 2:
-            parent = TreeNode(lst[0])
+            parent = BinaryTreeNode(lst[0])
             parent.set_left( BinaryTree.__create_subtree(lst[1]) )
         elif len(lst) == 3:
-            parent = TreeNode(lst[0])
+            parent = BinaryTreeNode(lst[0])
             parent.set_left( BinaryTree.__create_subtree(lst[1]) )
             parent.set_right( BinaryTree.__create_subtree(lst[2]) )
         return parent
@@ -353,23 +352,23 @@ class BinaryTree:
 
 
 if __name__ == "__main__":
-    # create tree using TreeNode
-    root = TreeNode("GrandFather")
-    root.left = TreeNode("Father")
-    root.left.left = TreeNode("Me")
-    root.right = TreeNode("Uncle")
+    # create tree using BinaryTreeNode
+    root = BinaryTreeNode("GrandFather")
+    root.left = BinaryTreeNode("Father")
+    root.left.left = BinaryTreeNode("Me")
+    root.right = BinaryTreeNode("Uncle")
     btree = BinaryTree(root)
     print(btree)
     print('='*50)
     ##############################
     btree = BinaryTree(1)
-    btree.root.left = TreeNode(2)
-    btree.root.right = TreeNode(3)
-    btree.root.right.left = TreeNode(6)
-    btree.root.right.right = TreeNode(7)
-    btree.root.left.left = TreeNode(4)
-    btree.root.left.right = TreeNode(5)
-    # btree.root.left.left.left = TreeNode(100)
+    btree.root.left = BinaryTreeNode(2)
+    btree.root.right = BinaryTreeNode(3)
+    btree.root.right.left = BinaryTreeNode(6)
+    btree.root.right.right = BinaryTreeNode(7)
+    btree.root.left.left = BinaryTreeNode(4)
+    btree.root.left.right = BinaryTreeNode(5)
+    # btree.root.left.left.left = BinaryTreeNode(100)
     print(btree)
     #################################
     print("Tree Nodes:", len(btree))
