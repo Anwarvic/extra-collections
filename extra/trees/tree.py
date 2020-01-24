@@ -1,3 +1,4 @@
+import os
 
 
 class TreeNode:
@@ -14,7 +15,17 @@ class TreeNode:
 
     def get_children(self):
         return self.children
+    
 
+    def set_child(self, child):
+        assert isinstance(child, TreeNode)
+        self.children.append(child)
+    
+    
+    def set_children(self, lst):
+        self.children = [item if isinstance(item, TreeNode) else TreeNode(item)\
+            for item in lst]
+        
 
     def __repr__(self):
         return f"TreeNode({self.data})"
@@ -32,6 +43,24 @@ class Tree:
             self.root = value
         else:
             self.root = TreeNode(value)
+    
+
+    @staticmethod
+    def __form_tree_from_path(parent_abs_path, curr_folder):
+        node = TreeNode(curr_folder)
+        abs_path = os.path.join(parent_abs_path, curr_folder)
+        if os.path.isdir(abs_path):
+            for child in os.listdir(abs_path):
+                node.set_child(Tree.__form_tree_from_path(abs_path, child))
+        return node
+
+
+    @staticmethod
+    def from_path(path):
+        abs_path = os.path.abspath(path)
+        parent, folder = os.path.split(abs_path)
+        root = Tree.__form_tree_from_path(parent, folder)
+        return Tree(root)
 
 
     ############################ LENGTH ############################
@@ -84,31 +113,34 @@ class Tree:
 
 
 if __name__ == "__main__":
-    # create Simpsons tree
-    root = TreeNode('TheSimpsons')
-    # homer-side
-    abraham = TreeNode('Abraham + Mona')
-    herb = TreeNode('Herb')
-    homer = TreeNode('Homer')
-    abraham.children = [herb, homer]
+    # # create Simpsons tree
+    # root = TreeNode('TheSimpsons')
+    # # homer-side
+    # abraham = TreeNode('Abraham + Mona')
+    # herb = TreeNode('Herb')
+    # homer = TreeNode('Homer')
+    # abraham.children = [herb, homer]
     
-    # marge-side
-    jackie = TreeNode('Clancy + Jackie')
-    marge = TreeNode('Marge')
-    patty = TreeNode('Patty')
-    selma = TreeNode('Selma')
-    ling = TreeNode('Ling')
-    selma.children = [ling]
-    jackie.children = [marge, patty, selma]
+    # # marge-side
+    # jackie = TreeNode('Clancy + Jackie')
+    # marge = TreeNode('Marge')
+    # patty = TreeNode('Patty')
+    # selma = TreeNode('Selma')
+    # ling = TreeNode('Ling')
+    # selma.children = [ling]
+    # jackie.children = [marge, patty, selma]
 
-    # homer-marge children
-    bart = TreeNode('Bart')
-    lisa = TreeNode('Lisa')
-    maggie = TreeNode('Maggie')
-    homer.children = [bart, lisa, maggie]
-    marge.children = homer.children
-    # set root
-    root.children = [abraham, jackie]
-    t = Tree(root)
+    # # homer-marge children
+    # bart = TreeNode('Bart')
+    # lisa = TreeNode('Lisa')
+    # maggie = TreeNode('Maggie')
+    # homer.children = [bart, lisa, maggie]
+    # marge.children = homer.children
+    # # set root
+    # root.children = [abraham, jackie]
+    # t = Tree(root)
+    # print(t)
+    # print(len(t))
+
+    t = Tree.from_path("/home/anwar/Documents/EXTRA/extra/trees")
     print(t)
-    print(len(t))
