@@ -2,6 +2,7 @@ import operator
 
 
 
+
 class Node:
     """Basic object for the Node used for linked lists"""
     def __init__(self, item=None):
@@ -25,7 +26,7 @@ class Node:
     
 
     def set_data(self, data):
-        assert data != None
+        assert data is not None
         self.data = data
     
 
@@ -34,8 +35,9 @@ class Node:
     
 
     def set_next(self, next_node):
-        assert (isinstance(next_node, Node) and next_node.get_data() != None)\
-            or next_node == None
+        assert ( isinstance(next_node, Node) and \
+                next_node.get_data() is not None)\
+                or next_node is None
         self.next = next_node
 
 
@@ -45,11 +47,12 @@ class LinkedList:
     """Basic object for the linked list"""
     def __init__(self, item=None):
         if isinstance(item, Node):
+            item.set_next(None)
             self.head = item
-            self.length = 1 if item.get_data() != None else 0
+            self.length = 1 if item.get_data() is not None else 0
         else:
             self.head = Node(item)
-            self.length = 1 if item != None else 0
+            self.length = 1 if item is not None else 0
 
 
     @staticmethod
@@ -86,7 +89,7 @@ class LinkedList:
         
     def _print_linked_list(self, start_node, stop_node=None):
         assert isinstance(start_node, Node)
-        assert stop_node == None or isinstance(stop_node, Node)
+        assert stop_node is None or isinstance(stop_node, Node)
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle = []
@@ -110,7 +113,7 @@ class LinkedList:
     def __repr__(self):
         """Represents the linked list as a string like so:
         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
-        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ 
+        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶
         └────┘ └────┘ └────┘ └───┘ └───┘ 
         """
         top_border, middle, lower_border = self._print_linked_list(self.head)
@@ -150,7 +153,7 @@ class LinkedList:
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
         pointer2 = other.head if not other.is_empty() else None
-        while(pointer1 != None and pointer2 != None):
+        while(pointer1 is not None and pointer2 is not None):
             try:
                 if pointer1.get_data() == pointer2.get_data():
                     pass
@@ -171,7 +174,7 @@ class LinkedList:
         if self.length != other.length:
             return False
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return True if pointer1 == pointer2 == None else False
+        return True if pointer1 == pointer2 is None else False
     
 
     def __ne__(self, other):
@@ -180,35 +183,35 @@ class LinkedList:
         if self.length != other.length:
             return True
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return False if pointer1 == pointer2 == None else True
+        return False if pointer1 == pointer2 is None else True
     
 
     def __lt__(self, other):
         if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
-        return True if pointer1 == None else False
+        return True if pointer1 is None else False
     
 
     def __le__(self, other):
         if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
-        return True if pointer1 == None else False
+        return True if pointer1 is None else False
     
 
     def __gt__(self, other):
         if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 == None else False
+        return True if pointer2 is None else False
     
 
     def __ge__(self, other):
         if not isinstance(other, LinkedList):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 == None else False
+        return True if pointer2 is None else False
 
 
     ############################## SEARCH ##############################
@@ -220,7 +223,7 @@ class LinkedList:
         """
         assert not isinstance(value, Node)
         assert isinstance(start_node, Node)
-        assert stop_node == None or isinstance(stop_node, None)
+        assert stop_node is None or isinstance(stop_node, None)
         # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
         curr_node = start_node
@@ -235,7 +238,7 @@ class LinkedList:
         if isinstance(value, Node):
             value = value.get_data()
         found_node = self._search(value, self.head)
-        if found_node == None or found_node.get_data() != value:
+        if found_node is None or found_node.get_data() != value:
             return False
         return True
 
@@ -297,7 +300,7 @@ class LinkedList:
     def _validate_inserted_item(self, item):
         if item is None:
             raise TypeError("Can't set a `None` into Linked List!")
-        elif isinstance(item, Node) and item.get_data() == None:
+        elif isinstance(item, Node) and item.get_data() is None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
         elif isinstance(item, LinkedList):
             raise TypeError("Can't add LinkedList into a LinkedList!!")
@@ -305,12 +308,12 @@ class LinkedList:
 
     def _insert_node(self, prev_node, new_node):
         assert isinstance(new_node, Node)
-        assert new_node.get_data() != None
+        assert new_node.get_data() is not None
         # start inserting the node
         if self.length == 0:
             new_node.set_next(None)
             self.head = new_node
-        elif prev_node == None:
+        elif prev_node is None:
             new_node.set_next(self.head)
             self.head = new_node
         else:
@@ -321,8 +324,8 @@ class LinkedList:
 
 
     def _insert_value(self, prev_node, value):
-        assert prev_node == None or isinstance(prev_node, Node)
-        assert value != None and not isinstance(value, Node)
+        assert prev_node is None or isinstance(prev_node, Node)
+        assert value is not None and not isinstance(value, Node)
         new_node = Node(value)
         return self._insert_node(prev_node, new_node)
     
@@ -331,10 +334,10 @@ class LinkedList:
         assert 0 <= idx or idx <= self.length
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):
-            assert item.get_data() != None
+            assert item.get_data() is not None
             return self._insert_node(prev_node, item)
         else:
-            assert item != None
+            assert item is not None
             return self._insert_value(prev_node, item)
 
 
@@ -377,11 +380,11 @@ class LinkedList:
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
-        assert prev_node == None or isinstance(prev_node, Node)
+        assert prev_node is None or isinstance(prev_node, Node)
         assert isinstance(node_to_be_removed, Node)
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
-        if prev_node == None:
+        if prev_node is None:
             if self.length == 1:
                 self.head.data = None #NOTE: don't use set_data() here
             else:
@@ -421,8 +424,8 @@ class LinkedList:
 
     def _remove_value(self, value, stop_node, all):
         # removes all occurrences (when all==True) of `value` if found.
-        assert not isinstance(value, Node) and value != None
-        assert stop_node == None or isinstance(stop_node, Node)
+        assert not isinstance(value, Node) and value is not None
+        assert stop_node is None or isinstance(stop_node, Node)
         assert type(all) == bool
         prev = None
         curr_node = self.head
@@ -433,7 +436,7 @@ class LinkedList:
             if curr_node.get_data() == value:
                 FOUND_FIRST = True
                 self._remove_node(prev, curr_node)
-                curr_node = prev.get_next() if prev != None else self.head
+                curr_node = prev.get_next() if prev is not None else self.head
             else:
                 prev = curr_node
                 curr_node = curr_node.get_next()
@@ -490,7 +493,7 @@ class LinkedList:
         rev = LinkedList()
         if not self.is_empty():
             curr_node = self.head
-            while(curr_node.get_next() != None):
+            while(curr_node.get_next() is not None):
                 rev.add_front(curr_node.get_data())
                 curr_node = curr_node.get_next()
             rev.add_front(curr_node.get_data())
@@ -512,7 +515,7 @@ class LinkedList:
         if not self.is_empty():
             copied_node = None
             curr_node = self.head
-            while(curr_node != None):
+            while(curr_node is not None):
                 copied_node = copied_list._insert_value(copied_node,
                                                         curr_node.get_data())
                 curr_node = curr_node.get_next()
@@ -538,16 +541,9 @@ class LinkedList:
                 curr_node = curr_node.get_next()
                 counter += 1
             # right list
-            while(curr_node != None):
+            while(curr_node is not None):
                 prev_node = right_list._insert_value(prev_node,
                                                     curr_node.get_data())
                 curr_node = curr_node.get_next()
         return left_list, right_list
         
-
-    def sort(self):
-        #TODO: use comparators with sorted()
-        #Raises: TypeError if LinkedList has more than one type
-        pass
-
-
