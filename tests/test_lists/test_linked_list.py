@@ -51,6 +51,15 @@ def test_creating_linked_list():
     ll.head.get_next() == ll.head.next == None
     assert len(ll) == ll.length == 1
     assert ll.to_list() == [item.get_data() for item in ll] == [val]
+    # Using Node
+    val = get_value()
+    node = Node(val)
+    node.set_next(Node(get_value()))
+    ll = LinkedList(node)
+    ll.head.get_data() == val
+    ll.head.get_next() == ll.head.next == None
+    assert len(ll) == ll.length == 1
+    assert ll.to_list() == [item.get_data() for item in ll] == [val]
     # Using from_iterable (has None)
     with pytest.raises(TypeError):
         LinkedList.from_iterable([1, 2, None, 3])
@@ -256,9 +265,7 @@ def test_list_with_values():
     ll.clear()
     assert not rev.is_empty()
     assert ll.is_empty()
-
-
-def test_list_with_values_2():
+    ###################################################
     ll = LinkedList()
     ll.add_front(6)
     ll.add_end(20)
@@ -285,10 +292,10 @@ def test_relational_operators():
     assert llist1 <= llist2
     assert llist2 > llist2
     assert llist2 >= llist2
-
-
-def test_nested_linked_lists():
-    pass
+    # slicing lists
+    assert llist1[:-1] == llist2[:-1]
+    assert llist1[-1:] != llist2[-1:]
+    
 
 
 def test_rotate_split():
