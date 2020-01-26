@@ -53,16 +53,16 @@ class LinkedList:
         else:
             self.head = Node(item)
             self.length = 1 if item is not None else 0
+      
 
-
-    @staticmethod
-    def from_iterable(iterable):
+    @classmethod
+    def from_iterable(cls, iterable):
         if not hasattr(iterable, "__iter__"):
             raise TypeError("Given object has no `iter` attribute!!")
         elif isinstance(iterable, LinkedList):
             return iterable
         else:
-            ll = LinkedList()
+            ll = cls()
             prev_node = None
             for item in iterable:
                 ll._validate_inserted_item(item)
