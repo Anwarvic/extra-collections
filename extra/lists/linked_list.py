@@ -55,6 +55,10 @@ class LinkedList:
             self.length = 1 if item is not None else 0
       
 
+    def _create_instance(self):
+        return LinkedList()
+
+
     @classmethod
     def from_iterable(cls, iterable):
         if not hasattr(iterable, "__iter__"):
@@ -62,7 +66,7 @@ class LinkedList:
         elif isinstance(iterable, cls):
             return iterable
         else:
-            ll = cls()
+            ll = cls()  #cls._create_instance(cls)
             prev_node = None
             for item in iterable:
                 ll._validate_inserted_item(item)
@@ -489,7 +493,7 @@ class LinkedList:
 
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
-        rev = LinkedList()
+        rev = self._create_instance()
         if not self.is_empty():
             curr_node = self.head
             while(curr_node.get_next() is not None):
@@ -510,14 +514,12 @@ class LinkedList:
 
 
     def copy(self):
-        copied_list = LinkedList()
+        copied_list = self._create_instance()
         if not self.is_empty():
             copied_node = None
-            curr_node = self.head
-            while(curr_node is not None):
-                copied_node = copied_list._insert_value(copied_node,
-                                                        curr_node.get_data())
-                curr_node = curr_node.get_next()
+            for node in self:
+                val = node.get_data()
+                copied_node = copied_list._insert_value(copied_node, val)
         return copied_list
 
 
@@ -546,3 +548,7 @@ class LinkedList:
                 curr_node = curr_node.get_next()
         return left_list, right_list
         
+
+
+# ll = LinkedList.from_iterable([1,2,3])
+# print(ll.reverse())
