@@ -1,4 +1,4 @@
-from extra.lists.linked_list import Node, LinkedList
+from linked_list import Node, LinkedList
 
 
 
@@ -49,6 +49,10 @@ class DoublyLinkedList(LinkedList):
             self.length = 1 if item is not None else 0
     
 
+    def _create_instance(self):
+        return DoublyLinkedList()
+
+
     ############################## PRINT ##############################
     def _print_node(self, node):
         top_border = [' ┌']
@@ -88,7 +92,6 @@ class DoublyLinkedList(LinkedList):
         else:
             assert item != None, "Can't insert `None` value as a node!!"
             new_node = DoublyNode(item)
-        
         # start inserting the node
         if self.length == 0:
             self.head = self.tail = new_node
@@ -145,74 +148,65 @@ class DoublyLinkedList(LinkedList):
                 super()._remove_node(prev_node, node_to_be_removed)
 
 
-    ############################## MISC ##############################
-    def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
-        #TODO: find a way to inherit this method
-        rev = DoublyLinkedList()
-        if not super().is_empty():
-            curr_node = self.head
-            while(curr_node.get_next() != None):
-                rev.add_front(curr_node.get_data())
-                curr_node = curr_node.get_next()
-            rev.add_front(curr_node.get_data())
-        return rev
-
-
 
 
 if __name__ == "__main__":
-    dl = DoublyLinkedList()
-    # test removing from empty list:
-    dl.remove_front() #Nothing
-    dl.remove_end()   #Nothing
-    dl.remove(10)     #Nothing
-    # del l[0]       #throughs IndexError
+    # dl = DoublyLinkedList()
+    # # test removing from empty list:
+    # dl.remove_front() #Nothing
+    # dl.remove_end()   #Nothing
+    # dl.remove(10)     #Nothing
+    # # del l[0]       #throughs IndexError
 
-    dl.add_front(10)  #10 
-    dl.add_front(5)   #5 10
-    print(dl)
-    dl.remove(20)     #nothing
-    dl.remove_front() #10
-    print(dl)
-    dl.remove_end()   #[]
-    print(dl)
-    dl.insert(0, 100) #100
-    dl.insert(1, 200) #100 200
-    dl.insert(1, 100) #100 100 200
-    print(dl)
-    dl.remove(100)    #200
-    print(dl)
-    dl.clear()        #[]
+    # dl.add_front(10)  #10 
+    # dl.add_front(5)   #5 10
+    # print(dl)
+    # dl.remove(20)     #nothing
+    # dl.remove_front() #10
+    # print(dl)
+    # dl.remove_end()   #[]
+    # print(dl)
+    # dl.insert(0, 100) #100
+    # dl.insert(1, 200) #100 200
+    # dl.insert(1, 100) #100 100 200
+    # print(dl)
+    # dl.remove(100)    #200
+    # print(dl)
+    # dl.clear()        #[]
 
-    # test remove() alone
-    dl.add_end(0)     #0
-    dl.remove(0)      #[]
+    # # test remove() alone
+    # dl.add_end(0)     #0
+    # dl.remove(0)      #[]
+    # print(dl)
+
+    # # addinng
+    # dl.add_front(6)   #6
+    # dl.add_end(20)    #6 20
+    # print(dl)
+    # dl.insert(1, 10)   #6 10 20
+    # dl.insert(2, 77)   #6 10 77 20
+    # dl.insert(4, 43)   #6 10 77 20 43
+    # dl.insert(0, 2)    #2 6 10 77 20 43
+    # print(43 in dl)    #true
+    # print(dl)
+    # del dl[len(dl)-1]   #2 6 10 77 20
+    # print("LENGTH:", len(dl))
+    # print(dl.to_list())#[2, 6, 10, 77, 20]
+
+    # print(dl[0], dl[3], "\n") #2 77
+
+    # rev = dl.reverse() #20 77 10 6 2
+    # print(rev)
+    # print("REV LENGTH:", len(rev))
+    # print(rev[1], rev[2]) #77 10
+
+    # dl.clear()
+    # print("Linked List is empty?", dl.is_empty())
+    # print("Reversed Linked List is empty?", rev.is_empty())
+    # print(dl)
+
+    ll = LinkedList.from_iterable([1,2, 3])
+    dl = DoublyLinkedList.from_iterable(ll)
     print(dl)
 
-    # addinng
-    dl.add_front(6)   #6
-    dl.add_end(20)    #6 20
-    print(dl)
-    dl.insert(1, 10)   #6 10 20
-    dl.insert(2, 77)   #6 10 77 20
-    dl.insert(4, 43)   #6 10 77 20 43
-    dl.insert(0, 2)    #2 6 10 77 20 43
-    print(43 in dl)    #true
-    print(dl)
-    del dl[len(dl)-1]   #2 6 10 77 20
-    print("LENGTH:", len(dl))
-    print(dl.to_list())#[2, 6, 10, 77, 20]
-
-    print(dl[0], dl[3], "\n") #2 77
-
-    rev = dl.reverse() #20 77 10 6 2
-    print(rev)
-    print("REV LENGTH:", len(rev))
-    print(rev[1], rev[2]) #77 10
-
-    dl.clear()
-    print("Linked List is empty?", dl.is_empty())
-    print("Reversed Linked List is empty?", rev.is_empty())
-    print(dl)
-
+    print(dl.reverse())
