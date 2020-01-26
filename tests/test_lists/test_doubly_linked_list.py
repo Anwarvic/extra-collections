@@ -26,32 +26,42 @@ def test_empty_doubly_node():
         _node.set_prev(DoublyNode())
 
 
-# def test_not_empty_doubly_node():
-#     # Given value: str
-#     s = get_string()
-#     _node = DoublyNode(s)
-#     assert _node.get_data() == _node.data == s
-#     assert _node.get_data() != s.upper()
-#     assert _node.get_next() == _node.next == None
-#     assert _node.get_prev() == _node.prev == None
-#     with pytest.raises(AssertionError):
-#         _node.set_data(None)
-#         _node.set_next(DoublyNode())
-#         _node.set_prev(DoublyNode())
-#         _node.set_next(get_string())
-#         _node.set_prev(get_string())
-#         _node.set_next(get_value())
-#         _node.set_prev(get_value())
-#     # Given value: has __iter__ attribute
-#     lst = get_list()
-#     _node = DoublyNode(lst)
-#     assert _node.get_data() == lst
-#     assert _node.get_next() == None
-#     _node.set_next(DoublyNode(get_string()))
-#     # Given value: LinkedList()
-#     ll = LinkedList.from_iterable(get_list())
-#     _node = Node(ll)
-#     assert _node.get_data() == ll
+def test_not_empty_doubly_node():
+    # Given value: str
+    s = get_string()
+    _node = DoublyNode(s)
+    assert _node.get_data() == _node.data == s
+    assert _node.get_data() != s.upper()
+    assert _node.get_next() == _node.next == None
+    assert _node.get_prev() == _node.prev == None
+    with pytest.raises(AssertionError):
+        _node.set_data(None)
+        _node.set_next(DoublyNode())
+        _node.set_prev(DoublyNode())
+        _node.set_next(get_string())
+        _node.set_prev(get_string())
+        _node.set_next(get_value())
+        _node.set_prev(get_value())
+    # Given value: has __iter__ attribute
+    lst = get_list()
+    _node = DoublyNode(lst)
+    assert _node.get_data() == lst
+    assert _node.get_next() is None
+    assert _node.get_prev() is None
+    _node.set_next(DoublyNode(get_string()))
+    _node.set_prev(DoublyNode(get_string()))
+    # Given value: LinkedList()
+    ll = LinkedList.from_iterable(get_list())
+    _node = DoublyNode(ll)
+    assert _node.get_data() == ll
+    assert _node.get_next() is None
+    assert _node.get_prev() is None
+    # Given value: LinkedList()
+    dl = DoublyLinkedList.from_iterable(get_list())
+    _node = DoublyNode(dl)
+    assert _node.get_data() == dl
+    assert _node.get_next() is None
+    assert _node.get_prev() is None
     
 
 # def test_creating_linked_list():
