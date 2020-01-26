@@ -59,7 +59,7 @@ class LinkedList:
     def from_iterable(cls, iterable):
         if not hasattr(iterable, "__iter__"):
             raise TypeError("Given object has no `iter` attribute!!")
-        elif isinstance(iterable, LinkedList):
+        elif isinstance(iterable, cls):
             return iterable
         else:
             ll = cls()
@@ -67,9 +67,8 @@ class LinkedList:
             for item in iterable:
                 ll._validate_inserted_item(item)
                 if isinstance(item, Node):
-                    prev_node = ll._insert_node(prev_node, item)
-                else:
-                    prev_node = ll._insert_value(prev_node, item)
+                    item = item.get_data()
+                prev_node = ll._insert_value(prev_node, item)
             return ll
 
 
