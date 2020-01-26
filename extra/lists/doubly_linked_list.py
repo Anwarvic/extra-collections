@@ -1,4 +1,5 @@
-from linked_list import Node, LinkedList
+# from linked_list import Node, LinkedList
+from extra.lists.linked_list import Node, LinkedList
 
 
 
@@ -24,16 +25,18 @@ class DoublyNode(Node):
     
 
     def set_prev(self, prev_node):
-        assert ( isinstance(prev_node, Node) and \
+        assert ( isinstance(prev_node, DoublyNode) and \
                 prev_node.get_data() is not None)\
                 or prev_node is None
         self.prev = prev_node
-        if prev_node != None: prev_node.next = self 
+        if prev_node is not None: prev_node.next = self 
     
 
     def set_next(self, next_node):
-        super().set_next(next_node)
-        if next_node != None: next_node.prev = self
+        assert ( isinstance(next_node, DoublyNode) and \
+                next_node.get_data() is not None)\
+                or next_node is None
+        self.next = next_node
 
 
 
