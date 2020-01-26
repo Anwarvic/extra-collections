@@ -37,6 +37,8 @@ class DoublyNode(Node):
                 next_node.get_data() is not None)\
                 or next_node is None
         self.next = next_node
+        if next_node is not None: next_node.prev = self
+
 
 
 
