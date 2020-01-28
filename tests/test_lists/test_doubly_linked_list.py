@@ -76,6 +76,8 @@ def test_creating_linked_list():
     assert len(dl) == dl.length == 1
     assert dl.to_list() == [item.get_data() for item in dl] == [val]
     # Using Node
+    dl = DoublyLinkedList( Node(get_value()) )
+    # Using DoublyNode
     val = get_value()
     node = DoublyNode(val)
     node.set_next(DoublyNode(get_value()))
@@ -117,87 +119,95 @@ def test_creating_linked_list():
         assert dl[idx].get_data() == lst[idx]
 
 
-# def test_empty_list():
-#     EMPTY = "┌─\n│\n└─" #represents empty LinkedList
-#     dl = LinkedList()
-#     assert isinstance(dl.head, Node)
-#     assert dl.head.get_data() == None
-#     assert dl.head.next == None
-#     assert not isinstance(dl.head.next, Node)
-#     assert str(dl) == EMPTY
-#     assert dl.length == len(dl) == 0
-#     assert dl.is_empty()
-#     assert dl.to_list() == []
-#     assert [_ for _ in dl ] == []
-#     assert len(dl.copy()) == 0
-#     assert len(dl.reverse()) == 0
-#     #################### test operators ####################
-#     assert LinkedList() == LinkedList(Node())
-#     assert dl == dl.copy()
-#     assert dl == dl.reverse()
-#     assert LinkedList() != LinkedList(get_value())
-#     assert LinkedList() < LinkedList(get_value())
-#     assert LinkedList() <= LinkedList(get_value())
-#     assert LinkedList(get_value()) > LinkedList()
-#     assert LinkedList(get_value()) >= LinkedList()
-#     #################### test count ####################
-#     assert dl.count(0) == 0
-#     assert dl.count(None) == 0
-#     assert dl.count(Node()) == 0
-#     assert dl.count(get_value()) == 0
-#     #################### test __contains__ ####################
-#     assert None in dl
-#     assert Node() in dl
-#     assert 0 not in dl
-#     assert get_value() not in dl
-#     assert Node(get_float()) not in dl
-#     # assert LinkedList(get_value()) not in dl
-#     #################### test split ####################
-#     left_list, right_list = dl.split(0)
-#     assert str(left_list) == str(right_list) == EMPTY
-#     with pytest.raises(TypeError):
-#         dl.split(get_string())
-#         dl.split(get_float())
-#         dl.split(True)
-#     with pytest.raises(IndexError):
-#         dl.split(-1)
-#         dl.split(get_int())
-#     #################### test rotate ####################
-#     assert dl.rotate_left(get_pos_int()) == dl
-#     assert dl.rotate_right(get_pos_int()) == dl
-#     assert len(dl.rotate_left(get_pos_int())) == 0
-#     assert len(dl.rotate_right(get_pos_int())) == 0
-#     with pytest.raises(TypeError):
-#         dl.rotate_left(get_string())
-#         dl.rotate_right(get_float())
-#         dl.rotate_left([])
-#     with pytest.raises(ValueError):
-#         dl.rotate_left(get_neg_int())
-#         dl.rotate_right(get_neg_int())
-#     #################### test remove/del ####################
-#     dl.remove_front() #shouldn't raise any Error
-#     dl.remove_end() #shouldn't raise any Error
-#     dl.remove(get_value())
-#     dl.remove(get_value(), False)
-#     with pytest.raises(TypeError):
-#         dl.remove(get_value(), adl=get_string(1))
-#     with pytest.raises(IndexError):
-#         del dl[0], dl[get_pos_int()], dl[get_neg_int()]
-#     #################### test __getitem__ ####################
-#     with pytest.raises(IndexError):
-#         _ = dl[0]
-#         _ = dl[get_pos_int()]
-#         _ = dl[get_neg_int()]
-#         _ == dl[0:10]
-#     #################### test insert/set ####################
-#     with pytest.raises(IndexError):
-#         dl.insert(get_pos_int(), get_pos_int())
-#         dl.insert(get_neg_int(), get_pos_int())
-#         dl[0] = get_float()
-#         dl[get_int()] = Node(get_float())
-#     with pytest.raises(TypeError):
-#         dl.insert(0, None)
-#         dl.insert(0, Node())
+def test_empty_list():
+    EMPTY = "┌─\n│\n└─" #represents empty Doubly LinkedList
+    dl = DoublyLinkedList()
+    assert isinstance(dl.head, DoublyNode)
+    assert dl.head.get_data() == dl.tail.get_data() is None
+    assert dl.head.next == dl.head.prev == None
+    assert not isinstance(dl.head.next, DoublyNode)
+    assert not isinstance(dl.head.prev, DoublyNode)
+    assert not isinstance(dl.tail.prev, DoublyNode)
+    assert not isinstance(dl.tail.prev, DoublyNode)
+    assert str(dl) == EMPTY
+    assert dl.length == len(dl) == 0
+    assert dl.is_empty()
+    assert dl.to_list() == []
+    assert [_ for _ in dl ] == []
+    assert len(dl.copy()) == 0
+    assert len(dl.reverse()) == 0
+    #################### test operators ####################
+    assert LinkedList() == DoublyLinkedList(DoublyNode())
+    assert dl == dl.copy()
+    assert dl == dl.reverse()
+    assert LinkedList() != LinkedList(get_value())
+    assert LinkedList() < LinkedList(get_value())
+    assert LinkedList() <= LinkedList(get_value())
+    assert LinkedList(get_value()) > LinkedList()
+    assert LinkedList(get_value()) >= LinkedList()
+    #################### test count ####################
+    assert dl.count(0) == 0
+    assert dl.count(None) == 0
+    assert dl.count(Node()) == 0
+    assert dl.count(DoublyNode()) == 0
+    assert dl.count(get_value()) == 0
+    #################### test __contains__ ####################
+    assert None in dl
+    assert Node() in dl
+    assert DoublyNode() in dl
+    assert 0 not in dl
+    assert get_value() not in dl
+    assert Node(get_float()) not in dl
+    assert DoublyNode(get_float()) not in dl
+    # assert LinkedList(get_value()) not in dl
+    # assert DoublyLinkedList(get_value()) not in dl
+    #################### test split ####################
+    left_list, right_list = dl.split(0)
+    assert str(left_list) == str(right_list) == EMPTY
+    with pytest.raises(TypeError):
+        dl.split(get_string())
+        dl.split(get_float())
+        dl.split(True)
+    with pytest.raises(IndexError):
+        dl.split(-1)
+        dl.split(get_int())
+    #################### test rotate ####################
+    assert dl.rotate_left(get_pos_int()) == dl
+    assert dl.rotate_right(get_pos_int()) == dl
+    assert len(dl.rotate_left(get_pos_int())) == 0
+    assert len(dl.rotate_right(get_pos_int())) == 0
+    with pytest.raises(TypeError):
+        dl.rotate_left(get_string())
+        dl.rotate_right(get_float())
+        dl.rotate_left([])
+    with pytest.raises(ValueError):
+        dl.rotate_left(get_neg_int())
+        dl.rotate_right(get_neg_int())
+    #################### test remove/del ####################
+    dl.remove_front() #shouldn't raise any Error
+    dl.remove_end() #shouldn't raise any Error
+    dl.remove(get_value())
+    dl.remove(get_value(), False)
+    with pytest.raises(TypeError):
+        dl.remove(get_value(), all=get_string())
+    with pytest.raises(IndexError):
+        del dl[0], dl[get_pos_int()], dl[get_neg_int()]
+    #################### test __getitem__ ####################
+    with pytest.raises(IndexError):
+        _ = dl[0]
+        _ = dl[get_pos_int()]
+        _ = dl[get_neg_int()]
+        _ == dl[0:10]
+    #################### test insert/set ####################
+    with pytest.raises(IndexError):
+        dl.insert(get_pos_int(), get_pos_int())
+        dl.insert(get_neg_int(), get_pos_int())
+        dl[0] = get_float()
+        dl[get_int()] = Node(get_float())
+    with pytest.raises(TypeError):
+        dl.insert(0, None)
+        dl.insert(0, Node())
+        dl.insert(0, DoublyNode())
 
 
 # def test_list_with_same_value():
