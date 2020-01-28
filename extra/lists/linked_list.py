@@ -477,6 +477,7 @@ class LinkedList:
             # get last_right_node
             last_right_node, _ = right_list._get_node(len(right_list))
             last_right_node.set_next(left_list.head)
+            right_list.length += left_list.length
             rotated = right_list
         # return rotated
         if inplace:
@@ -558,5 +559,6 @@ class LinkedList:
 
 
 dl = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-x = dl.rotate_right(1)
-print(dl.to_list()==[6, 1, 2, 3, 4 ,5])
+x = dl.rotate_right(1, inplace=False)
+print(x.to_list())
+print(x.to_list()==[6, 1, 2, 3, 4 ,5])
