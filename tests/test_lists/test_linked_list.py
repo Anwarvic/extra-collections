@@ -313,8 +313,15 @@ def test_rotate():
 def test_split():
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     left_list, right_list = ll.split(5)
+    assert isinstance(left_list, LinkedList)
+    assert isinstance(right_list, LinkedList)
     assert left_list.to_list() == [1, 2, 3, 4, 5]
+    assert left_list.head.get_data() == 1
+
     assert right_list.reverse() == LinkedList(6)
+    assert right_list.head.get_data() == 6
+    assert right_list.head.get_next() is None
     ll.add_front(0)
     assert ll.length == len(ll) == 7
+    assert ll.to_list == list(range(1, 8))
 
