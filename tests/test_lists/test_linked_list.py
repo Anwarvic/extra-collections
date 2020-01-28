@@ -298,12 +298,20 @@ def test_relational_operators():
     
 
 
-def test_rotate_split():
+def test_rotate():
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     ll.rotate_right(1)
     ll.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert ll.head.get_data() == 6
+    assert ll[4] == 4
     ll.rotate_left(3)
     ll.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert ll.head.get_data() == 3
+    assert ll[-1] == 5
+
+
+def test_split():
+    ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     left_list, right_list = ll.split(5)
     assert left_list.to_list() == [1, 2, 3, 4, 5]
     assert right_list.reverse() == LinkedList(6)
