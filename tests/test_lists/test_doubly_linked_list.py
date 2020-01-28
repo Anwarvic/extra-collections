@@ -354,3 +354,24 @@ def test_rotate():
     assert dl.tail.get_next() is None
     assert dl[-1] == 2
 
+
+def test_split():
+    dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    left_list, right_list = dl.split(5)
+    assert isinstance(left_list, DoublyLinkedList)
+    assert isinstance(right_list, DoublyLinkedList)
+    assert left_list.to_list() == [1, 2, 3, 4, 5]
+    assert left_list.head.get_data() == 1
+    assert right_list.head.get_prev() is None
+    assert right_list.tail.get_data() == 5
+    assert right_list.tail.get_next() is None
+
+    assert right_list.reverse() == LinkedList(6)
+    assert left_list.head.get_data() == right_list.tail.get_data()
+    assert right_list.head.get_next() == right_list.head.get_prev() is None
+    assert right_list.tail.get_next() == right_list.tail.get_prev() is None
+
+    dl.add_front(0)
+    assert dl.length == len(dl) == 7
+    assert dl.to_list == list(range(1, 8))
+
