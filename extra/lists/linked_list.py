@@ -556,9 +556,3 @@ class LinkedList:
                 curr_node = curr_node.get_next()
         return left_list, right_list
         
-
-
-dl = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-x = dl.rotate_right(1, inplace=False)
-print(x.to_list())
-print(x.to_list()==[6, 1, 2, 3, 4 ,5])
