@@ -337,15 +337,20 @@ def test_empty_list():
     
 
 
-# def test_rotate_split():
-#     dl = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-#     dl.rotate_right(1)
-#     dl.to_list() == [6, 1, 2, 3, 4 ,5]
-#     dl.rotate_left(3)
-#     dl.to_list() == [3, 4 ,5, 6, 1, 2]
-#     left_list, right_list = dl.split(5)
-#     assert left_list.to_list() == [1, 2, 3, 4, 5]
-#     assert right_list.reverse() == LinkedList(6)
-#     dl.add_front(0)
-#     assert dl.length == len(dl) == 7
+def test_rotate():
+    dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    dl.rotate_right(1)
+    dl.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert dl.head.get_data() == 6
+    assert dl.head.get_prev() is None
+    assert dl.tail.get_data() == 5
+    assert dl.tail.get_next() is None
+    assert dl[4] == 4
+    dl.rotate_left(3)
+    dl.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert dl.head.get_data() == 3
+    assert dl.head.get_prev() is None
+    assert dl.tail.get_data() == 2
+    assert dl.tail.get_next() is None
+    assert dl[-1] == 2
 
