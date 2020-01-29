@@ -47,8 +47,8 @@ def test_creating_linked_list():
     # Using constructor
     val = get_value()
     ll = LinkedList(val)
-    ll.head.get_data() == val
-    ll.head.get_next() == ll.head.next == None
+    assert ll.head.get_data() == val
+    assert ll.head.get_next() == ll.head.next == None
     assert len(ll) == ll.length == 1
     assert ll.to_list() == [item.get_data() for item in ll] == [val]
     # Using Node
@@ -299,13 +299,24 @@ def test_relational_operators():
 
 
 def test_rotate():
+    # rotate when inplace = False
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    rotated = ll.rotate_right(1, inplace=False)
+    assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert rotated.head.get_data() == 6
+    assert rotated[4] == 4
+    rotated = ll.rotate_left(3)
+    assert rotated.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert rotated.head.get_data() == 3
+    assert rotated[-1] == 5
+    assert ll.to_list == [1, 2, 3, 4, 5, 6]
+    # rotate when inplace = True
     ll.rotate_right(1)
-    ll.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert ll.to_list() == [6, 1, 2, 3, 4 ,5]
     assert ll.head.get_data() == 6
     assert ll[4] == 4
     ll.rotate_left(3)
-    ll.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert ll.to_list() == [3, 4 ,5, 6, 1, 2]
     assert ll.head.get_data() == 3
     assert ll[-1] == 5
 
@@ -323,5 +334,5 @@ def test_split():
     assert right_list.head.get_next() is None
     ll.add_front(0)
     assert ll.length == len(ll) == 7
-    assert ll.to_list == list(range(1, 8))
+    assert ll.to_list == list(range(7))
 
