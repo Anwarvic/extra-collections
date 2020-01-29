@@ -458,32 +458,39 @@ class LinkedList:
     
 
     ############################## ROTATION #############################
-    def _rotate(self, distance, direction):
+    def _rotate(self, distance, direction, inplace):
+        # It doesn't happen inplace
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
         if distance < 0:
             raise ValueError("Rotation distance has to be >= zero!!")
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT": distance = self.length - distance
+        # split based on distance
         left_list, right_list = self.split(distance)
         # perform rotation
         if len(right_list) == 0:
-            return left_list
+            rotated = left_list
         elif len(left_list) == 0:
-            return right_list
+            rotated = right_list
         else:
             # get last_right_node
             last_right_node, _ = right_list._get_node(len(right_list))
             last_right_node.set_next(left_list.head)
-            return right_list
+            rotated = right_list
+        # return rotated
+        if inplace:
+            self.head = rotated.head
+        else:
+            return rotated
 
 
-    def rotate_left(self, distance):
-        return self._rotate(distance, "LEFT")
+    def rotate_left(self, distance, inplace=True):
+        return self._rotate(distance, "LEFT", inplace)
+        
     
-
-    def rotate_right(self, distance):
-        return self._rotate(distance, "RIGHT")
+    def rotate_right(self, distance, inplace=True):
+        return self._rotate(distance, "RIGHT", inplace)
 
     
     ############################## MISC ##############################
@@ -530,7 +537,7 @@ class LinkedList:
         the rest. And the opposite when idx=self.length
         """
         self._validate_index(idx)
-        left_list, right_list = LinkedList(), LinkedList()
+        left_list, right_list = self._create_instance(), self._create_instance()
         if not self.is_empty():
             counter = 0
             prev_node = None
@@ -550,5 +557,6 @@ class LinkedList:
         
 
 
-# ll = LinkedList.from_iterable([1,2,3])
-# print(ll.reverse())
+dl = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+x = dl.rotate_right(1)
+print(dl.to_list()==[6, 1, 2, 3, 4 ,5])
