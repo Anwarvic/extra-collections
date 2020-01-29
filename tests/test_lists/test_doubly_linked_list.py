@@ -338,21 +338,38 @@ def test_empty_list():
 
 
 def test_rotate():
+    # rotate when inplace = False
     dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    rotated = dl.rotate_right(1, inplace=False)
+    assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert rotated.head.get_data() == 6
+    assert rotated.head.get_prev() is None
+    assert rotated.tail.get_data() == 5
+    assert rotated.tail.get_next() is None
+    assert rotated[4] == 4
+    rotated = dl.rotate_left(3)
+    assert rotated.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert rotated.head.get_data() == 3
+    assert rotated.head.get_prev() is None
+    assert rotated.tail.get_data() == 2
+    assert rotated.head.get_next() is None
+    assert rotated[-1] == 5
+    assert dl.to_list == [1, 2, 3, 4, 5, 6]
+    # rotate when inplace = True
     dl.rotate_right(1)
-    dl.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert dl.to_list() == [6, 1, 2, 3, 4 ,5]
     assert dl.head.get_data() == 6
     assert dl.head.get_prev() is None
     assert dl.tail.get_data() == 5
     assert dl.tail.get_next() is None
     assert dl[4] == 4
     dl.rotate_left(3)
-    dl.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert dl.to_list() == [3, 4 ,5, 6, 1, 2]
     assert dl.head.get_data() == 3
     assert dl.head.get_prev() is None
     assert dl.tail.get_data() == 2
     assert dl.tail.get_next() is None
-    assert dl[-1] == 2
+    assert dl[-1] == 5
 
 
 def test_split():
@@ -373,5 +390,5 @@ def test_split():
 
     dl.add_front(0)
     assert dl.length == len(dl) == 7
-    assert dl.to_list == list(range(1, 8))
+    assert dl.to_list == list(range(7))
 
