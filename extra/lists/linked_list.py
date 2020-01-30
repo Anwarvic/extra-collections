@@ -457,7 +457,47 @@ class LinkedList:
         self.__init__()
     
 
-    ############################## ROTATION #############################
+    ############################# SPLIT/JOIN #############################
+    def split(self, idx):
+        """
+        idx is the start index of the second list after splitting.
+        So, idx=0, then the left_list will be empty while the right_list will be
+        the rest. And the opposite when idx=self.length
+        """
+        self._validate_index(idx)
+        left_list, right_list = self._create_instance(), self._create_instance()
+        if not self.is_empty():
+            counter = 0
+            prev_node = None
+            curr_node = self.head
+            # left list
+            while(counter < idx):
+                prev_node = left_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
+                counter += 1
+            # right list
+            while(curr_node is not None):
+                prev_node = right_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
+        return left_list, right_list
+    
+
+    def join(self, other_list):
+        if not isinstance(other_list, self.__class__):
+            raise TypeError("Type Mismatch! Can't join Linked List.")
+        if other_list.is_empty():
+            pass # do nothing
+        elif self.is_empty(): 
+            self.head = other_list.head
+        else:
+            last_node, _ = self._get_node(self.length)
+            last_node.set_next(other_list.head)
+            self.length += other_list.length
+
+
+    ############################## ROTATION ##############################
     def __calibrate_distance(self, distance, direction):
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT":
@@ -474,21 +514,13 @@ class LinkedList:
         distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
-        if len(right_list) == 0:
-            rotated = left_list
-        elif len(left_list) == 0:
-            rotated = right_list
-        else:
-            # get last_right_node
-            last_right_node, _ = right_list._get_node(len(right_list))
-            last_right_node.set_next(left_list.head)
-            right_list.length += left_list.length
-            rotated = right_list
+        # join them to mimic rotation effect
+        right_list.join(left_list)
         # return rotated
         if inplace:
-            self.head = rotated.head
+            self.head = right_list.head
         else:
-            return rotated
+            return right_list
 
 
     def rotate_left(self, distance, inplace=True):
@@ -536,28 +568,3 @@ class LinkedList:
         return copied_list
 
 
-    def split(self, idx):
-        """
-        idx is the start index of the second list after splitting.
-        So, idx=0, then the left_list will be empty while the right_list will be
-        the rest. And the opposite when idx=self.length
-        """
-        self._validate_index(idx)
-        left_list, right_list = self._create_instance(), self._create_instance()
-        if not self.is_empty():
-            counter = 0
-            prev_node = None
-            curr_node = self.head
-            # left list
-            while(counter < idx):
-                prev_node = left_list._insert_value(prev_node,
-                                                    curr_node.get_data())
-                curr_node = curr_node.get_next()
-                counter += 1
-            # right list
-            while(curr_node is not None):
-                prev_node = right_list._insert_value(prev_node,
-                                                    curr_node.get_data())
-                curr_node = curr_node.get_next()
-        return left_list, right_list
-        
