@@ -458,17 +458,22 @@ class LinkedList:
     
 
     ############################## ROTATION #############################
+    def __calibrate_distance(self, distance, direction):
+        distance = distance % self.length if self.length > 0 else 0
+        if direction == "RIGHT":
+            distance = self.length - distance
+        return distance
+
+
     def _rotate(self, distance, direction, inplace):
         # It doesn't happen inplace
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
         if distance < 0:
             raise ValueError("Rotation distance has to be >= zero!!")
-        distance = distance % self.length if self.length > 0 else 0
-        if direction == "RIGHT": distance = self.length - distance
+        distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
-        # perform rotation
         if len(right_list) == 0:
             rotated = left_list
         elif len(left_list) == 0:
