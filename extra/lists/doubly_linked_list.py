@@ -153,3 +153,17 @@ class DoublyLinkedList(LinkedList):
                 super()._remove_node(prev_node, node_to_be_removed)
 
 
+    ##############################   Join   ##############################
+    def join(self, other_dlist):
+        if not isinstance(other_dlist, self.__class__):
+            raise TypeError("Type Mismatch! Can't join Linked List.")
+        self.tail.set_next(other_dlist.head)
+        self.length += other_dlist.length
+        self.tail = other_dlist.tail
+
+
+
+dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+left_list, right_list = dl.split(2)
+print(left_list)
+print(right_list)
