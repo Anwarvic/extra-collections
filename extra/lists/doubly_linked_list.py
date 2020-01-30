@@ -156,10 +156,16 @@ class DoublyLinkedList(LinkedList):
     ##############################   Join   ##############################
     def join(self, other_dlist):
         if not isinstance(other_dlist, self.__class__):
-            raise TypeError("Type Mismatch! Can't join Linked List.")
-        self.tail.set_next(other_dlist.head)
-        self.length += other_dlist.length
-        self.tail = other_dlist.tail
+            raise TypeError("Type Mismatch! Can't join this Doubly Linked List.")
+        if other_dlist.is_empty():
+            pass # do nothing
+        elif self.is_empty(): 
+            self.head = other_dlist.head
+            self.tail = other_dlist.tail
+        else:
+            self.tail.set_next(other_dlist.head)
+            self.tail = other_dlist.tail
+            self.length += other_dlist.length
 
 
 
