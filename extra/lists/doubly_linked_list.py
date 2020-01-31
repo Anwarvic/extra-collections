@@ -1,5 +1,5 @@
-# from linked_list import Node, LinkedList
-from extra.lists.linked_list import Node, LinkedList
+from linked_list import Node, LinkedList
+# from extra.lists.linked_list import Node, LinkedList
 
 
 
@@ -166,10 +166,32 @@ class DoublyLinkedList(LinkedList):
             self.tail.set_next(other_dlist.head)
             self.tail = other_dlist.tail
             self.length += other_dlist.length
+    
+
+    ##############################  ROTATION  ##############################
+    def rotate_left(self, distance, inplace=True):
+        rotated = super()._rotate(distance, "LEFT")
+        if inplace == False: return rotated
+        self.head = rotated.head
+        self.tail = rotated.tail
+        
+    
+    def rotate_right(self, distance, inplace=True):
+        rotated = super()._rotate(distance, "RIGHT")
+        if inplace == False: return rotated
+        self.head = rotated.head
+        self.tail = rotated.tail
 
 
+if __name__ == "__main__":
+    dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    left_list, right_list = dl.split(2)
+    print(left_list)
+    print(right_list)
+    dl.rotate_left(3)
+    print(dl)
+    print(dl.head)
+    print(dl.tail)
 
-dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-left_list, right_list = dl.split(2)
-print(left_list)
-print(right_list)
+    dl.join(DoublyLinkedList.from_iterable([10, 20]))
+    print(dl)
