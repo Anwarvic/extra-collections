@@ -486,7 +486,7 @@ class LinkedList:
 
     def join(self, other_list):
         if not isinstance(other_list, self.__class__):
-            raise TypeError("Type Mismatch! Can't join Linked List.")
+            raise TypeError("Type Mismatch! Can't join this Linked List.")
         if other_list.is_empty():
             pass # do nothing
         elif self.is_empty(): 
@@ -505,7 +505,7 @@ class LinkedList:
         return distance
 
 
-    def _rotate(self, distance, direction, inplace):
+    def _rotate(self, distance, direction):
         # It doesn't happen inplace
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
@@ -517,18 +517,19 @@ class LinkedList:
         # join them to mimic rotation effect
         right_list.join(left_list)
         # return rotated
-        if inplace:
-            self.head = right_list.head
-        else:
-            return right_list
+        return right_list
 
 
     def rotate_left(self, distance, inplace=True):
-        return self._rotate(distance, "LEFT", inplace)
+        rotated = self._rotate(distance, "LEFT")
+        if inplace == False: return rotated
+        self.head = rotated.head
         
     
     def rotate_right(self, distance, inplace=True):
-        return self._rotate(distance, "RIGHT", inplace)
+        rotated = self._rotate(distance, "RIGHT")
+        if inplace == False: return rotated
+        self.head = rotated.head
 
     
     ############################## MISC ##############################
