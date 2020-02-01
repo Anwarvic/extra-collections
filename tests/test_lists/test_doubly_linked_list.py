@@ -64,7 +64,7 @@ def test_not_empty_doubly_node():
     assert _node.get_prev() is None
     
 
-def test_creating_linked_list():
+def test_creating_doubly_linked_list_from_constructor():
     # Using constructor
     val = get_value()
     dl = DoublyLinkedList(val)
@@ -88,18 +88,9 @@ def test_creating_linked_list():
     dl.head.get_prev() == dl.head.prev is None
     assert len(dl) == dl.length == 1
     assert dl.to_list() == [item.get_data() for item in dl] == [val]
-    # Using from_iterable (has None)
-    with pytest.raises(TypeError):
-        DoublyLinkedList.from_iterable([1, 2, None, 3])
-        dl.add_end(LinkedList(10))
-        dl.add_front(DoublyLinkedList(10))
-    # Using Linked List
-    lst = get_list()
-    tmp_dl = DoublyLinkedList.from_iterable(lst)
-    dl = DoublyLinkedList.from_iterable(tmp_dl)
-    assert dl == tmp_dl
-    assert len(dl) == dl.length == len(lst)
-    assert dl.to_list() == [item.get_data() for item in dl] == lst
+
+
+def test_creating_doubly_linked_list_from_iterable():
     # Using from_iterable (small length)
     lst = get_list()
     dl = DoublyLinkedList.from_iterable(lst)
@@ -107,6 +98,11 @@ def test_creating_linked_list():
     assert dl.tail.get_data() == lst[-1]
     assert len(dl) == dl.length == len(lst)
     assert dl.to_list() == [item.get_data() for item in dl] == lst
+    # Using from_iterable (has None)
+    with pytest.raises(TypeError):
+        DoublyLinkedList.from_iterable([1, 2, None, 3])
+        DoublyLinkedList().add_end(LinkedList(10))
+        DoublyLinkedList().add_front(DoublyLinkedList(10))
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     dl = DoublyLinkedList.from_iterable(lst)
@@ -114,12 +110,19 @@ def test_creating_linked_list():
     assert dl.tail.get_data() == lst[-1]
     assert len(dl) == dl.length == len(lst)
     assert dl.to_list() == [item.get_data() for item in dl] == lst
-    for _ in range(100): #check the indices
+    for _ in range(100): #check random indices
         idx = get_pos_int(b=10000)
         assert dl[idx].get_data() == lst[idx]
+    # Using Linked List
+    lst = get_list()
+    tmp_dl = DoublyLinkedList.from_iterable(lst)
+    dl = DoublyLinkedList.from_iterable(tmp_dl)
+    assert dl == tmp_dl
+    assert len(dl) == dl.length == len(lst)
+    assert dl.to_list() == [item.get_data() for item in dl] == lst
 
 
-def test_empty_list():
+def test_empty_doubly_linked_list():
     EMPTY = "┌─\n│\n└─" #represents empty Doubly LinkedList
     dl = DoublyLinkedList()
     assert isinstance(dl.head, DoublyNode)
@@ -172,10 +175,10 @@ def test_empty_list():
         dl.split(-1)
         dl.split(get_int())
     #################### test rotate ####################
-    assert dl.rotate_left(get_pos_int()) == dl
-    assert dl.rotate_right(get_pos_int()) == dl
-    assert len(dl.rotate_left(get_pos_int())) == 0
-    assert len(dl.rotate_right(get_pos_int())) == 0
+    assert dl.rotate_left(get_pos_int(), inplace=False) == dl
+    assert dl.rotate_right(get_pos_int(), inplace=False) == dl
+    assert len(dl.rotate_left(get_pos_int(), inplace=False)) == 0
+    assert len(dl.rotate_right(get_pos_int(), inplace=False)) == 0
     with pytest.raises(TypeError):
         dl.rotate_left(get_string())
         dl.rotate_right(get_float())
@@ -259,8 +262,8 @@ def test_empty_list():
 #     assert dl == dl.copy()
 #     assert dl == dl.reverse()
 #     #################### test rotate ####################
-#     assert dl == dl.rotate_left(get_pos_int())
-#     assert dl == dl.rotate_right(get_pos_int())
+#     assert dl == dl.rotate_left(get_pos_int(), inplace=False)
+#     assert dl == dl.rotate_right(get_pos_int(), inplace=False)
 #     #################### test operators ####################
 #     assert dl != LinkedList()
 #     assert dl > LinkedList()
@@ -341,35 +344,43 @@ def test_rotate():
     # rotate when inplace = False
     dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     rotated = dl.rotate_right(1, inplace=False)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
     assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
     assert rotated.head.get_data() == 6
     assert rotated.head.get_prev() is None
     assert rotated.tail.get_data() == 5
     assert rotated.tail.get_next() is None
-    assert rotated[4] == 4
-    rotated = dl.rotate_left(3)
-    assert rotated.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert rotated[4].get_data() == 4
+    rotated = dl.rotate_left(3, inplace=False)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
+    assert rotated.to_list() == [4 ,5, 6, 1, 2, 3]
     assert rotated.head.get_data() == 3
     assert rotated.head.get_prev() is None
-    assert rotated.tail.get_data() == 2
+    assert rotated.tail.get_data() == 3
     assert rotated.head.get_next() is None
-    assert rotated[-1] == 5
-    assert dl.to_list == [1, 2, 3, 4, 5, 6]
+    assert rotated[-2].get_data() == 2
+    assert dl.to_list() == [1, 2, 3, 4, 5, 6]
     # rotate when inplace = True
     dl.rotate_right(1)
+    assert isinstance(dl.head, DoublyNode)
+    assert isinstance(dl.tail, DoublyNode)
     assert dl.to_list() == [6, 1, 2, 3, 4 ,5]
     assert dl.head.get_data() == 6
     assert dl.head.get_prev() is None
     assert dl.tail.get_data() == 5
     assert dl.tail.get_next() is None
-    assert dl[4] == 4
+    assert dl[4].get_data() == 4
     dl.rotate_left(3)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
     assert dl.to_list() == [3, 4 ,5, 6, 1, 2]
     assert dl.head.get_data() == 3
     assert dl.head.get_prev() is None
     assert dl.tail.get_data() == 2
     assert dl.tail.get_next() is None
-    assert dl[-1] == 5
+    assert dl[-1].get_data() == 5
 
 
 def test_split():
