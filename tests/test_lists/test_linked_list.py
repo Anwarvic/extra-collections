@@ -294,6 +294,20 @@ def test_list_with_known_values():
 
 
 def test_relational_operators():
+    # linked lists have just one value
+    assert LinkedList(3.14) == LinkedList(3.14)
+    assert LinkedList(get_int()) != LinkedList(get_float())
+    assert LinkedList(3) < LinkedList(2.9999)
+    assert LinkedList(3.14) <= LinkedList(3.14)
+    assert LinkedList([1, 2]) > LinkedList([3])
+    assert LinkedList('3.14') >= LinkedList('3.14')
+    with pytest.raises(TypeError):
+        assert LinkedList(get_string()) == LinkedList(get_int())
+        assert LinkedList(get_int()) != LinkedList(get_list())
+        assert LinkedList(get_float()) < LinkedList(get_string())
+        assert LinkedList(get_value()) <= LinkedList(get_list())
+        assert LinkedList(get_string()) > LinkedList(get_list())
+        assert LinkedList(get_list()) >= LinkedList(get_float())
     # linked lists have more than one value
     llist1 = LinkedList.from_iterable([1, '2', 3.14])
     llist2 = LinkedList.from_iterable([1, '2', 5.14])
