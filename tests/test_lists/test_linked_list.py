@@ -297,7 +297,7 @@ def test_relational_operators():
     # linked lists have just one value
     assert LinkedList(3.14) == LinkedList(3.14)
     assert LinkedList(get_int()) != LinkedList(get_float())
-    assert LinkedList(3) < LinkedList(2.9999)
+    assert LinkedList(2.9999) < LinkedList(3)
     assert LinkedList(3.14) <= LinkedList(3.14)
     assert LinkedList([1, 2]) > LinkedList([3])
     assert LinkedList('3.14') >= LinkedList('3.14')
@@ -366,7 +366,9 @@ def test_rotate():
 def test_join_method():
     lst = get_list()
     # two linked lists are empty
-    LinkedList().join(LinkedList()) == LinkedList()
+    llist1 = LinkedList(None)
+    llist1.join(LinkedList())
+    assert llist1 == LinkedList()
     # one linked list is empty
     llist1 = LinkedList.from_iterable([])
     llist2 = LinkedList.from_iterable(lst)
@@ -383,7 +385,6 @@ def test_join_method():
     assert len(llist2) == 2*len(lst)
 
 
-
 def test_split_method():
     lst = get_list(length=100)
     ll = LinkedList.from_iterable(lst)
@@ -394,13 +395,13 @@ def test_split_method():
         assert isinstance(left_list.head, Node)
         assert left_list.to_list() == lst[:i]
         assert left_list.copy().to_list() == lst[:i]
-        assert left_list.reverse() == lst[:i].reverse()
+        assert left_list.reverse() == lst[:i][::-1]
         # test right list
         assert isinstance(right_list, LinkedList)
         assert isinstance(right_list.head, Node)
         assert right_list.to_list() == lst[i:]
         assert right_list.copy().to_list() == lst[i:]
-        assert right_list.reverse() == lst[i:].reverse()
+        assert right_list.reverse() == lst[i:][::-1]
     ll.add_front(0)
     ll.add_front('apple')
     assert ll.length == len(ll) == len(lst)+2
