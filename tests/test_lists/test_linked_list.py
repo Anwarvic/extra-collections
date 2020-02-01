@@ -99,7 +99,7 @@ def test_creating_linked_list_from_iterable():
 
 def test_empty_linked_list():
     EMPTY = "┌─\n│\n└─" #represents empty LinkedList
-    ll = LinkedList()
+    ll = LinkedList.from_iterable([])
     assert isinstance(ll.head, Node)
     assert ll.head.get_data() == None
     assert ll.head.next == None
@@ -364,7 +364,24 @@ def test_rotate():
 
 
 def test_join_method():
-    pass
+    lst = get_list()
+    # two linked lists are empty
+    LinkedList().join(LinkedList()) == LinkedList()
+    # one linked list is empty
+    llist1 = LinkedList.from_iterable([])
+    llist2 = LinkedList.from_iterable(lst)
+    assert llist1.join(llist2) == llist2
+    assert len(llist1) == len(lst)
+    assert llist2.join(llist1) == llist2
+    assert len(llist2) == len(lst)
+    # two linked lists are NOT empty
+    llist1 = LinkedList.from_iterable(lst)
+    llist2 = LinkedList.from_iterable(lst)
+    assert llist1.join(llist2).to_list() == lst+lst
+    assert llist2.join(llist1).to_list() == lst+lst
+    assert len(llist1) == 2*len(lst)
+    assert len(llist2) == 2*len(lst)
+
 
 
 def test_split_method():
