@@ -491,6 +491,7 @@ class LinkedList:
             pass # do nothing
         elif self.is_empty(): 
             self.head = other_list.head
+            self.length = other_list.length
         else:
             last_node, _ = self._get_node(self.length)
             last_node.set_next(other_list.head)
@@ -522,13 +523,13 @@ class LinkedList:
 
     def rotate_left(self, distance, inplace=True):
         rotated = self._rotate(distance, "LEFT")
-        if inplace == False: return rotated
+        if not inplace: return rotated
         self.head = rotated.head
         
     
     def rotate_right(self, distance, inplace=True):
         rotated = self._rotate(distance, "RIGHT")
-        if inplace == False: return rotated
+        if not inplace: return rotated
         self.head = rotated.head
 
     
