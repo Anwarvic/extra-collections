@@ -320,8 +320,8 @@ def test_relational_operators():
     # slicing lists
     assert llist1[:-1] == llist2[:-1]
     assert llist1[-1:] != llist2[-1:]
-    assert llist1[-1:] < llist2
-    assert llist1[-1:] <= llist2
+    assert llist1[:1] < llist2
+    assert llist1[:2] <= llist2
     with pytest.raises(TypeError):
         assert llist1[1:] < llist2
         assert llist1[1:] <= llist2
@@ -404,7 +404,7 @@ def test_split_method():
         assert right_list.copy().to_list() == lst[i:]
         assert right_list.reverse().to_list() == lst[i:][::-1]
     ll.add_front(0)
-    ll.add_front('apple')
+    ll.add_end('apple')
     assert ll.length == len(ll) == len(lst)+2
     assert ll.to_list() == [0]+lst+['apple']
 
