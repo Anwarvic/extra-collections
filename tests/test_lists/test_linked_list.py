@@ -368,21 +368,26 @@ def test_join_method():
 
 
 def test_split_method():
-    ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-    left_list, right_list = ll.split(5)
-    assert isinstance(left_list, LinkedList)
-    assert isinstance(right_list, LinkedList)
-    assert left_list.to_list() == [1, 2, 3, 4, 5]
-    assert isinstance(left_list.head, Node)
-    assert left_list.head.get_data() == 1
-
-    assert right_list.reverse() == LinkedList(6)
-    assert isinstance(right_list.head, Node)
-    assert right_list.head.get_data() == 6
-    assert right_list.head.get_next() is None
+    lst = get_list(length=100)
+    ll = LinkedList.from_iterable(lst)
+    for i in range(len(lst)):
+        # test left list
+        left_list, right_list = ll.split(i)
+        assert isinstance(left_list, LinkedList)
+        assert isinstance(left_list.head, Node)
+        assert left_list.to_list() == lst[:i]
+        assert left_list.copy().to_list() == lst[:i]
+        assert left_list.reverse() == lst[:i].reverse()
+        # test right list
+        assert isinstance(right_list, LinkedList)
+        assert isinstance(right_list.head, Node)
+        assert right_list.to_list() == lst[i:]
+        assert right_list.copy().to_list() == lst[i:]
+        assert right_list.reverse() == lst[i:].reverse()
     ll.add_front(0)
-    assert ll.length == len(ll) == 7
-    assert ll.to_list() == [0, 1, 2, 3, 4, 5, 6]
+    ll.add_front('apple')
+    assert ll.length == len(ll) == len(lst)+2
+    assert ll.to_list() == [0]+lst+['apple']
 
 
 
