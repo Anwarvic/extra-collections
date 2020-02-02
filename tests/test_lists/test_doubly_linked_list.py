@@ -340,47 +340,47 @@ def test_empty_doubly_linked_list():
     
 
 
-# def test_rotate():
-#     # rotate when inplace = False
-#     dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
-#     rotated = dl.rotate_right(1, inplace=False)
-#     assert isinstance(rotated.head, DoublyNode)
-#     assert isinstance(rotated.tail, DoublyNode)
-#     assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
-#     assert rotated.head.get_data() == 6
-#     assert rotated.head.get_prev() is None
-#     assert rotated.tail.get_data() == 5
-#     assert rotated.tail.get_next() is None
-#     assert rotated[4].get_data() == 4
-#     rotated = dl.rotate_left(3, inplace=False)
-#     assert isinstance(rotated.head, DoublyNode)
-#     assert isinstance(rotated.tail, DoublyNode)
-#     assert rotated.to_list() == [4 ,5, 6, 1, 2, 3]
-#     assert rotated.head.get_data() == 3
-#     assert rotated.head.get_prev() is None
-#     assert rotated.tail.get_data() == 3
-#     assert rotated.head.get_next() is None
-#     assert rotated[-2].get_data() == 2
-#     assert dl.to_list() == [1, 2, 3, 4, 5, 6]
-#     # rotate when inplace = True
-#     dl.rotate_right(1)
-#     assert isinstance(dl.head, DoublyNode)
-#     assert isinstance(dl.tail, DoublyNode)
-#     assert dl.to_list() == [6, 1, 2, 3, 4 ,5]
-#     assert dl.head.get_data() == 6
-#     assert dl.head.get_prev() is None
-#     assert dl.tail.get_data() == 5
-#     assert dl.tail.get_next() is None
-#     assert dl[4].get_data() == 4
-#     dl.rotate_left(3)
-#     assert isinstance(rotated.head, DoublyNode)
-#     assert isinstance(rotated.tail, DoublyNode)
-#     assert dl.to_list() == [3, 4 ,5, 6, 1, 2]
-#     assert dl.head.get_data() == 3
-#     assert dl.head.get_prev() is None
-#     assert dl.tail.get_data() == 2
-#     assert dl.tail.get_next() is None
-#     assert dl[-1].get_data() == 5
+def test_rotate():
+    # rotate when inplace = False
+    dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    rotated = dl.rotate_right(1, inplace=False)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
+    assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert rotated.head.get_data() == 6
+    assert rotated.head.get_prev() is None
+    assert rotated.tail.get_data() == 5
+    assert rotated.tail.get_next() is None
+    assert rotated[4].get_data() == 4
+    rotated = dl.rotate_left(3, inplace=False)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
+    assert rotated.to_list() == [4 ,5, 6, 1, 2, 3]
+    assert rotated.head.get_data() == 3
+    assert rotated.head.get_prev() is None
+    assert rotated.tail.get_data() == 3
+    assert rotated.head.get_next() is None
+    assert rotated[-2].get_data() == 2
+    assert dl.to_list() == [1, 2, 3, 4, 5, 6]
+    # rotate when inplace = True
+    dl.rotate_right(1)
+    assert isinstance(dl.head, DoublyNode)
+    assert isinstance(dl.tail, DoublyNode)
+    assert dl.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert dl.head.get_data() == 6
+    assert dl.head.get_prev() is None
+    assert dl.tail.get_data() == 5
+    assert dl.tail.get_next() is None
+    assert dl[4].get_data() == 4
+    dl.rotate_left(3)
+    assert isinstance(rotated.head, DoublyNode)
+    assert isinstance(rotated.tail, DoublyNode)
+    assert dl.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert dl.head.get_data() == 3
+    assert dl.head.get_prev() is None
+    assert dl.tail.get_data() == 2
+    assert dl.tail.get_next() is None
+    assert dl[-1].get_data() == 5
 
 
 def test_split():
