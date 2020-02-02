@@ -325,18 +325,56 @@ def test_empty_doubly_linked_list():
 #     assert dl.is_empty()
 
 
-# def test_relational_operators():
-#     dlist1 = LinkedList.from_iterable([1, '2', 3.14])
-#     dlist2 = LinkedList.from_iterable([1, '2', 5.14])
-#     assert dlist1 == dlist1
-#     assert dlist1 != dlist2
-#     assert dlist1 < dlist2
-#     assert dlist1 <= dlist2
-#     assert dlist2 > dlist2
-#     assert dlist2 >= dlist2
-#     # slicing lists
-#     assert dlist1[:-1] == dlist2[:-1]
-#     assert dlist1[-1:] != dlist2[-1:]
+def test_relational_operators():
+    # linked lists have just one value
+    assert DoublyLinkedList(3.14) == DoublyLinkedList(3.14)
+    assert DoublyLinkedList(get_int()) != DoublyLinkedList(get_float())
+    assert DoublyLinkedList(get_string()) != DoublyLinkedList(get_int())
+    assert DoublyLinkedList(get_float()) != DoublyLinkedList(get_list())
+    assert DoublyLinkedList(2.9999) < DoublyLinkedList(3)
+    assert DoublyLinkedList(3.14) <= DoublyLinkedList(3.14)
+    assert DoublyLinkedList([1, 2]) > DoublyLinkedList([3])
+    assert DoublyLinkedList('3.14') >= DoublyLinkedList('3.14')
+    with pytest.raises(TypeError):
+        assert DoublyLinkedList(get_float()) < DoublyLinkedList(get_string())
+        assert DoublyLinkedList(get_value()) <= DoublyLinkedList(get_list())
+        assert DoublyLinkedList(get_string()) > DoublyLinkedList(get_list())
+        assert DoublyLinkedList(get_list()) >= DoublyLinkedList(get_float())
+    # linked lists have more than one value
+    dllist1 = DoublyLinkedList.from_iterable([1, '2', 3.14])
+    dllist2 = DoublyLinkedList.from_iterable([1, '2', 5.14])
+    assert dllist1 == dllist1
+    assert dllist1 != dllist2
+    assert dllist1 < dllist2
+    assert dllist1 <= dllist2
+    assert dllist2 > dllist2
+    assert dllist2 >= dllist2
+    # slicing lists
+    assert dllist1[:-1] == dllist2[:-1]
+    assert dllist1[-1:] != dllist2[-1:]
+    assert dllist1[:1] < dllist2
+    assert dllist1[:2] <= dllist2
+    with pytest.raises(TypeError):
+        assert dllist1[1:] < dllist2
+        assert dllist1[1:] <= dllist2
+    # if the other one isn't a doubly linked list
+    actual_list = [1, '2', 5.14]
+    with pytest.raises(TypeError):
+        assert dllist1 == actual_list
+        assert dllist1 != actual_list
+        assert dllist1 < actual_list
+        assert dllist1 <= actual_list
+        assert dllist2 > actual_list
+        assert dllist2 >= actual_list
+    # if the other one is a linked list
+    llist = LinkedList.from_iterable([1, '2', 5.14])
+    with pytest.raises(TypeError):
+        assert dllist1 == llist
+        assert dllist1 != llist
+        assert dllist1 < llist
+        assert dllist1 <= llist
+        assert dllist2 > llist
+        assert dllist2 >= llist
     
 
 
