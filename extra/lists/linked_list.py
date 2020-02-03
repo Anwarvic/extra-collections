@@ -300,7 +300,7 @@ class LinkedList:
 
 
     ############################## INSERT ##############################
-    def _validate_inserted_item(self, item):
+    def _validate_item(self, item):
         if item is None:
             raise TypeError("Can't set a `None` into Linked List!")
         elif isinstance(item, Node) and item.get_data() is None:
@@ -347,20 +347,20 @@ class LinkedList:
 
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
-        self._validate_inserted_item(item)
+        self._validate_item(item)
         return self._insert(0, item)
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
-        self._validate_inserted_item(item)
+        self._validate_item(item)
         return self._insert(len(self), item)
     
     
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         self._validate_index(idx)
-        self._validate_inserted_item(item)
+        self._validate_item(item)
         return self._insert(idx, item)
 
 
@@ -378,7 +378,7 @@ class LinkedList:
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
-        self._validate_inserted_item(item)
+        self._validate_item(item)
         self._replace_node(idx, item)
         
 
@@ -449,7 +449,7 @@ class LinkedList:
     def remove(self, value, all=True):
         if type(all) != bool:
             raise TypeError("`all` is a boolean flag (True by default)!")
-        self._validate_inserted_item(value)
+        self._validate_item(value)
         self._remove_value(value, stop_node=None, all=all)
 
 
