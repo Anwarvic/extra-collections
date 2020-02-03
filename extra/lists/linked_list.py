@@ -237,7 +237,18 @@ class LinkedList:
         return curr_node
 
 
+    def _validate_item(self, item):
+        if item is None:
+            raise TypeError("Can't set a `None` into Linked List!")
+        elif isinstance(item, Node) and item.get_data() is None:
+            raise TypeError("Can't set a Node with `None` into Linked List!")
+        # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
+        elif isinstance(item, LinkedList):
+            raise TypeError("Can't add LinkedList into a LinkedList!!")
+        
+
     def __contains__(self, value):
+        self._validate_item(value)
         if isinstance(value, Node):
             value = value.get_data()
         found_node = self._search(value, self.head)
@@ -300,16 +311,6 @@ class LinkedList:
 
 
     ############################## INSERT ##############################
-    def _validate_item(self, item):
-        if item is None:
-            raise TypeError("Can't set a `None` into Linked List!")
-        elif isinstance(item, Node) and item.get_data() is None:
-            raise TypeError("Can't set a Node with `None` into Linked List!")
-        # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
-        elif isinstance(item, LinkedList):
-            raise TypeError("Can't add LinkedList into a LinkedList!!")
-        
-
     def _insert_node(self, prev_node, new_node):
         assert isinstance(new_node, Node)
         assert new_node.get_data() is not None
