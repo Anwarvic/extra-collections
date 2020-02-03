@@ -151,7 +151,7 @@ class LinkedList:
         could be the end of both LinkedList or just some random nodes in the
         middle.
         """
-        assert isinstance(other, LinkedList)
+        assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
         # start_comparing
         pointer1 = self.head if not self.is_empty() else None
@@ -171,7 +171,7 @@ class LinkedList:
 
 
     def __eq__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         # check length
         if self.length != other.length:
@@ -181,7 +181,7 @@ class LinkedList:
     
 
     def __ne__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         if self.length != other.length:
             return True
@@ -190,28 +190,28 @@ class LinkedList:
     
 
     def __lt__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
         return True if pointer1 is None else False
     
 
     def __le__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
         return True if pointer1 is None else False
     
 
     def __gt__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 is None else False
     
 
     def __ge__(self, other):
-        if not isinstance(other, LinkedList):
+        if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare a Linked List to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 is None else False
@@ -279,7 +279,7 @@ class LinkedList:
             counter = 0
             prev_node = None
             curr_node = self.head
-            out_llist = LinkedList()
+            out_llist = self._create_instance()
             while(counter <= max_idx):
                 if counter in indices:
                     prev_node = out_llist._insert_value(prev_node,
@@ -305,6 +305,7 @@ class LinkedList:
             raise TypeError("Can't set a `None` into Linked List!")
         elif isinstance(item, Node) and item.get_data() is None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
+        # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
         elif isinstance(item, LinkedList):
             raise TypeError("Can't add LinkedList into a LinkedList!!")
         
