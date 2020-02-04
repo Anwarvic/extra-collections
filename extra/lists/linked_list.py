@@ -67,7 +67,7 @@ class LinkedList:
     @classmethod
     def from_iterable(cls, iterable):
         if not hasattr(iterable, "__iter__"):
-            raise TypeError("Given object has no `iter` attribute!!")
+            raise TypeError("The given object isn't iterable!!")
         elif isinstance(iterable, cls):
             return iterable
         else:
@@ -177,7 +177,7 @@ class LinkedList:
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         # check length
         if self.length != other.length:
             return False
@@ -187,7 +187,7 @@ class LinkedList:
 
     def __ne__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         if self.length != other.length:
             return True
         pointer1, pointer2 = self._compare(other, operator.eq)
@@ -196,28 +196,28 @@ class LinkedList:
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
         return True if pointer1 is None else False
     
 
     def __le__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
         return True if pointer1 is None else False
     
 
     def __gt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 is None else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare a Linked List to {type(other)}")
+            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
         return True if pointer2 is None else False
 
@@ -244,12 +244,12 @@ class LinkedList:
 
     def _validate_item(self, item):
         if item is None:
-            raise TypeError(f"Can't set a `None` into {self.__name__}!")
+            raise TypeError(f"Can't set a `None` into {self.__name__()}!!")
         elif isinstance(item, self._basic_node) and item.get_data() is None:
-            raise TypeError("Can't set a Node with `None` into Linked List!")
+            raise TypeError(f"Can't set an empty Node into {self.__name__()}!!")
         # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
         elif isinstance(item, LinkedList):
-            raise TypeError("Can't add LinkedList into a LinkedList!!")
+            raise TypeError(f"Can't add LinkedList into a {self.__name__()}!!")
         
 
     def __contains__(self, value):
@@ -279,7 +279,7 @@ class LinkedList:
 
     def _validate_index(self, idx, accept_negative=False):
         if type(idx) != int:
-            raise TypeError("Indices must be an integer!")
+            raise TypeError("Given index must be an integer!")
         elif idx <= -1 and accept_negative==False:
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
@@ -493,21 +493,30 @@ class LinkedList:
         return left_list, right_list
     
 
-    def join(self, other_list):
-        if not isinstance(other_list, self.__class__):
-            raise TypeError("Type Mismatch! Can't join this Linked List.")
-        if other_list.is_empty():
+    def join(self, other):
+        if not isinstance(other, self.__class__):
+            raise TypeError(\
+            f"Type Mismatch! Can't join {self.__name__()} with f{type(other)}.")
+        if other.is_empty():
             pass # do nothing
         elif self.is_empty(): 
-            self.head = other_list.head
-            self.length = other_list.length
+            self.head = other.head
+            self.length = other.length
         else:
             last_node, _ = self._get_node(self.length)
-            last_node.set_next(other_list.head)
-            self.length += other_list.length
+            last_node.set_next(other.head)
+            self.length += other.length
 
 
     ############################## ROTATION ##############################
+    def __validate_distance(self, distance):
+        # It doesn't happen inplace
+        if type(distance) != int:
+            raise TypeError("Rotation distance has to be an `int`!!")
+        if distance < 0:
+            raise ValueError("Rotation distance has to be >= zero!!")
+    
+    
     def __calibrate_distance(self, distance, direction):
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT":
@@ -516,11 +525,8 @@ class LinkedList:
 
 
     def _rotate(self, distance, direction):
-        # It doesn't happen inplace
-        if type(distance) != int:
-            raise TypeError("Rotation distance has to be an `int`!!")
-        if distance < 0:
-            raise ValueError("Rotation distance has to be >= zero!!")
+        #TODO: when distance is -ve, rotate right
+        self.__validate_distance(distance)
         distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
