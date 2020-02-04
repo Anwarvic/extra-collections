@@ -45,14 +45,18 @@ class Node:
 
 class LinkedList:
     """Basic object for the linked list"""
+    def __name__(self):
+        return "LinkedList()"
+    
+    
     def __init__(self, item=None):
         self._basic_node = Node
-        if isinstance(item, Node):
+        if isinstance(item, self._basic_node):
             item.set_next(None)
             self.head = item
             self.length = 1 if item.get_data() is not None else 0
         else:
-            self.head = Node(item)
+            self.head = self._basic_node(item)
             self.length = 1 if item is not None else 0
       
 
@@ -71,7 +75,7 @@ class LinkedList:
             prev_node = None
             for item in iterable:
                 ll._validate_item(item)
-                if isinstance(item, Node):
+                if isinstance(item, Node): #Node here is generic
                     item = item.get_data()
                 prev_node = ll._insert_value(prev_node, item)
             return ll
@@ -79,7 +83,7 @@ class LinkedList:
 
     ############################## PRINT ##############################
     def _print_node(self, node):
-        assert isinstance(node, Node)
+        assert isinstance(node, self._basic_node)
         top_border = ['┌']
         middle = ['│']
         lower_border = ['└']
@@ -92,8 +96,8 @@ class LinkedList:
     
         
     def _print_linked_list(self, start_node, stop_node=None):
-        assert isinstance(start_node, Node)
-        assert stop_node is None or isinstance(stop_node, Node)
+        assert isinstance(start_node, self._basic_node)
+        assert stop_node is None or isinstance(stop_node, self._basic_node)
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle = []
@@ -225,8 +229,8 @@ class LinkedList:
         containing that value if found. If not found, it returns the last node
         in the Linked List.
         """
-        assert not isinstance(value, Node)
-        assert isinstance(start_node, Node)
+        assert not isinstance(value, Node) #Node here is generic
+        assert isinstance(start_node, self._basic_node)
         assert stop_node is None or isinstance(stop_node, None)
         # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
@@ -240,7 +244,7 @@ class LinkedList:
 
     def _validate_item(self, item):
         if item is None:
-            raise TypeError("Can't set a `None` into Linked List!")
+            raise TypeError(f"Can't set a `None` into {self.__name__}!")
         elif isinstance(item, self._basic_node) and item.get_data() is None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
         # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
@@ -315,7 +319,7 @@ class LinkedList:
 
     ############################## INSERT ##############################
     def _insert_node(self, prev_node, new_node):
-        assert isinstance(new_node, Node)
+        assert isinstance(new_node, self._basic_node)
         assert new_node.get_data() is not None
         # start inserting the node
         if self.length == 0:
@@ -332,16 +336,16 @@ class LinkedList:
 
 
     def _insert_value(self, prev_node, value):
-        assert prev_node is None or isinstance(prev_node, Node)
-        assert value is not None and not isinstance(value, Node)
-        new_node = Node(value)
+        assert prev_node is None or isinstance(prev_node, self._basic_node)
+        assert value is not None and not isinstance(value, self._basic_node)
+        new_node = self._basic_node(value)
         return self._insert_node(prev_node, new_node)
     
 
     def _insert(self, idx, item):
         assert 0 <= idx or idx <= self.length
         prev_node, _ = self._get_node(idx)
-        if isinstance(item, Node):
+        if isinstance(item, self._basic_node):
             assert item.get_data() is not None
             return self._insert_node(prev_node, item)
         else:
@@ -371,7 +375,7 @@ class LinkedList:
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
         assert 0 <= idx or idx <= self.length
-        assert isinstance(new_node, Node)
+        assert isinstance(new_node, self._basic_node)
         _, old_node = self._get_node(idx)
         old_node.set_data(new_node.get_data())
     
@@ -388,8 +392,8 @@ class LinkedList:
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
-        assert prev_node is None or isinstance(prev_node, Node)
-        assert isinstance(node_to_be_removed, Node)
+        assert prev_node is None or isinstance(prev_node, self._basic_node)
+        assert isinstance(node_to_be_removed, self._basic_node)
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if prev_node is None:
@@ -432,8 +436,8 @@ class LinkedList:
 
     def _remove_value(self, value, stop_node, all):
         # removes all occurrences (when all==True) of `value` if found.
-        assert not isinstance(value, Node) and value is not None
-        assert stop_node is None or isinstance(stop_node, Node)
+        assert not isinstance(value, self._basic_node) and value is not None
+        assert stop_node is None or isinstance(stop_node, self._basic_node)
         assert type(all) == bool
         prev = None
         curr_node = self.head
@@ -557,7 +561,7 @@ class LinkedList:
 
     def count(self, value):
         total_count = 0
-        if isinstance(value, Node):
+        if isinstance(value, self._basic_node):
             value = value.get_data()
         for node in self:
             if node.get_data() == value:
