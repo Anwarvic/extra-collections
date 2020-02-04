@@ -46,6 +46,7 @@ class Node:
 class LinkedList:
     """Basic object for the linked list"""
     def __init__(self, item=None):
+        self._basic_node = Node
         if isinstance(item, Node):
             item.set_next(None)
             self.head = item
@@ -69,7 +70,7 @@ class LinkedList:
             ll = cls()  #cls._create_instance(cls)
             prev_node = None
             for item in iterable:
-                ll._validate_inserted_item(item)
+                ll._validate_item(item)
                 if isinstance(item, Node):
                     item = item.get_data()
                 prev_node = ll._insert_value(prev_node, item)
@@ -240,7 +241,7 @@ class LinkedList:
     def _validate_item(self, item):
         if item is None:
             raise TypeError("Can't set a `None` into Linked List!")
-        elif isinstance(item, Node) and item.get_data() is None:
+        elif isinstance(item, self._basic_node) and item.get_data() is None:
             raise TypeError("Can't set a Node with `None` into Linked List!")
         # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
         elif isinstance(item, LinkedList):
@@ -248,9 +249,11 @@ class LinkedList:
         
 
     def __contains__(self, value):
-        self._validate_item(value)
         if isinstance(value, Node):
-            value = value.get_data()
+            if isinstance(value, self._basic_node):
+                value = value.get_data()
+            else:
+                return False
         found_node = self._search(value, self.head)
         if found_node is None or found_node.get_data() != value:
             return False
