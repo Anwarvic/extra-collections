@@ -45,6 +45,7 @@ class DoublyNode(Node):
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
     def __init__(self, item=None):
+        self._basic_node = DoublyNode
         if isinstance(item, DoublyNode):
             item.set_next(None)
             self.head = self.tail = item
@@ -121,13 +122,6 @@ class DoublyLinkedList(LinkedList):
         self.length += 1
         return new_node
     
-
-    def _insert_value(self, prev_node, value):
-        assert prev_node is None or isinstance(prev_node, Node)
-        assert value is not None and not isinstance(value, Node)
-        new_node = DoublyNode(value)
-        return self._insert_node(prev_node, new_node)
-
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
