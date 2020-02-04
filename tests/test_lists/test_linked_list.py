@@ -325,7 +325,7 @@ def test_relational_operators():
     with pytest.raises(TypeError):
         assert llist1[1:] < llist2
         assert llist1[1:] <= llist2
-    # if one of them isn't a linked list
+    # if the other one isn't a linked list
     actual_list = [1, '2', 5.14]
     with pytest.raises(TypeError):
         assert llist1 == actual_list
@@ -407,6 +407,4 @@ def test_split_method():
     ll.add_end('apple')
     assert ll.length == len(ll) == len(lst)+2
     assert ll.to_list() == [0]+lst+['apple']
-
-
 

@@ -140,14 +140,23 @@ def test_empty_doubly_linked_list():
     assert len(dl.copy()) == 0
     assert len(dl.reverse()) == 0
     #################### test operators ####################
-    assert LinkedList() == DoublyLinkedList(DoublyNode())
+    with pytest.raises(TypeError):
+        DoublyLinkedList(Node())
+        DoublyLinkedList(LinkedList())
+        LinkedList() == DoublyLinkedList(DoublyNode())
+        LinkedList() != DoublyLinkedList(DoublyNode())
+        LinkedList() > DoublyLinkedList(DoublyNode())
+        LinkedList() >= DoublyLinkedList(DoublyNode())
+        LinkedList() < DoublyLinkedList(DoublyNode())
+        LinkedList() <= DoublyLinkedList(DoublyNode())
+    assert DoublyLinkedList() == DoublyLinkedList(DoublyNode())
     assert dl == dl.copy()
     assert dl == dl.reverse()
-    assert LinkedList() != LinkedList(get_value())
-    assert LinkedList() < LinkedList(get_value())
-    assert LinkedList() <= LinkedList(get_value())
-    assert LinkedList(get_value()) > LinkedList()
-    assert LinkedList(get_value()) >= LinkedList()
+    assert DoublyLinkedList() != DoublyLinkedList(get_value())
+    assert DoublyLinkedList() < DoublyLinkedList(get_value())
+    assert DoublyLinkedList() <= DoublyLinkedList(get_value())
+    assert DoublyLinkedList(get_value()) > DoublyLinkedList()
+    assert DoublyLinkedList(get_value()) >= DoublyLinkedList()
     #################### test count ####################
     assert dl.count(0) == 0
     assert dl.count(None) == 0
@@ -156,14 +165,15 @@ def test_empty_doubly_linked_list():
     assert dl.count(get_value()) == 0
     #################### test __contains__ ####################
     assert None in dl
-    assert Node() in dl
+    assert Node() not in dl
     assert DoublyNode() in dl
     assert 0 not in dl
     assert get_value() not in dl
-    assert Node(get_float()) not in dl
     assert DoublyNode(get_float()) not in dl
-    # assert LinkedList(get_value()) not in dl
-    # assert DoublyLinkedList(get_value()) not in dl
+    with pytest.raises(TypeError):
+        assert Node(get_value()) not in dl
+        assert LinkedList(get_value()) not in dl
+        assert DoublyLinkedList(get_value()) not in dl
     #################### test split ####################
     left_list, right_list = dl.split(0)
     assert str(left_list) == str(right_list) == EMPTY
@@ -394,10 +404,10 @@ def test_rotate():
     assert isinstance(rotated.head, DoublyNode)
     assert isinstance(rotated.tail, DoublyNode)
     assert rotated.to_list() == [4 ,5, 6, 1, 2, 3]
-    assert rotated.head.get_data() == 3
+    assert rotated.head.get_data() == 4
     assert rotated.head.get_prev() is None
     assert rotated.tail.get_data() == 3
-    assert rotated.head.get_next() is None
+    assert rotated.tail.get_next() is None
     assert rotated[-2].get_data() == 2
     assert dl.to_list() == [1, 2, 3, 4, 5, 6]
     # rotate when inplace = True
@@ -418,7 +428,7 @@ def test_rotate():
     assert dl.head.get_prev() is None
     assert dl.tail.get_data() == 2
     assert dl.tail.get_next() is None
-    assert dl[-1].get_data() == 5
+    assert dl[-1].get_data() == 2
 
 
 def test_split():
