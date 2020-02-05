@@ -44,6 +44,10 @@ class DoublyNode(Node):
 
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
+    def __name__(self):
+        return "DoublyLinkedList()"
+
+    
     def __init__(self, item=None):
         self._basic_node = DoublyNode
         if isinstance(item, DoublyNode):
@@ -156,6 +160,7 @@ class DoublyLinkedList(LinkedList):
         elif self.is_empty(): 
             self.head = other_dlist.head
             self.tail = other_dlist.tail
+            self.length += other_dlist.length
         else:
             self.tail.set_next(other_dlist.head)
             self.tail = other_dlist.tail
@@ -177,3 +182,8 @@ class DoublyLinkedList(LinkedList):
         self.tail = rotated.tail
 
 
+
+dl = DoublyLinkedList(10)
+print(dl)
+print(dl.rotate_right(100, inplace=False))
+print(dl == dl.rotate_right(100, inplace=False))
