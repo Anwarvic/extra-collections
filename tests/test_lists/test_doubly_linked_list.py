@@ -223,6 +223,52 @@ def test_empty_doubly_linked_list():
         dl.insert(0, DoublyNode())
 
 
+def test_list_with_one_element():
+    val = get_value()
+    dl = DoublyLinkedList()
+    dl.insert(0, val)
+    assert dl.head.get_data() == val
+    assert dl.tail.get_data() == val
+    assert dl.head.get_next() is None
+    assert dl.head.get_prev() is None
+    assert dl.tail.get_next() is None
+    assert dl.tail.get_prev() is None
+    assert len(dl) == 1
+    assert not dl.is_empty()
+    assert val in dl
+    assert [item.get_data() for item in dl] == [val]
+    assert dl.to_list() == [val]
+    assert dl == dl.copy()
+    assert dl == dl.reverse()
+    #################### test rotate ####################
+    assert dl == dl.rotate_left(get_pos_int(), inplace=False)
+    assert dl == dl.rotate_right(get_pos_int(), inplace=False)
+    #################### test operators ####################
+    assert dl != DoublyLinkedList()
+    assert dl > DoublyLinkedList()
+    assert dl >= DoublyLinkedList()
+    assert DoublyLinkedList() < dl
+    assert DoublyLinkedList() <= dl
+    with pytest.raises(TypeError):
+        assert dl != LinkedList()
+        assert dl > LinkedList()
+        assert dl >= LinkedList()
+        assert LinkedList() < dl
+        assert LinkedList() <= dl
+    #################### test add/remove ####################
+    new_value = get_value()
+    dl.add_front(new_value)
+    dl.remove_front()
+    dl.add_end(new_value)
+    dl.remove_end()
+    assert dl == DoublyLinkedList(val)
+    #################### test insert/split ####################
+    with pytest.raises(IndexError):
+        dl.insert(2, get_value())
+        dl.insert(-1, get_value())
+        dl.split(get_pos_int(a=2))
+
+
 def test_list_with_same_value():
     length = get_pos_int()
     val = get_value()
@@ -258,43 +304,7 @@ def test_list_with_same_value():
     assert len(dl) == 0
 
 
-# def test_list_with_one_element():
-#     val = get_value()
-#     dl = LinkedList()
-#     dl.insert(0, val)
-#     assert dl.head.get_data() == val
-#     assert dl.head.get_next() == None
-#     assert len(dl) == 1
-#     assert not dl.is_empty()
-#     assert val in dl
-#     assert [item.get_data() for item in dl] == [val]
-#     assert dl.to_list() == [val]
-#     assert dl == dl.copy()
-#     assert dl == dl.reverse()
-#     #################### test rotate ####################
-#     assert dl == dl.rotate_left(get_pos_int(), inplace=False)
-#     assert dl == dl.rotate_right(get_pos_int(), inplace=False)
-#     #################### test operators ####################
-#     assert dl != LinkedList()
-#     assert dl > LinkedList()
-#     assert dl >= LinkedList()
-#     assert LinkedList() < dl
-#     assert LinkedList() <= dl
-#     #################### test add/remove ####################
-#     new_value = get_value()
-#     dl.add_front(new_value)
-#     dl.remove_front()
-#     dl.add_end(new_value)
-#     dl.remove_end()
-#     assert dl == LinkedList(val)
-#     #################### test insert/split ####################
-#     with pytest.raises(IndexError):
-#         dl.insert(2, get_value())
-#         dl.insert(-1, get_value())
-#         dl.split(get_pos_int(a=2))
-
-
-# def test_list_with_values():
+# def test_list_with_known_values():
 #     dl = LinkedList()
 #     dl.add_front(10)
 #     dl.add_front(5)
@@ -387,7 +397,6 @@ def test_relational_operators():
         assert dllist2 >= llist
     
 
-
 def test_rotate():
     # rotate when inplace = False
     dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
@@ -429,6 +438,34 @@ def test_rotate():
     assert dl.tail.get_data() == 2
     assert dl.tail.get_next() is None
     assert dl[-1].get_data() == 2
+
+
+def test_join_method():
+    lst = get_list()
+    # two Doubly linked lists are empty
+    dllist1 = DoublyLinkedList(None)
+    dllist1.join(DoublyLinkedList())
+    assert llist1 == DoublyLinkedList()
+    # one linked list is empty
+    dllist1 = DoublyLinkedList.from_iterable([])
+    dllist2 = DoublyLinkedList.from_iterable(lst)
+    dllist1.join(dllist2)
+    assert dllist1 == dllist2
+    assert len(dllist1) == len(lst)
+    dllist2.join(dllist1)
+    assert len(dllist2) == 2*len(lst)
+    # two linked lists are NOT empty
+    dllist1 = DoublyLinkedList.from_iterable(lst)
+    dllist2 = DoublyLinkedList.from_iterable(lst)
+    dllist2.join(dllist1)
+    assert dllist1.to_list() == lst
+    assert dllist2.to_list() == lst+lst
+    assert len(dllist2) == 2*len(lst)
+    # join other data type
+    with pytest.raises(TypeError):
+        DoublyLinkedList().join(LinkedList())
+        DoublyLinkedList().join(get_list())
+        DoublyLinkedList().join(get_value())
 
 
 def test_split():
