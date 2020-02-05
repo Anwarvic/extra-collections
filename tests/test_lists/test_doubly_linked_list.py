@@ -304,45 +304,45 @@ def test_list_with_same_value():
     assert len(dl) == 0
 
 
-# def test_list_with_known_values():
-#     dl = LinkedList()
-#     dl.add_front(10)
-#     dl.add_front(5)
-#     assert dl.to_list() == [5, 10]
-#     dl.remove(20)
-#     dl.remove_front()
-#     assert dl == LinkedList(10)
-#     dl.remove_end()
-#     assert dl == LinkedList() 
-#     dl.insert(0, 100)
-#     dl.insert(1, 200)
-#     dl.insert(1, 100)
-#     assert 100 in dl and 200 in dl
-#     assert dl == LinkedList.from_iterable([100, 100, 200])
-#     assert dl.copy().to_list() == [100, 100, 200]
-#     assert dl.reverse() == LinkedList.from_iterable([200, 100, 100])
-#     dl.remove(100)
-#     rev = dl.reverse()
-#     assert dl == rev == LinkedList(200)
-#     dl.clear()
-#     assert not rev.is_empty()
-#     assert dl.is_empty()
-#     ###################################################
-#     dl = LinkedList()
-#     dl.add_front(6)
-#     dl.add_end(20)
-#     dl.insert(1, 10)
-#     dl.insert(2, 77)
-#     dl.insert(4, 43)
-#     dl.insert(0, 2)
-#     assert 43 in dl
-#     assert dl[1:4].to_list() == [6, 10, 77]
-#     assert dl.copy().to_list() == [2, 6, 10, 77, 20, 43]
-#     del dl[len(dl)-1]
-#     assert dl.reverse().to_list() == [20, 77, 10, 6, 2]
-#     assert dl.length == len(dl) == 5
-#     dl.clear()
-#     assert dl.is_empty()
+def test_list_with_known_values():
+    dl = DoublyLinkedList()
+    dl.add_front(10)
+    dl.add_front(5)
+    assert dl.to_list() == [5, 10]
+    dl.remove(20)
+    dl.remove_front()
+    assert dl == DoublyLinkedList(10)
+    dl.remove_end()
+    assert dl == DoublyLinkedList() 
+    dl.insert(0, 100)
+    dl.insert(1, 200)
+    dl.insert(1, 100)
+    assert 100 in dl and 200 in dl
+    assert dl == DoublyLinkedList.from_iterable([100, 100, 200])
+    assert dl.copy().to_list() == [100, 100, 200]
+    assert dl.reverse() == DoublyLinkedList.from_iterable([200, 100, 100])
+    dl.remove(100)
+    rev = dl.reverse()
+    assert dl == rev == DoublyLinkedList(200)
+    dl.clear()
+    assert not rev.is_empty()
+    assert dl.is_empty()
+    ###################################################
+    dl = DoublyLinkedList()
+    dl.add_front(6)
+    dl.add_end(20)
+    dl.insert(1, 10)
+    dl.insert(2, 77)
+    dl.insert(4, 43)
+    dl.insert(0, 2)
+    assert 43 in dl
+    assert dl[1:4].to_list() == [6, 10, 77]
+    assert dl.copy().to_list() == [2, 6, 10, 77, 20, 43]
+    del dl[len(dl)-1]
+    assert dl.reverse().to_list() == [20, 77, 10, 6, 2]
+    assert dl.length == len(dl) == 5
+    dl.clear()
+    assert dl.is_empty()
 
 
 def test_relational_operators():
@@ -445,7 +445,7 @@ def test_join_method():
     # two Doubly linked lists are empty
     dllist1 = DoublyLinkedList(None)
     dllist1.join(DoublyLinkedList())
-    assert llist1 == DoublyLinkedList()
+    assert dllist1 == DoublyLinkedList()
     # one linked list is empty
     dllist1 = DoublyLinkedList.from_iterable([])
     dllist2 = DoublyLinkedList.from_iterable(lst)
