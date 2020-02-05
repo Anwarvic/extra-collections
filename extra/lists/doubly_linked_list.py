@@ -50,12 +50,12 @@ class DoublyLinkedList(LinkedList):
     
     def __init__(self, item=None):
         self._basic_node = DoublyNode
-        if isinstance(item, DoublyNode):
+        if isinstance(item, self._basic_node):
             item.set_next(None)
             self.head = self.tail = item
             self.length = 1 if item.get_data() is not None else 0
         else:
-            self.head = self.tail = DoublyNode(item)
+            self.head = self.tail = self._basic_node(item)
             self.length = 1 if item is not None else 0
     
 
@@ -101,7 +101,7 @@ class DoublyLinkedList(LinkedList):
             new_node = item
         else:
             assert item != None, "Can't insert `None` value as a node!!"
-            new_node = DoublyNode(item)
+            new_node = self._basic_node(item)
         # start inserting the node
         if self.length == 0:
             self.head = self.tail = new_node
@@ -133,13 +133,13 @@ class DoublyLinkedList(LinkedList):
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if self.length == 1:
-            self.head = self.tail = DoublyNode()
+            self.head = self.tail = self._basic_node()
             self.length -= 1
         elif self.length == 2:
             if prev_node == None:
-                new_node = DoublyNode(next_node.get_data())
+                new_node = self._basic_node(next_node.get_data())
             elif next_node == None:
-                new_node = DoublyNode(prev_node.get_data())
+                new_node = self._basic_node(prev_node.get_data())
             self.head = self.tail = new_node
             self.length -= 1
         else:
@@ -182,8 +182,3 @@ class DoublyLinkedList(LinkedList):
         self.tail = rotated.tail
 
 
-
-dl = DoublyLinkedList(10)
-print(dl)
-print(dl.rotate_right(100, inplace=False))
-print(dl == dl.rotate_right(100, inplace=False))
