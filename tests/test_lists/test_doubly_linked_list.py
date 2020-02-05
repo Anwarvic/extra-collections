@@ -223,39 +223,39 @@ def test_empty_doubly_linked_list():
         dl.insert(0, DoublyNode())
 
 
-# def test_list_with_same_value():
-#     length = get_pos_int()
-#     val = get_value()
-#     dl = LinkedList()
-#     #test add_end
-#     for _ in range(length):
-#         dl.add_end(val)
-#     #test add_front
-#     for _ in range(length):
-#         dl.add_front(val)
-#     assert dl == dl.reverse()
-#     assert dl == dl.copy()
-#     assert not dl.is_empty()
-#     assert len(dl) == 2*length
-#     assert dl.count(val) == 2*length
-#     assert dl.to_list() == [val]*(2*length)
-#     # test split
-#     left_list, right_list = dl.split(length)
-#     assert len(left_list) == len(right_list) == length
-#     # test clear
-#     left_list.clear()
-#     right_list.clear()
-#     assert len(left_list) == len(right_list) == 0
-#     # test remove
-#     for i in range(length):
-#         if i > length//2:
-#             dl.remove_end()
-#         else:
-#             dl.remove_front()
-#     assert len(dl) == dl.count(val) == length
-#     dl.remove(val, adl=True)
-#     assert dl.is_empty()
-#     assert len(dl) == 0
+def test_list_with_same_value():
+    length = get_pos_int()
+    val = get_value()
+    dl = DoublyLinkedList()
+    #test add_end
+    for _ in range(length):
+        dl.add_end(val)
+    #test add_front
+    for _ in range(length):
+        dl.add_front(val)
+    assert dl == dl.reverse()
+    assert dl == dl.copy()
+    assert not dl.is_empty()
+    assert len(dl) == 2*length
+    assert dl.count(val) == 2*length
+    assert dl.to_list() == [val]*(2*length)
+    # test split
+    left_list, right_list = dl.split(length)
+    assert len(left_list) == len(right_list) == length
+    # test clear
+    left_list.clear()
+    right_list.clear()
+    assert len(left_list) == len(right_list) == 0
+    # test remove
+    for i in range(length):
+        if i > length//2:
+            dl.remove_end()
+        else:
+            dl.remove_front()
+    assert len(dl) == dl.count(val) == length
+    dl.remove(val, all=True)
+    assert dl.is_empty()
+    assert len(dl) == 0
 
 
 # def test_list_with_one_element():
