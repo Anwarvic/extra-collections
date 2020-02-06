@@ -7,7 +7,7 @@ from extra.lists.linked_list import Node, LinkedList
 class CircularLinkedList(LinkedList):
     """Basic object for the Circular Linked List"""
     def __name__(self):
-        return "CircularLinkedList"
+        return "CircularLinkedList()"
     
 
     def __init__(self, item=None):
@@ -58,8 +58,19 @@ class CircularLinkedList(LinkedList):
 
     ############################## SEARCH ##############################
     def __contains__(self, value):
+        #NOTE: DON'T validate the given value
+        # check if value is a Node() object
+        if isinstance(value, Node):
+            # if value is the same object as self._basic_node
+            if isinstance(value, self._basic_node):
+                value = value.get_data()
+            # if value is a generic Node object
+            else:
+                return False
+        # check the head
         if self.head.get_data() == value:
             return True
+        # search the rest of the CircularLinkedList()
         found_node = self._search( value,
                                 start_node = self.head.get_next(),
                                 stop_node = self.head)
@@ -79,7 +90,7 @@ class CircularLinkedList(LinkedList):
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
         if self.is_empty():
-            raise IndexError("Circular Linked List is empty!!")
+            raise IndexError(f"{self.__name__()} is empty!!")
         self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         return super().__getitem__(idx)
