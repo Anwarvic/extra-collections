@@ -1,12 +1,18 @@
-from linked_list import Node, LinkedList
+# from linked_list import Node, LinkedList
+from extra.lists.linked_list import Node, LinkedList
+
 
 
 
 class CircularLinkedList(LinkedList):
     """Basic object for the Circular Linked List"""
+    def __name__(self):
+        return "CircularLinkedList"
+    
+    
     def __init__(self, item=None):
         super().__init__(item)
-        self.head.set_next(self.head)
+        self.head.next = self.head
 
 
     ############################## PRINT ##############################
@@ -36,9 +42,9 @@ class CircularLinkedList(LinkedList):
         left_offset = (len(head_data)+4)//2
         remaining = len("".join(second_line)) - left_offset
         second_line += [' ┐']
-        third_line += [' │']
+        third_line  += [' │']
         fourth_line = (' '*left_offset) + '↑' + (' '*(remaining)) + '│'
-        fifth_line = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
+        fifth_line  = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
         return "{}\n{}\n{}\n{}\n{}".format(\
             "".join(first_line), "".join(second_line), "".join(third_line),\
             fourth_line, fifth_line)
