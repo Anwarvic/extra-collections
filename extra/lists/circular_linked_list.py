@@ -97,30 +97,22 @@ class CircularLinkedList(LinkedList):
 
 
     ############################## INSERT ##############################
-    def _insert_node(self, prev_node, item):
-        # handle different types of `item`
-        if isinstance(item, Node):
-            assert item.get_data() != None, \
-                "Can't insert `None` value as a node!!"
-            new_node = item
-        else:
-            assert item != None, "Can't insert `None` value as a node!!"
-            new_node = Node(item)
-        
+    def _insert_node(self, prev_node, new_node):
+        assert isinstance(new_node, self._basic_node)
+        assert new_node.get_data() is not None
         # start inserting the node
-        if prev_node == None:
-            if self.is_empty():
-                self.head.set_data(new_node.get_data())
-            elif self.length == 1:
-                new_node.set_next(self.head.get_next())
-                self.head.set_next(new_node)
+        if self.length == 0:
+            new_node.set_next(new_node)
+            self.head = new_node
+        if prev_node is None:
+            new_node.set_next(self.head.get_next())
+            self.head.set_next(new_node)
+            if self.length == 1:
                 self.head = new_node
             else:
-                new_node.set_next(self.head.get_next())
-                self.head.set_next(new_node)
                 #swap data between new_node and self.head
                 new_node.data, self.head.data = self.head.data, new_node.data
-                new_node = self.head
+                new_node = self.head #to be returned
         else:
             new_node.set_next(prev_node.get_next())
             prev_node.set_next(new_node)
