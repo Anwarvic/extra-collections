@@ -21,37 +21,39 @@ class CircularLinkedList(LinkedList):
 
     ############################## PRINT ##############################
     def __repr__(self):
-        """Represents the Circular linked list as a string"""
-        first_line, second_line, third_line = [], [], []
+        """Represents the Circular linked list as a string
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶│ 6 │⟶│ 7 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘  │
+           ↑                                       │
+           └───────────────────────────────────────┘
+        """
         if self.is_empty():
-            first_line  += ['┌─']
-            second_line += ['│']
-            third_line  += ['└─']
-            return "{}\n{}\n{}".format(\
-            ''.join(first_line), ''.join(second_line), ''.join(third_line))
-        else:
-            # print just the head
-            top_part, middle_part, lower_part = self._print_node(self.head)
-            first_line += top_part
-            second_line += middle_part
-            third_line += lower_part
-            # print the remaining nodes if found
-            top_part, middle_part, lower_part = \
-                self._print_linked_list(self.head.get_next(), self.head)
-            first_line += top_part
-            second_line += middle_part
-            third_line += lower_part
+            return super()._print_empty_linked_list()
+        # start with just the head
+        first_line, second_line, third_line = self._print_node(self.head)
+        # print the remaining nodes if found
+        top_part, middle_part, lower_part = \
+            self._print_linked_list(self.head.get_next(), self.head)
+        first_line  += top_part
+        second_line += middle_part
+        third_line  += lower_part
         # backtrace representation
-        head_data = str(self.head.get_data())
-        left_offset = (len(head_data)+4)//2
-        remaining = len("".join(second_line)) - left_offset
         second_line += [' ┐']
         third_line  += [' │']
+
+        first_line  = "".join(first_line)
+        second_line = "".join(second_line)
+        third_line  = "".join(third_line)
+
+        head_data = str(self.head.get_data())
+        left_offset = (len(head_data)+4)//2
+        remaining = (len(second_line) - 2) - left_offset
+        
         fourth_line = (' '*left_offset) + '↑' + (' '*(remaining)) + '│'
         fifth_line  = (' '*left_offset) + '└' + ('─'*(remaining)) + '┘'
         return "{}\n{}\n{}\n{}\n{}".format(\
-            "".join(first_line), "".join(second_line), "".join(third_line),\
-            fourth_line, fifth_line)
+            first_line, second_line, third_line, fourth_line, fifth_line)
 
 
     ############################## SEARCH ##############################
