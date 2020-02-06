@@ -94,28 +94,32 @@ class LinkedList:
         lower_border += (['─']*width) + ['┘ ']
         return top_border, middle, lower_border
     
+
+    def _print_empty_list(self):
+        assert self.length == 0
+        top_border    = ['┌─']
+        middle_border = ['│']
+        lower_border  = ['└─']
+        return "{}\n{}\n{}".format(\
+            ''.join(top_border), ''.join(middle_border), ''.join(lower_border))
+
         
     def _print_linked_list(self, start_node, stop_node=None):
         assert isinstance(start_node, self._basic_node)
         assert stop_node is None or isinstance(stop_node, self._basic_node)
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
-        middle = []
+        middle_border = []
         lower_border = []
-        if self.is_empty():
-            top_border += ['┌─']
-            middle += ['│']
-            lower_border += ['└─']
-        else:
-            curr_node = start_node
-            while(curr_node != stop_node):
-                top_part, middle_part, lower_part = self._print_node(curr_node)
-                top_border += top_part
-                middle += middle_part
-                lower_border += lower_part
-                # update curr_node
-                curr_node = curr_node.get_next()
-        return top_border, middle, lower_border
+        curr_node = start_node
+        while(curr_node != stop_node):
+            top_part, middle_part, lower_part = self._print_node(curr_node)
+            top_border += top_part
+            middle_border += middle_part
+            lower_border += lower_part
+            # update curr_node
+            curr_node = curr_node.get_next()
+        return top_border, middle_border, lower_border
 
     
     def __repr__(self):
@@ -124,6 +128,8 @@ class LinkedList:
         │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶
         └────┘ └────┘ └────┘ └───┘ └───┘ 
         """
+        if self.is_empty():
+            return self._print_empty_list()
         top_border, middle, lower_border = self._print_linked_list(self.head)
         return "{}\n{}\n{}".format(\
             ''.join(top_border), ''.join(middle), ''.join(lower_border))
@@ -231,7 +237,7 @@ class LinkedList:
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
-        assert stop_node is None or isinstance(stop_node, None)
+        assert stop_node is None or isinstance(stop_node, self._basic_node)
         # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
         curr_node = start_node
