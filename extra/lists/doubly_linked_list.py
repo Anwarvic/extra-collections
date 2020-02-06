@@ -45,7 +45,7 @@ class DoublyNode(Node):
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
     def __name__(self):
-        return "DoublyLinkedList()"
+        return "extra.DoublyLinkedList()"
 
     
     def __init__(self, item=None):
@@ -65,16 +65,16 @@ class DoublyLinkedList(LinkedList):
 
     ############################## PRINT ##############################
     def _print_node(self, node):
-        top_border = [' ┌']
-        middle = ['⟷│']
-        lower_border = [' └']
+        top_border    = [' ┌']
+        middle_border = ['⟷│']
+        lower_border  = [' └']
         item = str(node)
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐']
-        middle += [f" {item} │"]
-        if node.get_next() is None: middle += ['⟷']
+        middle_border += [f" {item} │"]
+        if node.get_next() is None: middle_border += ['⟷']
         lower_border += (['─']*width) + ['┘']
-        return top_border, middle, lower_border
+        return top_border, middle_border, lower_border
 
 
     ############################## SEARCH ##############################

@@ -7,7 +7,7 @@ from extra.lists.linked_list import Node, LinkedList
 class CircularLinkedList(LinkedList):
     """Basic object for the Circular Linked List"""
     def __name__(self):
-        return "CircularLinkedList()"
+        return "extra.CircularLinkedList()"
     
 
     def __init__(self, item=None):
@@ -122,6 +122,7 @@ class CircularLinkedList(LinkedList):
     
     def insert(self, idx, item):
         self._validate_index((idx))
+        self._validate_item(item)
         idx = idx % (self.length+1)
         super()._insert(idx, item)
 
@@ -129,7 +130,7 @@ class CircularLinkedList(LinkedList):
     ############################### SET ################################
     def __setitem__(self, idx, item):
         if self.is_empty():
-            raise IndexError("Circular Linked List is empty!!")
+            raise IndexError(f"{self.__name__()} List is empty!!")
         self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         super()._replace_node(idx, item)

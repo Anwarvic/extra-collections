@@ -46,7 +46,7 @@ class Node:
 class LinkedList:
     """Basic object for the linked list"""
     def __name__(self):
-        return "LinkedList()"
+        return "extra.LinkedList()"
     
     
     def __init__(self, item=None):
@@ -95,7 +95,7 @@ class LinkedList:
         return top_border, middle, lower_border
     
 
-    def _print_empty_list(self):
+    def _print_empty_linked_list(self):
         assert self.length == 0
         top_border    = ['┌─']
         middle_border = ['│']
@@ -129,7 +129,7 @@ class LinkedList:
         └────┘ └────┘ └────┘ └───┘ └───┘ 
         """
         if self.is_empty():
-            return self._print_empty_list()
+            return self._print_empty_linked_list()
         top_border, middle, lower_border = self._print_linked_list(self.head)
         return "{}\n{}\n{}".format(\
             ''.join(top_border), ''.join(middle), ''.join(lower_border))
@@ -259,9 +259,13 @@ class LinkedList:
         
 
     def __contains__(self, value):
+        #NOTE: DON'T validate the given value
+        # check if value is a Node() object
         if isinstance(value, Node):
+            # if value is the same object as self._basic_node
             if isinstance(value, self._basic_node):
                 value = value.get_data()
+            # if value is a generic Node object
             else:
                 return False
         found_node = self._search(value, self.head)
