@@ -9,11 +9,15 @@ class CircularLinkedList(LinkedList):
     def __name__(self):
         return "CircularLinkedList"
     
-    
+
     def __init__(self, item=None):
         super().__init__(item)
         self.head.next = self.head
 
+    
+    def _create_instance(self):
+        return CircularLinkedList()
+    
 
     ############################## PRINT ##############################
     def __repr__(self):
@@ -132,7 +136,7 @@ class CircularLinkedList(LinkedList):
         # if node to be removed is the first
         if prev_node == None:
             if self.length == 1:
-                self.head.set_data(None)
+                self.head.data = None
             else:
                 next_to_head = self.head.get_next()
                 self.head.set_data(next_to_head.get_data())
