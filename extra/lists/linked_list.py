@@ -558,21 +558,27 @@ class LinkedList:
         self.head = rotated.head
 
     
-    ############################## MISC ##############################
-    def to_list(self):
-        return [item.get_data() for item in self]
-
-
-    def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
+    ############################## REVERSE ##############################
+    def _reverse_linked_list(self, stop_node=None):
+        assert stop_node is None or isinstance(stop_node, self._basic_node)
         rev = self._create_instance()
         if not self.is_empty():
             curr_node = self.head
-            while(curr_node.get_next() is not None):
+            while(curr_node.get_next() is not stop_node):
                 rev.add_front(curr_node.get_data())
                 curr_node = curr_node.get_next()
             rev.add_front(curr_node.get_data())
         return rev
+
+
+    def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
+        return self._reverse_linked_list()
+
+
+    ############################## MISC ##############################
+    def to_list(self):
+        return [item.get_data() for item in self]
 
 
     def count(self, value):
