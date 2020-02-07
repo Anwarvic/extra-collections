@@ -1,4 +1,4 @@
-import operator
+import warnings, operator
 
 
 
@@ -45,13 +45,19 @@ class Node:
 
 class LinkedList:
     """Basic object for the linked list"""
+    _STOP_NODE = None   #node at which we stop iterating
+
+
     def __name__(self):
         return "extra.LinkedList()"
     
     
     def __init__(self, item=None):
         self._basic_node = Node
-        if isinstance(item, self._basic_node):
+        if isinstance(item, Node):
+            if not isinstance(item, self._basic_node):
+                warnings.warn(f"You are initializing {self.__name__()} "+ \
+                    "with a generic Node()!!")
             item.set_next(None)
             self.head = item
             self.length = 1 if item.get_data() is not None else 0
@@ -104,15 +110,14 @@ class LinkedList:
             ''.join(top_border), ''.join(middle_border), ''.join(lower_border))
 
         
-    def _print_linked_list(self, start_node, stop_node=None):
+    def _print_linked_list(self, start_node):
         assert isinstance(start_node, self._basic_node)
-        assert stop_node is None or isinstance(stop_node, self._basic_node)
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle_border = []
         lower_border = []
         curr_node = start_node
-        while(curr_node != stop_node):
+        while(curr_node != self._STOP_NODE):
             top_part, middle_part, lower_part = self._print_node(curr_node)
             top_border += top_part
             middle_border += middle_part
@@ -229,7 +234,7 @@ class LinkedList:
 
 
     ############################## SEARCH ##############################
-    def _search(self, value, start_node, stop_node=None):
+    def _search(self, value, start_node):
         """
         Search the Linked List for a given `value` and returns the first node
         containing that value if found. If not found, it returns the last node
@@ -237,11 +242,10 @@ class LinkedList:
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
-        assert stop_node is None or isinstance(stop_node, self._basic_node)
         # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
         curr_node = start_node
-        while(curr_node.get_next() != stop_node):
+        while(curr_node.get_next() != self._STOP_NODE):
             if curr_node.get_data() == value:
                 return curr_node
             curr_node = curr_node.get_next()
@@ -444,15 +448,14 @@ class LinkedList:
             self.__delitem__( self.length-1 )
 
 
-    def _remove_value(self, value, stop_node, all):
+    def _remove_value(self, value, all):
         # removes all occurrences (when all==True) of `value` if found.
         assert not isinstance(value, self._basic_node) and value is not None
-        assert stop_node is None or isinstance(stop_node, self._basic_node)
         assert type(all) == bool
         prev = None
         curr_node = self.head
         FOUND_FIRST = False #True when the first occurrence is found
-        while(curr_node != stop_node):
+        while(curr_node != self._STOP_NODE):
             if all==False and FOUND_FIRST:
                 return
             if curr_node.get_data() == value:
@@ -468,7 +471,7 @@ class LinkedList:
         if type(all) != bool:
             raise TypeError("`all` is a boolean flag (True by default)!")
         self._validate_item(value)
-        self._remove_value(value, stop_node=None, all=all)
+        self._remove_value(value, all=all)
 
 
     def clear(self):
@@ -558,25 +561,19 @@ class LinkedList:
         self.head = rotated.head
 
     
-    ############################## REVERSE ##############################
-    def _reverse_linked_list(self, stop_node=None):
-        assert stop_node is None or isinstance(stop_node, self._basic_node)
+    ############################## MISC ##############################
+    def reverse(self):
+        """Reverses the whole linked list with complexity of O(n)"""
         rev = self._create_instance()
         if not self.is_empty():
             curr_node = self.head
-            while(curr_node.get_next() is not stop_node):
+            while(curr_node.get_next() is not self._STOP_NODE):
                 rev.add_front(curr_node.get_data())
                 curr_node = curr_node.get_next()
             rev.add_front(curr_node.get_data())
         return rev
 
 
-    def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
-        return self._reverse_linked_list()
-
-
-    ############################## MISC ##############################
     def to_list(self):
         return [item.get_data() for item in self]
 
