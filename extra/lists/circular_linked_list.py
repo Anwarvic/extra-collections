@@ -13,6 +13,7 @@ class CircularLinkedList(LinkedList):
     def __init__(self, item=None):
         super().__init__(item)
         self.head.next = self.head
+        self._STOP_NODE = self.head
 
     
     def _create_instance(self):
@@ -34,7 +35,7 @@ class CircularLinkedList(LinkedList):
         first_line, second_line, third_line = self._print_node(self.head)
         # print the remaining nodes if found
         top_part, middle_part, lower_part = \
-            self._print_linked_list(self.head.get_next(), self.head)
+            self._print_linked_list(self.head.get_next())
         first_line  += top_part
         second_line += middle_part
         third_line  += lower_part
@@ -72,8 +73,7 @@ class CircularLinkedList(LinkedList):
             return True
         # search the rest of the CircularLinkedList()
         found_node = self._search( value,
-                                start_node = self.head.get_next(),
-                                stop_node = self.head)
+                                start_node = self.head.get_next())
         if found_node == None or found_node.get_data() != value:
             return False
         return True
@@ -125,6 +125,7 @@ class CircularLinkedList(LinkedList):
         self._validate_item(item)
         idx = idx % (self.length+1)
         super()._insert(idx, item)
+        self._STOP_NODE = self.head
 
 
     ############################### SET ################################
@@ -134,6 +135,7 @@ class CircularLinkedList(LinkedList):
         self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         super()._replace_node(idx, item)
+        # self._STOP_NODE = self.head
     
 
     ############################## REMOVE ##############################
@@ -158,12 +160,11 @@ class CircularLinkedList(LinkedList):
         self._validate_index((idx))
         idx = idx % self.length if self.length != 0 else 0
         super()._remove_idx(idx)
+        self._STOP_NODE = self.head
 
 
     ############################## MISC ##############################
-    def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
-        return self._reverse_linked_list(self.head)
+
 
 
 
