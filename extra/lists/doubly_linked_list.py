@@ -52,9 +52,9 @@ class DoublyLinkedList(LinkedList):
     def __init__(self, item=None):
         self._basic_node = DoublyNode
         if isinstance(item, Node):
-            # if not isinstance(item, self._basic_node):
-            #     warnings.warn(f"You are initializing {self.__name__()} "+ \
-            #         "with a generic Node()!!")
+            if not isinstance(item, self._basic_node):
+                warnings.warn(f"You are initializing {self.__name__()} "+ \
+                    "with a generic Node()!!", UserWarning)
             item.set_next(None)
             self.head = self.tail = item
             self.length = 1 if item.get_data() is not None else 0
