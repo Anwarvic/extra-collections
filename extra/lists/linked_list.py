@@ -57,7 +57,7 @@ class LinkedList:
         if isinstance(item, Node):
             if not isinstance(item, self._basic_node):
                 warnings.warn(f"You are initializing {self.__name__()} "+ \
-                    "with a generic Node()!!")
+                    "with a generic Node()!!", UserWarning)
             item.set_next(None)
             self.head = item
             self.length = 1 if item.get_data() is not None else 0
@@ -170,10 +170,10 @@ class LinkedList:
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
         # start_comparing
-        pointer1 = self.head if not self.is_empty() else self._STOP_NODE
-        pointer2 = other.head if not other.is_empty() else other._STOP_NODE
+        pointer1 = self.head if not self.is_empty() else None
+        pointer2 = other.head if not other.is_empty() else None
         while(pointer1 is not self._STOP_NODE and \
-                        pointer2 is not other._STOP_NODE):
+                            pointer2 is not other._STOP_NODE):
             try:
                 if pointer1.get_data() == pointer2.get_data():
                     pass
@@ -194,7 +194,7 @@ class LinkedList:
         if self.length != other.length:
             return False
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return True if pointer1 == pointer2 is None else False
+        return True if pointer1 == pointer2 is self._STOP_NODE else False
     
 
     def __ne__(self, other):
@@ -203,35 +203,35 @@ class LinkedList:
         if self.length != other.length:
             return True
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return False if pointer1 == pointer2 is None else True
+        return False if pointer1 == pointer2 is self._STOP_NODE else True
     
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         pointer1, _ = self._compare(other, operator.lt)
-        return True if pointer1 is None else False
+        return True if pointer1 is self._STOP_NODE else False
     
 
     def __le__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         pointer1, _ = self._compare(other, operator.le)
-        return True if pointer1 is None else False
+        return True if pointer1 is self._STOP_NODE else False
     
 
     def __gt__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is None else False
+        return True if pointer2 is self._STOP_NODE else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is None else False
+        return True if pointer2 is self._STOP_NODE else False
 
 
     ############################## SEARCH ##############################
@@ -243,7 +243,6 @@ class LinkedList:
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
-        # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
         curr_node = start_node
         while(curr_node.get_next() != self._STOP_NODE):
@@ -274,7 +273,7 @@ class LinkedList:
             else:
                 return False
         found_node = self._search(value, self.head)
-        if found_node is None or found_node.get_data() != value:
+        if found_node is self._STOP_NODE or found_node.get_data() != value:
             return False
         return True
 
@@ -500,7 +499,7 @@ class LinkedList:
                 curr_node = curr_node.get_next()
                 counter += 1
             # right list
-            while(curr_node is not None):
+            while(curr_node is not self._STOP_NODE):
                 prev_node = right_list._insert_value(prev_node,
                                                     curr_node.get_data())
                 curr_node = curr_node.get_next()
