@@ -7,7 +7,7 @@ class TrieNode(TreeNode):
                     "Trie nodes accept characters only!!"
         self.data = value
         self.children = {}
-        is_word = False
+        self.is_word = False
 
     def __repr__(self):
         return "TrieNode({})".format(self.data)
@@ -30,6 +30,7 @@ class Trie(Tree):
             if ch not in start_node.children:
                 start_node.children[ch] = TrieNode(ch)
             start_node = start_node.children[ch]
+        start_node.is_word = True
 
 
     def find(self, word):
@@ -38,7 +39,7 @@ class Trie(Tree):
             if ch not in start_node.children:
                 return False
             start_node = start_node.children[ch]
-        return True
+        return start_node.is_word
 
 
 
@@ -48,3 +49,4 @@ if __name__ == "__main__":
     t.insert('abcd')
     t.insert('axyz')
     print(t)
+    print(t.find('ad'))
