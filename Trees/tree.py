@@ -1,3 +1,5 @@
+
+
 class TreeNode:
     def __init__(self, value=None):
         assert value != None, "You can't use None as a value!!"
@@ -12,6 +14,7 @@ class TreeNode:
 
 
 
+
 class Tree:
     def __init__(self, value=None):
         if isinstance(value, TreeNode):
@@ -21,27 +24,36 @@ class Tree:
 
 
     ############################ PRINT ############################
-    def __print_subtree(self, start_node, level, lines, is_last_child):
+    def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
+        """
+        seq (list): is a boolean list containing values
+
+        NOTE: get_children() is essential here!!
+        """
         line = []
-        if level != 0:
-            line.append((level-1)*'│ ')
+        if seq:
+            for is_parent_last_child in seq[1:]:
+                line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
             line.append('┬ ') if start_node.children else line.append('─ ')
         line.append(start_node.data)
         lines.append("".join(line))
+        # append node status
+        my_seq = seq.copy()
+        my_seq.append(is_last_child)
         # iterate over children
         children = start_node.get_children()
         num_children = len(children)
         for idx in range(num_children):
             child = children[idx]
             is_last_child = True if idx == num_children-1 else False
-            self.__print_subtree(child, level+1, lines, is_last_child)
+            self.__print_subtree(child, lines, is_last_child, my_seq)
         return lines
 
 
     def __repr__(self):
         if self.root.children:
-            return "\n".join(self.__print_subtree(self.root, 0, [], False))
+            return "\n".join(self.__print_subtree(self.root, [], False))
         else:
             return self.root.data
 
@@ -72,25 +84,25 @@ if __name__ == "__main__":
     t = Tree(a)
     print(t)
 
-    #  # create simple tree
-    # a = TreeNode('A')
-    # b = TreeNode('B')
-    # c = TreeNode('C')
-    # d = TreeNode('D')
-    # e = TreeNode('E')
-    # f = TreeNode('F')
-    # g = TreeNode('G')
-    # h = TreeNode('H')
-    # i = TreeNode('I')
-    # j = TreeNode('J')
-    # h.children = [i, j]
-    # b.children = [e, h, f]
-    # d.children = [g]
-    # a.children = [b, c ,d]
+    # create simple tree
+    a = TreeNode('A')
+    b = TreeNode('B')
+    c = TreeNode('C')
+    d = TreeNode('D')
+    e = TreeNode('E')
+    f = TreeNode('F')
+    g = TreeNode('G')
+    h = TreeNode('H')
+    i = TreeNode('I')
+    j = TreeNode('J')
+    h.children = [i, j]
+    b.children = [e, h, f]
+    d.children = [g]
+    a.children = [b, c ,d]
 
-    # z = TreeNode('Z')
-    # z.children = [TreeNode('X'), TreeNode('Y')]
-    # c.children = [z]
-    # g.children = [z]
-    # t = Tree(a)
-    # print(t)
+    z = TreeNode('Z')
+    z.children = [TreeNode('X'), TreeNode('Y')]
+    c.children = [z]
+    g.children = [z]
+    t = Tree(a)
+    print(t)
