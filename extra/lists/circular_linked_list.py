@@ -1,3 +1,5 @@
+import operator
+
 # from linked_list import Node, LinkedList
 from extra.lists.linked_list import Node, LinkedList
 
@@ -57,6 +59,33 @@ class CircularLinkedList(LinkedList):
             first_line, second_line, third_line, fourth_line, fifth_line)
 
 
+    #TODO: refactor this function
+    def _compare(self, other, op):
+        """
+        Returns the last two nodes that don't match the given operator. They
+        could be the end of both LinkedList or just some random nodes in the
+        middle.
+        """
+        assert isinstance(other, self.__class__)
+        # start_comparing
+        pointer1 = self.head.get_next() 
+        pointer2 = other.head.get_next()
+        if not op(pointer1.get_data(), pointer2.get_data()):
+            return pointer1, pointer2
+        while(pointer1 is not self.head and pointer2 is not other.head):
+            try:
+                if pointer1.get_data() == pointer2.get_data():
+                    pass
+                elif not op(pointer1.get_data(), pointer2.get_data()):
+                    return pointer1, pointer2
+            except TypeError:
+                raise TypeError(
+                    "Inconsists data-types within the two LinkedLists!!")
+            pointer1 = pointer1.get_next()
+            pointer2 = pointer2.get_next()
+        return pointer1, pointer2
+
+
     ############################## SEARCH ##############################
     def __contains__(self, value):
         #NOTE: DON'T validate the given value
@@ -102,9 +131,10 @@ class CircularLinkedList(LinkedList):
         assert new_node.get_data() is not None
         # start inserting the node
         if self.length == 0:
-            new_node.set_next(new_node)
+            self.head.set_data(new_node.get_data())
+            new_node = self.head
             self.head = new_node
-        if prev_node is None:
+        elif prev_node is None:
             new_node.set_next(self.head.get_next())
             self.head.set_next(new_node)
             if self.length == 1:
@@ -170,31 +200,37 @@ class CircularLinkedList(LinkedList):
 
 
 if __name__ == "__main__":
-    l = CircularLinkedList()
-    l.insert(100, 'answer')
-    l.add_front('item')     # item answer
-    l.insert(2, 'item2')    # item answer item2
-    l.insert(1, 'hey')      # item hey answer item2
-    l.add_front("yes")      # yes item hey answer item2
-    l.insert(len(l)-1, "no")# yes item hey answer no item2
-    l.add_end("now")        # yes item hey answer no item2 now
-    print(l)
-    print(l[2])
-    print("Length:", len(l))
+    lst = [1, 2, 3, 4, 5]
+    tmp_cll = CircularLinkedList.from_iterable(lst)
+    print(tmp_cll)
+    cll = CircularLinkedList.from_iterable(tmp_cll)
+    assert cll == tmp_cll
 
-    rev = l.reverse()       # now item2 no answer hey item yes
-    rev.remove_end()        # now item2 no answer hey item
-    rev.remove_front()      # item2 no answer hey item
-    print(rev)
-    print("Length:", len(rev))
-    print("item2" in rev)
-    print("item" in rev)
-    print("apple" in rev)
-    print(rev.to_list())
+    # l = CircularLinkedList()
+    # l.insert(100, 'answer')
+    # l.add_front('item')     # item answer
+    # l.insert(2, 'item2')    # item answer item2
+    # l.insert(1, 'hey')      # item hey answer item2
+    # l.add_front("yes")      # yes item hey answer item2
+    # l.insert(len(l)-1, "no")# yes item hey answer no item2
+    # l.add_end("now")        # yes item hey answer no item2 now
+    # print(l)
+    # print(l[2])
+    # print("Length:", len(l))
+
+    # rev = l.reverse()       # now item2 no answer hey item yes
+    # rev.remove_end()        # now item2 no answer hey item
+    # rev.remove_front()      # item2 no answer hey item
+    # print(rev)
+    # print("Length:", len(rev))
+    # print("item2" in rev)
+    # print("item" in rev)
+    # print("apple" in rev)
+    # print(rev.to_list())
     
-    rev.clear()
-    rev.add_front('')
-    rev[0] = Node(10)
-    del rev[1]
-    print(rev)
-    print(rev.is_empty())
+    # rev.clear()
+    # rev.add_front('')
+    # rev[0] = Node(10)
+    # del rev[1]
+    # print(rev)
+    # print(rev.is_empty())
