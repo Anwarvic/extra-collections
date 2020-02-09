@@ -6,10 +6,15 @@ class TrieNode(TreeNode):
         assert type(value)==str and len(value)==1, \
                     "Trie nodes accept characters only!!"
         self.data = value
-        self.children = []
+        self.children = {}
 
     def __repr__(self):
         return "TrieNode({})".format(self.data)
+
+    def get_children(self):
+        return list(self.children.values())
+
+
 
 
 class Trie(Tree):
@@ -17,14 +22,19 @@ class Trie(Tree):
         self.root = TrieNode(' ')
         self.root.data = "root"
 
-    ############################## INSERTION ##############################
-    def __insert(self, start_node):
-        pass
-
-
     def insert(self, word):
-        pass
+        assert type(word) == str, "You can insert String objects only!!"
+        start_node = self.root
+        for ch in word:
+            if ch not in start_node.children:
+                start_node.children[ch] = TrieNode(ch)
+            start_node = start_node.children[ch]
+
+
+
 
 if __name__ == "__main__":
     t = Trie()
+    t.insert('abcd')
+    t.insert('axyz')
     print(t)
