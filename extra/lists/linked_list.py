@@ -170,9 +170,10 @@ class LinkedList:
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
         # start_comparing
-        pointer1 = self.head if not self.is_empty() else None
-        pointer2 = other.head if not other.is_empty() else None
-        while(pointer1 is not None and pointer2 is not None):
+        pointer1 = self.head if not self.is_empty() else self._STOP_NODE
+        pointer2 = other.head if not other.is_empty() else other._STOP_NODE
+        while(pointer1 is not self._STOP_NODE and \
+                        pointer2 is not other._STOP_NODE):
             try:
                 if pointer1.get_data() == pointer2.get_data():
                     pass
