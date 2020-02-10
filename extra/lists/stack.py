@@ -56,6 +56,8 @@ class Stack:
     ############################## PEEK ###############################
     def peek(self):
         """Returns the top item from the stack"""
+        if len(self) == 0:
+            raise IndexError("Can't peek from an empty Stack!!")
         return self.container[-1]
 
 
