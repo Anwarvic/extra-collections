@@ -1,8 +1,13 @@
 
 class Stack:
     """Basic object for the Stack data structure"""
+    def __name__(self):
+        return "extra.Stack()"
+
+    
     def __init__(self, max_capacity=float("inf")):
-        assert type(max_capacity) in {int, float}, "Max Capacity is a number!!"
+        if type(max_capacity) not in {int, float}:
+            raise TypeError("Max Capacity has to be a number!!")
         self.container = []
         self.max_capacity = max_capacity
 
@@ -10,19 +15,19 @@ class Stack:
     ############################## PRINT ##############################
     def __repr__(self):
         """Represents the stack as a string."""
-        top_border = '┌'
-        middle = '│'
-        down_border = '└'
+        top_border    = '┌'
+        middle_border = '│'
+        down_border   = '└'
         for item in self.container:
             width = len(str(item))+2 #2: for a space before & after item
             top_border += ('─'*width) + '┬'
-            middle += " {} │".format(item)
+            middle_border += " {} │".format(item)
             down_border += ('─'*width) + '┴'
         # add extension
         top_border += '─'
-        middle += ' '
+        middle_border += ' '
         down_border += '─'
-        return "{}\n{}\n{}".format(top_border, middle, down_border)
+        return "{}\n{}\n{}".format(top_border, middle_border, down_border)
 
 
     ############################## LENGTH ##############################
@@ -32,10 +37,19 @@ class Stack:
 
 
     ############################## PUSH ###############################
+    def __validate_item(self, item):
+        if item is None:
+            raise ValueError(f"Can't push `None` into {self.__name__()}!!")
+        elif type(item) == str and item == '':
+            raise ValueError(\
+                f"Can't push empty-string into {self.__name__()}!!")
+
+
     def push(self, item):
         """Pushs item to the stack"""
         if len(self.container) >= self.max_capacity:
             raise OverflowError("Stackoverflow! Can't push into a full stack!")
+        self.__validate_item(item)
         self.container.append(item)
 
 
