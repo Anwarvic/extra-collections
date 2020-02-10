@@ -56,7 +56,7 @@ class Stack:
     ############################## PEEK ###############################
     def peek(self):
         """Returns the top item from the stack"""
-        if len(self) == 0:
+        if self.is_empty():
             raise IndexError("Can't peek from an empty Stack!!")
         return self.container[-1]
 
@@ -64,7 +64,8 @@ class Stack:
     ############################# REMOVE #############################
     def pop(self):
         """Pops item from the stack"""
-        return self.container.pop()
+        if not self.is_empty():
+            return self.container.pop()
 
 
     def is_empty(self):
