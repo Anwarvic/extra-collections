@@ -24,12 +24,26 @@ def test_creating_stack():
     with pytest.raises(IndexError):
         s.peek()
     with pytest.raises(OverflowError):
-        s.push(get_value())
-
+        s.push(get_value() )
 
 
 def test_stack_with_max_capacity():
-    pass
+    cap = get_pos_int()
+    lst = get_list(length=cap)
+    s = Stack(max_capacity= cap)
+    assert s.max_capacity == cap
+    for i in lst:
+        s.push(i)
+    assert s.container == lst
+    assert len(s) == cap
+    assert not s.is_empty()
+    with pytest.raises(OverflowError):
+        s.push(get_value())
+    for i in range(cap):
+        assert s.pop() == lst.pop()
+    assert len(s) == 0
+    assert s.is_empty()
+    s.push(get_value())
 
 
 def test_creating_stack_with_random_numbers():
@@ -48,8 +62,6 @@ def test_creating_stack_with_random_numbers():
     assert len(s) == 0
     assert s.is_empty()
     assert s.pop() == None
-
-
 
 
 def test_push_method():
