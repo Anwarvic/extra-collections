@@ -39,7 +39,7 @@ class Stack:
     ############################## PUSH ###############################
     def __validate_item(self, item):
         if item is None:
-            raise ValueError(f"Can't push `None` into {self.__name__()}!!")
+            raise TypeError(f"Can't push `None` into {self.__name__()}!!")
         elif type(item) == str and item == '':
             raise ValueError(\
                 f"Can't push empty-string into {self.__name__()}!!")
@@ -78,29 +78,3 @@ class Stack:
         self.__init__(max_capacity=self.max_capacity)
 
 
-
-
-if __name__ == "__main__":
-    s = Stack(max_capacity=3)
-    s.push(2) #2
-    print(s)
-    s.push(40) #2 40
-    print(s)
-    s.push(800) #2 40 800
-    s.push(1000000) #2 40 800 (won't push)
-    print(s)
-
-    print('='*20)
-    print(s.peek()) #800
-    print(s)
-    print(s.pop())  #800
-    print(s) #2 40
-    
-    print('='*20)
-    print(s.is_empty()) #False
-    s.clear()
-    print(s)
-    print(s.is_empty()) #True
-
-
- 
