@@ -65,5 +65,15 @@ def test_creating_stack_with_random_numbers():
 
 
 def test_push_method():
-    pass
+    s = Stack()
+    with pytest.raises(TypeError):
+        s.push(None)
+    with pytest.raises(ValueError):
+        s.push('')
+    s.push(get_value())
+    s.push(get_int())
+    s.push(get_string())
+    s.push(get_float())
+    s.push(get_list())
+
 
