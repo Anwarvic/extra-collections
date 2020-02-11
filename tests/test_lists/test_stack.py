@@ -14,6 +14,8 @@ def test_creating_stack():
     assert s.pop() == None
     with pytest.raises(IndexError):
         s.peek()
+    s.clear() #not to through any errors
+    assert s.max_capacity == float("inf")
     # empty stack with max_capacity == 0
     s = Stack(max_capacity=0)
     assert s.max_capacity == 0
@@ -25,6 +27,8 @@ def test_creating_stack():
         s.peek()
     with pytest.raises(OverflowError):
         s.push(get_value() )
+    s.clear() #not to through any errors
+    assert s.max_capacity == 0
 
 
 def test_stack_with_max_capacity():
@@ -44,6 +48,9 @@ def test_stack_with_max_capacity():
     assert len(s) == 0
     assert s.is_empty()
     s.push(get_value())
+    # test max capacity after clear
+    s.clear()
+    assert s.max_capacity == cap
 
 
 def test_creating_stack_with_random_numbers():
@@ -64,6 +71,24 @@ def test_creating_stack_with_random_numbers():
     assert s.pop() == None
 
 
+def test_stack_with_known_values():
+    s = Stack(max_capacity=3)
+    s.push(2)
+    s.push(40)
+    s.push(800)
+    assert len(s) == 3
+    assert s.container == [2, 40, 800]
+    with pytest.raises(OverflowError):
+        s.push(16000)
+    assert s.peek() == 800
+    assert s.pop() == 800
+    assert s.container == [2, 40]
+    assert not s.is_empty()
+    s.clear()
+    assert s.is_empty()
+    assert s.max_capacity == 3
+
+
 def test_push_method():
     s = Stack()
     with pytest.raises(TypeError):
@@ -75,5 +100,3 @@ def test_push_method():
     s.push(get_string())
     s.push(get_float())
     s.push(get_list())
-
-
