@@ -41,14 +41,11 @@ class Queue():
 
 
     ############################## PEEK ################################
-    def get_left(self):
-        """Returns the Qeueu head (first element to be enqueued) """
+    def get_first(self):
+        """Returns the Qeueu head (first element to be inserted) """
+        if self.is_empty():
+            raise IndexError("Can't retrieve from an empty Queue!!")
         return self.container.head.get_data()
-
-
-    def get_right(self):
-        """Returns the Qeueu tail (last element to be enqueued) """
-        return self.container.tail.get_data()
 
 
     ############################# ENQUEUE ##############################
