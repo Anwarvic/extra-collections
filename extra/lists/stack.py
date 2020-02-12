@@ -47,7 +47,7 @@ class Stack:
 
     def push(self, item):
         """Pushs item to the stack"""
-        if len(self.container) >= self.max_capacity:
+        if self.is_full():
             raise OverflowError("Stackoverflow! Can't push into a full stack!")
         self.__validate_item(item)
         self.container.append(item)
@@ -68,13 +68,19 @@ class Stack:
             return self.container.pop()
 
 
-    def is_empty(self):
-        """Checks if the stack is empty"""
-        return len(self.container) == 0
-
-
     def clear(self):
         """Clears the stack"""
         self.__init__(max_capacity=self.max_capacity)
+
+
+    ############################# STATUS #############################
+    def is_empty(self):
+        """Checks if the stack is empty"""
+        return len(self.container) == 0
+    
+
+    def is_full(self):
+        """Checks if the stack is at full capacity"""
+        return len(self) == self.max_capacity
 
 
