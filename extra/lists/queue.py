@@ -1,4 +1,6 @@
-from doubly_linked_list import DoublyLinkedList
+from extra.lists.doubly_linked_list import DoublyLinkedList
+
+
 
 
 class Queue():
@@ -10,26 +12,26 @@ class Queue():
 
 
     ############################## PRINT ##############################
-    def _print_queue(self, dir_char=' '):
+    def _print_queue(self, direction_char=' '):
         top_border = '─┬'
-        middle = dir_char+'│'
+        middle_border = direction_char+'│'
         down_border = '─┴'
         for item in self.container:
             width = len(str(item))+2 #2: for a space before & after item
             top_border += ('─'*width) + '┬'
-            middle += " {} │".format(item)
+            middle_border += " {} │".format(item)
             down_border += ('─'*width) + '┴'
         # add extension
         if not self.is_empty():
             top_border += '─'
-            middle += dir_char
+            middle_border += direction_char
             down_border += '─'
-        return "{}\n{}\n{}".format(top_border, middle, down_border)
+        return "{}\n{}\n{}".format(top_border, middle_border, down_border)
 
 
     def __repr__(self):
         """Represents the queue as a string."""
-        return self._print_queue(dir_char='⟶')
+        return self._print_queue(direction_char='⟶')
 
 
     ############################## LENGTH ##############################
@@ -66,7 +68,7 @@ class Queue():
 
     def is_empty(self):
         """Checks if the Queue is empty"""
-        return len(self.container) == 0
+        return self.container.is_empty()
 
 
     def clear(self):
