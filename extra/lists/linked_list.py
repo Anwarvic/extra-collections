@@ -424,6 +424,7 @@ class LinkedList:
         assert 0 <= idx or idx < self.length
         prev_node, node = self._get_node(idx)
         self._remove_node(prev_node, node)
+        return self._basic_node(node.get_data())
 
 
     def __delitem__(self, idx):
@@ -433,19 +434,19 @@ class LinkedList:
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
-        self._remove_idx(idx)
+        return self._remove_idx(idx)
     
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
         if not self.is_empty():
-            self.__delitem__(0)
+            return self.__delitem__(0)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
         if not self.is_empty():
-            self.__delitem__( self.length-1 )
+            return self.__delitem__( self.length-1 )
 
 
     def _remove_value(self, value, all):
