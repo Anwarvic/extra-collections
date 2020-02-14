@@ -12,7 +12,8 @@ def test_creating_stack():
     assert len(s) == 0
     assert s.is_empty()
     assert s.is_full() == False
-    assert s.pop() == None
+    with pytest.warns(UserWarning):
+        assert s.pop() == None
     with pytest.raises(IndexError):
         s.peek()
     s.clear() #not to through any errors
@@ -24,7 +25,8 @@ def test_creating_stack():
     assert len(s) == 0
     assert s.is_empty()
     assert s.is_full()
-    assert s.pop() == None
+    with pytest.warns(UserWarning):
+        assert s.pop() == None
     with pytest.raises(IndexError):
         s.peek()
     with pytest.raises(OverflowError):
@@ -46,7 +48,7 @@ def test_stack_with_max_capacity():
     assert s.is_full()
     with pytest.raises(OverflowError):
         s.push(get_value())
-    for i in range(cap):
+    for _ in range(cap):
         assert s.peek() == lst[-1]
         assert s.pop() == lst.pop()
     assert len(s) == 0
@@ -83,7 +85,8 @@ def test_creating_stack_with_random_numbers():
         assert s.pop() == lst.pop()
     assert len(s) == 0
     assert s.is_empty()
-    assert s.pop() == None
+    with pytest.warns(UserWarning):
+        assert s.pop() == None
     assert s.is_full() == False
 
 

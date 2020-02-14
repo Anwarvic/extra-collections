@@ -11,7 +11,8 @@ def test_creating_queue():
     assert q.max_capacity == float("inf")
     assert len(q) == 0
     assert q.is_empty()
-    assert q.dequeue() == None
+    with pytest.warns(UserWarning):
+        assert q.dequeue() == None
     with pytest.raises(IndexError):
         q.get_first()
     q.clear() #not to through any errors
@@ -22,7 +23,8 @@ def test_creating_queue():
     assert q.max_capacity == 0
     assert len(q) == 0
     assert q.is_empty()
-    assert q.dequeue() == None
+    with pytest.warns(UserWarning):
+        assert q.dequeue() == None
     with pytest.raises(IndexError):
         q.get_first()
     with pytest.warns(UserWarning):
@@ -32,3 +34,22 @@ def test_creating_queue():
     assert q.is_full()
 
 
+def test_stack_with_max_capacity():
+    cap = get_pos_int()
+    lst = get_list(length=cap)
+    q = Queue(max_capacity=cap)
+    assert q.max_capacity == cap
+    for i in lst:
+        q.enqueue(i)
+    assert len(q) == cap
+    assert not q.is_empty()
+    assert q.is_full()
+    for _ in range(cap):
+        assert q.dequeue() == lst.pop(0)
+    assert len(q) == 0
+    assert q.is_empty()
+    assert q.is_full() == False
+    q.enqueue(get_value())
+    # test max capacity after clear
+    q.clear()
+    assert q.max_capacity == cap
