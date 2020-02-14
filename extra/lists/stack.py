@@ -1,3 +1,7 @@
+import warnings
+
+
+
 
 class Stack:
     """Basic object for the Stack data structure"""
@@ -8,6 +12,8 @@ class Stack:
     def __init__(self, max_capacity=float("inf")):
         if type(max_capacity) not in {int, float}:
             raise TypeError("Max Capacity has to be a number!!")
+        if max_capacity < 0:
+            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0!")
         self.container = []
         self.max_capacity = max_capacity
 
@@ -64,8 +70,9 @@ class Stack:
     ############################# REMOVE #############################
     def pop(self):
         """Pops item from the stack"""
-        if not self.is_empty():
-            return self.container.pop()
+        if self.is_empty():
+            warnings.warn("Popping from empty Stack!!", UserWarning)
+        return self.container.pop()
 
 
     def clear(self):
