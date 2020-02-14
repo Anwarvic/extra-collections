@@ -7,15 +7,22 @@ def get_int(a=-1000, b=1000):
     return random.randint(a, b)
 
 
-def get_pos_int(a=0, b=1000):
+def get_pos_int(a=1, b=1000):
     return random.randint(a, b)
 
 
-def get_neg_int(a=-1000, b=0):
+def get_neg_int(a=-1000, b=-1):
     return random.randint(a, b)
 
 
 def get_float(a=-1000, b=1000):
+    return random.uniform(a, b)
+
+def get_pos_float(a=1, b=1000):
+    return random.uniform(a, b)
+
+
+def get_neg_float(a=-1000, b=-1):
     return random.uniform(a, b)
 
 
