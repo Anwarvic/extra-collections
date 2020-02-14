@@ -72,7 +72,9 @@ class Stack:
         """Pops item from the stack"""
         if self.is_empty():
             warnings.warn("Popping from empty Stack!!", UserWarning)
-        return self.container.pop()
+            return None
+        else:
+            return self.container.pop()
 
 
     def clear(self):

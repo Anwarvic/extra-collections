@@ -6,8 +6,15 @@ from extra.lists.doubly_linked_list import DoublyLinkedList
 
 class Queue():
     """Basic object for the Queue data structure"""
+    def __name__(self):
+        return "extra.Queue()"
+    
+    
     def __init__(self, max_capacity=float("inf")):
-        assert type(max_capacity) in {int, float}, "Max Capacity is a number!!"
+        if type(max_capacity) not in {int, float}:
+            raise TypeError("Max Capacity has to be a number!!")
+        if max_capacity < 0:
+            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0!")
         self.container = DoublyLinkedList()
         self.max_capacity = max_capacity
 
@@ -60,7 +67,7 @@ class Queue():
 
     def enqueue(self, item):
         """Insert value into the Queue"""
-        self.__validate_item(item)
+        self._validate_item(item)
         if len(self.container) >= self.max_capacity:
             warnings.warn(\
                 "Enqueuing to a full queue could lead to missing values!!",
@@ -72,7 +79,11 @@ class Queue():
     ############################# DEQUEUE ##############################
     def dequeue(self):
         """Removes value from the Queue (Queue's head)"""
-        return self.container.remove_end()
+        if self.is_empty():
+            warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
+            return None
+        else:
+            return self.container.remove_end().get_data()
 
 
     def clear(self):
@@ -93,24 +104,31 @@ class Queue():
 
 
 if __name__ == "__main__":
-    q = Queue(max_capacity=3)
-    q.enqueue(2)  #2
-    print(q)
-    q.enqueue(40) #40 2
-    print(q)
-    q.enqueue(800)#800 42 2
-    q.enqueue('hello') #hello 800 40 (replaces most right item)
-    print(q)
+    # q = Queue(max_capacity=3)
+    # q.enqueue(2)  #2
+    # print(q)
+    # q.enqueue(40) #40 2
+    # print(q)
+    # q.enqueue(800)#800 42 2
+    # q.enqueue('hello') #hello 800 40 (replaces most right item)
+    # print(q)
     
-    print('='*20)
-    print(q.get_left()) #hello
-    print(q.get_right()) #'40
-    q.dequeue()
-    print(q) #hello 800
+    # print('='*20)
+    # print(q.get_left()) #hello
+    # print(q.get_right()) #'40
+    # q.dequeue()
+    # print(q) #hello 800
 
-    print('='*20)
-    print(q.is_empty()) #False
-    q.clear()
+    # print('='*20)
+    # print(q.is_empty()) #False
+    # q.clear()
+    # print(q)
+    # print(q.is_empty()) #True
+    # print(q.max_capacity)
+    lst = [1, 2, 3, 4]
+    q = Queue()
+    for i in lst:
+        q.enqueue(i)
+    for i in range(4):
+        q.dequeue()
     print(q)
-    print(q.is_empty()) #True
-    print(q.max_capacity)
