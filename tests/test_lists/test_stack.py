@@ -47,6 +47,7 @@ def test_stack_with_max_capacity():
     with pytest.raises(OverflowError):
         s.push(get_value())
     for i in range(cap):
+        assert s.peek() == lst[-1]
         assert s.pop() == lst.pop()
     assert len(s) == 0
     assert s.is_empty()
@@ -55,6 +56,15 @@ def test_stack_with_max_capacity():
     # test max capacity after clear
     s.clear()
     assert s.max_capacity == cap
+
+
+def test_stack_with_invalid_max_capacity():
+    with pytest.raises(TypeError):
+        Stack(max_capacity=get_list())
+        Stack(max_capacity=get_string())
+    with pytest.raises(ValueError):
+        Stack(max_capacity=get_neg_int())
+        Stack(max_capacity=get_neg_float())
 
 
 def test_creating_stack_with_random_numbers():
@@ -66,8 +76,8 @@ def test_creating_stack_with_random_numbers():
     assert s.container == lst
     assert len(s) == len(lst)
     assert s.peek() == lst[-1]
-    assert s.is_empty() == False
-    assret s.is_full()
+    assert not s.is_empty()
+    assert not s.is_full()
     for _ in range(len(lst)):
         assert s.peek() == lst[-1]
         assert s.pop() == lst.pop()
@@ -90,7 +100,7 @@ def test_stack_with_known_values():
     assert s.pop() == 800
     assert s.container == [2, 40]
     assert not s.is_empty()
-    assert s.is_full()
+    assert not s.is_full()
     s.clear()
     assert s.is_empty()
     assert s.max_capacity == 3
