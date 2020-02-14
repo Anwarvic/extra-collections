@@ -1,3 +1,4 @@
+import warnings
 from extra.lists.doubly_linked_list import DoublyLinkedList
 
 
@@ -40,7 +41,7 @@ class Queue():
         return len(self.container)
 
 
-    ############################## PEEK ################################
+    ############################## GET ################################
     def get_first(self):
         """Returns the Qeueu head (first element to be inserted) """
         if self.is_empty():
@@ -49,10 +50,21 @@ class Queue():
 
 
     ############################# ENQUEUE ##############################
+    def _validate_item(self, item):
+        if item is None:
+            raise TypeError(f"Can't push `None` into {self.__name__()}!!")
+        elif type(item) == str and item == '':
+            raise ValueError(\
+                f"Can't push empty-string into {self.__name__()}!!")
+    
+
     def enqueue(self, item):
         """Insert value into the Queue"""
+        self.__validate_item(item)
         if len(self.container) >= self.max_capacity:
-            # raise OverflowError("Can't push into a full queue!")
+            warnings.warn(\
+                "Enqueuing to a full queue could lead to missing values!!",
+                UserWarning)
             self.container.remove_end()
         self.container.add_front(item)
 
@@ -63,14 +75,19 @@ class Queue():
         return self.container.remove_end()
 
 
+    def clear(self):
+        """Clears the whole Queue"""
+        self.__init__(max_capacity=self.max_capacity)
+
+
+    ############################# STATUSS ##############################
     def is_empty(self):
         """Checks if the Queue is empty"""
         return self.container.is_empty()
 
 
-    def clear(self):
-        """Clears the whole Queue"""
-        self.__init__(max_capacity=self.max_capacity)
+    def is_full(self):
+        return len(self) == self.max_capacity
 
 
 
