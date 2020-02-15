@@ -100,3 +100,18 @@ def test_queue_with_known_values():
     assert q.is_empty()
     assert q.max_capacity == 3
     assert q.is_full() == False
+
+
+def test_push_method():
+    q = Queue()
+    with pytest.raises(TypeError):
+        q.enqueue(None)
+    with pytest.raises(ValueError):
+        q.enqueue('')
+    q.enqueue(get_value())
+    q.enqueue(get_int())
+    q.enqueue(get_string())
+    q.enqueue(get_float())
+    q.enqueue(get_list())
+
+
