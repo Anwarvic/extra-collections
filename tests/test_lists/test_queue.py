@@ -71,11 +71,11 @@ def test_creating_queue_with_random_numbers():
     for i in lst:
         q.enqueue(i)
     assert len(q) == len(lst)
-    assert q.get_first() == lst[-1]
+    assert q.get_first() == lst[0]
     assert not q.is_empty()
     assert not q.is_full()
     for _ in range(len(lst)):
-        assert q.get_first() == lst[-1]
+        assert q.get_first() == lst[0]
         assert q.dequeue() == lst.pop(0)
     assert len(q) == 0
     assert q.is_empty()
@@ -84,4 +84,19 @@ def test_creating_queue_with_random_numbers():
     assert q.is_full() == False
 
 
-
+def test_queue_with_known_values():
+    q = Queue(max_capacity=3)
+    q.enqueue(2)
+    q.enqueue(40)
+    q.enqueue(800)
+    assert len(q) == 3
+    with pytest.warns(UserWarning):
+        q.enqueue(16000)
+    assert q.get_first() == 40
+    assert q.dequeue() == 40
+    assert not q.is_empty()
+    assert not q.is_full()
+    q.clear()
+    assert q.is_empty()
+    assert q.max_capacity == 3
+    assert q.is_full() == False
