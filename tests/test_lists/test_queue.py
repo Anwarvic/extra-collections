@@ -34,7 +34,7 @@ def test_creating_queue():
     assert q.is_full()
 
 
-def test_stack_with_max_capacity():
+def test_queue_with_max_capacity():
     cap = get_pos_int()
     lst = get_list(length=cap)
     q = Queue(max_capacity=cap)
@@ -53,3 +53,14 @@ def test_stack_with_max_capacity():
     # test max capacity after clear
     q.clear()
     assert q.max_capacity == cap
+
+
+def test_stack_with_invalid_max_capacity():
+    with pytest.raises(TypeError):
+        Queue(max_capacity=get_list())
+        Queue(max_capacity=get_string())
+    with pytest.raises(ValueError):
+        Queue(max_capacity=get_neg_int())
+        Queue(max_capacity=get_neg_float())
+
+
