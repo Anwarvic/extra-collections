@@ -64,3 +64,24 @@ def test_stack_with_invalid_max_capacity():
         Queue(max_capacity=get_neg_float())
 
 
+def test_creating_queue_with_random_numbers():
+    # stack with random values
+    lst = get_list(length=100)
+    q = Queue()
+    for i in lst:
+        q.enqueue(i)
+    assert len(q) == len(lst)
+    assert q.get_first() == lst[-1]
+    assert not q.is_empty()
+    assert not q.is_full()
+    for _ in range(len(lst)):
+        assert q.get_first() == lst[-1]
+        assert q.dequeue() == lst.pop(0)
+    assert len(q) == 0
+    assert q.is_empty()
+    with pytest.warns(UserWarning):
+        assert q.dequeue() == None
+    assert q.is_full() == False
+
+
+
