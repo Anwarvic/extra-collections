@@ -13,7 +13,7 @@ class Queue():
     def __init__(self, max_capacity=float("inf")):
         if type(max_capacity) not in {int, float}:
             raise TypeError("Max Capacity has to be a number!!")
-        if max_capacity < 0:
+        elif max_capacity < 0:
             raise ValueError(f"Max capacity of {self.__name__()} must be >= 0!")
         self.container = DoublyLinkedList()
         self.max_capacity = max_capacity
@@ -52,7 +52,8 @@ class Queue():
     def get_first(self):
         """Returns the Qeueu head (first element to be inserted) """
         if self.is_empty():
-            raise IndexError("Can't retrieve from an empty Queue!!")
+            raise IndexError(\
+                f"Can't retrieve from an empty {self.__name__()}!!")
         return self.container.head.get_data()
 
 
@@ -72,8 +73,8 @@ class Queue():
             warnings.warn(\
                 "Enqueuing to a full queue could lead to missing values!!",
                 UserWarning)
-            self.container.remove_end()
-        self.container.add_front(item)
+            self.container.remove_front()
+        self.container.add_end(item)
 
 
     ############################# DEQUEUE ##############################
@@ -83,7 +84,7 @@ class Queue():
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
             return None
         else:
-            return self.container.remove_end().get_data()
+            return self.container.remove_front().get_data()
 
 
     def clear(self):
