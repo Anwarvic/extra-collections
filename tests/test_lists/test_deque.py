@@ -54,7 +54,7 @@ def test_deque_with_max_capacity():
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
-        assert dq.pop_first() == lst.pop(0)
+        assert dq.pop_first() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() == False
@@ -73,7 +73,7 @@ def test_deque_with_max_capacity():
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
-        assert dq.pop_last() == lst.pop(0)
+        assert dq.pop_last() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() == False
@@ -84,13 +84,13 @@ def test_deque_with_max_capacity():
 
 
 
-# def test_stack_with_invalid_max_capacity():
-#     with pytest.raises(TypeError):
-#         Queue(max_capacity=get_list())
-#         Queue(max_capacity=get_string())
-#     with pytest.raises(ValueError):
-#         Queue(max_capacity=get_neg_int())
-#         Queue(max_capacity=get_neg_float())
+def test_deque_with_invalid_max_capacity():
+    with pytest.raises(TypeError):
+        Deque(max_capacity=get_list())
+        Deque(max_capacity=get_string())
+    with pytest.raises(ValueError):
+        Deque(max_capacity=get_neg_int())
+        Deque(max_capacity=get_neg_float())
 
 
 # def test_creating_queue_with_random_numbers():
