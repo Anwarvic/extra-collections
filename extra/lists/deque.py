@@ -1,15 +1,29 @@
-from queue import Queue
+import warnings
+
+from extra.lists.queue import Queue
 
 
 
 
 class Deque(Queue):
     """Basic object for the Deque data structure"""
+    def __name__(self):
+        return "extra.Deque()"
+    
 
     ############################## PRINT ##############################
     def __repr__(self):
         """Represents the deque as a string."""
         return super()._print_queue('⟷')
+
+    
+    ############################## GET ################################
+    def get_last(self):
+        """Returns the Qeueu tail (last element to be enqueued) """
+        if self.is_empty():
+            raise IndexError(\
+                f"Can't retrieve from an empty {self.__name__()}!!")
+        return self.container.tail.get_data()
 
 
     ############################# APPEND ##############################
