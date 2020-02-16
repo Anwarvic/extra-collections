@@ -5,7 +5,7 @@ from extra.lists.deque import Deque
 
 
 
-def test_creating_queue():
+def test_creating_deque():
     # empty stack
     dq = Deque()
     assert dq.max_capacity == float("inf")
@@ -42,25 +42,46 @@ def test_creating_queue():
     assert dq.is_full()
 
 
-# def test_queue_with_max_capacity():
-#     cap = get_pos_int()
-#     lst = get_list(length=cap)
-#     q = Queue(max_capacity=cap)
-#     assert q.max_capacity == cap
-#     for i in lst:
-#         q.enqueue(i)
-#     assert len(q) == cap
-#     assert not q.is_empty()
-#     assert q.is_full()
-#     for _ in range(cap):
-#         assert q.dequeue() == lst.pop(0)
-#     assert len(q) == 0
-#     assert q.is_empty()
-#     assert q.is_full() == False
-#     q.enqueue(get_value())
-#     # test max capacity after clear
-#     q.clear()
-#     assert q.max_capacity == cap
+def test_deque_with_max_capacity():
+    cap = get_pos_int()
+    # test append_first/pop_first
+    lst = get_list(length=cap)
+    dq = Deque(max_capacity=cap)
+    assert dq.max_capacity == cap
+    for i in lst:
+        dq.append_first(i)
+    assert len(dq) == cap
+    assert not dq.is_empty()
+    assert dq.is_full()
+    for _ in range(cap):
+        assert dq.pop_first() == lst.pop(0)
+    assert len(dq) == 0
+    assert dq.is_empty()
+    assert dq.is_full() == False
+    dq.enqueue(get_value())
+    # test max capacity after clear
+    dq.clear()
+    assert dq.max_capacity == cap
+
+    # test append_last/pop_last
+    lst = get_list(length=cap)
+    dq = Deque(max_capacity=cap)
+    assert dq.max_capacity == cap
+    for i in lst:
+        dq.append_last(i)
+    assert len(dq) == cap
+    assert not dq.is_empty()
+    assert dq.is_full()
+    for _ in range(cap):
+        assert dq.pop_last() == lst.pop(0)
+    assert len(dq) == 0
+    assert dq.is_empty()
+    assert dq.is_full() == False
+    dq.enqueue(get_value())
+    # test max capacity after clear
+    dq.clear()
+    assert dq.max_capacity == cap
+
 
 
 # def test_stack_with_invalid_max_capacity():
