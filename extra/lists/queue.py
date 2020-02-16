@@ -102,34 +102,3 @@ class Queue():
         return len(self) == self.max_capacity
 
 
-
-
-if __name__ == "__main__":
-    # q = Queue(max_capacity=3)
-    # q.enqueue(2)  #2
-    # print(q)
-    # q.enqueue(40) #40 2
-    # print(q)
-    # q.enqueue(800)#800 42 2
-    # q.enqueue('hello') #hello 800 40 (replaces most right item)
-    # print(q)
-    
-    # print('='*20)
-    # print(q.get_left()) #hello
-    # print(q.get_right()) #'40
-    # q.dequeue()
-    # print(q) #hello 800
-
-    # print('='*20)
-    # print(q.is_empty()) #False
-    # q.clear()
-    # print(q)
-    # print(q.is_empty()) #True
-    # print(q.max_capacity)
-    lst = [1, 2, 3, 4]
-    q = Queue()
-    for i in lst:
-        q.enqueue(i)
-    for i in range(4):
-        q.dequeue()
-    print(q)
