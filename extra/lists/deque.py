@@ -55,13 +55,3 @@ class Deque(Queue):
             return self.container.remove_end().get_data()
 
 
-
-
-if __name__ == "__main__":
-    q = Deque(max_capacity=3)
-    q.append_left(0)    #0
-    q.append_right(1)   #0 1
-    q.append_right(8)   #0 1 8
-    q.append_left(9)    #9 0 1
-    print(q)
-    
