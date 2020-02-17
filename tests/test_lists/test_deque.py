@@ -54,6 +54,8 @@ def test_deque_with_max_capacity():
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
+        assert dq.get_first() == lst[-1]
+        assert dq.get_last() == lst[0]
         assert dq.pop_first() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
@@ -73,6 +75,8 @@ def test_deque_with_max_capacity():
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
+        assert dq.get_first() == lst[0]
+        assert dq.get_last() == lst[-1]
         assert dq.pop_last() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
@@ -81,7 +85,6 @@ def test_deque_with_max_capacity():
     # test max capacity after clear
     dq.clear()
     assert dq.max_capacity == cap
-
 
 
 def test_deque_with_invalid_max_capacity():
@@ -93,24 +96,24 @@ def test_deque_with_invalid_max_capacity():
         Deque(max_capacity=get_neg_float())
 
 
-# def test_creating_queue_with_random_numbers():
-#     # stack with random values
-#     lst = get_list(length=100)
-#     q = Queue()
-#     for i in lst:
-#         q.enqueue(i)
-#     assert len(q) == len(lst)
-#     assert q.get_first() == lst[0]
-#     assert not q.is_empty()
-#     assert not q.is_full()
-#     for _ in range(len(lst)):
-#         assert q.get_first() == lst[0]
-#         assert q.dequeue() == lst.pop(0)
-#     assert len(q) == 0
-#     assert q.is_empty()
-#     with pytest.warns(UserWarning):
-#         assert q.dequeue() == None
-#     assert q.is_full() == False
+def test_creating_queue_with_random_numbers():
+    # stack with random values
+    lst = get_list(length=100)
+    dq = Deque()
+    for i in lst:
+        dq.append_last(i)
+    assert len(dq) == len(lst)
+    assert dq.get_first() == lst[0]
+    assert not dq.is_empty()
+    assert not dq.is_full()
+    for _ in range(len(lst)):
+        assert dq.get_first() == lst[0]
+        assert dq.dequeue() == lst.pop(0)
+    assert len(dq) == 0
+    assert dq.is_empty()
+    with pytest.warns(UserWarning):
+        assert dq.dequeue() == None
+    assert dq.is_full() == False
 
 
 # def test_queue_with_known_values():
