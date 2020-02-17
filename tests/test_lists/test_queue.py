@@ -55,7 +55,7 @@ def test_queue_with_max_capacity():
     assert q.max_capacity == cap
 
 
-def test_stack_with_invalid_max_capacity():
+def test_queue_with_invalid_max_capacity():
     with pytest.raises(TypeError):
         Queue(max_capacity=get_list())
         Queue(max_capacity=get_string())
@@ -102,7 +102,7 @@ def test_queue_with_known_values():
     assert q.is_full() == False
 
 
-def test_push_method():
+def test_enqueue_method():
     q = Queue()
     with pytest.raises(TypeError):
         q.enqueue(None)
