@@ -31,6 +31,8 @@ class Deque(Queue):
         """Insert value into the front of the Deque"""
         super()._validate_item(item)
         if self.is_full():
+            warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
+                "could lead to missing values!!", UserWarning)
             self.container.remove_end()
         self.container.add_front(item)
 
