@@ -122,4 +122,3 @@ def test_push_method():
     s.push(get_float())
     s.push(get_list())
 
-
