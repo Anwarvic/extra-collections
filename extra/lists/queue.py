@@ -69,15 +69,14 @@ class Queue():
     def enqueue(self, item):
         """Insert value into the Queue"""
         self._validate_item(item)
-        if len(self.container) >= self.max_capacity:
-            warnings.warn(\
-                "Enqueuing to a full queue could lead to missing values!!",
-                UserWarning)
+        if self.is_full():
+            warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
+                "could lead to missing values!!", UserWarning)
             self.container.remove_front()
         self.container.add_end(item)
 
 
-    ############################# DEQUEUE ##############################
+    ##############################    DEQUEUE    ##############################
     def dequeue(self):
         """Removes value from the Queue (Queue's head)"""
         if self.is_empty():
@@ -92,7 +91,7 @@ class Queue():
         self.__init__(max_capacity=self.max_capacity)
 
 
-    ############################# STATUSS ##############################
+    ##############################     STATUS     ##############################
     def is_empty(self):
         """Checks if the Queue is empty"""
         return self.container.is_empty()
