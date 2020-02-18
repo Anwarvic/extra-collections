@@ -75,8 +75,11 @@ def test_creating_doubly_linked_list_from_constructor():
     dl.tail.get_prev() == dl.head.prev is None
     assert len(dl) == dl.length == 1
     assert dl.to_list() == [item.get_data() for item in dl] == [val]
-    # Using Node
-    dl = DoublyLinkedList( Node(get_value()) )
+    # Using Node (should shows a Warning!)
+    with pytest.warns(UserWarning):
+        DoublyLinkedList(Node())
+        DoublyLinkedList(Node(get_value()))
+    dl = DoublyLinkedList( DoublyNode(get_value()) )
     # Using DoublyNode
     val = get_value()
     node = DoublyNode(val)
@@ -140,8 +143,9 @@ def test_empty_doubly_linked_list():
     assert len(dl.copy()) == 0
     assert len(dl.reverse()) == 0
     #################### test operators ####################
-    with pytest.raises(TypeError):
+    with pytest.warns(UserWarning):
         DoublyLinkedList(Node())
+    with pytest.raises(TypeError):
         DoublyLinkedList(LinkedList())
         LinkedList() == DoublyLinkedList(DoublyNode())
         LinkedList() != DoublyLinkedList(DoublyNode())
