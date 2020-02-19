@@ -61,9 +61,9 @@ class Queue():
     def _validate_item(self, item):
         if item is None:
             raise TypeError(f"Can't push `None` into {self.__name__()}!!")
-        elif type(item) == str and item == '':
+        elif type(item) == str and item.strip() == '':
             raise ValueError(\
-                f"Can't push empty-string into {self.__name__()}!!")
+                f"Can't push an empty-string into {self.__name__()}!!")
     
 
     def enqueue(self, item):
