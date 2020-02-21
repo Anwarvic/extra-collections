@@ -56,9 +56,13 @@ class TrieNode(TreeNode):
 
 
 class Trie(Tree):
+    def __name__(self):
+        return "extra.Trie()"
+    
+
     def __init__(self):
-        self.root = TrieNode('ROOT')
-        # self.root.data = "ROOT"
+        self.root = TrieNode('x')
+        self.root.data = "ROOT"
         self.nodes_count = 1
 
 
@@ -73,6 +77,7 @@ class Trie(Tree):
         This method parses the Trie and returns the last accessed node and
         the part of the word that can't be parsed.
         """
+        assert type(word) == str
         curr_node = self.root
         while(word):
             ch = word[0]
@@ -88,16 +93,17 @@ class Trie(Tree):
 
 
     def __contains__(self, word):
-        assert type(word) == str, \
-        "Can't find {} since tries contain only characters!!".format(type(word))
+        if type(word) != str:
+            raise TypeError(f"Can't find {type(word)} since " + \
+                f"{self.__name__()} contain only characters!!")
         last_node, remaining_word = self._follow_path(word)
         return remaining_word == "" and last_node.is_word
 
 
     def has_prefix(self, prefix):
-        assert type(prefix) == str, \
-        "Can't find {} since tries have only characters!!".format(type(prefix))
-        assert len(prefix) > 0, "You can't search for any empty String!!"
+        if type(prefix) != str:
+            raise TypeError(f"Can't find {type(word)} since " + \
+                f"{self.__name__()} contain only characters!!")
         last_node, remaining = self._follow_path(prefix)
         if remaining:
             child = last_node.get_child(remaining[0])
@@ -108,8 +114,10 @@ class Trie(Tree):
 
     ############################## INSERTION ##############################
     def insert(self, word):
-        assert type(word) == str, "You can insert String objects only!!"
-        assert len(word) > 0, "You can't insert any empty String!!"
+        if type(word) != str:
+            raise TypeError("You can insert only String objects!!")
+        elif len(word.strip()) == 0:
+            raise ValueError("You can't insert any empty String!!")
         last_node, remaining_word = self._follow_path(word)
         curr_node = last_node
         for ch in remaining_word:
@@ -122,7 +130,8 @@ class Trie(Tree):
 
     ############################## REMOVE ##############################
     def remove(self, word):
-        assert type(word) == str, "You can remove String objects only!!"
+        if type(word) != str:
+            raise TypeError("You can remove String objects only!!")
         last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
@@ -137,6 +146,8 @@ class Trie(Tree):
 
     ######################### AUTO-COMPLETION #########################
     def _get_candidates(self, start_node, prefix):
+        assert isinstance(start_node, TrieNode)
+        assert type(prefix) == str
         output = []
         new_prefix = prefix + [start_node.get_data()]
         if start_node.is_word:
@@ -147,7 +158,8 @@ class Trie(Tree):
         return output
 
     def auto_complete(self, prefix=''):
-        assert type(prefix) == str, "A character-sequence is expected!!"
+        if type(prefix) != str:
+            raise TypeError("A character-sequence is expected to be used!!")
         last_node, remaining = self._follow_path(prefix)
         candidates = []
         if remaining == "":
@@ -165,51 +177,49 @@ class Trie(Tree):
 
 
 if __name__ == "__main__":
-    # t = Trie()
-    # t.insert('car')
-    # t.insert('card')
-    # t.insert('cards')
-    # t.insert('cot')
-    # t.insert('cots')
-    # t.insert('trie')
-    # t.insert('tried')
-    # t.insert('tries')
-    # t.insert('try')
-    # print(t.has_prefix('ca')) #True
-    # print("Total Nodes:", len(t)) #16
-    # print(t)
+    t = Trie()
+    t.insert('car')
+    t.insert('card')
+    t.insert('cards')
+    t.insert('cot')
+    t.insert('cots')
+    t.insert('trie')
+    t.insert('tried')
+    t.insert('tries')
+    t.insert('try')
+    print(t.has_prefix('ca')) #True
+    print("Total Nodes:", len(t)) #16
+    print(t)
 
-    # # explort Trie
-    # print(t.root) #TrieNode(ROOT)
-    # print(t.root.get_child('t').data) #t
-    # print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
+    # explort Trie
+    print(t.root) #TrieNode(ROOT)
+    print(t.root.get_child('t').data) #t
+    print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
     
-    # # test find() and get_cadidates()
-    # print('cards' in t) #True
-    # print('c' in t) #False
-    # print(t.auto_complete())
-    # #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
-    # print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
-    # print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
-    # print(t.auto_complete('caa')) #[]
-    # print('='*50)
+    # test find() and get_cadidates()
+    print('cards' in t) #True
+    print('c' in t) #False
+    print(t.auto_complete())
+    #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
+    print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
+    print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
+    print(t.auto_complete('caa')) #[]
+    print('='*50)
     
-    # # test remove()
-    # t = Trie()
-    # t.insert("tre")
-    # t.insert("trees")
-    # t.insert("treed")
-    # t.remove("trees")
-    # t.remove("tre")
-    # print(t)
-    # print("Total Nodes:", len(t)) #6
-    # print(t.auto_complete("t")) #['treed']
+    # test remove()
+    t = Trie()
+    t.insert("tre")
+    t.insert("trees")
+    t.insert("treed")
+    t.remove("trees")
+    t.remove("tre")
+    print(t)
+    print("Total Nodes:", len(t)) #6
+    print(t.auto_complete("t")) #['treed']
 
-    # # sanity checks
-    # t = Trie()
-    # t.insert('a')
-    # t.insert('A')
-    # t.remove('AA')
-    # print(t)
-
-    Trie()
+    # sanity checks
+    t = Trie()
+    t.insert('a')
+    t.insert('A')
+    t.remove('AA')
+    print(t)
