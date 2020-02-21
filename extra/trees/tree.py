@@ -3,8 +3,10 @@ import os
 
 class TreeNode:
     def __init__(self, value):
-        assert value != None, "TreeNode's value can't be None!!"
-        assert value != '',   "TreeNode's value can't be an empty string!!"
+        if value is None:
+            raise TypeError("TreeNode's value can't be `None`!!")
+        elif type(value) == str and value.strip() == '':
+            raise ValueError("TreeNode's value can't be an empty string!!")
         self.data = value
         self.children = []
 
@@ -38,6 +40,10 @@ class TreeNode:
 
 
 class Tree:
+    def __name__(self):
+        return "extra.Tree()"
+    
+    
     def __init__(self, value):
         if isinstance(value, TreeNode):
             self.root = value
@@ -50,7 +56,7 @@ class Tree:
         node = TreeNode(curr_folder)
         abs_path = os.path.join(parent_abs_path, curr_folder)
         if os.path.isdir(abs_path):
-            for child in os.listdir(abs_path):
+            for child in sorted( os.listdir(abs_path) ):
                 node.set_child(Tree.__form_tree_from_path(abs_path, child))
         return node
 
@@ -112,35 +118,6 @@ class Tree:
 
 
 
-if __name__ == "__main__":
-    # # create Simpsons tree
-    # root = TreeNode('TheSimpsons')
-    # # homer-side
-    # abraham = TreeNode('Abraham + Mona')
-    # herb = TreeNode('Herb')
-    # homer = TreeNode('Homer')
-    # abraham.children = [herb, homer]
+
+
     
-    # # marge-side
-    # jackie = TreeNode('Clancy + Jackie')
-    # marge = TreeNode('Marge')
-    # patty = TreeNode('Patty')
-    # selma = TreeNode('Selma')
-    # ling = TreeNode('Ling')
-    # selma.children = [ling]
-    # jackie.children = [marge, patty, selma]
-
-    # # homer-marge children
-    # bart = TreeNode('Bart')
-    # lisa = TreeNode('Lisa')
-    # maggie = TreeNode('Maggie')
-    # homer.children = [bart, lisa, maggie]
-    # marge.children = homer.children
-    # # set root
-    # root.children = [abraham, jackie]
-    # t = Tree(root)
-    # print(t)
-    # print(len(t))
-
-    t = Tree.from_path("/home/anwar/Documents/EXTRA/extra/trees")
-    print(t)
