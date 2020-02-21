@@ -1,19 +1,26 @@
-from tree import TreeNode, Tree
+from extra.trees.tree import TreeNode, Tree
+
+
 
 
 class TrieNode(TreeNode):
     def __init__(self, value):
-        assert type(value)==str, "Trie nodes accept characters only!!"
+        if type(value) != str:
+            "Trie nodes accept characters only!!"
+        assert len(value) == 1
         self.parent = None
         self.data = value
         self.children = {}
         self.is_word = False
 
+
     def get_characters(self):
         return self.children.keys()
 
+
     def get_children(self):
         return list(self.children.values())
+
 
     def get_child(self, ch):
         try:
@@ -21,18 +28,23 @@ class TrieNode(TreeNode):
         except KeyError:
             return None
 
+
     def get_parent(self):
         return self.parent
+
 
     def set_child(self, ch, new_node):
         self.children[ch] = new_node
         new_node.parent = self
-    
+
+
     def has_no_children(self):
         return self.children == {}
 
+
     def __repr__(self):
         return f"TrieNode({self.data})"
+
 
     def __str__(self):
         if self.is_word:
@@ -42,10 +54,11 @@ class TrieNode(TreeNode):
 
 
 
+
 class Trie(Tree):
     def __init__(self):
-        self.root = TrieNode('')
-        self.root.data = "ROOT"
+        self.root = TrieNode('ROOT')
+        # self.root.data = "ROOT"
         self.nodes_count = 1
 
 
@@ -152,49 +165,51 @@ class Trie(Tree):
 
 
 if __name__ == "__main__":
-    t = Trie()
-    t.insert('car')
-    t.insert('card')
-    t.insert('cards')
-    t.insert('cot')
-    t.insert('cots')
-    t.insert('trie')
-    t.insert('tried')
-    t.insert('tries')
-    t.insert('try')
-    print(t.has_prefix('ca')) #True
-    print("Total Nodes:", len(t)) #16
-    print(t)
+    # t = Trie()
+    # t.insert('car')
+    # t.insert('card')
+    # t.insert('cards')
+    # t.insert('cot')
+    # t.insert('cots')
+    # t.insert('trie')
+    # t.insert('tried')
+    # t.insert('tries')
+    # t.insert('try')
+    # print(t.has_prefix('ca')) #True
+    # print("Total Nodes:", len(t)) #16
+    # print(t)
 
-    # explort Trie
-    print(t.root) #TrieNode(ROOT)
-    print(t.root.get_child('t').data) #t
-    print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
+    # # explort Trie
+    # print(t.root) #TrieNode(ROOT)
+    # print(t.root.get_child('t').data) #t
+    # print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
     
-    # test find() and get_cadidates()
-    print('cards' in t) #True
-    print('c' in t) #False
-    print(t.auto_complete())
-    #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
-    print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
-    print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
-    print(t.auto_complete('caa')) #[]
-    print('='*50)
+    # # test find() and get_cadidates()
+    # print('cards' in t) #True
+    # print('c' in t) #False
+    # print(t.auto_complete())
+    # #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
+    # print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
+    # print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
+    # print(t.auto_complete('caa')) #[]
+    # print('='*50)
     
-    # test remove()
-    t = Trie()
-    t.insert("tre")
-    t.insert("trees")
-    t.insert("treed")
-    t.remove("trees")
-    t.remove("tre")
-    print(t)
-    print("Total Nodes:", len(t)) #6
-    print(t.auto_complete("t")) #['treed']
+    # # test remove()
+    # t = Trie()
+    # t.insert("tre")
+    # t.insert("trees")
+    # t.insert("treed")
+    # t.remove("trees")
+    # t.remove("tre")
+    # print(t)
+    # print("Total Nodes:", len(t)) #6
+    # print(t.auto_complete("t")) #['treed']
 
-    # sanity checks
-    t = Trie()
-    t.insert('a')
-    t.insert('A')
-    t.remove('AA')
-    print(t)
+    # # sanity checks
+    # t = Trie()
+    # t.insert('a')
+    # t.insert('A')
+    # t.remove('AA')
+    # print(t)
+
+    Trie()
