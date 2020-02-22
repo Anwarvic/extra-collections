@@ -92,18 +92,20 @@ class Trie(Tree):
         return curr_node, word
 
 
-    def __contains__(self, word):
+    def _validate_item(self, word):
         if type(word) != str:
-            raise TypeError(f"Can't find {type(word)} since " + \
-                f"{self.__name__()} contain only characters!!")
+            raise TypeError(f"Can't deal with {type(word)} object since " + \
+                f"{self.__name__()} contains only characters!!")
+    
+
+    def __contains__(self, word):
+        self._validate_item(word)    
         last_node, remaining_word = self._follow_path(word)
         return remaining_word == "" and last_node.is_word
 
 
     def has_prefix(self, prefix):
-        if type(prefix) != str:
-            raise TypeError(f"Can't find {type(prefix)} since " + \
-                f"{self.__name__()} contain only characters!!")
+        self._validate_item(prefix)
         last_node, remaining = self._follow_path(prefix)
         if remaining:
             child = last_node.get_child(remaining[0])
@@ -114,9 +116,8 @@ class Trie(Tree):
 
     ############################## INSERTION ##############################
     def insert(self, word):
-        if type(word) != str:
-            raise TypeError("You can insert only String objects!!")
-        elif len(word.strip()) == 0:
+        self._validate_item(word)
+        if len(word.strip()) == 0:
             raise ValueError("You can't insert any empty String!!")
         last_node, remaining_word = self._follow_path(word)
         curr_node = last_node
@@ -130,8 +131,7 @@ class Trie(Tree):
 
     ############################## REMOVE ##############################
     def remove(self, word):
-        if type(word) != str:
-            raise TypeError("You can remove String objects only!!")
+        self._validate_item(word)
         last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
