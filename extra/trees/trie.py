@@ -61,7 +61,7 @@ class Trie(Tree):
     
 
     def __init__(self):
-        self.root = TrieNode('x')
+        self.root = TrieNode('x') #dummy data
         self.root.data = "ROOT"
         self.nodes_count = 1
 
@@ -102,7 +102,7 @@ class Trie(Tree):
 
     def has_prefix(self, prefix):
         if type(prefix) != str:
-            raise TypeError(f"Can't find {type(word)} since " + \
+            raise TypeError(f"Can't find {type(prefix)} since " + \
                 f"{self.__name__()} contain only characters!!")
         last_node, remaining = self._follow_path(prefix)
         if remaining:
@@ -145,17 +145,18 @@ class Trie(Tree):
 
 
     ######################### AUTO-COMPLETION #########################
-    def _get_candidates(self, start_node, prefix):
+    def _get_candidates(self, start_node, prev_prefixes):
         assert isinstance(start_node, TrieNode)
-        assert type(prefix) == str
+        assert type(prev_prefixes) == list
         output = []
-        new_prefix = prefix + [start_node.get_data()]
+        prefixes = prev_prefixes + [start_node.get_data()]
         if start_node.is_word:
-            output.append("".join(new_prefix))
+            output.append("".join(prefixes))
         # iterate over children
         for child in start_node.get_children():
-            output.extend( self._get_candidates(child, new_prefix) )
+            output.extend( self._get_candidates(child, prefixes) )
         return output
+
 
     def auto_complete(self, prefix=''):
         if type(prefix) != str:
@@ -177,34 +178,7 @@ class Trie(Tree):
 
 
 if __name__ == "__main__":
-    t = Trie()
-    t.insert('car')
-    t.insert('card')
-    t.insert('cards')
-    t.insert('cot')
-    t.insert('cots')
-    t.insert('trie')
-    t.insert('tried')
-    t.insert('tries')
-    t.insert('try')
-    print(t.has_prefix('ca')) #True
-    print("Total Nodes:", len(t)) #16
-    print(t)
 
-    # explort Trie
-    print(t.root) #TrieNode(ROOT)
-    print(t.root.get_child('t').data) #t
-    print(t.root.get_child('c').children) #{'a': TrieNode(a), 'o': TrieNode(o)}
-    
-    # test find() and get_cadidates()
-    print('cards' in t) #True
-    print('c' in t) #False
-    print(t.auto_complete())
-    #['car', 'card', 'cards', 'cot', 'cots', 'trie', 'tried', 'tries', 'try']
-    print(t.auto_complete('c')) #['car', 'card', 'cards', 'cot', 'cots']
-    print(t.auto_complete('tri')) #['trie', 'tried', 'tries']
-    print(t.auto_complete('caa')) #[]
-    print('='*50)
     
     # test remove()
     t = Trie()
