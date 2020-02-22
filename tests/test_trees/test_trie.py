@@ -8,7 +8,18 @@ def test_trienode():
     pass
 
 
-def test_trie_first_example():
+def test_trie_similar_words():
+    t = Trie()
+    t.insert("tre")
+    t.insert("trees")
+    t.insert("treed")
+    t.remove("trees")
+    t.remove("tre")
+    assert len(t) == 6
+    assert t.auto_complete("t") == ['treed']
+
+
+def test_trie_many_words():
     t = Trie()
     t.insert('car')
     t.insert('card')
@@ -22,10 +33,9 @@ def test_trie_first_example():
     assert t.has_prefix('ca')
     assert len(t) == 16
     # explort Trie
-    assert t.root == TrieNode("ROOT")
+    assert t.root.get_data() == "ROOT"
     assert t.root.get_child('t').get_data() == 't'
-    assert t.root.get_child('c').children == \
-        {'a': TrieNode('a'), 'o': TrieNode('o')}
+    assert list(t.root.get_child('c').get_characters()) == ['a', 'o']
     # test find() and get_cadidates()
     assert 'cards' in t
     assert 'c' not in t
