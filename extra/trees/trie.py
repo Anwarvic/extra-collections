@@ -173,27 +173,3 @@ class Trie(Tree):
         return candidates
 
 
-
-
-
-
-if __name__ == "__main__":
-
-    
-    # test remove()
-    t = Trie()
-    t.insert("tre")
-    t.insert("trees")
-    t.insert("treed")
-    t.remove("trees")
-    t.remove("tre")
-    print(t)
-    print("Total Nodes:", len(t)) #6
-    print(t.auto_complete("t")) #['treed']
-
-    # sanity checks
-    t = Trie()
-    t.insert('a')
-    t.insert('A')
-    t.remove('AA')
-    print(t)
