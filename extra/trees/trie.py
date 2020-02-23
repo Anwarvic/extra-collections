@@ -132,6 +132,8 @@ class Trie(Tree):
     ############################## REMOVE ##############################
     def remove(self, word):
         self._validate_item(word)
+        if len(word.strip()) == 0:
+            raise ValueError("You can't insert any empty String!!")
         last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
