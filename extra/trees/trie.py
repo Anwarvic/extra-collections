@@ -144,6 +144,10 @@ class Trie(Tree):
                 curr_node = parent
 
 
+    def clear(self):
+        self.__init__()
+    
+
     ######################### AUTO-COMPLETION #########################
     def _get_candidates(self, start_node, prev_prefixes):
         assert isinstance(start_node, TrieNode)
@@ -159,8 +163,7 @@ class Trie(Tree):
 
 
     def auto_complete(self, prefix=''):
-        if type(prefix) != str:
-            raise TypeError("A character-sequence is expected to be used!!")
+        self._validate_item(prefix)
         last_node, remaining = self._follow_path(prefix)
         candidates = []
         if remaining == "":
