@@ -92,10 +92,13 @@ class Trie(Tree):
         return curr_node, word
 
 
-    def _validate_item(self, word):
+    def _validate_item(self, word, accept_empty_string=True):
         if type(word) != str:
             raise TypeError(f"Can't deal with {type(word)} object since " + \
                 f"{self.__name__()} contains only characters!!")
+        if accept_empty_string and len(word.strip()) == 0:
+            raise ValueError(\
+                f"An empty string can't be here with {self.__name__()}!!")
     
 
     def __contains__(self, word):
@@ -116,9 +119,7 @@ class Trie(Tree):
 
     ############################## INSERTION ##############################
     def insert(self, word):
-        self._validate_item(word)
-        if len(word.strip()) == 0:
-            raise ValueError("You can't insert any empty String!!")
+        self._validate_item(word, accept_empty_string=False)
         last_node, remaining_word = self._follow_path(word)
         curr_node = last_node
         for ch in remaining_word:
@@ -131,9 +132,7 @@ class Trie(Tree):
 
     ############################## REMOVE ##############################
     def remove(self, word):
-        self._validate_item(word)
-        if len(word.strip()) == 0:
-            raise ValueError("You can't insert any empty String!!")
+        self._validate_item(word, accept_empty_string=False)
         last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
