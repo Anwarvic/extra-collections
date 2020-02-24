@@ -5,6 +5,20 @@ from extra.trees.trie import TrieNode, Trie
 
 
 
+def test_trienode():
+    node = TrieNode('a')
+    assert node.get_data() == 'a'
+    assert node.get_parent() is None
+    assert list(node.get_characters) == []
+    assert node.get_children == []
+    with pytest.raises(TypeError):
+        TrieNode(None)
+        TrieNode(get_int())
+        TrieNode(get_float())
+        TrieNode(get_list())
+    with pytest.raises(AssertionError):
+        TrieNode("apple")
+        TrieNode(get_string())
 
 
 def test_empty_trie():
