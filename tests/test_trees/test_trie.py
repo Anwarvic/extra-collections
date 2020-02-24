@@ -5,8 +5,6 @@ from extra.trees.trie import TrieNode, Trie
 
 
 
-def test_trienode():
-    pass
 
 
 def test_empty_trie():
@@ -20,23 +18,24 @@ def test_empty_trie():
     assert t.has_prefix('')
     assert t.auto_complete() == t.auto_complete('') \
         == t.auto_complete(get_string()) == []
-    t.remove('')
     with pytest.raises(TypeError):
+        t.insert(None)
         t.insert(get_int())
+        t.remove(None)
         t.remove(get_list())
         get_float() in t
+        None not in t
+        t.has_prefix(None)
         t.has_prefix(get_int())
+        t.auto_complete(None)
         t.auto_complete(get_list())
-        
-
-
-
-# def test_trie_simple():
-#     t = Trie()
-#     t.insert('a')
-#     t.insert('A')
-#     t.remove('AA')
-#     print(t)
+    with pytest.raises(ValueError):
+        t.insert('')
+        t.insert(' \n\t  ')
+        t.remove('')
+        t.remove(' \n\t  ')
+        '' in t
+        '\t\n' in t
 
 
 def test_trie_similar_words():
