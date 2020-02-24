@@ -9,8 +9,8 @@ def test_trienode():
     node = TrieNode('a')
     assert node.get_data() == 'a'
     assert node.get_parent() is None
-    assert list(node.get_characters) == []
-    assert node.get_children == []
+    assert list(node.get_characters()) == []
+    assert node.get_children() == []
     with pytest.raises(TypeError):
         TrieNode(None)
         TrieNode(get_int())
