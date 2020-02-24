@@ -96,7 +96,7 @@ class Trie(Tree):
         if type(word) != str:
             raise TypeError(f"Can't deal with {type(word)} object since " + \
                 f"{self.__name__()} contains only characters!!")
-        if accept_empty_string and len(word.strip()) == 0:
+        if not accept_empty_string and len(word.strip()) == 0:
             raise ValueError(\
                 f"An empty string can't be here with {self.__name__()}!!")
     
