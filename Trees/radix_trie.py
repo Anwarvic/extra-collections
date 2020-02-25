@@ -43,6 +43,8 @@ class RadixTrie(Trie):
                     child = new_node
                 start_node = child
                 word = word[idx:]
+                if word == "":
+                    start_node.is_word = True
 
 
     def insert(self, word):
@@ -73,26 +75,26 @@ class RadixTrie(Trie):
 
 
 if __name__ == "__main__":
-    # rt = RadixTrie()
-    # rt.insert("shear")
-    # rt.insert("she")
-    # rt.insert("shepard")
-    # rt.insert("shepard")
-    # rt.insert("she")
-    # rt.insert('s')
-    # rt.insert("ahly")
-    # print(rt)
+    rt = RadixTrie()
+    rt.insert("shear")
+    rt.insert("she")
+    rt.insert("shepard")
+    rt.insert("shepard")
+    rt.insert("she")
+    rt.insert('s')
+    rt.insert("ahly")
+    print(rt)
     
-    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    # rt = RadixTrie()
-    # rt.insert("romane")
-    # rt.insert("romanus")
-    # rt.insert("romulus")
-    # rt.insert("rubens")
-    # rt.insert("ruber")
-    # rt.insert("rubicon")
-    # rt.insert("rubicundus")
-    # print(rt)
+    # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
+    rt = RadixTrie()
+    rt.insert("romane")
+    rt.insert("romanus")
+    rt.insert("romulus")
+    rt.insert("rubens")
+    rt.insert("ruber")
+    rt.insert("rubicon")
+    rt.insert("rubicundus")
+    print(rt)
 
     rt = RadixTrie()
     rt.insert('test')
