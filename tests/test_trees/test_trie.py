@@ -16,9 +16,9 @@ def test_trienode():
         TrieNode(get_int())
         TrieNode(get_float())
         TrieNode(get_list())
-    with pytest.raises(AssertionError):
-        TrieNode("apple")
-        TrieNode(get_string())
+    # with pytest.raises(AssertionError):
+    #     TrieNode("apple")
+    #     TrieNode(get_string())
 
 
 def test_empty_trie():
