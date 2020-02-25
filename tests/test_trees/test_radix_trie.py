@@ -52,3 +52,28 @@ def test_radix_trie_with_wiki_example():
     assert len(rt) == 14
 
 
+def test_radix_with_multi_words():
+    rt = RadixTrie()
+    rt.insert("test")
+    rt.insert("toaster")
+    rt.insert("toasting")
+    rt.insert("slow")
+    rt.insert("slowly")
+    rt.insert("slowlier")
+    rt.insert("toast")
+    rt.insert("slower")
+    assert len(rt) == 11
+    assert "slowlie" not in rt
+    assert not rt.has_prefix("slowy")
+    assert "slowl" not in rt
+    assert rt.has_prefix("slowl")
+    assert "slowly" in rt
+    rt.remove("test")
+    rt.remove("slow")
+    rt.remove("slowl")
+    assert len(rt) == 10
+    assert 'slow' not in rt
+    assert rt.has_prefix("slo")
+    assert rt.has_prefix("s")
+    assert not rt.has_prefix("sloww")
+    assert rt.has_prefix("slow")
