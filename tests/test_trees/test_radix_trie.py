@@ -16,14 +16,14 @@ def test_radix_trie_with_simple_example():
     rt.insert("shepard")
     rt.insert("shepard")
     rt.remove('s') #shouldn't raise any errors
-    assert len(rt) == 6
+    assert len(rt) == 5
     assert 'she' in rt
     assert "sha" not in rt
     assert "shea" not in rt
     assert rt.has_prefix('')
     assert rt.has_prefix("sh")
     assert rt.has_prefix("shea")
-    assert not rt.has_prefix("shep")
+    assert not rt.has_prefix("shp")
     assert rt.auto_complete("") ==  ['she', 'shear', 'shears', 'shepard']
     assert rt.auto_complete("a") == []
     assert rt.auto_complete("s") == ['she', 'shear', 'shears', 'shepard']
@@ -31,10 +31,10 @@ def test_radix_trie_with_simple_example():
     assert rt.auto_complete("sha") == []
     assert rt.auto_complete("she") == ['she', 'shear', 'shears', 'shepard']
     assert rt.auto_complete("shee") == []
-    assert rt.auto_complete("shea") == ['shear' 'shears']
+    assert rt.auto_complete("shea") == ["shear", "shears"]
+    assert rt.auto_complete("shep") == ['shepard']
     assert rt.auto_complete("sheaa") == []
     assert rt.auto_complete("shearr") == []
-    assert rt.auto_complete("shep") == ['shepard']
     assert rt.auto_complete(get_string()) == []
 
 
