@@ -1,4 +1,7 @@
-from trie import TrieNode, Trie
+# from trie import TrieNode, Trie
+from extra.trees.trie import TrieNode, Trie
+
+
 
 
 #helper function
@@ -13,12 +16,12 @@ def find_last_common_idx(word1, word2):
 
 
 
+
 class RadixTrie(Trie):
 
     ############################## INSERTION ##############################
     def insert(self, word):
-        assert type(word) == str, "You can insert String objects only!!"
-        assert len(word) > 0, "You can't insert any empty String!!"
+        super()._validate_item(word, accept_empty_string=False)
         last_node, remaining_word = super()._follow_path(word)
         curr_node = last_node
         while(remaining_word):
@@ -49,7 +52,7 @@ class RadixTrie(Trie):
 
     ######################### AUTO-COMPLETION #########################    
     def auto_complete(self, prefix=''):
-        assert type(prefix) == str, "A character-sequence is expected!!"
+        super()._validate_item(prefix)
         candidates = []
         last_node, remaining = super()._follow_path(prefix)
         # update prefix
