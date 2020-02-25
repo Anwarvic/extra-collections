@@ -18,7 +18,10 @@ def find_last_common_idx(word1, word2):
 
 
 class RadixTrie(Trie):
-
+    def __name__(self):
+        return "extra.RadixTrie()"
+    
+    
     ############################## INSERTION ##############################
     def insert(self, word):
         super()._validate_item(word, accept_empty_string=False)
