@@ -1,11 +1,38 @@
 import pytest
 from tests import *
-from extra.trees.radix_trie import RadixTrie
+from extra.trees.radix_trie import TrieNode, RadixTrie
 
 
 
 def test_empty_radix_trie():
-    pass
+    rt = RadixTrie()
+    rt.clear()
+    assert len(rt) == 1
+    assert isinstance(rt.root, TrieNode)
+    assert rt.root.get_data() == "ROOT"
+    assert '' not in rt
+    assert get_string() not in rt
+    assert rt.has_prefix('')
+    assert rt.auto_complete() == rt.auto_complete('') \
+        == rt.auto_complete(get_string()) == []
+    with pytest.raises(TypeError):
+        rt.insert(None)
+        rt.insert(get_int())
+        rt.remove(None)
+        rt.remove(get_list())
+        get_float() in rt
+        None not in rt
+        rt.has_prefix(None)
+        rt.has_prefix(get_int())
+        rt.auto_complete(None)
+        rt.auto_complete(get_list())
+    with pytest.raises(ValueError):
+        rt.insert('')
+        rt.insert(' \n\t  ')
+        rt.remove('')
+        rt.remove(' \n\t  ')
+        '' in rt
+        '\t\n' in rt
 
 
 def test_radix_trie_with_simple_example():
