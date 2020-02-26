@@ -69,7 +69,7 @@ def test_radix_trie_with_wiki_example():
     # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     rt = RadixTrie()
     rt.insert("romane")
-    rt.insert("romane")
+    rt.insert("romane") #shouldn't raise anything
     rt.insert("romanus")
     rt.insert("romulus")
     rt.insert("rubens")
@@ -77,6 +77,19 @@ def test_radix_trie_with_wiki_example():
     rt.insert("rubicon")
     rt.insert("rubicundus")
     assert len(rt) == 14
+    assert list(rt.root.get_characters()) == ['r']
+    assert 'r' not in rt
+    assert rt.has_prefix('r')
+    assert "ruber" in rt
+    assert "ruber " not in rt #notice the space after `ruber`
+    assert rt.has_prefix("ru")
+    assert rt.auto_complete() == rt.auto_complete('r') == \
+        ["romane", "romanus", "romulus", "rubens", "ruber",
+         "rubicon", "rubicundus"]
+    assert rt.auto_complete("ro") == ["romane", "romanus", "romulus"]
+    assert rt.auto_complete("ru")==["rubens", "ruber", "rubicon", "rubicundus"]
+    assert rt.auto_complete("romu") == ["romulus"]
+    assert rt.auto_complete(get_string()) == []
 
 
 def test_radix_with_multi_words():
