@@ -6,8 +6,8 @@ from extra.trees.tree import TreeNode, Tree
 class TrieNode(TreeNode):
     def __init__(self, value):
         if type(value) != str:
-            "Trie nodes accept characters only!!"
-        assert len(value) == 1
+            raise TypeError("Trienodes accept characters only!!")
+        # assert len(value) == 1
         self.parent = None
         self.data = value
         self.children = {}
@@ -70,6 +70,10 @@ class Trie(Tree):
     def __len__(self):
         return self.nodes_count
 
+
+    def is_empty(self):
+        return self.nodes_count == 1
+    
 
     ############################## FIND ##############################
     def _follow_path(self, word):
