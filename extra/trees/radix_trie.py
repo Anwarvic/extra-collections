@@ -21,7 +21,7 @@ class RadixTrie(Trie):
     def __name__(self):
         return "extra.RadixTrie()"
     
-    
+
     ############################## INSERTION ##############################
     def insert(self, word):
         super()._validate_item(word, accept_empty_string=False)
@@ -81,81 +81,5 @@ class RadixTrie(Trie):
         for child in curr_node.get_children():
             candidates.extend(super()._get_candidates(child, [prefix]))
         return candidates
-
-
-
-
-
-if __name__ == "__main__":
-    # # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
-    rt = RadixTrie()
-    rt.insert("romane")
-    rt.insert("romane")
-    rt.insert("romanus")
-    rt.insert("romulus")
-    rt.insert("rubens")
-    rt.insert("ruber")
-    rt.insert("rubicon")
-    rt.insert("rubicundus")
-    print(rt)
-    print("Total Nodes:", len(rt)) #14
-    print('='*50)
-
-    rt = RadixTrie()
-    rt.insert('s')
-    rt.insert("shear")
-    rt.insert("she")
-    rt.insert("shears")
-    rt.insert("shepard")
-    rt.insert("shepard")
-    rt.remove('s')
-    print(rt)
-    print("Total Nodes:", len(rt)) #6
-    print('she' in rt) #True
-    print("sha" in rt) #False
-    print(rt.auto_complete("")) # [she', 'shear', 'shears', 'shepard']
-    print(rt.auto_complete("a")) # []
-    print(rt.auto_complete("s")) # ['she', 'shear', 'shears', 'shepard']
-    print(rt.auto_complete("sh")) # ['she', 'shear', 'shears', 'shepard']
-    print(rt.auto_complete("sha")) # []
-    print(rt.auto_complete("she")) # ['she', 'shear', 'shears', 'shepard']
-    print(rt.auto_complete("shee")) # []
-    print(rt.auto_complete("shea")) # ['shear' 'shears']
-    print(rt.auto_complete("sheaa")) # []
-    print(rt.auto_complete("shearr")) # []
-    print(rt.auto_complete("shep")) # ['shepard']
-    print(rt.auto_complete("apple")) # []
-    print('='*50)
-
-    rt = RadixTrie()
-    rt.insert("test")
-    rt.insert("toaster")
-    rt.insert("toasting")
-    rt.insert("slow")
-    rt.insert("slowly")
-    rt.insert("slowlier")
-    rt.insert("toast")
-    rt.insert("slower")
-    print(rt)
-    print("Total Nodes:", len(rt)) #11
-    print("slowlie" in rt) #False
-    print("slowl" in rt) #False
-    print("slowly" in rt) #True
-    rt.remove("test")
-    rt.remove("slow")
-    rt.remove("slowl")
-    print(rt)
-    print("Total Nodes:", len(rt)) #10
-    print('slow' in rt) #False
-    print(rt.has_prefix("slo")) #True
-    print(rt.has_prefix("s")) #True
-    print(rt.has_prefix("sloww")) #False
-    print(rt.has_prefix("slow")) #True
-    print('='*50)
-    
-    # # sanity checks
-    # rt = RadixTrie()
-    # print(rt.find(''))
-    # print(rt.find(2)) #throws error
 
 
