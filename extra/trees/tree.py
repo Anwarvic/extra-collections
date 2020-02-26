@@ -43,7 +43,7 @@ class Tree:
     def __name__(self):
         return "extra.Tree()"
     
-    
+
     def __init__(self, value):
         if isinstance(value, TreeNode):
             self.root = value
@@ -114,10 +114,3 @@ class Tree:
             return str(self.root)
 
 
-
-
-
-
-
-
-    
