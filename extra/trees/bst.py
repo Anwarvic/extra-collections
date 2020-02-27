@@ -78,20 +78,16 @@ class BST(BinaryTree):
 
 
     @staticmethod
-    def __init_bst(iterable):
-        length = len(lst)
-        assert length >0, "Given list must have t lease on item!!"
-        if length == 1:
-            node = BSTNode(lst[0])
-        elif length == 2:
-            node = BSTNode(lst[0])
-            node.set_left( BSTNode(lst[1]) )
-        else:
-            mid_idx = len(lst)//2
-            node = BSTNode(lst[mid_idx])
-            node.set_left( self.__init_bst(lst[0:mid_idx]) )
-            node.set_right( self.__init_bst(lst[mid_idx+1:]) )
-        return node
+    def from_iterable(iterable):
+        if len(iter) == 0:
+            raise ValueError("Given iterable must have at lease on item!!")
+        bst = None
+        for item in iterable:
+            if bst is None:
+                bst = BST(item)
+            else:
+                bst.insert(item)
+        return bst
 
 
     ##############################    MAX   ##############################
