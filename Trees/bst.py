@@ -164,11 +164,11 @@ class BST(BinaryTree):
         # replace 'node' with 'replacement'
         if replacement is None:
             parent = node.get_parent()
-            if parent is None:
+            if parent is None: #TODO the next three lines need to be deleted
                 self._transplant(replacement, None)
-                node.data = replacement.data
+                TreeNode.swap(node, replacement)
             else:
-                if node.is_left_child():
+                if parent.get_left() == node:
                     parent.set_left(replacement)
                 else:
                     parent.set_right(replacement)
@@ -184,14 +184,13 @@ class BST(BinaryTree):
             self._transplant(replacement, new_replacement)
 
     def _remove(self, del_value, start_node):
-        # used mainly for inheritance
         assert type(del_value) in {int, float}, "BST conains numbers only!"
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
-        # find the del_value node
+        # search for the del_value node
         removed_node = self._search(del_value, self.root)
+        # couldn't find the node
         if removed_node.get_data() != del_value:
-            # couldn't find the node
             last_accessed_node = removed_node
             return last_accessed_node
         # find replacement
