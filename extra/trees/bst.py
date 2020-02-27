@@ -1,9 +1,11 @@
-from binary_tree import BinaryTreeNode, BinaryTree
+from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
+
+
 
 
 class BSTNode(BinaryTreeNode):
     def __init__(self, value):
-        assert type(value) in {int, float}, "BST contains only numbers!!"
+        assert type(value) in {int, float}
         super().__init__(value)
         self.parent = None
 
@@ -23,8 +25,8 @@ class BSTNode(BinaryTreeNode):
         grand_parent = parent.parent
         if grand_parent is None:
             return None
-        return grand_parent.right if parent.is_left_child() \
-                                    else grand_parent.left
+        return grand_parent.right \
+            if parent.is_left_child() else grand_parent.left
 
 
     def get_sibling(self):
@@ -58,20 +60,25 @@ class BSTNode(BinaryTreeNode):
 
 
 class BST(BinaryTree):
+    def __name__(self):
+        return "extra.BST()"
+    
+    def _validate_item(self, item):
+        if isinstance(item, BSTNode): item = item.get_data()
+        if type(item) in {int, float}:
+            raise TypeError(f"{self.__name__()}() accepts only numbers!!")
+    
+
     def __init__(self, value):
+        self._validate_item(value)
         if isinstance(value, BSTNode):
             self.root = value
-        elif type(value) in {set, frozenset}:
-            lst = sorted(value)
-            self.root = self.__init_bst(lst)
-        elif hasattr(value, '__iter__'):
-            lst = sorted(set(value))
-            self.root = self.__init_bst(lst)
         else:
             self.root = BSTNode(value)
 
 
-    def __init_bst(self, lst):
+    @staticmethod
+    def __init_bst(iterable):
         length = len(lst)
         assert length >0, "Given list must have t lease on item!!"
         if length == 1:
