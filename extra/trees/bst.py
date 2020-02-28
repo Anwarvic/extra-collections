@@ -67,7 +67,7 @@ class BST(BinaryTree):
     def _validate_item(self, item):
         if isinstance(item, BSTNode): item = item.get_data()
         if type(item) not in {int, float}:
-            raise TypeError(f"{self.__name__()}() accepts only numbers!!")
+            raise TypeError(f"{self.__name__()} accepts only numbers!!")
     
 
     def __init__(self, value):
@@ -82,8 +82,8 @@ class BST(BinaryTree):
     def from_iterable(iterable):
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
-        if len(iter) == 0:
-            raise ValueError("Given iterable must have at lease on item!!")
+        if len(iterable) == 0:
+            raise ValueError("The given iterable is empty!!")
         bst = None
         for item in iterable:
             if bst is None:
@@ -251,22 +251,11 @@ class BST(BinaryTree):
 
 
 if __name__ == "__main__":
-    bst = BST(4)
-    bst.insert(2)
-    bst.insert(1)
-    bst.insert(3)
-    bst.insert(5)
+    # initialize tree by list
+    lst = [7,10,12,22,30,11,19,25,9,20,14,12]
+    bst = BST.from_iterable(lst)
     print(bst)
-    print(1 in bst)
-    print(100 in bst)
-    print(bst.root.left.get_sibling())
     print('='*50)
-    # #######################################
-    # # initialize tree by list
-    # lst = [7,10,12,22,30,11,19,25,9,20,14,12]
-    # bst = BST(lst)
-    # print(bst)
-    # print('='*50)
     # #######################################
     # # example taken from "Data Structures and Algorithms in Python" book
     # bst = BST(44)
