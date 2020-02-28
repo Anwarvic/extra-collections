@@ -148,29 +148,31 @@ class BST(BinaryTree):
 
 
     ############################## INSERTION ##############################
-    def _insert(self, inserted_node, start_node):
-        assert inserted_node is None or isinstance(inserted_node, BSTNode)
+    def _insert_node(self, start_node, inserted_node):
         assert isinstance(start_node, BSTNode)
+        assert inserted_node is None or isinstance(inserted_node, BSTNode)
         value = inserted_node.get_data()
         if value == start_node.get_data():
             return start_node
         elif value < start_node.get_data():
             if start_node.get_left():
-                return self._insert(inserted_node, start_node.get_left())
+                return self._insert_node(start_node.get_left(), inserted_node)
             else:
                 start_node.set_left( inserted_node )
                 return inserted_node
         else:
             if start_node.get_right():
-                return self._insert(inserted_node, start_node.get_right())
+                return self._insert_node(start_node.get_right(), inserted_node)
             else:
                 start_node.set_right( inserted_node )
                 return inserted_node
 
 
+
+
+
     def insert(self, value):
-        inserted_node = BSTNode(value)
-        self._insert(inserted_node, self.root)
+        self._insert_value(self.root, value)
 
 
     ##############################   REMOVAL  ##############################
