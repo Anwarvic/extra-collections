@@ -168,7 +168,11 @@ class BST(BinaryTree):
                 return inserted_node
 
 
-
+    def _insert_value(self, start_node, value):
+        assert isinstance(start_node, BSTNode)
+        assert type(value) in {float, int}
+        inserted_node = BSTNode(value)
+        return self._insert_node(start_node, inserted_node)
 
 
     def insert(self, value):
