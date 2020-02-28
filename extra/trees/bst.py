@@ -62,10 +62,11 @@ class BSTNode(BinaryTreeNode):
 class BST(BinaryTree):
     def __name__(self):
         return "extra.BST()"
-    
+
+
     def _validate_item(self, item):
         if isinstance(item, BSTNode): item = item.get_data()
-        if type(item) in {int, float}:
+        if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()}() accepts only numbers!!")
     
 
@@ -79,6 +80,8 @@ class BST(BinaryTree):
 
     @staticmethod
     def from_iterable(iterable):
+        if not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
         if len(iter) == 0:
             raise ValueError("Given iterable must have at lease on item!!")
         bst = None
@@ -92,6 +95,7 @@ class BST(BinaryTree):
 
     ##############################    MAX   ##############################
     def _get_max_node(self, start_node):
+        assert isinstance(start_node, BSTNode)
         # get the right-most node
         if start_node.get_right() == None:
             return start_node
@@ -241,43 +245,43 @@ if __name__ == "__main__":
     print(100 in bst)
     print(bst.root.left.get_sibling())
     print('='*50)
-    #######################################
-    # initialize tree by list
-    lst = [7,10,12,22,30,11,19,25,9,20,14,12]
-    bst = BST(lst)
-    print(bst)
-    print('='*50)
-    #######################################
-    # example taken from "Data Structures and Algorithms in Python" book
-    bst = BST(44)
-    bst.root.set_left(BSTNode(17))
-    bst.root.left.set_left(BSTNode(8))
-    bst.root.left.set_right( BSTNode(32) )
-    bst.root.left.right.set_left( BSTNode(28) )
-    bst.root.left.right.left.set_right( BSTNode(29) )
-    bst.root.set_right( BSTNode(88) )
-    bst.root.right.set_right( BSTNode(97) )
-    bst.root.right.right.set_left( BSTNode(93) )
-    bst.root.right.set_left( BSTNode(65) )
-    bst.root.right.left.set_left( BSTNode(54) )
-    bst.root.right.left.set_right( BSTNode(82) )
-    bst.root.right.left.right.set_left( BSTNode(76) )
-    bst.root.right.left.right.left.set_left( BSTNode(68) )
-    bst.root.right.left.right.left.set_right( BSTNode(80) )
-    print(bst)
+    # #######################################
+    # # initialize tree by list
+    # lst = [7,10,12,22,30,11,19,25,9,20,14,12]
+    # bst = BST(lst)
+    # print(bst)
+    # print('='*50)
+    # #######################################
+    # # example taken from "Data Structures and Algorithms in Python" book
+    # bst = BST(44)
+    # bst.root.set_left(BSTNode(17))
+    # bst.root.left.set_left(BSTNode(8))
+    # bst.root.left.set_right( BSTNode(32) )
+    # bst.root.left.right.set_left( BSTNode(28) )
+    # bst.root.left.right.left.set_right( BSTNode(29) )
+    # bst.root.set_right( BSTNode(88) )
+    # bst.root.right.set_right( BSTNode(97) )
+    # bst.root.right.right.set_left( BSTNode(93) )
+    # bst.root.right.set_left( BSTNode(65) )
+    # bst.root.right.left.set_left( BSTNode(54) )
+    # bst.root.right.left.set_right( BSTNode(82) )
+    # bst.root.right.left.right.set_left( BSTNode(76) )
+    # bst.root.right.left.right.left.set_left( BSTNode(68) )
+    # bst.root.right.left.right.left.set_right( BSTNode(80) )
+    # print(bst)
 
-    bst.remove(80)
-    bst.remove(32)
-    bst.remove(44)
-    bst.remove(4000)
-    bst.remove(65)
-    print(bst)
+    # bst.remove(80)
+    # bst.remove(32)
+    # bst.remove(44)
+    # bst.remove(4000)
+    # bst.remove(65)
+    # print(bst)
 
-    print("Tree Root:", bst.root)
-    print("Tree Nodes:", len(bst))
-    print("Tree Height:", bst.get_height())
-    print("Right-node Depth:", bst._get_depth(bst.root.right))
-    print("Balanced Tree:", bst.is_balanced())
-    print(bst.traverse())
-    print("Min value:", bst.get_min())
-    print("Max value:", bst.get_max())
+    # print("Tree Root:", bst.root)
+    # print("Tree Nodes:", len(bst))
+    # print("Tree Height:", bst.get_height())
+    # print("Right-node Depth:", bst._get_depth(bst.root.right))
+    # print("Balanced Tree:", bst.is_balanced())
+    # print(bst.traverse())
+    # print("Min value:", bst.get_min())
+    # print("Max value:", bst.get_max())
