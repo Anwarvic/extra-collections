@@ -1,4 +1,4 @@
-from tree import TreeNode
+from extra.trees.tree import TreeNode, Tree
 
 
 
@@ -50,7 +50,7 @@ class BinaryTreeNode(TreeNode):
 
 
 
-class BinaryTree:
+class BinaryTree(Tree):
     def __init__(self, value):
         if isinstance(value, BinaryTreeNode):
             self.root = value
@@ -155,6 +155,11 @@ class BinaryTree:
         return max( 1 + self._get_depth(start_node.get_left()), #left depth
                     1 + self._get_depth(start_node.get_right())) # right depth
 
+
+    def get_depth(self):
+        return self._get_depth(self.root)
+    
+
     def get_height(self):
         return self._get_depth(self.root)
 
@@ -198,6 +203,7 @@ class BinaryTree:
             return self.__is_subtree_strict(start_node.get_left()) and \
                     self.__is_subtree_strict(start_node.get_right())
 
+
     def is_strict(self):
         """
         BinaryTree is strict if all its non-leaf nodes has left and right
@@ -217,6 +223,7 @@ class BinaryTree:
                 total_nodes += self.__count_nodes(start_node.get_right())
         return total_nodes
 
+
     def __len__(self):
         return self.__count_nodes(self.root)
 
@@ -233,11 +240,12 @@ class BinaryTree:
                 total_nodes += self.__count_leaf_nodes(start_node.get_right())
         return total_nodes
 
+
     def count_leaf_nodes(self):
         return self.__count_leaf_nodes(self.root)
 
 
-    ############################## NODES ##############################
+    ############################## ITER ##############################
     def __iter__(self):
         current_nodes = [self.root]
         while len(current_nodes) > 0:
@@ -251,6 +259,10 @@ class BinaryTree:
             current_nodes = next_nodes
 
 
+    def to_list(self):
+        return [node.get_data() for node in self]
+
+
     ######################### Pre-Order TRAVERSE #########################
     def __preorder_traverse(self, start_node):
         nodes = []
@@ -262,8 +274,10 @@ class BinaryTree:
                 nodes.extend(self.__preorder_traverse(start_node.get_right()))
         return nodes
 
+
     def preorder_traverse(self):
         return self.__preorder_traverse(self.root)
+
 
     def depth_first_traverse(self):
         return self.__preorder_traverse(self.root)
@@ -280,6 +294,7 @@ class BinaryTree:
             nodes.append(start_node.get_data())
         return nodes
 
+
     def postorder_traverse(self):
         return self.__postorder_traverse(self.root)
 
@@ -294,6 +309,7 @@ class BinaryTree:
             if start_node.get_right():
                 nodes.extend(self.__inorder_traverse(start_node.get_right()))
         return nodes
+
 
     def inorder_traverse(self):
         return self.__inorder_traverse(self.root)
@@ -321,6 +337,7 @@ class BinaryTree:
             raise AssertionError("given method must be one of these: " \
                                                         + str(trav_methods))
 
+
     ############################## NODES ##############################
     def __get_nodes_per_level(self, start_node, level, level_nodes):
         if start_node != None:
@@ -336,6 +353,7 @@ class BinaryTree:
                                            level+1,
                                            level_nodes)
         return level_nodes
+
 
     def get_nodes(self):
         return self.__get_nodes_per_level(self.root, 0, [])
