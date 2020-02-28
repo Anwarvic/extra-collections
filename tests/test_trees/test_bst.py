@@ -58,6 +58,48 @@ def test_bst_simple():
         bst.remove(get_list())
 
 
-
 def test_bst_from_iterable():
-    pass
+    lst = [19,7,10,12,22,30,11,25,9,20,14,12]
+    bst = BST.from_iterable(lst)
+    # test structure
+    assert bst.root.get_data() == 19
+    assert bst.root.get_left().get_data() == 7
+    assert bst.root.get_right().get_data() == 22
+    assert bst.root.get_left().get_left() == None
+    assert bst.root.get_left().get_right().get_data() == 10
+    # test various methods
+    assert len(bst) == 11
+    assert bst.count_leaf_nodes() == 5
+    assert bst.get_max() == 30
+    assert bst.get_min() == 7
+    assert bst.get_height() == 4
+    assert bst.is_balanced()
+    assert not bst.is_perfect()
+    assert not bst.is_strict()
+    # test __contains__
+    assert 11 in bst
+    assert -10 not in bst
+    assert 0 not in bst
+    # test __iter__ / traverse
+    assert bst.to_list() == [19, 7, 22, 10, 20, 30, 9, 12, 25, 11, 14]
+    assert bst.preorder_traverse() == [19, 7, 10, 9, 12, 11, 14, 22, 20, 30, 25]
+    assert bst.depth_first_traverse() == \
+        [19, 7, 10, 9, 12, 11, 14, 22, 20, 30, 25]
+    assert bst.postorder_traverse()== [9, 11, 14, 12, 10, 7, 20, 25, 30, 22, 19]
+    assert bst.inorder_traverse() == [7, 9, 10, 11, 12, 14, 19, 20, 22, 25, 30]
+    #test remove
+    bst.remove(50) #do nothing
+    bst.remove(22)
+    assert len(bst) == 10
+    assert 22 not in bst
+    # validate
+    with pytest.raises(TypeError):
+        None in bst
+        get_string() in bst
+        get_list() in bst
+        bst.insert(None)
+        bst.insert(get_string())
+        bst.insert(get_list())
+        bst.remove(None)
+        bst.remove(get_string())
+        bst.remove(get_list())
