@@ -110,6 +110,7 @@ class BST(BinaryTree):
 
     ##############################    MIN   ##############################
     def _get_min_node(self, start_node):
+        assert isinstance(start_node, BSTNode)
         # get the left-most node
         if start_node.get_left() == None:
             return start_node
@@ -124,6 +125,8 @@ class BST(BinaryTree):
 
     ##############################   SEARCH  ##############################
     def _search(self, find_val, start_node):
+        assert isinstance(start_node, BSTNode)
+        assert type(find_val) in {float, int}
         if find_val == start_node.get_data():
             return start_node
         elif find_val < start_node.get_data():
@@ -139,13 +142,15 @@ class BST(BinaryTree):
 
 
     def __contains__(self, find_val):
-        assert type(find_val) in {int, float}, "BST contains only numbers!"
+        self._validate_item(find_val)
         found_node = self._search(find_val, self.root)
         return found_node.get_data() == find_val
 
 
     ############################## INSERTION ##############################
     def _insert(self, inserted_node, start_node):
+        assert inserted_node is None or isinstance(inserted_node, BSTNode)
+        assert isinstance(start_node, BSTNode)
         value = inserted_node.get_data()
         if value == start_node.get_data():
             return start_node
@@ -170,6 +175,7 @@ class BST(BinaryTree):
 
     ##############################   REMOVAL  ##############################
     def _find_replacement(self, start_node):
+        assert isinstance(start_node, BSTNode)
         if start_node.get_right():
             # in-order successor
             replacement_node = self._get_min_node(start_node.get_right())
@@ -183,6 +189,8 @@ class BST(BinaryTree):
     
 
     def _transplant(self, node, replacement):
+        assert isinstance(node, BSTNode)
+        assert replacement is None or isinstance(replacement, BSTNode)
         # replace 'node' with 'replacement'
         if replacement is None:
             parent = node.get_parent()
@@ -203,7 +211,8 @@ class BST(BinaryTree):
 
 
     def _remove(self, del_value, start_node):
-        assert type(del_value) in {int, float}, "BST conains only numbers!"
+        assert type(del_value) in {int, float}
+        assert isinstance(start_node, BSTNode)
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         # search for the del_value node
@@ -227,6 +236,7 @@ class BST(BinaryTree):
 
 
     def remove(self, del_value):
+        self._validate_item(del_value)
         self._remove(del_value, self.root)
 
 
