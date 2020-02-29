@@ -23,10 +23,6 @@ def verify_bst_rules(start_node):
     return verify_bst_rules(left_child) and verify_bst_rules(right_child)
 
 
-def test_bstnode():
-    pass
-
-
 def test_bst_simple():
     bst = BST(4)
     bst.insert(2)
@@ -149,3 +145,5 @@ def test_bst_big_example():
     assert bst.traverse() == [8, 17, 28, 29, 54, 68, 76, 82, 88, 93, 97]
     assert bst.get_min() == 8
     assert bst.get_max() == 97
+
+
