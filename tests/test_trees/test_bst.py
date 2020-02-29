@@ -12,7 +12,15 @@ def verify_bst_rules(start_node):
     is lower than the parent; and the subtree on the right is greater than the
     parent
     """ 
-    return True
+    if start_node == None:
+        return True
+    left_child = start_node.get_left()
+    right_child = start_node.get_right()
+    if not (left_child is None or left_child.get_data()<start_node.get_data())\
+        or \
+        not(right_child is None or right_child.get_data()>start_node.get_data()):
+        return False
+    return verify_bst_rules(left_child) and verify_bst_rules(right_child)
 
 
 def test_bstnode():
@@ -26,6 +34,7 @@ def test_bst_simple():
     bst.insert(3)
     bst.insert(5)
     # test structure
+    assert verify_bst_rules(bst.root)
     assert bst.root.get_data() == 4
     assert bst.root.get_left().get_data() == 2
     assert bst.root.get_right().get_data() == 5
@@ -56,6 +65,7 @@ def test_bst_simple():
     bst.remove(4)
     assert len(bst) == 4
     assert 4 not in bst
+    assert verify_bst_rules(bst.root)
     # validate
     with pytest.raises(TypeError):
         None in bst
@@ -73,6 +83,7 @@ def test_bst_from_iterable():
     lst = [19,7,10,12,22,30,11,25,9,20,14,12]
     bst = BST.from_iterable(lst)
     # test structure
+    assert verify_bst_rules(bst.root)
     assert bst.root.get_data() == 19
     assert bst.root.get_left().get_data() == 7
     assert bst.root.get_right().get_data() == 22
@@ -103,6 +114,7 @@ def test_bst_from_iterable():
     bst.remove(22)
     assert len(bst) == 10
     assert 22 not in bst
+    assert verify_bst_rules(bst.root)
 
 
 def test_bst_big_example():
