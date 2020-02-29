@@ -4,6 +4,17 @@ from extra.trees.bst import BST
 
 
 
+#helper function
+def verify_bst_rules(start_node):
+    """
+    This is a helpful function to check if the BST rule is applied over all
+    nodes of the tree. By the BST rule, I mean that each subtree on the left
+    is lower than the parent; and the subtree on the right is greater than the
+    parent
+    """ 
+    return True
+
+
 def test_bstnode():
     pass
 
@@ -92,14 +103,37 @@ def test_bst_from_iterable():
     bst.remove(22)
     assert len(bst) == 10
     assert 22 not in bst
-    # validate
-    with pytest.raises(TypeError):
-        None in bst
-        get_string() in bst
-        get_list() in bst
-        bst.insert(None)
-        bst.insert(get_string())
-        bst.insert(get_list())
-        bst.remove(None)
-        bst.remove(get_string())
-        bst.remove(get_list())
+
+
+def test_bst_big_example():
+    # SRC: "Data Structures and Algorithms in Python" book
+    bst = BST(44)
+    bst.insert(17)
+    bst.insert(8)
+    bst.insert(32)
+    bst.insert(28)
+    bst.insert(29)
+    bst.insert(88)
+    bst.insert(97)
+    bst.insert(93)
+    bst.insert(65)
+    bst.insert(54)
+    bst.insert(82)
+    bst.insert(76)
+    bst.insert(68)
+    bst.insert(80)
+    assert verify_bst_rules(bst.root)
+    bst.remove(80)
+    bst.remove(32)
+    bst.remove(44)
+    bst.remove(4000)
+    bst.remove(65)
+    assert verify_bst_rules(bst.root)
+
+    assert bst.root.get_data() == 54
+    assert len(bst) == 11
+    assert bst.get_height() == 4
+    assert bst.is_balanced()
+    assert bst.traverse() == [8, 17, 28, 29, 54, 68, 76, 82, 88, 93, 97]
+    assert bst.get_min() == 8
+    assert bst.get_max() == 97
