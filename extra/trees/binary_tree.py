@@ -5,8 +5,8 @@ from extra.trees.tree import TreeNode, Tree
 
 class BinaryTreeNode(TreeNode):
     def __init__(self, value):
-        assert value != None, "Binary TreeNode's value can't be None!!"
-        assert value != '',   "Binary TreeNode's value can't be empty string!!"
+        assert value is not None
+        assert value != ''
         self.data = value
         self.left = self.right = None
 
@@ -27,10 +27,12 @@ class BinaryTreeNode(TreeNode):
 
 
     def set_left(self, new_node):
+        assert isinstance(new_node, BinaryTreeNode)
         self.left = new_node
 
 
     def set_right(self, new_node):
+        assert isinstance(new_node, BinaryTreeNode)
         self.right = new_node
         
 
@@ -45,19 +47,27 @@ class BinaryTreeNode(TreeNode):
 
     @staticmethod
     def swap(node1, node2):
+        assert isinstance(node1, BinaryTreeNode)
+        assert isinstance(node2, BinaryTreeNode)
         node1.data, node2.data = node2.data, node1.data
 
 
 
 
 class BinaryTree(Tree):
+    def __name__(self):
+        return "extra.BinaryTree()"
+    
+    def _validate_item(self, item):
+        if isinstance(item, BinaryTreeNode):
+            pass
+        elif item is None:
+            raise TypeError("Can't ")
+
     def __init__(self, value):
         if isinstance(value, BinaryTreeNode):
-            self.root = value
-        elif hasattr(value, '__iter__'):
-            self.root = self.__create_subtree(value)
-        else:
-            self.root = BinaryTreeNode(value)
+            value = value.get_data*()
+        self.root = BinaryTreeNode(value)
     
 
     @staticmethod
