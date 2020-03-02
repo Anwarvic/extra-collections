@@ -45,6 +45,13 @@ class TreeNode:
         return str(self.data)
 
 
+    @staticmethod
+    def swap(node1, node2):
+        assert isinstance(node1, TreeNode)
+        assert isinstance(node1, TreeNode)
+        node1.data, node2.data = node2.data, node1.data
+
+
 
 
 class Tree:
