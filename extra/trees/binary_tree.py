@@ -4,12 +4,14 @@ from extra.trees.tree import TreeNode, Tree
 
 
 class BinaryTreeNode(TreeNode):
+    def __name__(self):
+        return "extra.BinaryTreeNode()"
+    
+    
     def __init__(self, value):
-        assert value is not None
-        assert value != ''
-        self.data = value
+        super().__init__(value)
         self.left = self.right = None
-
+        self.children = [self.left, self.right]
 
     def get_left(self):
         return self.left
@@ -338,7 +340,7 @@ class BinaryTree(Tree):
 
     #################### breadth-first TRAVERSE ####################
     def breadth_first_traverse(self):
-        return [tree_node.get_data() for tree_node in self]
+        return self.to_list()
 
 
     ############################## TRAVERSE ##############################
@@ -394,13 +396,7 @@ class BinaryTree(Tree):
 
 
 if __name__ == "__main__":
-    # create tree using BinaryTreeNode
-    root = BinaryTreeNode("GrandFather")
-    root.set_left(BinaryTreeNode("Father"))
-    root.get_left().set_left(BinaryTreeNode("Me"))
-    root.set_right(BinaryTreeNode("Uncle"))
-    btree = BinaryTree(root)
-    print(btree)
+    
     print('='*50)
     ##############################
     btree = BinaryTree(1)
