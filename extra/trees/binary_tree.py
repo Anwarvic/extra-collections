@@ -11,7 +11,8 @@ class BinaryTreeNode(TreeNode):
     def __init__(self, value):
         super().__init__(value)
         self.left = self.right = None
-        self.children = [self.left, self.right]
+        del self.children
+
 
     def get_left(self):
         return self.left
@@ -26,6 +27,11 @@ class BinaryTreeNode(TreeNode):
         if self.left != None: children.append(self.left)
         if self.right != None: children.append(self.right)
         return children
+
+
+    def set_children(self, lst):
+        raise NotImplementedError(\
+            "You can use set_left() or set_right() methods instead!!")
 
 
     def set_left(self, new_node):
@@ -45,13 +51,6 @@ class BinaryTreeNode(TreeNode):
     def has_one_child(self):
         return not self.is_leaf() \
                 and (self.left is None or self.right is None)
-
-
-    @staticmethod
-    def swap(node1, node2):
-        assert isinstance(node1, BinaryTreeNode)
-        assert isinstance(node1, BinaryTreeNode)
-        node1.data, node2.data = node2.data, node1.data
 
 
 

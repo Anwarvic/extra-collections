@@ -38,18 +38,21 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_left(self, new_node):
+        assert new_node is None or isinstance(new_node, BSTNode)
         self.left = new_node
         if new_node is not None:
             self.left.parent = self
 
 
     def set_right(self, new_node):
+        assert new_node is None or isinstance(new_node, BSTNode)
         self.right = new_node
         if new_node is not None:
             self.right.parent = self
 
 
     def set_parent(self, new_node):
+        assert isinstance(new_node, BSTNode)
         self.parent = new_node
 
 
