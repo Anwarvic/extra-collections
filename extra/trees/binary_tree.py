@@ -48,7 +48,7 @@ class BinaryTreeNode(TreeNode):
     @staticmethod
     def swap(node1, node2):
         assert isinstance(node1, BinaryTreeNode)
-        assert isinstance(node2, BinaryTreeNode)
+        assert isinstance(node1, BinaryTreeNode)
         node1.data, node2.data = node2.data, node1.data
 
 
@@ -58,8 +58,8 @@ class BinaryTree(Tree):
     def __name__(self):
         return "extra.BinaryTree()"
     
+
     def _validate_item(self, item):
-        if isinstance(item, BinaryTreeNode): item = item.get_data()
         if item is None:
             raise TypeError(f"Can't initialize {self.__name__()} with `None`!!")
         elif type(item) == str and item.strip() == '':
@@ -68,10 +68,10 @@ class BinaryTree(Tree):
     
 
     def __init__(self, value):
-        self._validate_item(value)
         if isinstance(value, BinaryTreeNode):
-            value = value.get_data*()
-        self.root = BinaryTreeNode(value)
+            self.root = value
+        else:
+            self.root = BinaryTreeNode(value)
     
 
     @staticmethod
@@ -93,7 +93,7 @@ class BinaryTree(Tree):
     @staticmethod
     def parse(lst):
         if type(lst) not in {list, tuple}:
-            raise TypeError("Given object must be a `list` or `tuple`!!")
+            raise TypeError("Given object must be a `list` or `tupel`!!")
         root = BinaryTree.__create_subtree(lst)
         return BinaryTree(root)
 
@@ -103,57 +103,58 @@ class BinaryTree(Tree):
         """
         src: https://github.com/joowani/binarytree/blob/master/binarytree
         """
-        assert root is None or isinstance(root, BinaryTreeNode)
-        assert type(curr_index) == int and curr_index >= 0
-        line1 = []
-        line2 = []
-        node_repr = str(root)
-        new_root_width = gap_size = len(node_repr)
-
-        # Get the left and right sub-boxes, their widths, and root repr positions
-        l_box, l_box_width, l_root_start, l_root_end = \
-            self.__print_subtree(root.get_left(), 2 * curr_index + 1)
-        r_box, r_box_width, r_root_start, r_root_end = \
-            self.__print_subtree(root.right, 2 * curr_index + 2,)
-
-        # Draw the branch connecting the current root node to the left sub-box
-        # Pad the line with whitespaces where necessary
-        if l_box_width > 0:
-            l_root = (l_root_start + l_root_end) // 2 + 1
-            line1.append(' ' * (l_root + 1))
-            line1.append('_' * (l_box_width - l_root))
-            line2.append(' ' * l_root + '/')
-            line2.append(' ' * (l_box_width - l_root))
-            new_root_start = l_box_width + 1
-            gap_size += 1
+        if root is None:
+            return [], 0, 0, 0
         else:
-            new_root_start = 0
+            line1 = []
+            line2 = []
+            node_repr = str(root)
+            new_root_width = gap_size = len(node_repr)
 
-        # Draw the representation of the current root node
-        line1.append(node_repr)
-        line2.append(' ' * new_root_width)
+            # Get the left and right sub-boxes, their widths, and root repr positions
+            l_box, l_box_width, l_root_start, l_root_end = \
+                self.__print_subtree(root.get_left(), 2 * curr_index + 1)
+            r_box, r_box_width, r_root_start, r_root_end = \
+                self.__print_subtree(root.right, 2 * curr_index + 2,)
 
-        # Draw the branch connecting the current root node to the right sub-box
-        # Pad the line with whitespaces where necessary
-        if r_box_width > 0:
-            r_root = (r_root_start + r_root_end) // 2
-            line1.append('_' * r_root)
-            line1.append(' ' * (r_box_width - r_root + 1))
-            line2.append(' ' * r_root + '\\')
-            line2.append(' ' * (r_box_width - r_root))
-            gap_size += 1
-        new_root_end = new_root_start + new_root_width - 1
+            # Draw the branch connecting the current root node to the left sub-box
+            # Pad the line with whitespaces where necessary
+            if l_box_width > 0:
+                l_root = (l_root_start + l_root_end) // 2 + 1
+                line1.append(' ' * (l_root + 1))
+                line1.append('_' * (l_box_width - l_root))
+                line2.append(' ' * l_root + '/')
+                line2.append(' ' * (l_box_width - l_root))
+                new_root_start = l_box_width + 1
+                gap_size += 1
+            else:
+                new_root_start = 0
 
-        # Combine the left and right sub-boxes with the branches drawn above
-        gap = ' ' * gap_size
-        new_box = [''.join(line1), ''.join(line2)]
-        for i in range(max(len(l_box), len(r_box))):
-            l_line = l_box[i] if i < len(l_box) else ' ' * l_box_width
-            r_line = r_box[i] if i < len(r_box) else ' ' * r_box_width
-            new_box.append(l_line + gap + r_line)
+            # Draw the representation of the current root node
+            line1.append(node_repr)
+            line2.append(' ' * new_root_width)
 
-        # Return the new box, its width and its root repr positions
-        return new_box, len(new_box[0]), new_root_start, new_root_end
+            # Draw the branch connecting the current root node to the right sub-box
+            # Pad the line with whitespaces where necessary
+            if r_box_width > 0:
+                r_root = (r_root_start + r_root_end) // 2
+                line1.append('_' * r_root)
+                line1.append(' ' * (r_box_width - r_root + 1))
+                line2.append(' ' * r_root + '\\')
+                line2.append(' ' * (r_box_width - r_root))
+                gap_size += 1
+            new_root_end = new_root_start + new_root_width - 1
+
+            # Combine the left and right sub-boxes with the branches drawn above
+            gap = ' ' * gap_size
+            new_box = [''.join(line1), ''.join(line2)]
+            for i in range(max(len(l_box), len(r_box))):
+                l_line = l_box[i] if i < len(l_box) else ' ' * l_box_width
+                r_line = r_box[i] if i < len(r_box) else ' ' * r_box_width
+                new_box.append(l_line + gap + r_line)
+
+            # Return the new box, its width and its root repr positions
+            return new_box, len(new_box[0]), new_root_start, new_root_end
 
 
     def __repr__(self):
@@ -246,7 +247,7 @@ class BinaryTree(Tree):
 
     ########################### LEAF NODES ###########################
     def __count_leaf_nodes(self, start_node):
-        assert is None or isinstance(start_node, BinaryTreeNode)
+        assert start_node is None or isinstance(start_node, BinaryTreeNode)
         total_nodes = 0
         if start_node != None:
             if start_node.is_leaf():
@@ -395,9 +396,9 @@ class BinaryTree(Tree):
 if __name__ == "__main__":
     # create tree using BinaryTreeNode
     root = BinaryTreeNode("GrandFather")
-    root.left = BinaryTreeNode("Father")
-    root.left.left = BinaryTreeNode("Me")
-    root.right = BinaryTreeNode("Uncle")
+    root.set_left(BinaryTreeNode("Father"))
+    root.get_left().set_left(BinaryTreeNode("Me"))
+    root.set_right(BinaryTreeNode("Uncle"))
     btree = BinaryTree(root)
     print(btree)
     print('='*50)
