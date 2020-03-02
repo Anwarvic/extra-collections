@@ -2,11 +2,19 @@ import os
 
 
 class TreeNode:
+    def __name__(self):
+        return "extra.TreeNode()"
+    
+
     def __init__(self, value):
         if value is None:
-            raise TypeError("TreeNode's value can't be `None`!!")
+            raise ValueError(\
+                f"Can't use `None` as an initial value for {self.__name__()}!!")
         elif type(value) == str and value.strip() == '':
-            raise ValueError("TreeNode's value can't be an empty string!!")
+            raise ValueError("Can't use an empty string as an initial "+\
+                f"value for {self.__name__()}!!")
+        elif isinstance(value, TreeNode):
+            raise TypeError("Can't create nested TreeNodes!!")
         self.data = value
         self.children = []
 
