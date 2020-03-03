@@ -81,17 +81,15 @@ class BinaryTree(Tree):
 
     @staticmethod
     def __create_subtree(lst):
+        if type(lst) not in {list, tuple}: lst = [lst]
         if len(lst) == 0 or len(lst) >= 4:
             raise ValueError(f"Given {type(lst)} can not be parsed!")
-        if len(lst) == 1:
-            parent = BinaryTreeNode(lst[0])
-        elif len(lst) == 2:
-            parent = BinaryTreeNode(lst[0])
-            parent.set_left( BinaryTree.__create_subtree(lst[1]) )
-        elif len(lst) == 3:
+        try:
             parent = BinaryTreeNode(lst[0])
             parent.set_left( BinaryTree.__create_subtree(lst[1]) )
             parent.set_right( BinaryTree.__create_subtree(lst[2]) )
+        except IndexError:
+            pass
         return parent
 
 
@@ -400,41 +398,7 @@ class BinaryTree(Tree):
 
 if __name__ == "__main__":
     
-    print('='*50)
-    ##############################
-    btree = BinaryTree(1)
-    btree.root.left = BinaryTreeNode(2)
-    btree.root.right = BinaryTreeNode(3)
-    btree.root.right.left = BinaryTreeNode(6)
-    btree.root.right.right = BinaryTreeNode(7)
-    btree.root.left.left = BinaryTreeNode(4)
-    btree.root.left.right = BinaryTreeNode(5)
-    # btree.root.left.left.left = BinaryTreeNode(100)
-    print(btree)
-    #################################
-    print("Tree Nodes:", len(btree))
-    print("Tree Height:", btree.get_height())
-    print("Left-tree Node:", btree.root.left)
-    print("Left-node Depth:", btree._get_depth(btree.root.left))
-    print("Nodes per level:", btree.get_nodes())
-    print("Iterate over given tree:")
-    for node in btree:
-        print('\t', node)
-    print("Total Leaf Nodes:", btree.count_leaf_nodes())
-    print("Balanced Tree:", btree.is_balanced())
-    print("Perfect Tree:", btree.is_perfect())
-    print("Strict Tree:", btree.is_strict())
-    print("PreOrder Traverse:")
-    print(btree.preorder_traverse())
-    print("\npostOrder Traverse:")
-    print(btree.postorder_traverse())
-    print("\ninOrder Traverse:")
-    print(btree.inorder_traverse())
-    print("\nbreadth-first Traverse:")
-    print(btree.breadth_first_traverse())
-    print("\nTraverse:")
-    print(btree.traverse())
     #####################################
-    # lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
-    # btree = BinaryTree(lst)
-    # print(btree)
+    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
+    btree = BinaryTree.parse(lst)
+    print(btree)
