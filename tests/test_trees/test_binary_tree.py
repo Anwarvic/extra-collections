@@ -64,11 +64,34 @@ def test_binary_tree():
     with pytest.raises(ValueError):
         BinaryTree(None)
         BinaryTree("    ")
-    with pytest.raises(ValueError):
         btree.traverse(get_string())
         btree.traverse(get_list())
         btree.traverse(get_value())
         btree.traverse(get_float())
+
+
+def test_binary_tree_with_numbers():
+    btree = BinaryTree(1)
+    btree.root.set_left(BinaryTreeNode(2))
+    btree.root.set_right(BinaryTreeNode(3))
+    btree.root.get_right().set_left(BinaryTreeNode(6))
+    btree.root.get_right().set_right(BinaryTreeNode(7))
+    btree.root.get_left().set_left(BinaryTreeNode(4))
+    btree.root.get_left().set_right(BinaryTreeNode(5))
+    assert len(btree) == 7
+    assert btree.get_height() == 2
+    assert btree.root.get_left().get_data() == 2
+    assert btree._get_depth(btree.root.left) == 1
+    assert btree.to_list() == [1, 2, 3, 4, 5, 6, 7]
+    assert btree.count_leaf_nodes() == 4
+    assert btree.is_balanced()
+    assert btree.is_perfect()
+    assert btree.is_strict()
+    assert btree.preorder_traverse() == [1, 2, 4, 5, 3, 6, 7]
+    assert btree.postorder_traverse() == [4, 5, 2, 6, 7, 3, 1]
+    assert btree.inorder_traverse() == [4, 2, 5, 1, 6, 3, 7]
+    assert btree.breadth_first_traverse() == [1, 2, 3, 4, 5, 6, 7]
+    assert btree.traverse() == [4, 2, 5, 1, 6, 3, 7]
 
 
 def test_parse():
