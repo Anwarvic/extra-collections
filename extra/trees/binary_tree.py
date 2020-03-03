@@ -386,19 +386,3 @@ class BinaryTree(Tree):
         return self.__get_nodes_per_level(self.root, 0, [])
 
 
-
-
-
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    
-    #####################################
-    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"], ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]], ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]], ["ADVP", ["ADV","now"]]]]]]]
-    btree = BinaryTree.parse(lst)
-    print(btree)
