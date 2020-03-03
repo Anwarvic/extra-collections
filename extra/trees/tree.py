@@ -14,7 +14,7 @@ class TreeNode:
             raise ValueError("Can't use an empty string as an initial "+\
                 f"value for {self.__name__()}!!")
         elif isinstance(value, TreeNode):
-            raise TypeError("Can't create nested TreeNodes!!")
+            raise ValueError("Can't create nested TreeNodes!!")
         self.data = value
         self.children = []
 
