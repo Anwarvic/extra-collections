@@ -95,5 +95,15 @@ def test_binary_tree_with_numbers():
 
 
 def test_parse():
-    pass
+    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"],
+        ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]],
+        ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]],
+        ["ADVP", ["ADV","now"]]]]]]]
+    btree = BinaryTree.parse(lst)
+    assert len(btree) == 24
+    assert btree.count_leaf_nodes() == 7
+    assert not btree.is_balanced()
+    assert not btree.is_perfect()
+    assert not btree.is_strict()
+    assert btree.get_depth() == btree.get_height() == 8
 
