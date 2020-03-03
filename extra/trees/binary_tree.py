@@ -53,6 +53,9 @@ class BinaryTreeNode(TreeNode):
                 and (self.left is None or self.right is None)
 
 
+    def __repr__(self):
+        return f"BinaryTreeNode({self.data})"
+
 
 
 class BinaryTree(Tree):

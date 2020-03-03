@@ -60,6 +60,10 @@ class BSTNode(BinaryTreeNode):
         return self.parent.data > self.data
 
 
+    def __repr__(self):
+        return f"BSTNode({self.data})"
+
+
 
 
 class BST(BinaryTree):
