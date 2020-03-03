@@ -3,8 +3,19 @@ from tests import *
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
+
+
 def test_binary_treenode():
-    pass
+    with pytest.raises(ValueError):
+        BinaryTreeNode(None)
+        BinaryTreeNode('  ')
+        BinaryTree(BinaryTree(get_value()))
+    # the following shouldn't raise anything
+    BinaryTreeNode(get_int())
+    BinaryTreeNode(get_float())
+    BinaryTreeNode(get_string())
+    BinaryTreeNode(get_value())
+    BinaryTreeNode(get_list())
 
 
 def test_binary_tree():
@@ -43,17 +54,14 @@ def test_binary_tree():
     assert [item.get_data() for item in btree] == btree.to_list() == \
         ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
     assert btree.preorder_traverse() == btree.depth_first_traverse() == \
-        ["GrandFather", "Father", "Me", "Brother", "Uncle", "Cousin", "Cousin"]
+        ["GrandFather", "Father", "Me", "Sibling", "Uncle", "Cousin", "Cousin"]
     assert btree.postorder_traverse() == \
-        ["Me", "Brother", "Father", "Cousin", "Cousin", "Uncle", "GrandFather"]
+        ["Me", "Sibling", "Father", "Cousin", "Cousin", "Uncle", "GrandFather"]
     assert btree.inorder_traverse() == \
-        ["Me", "Father", "Brother", "GrandFather", "Cousin", "Uncle", "Cousin"]
+        ["Me", "Father", "Sibling", "GrandFather", "Cousin", "Uncle", "Cousin"]
     assert btree.breadth_first_traverse() == \
         ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
-    assert btree.get_nodes() == [["GrandFather"],
-                                 ["Father", "Uncle"],
-                                 ["Me", "Sibling", "Cousin", "Cousin"]]
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         BinaryTree(None)
         BinaryTree("    ")
     with pytest.raises(ValueError):
