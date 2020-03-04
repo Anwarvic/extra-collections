@@ -65,3 +65,40 @@ def test_splay_tree_example1():
     assert stree.get_min() == 3
 
 
+def test_splay_tree_example2():
+    # example from Data Structures and Algorithm in Python (page: 517)
+    stree = SplayTree(8)
+    stree.root.set_left(BSTNode(3))
+    stree.root.get_left().set_right(BSTNode(4))
+    stree.root.get_left().get_right().set_right(BSTNode(6))
+    stree.root.get_left().get_right().get_right().set_left(BSTNode(5))
+    stree.root.get_left().get_right().get_right().set_right(BSTNode(7))
+    stree.root.set_right(BSTNode(10))
+    stree.root.get_right().set_right(BSTNode(11))
+    # let's test it
+    assert verify_bst_rules(stree.root)
+    assert not stree.is_balanced()
+    assert not stree.is_perfect()
+    assert not stree.is_strict()
+    assert len(stree) == 8
+    assert stree.get_depth() == stree.get_height() == 4
+    assert stree.count_leaf_nodes() == 3
+    assert stree.get_max() == 11
+    assert stree.get_min() == 3
+    assert stree.to_list() == [8, 3, 10, 4, 11, 6, 5, 7]
+    for item in [8, 3, 10, 4, 11, 6, 5, 7]:
+        assert item in stree
+    assert 101 not in stree
+    assert -8 not in stree
+    assert 0 not in stree
+    # remove 8
+    stree.remove(8)
+    assert stree.root.get_data() in {7, 10}
+    assert verify_bst_rules(stree.root)
+    assert 8 not in stree
+    assert len(stree) == 7
+    assert stree.get_max() == 11
+    assert stree.get_min() == 3
+    assert not stree.is_balanced()
+    assert not stree.is_perfect()
+    assert not stree.is_strict()
