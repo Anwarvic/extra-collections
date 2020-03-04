@@ -1,8 +1,19 @@
 import pytest
 from tests import *
-from extra.trees.bst import BST
+from extra.trees.bst import BSTNode, BST
 
 
+def test_bst_node():
+    with pytest.raises(TypeError):
+        BSTNode(None)
+        BSTNode('  ')
+        BSTNode(BST(get_value()))
+        BSTNode(get_string())
+        BSTNode(get_value())
+        BSTNode(get_list())
+    # these should raise any erros
+    BSTNode(get_float())
+    BSTNode(get_int())
 
 
 def test_bst_simple():
