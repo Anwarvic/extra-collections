@@ -1,15 +1,22 @@
-from bst import TreeNode, BST
+from extra.trees.bst import BSTNode, BST
+
 
 
 
 class SplayTree(BST):
+    def __name__(self):
+        return "extra.SplayTree()"
+    
+
     ############################## SPLAYING ##############################
-    def __zig_zig(self, start_node, left_children=True):
+    def __zig_zig(self, start_node, is_child_left=True):
+        assert isinstance(start_node, BSTNode)
+        assert type(is_child_left) == bool
         child = start_node
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
-        # start __zig-__zig
-        if left_children:
+        # start zig-zig
+        if is_child_left:
             # print("Left zig-zig")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_left(parent.get_right())
@@ -26,12 +33,15 @@ class SplayTree(BST):
         #child is now the grand-parent
         return child
 
-    def __zig_zag(self, start_node, left_right_children=True):
+
+    def __zig_zag(self, start_node, is_child_left=True):
+        assert isinstance(start_node, BSTNode)
+        assert type(is_child_left) == bool
         child = start_node
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
         # start __zig-zag
-        if left_right_children:
+        if is_child_left:
             # print("Left-Right zig-zag")
             child.set_parent( grand_parent.get_parent() )
             grand_parent.set_left(child.get_right())
@@ -48,6 +58,7 @@ class SplayTree(BST):
             child.set_right(parent)
         return child
 
+
     def __zig(self, start_node, left_child=True):
         child = start_node
         parent = child.get_parent()
@@ -63,7 +74,9 @@ class SplayTree(BST):
             child.set_left(parent)
         return child
 
+
     def __splaying(self, start_node):
+        assert isinstance(start_node, BSTNode)
         child = start_node
         parent = child.get_parent()
         if parent is None:
@@ -78,21 +91,22 @@ class SplayTree(BST):
         else:
             # left -> left
             if parent.is_left_child() and child.is_left_child():
-                grand_parent = self.__zig_zig(child, left_children=True)
+                grand_parent = self.__zig_zig(child, is_child_left=True)
             # left -> right
             elif parent.is_left_child() and not child.is_left_child():
-                grand_parent = self.__zig_zag(child, left_right_children=True)
+                grand_parent = self.__zig_zag(child, is_child_left=True)
             # right -> left
             elif not parent.is_left_child() and child.is_left_child():
-                grand_parent = self.__zig_zag(child, left_right_children=False)
+                grand_parent = self.__zig_zag(child, is_child_left=False)
             # right -> right
             else:
-                grand_parent = self.__zig_zig(child, left_children=False)
+                grand_parent = self.__zig_zig(child, is_child_left=False)
             if grand_parent.get_parent() is not None:
                 root = self.__splaying(grand_parent)
             else:
                 root = grand_parent
         return root
+    
     
     def splay(self, start_node):
         self.root = self.__splaying(start_node)
@@ -106,7 +120,7 @@ class SplayTree(BST):
 
     ############################## INSERTION ##############################
     def insert(self, value):
-        new_node = super()._insert(TreeNode(value), self.root)
+        new_node = super()._insert_value(self.root, value)
         self.splay(new_node)
 
 
@@ -145,17 +159,17 @@ if __name__ == "__main__":
     # test insert
     # example from Data Structures and Algorithm in Python (page: 514)
     stree = SplayTree(8)
-    stree.root.set_left(TreeNode(3))
-    stree.root.get_left().set_right(TreeNode(4))
-    stree.root.get_left().get_right().set_right(TreeNode(6))
-    stree.root.get_left().get_right().get_right().set_left(TreeNode(5))
-    stree.root.get_left().get_right().get_right().set_right(TreeNode(7))
-    stree.root.set_right(TreeNode(10))
-    stree.root.get_right().set_right(TreeNode(11))
-    stree.root.get_right().get_right().set_right(TreeNode(12))
-    stree.root.get_right().get_right().get_right().set_right(TreeNode(16))
-    stree.root.get_right().get_right().get_right().get_right().set_left(TreeNode(13))
-    stree.root.get_right().get_right().get_right().get_right().set_right(TreeNode(17))
+    stree.root.set_left(BSTNode(3))
+    stree.root.get_left().set_right(BSTNode(4))
+    stree.root.get_left().get_right().set_right(BSTNode(6))
+    stree.root.get_left().get_right().get_right().set_left(BSTNode(5))
+    stree.root.get_left().get_right().get_right().set_right(BSTNode(7))
+    stree.root.set_right(BSTNode(10))
+    stree.root.get_right().set_right(BSTNode(11))
+    stree.root.get_right().get_right().set_right(BSTNode(12))
+    stree.root.get_right().get_right().get_right().set_right(BSTNode(16))
+    stree.root.get_right().get_right().get_right().get_right().set_left(BSTNode(13))
+    stree.root.get_right().get_right().get_right().get_right().set_right(BSTNode(17))
     stree.insert(14)
     stree.find(13)
     print(stree)
@@ -166,28 +180,27 @@ if __name__ == "__main__":
     # test remove
     # example from Data Structures and Algorithm in Python (page: 517)
     stree = SplayTree(8)
-    stree.root.set_left(TreeNode(3))
-    stree.root.get_left().set_right(TreeNode(4))
-    stree.root.get_left().get_right().set_right(TreeNode(6))
-    stree.root.get_left().get_right().get_right().set_left(TreeNode(5))
-    stree.root.get_left().get_right().get_right().set_right(TreeNode(7))
-    stree.root.set_right(TreeNode(10))
-    stree.root.get_right().set_right(TreeNode(11))
+    stree.root.set_left(BSTNode(3))
+    stree.root.get_left().set_right(BSTNode(4))
+    stree.root.get_left().get_right().set_right(BSTNode(6))
+    stree.root.get_left().get_right().get_right().set_left(BSTNode(5))
+    stree.root.get_left().get_right().get_right().set_right(BSTNode(7))
+    stree.root.set_right(BSTNode(10))
+    stree.root.get_right().set_right(BSTNode(11))
     print(stree)
     stree.remove(8)
     print(stree)
     print('='*50)
 
     # example from https://www.codesdope.com/course/data-structures-splay-trees/
-    stree = SplayTree(50)
-    stree.root.set_left(TreeNode(20))
-    stree.root.get_left().set_right(TreeNode(30))
-    stree.root.get_left().set_left(TreeNode(2))
-    stree.root.get_left().get_right().set_left(TreeNode(28))
-    stree.root.get_left().get_right().set_right(TreeNode(35))
-    stree.root.set_right(TreeNode(70))
-    stree.root.get_right().set_left(TreeNode(60))
-    stree.root.get_right().set_right(TreeNode(80))
+    stree.root.set_left(BSTNode(20))
+    stree.root.get_left().set_right(BSTNode(30))
+    stree.root.get_left().set_left(BSTNode(2))
+    stree.root.get_left().get_right().set_left(BSTNode(28))
+    stree.root.get_left().get_right().set_right(BSTNode(35))
+    stree.root.set_right(BSTNode(70))
+    stree.root.get_right().set_left(BSTNode(60))
+    stree.root.get_right().set_right(BSTNode(80))
     stree.remove(30)
     print(stree)
     print('='*50)
