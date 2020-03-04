@@ -5,7 +5,8 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 class BSTNode(BinaryTreeNode):
     def __init__(self, value):
-        assert type(value) in {int, float}
+        if type(value) not in {int, float}:
+            raise TypeError(f"{self.__name__()} contains only numbers!!")
         super().__init__(value)
         self.parent = None
 
