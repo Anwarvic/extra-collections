@@ -114,74 +114,23 @@ class SplayTree(BST):
 
     ############################## SEARCH ##############################
     def find(self, find_val):
+        super()._validate_item(find_val)
         node = super()._search(find_val, self.root)
         self.splay(node)
+        return node.get_data() == find_val
 
 
     ############################## INSERTION ##############################
     def insert(self, value):
+        super()._validate_item(value)
         new_node = super()._insert_value(self.root, value)
         self.splay(new_node)
 
 
     ############################## REMOVAL ##############################
     def remove(self, del_value):
+        super()._validate_item(del_value)
         node = super()._remove(del_value, self.root)
         self.splay(node)
-
-
-
-
-if __name__ == "__main__":
-    # test insert
-    # example from Data Structures and Algorithm in Python (page: 514)
-    stree = SplayTree(8)
-    stree.root.set_left(BSTNode(3))
-    stree.root.get_left().set_right(BSTNode(4))
-    stree.root.get_left().get_right().set_right(BSTNode(6))
-    stree.root.get_left().get_right().get_right().set_left(BSTNode(5))
-    stree.root.get_left().get_right().get_right().set_right(BSTNode(7))
-    stree.root.set_right(BSTNode(10))
-    stree.root.get_right().set_right(BSTNode(11))
-    stree.root.get_right().get_right().set_right(BSTNode(12))
-    stree.root.get_right().get_right().get_right().set_right(BSTNode(16))
-    stree.root.get_right().get_right().get_right().get_right().set_left(BSTNode(13))
-    stree.root.get_right().get_right().get_right().get_right().set_right(BSTNode(17))
-    stree.insert(14)
-    stree.find(13)
-    print(stree)
-    print(stree.is_balanced())
-    stree.find(8)
-    print(stree)
-    print(stree.is_balanced())
-    print('='*50)
-
-    # # test remove
-    # # example from Data Structures and Algorithm in Python (page: 517)
-    # stree = SplayTree(8)
-    # stree.root.set_left(BSTNode(3))
-    # stree.root.get_left().set_right(BSTNode(4))
-    # stree.root.get_left().get_right().set_right(BSTNode(6))
-    # stree.root.get_left().get_right().get_right().set_left(BSTNode(5))
-    # stree.root.get_left().get_right().get_right().set_right(BSTNode(7))
-    # stree.root.set_right(BSTNode(10))
-    # stree.root.get_right().set_right(BSTNode(11))
-    # print(stree)
-    # stree.remove(8)
-    # print(stree)
-    # print('='*50)
-
-    # # example from https://www.codesdope.com/course/data-structures-splay-trees/
-    # stree.root.set_left(BSTNode(20))
-    # stree.root.get_left().set_right(BSTNode(30))
-    # stree.root.get_left().set_left(BSTNode(2))
-    # stree.root.get_left().get_right().set_left(BSTNode(28))
-    # stree.root.get_left().get_right().set_right(BSTNode(35))
-    # stree.root.set_right(BSTNode(70))
-    # stree.root.get_right().set_left(BSTNode(60))
-    # stree.root.get_right().set_right(BSTNode(80))
-    # stree.remove(30)
-    # print(stree)
-    # print('='*50)
 
 
