@@ -102,3 +102,21 @@ def test_splay_tree_example2():
     assert not stree.is_balanced()
     assert not stree.is_perfect()
     assert not stree.is_strict()
+
+
+def test_splay_tree_example3():
+    stree = SplayTree(50)
+    lst = []
+    for i, item in enumerate([50, 20, 70, 30, 60, 80, 2, 28, 35]):
+        stree.insert(item)
+        lst.append(item)
+        assert stree.root.get_data() == item
+        assert verify_bst_rules(stree.root)
+        assert len(stree) == i + 1
+        assert stree.get_max() == max(lst)
+        assert stree.get_min() == min(lst)
+    # remove 30
+    stree.remove(30)
+    assert stree.root.get_data() in {28, 35}
+    assert verify_bst_rules(stree.root)
+    assert len(stree) == 8
