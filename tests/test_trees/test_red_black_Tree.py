@@ -18,6 +18,11 @@ def test_red_black_special_case():
     assert verify_bst_rules(rbtree.root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
+    assert rbtree.count_leaf_nodes() == 2
+    assert rbtree.get_max() == 15
+    assert rbtree.get_min() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 5
@@ -48,6 +53,11 @@ def test_red_black_tree_example1():
     assert verify_bst_rules(rbtree.root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 9
+    assert rbtree.count_leaf_nodes() == 4
+    assert rbtree.get_max() == 23
+    assert rbtree.get_min() == 5
+    assert rbtree.get_height() == 3
+    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 12
@@ -91,8 +101,11 @@ def test_red_black_tree_example2():
     assert verify_bst_rules(rbtree.root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 4
-    # assert rbtree.count_leaf_nodes() == 2
-    # assert rbtree.
+    assert rbtree.count_leaf_nodes() == 2
+    assert rbtree.get_max() == 30
+    assert rbtree.get_min() == 10
+    assert rbtree.get_height() == 2
+    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 20
