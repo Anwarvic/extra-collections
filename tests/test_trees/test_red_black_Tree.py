@@ -24,11 +24,16 @@ def test_red_black_special_case():
     assert rbtree.root.get_color() == Color.BLACK
     assert rbtree.root.get_left().get_data() == 1
     assert rbtree.root.get_left().get_color() == Color.RED
+    assert rbtree.root.get_left().get_left() is None
+    assert rbtree.root.get_left().get_right() is None
+
     assert rbtree.root.get_right().get_data() == 15
     assert rbtree.root.get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_left() is None
+    assert rbtree.root.get_right().get_right() is None
 
 
-def test_insert_method_in_red_black_tree():
+def test_red_black_tree_example1():
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree(8)
     rbtree.insert(5)
@@ -51,19 +56,28 @@ def test_insert_method_in_red_black_tree():
     assert rbtree.root.get_left().get_color() == Color.RED
     assert rbtree.root.get_left().get_left().get_data() == 5
     assert rbtree.root.get_left().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_left().get_left() is None
+    assert rbtree.root.get_left().get_left().get_right() is None
     assert rbtree.root.get_left().get_right().get_data() == 9
     assert rbtree.root.get_left().get_right().get_color() == Color.BLACK
     assert rbtree.root.get_left().get_left().get_left() is None
     assert rbtree.root.get_left().get_right().get_right().get_data() == 10
     assert rbtree.root.get_left().get_right().get_right().get_color() == Color.RED
+    assert rbtree.root.get_left().get_right().get_right().get_left() is None
+    assert rbtree.root.get_left().get_right().get_right().get_right() is None
 
     assert rbtree.root.get_right().get_data() == 15
     assert rbtree.root.get_right().get_color() == Color.RED
     assert rbtree.root.get_right().get_left().get_data() == 13
     assert rbtree.root.get_right().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_left().get_left() is None
+    assert rbtree.root.get_right().get_left().get_right() is None
     assert rbtree.root.get_right().get_right().get_data() == 19
     assert rbtree.root.get_right().get_right().get_color() == Color.BLACK
     assert rbtree.root.get_right().get_right().get_left() is None
     assert rbtree.root.get_right().get_right().get_right().get_data() == 23
     assert rbtree.root.get_right().get_right().get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_right().get_right().get_left() is None
+    assert rbtree.root.get_right().get_right().get_right().get_right() is None
     
+
