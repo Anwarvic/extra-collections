@@ -21,7 +21,6 @@ def test_red_black_special_case():
     assert rbtree.get_max() == 15
     assert rbtree.get_min() == 1
     assert rbtree.get_height() == 1
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 5
@@ -51,7 +50,6 @@ def test_red_black_tree_insert_example1():
     assert rbtree.get_max() == 30
     assert rbtree.get_min() == 10
     assert rbtree.get_height() == 2
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 20
@@ -89,7 +87,6 @@ def test_red_black_tree_insert_example2():
     assert rbtree.get_max() == 23
     assert rbtree.get_min() == 5
     assert rbtree.get_height() == 3
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 12
@@ -141,7 +138,6 @@ def test_red_black_tree_insert_example3():
     assert rbtree.get_max() == 80
     assert rbtree.get_min() == 5
     assert rbtree.get_height() == 3
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 17
@@ -192,7 +188,6 @@ def test_red_black_tree_insert_example4():
     assert rbtree.get_max() == 18
     assert rbtree.get_min() == 3
     assert rbtree.get_height() == 3
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 14
@@ -247,7 +242,6 @@ def test_red_black_tree_insert_remove_example1():
     assert rbtree.get_max() == 9
     assert rbtree.get_min() == 1
     assert rbtree.get_height() == 2
-    assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
     assert rbtree.root.get_data() == 5
@@ -315,3 +309,25 @@ def test_red_black_tree_insert_remove_example2():
     assert rbtree.root.get_right().get_right().get_right() is None
 
 
+def test_red_black_tree_insert_remove_example3():
+    rbtree = RedBlackTree(13)
+    rbtree.insert(8)
+    rbtree.insert(17)
+    rbtree.insert(1)
+    rbtree.insert(11)
+    rbtree.insert(1)
+    rbtree.insert(15)
+    rbtree.insert(25)
+    rbtree.insert(6)
+    rbtree.insert(22)
+    rbtree.insert(27)
+    rbtree.remove(11)
+    # test tree characteristics
+    assert verify_bst_rules(rbtree.root)
+    assert rbtree.is_balanced()
+    assert len(rbtree) == 9
+    assert rbtree.count_leaf_nodes() == 6
+    assert rbtree.get_max() == 27
+    assert rbtree.get_min() == 1
+    assert rbtree.get_height() == 3
+    
