@@ -229,3 +229,44 @@ def test_red_black_tree_insert_example4():
     assert rbtree.root.get_right().get_right().get_right() is None
 
 
+def test_red_black_tree_insert_remove_example1():
+    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
+    rbtree = RedBlackTree(5)
+    rbtree.insert(2)
+    rbtree.insert(8)
+    rbtree.insert(1)
+    rbtree.insert(4)
+    rbtree.insert(7)
+    rbtree.insert(9)
+    rbtree.remove(2)
+    # test tree characteristics
+    assert verify_bst_rules(rbtree.root)
+    assert rbtree.is_balanced()
+    assert len(rbtree) == 6
+    assert rbtree.count_leaf_nodes() == 3
+    assert rbtree.get_max() == 9
+    assert rbtree.get_min() == 1
+    assert rbtree.get_height() == 2
+    assert rbtree.is_balanced()
+    # check data/colors
+    assert isinstance(rbtree.root, RedBlackNode)
+    assert rbtree.root.get_data() == 5
+    assert rbtree.root.get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_data() == 4
+    assert rbtree.root.get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_left().get_data() == 1
+    assert rbtree.root.get_left().get_left().get_color() == Color.RED
+    assert rbtree.root.get_left().get_left().get_left() is None
+    assert rbtree.root.get_left().get_left().get_right() is None
+    assert rbtree.root.get_left().get_right() is None
+
+    assert rbtree.root.get_right().get_data() == 8
+    assert rbtree.root.get_right().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_left().get_data() == 7
+    assert rbtree.root.get_right().get_left().get_color() == Color.RED
+    assert rbtree.root.get_right().get_left().get_left() is None
+    assert rbtree.root.get_right().get_left().get_right() is None
+    assert rbtree.root.get_right().get_right().get_data() == 9
+    assert rbtree.root.get_right().get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_right().get_left() is None
+    assert rbtree.root.get_right().get_right().get_right() is None
