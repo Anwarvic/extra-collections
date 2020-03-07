@@ -9,7 +9,6 @@ def test_red_black_node():
     pass
 
 
-
 def test_red_black_special_case():
     rbtree = RedBlackTree(15)
     rbtree.insert(5)
@@ -39,6 +38,39 @@ def test_red_black_special_case():
 
 
 def test_red_black_tree_example1():
+    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
+    rbtree = RedBlackTree(10)
+    rbtree.insert(20)
+    rbtree.insert(30)
+    rbtree.insert(15)
+    # test tree characteristics
+    assert verify_bst_rules(rbtree.root)
+    assert rbtree.is_balanced()
+    assert len(rbtree) == 4
+    assert rbtree.count_leaf_nodes() == 2
+    assert rbtree.get_max() == 30
+    assert rbtree.get_min() == 10
+    assert rbtree.get_height() == 2
+    assert rbtree.is_balanced()
+    # check data/colors
+    assert isinstance(rbtree.root, RedBlackNode)
+    assert rbtree.root.get_data() == 20
+    assert rbtree.root.get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_data() == 10
+    assert rbtree.root.get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_left() is None
+    assert rbtree.root.get_left().get_right().get_data() == 15
+    assert rbtree.root.get_left().get_right().get_color() == Color.RED
+    assert rbtree.root.get_left().get_right().get_left() is None
+    assert rbtree.root.get_left().get_right().get_right() is None
+
+    assert rbtree.root.get_right().get_data() == 30
+    assert rbtree.root.get_right().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_left() is None
+    assert rbtree.root.get_right().get_right() is None
+
+
+def test_red_black_tree_example2():
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree(8)
     rbtree.insert(5)
@@ -91,35 +123,51 @@ def test_red_black_tree_example1():
     assert rbtree.root.get_right().get_right().get_right().get_right() is None
     
 
-def test_red_black_tree_example2():
-    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    rbtree = RedBlackTree(10)
-    rbtree.insert(20)
-    rbtree.insert(30)
+def test_red_black_tree_example3():
+    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
+    rbtree = RedBlackTree(8)
+    rbtree.insert(18)
+    rbtree.insert(5)
     rbtree.insert(15)
+    rbtree.insert(17)
+    rbtree.insert(25)
+    rbtree.insert(40)
+    rbtree.insert(80)
     # test tree characteristics
     assert verify_bst_rules(rbtree.root)
     assert rbtree.is_balanced()
-    assert len(rbtree) == 4
-    assert rbtree.count_leaf_nodes() == 2
-    assert rbtree.get_max() == 30
-    assert rbtree.get_min() == 10
-    assert rbtree.get_height() == 2
+    assert len(rbtree) == 8
+    assert rbtree.count_leaf_nodes() == 4
+    assert rbtree.get_max() == 80
+    assert rbtree.get_min() == 5
+    assert rbtree.get_height() == 3
     assert rbtree.is_balanced()
     # check data/colors
     assert isinstance(rbtree.root, RedBlackNode)
-    assert rbtree.root.get_data() == 20
+    assert rbtree.root.get_data() == 17
     assert rbtree.root.get_color() == Color.BLACK
-    assert rbtree.root.get_left().get_data() == 10
-    assert rbtree.root.get_left().get_color() == Color.BLACK
-    assert rbtree.root.get_left().get_left() is None
+    assert rbtree.root.get_left().get_data() == 8
+    assert rbtree.root.get_left().get_color() == Color.RED
+    assert rbtree.root.get_left().get_left().get_data() == 5
+    assert rbtree.root.get_left().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_left().get_left() is None
+    assert rbtree.root.get_left().get_left().get_right() is None
     assert rbtree.root.get_left().get_right().get_data() == 15
-    assert rbtree.root.get_left().get_right().get_color() == Color.RED
+    assert rbtree.root.get_left().get_right().get_color() == Color.BLACK
     assert rbtree.root.get_left().get_right().get_left() is None
     assert rbtree.root.get_left().get_right().get_right() is None
 
-    assert rbtree.root.get_right().get_data() == 30
-    assert rbtree.root.get_right().get_color() == Color.BLACK
-    assert rbtree.root.get_right().get_left() is None
-    assert rbtree.root.get_right().get_right() is None
+    assert rbtree.root.get_right().get_data() == 25
+    assert rbtree.root.get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_left().get_data() == 18
+    assert rbtree.root.get_right().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_left().get_left() is None
+    assert rbtree.root.get_right().get_left().get_right() is None
+    assert rbtree.root.get_right().get_right().get_data() == 40
+    assert rbtree.root.get_right().get_right().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_right().get_left() is None
+    assert rbtree.root.get_right().get_right().get_right().get_data() == 80
+    assert rbtree.root.get_right().get_right().get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_right().get_right().get_left() is None
+    assert rbtree.root.get_right().get_right().get_right().get_right() is None
 
