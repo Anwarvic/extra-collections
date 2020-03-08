@@ -85,7 +85,7 @@ def test_creating_linked_list_from_iterable():
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
     for _ in range(100): #check random indices
-        idx = get_pos_int(b=10000)
+        idx = get_pos_int(b=10000-1)
         assert ll[idx].get_data() == lst[idx]
     # iterable is Linked List
     lst = get_list()

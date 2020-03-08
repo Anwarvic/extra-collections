@@ -114,7 +114,7 @@ def test_creating_doubly_linked_list_from_iterable():
     assert len(dl) == dl.length == len(lst)
     assert dl.to_list() == [item.get_data() for item in dl] == lst
     for _ in range(100): #check random indices
-        idx = get_pos_int(b=10000)
+        idx = get_pos_int(b=10000-1)
         assert dl[idx].get_data() == lst[idx]
     # Using Linked List
     lst = get_list()
