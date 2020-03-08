@@ -326,8 +326,40 @@ def test_red_black_tree_insert_remove_example3():
     assert verify_bst_rules(rbtree.root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 9
-    assert rbtree.count_leaf_nodes() == 6
+    assert rbtree.count_leaf_nodes() == 5
     assert rbtree.get_max() == 27
     assert rbtree.get_min() == 1
     assert rbtree.get_height() == 3
-    
+    # check data/colors
+    assert isinstance(rbtree.root, RedBlackNode)
+    assert rbtree.root.get_data() == 13
+    assert rbtree.root.get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_data() == 6
+    assert rbtree.root.get_left().get_color() == Color.RED
+    assert rbtree.root.get_left().get_left().get_data() == 1
+    assert rbtree.root.get_left().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_left().get_left() is None
+    assert rbtree.root.get_left().get_left().get_right() is None
+    assert rbtree.root.get_left().get_right().get_data() == 8
+    assert rbtree.root.get_left().get_right().get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_right().get_left() is None
+    assert rbtree.root.get_left().get_right().get_right() is None
+
+    assert rbtree.root.get_right().get_data() == 17
+    assert rbtree.root.get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_left().get_data() == 15
+    assert rbtree.root.get_right().get_left().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_left().get_left() is None
+    assert rbtree.root.get_right().get_left().get_right() is None
+    assert rbtree.root.get_right().get_right().get_data() == 25
+    assert rbtree.root.get_right().get_right().get_color() == Color.BLACK
+    assert rbtree.root.get_right().get_right().get_left().get_data() == 22
+    assert rbtree.root.get_right().get_right().get_left().get_color() == Color.RED
+    assert rbtree.root.get_right().get_right().get_left().get_left() is None
+    assert rbtree.root.get_right().get_right().get_left().get_right() is None
+    assert rbtree.root.get_right().get_right().get_right().get_data() == 27
+    assert rbtree.root.get_right().get_right().get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_right().get_right().get_left() is None
+    assert rbtree.root.get_right().get_right().get_right().get_right() is None
+
+
