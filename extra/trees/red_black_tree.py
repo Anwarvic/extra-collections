@@ -405,23 +405,3 @@ class RedBlackTree(BST):
             super()._transplant(removed_node, replacement)
         
 
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    # ################### THESE TO TEST double-black nodes ####################
-
-    # test case (right-right)
-    rbtree = RedBlackTree(30)
-    rbtree.insert(20)
-    rbtree.insert(40)
-    rbtree.insert(50)
-    print(rbtree)
-    rbtree.remove(20)
-    print(rbtree)
-
-    # # 
