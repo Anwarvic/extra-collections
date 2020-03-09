@@ -32,7 +32,7 @@ We can say that:
 from enum import Enum
 from abc import abstractmethod
 
-from bst import TreeNode, BST
+from extra.trees.bst import BSTNode, BST
 
 
 
@@ -44,7 +44,7 @@ class Color(Enum):
 
 
 
-class TreeNode(TreeNode):
+class RedBlackNode(BSTNode):
     def __init__(self, value):
         super().__init__(value)
         self.color = Color.RED
@@ -62,8 +62,9 @@ class TreeNode(TreeNode):
         elif self.color == Color.BLACK:
             return str(self.data)+'|B'
 
-    @abstractmethod
+    @staticmethod
     def swap(node1, node2):
+        #TODO: use super().swap(node1, node2) here
         node1.data, node2.data = node2.data, node1.data
         node1.color, node2.color = node2.color, node1.color
 
@@ -72,22 +73,26 @@ class TreeNode(TreeNode):
 
 class RedBlackTree(BST):
     def __init__(self, value):
-        if isinstance(value, TreeNode):
+        if isinstance(value, RedBlackNode):
             self.root = value
         else:
-            self.root = TreeNode(value)
+            self.root = RedBlackNode(value)
         self.root.set_color(Color.BLACK)
 
 
     ############################## HEIGHT ##############################
     def get_black_height(self):
+        """
+        Number of black nodes from root till to any leaf node, the root node
+        is not counted
+        """
         black_height = 0
-        start_node = self.root
+        start_node = self.root.get_left()
         while(start_node is not None):
             if start_node.get_color() == Color.BLACK:
                 black_height += 1
             start_node = start_node.get_left()
-        return black_height + 1
+        return black_height + 1 # +1 to include NIL node
 
     ############################## ROTATION ##############################
     def __rotate_left(self, start_node):
@@ -187,7 +192,7 @@ class RedBlackTree(BST):
 
     def insert(self, value):
         # insert new node
-        new_node = super()._insert(TreeNode(value), self.root)
+        new_node = super()._insert_node(self.root, RedBlackNode(value))
         # recolor starting from new_node till root
         self.root = self.__recolor(new_node)
         # root is black (isn't essential tho!!)
@@ -396,7 +401,7 @@ class RedBlackTree(BST):
         elif removed_node.get_color() == Color.BLACK and \
             replacement.get_color() == Color.RED:
             replacement.set_color(Color.BLACK)
-            print("Case IV (replace black-node with black-node/None)")
+            print("Case IV (replace black-node with red-node/None)")
             super()._transplant(removed_node, replacement)
         
 
@@ -408,132 +413,7 @@ class RedBlackTree(BST):
 
 
 if __name__ == "__main__":
-    ######################### Test insertion #########################
-    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
-    rbtree = RedBlackTree(8)
-    rbtree.insert(5)
-    rbtree.insert(15)
-    rbtree.insert(12)
-    rbtree.insert(19)
-    rbtree.insert(9)
-    rbtree.insert(13)
-    rbtree.insert(23)
-    rbtree.insert(10)
-    print(rbtree)
-    print('='*50, '\n')
-
-    # test special case
-    rbtree = RedBlackTree(15)
-    rbtree.insert(5)
-    rbtree.insert(1)
-    print(rbtree)
-    print('='*50, '\n')
-
-    # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
-    rbtree = RedBlackTree(10)
-    rbtree.insert(20)
-    rbtree.insert(30)
-    rbtree.insert(15)
-    print(rbtree)
-    print('='*50, '\n')
-
-    # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
-    rbtree = RedBlackTree(8)
-    rbtree.insert(18)
-    rbtree.insert(5)
-    rbtree.insert(15)
-    rbtree.insert(17)
-    rbtree.insert(25)
-    rbtree.insert(40)
-    rbtree.insert(80)
-    print(rbtree)
-    print('='*50, '\n')
-
-    # src: Data Structures and Algorithms in Python Book (Page: 539)
-    rbtree = RedBlackTree(4)
-    rbtree.insert(7)
-    rbtree.insert(12)
-    rbtree.insert(15)
-    rbtree.insert(3)
-    rbtree.insert(5)
-    rbtree.insert(14)
-    rbtree.insert(18)
-    rbtree.insert(16)
-    rbtree.insert(17)
-    print(rbtree)
-    print('='*50, '\n')
-
-    ######################## Test Removal #########################
-    # src: https://www.youtube.com/watch?v=eO3GzpCCUSg&t=1s
-
-    rbtree = RedBlackTree(5)
-    rbtree.insert(2)
-    rbtree.insert(8)
-    rbtree.insert(1)
-    rbtree.insert(4)
-    rbtree.insert(7)
-    rbtree.insert(9)
-    print(rbtree, '\n')
-    rbtree.remove(2)
-    print(rbtree)
-
-    rbtree = RedBlackTree(7)
-    rbtree.insert(3)
-    rbtree.insert(18)
-    rbtree.insert(10)
-    rbtree.insert(22)
-    rbtree.insert(8)
-    rbtree.insert(11)
-    rbtree.insert(26)
-    print(rbtree, '\n')
-    rbtree.remove(3)
-    print(rbtree)
-
-    rbtree = RedBlackTree(13)
-    rbtree.insert(8)
-    rbtree.insert(17)
-    rbtree.insert(1)
-    rbtree.insert(11)
-    rbtree.insert(1)
-    rbtree.insert(15)
-    rbtree.insert(25)
-    rbtree.insert(6)
-    rbtree.insert(22)
-    rbtree.insert(27)
-    print(rbtree, '\n')
-    print(rbtree.get_height())
-    print(rbtree.get_black_height())
-    rbtree.remove(11)
-    print(rbtree)
-
-    ################### THESE TO TEST double-black nodes ####################
-    # test case (left-left)
-    rbtree = RedBlackTree(40)
-    rbtree.insert(30)
-    rbtree.insert(50)
-    rbtree.insert(20)
-    rbtree.insert(35)
-    print(rbtree)
-    rbtree.remove(50)
-    print(rbtree, '\n')
-
-    # test case (left-right)
-    rbtree = RedBlackTree(40)
-    rbtree.insert(30)
-    rbtree.insert(50)
-    rbtree.insert(35)
-    print(rbtree)
-    rbtree.remove(50)
-    print(rbtree)
-
-    # test case (right-left)
-    rbtree = RedBlackTree(30)
-    rbtree.insert(20)
-    rbtree.insert(40)
-    rbtree.insert(35)
-    print(rbtree)
-    rbtree.remove(20)
-    print(rbtree)
+    # ################### THESE TO TEST double-black nodes ####################
 
     # test case (right-right)
     rbtree = RedBlackTree(30)
@@ -544,4 +424,4 @@ if __name__ == "__main__":
     rbtree.remove(20)
     print(rbtree)
 
-    # 
+    # # 
