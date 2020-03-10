@@ -45,6 +45,10 @@ class Color(Enum):
 
 
 class RedBlackNode(BSTNode):
+    def __name__(self):
+        return "extra.RedBlackTree()"
+    
+    
     def __init__(self, value):
         super().__init__(value)
         self.color = Color.RED
