@@ -92,6 +92,8 @@ class BST(BinaryTree):
 
     @staticmethod
     def from_iterable(iterable):
+        #TODO: convert this to classmethod like the one with LinkedList
+        # do that after applying clear()
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
@@ -190,7 +192,10 @@ class BST(BinaryTree):
 
     def insert(self, value):
         self._validate_item(value)
-        self._insert_value(self.root, value)
+        if isinstance(value, self._basic_node):
+            self._insert_node(self.root, value)
+        else:
+            self._insert_value(self.root, value)
 
 
     ##############################   REMOVAL  ##############################
@@ -232,7 +237,7 @@ class BST(BinaryTree):
 
     def _remove(self, del_value, start_node):
         assert type(del_value) in {int, float}
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
         # search for the del_value node
