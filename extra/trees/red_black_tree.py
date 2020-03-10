@@ -53,7 +53,8 @@ class RedBlackNode(BSTNode):
         return self.color
 
     def set_color(self, color):
-        assert color in {Color.RED, Color.BLACK}, "Invalid color!!"
+        if color not in {Color.RED, Color.BLACK}:
+            raise ValueError("Invalid color!!")
         self.color = color
 
     def __str__(self):
