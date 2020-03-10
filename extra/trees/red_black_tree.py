@@ -49,19 +49,23 @@ class RedBlackNode(BSTNode):
         super().__init__(value)
         self.color = Color.RED
 
+
     def get_color(self):
         return self.color
+
 
     def set_color(self, color):
         if color not in {Color.RED, Color.BLACK}:
             raise ValueError("Invalid color!!")
         self.color = color
 
+
     def __str__(self):
         if self.color == Color.RED:
             return str(self.data)+'|R'
         elif self.color == Color.BLACK:
             return str(self.data)+'|B'
+
 
     @staticmethod
     def swap(node1, node2):
@@ -73,6 +77,7 @@ class RedBlackNode(BSTNode):
 
 
 class RedBlackTree(BST):
+    ############################## INIT ##############################
     def __init__(self, value):
         if isinstance(value, RedBlackNode):
             self.root = value
@@ -93,10 +98,12 @@ class RedBlackTree(BST):
             if start_node.get_color() == Color.BLACK:
                 black_height += 1
             start_node = start_node.get_left()
-        return black_height + 1 # +1 to include NIL node
+        # +1 to include NIL node
+        return black_height + 1
 
     ############################## ROTATION ##############################
     def __rotate_left(self, start_node):
+        assert isinstance(start_node, RedBlackNode)
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -104,7 +111,9 @@ class RedBlackTree(BST):
         middle.set_left(start_node)
         return middle
 
+
     def __rotate_right(self, start_node):
+        assert isinstance(start_node, RedBlackNode)
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -115,6 +124,7 @@ class RedBlackTree(BST):
 
     ############################## INSERTION ##############################
     def __recolor_case3(self, start_node):
+        assert isinstance(start_node, RedBlackNode)
         # get basic info
         uncle = start_node.get_uncle()
         parent = start_node.get_parent()
@@ -148,6 +158,7 @@ class RedBlackTree(BST):
             parent.set_color(Color.BLACK)
             grandparent = self.__rotate_left(grandparent)
         return grandparent
+
 
     def __recolor(self, start_node):
         """
@@ -209,6 +220,7 @@ class RedBlackTree(BST):
             - when removing a red node, there must be at least one red-node as
               a replacement at least.
         """
+        assert isinstance(start_node, RedBlackNode)
         if start_node.is_leaf():
             replacement_node = None
         else:
@@ -229,6 +241,8 @@ class RedBlackTree(BST):
 
 
     def __attach(self, parent, child):
+        assert parent is None or isinstance(parent, RedBlackNode)
+        assert isinstance(child, RedBlackNode)
         if parent is None:
             self.root = child
         else:
@@ -249,6 +263,10 @@ class RedBlackTree(BST):
         Note: (s) is the sibling of the double_black_node
         SRC: https://www.programiz.com/dsa/deletion-from-a-red-black-tree
         """
+        #TODO: should be refactored
+        assert isinstance(parent, RedBlackNode)
+        assert double_black_node is None or \
+            isinstance(double_black_node, RedBlackNode)
         while double_black_node != self.root and (not double_black_node \
             or double_black_node.get_color() == Color.BLACK):
             # double black node is the left-child
@@ -347,8 +365,7 @@ class RedBlackTree(BST):
         Case III: removed_node is 'black', replacement is either 'black' or None
         Case IV : removed_node is 'black', replacement is 'red'
         """
-        assert type(del_value) in {int, float}, \
-                    "Red-Black Tree conains only numbers!"
+        super()._validate_item(del_value)
         # check edge case
         if self.root.is_leaf() and del_value == self.root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
