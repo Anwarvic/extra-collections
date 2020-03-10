@@ -44,11 +44,7 @@ class Color(Enum):
 
 
 
-class RedBlackNode(BSTNode):
-    def __name__(self):
-        return "extra.RedBlackTree()"
-    
-    
+class RedBlackNode(BSTNode):  
     def __init__(self, value):
         super().__init__(value)
         self.color = Color.RED
@@ -82,11 +78,15 @@ class RedBlackNode(BSTNode):
 
 class RedBlackTree(BST):
     ############################## INIT ##############################
+    _basic_node = RedBlackNode
+
+
+    def __name__(self):
+        return "extra.RedBlackTree()"
+    
+
     def __init__(self, value):
-        if isinstance(value, RedBlackNode):
-            self.root = value
-        else:
-            self.root = RedBlackNode(value)
+        super().__init__(value)
         self.root.set_color(Color.BLACK)
 
 
@@ -107,7 +107,7 @@ class RedBlackTree(BST):
 
     ############################## ROTATION ##############################
     def __rotate_left(self, start_node):
-        assert isinstance(start_node, RedBlackNode)
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -117,7 +117,7 @@ class RedBlackTree(BST):
 
 
     def __rotate_right(self, start_node):
-        assert isinstance(start_node, RedBlackNode)
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -128,7 +128,7 @@ class RedBlackTree(BST):
 
     ############################## INSERTION ##############################
     def __recolor_case3(self, start_node):
-        assert isinstance(start_node, RedBlackNode)
+        assert isinstance(start_node, self._basic_node)
         # get basic info
         uncle = start_node.get_uncle()
         parent = start_node.get_parent()
@@ -207,8 +207,9 @@ class RedBlackTree(BST):
             return self.__recolor(grandparent)
 
     def insert(self, value):
+        super()._validate_item(value)
         # insert new node
-        new_node = super()._insert_node(self.root, RedBlackNode(value))
+        new_node = super()._insert(value)
         # recolor starting from new_node till root
         self.root = self.__recolor(new_node)
         # root is black (isn't essential tho!!)
