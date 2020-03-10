@@ -26,6 +26,9 @@ def test_red_black_node():
         node.set_color(get_value())
 
 
+def test_red_black_tree_from_iterable():
+    pass
+
 
 def test_red_black_special_case():
     rbtree = RedBlackTree(15)
@@ -388,6 +391,16 @@ def test_red_black_tree_insert_remove_example3():
     assert rbtree.root.get_right().get_right().get_right().get_color() == Color.RED
     assert rbtree.root.get_right().get_right().get_right().get_left() is None
     assert rbtree.root.get_right().get_right().get_right().get_right() is None
+
+
+def test_red_black_tree_insert_remove_invalid_examples():
+    rbtree = RedBlackTree(10)
+    rbtree.remove(get_int()) #shouldn't raise anything
+    with pytest.raises(TypeError):
+        rbtree.remove(get_string())
+        rbtree.remove(get_list())
+        rbtree.remove(RedBlackNode(10))
+        rbtree.remove(RedBlackTree(10))
 
 
 def test_double_black_left_left_case():
