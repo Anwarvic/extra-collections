@@ -27,7 +27,29 @@ def test_red_black_node():
 
 
 def test_red_black_tree_from_iterable():
-    pass
+    rbtree = RedBlackTree.from_iterable([7, 3, 0])
+    # test tree characteristics
+    assert verify_bst_rules(rbtree.root)
+    assert rbtree.is_balanced()
+    assert len(rbtree) == 3
+    assert rbtree.count_leaf_nodes() == 2
+    assert rbtree.get_max() == 7
+    assert rbtree.get_min() == 0
+    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_black_height() == 1
+    # check data/colors
+    assert isinstance(rbtree.root, RedBlackNode)
+    assert rbtree.root.get_data() == 3
+    assert rbtree.root.get_color() == Color.BLACK
+    assert rbtree.root.get_left().get_data() == 0
+    assert rbtree.root.get_left().get_color() == Color.RED
+    assert rbtree.root.get_left().get_left() is None
+    assert rbtree.root.get_left().get_right() is None
+
+    assert rbtree.root.get_right().get_data() == 7
+    assert rbtree.root.get_right().get_color() == Color.RED
+    assert rbtree.root.get_right().get_left() is None
+    assert rbtree.root.get_right().get_right() is None
 
 
 def test_red_black_special_case():
