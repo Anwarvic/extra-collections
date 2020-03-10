@@ -10,7 +10,7 @@ class SplayTree(BST):
 
     ############################## SPLAYING ##############################
     def __zig_zig(self, start_node, is_child_left=True):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         assert type(is_child_left) == bool
         child = start_node
         parent = child.get_parent()
@@ -35,7 +35,7 @@ class SplayTree(BST):
 
 
     def __zig_zag(self, start_node, is_child_left=True):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         assert type(is_child_left) == bool
         child = start_node
         parent = child.get_parent()
@@ -76,7 +76,7 @@ class SplayTree(BST):
 
 
     def __splaying(self, start_node):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         child = start_node
         parent = child.get_parent()
         if parent is None:
@@ -123,7 +123,7 @@ class SplayTree(BST):
     ############################## INSERTION ##############################
     def insert(self, value):
         super()._validate_item(value)
-        new_node = super()._insert_value(self.root, value)
+        new_node = super()._insert(value)
         self.splay(new_node)
 
 
