@@ -190,13 +190,18 @@ class BST(BinaryTree):
         return self._insert_node(start_node, inserted_node)
 
 
+    def _insert(self, value):
+        assert type(value) in {int, float} or \
+                    isinstance(value, self._basic_node)
+        if isinstance(value, self._basic_node):
+            return self._insert_node(self.root, value)
+        else:
+            return self._insert_value(self.root, value)
+
+
     def insert(self, value):
         self._validate_item(value)
-        if isinstance(value, self._basic_node):
-            self._insert_node(self.root, value)
-        else:
-            self._insert_value(self.root, value)
-
+        self._insert(value)
 
     ##############################   REMOVAL  ##############################
     def _find_replacement(self, start_node):
