@@ -90,6 +90,23 @@ class RedBlackTree(BST):
         self.root.set_color(Color.BLACK)
 
 
+    @staticmethod
+    def from_iterable(iterable):
+        #TODO: convert this to classmethod like the one with LinkedList
+        # do that after applying clear()
+        if not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        if len(iterable) == 0:
+            raise ValueError("The given iterable is empty!!")
+        rbtree = None
+        for item in iterable:
+            if rbtree is None:
+                rbtree = RedBlackTree(item)
+            else:
+                rbtree.insert(item)
+        return rbtree
+    
+
     ############################## HEIGHT ##############################
     def get_black_height(self):
         """
