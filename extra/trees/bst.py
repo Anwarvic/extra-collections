@@ -53,7 +53,7 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_parent(self, new_node):
-        assert isinstance(new_node, BSTNode)
+        assert new_node is None or isinstance(new_node, BSTNode)
         self.parent = new_node
 
 
@@ -68,22 +68,26 @@ class BSTNode(BinaryTreeNode):
 
 
 class BST(BinaryTree):
+    ############################## INIT ##############################
+    _basic_node = BSTNode
+
+
     def __name__(self):
         return "extra.BST()"
 
 
     def _validate_item(self, item):
-        if isinstance(item, BSTNode): item = item.get_data()
+        if isinstance(item, self._basic_node): item = item.get_data()
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} accepts only numbers!!")
     
 
     def __init__(self, value):
         self._validate_item(value)
-        if isinstance(value, BSTNode):
+        if isinstance(value, self._basic_node):
             self.root = value
         else:
-            self.root = BSTNode(value)
+            self.root = self._basic_node(value)
 
 
     @staticmethod
@@ -103,7 +107,7 @@ class BST(BinaryTree):
 
     ##############################    MAX   ##############################
     def _get_max_node(self, start_node):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         # get the right-most node
         if start_node.get_right() == None:
             return start_node
@@ -118,7 +122,7 @@ class BST(BinaryTree):
 
     ##############################    MIN   ##############################
     def _get_min_node(self, start_node):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         # get the left-most node
         if start_node.get_left() == None:
             return start_node
@@ -133,7 +137,7 @@ class BST(BinaryTree):
 
     ##############################   SEARCH  ##############################
     def _search(self, find_val, start_node):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         assert type(find_val) in {float, int}
         if find_val == start_node.get_data():
             return start_node
@@ -157,8 +161,9 @@ class BST(BinaryTree):
 
     ############################## INSERTION ##############################
     def _insert_node(self, start_node, inserted_node):
-        assert isinstance(start_node, BSTNode)
-        assert inserted_node is None or isinstance(inserted_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
+        assert inserted_node is None or \
+            isinstance(inserted_node, self._basic_node)
         value = inserted_node.get_data()
         if value == start_node.get_data():
             return start_node
@@ -177,19 +182,20 @@ class BST(BinaryTree):
 
 
     def _insert_value(self, start_node, value):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         assert type(value) in {float, int}
-        inserted_node = BSTNode(value)
+        inserted_node = self._basic_node(value)
         return self._insert_node(start_node, inserted_node)
 
 
     def insert(self, value):
+        self._validate_item(value)
         self._insert_value(self.root, value)
 
 
     ##############################   REMOVAL  ##############################
     def _find_replacement(self, start_node):
-        assert isinstance(start_node, BSTNode)
+        assert isinstance(start_node, self._basic_node)
         if start_node.get_right():
             # in-order successor
             replacement_node = self._get_min_node(start_node.get_right())
@@ -203,8 +209,8 @@ class BST(BinaryTree):
     
 
     def _transplant(self, node, replacement):
-        assert isinstance(node, BSTNode)
-        assert replacement is None or isinstance(replacement, BSTNode)
+        assert isinstance(node, self._basic_node)
+        assert replacement is None or isinstance(replacement, self._basic_node)
         # replace 'node' with 'replacement'
         if replacement is None:
             parent = node.get_parent()
@@ -220,7 +226,7 @@ class BST(BinaryTree):
             else:
                 new_replacement = replacement.get_right()
             # swap data
-            BSTNode.swap(node, replacement)
+            self._basic_node.swap(node, replacement)
             self._transplant(replacement, new_replacement)
 
 
