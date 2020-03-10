@@ -1,12 +1,30 @@
 import pytest
-from tests import verify_bst_rules
+from tests import *
 from extra.trees.red_black_tree import Color, RedBlackNode, RedBlackTree
 
 
 
 
 def test_red_black_node():
-    pass
+    with pytest.raises(TypeError):
+        RedBlackNode(None)
+        RedBlackNode('  ')
+        RedBlackNode(RedBlackTree(get_value()))
+        RedBlackNode(get_string())
+        RedBlackNode(get_value())
+        RedBlackNode(get_list())
+        RedBlackNode(Color.RED)
+    # these should raise any erros
+    RedBlackNode(get_float())
+    assert RedBlackNode(get_float()).get_color() == Color.RED
+    RedBlackNode(get_int())
+    assert RedBlackNode(get_float()).get_color() == Color.RED
+    with pytest.raises(ValueError):
+        node = RedBlackNode(get_int())
+        node.set_color(0)
+        node.set_color(1)
+        node.set_color(get_value())
+
 
 
 def test_red_black_special_case():
