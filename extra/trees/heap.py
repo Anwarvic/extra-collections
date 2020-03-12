@@ -4,7 +4,7 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
 
-class HeapNode(BinaryTree):
+class HeapNode(BinaryTreeNode):
     def __name__(self):
         return "extra.HeapNode()"
     
@@ -40,7 +40,7 @@ class Heap(ABC):
 
 
     def __repr__(self):
-        root = self.heapify(self._heap)
+        root = self._transform(self._heap)
         btree = BinaryTree(root)
         return str( btree )
 
@@ -52,18 +52,19 @@ class Heap(ABC):
         
 
     ############################## HEAPIFY ##############################
-    def heapify(self, lst):
+    @classmethod
+    def _transform(cls, lst):
         root = BinaryTreeNode(lst[0])
         q = [root]
         idx = 1
         length = len(lst)
         while (idx < length):
             parent_node = q.pop(0)
-            parent_node.left = TreeNode(lst[idx])
+            parent_node.left = cls._basic_node(lst[idx])
             q.append(parent_node.left)
             idx += 1
             if idx < length:
-                parent_node.right = TreeNode(lst[idx])
+                parent_node.right = cls._basic_node(lst[idx])
                 q.append(parent_node.right)
                 idx += 1
         return BinaryTree(root)
