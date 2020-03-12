@@ -18,12 +18,19 @@ class HeapNode(BinaryTreeNode):
 
 
 class Heap(ABC):
+    ############################ INIT ############################
     _basic_node = HeapNode
 
 
     def __name__(self):
         return "extra.Heap()"
     
+
+    def _validate_item(self, item):
+        if isinstance(item, self._basic_node): item = item.get_data()
+        if type(item) not in {int, float}:
+            raise TypeError(f"{self.__name__()} accepts only numbers!!")
+        
 
     @abstractmethod
     def __init__(self, value=None):
@@ -43,19 +50,15 @@ class Heap(ABC):
             yield node
 
 
-    def __repr__(self):
-        root = self.__transform(self._heap)
-        btree = BinaryTree(root)
-        return str( btree )
+    @staticmethod
+    def heapify(self, obj, is_min_heap):
+        #TODO: there is a better way.
+        if not hasattr(obj, '__iter__'):
+            raise TypeError("Given object isn't iterable!!")
+        self._heap = sorted(value, reverse=not is_min_heap)
 
 
-    def _validate_item(self, item):
-        if isinstance(item, self._basic_node): item = item.get_data()
-        if type(item) not in {int, float}:
-            raise TypeError(f"{self.__name__()} accepts only numbers!!")
-        
-
-    ############################## HEAPIFY ##############################
+    ############################## PRINT ##############################
     @classmethod
     def __transform(cls, lst):
         root = BinaryTreeNode(lst[0])
@@ -73,14 +76,14 @@ class Heap(ABC):
                 idx += 1
         return BinaryTree(root)
     
-    @staticmethod
-    def heapify(self, obj):
-        if not hasattr(obj, '__iter__'):
-            raise TypeError("Given object isn't iterable!!")
-        self._heap = sorted(value)
+
+    def __repr__(self):
+        root = self.__transform(self._heap)
+        btree = BinaryTree(root)
+        return str( btree )
     
 
-    ############################## INSERTION ##############################
+    ############################## INSERT ##############################
     def insert(self, value, is_min_heap):
         # add the new value
         self._heap.append(value)
