@@ -26,8 +26,12 @@ class Heap(ABC):
     
 
     @abstractmethod
-    def __init__(self):
-        self._heap = []
+    def __init__(self, value=None):
+        if value is None:
+            self._heap = []
+        else:
+            self._validate_item(value)
+            self._heap = [value]
 
 
     def __len__(self):
@@ -40,7 +44,7 @@ class Heap(ABC):
 
 
     def __repr__(self):
-        root = self._transform(self._heap)
+        root = self.__transform(self._heap)
         btree = BinaryTree(root)
         return str( btree )
 
@@ -53,7 +57,7 @@ class Heap(ABC):
 
     ############################## HEAPIFY ##############################
     @classmethod
-    def _transform(cls, lst):
+    def __transform(cls, lst):
         root = BinaryTreeNode(lst[0])
         q = [root]
         idx = 1
@@ -69,7 +73,13 @@ class Heap(ABC):
                 idx += 1
         return BinaryTree(root)
     
+    @staticmethod
+    def heapify(self, obj):
+        if not hasattr(obj, '__iter__'):
+            raise TypeError("Given object isn't iterable!!")
+        self._heap = sorted(value)
     
+
     ############################## INSERTION ##############################
     def insert(self, value, is_min_heap):
         # add the new value
@@ -129,12 +139,8 @@ class Heap(ABC):
         # swap between removed item and last item
         self._heap[last_idx], self._heap[del_idx] = \
                                 self._heap[del_idx], self._heap[last_idx]
-        if is_min_heap:
-            # set last item to -inf
-            self._heap[last_idx] = float('-inf')
-        else:
-            # set last item to inf
-            self._heap[last_idx] = float('inf')
+        # set last item to -inf or inf based on heap type
+        self._heap[last_idx] = float('-inf') if is_min_heap else float('inf')
         # start swapping when needed
         self.__rebalance(del_idx, is_min_heap)
         # remove the (+/-)inf
@@ -144,23 +150,18 @@ class Heap(ABC):
 
 
 class MinHeap(Heap):
-    def __init__(self, value):
-        if hasattr(value, '__iter__'):
-            self._heap = sorted(value)
-        elif type(value) in {int, float}:
-            self._heap = [value]
-        else:
-            raise ValueError("Unsupported datatype!!")
-
     def get_min(self):
         return self._heap[0]
+
 
     def get_max(self):
         # TODO: optimize as you don't have to iterate over the whole list
         return max(self._heap)
 
+
     def insert(self, value):
         super().insert(value, is_min_heap=True)
+
 
     def remove(self, del_value):
         super().remove(del_value, is_min_heap=True)
@@ -169,23 +170,26 @@ class MinHeap(Heap):
 
 
 class MaxHeap(Heap):
-    def __init__(self, value):
-        if hasattr(value, '__iter__'):
-            self._heap = sorted(value, reverse=True)
-        elif type(value) in {int, float}:
-            self._heap = [value]
+        def __init__(self, value=None):
+        if value is None:
+            self._heap = []
         else:
-            raise ValueError("Unsupported datatype!!")
+            super()._validate_item(value)
+            self._heap = [value]
+
 
     def get_min(self):
         # TODO: optimize as you don't have to iterate over the whole list
         return min(self._heap)
 
+
     def get_max(self):
         return self._heap[0]
 
+
     def insert(self, value):
         super().insert(value, is_min_heap=False)
+
 
     def remove(self, del_value):
         super().remove(del_value, is_min_heap=False)
