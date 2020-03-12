@@ -1,29 +1,59 @@
 from abc import ABC, abstractmethod
-from binary_tree import TreeNode, BinaryTree
+from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
+
+
+
+
+class HeapNode(BinaryTree):
+    def __name__(self):
+        return "extra.HeapNode()"
+    
+
+    def __init__(self, value):
+        if type(value) not in {int, float}:
+            raise TypeError(f"{self.__name__()} contains only numbers!!")
+        super().__init__(value)
+
 
 
 
 class Heap(ABC):
+    _basic_node = HeapNode
+
+
+    def __name__(self):
+        return "extra.Heap()"
+    
+
     @abstractmethod
     def __init__(self):
         self._heap = []
-        pass
+
 
     def __len__(self):
         return len(self._heap)
-    
+
+
     def __iter__(self):
         for node in self._heap:
             yield node
+
 
     def __repr__(self):
         root = self.heapify(self._heap)
         btree = BinaryTree(root)
         return str( btree )
 
+
+    def _validate_item(self, item):
+        if isinstance(item, self._basic_node): item = item.get_data()
+        if type(item) not in {int, float}:
+            raise TypeError(f"{self.__name__()} accepts only numbers!!")
+        
+
     ############################## HEAPIFY ##############################
     def heapify(self, lst):
-        root = TreeNode(lst[0])
+        root = BinaryTreeNode(lst[0])
         q = [root]
         idx = 1
         length = len(lst)
@@ -87,6 +117,7 @@ class Heap(ABC):
                 parent_idx = child_idx
             else:
                 break
+
 
     def remove(self, del_val, min_heap):
         """Removes first utterence of given value"""
