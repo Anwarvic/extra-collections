@@ -157,3 +157,7 @@ class Heap(ABC):
         self.__rebalance(del_idx, is_min_heap)
         # remove the (+/-)inf
         self._heap.pop()
+    
+
+    def clear(self):
+        self.__init__()
