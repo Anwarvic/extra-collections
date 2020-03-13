@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
@@ -40,12 +41,15 @@ class Heap(ABC):
             self._heap = [value]
 
 
-    @staticmethod
-    def heapify(self, obj, is_min_heap):
-        #TODO: there is a better way.
-        if not hasattr(obj, '__iter__'):
+    @classmethod
+    def heapify(cls, iterable):
+        if not hasattr(iterable, '__iter__'):
             raise TypeError("Given object isn't iterable!!")
-        self._heap = sorted(value, reverse=not is_min_heap)
+        # heap = cls._create_instance(cls)
+        heap = cls()
+        for item in iterable:
+            heap.insert(item)
+        return heap
 
 
     ############################## LENGTH ##############################
@@ -89,7 +93,7 @@ class Heap(ABC):
     
 
     ############################## INSERT ##############################
-    def insert(self, value, is_min_heap):
+    def insert(self, value, is_min_heap=True):
         self._validate_item(value)
         assert type(is_min_heap) == bool
 
@@ -112,7 +116,7 @@ class Heap(ABC):
 
     ############################## REMOVAL ##############################
     def __rebalance(self, parent_idx, is_min_heap):
-        assert type(parent_idx) == int and parent_idx >= 0:
+        assert type(parent_idx) == int and parent_idx >= 0
         assert type(is_min_heap) == bool
 
         last_idx = len(self._heap)-1
@@ -146,7 +150,7 @@ class Heap(ABC):
                 break
 
 
-    def remove(self, del_val, is_min_heap):
+    def remove(self, del_val, is_min_heap=True):
         """Removes first utterence of given value"""
         #TODO: try to handle more than just the first utterence
         self._validate_item(del_val)
