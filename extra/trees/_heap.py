@@ -40,21 +40,27 @@ class Heap(ABC):
             self._heap = [value]
 
 
-    def __len__(self):
-        return len(self._heap)
-
-
-    def __iter__(self):
-        for node in self._heap:
-            yield node
-
-
     @staticmethod
     def heapify(self, obj, is_min_heap):
         #TODO: there is a better way.
         if not hasattr(obj, '__iter__'):
             raise TypeError("Given object isn't iterable!!")
         self._heap = sorted(value, reverse=not is_min_heap)
+
+
+    ############################## LENGTH ##############################
+    def __len__(self):
+        return len(self._heap)
+
+
+    def is_empty(self):
+        return self._heap == []
+
+    
+    ############################## ITER ##############################
+    def __iter__(self):
+        for node in self._heap:
+            yield node
 
 
     ############################## PRINT ##############################
@@ -161,3 +167,5 @@ class Heap(ABC):
 
     def clear(self):
         self.__init__()
+    
+
