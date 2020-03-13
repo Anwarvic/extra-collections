@@ -1,8 +1,14 @@
 from abc import ABC, abstractmethod
+from extra.trees._heap import Heap
+
 
 
 
 class MinHeap(Heap):
+    def __name__(self):
+        return "extra.MinHeap()"
+    
+
     def get_min(self):
         return self._heap[0]
 
@@ -23,12 +29,8 @@ class MinHeap(Heap):
 
 
 class MaxHeap(Heap):
-        def __init__(self, value=None):
-        if value is None:
-            self._heap = []
-        else:
-            super()._validate_item(value)
-            self._heap = [value]
+    def __name__(self):
+        return "extra.MinHeap()"
 
 
     def get_min(self):
