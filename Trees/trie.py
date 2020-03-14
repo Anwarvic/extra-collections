@@ -81,32 +81,36 @@ class Trie(Tree):
 
 
     ############################## FIND ##############################
+    def __follow_path(self, word):
+        curr_node = self.root
+        while(word):
+            ch = word[0]
+            child = curr_node.get_child(ch)
+            child_data = child.get_data() if child else "_"
+            if child_data == word[:len(child_data)] or child_data[:len(word)] == word:
+                curr_node = child
+                word = word[len(child_data):]
+            else:
+                return None
+        return curr_node
+
     def __contains__(self, word):
         assert type(word) == str, \
         "Can't find {} since tries contain only characters!!".format(type(word))
         
-        start_node = self.root
-        while(word):
-            ch = word[0]
-            child = start_node.get_child(ch)
-            if not child:
-                return False
-            else:
-                child_data = child.get_data()
-                if child_data == word[:len(child_data)]:
-                    start_node = child
-                    word = word[len(child_data):]
-                else:
-                    return False
-        return start_node.is_word
+        last_node = self.__follow_path(word)
+        if last_node is None:
+            return False
+        return last_node.is_word
 
 
     def has_substring(self, substr):
-        curr_node = self.root
-        for ch in substr:
-            if ch not in curr_node.get_characters():
-                return False
-            curr_node = curr_node.get_child(ch)
+        assert type(substr) == str, \
+        "Can't find {} since tries have only characters!!".format(type(substr))
+        
+        last_node = self.__follow_path(substr)
+        if last_node is None:
+            return False
         return True
 
 
@@ -155,7 +159,7 @@ if __name__ == "__main__":
     t.insert('tries')
     t.insert('try')
     print(t)
-    print(t.has_substring('carr'))
+    print(t.has_substring('ca'))
 
     # explort Trie
     print(t.root)
