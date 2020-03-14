@@ -101,6 +101,15 @@ class Trie(Tree):
         return start_node.is_word
 
 
+    def has_substring(self, substr):
+        curr_node = self.root
+        for ch in substr:
+            if ch not in curr_node.get_characters():
+                return False
+            curr_node = curr_node.get_child(ch)
+        return True
+
+
     ######################### AUTO-COMPLETION #########################
     def __get_candidates(self, start_node, prefix):
         output = []
@@ -146,6 +155,7 @@ if __name__ == "__main__":
     t.insert('tries')
     t.insert('try')
     print(t)
+    print(t.has_substring('carr'))
 
     # explort Trie
     print(t.root)
