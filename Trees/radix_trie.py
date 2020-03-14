@@ -1,5 +1,7 @@
 from trie import TrieNode, Trie
 
+
+
 #helper function
 def find_last_common_idx(word1, word2):
     idx = 0
@@ -184,6 +186,7 @@ if __name__ == "__main__":
     rt.remove("slowl") # do nothin'
     print(rt)
     print('='*50)
+    print(rt.has_substring("slowy"))
     
     # # sanity checks
     # rt = RadixTrie()
