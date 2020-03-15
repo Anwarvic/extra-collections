@@ -49,18 +49,34 @@ class Trie(Tree):
         self.nodes_count = 1
 
 
+    ##############################  SEARCH  ##############################
+    def _follow_path(self, word):
+        curr_node = self.root
+        while(word):
+            ch = word[0]
+            child = curr_node.get_child(ch)
+            #'}' is used to break the following if-condition
+            child_data = child.get_data() if child else "}"
+            if child_data == word[:len(child_data)] \
+                or child_data[:len(word)] == word:
+                word = word[len(child_data):]
+                curr_node = child
+            else:
+                break
+        return curr_node, word
+
     ############################## INSERTION ##############################
     def insert(self, word):
         assert type(word) == str, "You can insert String objects only!!"
         assert len(word) > 0, "You can't insert any empty String!!"
-
-        start_node = self.root
-        for ch in word:
-            if ch not in start_node.get_characters():
-                start_node.set_child(ch, TrieNode(ch))
-                self.nodes_count += 1
-            start_node = start_node.get_child(ch)
-        start_node.is_word = True
+        last_node, remaining_word = self._follow_path(word)
+        curr_node = last_node
+        for ch in remaining_word:
+            child = TrieNode(ch)
+            curr_node.set_child(ch, child)
+            self.nodes_count += 1
+            curr_node = child
+        curr_node.is_word = True
 
 
     ############################## REMOVE ##############################
@@ -170,33 +186,33 @@ if __name__ == "__main__":
     print(t)
     print("Total Nodes:", len(t))
 
-    # explort Trie
-    print(t.root)
-    print(t.root.get_child('t').data)
-    print(t.root.get_child('c').children)
+    # # explort Trie
+    # print(t.root)
+    # print(t.root.get_child('t').data)
+    # print(t.root.get_child('c').children)
     
-    # test find() and get_cadidates()
-    print('cards' in t)
-    print('c' in t)
-    print(t.auto_complete())
-    print(t.auto_complete('c'))
-    print(t.auto_complete('tri'))
-    print('='*50)
+    # # test find() and get_cadidates()
+    # print('cards' in t)
+    # print('c' in t)
+    # print(t.auto_complete())
+    # print(t.auto_complete('c'))
+    # print(t.auto_complete('tri'))
+    # print('='*50)
     
-    # test remove()
-    t = Trie()
-    t.insert("tre")
-    t.insert("trees")
-    t.insert("treed")
-    t.remove("trees")
-    t.remove("tre")
-    print(t)
-    print("Total Nodes:", len(t))
-    print(t.auto_complete("t"))
+    # # test remove()
+    # t = Trie()
+    # t.insert("tre")
+    # t.insert("trees")
+    # t.insert("treed")
+    # t.remove("trees")
+    # t.remove("tre")
+    # print(t)
+    # print("Total Nodes:", len(t))
+    # print(t.auto_complete("t"))
 
-    # sanity checks
-    t = Trie()
-    t.insert('a')
-    t.insert('A')
-    t.remove('AA')
-    print(t)
+    # # sanity checks
+    # t = Trie()
+    # t.insert('a')
+    # t.insert('A')
+    # t.remove('AA')
+    # print(t)
