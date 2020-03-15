@@ -46,6 +46,7 @@ class Trie(Tree):
     def __init__(self):
         self.root = TrieNode('')
         self.root.data = "ROOT"
+        self.nodes_count = 1
 
 
     ############################## INSERTION ##############################
@@ -57,6 +58,7 @@ class Trie(Tree):
         for ch in word:
             if ch not in start_node.get_characters():
                 start_node.set_child(ch, TrieNode(ch))
+                self.nodes_count += 1
             start_node = start_node.get_child(ch)
         start_node.is_word = True
 
@@ -77,6 +79,7 @@ class Trie(Tree):
             ch = start_node.get_data()
             parent = start_node.get_parent()
             del parent.children[ch]
+            self.nodes_count -= 1
             start_node = parent
 
 
@@ -112,6 +115,11 @@ class Trie(Tree):
         if last_node is None:
             return False
         return True
+
+
+    ######################### LENGTH #########################
+    def __len__(self):
+        return self.nodes_count
 
 
     ######################### AUTO-COMPLETION #########################
@@ -158,8 +166,9 @@ if __name__ == "__main__":
     t.insert('tried')
     t.insert('tries')
     t.insert('try')
-    print(t)
     print(t.has_substring('ca'))
+    print(t)
+    print("Total Nodes:", len(t))
 
     # explort Trie
     print(t.root)
@@ -182,6 +191,7 @@ if __name__ == "__main__":
     t.remove("trees")
     t.remove("tre")
     print(t)
+    print("Total Nodes:", len(t))
     print(t.auto_complete("t"))
 
     # sanity checks
