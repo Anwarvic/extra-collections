@@ -39,10 +39,6 @@ class TreeNode:
 
     def __repr__(self):
         return f"TreeNode({self.data})"
-    
-
-    def __str__(self):
-        return str(self.data)
 
 
     @staticmethod
@@ -107,7 +103,7 @@ class Tree:
                 line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
             line.append('┬ ')if start_node.get_children() else line.append('─ ')
-        line.append(str(start_node))
+        line.append(str(start_node.get_data()))
         lines.append("".join(line))
         # append node status
         my_seq = seq.copy()

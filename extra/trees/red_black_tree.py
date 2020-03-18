@@ -60,7 +60,7 @@ class RedBlackNode(BSTNode):
         self.color = color
 
 
-    def __str__(self):
+    def _represent(self):
         if self.color == Color.RED:
             return str(self.data)+'|R'
         elif self.color == Color.BLACK:
