@@ -57,6 +57,11 @@ class BinaryTreeNode(TreeNode):
         return f"BinaryTreeNode({self.data})"
 
 
+    def _represent(self):
+        #represents BinaryTreeNode when being printed within a tree
+        return str(self.data)
+
+
 
 
 class BinaryTree(Tree):
@@ -111,7 +116,7 @@ class BinaryTree(Tree):
         else:
             line1 = []
             line2 = []
-            node_repr = str(root)
+            node_repr = root._repr_tree_node()
             new_root_width = gap_size = len(node_repr)
 
             # Get the left and right sub-boxes, their widths, and root repr positions
@@ -232,6 +237,7 @@ class BinaryTree(Tree):
 
 
     ############################## LENGTH ##############################
+    #TODO: can be inherited from Tree
     def __count_nodes(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
         total_nodes = 0
