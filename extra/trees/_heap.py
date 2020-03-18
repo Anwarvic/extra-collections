@@ -65,6 +65,10 @@ class Heap(ABC):
     def __iter__(self):
         for node in self._heap:
             yield node
+    
+
+    def to_list(self):
+        return self._heap
 
 
     ############################## PRINT ##############################
