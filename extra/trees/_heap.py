@@ -13,6 +13,10 @@ class HeapNode(BinaryTreeNode):
         if type(value) not in {int, float}:
             raise TypeError(f"{self.__name__()} contains only numbers!!")
         super().__init__(value)
+    
+
+    def __repr__(self):
+        return f"HeapNode({self.data})"
 
 
 
@@ -60,21 +64,11 @@ class Heap(ABC):
     def is_empty(self):
         return self._heap == []
 
-    
-    ############################## ITER ##############################
-    def __iter__(self):
-        for node in self._heap:
-            yield node
-    
-
-    def to_list(self):
-        return self._heap
-
 
     ############################## PRINT ##############################
     @classmethod
     def __transform(cls, lst):
-        root = BinaryTreeNode(lst[0])
+        root = cls._basic_node(lst[0])
         q = [root]
         idx = 1
         length = len(lst)
@@ -94,6 +88,17 @@ class Heap(ABC):
         root = self.__transform(self._heap)
         btree = BinaryTree(root)
         return str( btree )
+
+    
+    ############################## ITER ##############################
+    def __iter__(self):
+        btree = self.__transform(self._heap)
+        for node in btree:
+            yield node
+    
+
+    def to_list(self):
+        return self._heap
     
 
     ############################## INSERT ##############################
