@@ -22,3 +22,14 @@ def test_heapify_of_min_heap_small_example():
         assert node.get_data() == value
 
 
+def test_heapify_of_min_heap_big_example():
+    lst = [1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190]
+    heap = MinHeap.heapify(lst)
+    assert heap.to_list() == lst
+    assert len(heap) == len(lst)
+    assert heap.get_max() == max(lst)
+    assert heap.get_min() == min(lst)
+    for node, value in zip(heap, lst):
+        assert node.get_data() == value
+
+
