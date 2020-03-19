@@ -5,11 +5,43 @@ from extra.trees.heap import MinHeap, MaxHeap
 
 
 
+def test_heap_node():
+    pass
+
 
 def test_creating_heap():
     with pytest.raises(TypeError):
         _ = Heap()
 
+
+def test_empty_min_heap():
+    # create it from constructor
+    heap = MinHeap()
+    assert len(heap) == 0
+    assert heap.is_empty()
+    assert str(heap) == "/ \\"
+    assert heap.to_list() == []
+    assert get_float() not in heap
+    assert get_int() not in heap
+    # create it from heapify
+    heap = MinHeap.heapify([])
+    assert len(heap) == 0
+    assert heap.is_empty()
+    assert str(heap) == "/ \\"
+    assert heap.to_list() == []
+    assert get_float() not in heap
+    assert get_int() not in heap
+    # create it from clear() method
+    heap = MinHeap(10)
+    heap.clear()
+    assert len(heap) == 0
+    assert heap.is_empty()
+    assert str(heap) == "/ \\"
+    assert heap.to_list() == []
+    assert get_float() not in heap
+    assert get_int() not in heap
+
+    
 
 def test_heapify_of_min_heap_small_example():
     lst = [6, 2, 7, 1]
@@ -47,3 +79,5 @@ def test_heapify_of_min_heap_big_example():
         get_string() in heap
 
 
+def test_insert_remove_min_heap():
+    pass
