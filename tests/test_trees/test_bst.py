@@ -12,8 +12,11 @@ def test_bst_node():
         BSTNode(get_value())
         BSTNode(get_list())
     # these should raise any erros
-    BSTNode(get_float())
-    BSTNode(get_int())
+    for val in [get_int(), get_float()]:
+        node = BSTNode(val)
+        assert node.get_data() == val
+        assert node.get_left() == node.get_right() == None
+        assert node.get_children() == []
 
 
 def test_bst_simple():

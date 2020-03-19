@@ -11,11 +11,11 @@ def test_binary_treenode():
         BinaryTreeNode('  ')
         BinaryTree(BinaryTree(get_value()))
     # the following shouldn't raise anything
-    BinaryTreeNode(get_int())
-    BinaryTreeNode(get_float())
-    BinaryTreeNode(get_string())
-    BinaryTreeNode(get_value())
-    BinaryTreeNode(get_list())
+    for val in [get_int(), get_float(), get_string(), get_list()]:
+        node = BinaryTreeNode(val)
+        assert node.get_data() == val
+        assert node.get_left() == node.get_right() == None
+        assert node.get_children() == []
 
 
 def test_binary_tree():
