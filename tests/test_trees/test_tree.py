@@ -11,11 +11,10 @@ def test_treenode():
         TreeNode('\t\n')
         TreeNode(TreeNode(get_value()))
     # the following shouldn't raise anything
-    TreeNode(get_int())
-    TreeNode(get_float())
-    TreeNode(get_string())
-    TreeNode(get_value())
-    TreeNode(get_list())
+    for val in [get_int(), get_float(), get_string(), get_list()]:
+        node = TreeNode(val)
+        assert node.get_data() == val
+        assert node.get_children() == []
 
 
 # def test_tree_with_known_values():
@@ -33,6 +32,7 @@ def test_treenode():
 #     patty = TreeNode('Patty')
 #     selma = TreeNode('Selma')
 #     ling = TreeNode('Ling')
+
 #     selma.children = [ling]
 #     jackie.children = [marge, patty, selma]
 
@@ -45,3 +45,4 @@ def test_treenode():
 #     # set root
 #     root.children = [abraham, jackie]
 #     t = Tree(root)
+#     print(t)
