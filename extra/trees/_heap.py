@@ -66,39 +66,41 @@ class Heap(ABC):
 
 
     ############################## PRINT ##############################
-    @classmethod
-    def __transform(cls, lst):
-        root = cls._basic_node(lst[0])
+    def __transform(self):
+        # transform the list-shaped heap to a tree-shaped
+        root = self._basic_node(self._heap[0])
         q = [root]
         idx = 1
-        length = len(lst)
-        while (idx < length):
+        while (idx < len(self)):
             parent_node = q.pop(0)
-            parent_node.left = cls._basic_node(lst[idx])
+            parent_node.left = self._basic_node(self._heap[idx])
             q.append(parent_node.left)
             idx += 1
-            if idx < length:
-                parent_node.right = cls._basic_node(lst[idx])
+            if idx < len(self):
+                parent_node.right = self._basic_node(self._heap[idx])
                 q.append(parent_node.right)
                 idx += 1
         return BinaryTree(root)
     
 
     def __repr__(self):
-        root = self.__transform(self._heap)
+        if self.is_empty():
+            return "/ \\"
+        root = self.__transform()
         btree = BinaryTree(root)
         return str( btree )
 
     
     ############################## ITER ##############################
     def __iter__(self):
-        btree = self.__transform(self._heap)
+        btree = self.__transform()
         for node in btree:
             yield node
     
 
     def to_list(self):
         return self._heap
+    
     
     ############################## SEARCH ##############################
     def __contains__(self, num):
