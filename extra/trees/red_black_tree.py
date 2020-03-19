@@ -58,6 +58,13 @@ class RedBlackNode(BSTNode):
         if color not in {Color.RED, Color.BLACK}:
             raise ValueError("Invalid color!!")
         self.color = color
+    
+
+    def __repr__(self):
+        if self.color == Color.RED:
+            return f"RedNode({self.data})"
+        elif self.color == Color.BLACK:
+            return f"BlackNode({self.data})"
 
 
     def _represent(self):
