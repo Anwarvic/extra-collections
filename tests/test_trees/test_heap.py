@@ -20,6 +20,14 @@ def test_heapify_of_min_heap_small_example():
     assert heap.get_min() == min(lst)
     for node, value in zip(heap, [1, 2, 7, 6]):
         assert node.get_data() == value
+    for num in lst:
+        assert num in heap
+    assert 19 not in heap
+    assert 0 not in heap
+    with pytest.raises(TypeError):
+        "1" in heap
+        get_list() in heap
+        get_string() in heap
 
 
 def test_heapify_of_min_heap_big_example():
@@ -31,5 +39,11 @@ def test_heapify_of_min_heap_big_example():
     assert heap.get_min() == min(lst)
     for node, value in zip(heap, lst):
         assert node.get_data() == value
+    for num in lst:
+        assert num in heap
+    with pytest.raises(TypeError):
+        "1" in heap
+        get_list() in heap
+        get_string() in heap
 
 
