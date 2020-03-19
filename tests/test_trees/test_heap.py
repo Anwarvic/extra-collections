@@ -1,12 +1,20 @@
 import pytest
 from tests import *
-from extra.trees._heap import Heap
+from extra.trees._heap import Heap, HeapNode
 from extra.trees.heap import MinHeap, MaxHeap
 
 
 
 def test_heap_node():
-    pass
+    with pytest.raises(TypeError):
+        _ = HeapNode(None)
+        _ = HeapNode(get_string())
+        _ = HeapNode(get_list())
+    val = get_float()
+    node = HeapNode(val)
+    assert node.get_data() == val
+    assert node.get_left() == node.get_right() == None
+    assert node.get_children() == []
 
 
 def test_creating_heap():
