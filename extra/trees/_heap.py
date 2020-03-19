@@ -100,6 +100,11 @@ class Heap(ABC):
     def to_list(self):
         return self._heap
     
+    ############################## SEARCH ##############################
+    def __contains__(self, num):
+        self._validate_item(num)
+        return num in self._heap
+
 
     ############################## INSERT ##############################
     def insert(self, value, is_min_heap=True):
