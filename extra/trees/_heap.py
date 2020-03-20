@@ -66,8 +66,9 @@ class Heap(ABC):
 
 
     ############################## PRINT ##############################
-    def __transform(self):
+    def _transform(self):
         # transform the list-shaped heap to a tree-shaped
+        assert not self.is_empty()
         root = self._basic_node(self._heap[0])
         q = [root]
         idx = 1
@@ -86,14 +87,14 @@ class Heap(ABC):
     def __repr__(self):
         if self.is_empty():
             return "/ \\"
-        root = self.__transform()
+        root = self._transform()
         btree = BinaryTree(root)
         return str( btree )
 
     
     ############################## ITER ##############################
     def __iter__(self):
-        btree = self.__transform()
+        btree = self._transform()
         for node in btree:
             yield node
     
