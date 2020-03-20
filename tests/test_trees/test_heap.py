@@ -20,6 +20,7 @@ def test_heap_node():
 def test_creating_heap():
     with pytest.raises(TypeError):
         _ = Heap()
+        _ = Heap.heapify(get_list())
 
 
 def test_empty_min_heap():
@@ -31,6 +32,24 @@ def test_empty_min_heap():
     assert heap.to_list() == []
     assert get_float() not in heap
     assert get_int() not in heap
+    with pytest.raises(TypeError):
+        get_list() in heap
+        get_string() in heap
+    with pytest.raises(IndexError):
+        heap.get_min()
+        heap.get_max()
+    with pytest.raises(TypeError):
+        heap.insert(None)
+        heap.insert(get_string())
+        heap.insert(get_list())
+        heap.remove(get_string())
+        heap.remove(get_list())
+    #shouldn't raise anything
+    heap.remove(get_int())
+    heap.remove(get_float())
+
+
+def test_empty_heap_using_heapify():
     # create it from heapify
     heap = MinHeap.heapify([])
     assert len(heap) == 0
@@ -39,6 +58,21 @@ def test_empty_min_heap():
     assert heap.to_list() == []
     assert get_float() not in heap
     assert get_int() not in heap
+    with pytest.raises(IndexError):
+        heap.get_min()
+        heap.get_max()
+    with pytest.raises(TypeError):
+        heap.insert(None)
+        heap.insert(get_string())
+        heap.insert(get_list())
+        heap.remove(get_string())
+        heap.remove(get_list())
+    #shouldn't raise anything
+    heap.remove(get_int())
+    heap.remove(get_float())
+
+
+def test_empty_heap_after_clearing():
     # create it from clear() method
     heap = MinHeap(10)
     heap.clear()
@@ -48,8 +82,20 @@ def test_empty_min_heap():
     assert heap.to_list() == []
     assert get_float() not in heap
     assert get_int() not in heap
+    with pytest.raises(IndexError):
+        heap.get_min()
+        heap.get_max()
+    with pytest.raises(TypeError):
+        heap.insert(None)
+        heap.insert(get_string())
+        heap.insert(get_list())
+        heap.remove(get_string())
+        heap.remove(get_list())
+    #shouldn't raise anything
+    heap.remove(get_int())
+    heap.remove(get_float())
 
-    
+
 
 def test_heapify_of_min_heap_small_example():
     lst = [6, 2, 7, 1]
@@ -65,7 +111,6 @@ def test_heapify_of_min_heap_small_example():
     assert 19 not in heap
     assert 0 not in heap
     with pytest.raises(TypeError):
-        "1" in heap
         get_list() in heap
         get_string() in heap
 
