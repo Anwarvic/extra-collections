@@ -23,77 +23,80 @@ def test_creating_heap():
         _ = Heap.heapify(get_list())
 
 
-def test_empty_min_heap():
+def test_empty_heap():
     # create it from constructor
-    heap = MinHeap()
-    assert len(heap) == 0
-    assert heap.is_empty()
-    assert str(heap) == "/ \\"
-    assert heap.to_list() == []
-    assert get_float() not in heap
-    assert get_int() not in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
-    with pytest.raises(IndexError):
-        heap.get_min()
-        heap.get_max()
-    with pytest.raises(TypeError):
-        heap.insert(None)
-        heap.insert(get_string())
-        heap.insert(get_list())
-        heap.remove(get_string())
-        heap.remove(get_list())
-    #shouldn't raise anything
-    heap.remove(get_int())
-    heap.remove(get_float())
+    for Heap in [MinHeap, MaxHeap]:
+        heap = Heap()
+        assert len(heap) == 0
+        assert heap.is_empty()
+        assert str(heap) == "/ \\"
+        assert heap.to_list() == []
+        assert get_float() not in heap
+        assert get_int() not in heap
+        with pytest.raises(TypeError):
+            get_list() in heap
+            get_string() in heap
+        with pytest.raises(IndexError):
+            heap.get_min()
+            heap.get_max()
+        with pytest.raises(TypeError):
+            heap.insert(None)
+            heap.insert(get_string())
+            heap.insert(get_list())
+            heap.remove(get_string())
+            heap.remove(get_list())
+        #shouldn't raise anything
+        heap.remove(get_int())
+        heap.remove(get_float())
 
 
 def test_empty_heap_using_heapify():
     # create it from heapify
-    heap = MinHeap.heapify([])
-    assert len(heap) == 0
-    assert heap.is_empty()
-    assert str(heap) == "/ \\"
-    assert heap.to_list() == []
-    assert get_float() not in heap
-    assert get_int() not in heap
-    with pytest.raises(IndexError):
-        heap.get_min()
-        heap.get_max()
-    with pytest.raises(TypeError):
-        heap.insert(None)
-        heap.insert(get_string())
-        heap.insert(get_list())
-        heap.remove(get_string())
-        heap.remove(get_list())
-    #shouldn't raise anything
-    heap.remove(get_int())
-    heap.remove(get_float())
+    for Heap in [MinHeap, MaxHeap]:
+        heap = Heap.heapify([])
+        assert len(heap) == 0
+        assert heap.is_empty()
+        assert str(heap) == "/ \\"
+        assert heap.to_list() == []
+        assert get_float() not in heap
+        assert get_int() not in heap
+        with pytest.raises(IndexError):
+            heap.get_min()
+            heap.get_max()
+        with pytest.raises(TypeError):
+            heap.insert(None)
+            heap.insert(get_string())
+            heap.insert(get_list())
+            heap.remove(get_string())
+            heap.remove(get_list())
+        #shouldn't raise anything
+        heap.remove(get_int())
+        heap.remove(get_float())
 
 
 def test_empty_heap_after_clearing():
     # create it from clear() method
-    heap = MinHeap(10)
-    heap.clear()
-    assert len(heap) == 0
-    assert heap.is_empty()
-    assert str(heap) == "/ \\"
-    assert heap.to_list() == []
-    assert get_float() not in heap
-    assert get_int() not in heap
-    with pytest.raises(IndexError):
-        heap.get_min()
-        heap.get_max()
-    with pytest.raises(TypeError):
-        heap.insert(None)
-        heap.insert(get_string())
-        heap.insert(get_list())
-        heap.remove(get_string())
-        heap.remove(get_list())
-    #shouldn't raise anything
-    heap.remove(get_int())
-    heap.remove(get_float())
+    for Heap in [MinHeap, MaxHeap]:
+        heap = Heap(10)
+        heap.clear()
+        assert len(heap) == 0
+        assert heap.is_empty()
+        assert str(heap) == "/ \\"
+        assert heap.to_list() == []
+        assert get_float() not in heap
+        assert get_int() not in heap
+        with pytest.raises(IndexError):
+            heap.get_min()
+            heap.get_max()
+        with pytest.raises(TypeError):
+            heap.insert(None)
+            heap.insert(get_string())
+            heap.insert(get_list())
+            heap.remove(get_string())
+            heap.remove(get_list())
+        #shouldn't raise anything
+        heap.remove(get_int())
+        heap.remove(get_float())
 
 
 
