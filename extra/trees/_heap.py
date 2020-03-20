@@ -171,18 +171,23 @@ class Heap(ABC):
         #TODO: try to handle more than just the first utterence
         self._validate_item(del_val)
         assert type(is_min_heap) == bool
-
-        del_idx = self._heap.index(del_val)
-        last_idx = len(self._heap)-1
-        # swap between removed item and last item
-        self._heap[last_idx], self._heap[del_idx] = \
-                                self._heap[del_idx], self._heap[last_idx]
-        # set last item to -inf or inf based on heap type
-        self._heap[last_idx] = float('-inf') if is_min_heap else float('inf')
-        # start swapping when needed
-        self.__rebalance(del_idx, is_min_heap)
-        # remove the (+/-)inf
-        self._heap.pop()
+        # make sure the heap is not empty
+        if not self.is_empty():
+            try:
+                del_idx = self._heap.index(del_val)
+            except ValueError:
+                # del_value wasn't found in the heap
+                return
+            last_idx = len(self._heap)-1
+            # swap between removed item and last item
+            self._heap[last_idx], self._heap[del_idx] = \
+                                    self._heap[del_idx], self._heap[last_idx]
+            # set last item to -inf or inf based on heap type
+            self._heap[last_idx]=float('-inf') if is_min_heap else float('inf')
+            # start swapping when needed
+            self.__rebalance(del_idx, is_min_heap)
+            # remove the (+/-)inf
+            self._heap.pop()
     
 
     def clear(self):
