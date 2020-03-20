@@ -99,25 +99,6 @@ def test_empty_heap_after_clearing():
         heap.remove(get_float())
 
 
-def test_heapify_of_min_heap_small_example():
-    lst = [6, 2, 7, 1]
-    heap = MinHeap.heapify(lst)
-    assert not heap.is_empty()
-    assert heap.to_list() == [1, 2, 7, 6]
-    assert len(heap) == len(lst)
-    assert heap.get_max() == max(lst)
-    assert heap.get_min() == min(lst)
-    for node, value in zip(heap, [1, 2, 7, 6]):
-        assert node.get_data() == value
-    for num in lst:
-        assert num in heap
-    assert 19 not in heap
-    assert 0 not in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
-
-
 def test_heap_with_same_value():
     for Heap in [MinHeap, MaxHeap]:
         val = get_float()
@@ -138,6 +119,25 @@ def test_heap_with_same_value():
         with pytest.raises(IndexError):
             heap.get_min()
             heap.get_max()
+
+
+def test_heapify_of_min_heap_small_example():
+    lst = [6, 2, 7, 1]
+    heap = MinHeap.heapify(lst)
+    assert not heap.is_empty()
+    assert heap.to_list() == [1, 2, 7, 6]
+    assert len(heap) == len(lst)
+    assert heap.get_max() == max(lst)
+    assert heap.get_min() == min(lst)
+    for node, value in zip(heap, [1, 2, 7, 6]):
+        assert node.get_data() == value
+    for num in lst:
+        assert num in heap
+    assert 19 not in heap
+    assert 0 not in heap
+    with pytest.raises(TypeError):
+        get_list() in heap
+        get_string() in heap
 
 
 def test_heapify_of_min_heap_big_example():
@@ -184,3 +184,23 @@ def test_insert_remove_min_heap():
     assert heap.get_min() == 14
     assert heap.get_max() == 42
     assert heap.to_list() == [14, 26, 19, 33, 31, 42, 27, 35]
+
+
+def test_heapify_of_max_heap_small_example():
+    lst = [6, 2, 7, 1]
+    heap = MaxHeap.heapify(lst)
+    assert not heap.is_empty()
+    assert heap.to_list() == [7, 2, 6, 1]
+    assert len(heap) == len(lst)
+    assert heap.get_max() == max(lst)
+    assert heap.get_min() == min(lst)
+    for node, value in zip(heap,[7, 2, 6, 1]):
+        assert node.get_data() == value
+    for num in lst:
+        assert num in heap
+    assert 19 not in heap
+    assert 0 not in heap
+    with pytest.raises(TypeError):
+        get_list() in heap
+        get_string() in heap
+
