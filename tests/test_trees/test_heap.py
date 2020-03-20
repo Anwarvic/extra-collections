@@ -99,10 +99,10 @@ def test_empty_heap_after_clearing():
         heap.remove(get_float())
 
 
-
 def test_heapify_of_min_heap_small_example():
     lst = [6, 2, 7, 1]
     heap = MinHeap.heapify(lst)
+    assert not heap.is_empty()
     assert heap.to_list() == [1, 2, 7, 6]
     assert len(heap) == len(lst)
     assert heap.get_max() == max(lst)
@@ -118,6 +118,28 @@ def test_heapify_of_min_heap_small_example():
         get_string() in heap
 
 
+def test_heap_with_same_value():
+    for Heap in [MinHeap, MaxHeap]:
+        val = get_float()
+        length = get_pos_int()
+        lst = [val]*length
+        heap = Heap.heapify(lst)
+        assert not heap.is_empty()
+        assert heap.to_list() == lst
+        assert len(heap) == len(lst)
+        assert heap.get_max() == val
+        assert heap.get_min() == val
+        for node in heap:
+            assert node.get_data() == val
+        for _ in range(length):
+            heap.remove(val)
+        assert heap.is_empty()
+        assert len(heap) == 0
+        with pytest.raises(IndexError):
+            heap.get_min()
+            heap.get_max()
+
+
 def test_heapify_of_min_heap_big_example():
     lst = [1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17, 90, 100, 102, 190]
     heap = MinHeap.heapify(lst)
@@ -130,10 +152,35 @@ def test_heapify_of_min_heap_big_example():
     for num in lst:
         assert num in heap
     with pytest.raises(TypeError):
-        "1" in heap
         get_list() in heap
         get_string() in heap
 
 
 def test_insert_remove_min_heap():
-    pass
+    heap = MinHeap()
+    heap.insert(35)
+    heap.insert(33)
+    heap.insert(42)
+    heap.insert(10)
+    heap.insert(14)
+    heap.insert(19)
+    heap.insert(27)
+    heap.insert(44)
+    heap.insert(26)
+    heap.insert(31)
+    assert len(heap) == 10
+    assert not heap.is_empty()
+    assert heap.get_min() == 10
+    assert heap.get_max() == 44
+    assert heap.to_list() == [10, 14, 19, 26, 31, 42, 27, 44, 35, 33]
+    heap.remove(0) #does nothing
+    assert len(heap) == 10
+    heap.remove(10)
+    assert len(heap) == 9
+    assert heap.get_min() == 14
+    assert heap.get_max() == 44
+    heap.remove(44)
+    assert len(heap) == 8
+    assert heap.get_min() == 14
+    assert heap.get_max() == 42
+    assert heap.to_list() == [14, 26, 19, 33, 31, 42, 27, 35]
