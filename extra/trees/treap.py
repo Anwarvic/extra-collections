@@ -37,13 +37,18 @@ class TreapNode(BSTNode):
         """Represents Node object as a string"""
         return f"TreapNode(data: {self.data}, Priority: {self.priority})"
 
+
     def _represent(self):
-        return "{}|P:{}".format(self.data, self.priority)
+        if Treap.SHOW_PRIORITY:
+            return f"{self.data}|P:{self.priority}"
+        else:
+            return f"{self.data}"
 
 
 
 
 class Treap(BST):
+    SHOW_PRIORITY = False
     _basic_node = TreapNode
 
 
