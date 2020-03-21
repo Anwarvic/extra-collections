@@ -18,7 +18,7 @@ class Node:
         """Represents Node object as a string"""
         data = self.data
         nxt = self.next.data if self.next else None
-        return "Node: (data: {}, next: {})".format(data, nxt)
+        return f"Node(data: {data}, next: {nxt})"
 
 
     def get_data(self):

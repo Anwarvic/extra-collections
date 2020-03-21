@@ -16,9 +16,9 @@ class DoublyNode(Node):
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
-        nxt = self.next.data if self.next else None
         prv = self.prev.data if self.prev else None
-        return "Node: (data: {}, prev: {}, next: {})".format(data, prv, nxt)
+        nxt = self.next.data if self.next else None
+        return f"DoublyNode(data: {data}, prev: {prv}, next: {nxt})"
     
 
     def get_prev(self):
