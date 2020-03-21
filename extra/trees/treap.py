@@ -4,8 +4,8 @@ of it maintains two values.
     - Key: Follows standard BST ordering (left is smaller and right is greater)
     - Priority: Randomly assigned value that follows Max-Heap property.
 
-A treap node is represented like the following 0|⁽²⁶⁵⁾ where 0 is the key and 
-205 is the priority. The higher the number is, the more priority it has.
+A treap node is represented like the following 0|45 where 0 is the key and 
+45 is the priority. The higher the number is, the more priority it has.
 """
 import random
 from extra.trees.bst import BSTNode, BST
@@ -64,6 +64,8 @@ class Treap(BST):
     
     ############################## INSERTION ##############################
     def insert(self, value):
+        # validate inserted value
+        super()._validate_item(value)
         # perform standard BST-insert
         new_node = super()._insert_value(self.root, value)
         # using rotations when necessary
@@ -84,10 +86,11 @@ class Treap(BST):
 
     ##############################  REMOVAL  ##############################
     def remove(self, del_value):
-        assert type(del_value) in {int, float}, "BST conains numbers only!"
+        # validate del_value
+        super()._validate_item(del_value)
+        # check if it's the only value
         if self.root.is_leaf() and del_value == self.root.get_data():
-            raise ValueError("Can't remove the only item in the treap!")
-
+            raise IndexError("Can't remove the only item in the tree!")
         # search for the del_value node
         removed_node = super()._search(del_value, self.root)
         # couldn't find the node
