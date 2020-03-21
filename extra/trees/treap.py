@@ -8,17 +8,19 @@ A treap node is represented like the following 0|⁽²⁶⁵⁾ where 0 is the k
 205 is the priority. The higher the number is, the more priority it has.
 """
 import random
-from bst import TreeNode, BST
+from extra.trees.bst import BSTNode, BST
 
 
-superscript_map = {"0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
-                   "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹"}
 
 
-class TreapNode(TreeNode):
+class TreapNode(BSTNode):
+    def __name__(self):
+        return "extra.TreapNode()"
+    
+
     def __init__(self, key):
         super().__init__(key)
-        self.priority = random.randint(0, 1000)
+        self.priority = random.randint(0, 100)
 
 
     def get_priority(self):
@@ -31,14 +33,24 @@ class TreapNode(TreeNode):
         self.priority = new_priority
 
 
-    def __str__(self):
-        priority = "".join([superscript_map[ch] for ch in str(self.priority)])
-        return "{}|⁽{}⁾".format(self.data, priority)
+    def __repr__(self):
+        """Represents Node object as a string"""
+        return f"TreapNode(data: {self.data}, Priority: {self.priority})"
+
+    def _represent(self):
+        return "{}|P:{}".format(self.data, self.priority)
 
 
 
 
 class Treap(BST):
+    _basic_node = TreapNode
+
+
+    def __name__(self):
+        return "extra.Treap()"
+    
+
     def __init__(self, key, seed=None):
         # to keep consistency
         if seed is not None: random.seed(seed)
@@ -56,6 +68,7 @@ class Treap(BST):
         start_node.set_right(middle.get_left())
         middle.set_left(start_node)
         return middle
+
 
     def __rotate_right(self, start_node):
         # print("Rotating Right")
@@ -79,7 +92,7 @@ class Treap(BST):
     ############################## INSERTION ##############################
     def insert(self, value):
         # perform standard BST-insert
-        new_node = super()._insert(TreapNode(value), self.root)
+        new_node = super()._insert_value(self.root, value)
         # using rotations when necessary
         parent = new_node.get_parent()
         while(parent is not None):
