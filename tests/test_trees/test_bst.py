@@ -3,6 +3,8 @@ from tests import *
 from extra.trees.bst import BSTNode, BST
 
 
+
+
 def test_bst_node():
     with pytest.raises(TypeError):
         BSTNode(None)
@@ -17,6 +19,47 @@ def test_bst_node():
         assert node.get_data() == val
         assert node.get_left() == node.get_right() == None
         assert node.get_children() == []
+
+
+def test_bst_one_value():
+    val = get_int()
+    bst = BST(val)
+    # test structure
+    assert verify_bst_rules(bst.root)
+    assert bst.root.get_data() == val
+    # test various methods
+    assert bst.count_leaf_nodes() == 1
+    assert bst.get_max() == val
+    assert bst.get_min() == val
+    assert bst.get_height() == 0
+    assert bst.is_balanced()
+    assert bst.is_perfect()
+    assert bst.is_strict()
+    # test __contains__
+    assert val in bst
+    assert 100 not in bst
+    assert 1.1 not in bst
+    # test __iter__ / traverse
+    assert bst.to_list() == [val]
+    assert bst.preorder_traverse() == [val]
+    assert bst.depth_first_traverse() == [val]
+    assert bst.postorder_traverse() == [val]
+    assert bst.inorder_traverse() == [val]
+    #test remove
+    bst.remove(9) #do nothing
+    with pytest.raises(IndexError):
+        bst.remove(val)
+    # validate
+    with pytest.raises(TypeError):
+        None in bst
+        get_string() in bst
+        get_list() in bst
+        bst.insert(None)
+        bst.insert(get_string())
+        bst.insert(get_list())
+        bst.remove(None)
+        bst.remove(get_string())
+        bst.remove(get_list())
 
 
 def test_bst_simple():
