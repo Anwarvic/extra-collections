@@ -1,46 +1,8 @@
-from bst import TreeNode, BST
+from extra.trees.bst import BSTNode, BST
 
 
 
 class AVL(BST):
-
-    ######################### ROTATION #########################
-    def __rotate_left(self, start_node):
-        # print("Rotating Left")
-        middle = start_node.get_right()
-        middle.set_parent( start_node.get_parent() )
-        start_node.set_right(middle.get_left())
-        middle.set_left(start_node)
-        return middle
-
-    def __rotate_right(self, start_node):
-        # print("Rotating Right")
-        middle = start_node.get_left()
-        middle.set_parent( start_node.get_parent() )
-        start_node.set_left(middle.get_right())
-        middle.set_right(start_node)
-        return middle
-
-    def __rotate_left_right(self, start_node):
-        # print("Rotating Left-Right")
-        middle = start_node.get_left().get_right()
-        middle.set_parent( start_node.get_parent() )
-        start_node.get_left().set_right(middle.get_left())
-        middle.set_left(start_node.get_left())
-        start_node.set_left(middle.get_right())
-        middle.set_right(start_node)
-        return middle
-
-    def __rotate_right_left(self, start_node):
-        # print("Rotating Right-Left")
-        middle = start_node.get_right().get_left()
-        middle.set_parent( start_node.get_parent() )
-        start_node.get_right().set_left(middle.get_right())
-        middle.set_right(start_node.get_right())
-        start_node.set_right(middle.get_left())
-        middle.set_left(start_node)
-        return middle
-
 
     ######################### RE-BALANCE #########################
     def __get_children_depths(self, start_node):
@@ -60,20 +22,20 @@ class AVL(BST):
                 left_depth, right_depth = self.__get_children_depths(child)
                 # left direction
                 if left_depth > right_depth:
-                    start_node = self.__rotate_right(start_node)
+                    start_node = super()._rotate_right(start_node)
                 # right direction
                 else:
-                    start_node = self.__rotate_left_right(start_node)
+                    start_node = super()._rotate_left_right(start_node)
             # right direction
             else:
                 child = start_node.get_right()
                 left_depth, right_depth = self.__get_children_depths(child)
                 # left direction
                 if left_depth > right_depth:
-                    start_node = self.__rotate_right_left(start_node)
+                    start_node = super()._rotate_right_left(start_node)
                 # right direction
                 else:
-                    start_node = self.__rotate_left(start_node)
+                    start_node = super()._rotate_left(start_node)
         # recurssively apply __reblanace_subtree()
         if start_node.get_left() is not None:
             start_node.set_left( \
@@ -106,12 +68,12 @@ class AVL(BST):
 if __name__ == "__main__":
     # to test left rotation
     avl = AVL(22)
-    avl.root.set_right(TreeNode(43))
-    avl.root.set_left(TreeNode(18))
-    avl.root.get_left().set_left(TreeNode(9))
-    avl.root.get_left().set_right(TreeNode(21))
-    avl.root.get_left().get_left().set_left(TreeNode(6))
-    avl.root.get_left().get_left().get_left().set_left(TreeNode(0))
+    avl.root.set_right(BSTNode(43))
+    avl.root.set_left(BSTNode(18))
+    avl.root.get_left().set_left(BSTNode(9))
+    avl.root.get_left().set_right(BSTNode(21))
+    avl.root.get_left().get_left().set_left(BSTNode(6))
+    avl.root.get_left().get_left().get_left().set_left(BSTNode(0))
     print(avl, '\n')
     avl.rebalance()
     print(avl)
@@ -120,11 +82,11 @@ if __name__ == "__main__":
     #######################################
     # to test left-right rotation
     avl = AVL(78)
-    avl.root.set_right(TreeNode(88))
-    avl.root.set_left(TreeNode(50))
-    avl.root.get_left().set_left(TreeNode(48))
-    avl.root.get_left().set_right(TreeNode(62))
-    avl.root.get_left().get_right().set_left(TreeNode(54))
+    avl.root.set_right(BSTNode(88))
+    avl.root.set_left(BSTNode(50))
+    avl.root.get_left().set_left(BSTNode(48))
+    avl.root.get_left().set_right(BSTNode(62))
+    avl.root.get_left().get_right().set_left(BSTNode(54))
     print(avl, '\n')
     avl.rebalance()
     print(avl)
@@ -134,14 +96,14 @@ if __name__ == "__main__":
     # test all rotation-operations
     # src: Data Structures and Algorithms in Python Book (page: 506)
     avl = AVL(44)
-    avl.root.set_left(TreeNode(17))
-    avl.root.get_left().set_right(TreeNode(32))
-    avl.root.set_right(TreeNode(78))
-    avl.root.get_right().set_left(TreeNode(50))
-    avl.root.get_right().set_right(TreeNode(88))
-    avl.root.get_right().get_left().set_left(TreeNode(48))
-    avl.root.get_right().get_left().set_right(TreeNode(62))
-    avl.root.get_right().get_left().get_right().set_left(TreeNode(54))
+    avl.root.set_left(BSTNode(17))
+    avl.root.get_left().set_right(BSTNode(32))
+    avl.root.set_right(BSTNode(78))
+    avl.root.get_right().set_left(BSTNode(50))
+    avl.root.get_right().set_right(BSTNode(88))
+    avl.root.get_right().get_left().set_left(BSTNode(48))
+    avl.root.get_right().get_left().set_right(BSTNode(62))
+    avl.root.get_right().get_left().get_right().set_left(BSTNode(54))
     print(avl)
     avl.rebalance()
     print(avl)
@@ -168,14 +130,14 @@ if __name__ == "__main__":
     # test all remove operation
     # src: Data Structures and Algorithms in Python Book (page: 508)
     avl = AVL(44)
-    avl.root.set_left(TreeNode(17))
-    avl.root.get_left().set_right(TreeNode(32))
-    avl.root.set_right(TreeNode(62))
-    avl.root.get_right().set_left(TreeNode(50))
-    avl.root.get_right().set_right(TreeNode(78))
-    avl.root.get_right().get_left().set_left(TreeNode(48))
-    avl.root.get_right().get_left().set_right(TreeNode(54))
-    avl.root.get_right().get_right().set_right(TreeNode(88))
+    avl.root.set_left(BSTNode(17))
+    avl.root.get_left().set_right(BSTNode(32))
+    avl.root.set_right(BSTNode(62))
+    avl.root.get_right().set_left(BSTNode(50))
+    avl.root.get_right().set_right(BSTNode(78))
+    avl.root.get_right().get_left().set_left(BSTNode(48))
+    avl.root.get_right().get_left().set_right(BSTNode(54))
+    avl.root.get_right().get_right().set_right(BSTNode(88))
     print(avl)
     avl.remove(17)
     avl.remove(50)

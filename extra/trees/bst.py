@@ -270,3 +270,54 @@ class BST(BinaryTree):
         self._remove(del_value, self.root)
 
 
+    ##############################   ROTATION  ##############################
+    def _rotate_left(self, start_node):
+        # print("Rotating Left")
+        middle = start_node.get_right()
+        middle.set_parent( start_node.get_parent() )
+        start_node.set_right(middle.get_left())
+        middle.set_left(start_node)
+        return middle
+
+
+    def _rotate_right(self, start_node):
+        # print("Rotating Right")
+        middle = start_node.get_left()
+        middle.set_parent( start_node.get_parent() )
+        start_node.set_left(middle.get_right())
+        middle.set_right(start_node)
+        return middle
+    
+
+    def _rotate_left_right(self, start_node):
+        # print("Rotating Left-Right")
+        middle = start_node.get_left().get_right()
+        middle.set_parent( start_node.get_parent() )
+        start_node.get_left().set_right(middle.get_left())
+        middle.set_left(start_node.get_left())
+        start_node.set_left(middle.get_right())
+        middle.set_right(start_node)
+        return middle
+
+
+    def _rotate_right_left(self, start_node):
+        # print("Rotating Right-Left")
+        middle = start_node.get_right().get_left()
+        middle.set_parent( start_node.get_parent() )
+        start_node.get_right().set_left(middle.get_right())
+        middle.set_right(start_node.get_right())
+        start_node.set_right(middle.get_left())
+        middle.set_left(start_node)
+        return middle
+
+
+    def _attach(self, parent, child):
+        if parent is None:
+            self.root = child
+        else:
+            if parent.get_data() > child.get_data():
+                parent.set_left(child) 
+            else:
+                parent.set_right(child)
+
+

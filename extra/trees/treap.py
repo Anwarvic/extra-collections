@@ -28,8 +28,8 @@ class TreapNode(BSTNode):
 
 
     def set_priority(self, new_priority):
-        assert type(new_priority) in {int, float},\
-                "Given priority has to be a number!!"
+        if type(new_priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
         self.priority = new_priority
 
 
@@ -59,41 +59,9 @@ class Treap(BST):
     def __init__(self, key, seed=None):
         # to keep consistency
         if seed is not None: random.seed(seed)
-        if isinstance(key, TreapNode):
-            self.root = key
-        else:
-            self.root = TreapNode(key)
+        super().__init__(key)
 
     
-    ############################## ROTATION  ##############################    
-    def __rotate_left(self, start_node):
-        # print("Rotating Left")
-        middle = start_node.get_right()
-        middle.set_parent( start_node.get_parent() )
-        start_node.set_right(middle.get_left())
-        middle.set_left(start_node)
-        return middle
-
-
-    def __rotate_right(self, start_node):
-        # print("Rotating Right")
-        middle = start_node.get_left()
-        middle.set_parent( start_node.get_parent() )
-        start_node.set_left(middle.get_right())
-        middle.set_right(start_node)
-        return middle
-
-
-    def __attach(self, parent, child):
-        if parent is None:
-            self.root = child
-        else:
-            if parent.get_data() > child.get_data():
-                parent.set_left(child) 
-            else:
-                parent.set_right(child)
-    
-
     ############################## INSERTION ##############################
     def insert(self, value):
         # perform standard BST-insert
@@ -106,10 +74,10 @@ class Treap(BST):
                 break
             else:
                 if new_node.is_left_child():
-                    parent = self.__rotate_right(parent)
+                    parent = super()._rotate_right(parent)
                 else:
-                    parent = self.__rotate_left(parent)
-                self.__attach(grandparent, parent)
+                    parent = super()._rotate_left(parent)
+                super()._attach(grandparent, parent)
                 new_node = parent
                 parent = grandparent
 
@@ -135,13 +103,13 @@ class Treap(BST):
             right_priority = right_child.get_priority() if right_child else -1
             # perform rotation
             if left_priority > right_priority:
-                removed_node = self.__rotate_right(removed_node)
-                self.__attach(parent, removed_node)
+                removed_node = super()._rotate_right(removed_node)
+                super()._attach(parent, removed_node)
                 parent = removed_node
                 removed_node = parent.get_right()
             else:
-                removed_node = self.__rotate_left(removed_node)
-                self.__attach(parent, removed_node)
+                removed_node = super()._rotate_left(removed_node)
+                super()._attach(parent, removed_node)
                 parent = removed_node
                 removed_node = parent.get_left()
         # perform the removal
