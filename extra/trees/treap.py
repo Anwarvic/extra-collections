@@ -18,9 +18,11 @@ class TreapNode(BSTNode):
         return "extra.TreapNode()"
     
 
-    def __init__(self, key):
+    def __init__(self, key, priority=None):
+        assert priority is None or type(priority) in {int, float}
         super().__init__(key)
-        self.priority = random.randint(0, 100)
+        self.priority = \
+            random.randint(0, 100) if priority is None else priority
 
 
     def get_priority(self):
@@ -28,8 +30,7 @@ class TreapNode(BSTNode):
 
 
     def set_priority(self, new_priority):
-        if type(new_priority) not in {int, float}:
-            raise TypeError("Given priority has to be a number!!")
+        assert type(new_priority) in {int, float}
         self.priority = new_priority
 
 
@@ -63,11 +64,18 @@ class Treap(BST):
 
     
     ############################## INSERTION ##############################
-    def insert(self, value):
+    def __validate_priority(self, new_priority):
+        if new_priority is not None and type(new_priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
+    
+
+    def insert(self, value, priority=None):
         # validate inserted value
         super()._validate_item(value)
+        self.__validate_priority(priority)
         # perform standard BST-insert
-        new_node = super()._insert_value(self.root, value)
+        new_node = super()._insert_node(self.root,
+                            self._basic_node(value, priority))
         # using rotations when necessary
         parent = new_node.get_parent()
         while(parent is not None):
@@ -125,7 +133,7 @@ class Treap(BST):
 
 
 if __name__ == "__main__":
-    t = Treap(50, seed=0)
+    t = Treap(50, seed="extra")
     t.insert(30)
     t.insert(70)
     t.insert(20)
@@ -137,4 +145,5 @@ if __name__ == "__main__":
     print(t)
     print("Total nodes:", len(t))
     print("Biggest Value is:", t.get_max())
+    print(t.get_min())
 
