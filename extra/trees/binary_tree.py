@@ -116,7 +116,7 @@ class BinaryTree(Tree):
         else:
             line1 = []
             line2 = []
-            node_repr = root._repr_tree_node()
+            node_repr = root._represent()
             new_root_width = gap_size = len(node_repr)
 
             # Get the left and right sub-boxes, their widths, and root repr positions
@@ -352,6 +352,12 @@ class BinaryTree(Tree):
 
     ############################## TRAVERSE ##############################
     def traverse(self, method='inorder'):
+        trav_methods = {"inorder", "postorder", "preorder", "depth-first",
+                        "breadth-first"}
+        if type(method) != str:
+            raise TypeError("Given traverse method has to be one of these:\n" + \
+                        str(trav_methods))
+        # traverse based on given method
         method = method.lower()
         if method == 'inorder':
             return self.inorder_traverse()
@@ -362,10 +368,8 @@ class BinaryTree(Tree):
         elif method == "breadth-first":
             return self.breadth_first_traverse()
         else:
-            trav_methods = {"inorder", "postorder", "preorder", "depth-first", \
-                            "breadth-first"}
-            raise ValueError("Given traverse method is not defined; "+ \
-                "it must be one of these: " + str(trav_methods))
+            raise ValueError("Given traverse method has to be one of these:\n" + \
+                        str(trav_methods))
 
 
     ############################## NODES ##############################
