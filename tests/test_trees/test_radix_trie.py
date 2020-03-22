@@ -15,24 +15,20 @@ def test_empty_radix_trie():
     assert rt.has_prefix('')
     assert rt.auto_complete() == rt.auto_complete('') \
         == rt.auto_complete(get_string()) == []
-    with pytest.raises(TypeError):
-        rt.insert(None)
-        rt.insert(get_int())
-        rt.remove(None)
-        rt.remove(get_list())
-        get_float() in rt
-        None not in rt
-        rt.has_prefix(None)
-        rt.has_prefix(get_int())
-        rt.auto_complete(None)
-        rt.auto_complete(get_list())
-    with pytest.raises(ValueError):
-        rt.insert('')
-        rt.insert(' \n\t  ')
-        rt.remove('')
-        rt.remove(' \n\t  ')
-        '' in rt
-        '\t\n' in rt
+    with pytest.raises(TypeError): rt.insert(None)
+    with pytest.raises(TypeError): rt.insert(get_int())
+    with pytest.raises(TypeError): rt.remove(None)
+    with pytest.raises(TypeError): rt.remove(get_list())
+    with pytest.raises(TypeError): get_float() in rt
+    with pytest.raises(TypeError): None not in rt
+    with pytest.raises(TypeError): rt.has_prefix(None)
+    with pytest.raises(TypeError): rt.has_prefix(get_int())
+    with pytest.raises(TypeError): rt.auto_complete(None)
+    with pytest.raises(TypeError): rt.auto_complete(get_list())
+    with pytest.raises(ValueError): rt.insert('')
+    with pytest.raises(ValueError): rt.insert(' \n\t  ')
+    with pytest.raises(ValueError): rt.remove('')
+    with pytest.raises(ValueError): rt.remove(' \n\t  ')
 
 
 def test_radix_trie_with_simple_example():
@@ -117,3 +113,5 @@ def test_radix_with_multi_words():
     assert rt.has_prefix("s")
     assert not rt.has_prefix("sloww")
     assert rt.has_prefix("slow")
+
+

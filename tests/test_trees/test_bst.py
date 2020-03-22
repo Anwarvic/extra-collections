@@ -6,14 +6,12 @@ from extra.trees.bst import BSTNode, BST
 
 
 def test_bst_node():
-    with pytest.raises(TypeError):
-        BSTNode(None)
-        BSTNode('  ')
-        BSTNode(BST(get_value()))
-        BSTNode(get_string())
-        BSTNode(get_value())
-        BSTNode(get_list())
-    # these should raise any erros
+    with pytest.raises(TypeError): BSTNode(None)
+    with pytest.raises(TypeError): BSTNode('  ')
+    with pytest.raises(TypeError): BSTNode(BST(get_int()))
+    with pytest.raises(TypeError): BSTNode(get_string())
+    with pytest.raises(TypeError): BSTNode(get_list())
+    # these shouldn't raise any erros
     for val in [get_int(), get_float()]:
         node = BSTNode(val)
         assert node.get_data() == val
@@ -47,19 +45,17 @@ def test_bst_one_value():
     assert bst.inorder_traverse() == [val]
     #test remove
     bst.remove(9) #do nothing
-    with pytest.raises(IndexError):
-        bst.remove(val)
+    with pytest.raises(IndexError): bst.remove(val)
     # validate
-    with pytest.raises(TypeError):
-        None in bst
-        get_string() in bst
-        get_list() in bst
-        bst.insert(None)
-        bst.insert(get_string())
-        bst.insert(get_list())
-        bst.remove(None)
-        bst.remove(get_string())
-        bst.remove(get_list())
+    with pytest.raises(TypeError): None in bst
+    with pytest.raises(TypeError): get_string() in bst
+    with pytest.raises(TypeError): get_list() in bst
+    with pytest.raises(TypeError): bst.insert(None)
+    with pytest.raises(TypeError): bst.insert(get_string())
+    with pytest.raises(TypeError): bst.insert(get_list())
+    with pytest.raises(TypeError): bst.remove(None)
+    with pytest.raises(TypeError): bst.remove(get_string())
+    with pytest.raises(TypeError): bst.remove(get_list())
 
 
 def test_bst_simple():
@@ -102,16 +98,15 @@ def test_bst_simple():
     assert 4 not in bst
     assert verify_bst_rules(bst.root)
     # validate
-    with pytest.raises(TypeError):
-        None in bst
-        get_string() in bst
-        get_list() in bst
-        bst.insert(None)
-        bst.insert(get_string())
-        bst.insert(get_list())
-        bst.remove(None)
-        bst.remove(get_string())
-        bst.remove(get_list())
+    with pytest.raises(TypeError): None in bst
+    with pytest.raises(TypeError): get_string() in bst
+    with pytest.raises(TypeError): get_list() in bst
+    with pytest.raises(TypeError): bst.insert(None)
+    with pytest.raises(TypeError): bst.insert(get_string())
+    with pytest.raises(TypeError): bst.insert(get_list())
+    with pytest.raises(TypeError): bst.remove(None)
+    with pytest.raises(TypeError): bst.remove(get_string())
+    with pytest.raises(TypeError): bst.remove(get_list())
 
 
 def test_bst_from_iterable():

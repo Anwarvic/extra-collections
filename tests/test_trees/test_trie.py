@@ -11,11 +11,10 @@ def test_trienode():
     assert node.get_parent() is None
     assert list(node.get_characters()) == []
     assert node.get_children() == []
-    with pytest.raises(TypeError):
-        TrieNode(None)
-        TrieNode(get_int())
-        TrieNode(get_float())
-        TrieNode(get_list())
+    with pytest.raises(TypeError): TrieNode(None)
+    with pytest.raises(TypeError): TrieNode(get_int())
+    with pytest.raises(TypeError): TrieNode(get_float())
+    with pytest.raises(TypeError): TrieNode(get_list())
     # with pytest.raises(AssertionError):
     #     TrieNode("apple")
     #     TrieNode(get_string())
@@ -32,24 +31,20 @@ def test_empty_trie():
     assert t.has_prefix('')
     assert t.auto_complete() == t.auto_complete('') \
         == t.auto_complete(get_string()) == []
-    with pytest.raises(TypeError):
-        t.insert(None)
-        t.insert(get_int())
-        t.remove(None)
-        t.remove(get_list())
-        get_float() in t
-        None not in t
-        t.has_prefix(None)
-        t.has_prefix(get_int())
-        t.auto_complete(None)
-        t.auto_complete(get_list())
-    with pytest.raises(ValueError):
-        t.insert('')
-        t.insert(' \n\t  ')
-        t.remove('')
-        t.remove(' \n\t  ')
-        '' in t
-        '\t\n' in t
+    with pytest.raises(TypeError): t.insert(None)
+    with pytest.raises(TypeError): t.insert(get_int())
+    with pytest.raises(TypeError): t.remove(None)
+    with pytest.raises(TypeError): t.remove(get_list())
+    with pytest.raises(TypeError): get_float() in t
+    with pytest.raises(TypeError): None not in t
+    with pytest.raises(TypeError): t.has_prefix(None)
+    with pytest.raises(TypeError): t.has_prefix(get_int())
+    with pytest.raises(TypeError): t.auto_complete(None)
+    with pytest.raises(TypeError): t.auto_complete(get_list())
+    with pytest.raises(ValueError): t.insert('')
+    with pytest.raises(ValueError): t.insert(' \n\t  ')
+    with pytest.raises(ValueError): t.remove('')
+    with pytest.raises(ValueError): t.remove(' \n\t  ')
 
 
 def test_trie_similar_words():
@@ -88,3 +83,5 @@ def test_trie_many_words():
     assert t.auto_complete('c') == ['car', 'card', 'cards', 'cot', 'cots']
     assert t.auto_complete('tri') == ['trie', 'tried', 'tries']
     assert t.auto_complete('caa') == []
+
+

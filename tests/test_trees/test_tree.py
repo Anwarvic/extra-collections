@@ -4,12 +4,11 @@ from extra.trees.tree import TreeNode, Tree
 
 
 def test_treenode():
-    with pytest.raises(ValueError):
-        TreeNode(None)
-        TreeNode('')
-        TreeNode('      ')
-        TreeNode('\t\n')
-        TreeNode(TreeNode(get_value()))
+    with pytest.raises(ValueError): TreeNode(None)
+    with pytest.raises(ValueError): TreeNode('')
+    with pytest.raises(ValueError): TreeNode('      ')
+    with pytest.raises(ValueError): TreeNode('\t\n')
+    with pytest.raises(ValueError): TreeNode(TreeNode(get_value()))
     # the following shouldn't raise anything
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = TreeNode(val)

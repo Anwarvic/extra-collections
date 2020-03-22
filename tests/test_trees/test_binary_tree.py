@@ -6,10 +6,9 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
 def test_binary_treenode():
-    with pytest.raises(ValueError):
-        BinaryTreeNode(None)
-        BinaryTreeNode('  ')
-        BinaryTree(BinaryTree(get_value()))
+    with pytest.raises(ValueError): BinaryTreeNode(None)
+    with pytest.raises(ValueError): BinaryTreeNode('  ')
+    with pytest.raises(ValueError): BinaryTreeNode(BinaryTreeNode(get_int()))
     # the following shouldn't raise anything
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = BinaryTreeNode(val)
@@ -61,13 +60,12 @@ def test_binary_tree():
         ["Me", "Father", "Sibling", "GrandFather", "Cousin", "Uncle", "Cousin"]
     assert btree.breadth_first_traverse() == \
         ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
-    with pytest.raises(ValueError):
-        BinaryTree(None)
-        BinaryTree("    ")
-        btree.traverse(get_string())
-        btree.traverse(get_list())
-        btree.traverse(get_value())
-        btree.traverse(get_float())
+    with pytest.raises(ValueError): BinaryTree(None)
+    with pytest.raises(ValueError): BinaryTree("    ")
+    with pytest.raises(ValueError): btree.traverse(get_string())
+    with pytest.raises(TypeError): btree.traverse(get_list())
+    with pytest.raises(TypeError): btree.traverse(get_int())
+    with pytest.raises(TypeError): btree.traverse(get_float())
 
 
 def test_binary_tree_with_numbers():

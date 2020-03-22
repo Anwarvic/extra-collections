@@ -6,10 +6,9 @@ from extra.trees.heap import MinHeap, MaxHeap
 
 
 def test_heap_node():
-    with pytest.raises(TypeError):
-        _ = HeapNode(None)
-        _ = HeapNode(get_string())
-        _ = HeapNode(get_list())
+    with pytest.raises(TypeError): HeapNode(None)
+    with pytest.raises(TypeError): HeapNode(get_string())
+    with pytest.raises(TypeError): HeapNode(get_list())
     val = get_float()
     node = HeapNode(val)
     assert node.get_data() == val
@@ -18,9 +17,8 @@ def test_heap_node():
 
 
 def test_creating_heap():
-    with pytest.raises(TypeError):
-        _ = Heap()
-        _ = Heap.heapify(get_list())
+    with pytest.raises(TypeError): Heap()
+    with pytest.raises(TypeError): Heap.heapify(get_list())
 
 
 def test_empty_heap():
@@ -33,18 +31,15 @@ def test_empty_heap():
         assert heap.to_list() == []
         assert get_float() not in heap
         assert get_int() not in heap
-        with pytest.raises(TypeError):
-            get_list() in heap
-            get_string() in heap
-        with pytest.raises(IndexError):
-            heap.get_min()
-            heap.get_max()
-        with pytest.raises(TypeError):
-            heap.insert(None)
-            heap.insert(get_string())
-            heap.insert(get_list())
-            heap.remove(get_string())
-            heap.remove(get_list())
+        with pytest.raises(TypeError): get_list() in heap
+        with pytest.raises(TypeError): get_string() in heap
+        with pytest.raises(IndexError): heap.get_min()
+        with pytest.raises(IndexError): heap.get_max()
+        with pytest.raises(TypeError): heap.insert(None)
+        with pytest.raises(TypeError): heap.insert(get_string())
+        with pytest.raises(TypeError): heap.insert(get_list())
+        with pytest.raises(TypeError): heap.remove(get_string())
+        with pytest.raises(TypeError): heap.remove(get_list())
         #shouldn't raise anything
         heap.remove(get_int())
         heap.remove(get_float())
@@ -60,15 +55,13 @@ def test_empty_heap_using_heapify():
         assert heap.to_list() == []
         assert get_float() not in heap
         assert get_int() not in heap
-        with pytest.raises(IndexError):
-            heap.get_min()
-            heap.get_max()
-        with pytest.raises(TypeError):
-            heap.insert(None)
-            heap.insert(get_string())
-            heap.insert(get_list())
-            heap.remove(get_string())
-            heap.remove(get_list())
+        with pytest.raises(IndexError): heap.get_min()
+        with pytest.raises(IndexError): heap.get_max()
+        with pytest.raises(TypeError): heap.insert(None)
+        with pytest.raises(TypeError): heap.insert(get_string())
+        with pytest.raises(TypeError): heap.insert(get_list())
+        with pytest.raises(TypeError): heap.remove(get_string())
+        with pytest.raises(TypeError): heap.remove(get_list())
         #shouldn't raise anything
         heap.remove(get_int())
         heap.remove(get_float())
@@ -85,15 +78,13 @@ def test_empty_heap_after_clearing():
         assert heap.to_list() == []
         assert get_float() not in heap
         assert get_int() not in heap
-        with pytest.raises(IndexError):
-            heap.get_min()
-            heap.get_max()
-        with pytest.raises(TypeError):
-            heap.insert(None)
-            heap.insert(get_string())
-            heap.insert(get_list())
-            heap.remove(get_string())
-            heap.remove(get_list())
+        with pytest.raises(IndexError): heap.get_min()
+        with pytest.raises(IndexError): heap.get_max()
+        with pytest.raises(TypeError): heap.insert(None)
+        with pytest.raises(TypeError): heap.insert(get_string())
+        with pytest.raises(TypeError): heap.insert(get_list())
+        with pytest.raises(TypeError): heap.remove(get_string())
+        with pytest.raises(TypeError): heap.remove(get_list())
         #shouldn't raise anything
         heap.remove(get_int())
         heap.remove(get_float())
@@ -120,9 +111,8 @@ def test_heap_with_same_value():
             heap.remove(val)
         assert heap.is_empty()
         assert len(heap) == 0
-        with pytest.raises(IndexError):
-            heap.get_min()
-            heap.get_max()
+        with pytest.raises(IndexError): heap.get_min()
+        with pytest.raises(IndexError): heap.get_max()
 
 
 def test_heapify_of_min_heap_small_example():
@@ -137,9 +127,8 @@ def test_heapify_of_min_heap_small_example():
         assert num in heap
     assert 19 not in heap
     assert 0 not in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
+    with pytest.raises(TypeError): get_list() in heap
+    with pytest.raises(TypeError): get_string() in heap
 
 
 def test_heapify_of_min_heap_big_example():
@@ -153,9 +142,8 @@ def test_heapify_of_min_heap_big_example():
         assert node.get_data() == value
     for num in lst:
         assert num in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
+    with pytest.raises(TypeError): get_list() in heap
+    with pytest.raises(TypeError): get_string() in heap
 
 
 def test_insert_remove_min_heap():
@@ -203,9 +191,8 @@ def test_heapify_of_max_heap_small_example():
         assert num in heap
     assert 19 not in heap
     assert 0 not in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
+    with pytest.raises(TypeError): get_list() in heap
+    with pytest.raises(TypeError): get_string() in heap
 
 
 def test_heapify_of_max_heap_big_example():
@@ -219,9 +206,8 @@ def test_heapify_of_max_heap_big_example():
         assert node.get_data() == value
     for num in lst:
         assert num in heap
-    with pytest.raises(TypeError):
-        get_list() in heap
-        get_string() in heap
+    with pytest.raises(TypeError): get_list() in heap
+    with pytest.raises(TypeError): get_string() in heap
 
 
 def test_insert_remove_max_heap():
@@ -253,6 +239,5 @@ def test_insert_remove_max_heap():
     assert heap.get_min() == 14
     assert heap.get_max() == 42
     assert verify_max_heap(heap._transform().root)
-
 
 

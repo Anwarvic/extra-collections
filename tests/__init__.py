@@ -89,3 +89,16 @@ def verify_max_heap(start_node):
         not(right_child is None or right_child.get_data() <= start_node.get_data()):
         return False
     return verify_max_heap(left_child) and verify_max_heap(right_child)
+
+
+def verify_treap_priority(start_node):
+    if start_node is None:
+        return True
+    left_child = start_node.get_left()
+    right_child = start_node.get_right()
+    if not (left_child is None or left_child.get_priority() < start_node.get_priority())\
+        or \
+        not(right_child is None or right_child.get_priority() < start_node.get_priority()):
+        return False
+    return verify_treap_priority(left_child) and verify_treap_priority(right_child)
+
