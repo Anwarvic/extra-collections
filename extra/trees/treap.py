@@ -19,7 +19,8 @@ class TreapNode(BSTNode):
     
 
     def __init__(self, key, priority=None):
-        assert priority is None or type(priority) in {int, float}
+        if priority is not None and type(priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
         super().__init__(key)
         self.priority = \
             random.randint(0, 100) if priority is None else priority

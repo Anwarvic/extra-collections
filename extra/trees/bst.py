@@ -244,7 +244,7 @@ class BST(BinaryTree):
         assert type(del_value) in {int, float}
         assert isinstance(start_node, self._basic_node)
         if self.root.is_leaf() and del_value == self.root.get_data():
-            raise ValueError("Can't remove the only item in the tree!")
+            raise IndexError("Can't remove the only item in the tree!")
         # search for the del_value node
         removed_node = self._search(del_value, self.root)
         # couldn't find the node

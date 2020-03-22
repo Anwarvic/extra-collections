@@ -257,6 +257,8 @@ class LinkedList:
             raise TypeError(f"Can't set a `None` into {self.__name__()}!!")
         elif isinstance(item, self._basic_node) and item.get_data() is None:
             raise TypeError(f"Can't set an empty Node into {self.__name__()}!!")
+        elif isinstance(item, Node): #keep it generic
+            raise TypeError(f"Can't insert Node() into {self.__name__()}!!")
         # NOTE:DoublyLinkedList and CircularLinkedList are both LinkedList
         elif isinstance(item, LinkedList):
             raise TypeError(f"Can't add LinkedList into a {self.__name__()}!!")
