@@ -96,9 +96,9 @@ def verify_treap_priority(start_node):
         return True
     left_child = start_node.get_left()
     right_child = start_node.get_right()
-    if not (left_child is None or left_child.get_priority() < start_node.get_priority())\
+    if not (left_child is None or left_child.get_priority() <= start_node.get_priority())\
         or \
-        not(right_child is None or right_child.get_priority() < start_node.get_priority()):
+        not(right_child is None or right_child.get_priority() <= start_node.get_priority()):
         return False
     return verify_treap_priority(left_child) and verify_treap_priority(right_child)
 
