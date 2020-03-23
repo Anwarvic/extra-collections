@@ -64,6 +64,24 @@ class Treap(BST):
         super().__init__(key)
 
     
+    @staticmethod
+    def from_iterable(iterable, seed=None):
+        if seed is not None: random.seed(seed)
+        #TODO: convert this to classmethod like the one with LinkedList
+        # do that after applying clear()
+        if not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        if len(iterable) == 0:
+            raise ValueError("The given iterable is empty!!")
+        treap = None
+        for item in iterable:
+            if treap is None:
+                treap = Treap(item)
+            else:
+                treap.insert(item)
+        return treap
+
+
     ############################## INSERTION ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
@@ -134,13 +152,14 @@ class Treap(BST):
 
 
 if __name__ == "__main__":
-    t = Treap(50, seed="extra")
-    t.insert(30)
-    t.insert(70)
-    t.insert(20)
-    t.insert(40)
-    t.insert(80)
-    t.insert(0)
+    # t = Treap(50, seed="extra")
+    # t.insert(30)
+    # t.insert(70)
+    # t.insert(20)
+    # t.insert(40)
+    # t.insert(80)
+    # t.insert(0)
+    t = Treap.from_iterable([50, 30, 70, 20, 40, 80, 0], seed="extra")
     print(t, '\n')
     t.remove(30)
     print(t)
