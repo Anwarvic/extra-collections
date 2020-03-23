@@ -50,7 +50,7 @@ class TreapNode(BSTNode):
 
 
 class Treap(BST):
-    SHOW_PRIORITY = False
+    SHOW_PRIORITY = True
     _basic_node = TreapNode
 
 
@@ -148,22 +148,4 @@ class Treap(BST):
         else:
             parent.set_right(None)
 
-
-
-
-if __name__ == "__main__":
-    # t = Treap(50, seed="extra")
-    # t.insert(30)
-    # t.insert(70)
-    # t.insert(20)
-    # t.insert(40)
-    # t.insert(80)
-    # t.insert(0)
-    t = Treap.from_iterable([50, 30, 70, 20, 40, 80, 0], seed="extra")
-    print(t, '\n')
-    t.remove(30)
-    print(t)
-    print("Total nodes:", len(t))
-    print("Biggest Value is:", t.get_max())
-    print(t.get_min())
 
