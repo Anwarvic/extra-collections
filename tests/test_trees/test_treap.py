@@ -106,3 +106,58 @@ def test_treap_simple():
     with pytest.raises(TypeError): treap.remove(None)
     with pytest.raises(TypeError): treap.remove(get_string())
     with pytest.raises(TypeError): treap.remove(get_list())
+
+
+def test_treap_from_iterable():
+    lst = [50, 30, 70, 20, 40, 80, 0]
+    treap = Treap.from_iterable(lst, seed="extra")
+    # test structure
+    assert verify_bst_rules(treap.root)
+    assert verify_treap_priority(treap.root)
+    assert treap.root.get_data() == 30
+    assert treap.root.get_priority() == 87
+    assert treap.root.get_left().get_data() == 20
+    assert treap.root.get_left().get_priority() == 57
+    assert treap.root.get_left().get_left().get_data() == 0
+    assert treap.root.get_left().get_left().get_priority() == 5
+    assert treap.root.get_left().get_right() is None
+    
+    assert treap.root.get_right().get_data() == 70
+    assert treap.root.get_right().get_priority() == 57
+    assert treap.root.get_right().get_left().get_data() == 50
+    assert treap.root.get_right().get_left().get_priority() == 3
+    assert treap.root.get_right().get_left().get_left().get_data() == 40
+    assert treap.root.get_right().get_left().get_left().get_priority() == 2
+    assert treap.root.get_right().get_left().get_right() is None
+    assert treap.root.get_right().get_right().get_data() == 80
+    assert treap.root.get_right().get_right().get_priority() == 13
+    assert treap.root.get_right().get_right().get_left() is None
+    assert treap.root.get_right().get_right().get_right() is None
+
+    # test various methods
+    assert len(treap) == 7
+    assert treap.count_leaf_nodes() == 3
+    assert treap.get_max() == 80
+    assert treap.get_min() == 0
+    assert treap.get_height() == 3
+    assert treap.is_balanced()
+    assert not treap.is_perfect()
+    assert not treap.is_strict()
+    # test __contains__
+    assert 30 in treap
+    assert 0 in treap
+    assert -10 not in treap
+    # test __iter__ / traverse
+    assert treap.to_list() == [30, 20, 70, 0, 50, 80, 40]
+    assert treap.preorder_traverse() == [30, 20, 0, 70, 50, 40, 80]
+    assert treap.depth_first_traverse() == \
+        [30, 20, 0, 70, 50, 40, 80]
+    assert treap.postorder_traverse()== [0, 20, 40, 50, 80, 70, 30]
+    assert treap.inorder_traverse() == [0, 20, 30, 40, 50, 70, 80]
+    #test remove
+    treap.remove(500) #do nothing
+    treap.remove(30)
+    assert len(treap) == 6
+    assert 30 not in treap
+    assert verify_bst_rules(treap.root)
+    assert verify_treap_priority(treap.root)
