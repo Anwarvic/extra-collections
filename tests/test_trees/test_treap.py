@@ -67,3 +67,42 @@ def test_treap_one_value():
     with pytest.raises(TypeError): treap.remove(None)
     with pytest.raises(TypeError): treap.remove(get_string())
     with pytest.raises(TypeError): treap.remove(get_list())
+
+
+def test_treap_simple():
+    treap = Treap(4)
+    treap.insert(2)
+    treap.insert(1)
+    treap.insert(3)
+    treap.insert(5)
+    # test structure
+    assert verify_bst_rules(treap.root)
+    assert verify_treap_priority(treap.root)
+    # test various methods
+    assert len(treap) == 5
+    assert treap.get_max() == 5
+    assert treap.get_min() == 1
+    # test __contains__
+    assert 1 in treap
+    assert 100 not in treap
+    assert 1.1 not in treap
+    # test __iter__ / traverse
+    #test remove
+    treap.remove(9) #do nothing
+    treap.remove(4)
+    assert len(treap) == 4
+    assert 4 not in treap
+    assert verify_bst_rules(treap.root)
+    assert verify_treap_priority(treap.root)
+    # validate
+    with pytest.raises(TypeError): None in treap
+    with pytest.raises(TypeError): get_string() in treap
+    with pytest.raises(TypeError): get_list() in treap
+    with pytest.raises(TypeError): treap.insert(None)
+    with pytest.raises(TypeError): treap.insert(get_string())
+    with pytest.raises(TypeError): treap.insert(get_list())
+    with pytest.raises(TypeError): treap.insert(get_int(), get_string())
+    with pytest.raises(TypeError): treap.insert(get_int(), get_list())
+    with pytest.raises(TypeError): treap.remove(None)
+    with pytest.raises(TypeError): treap.remove(get_string())
+    with pytest.raises(TypeError): treap.remove(get_list())
