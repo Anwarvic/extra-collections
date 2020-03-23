@@ -161,3 +161,22 @@ def test_treap_from_iterable():
     assert 30 not in treap
     assert verify_bst_rules(treap.root)
     assert verify_treap_priority(treap.root)
+
+
+def test_treap_with_random_numbers():
+    length = get_pos_int()
+    lst = [get_float() for _ in range(length)]
+    treap = Treap.from_iterable(lst)
+    assert verify_bst_rules(treap.root)
+    assert verify_treap_priority(treap.root)
+    assert len(treap) == len(lst)
+    assert treap.get_max() == max(lst)
+    assert treap.get_min() == min(lst)
+    for item in lst[1:]:
+        assert item in treap
+        treap.remove(item)
+        assert verify_bst_rules(treap.root)
+        assert verify_treap_priority(treap.root)
+        assert item not in treap
+    assert len(treap) == 1
+    with pytest.raises(IndexError): treap.remove(treap.root.get_data())
