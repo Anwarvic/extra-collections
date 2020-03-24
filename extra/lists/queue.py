@@ -25,9 +25,9 @@ class Queue():
         middle_border = direction_char+'│'
         down_border = '─┴'
         for item in self.container:
-            width = len(str(item))+2 #2: for a space before & after item
+            width = len(item._represent())+2 #2: for a space before & after item
             top_border += ('─'*width) + '┬'
-            middle_border += " {} │".format(item)
+            middle_border += f" {item._represent()} │"
             down_border += ('─'*width) + '┴'
         # add extension
         if not self.is_empty():

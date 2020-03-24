@@ -59,33 +59,6 @@ class CircularLinkedList(LinkedList):
             first_line, second_line, third_line, fourth_line, fifth_line)
 
 
-    #TODO: refactor this function
-    def _compare(self, other, op):
-        """
-        Returns the last two nodes that don't match the given operator. They
-        could be the end of both LinkedList or just some random nodes in the
-        middle.
-        """
-        assert isinstance(other, self.__class__)
-        # start_comparing
-        pointer1 = self.head.get_next() 
-        pointer2 = other.head.get_next()
-        if not op(pointer1.get_data(), pointer2.get_data()):
-            return pointer1, pointer2
-        while(pointer1 is not self.head and pointer2 is not other.head):
-            try:
-                if pointer1.get_data() == pointer2.get_data():
-                    pass
-                elif not op(pointer1.get_data(), pointer2.get_data()):
-                    return pointer1, pointer2
-            except TypeError:
-                raise TypeError(
-                    "Inconsists data-types within the two LinkedLists!!")
-            pointer1 = pointer1.get_next()
-            pointer2 = pointer2.get_next()
-        return pointer1, pointer2
-
-
     ############################## SEARCH ##############################
     def __contains__(self, value):
         #NOTE: DON'T validate the given value
@@ -203,8 +176,8 @@ if __name__ == "__main__":
     lst = [1, 2, 3, 4, 5]
     tmp_cll = CircularLinkedList.from_iterable(lst)
     print(tmp_cll)
-    cll = CircularLinkedList.from_iterable(tmp_cll)
-    assert cll == tmp_cll
+    cll = CircularLinkedList.from_iterable(lst)
+    print(cll == tmp_cll)
 
     # l = CircularLinkedList()
     # l.insert(100, 'answer')

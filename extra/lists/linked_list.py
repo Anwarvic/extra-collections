@@ -9,11 +9,7 @@ class Node:
         self.data = item
         self.next = None
 
-
-    def __str__(self):
-        return str(self.data)
-
-    
+   
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
@@ -39,6 +35,10 @@ class Node:
                 next_node.get_data() is not None)\
                 or next_node is None
         self.next = next_node
+
+
+    def _represent(self):
+        return str(self.data)
 
 
 
@@ -93,7 +93,7 @@ class LinkedList:
         top_border = ['┌']
         middle = ['│']
         lower_border = ['└']
-        item = str(node)
+        item = node._represent()
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐ ']
         middle += [f" {item} │⟶"]

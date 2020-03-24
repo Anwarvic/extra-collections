@@ -72,7 +72,7 @@ class DoublyLinkedList(LinkedList):
         top_border    = [' ┌']
         middle_border = ['⟷│']
         lower_border  = [' └']
-        item = str(node)
+        item = node._represent()
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐']
         middle_border += [f" {item} │"]
