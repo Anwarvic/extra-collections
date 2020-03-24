@@ -80,7 +80,7 @@ class PriorityQueue(Queue):
         super()._enqueue(node)
     
     ##############################    DEQUEUE    ##############################
-    def dequeue(self):
+    def dequeue(self, reverse=False):
         """Removes the highest-priority value from the PriorityQueue"""
         if self.is_empty():
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
@@ -88,9 +88,14 @@ class PriorityQueue(Queue):
         else:
             curr_node = self.container.head
             while(curr_node is not None):
-                if curr_node.get_priority() == self.max_priority:
-                    self.container._remove_node(curr_node.get_prev(), curr_node)
-                    return curr_node.get_data()
+                if not reverse:
+                    if curr_node.get_priority() == self.max_priority:
+                        self.container._remove_node(curr_node.get_prev(), curr_node)
+                        return curr_node.get_data()
+                else:
+                    if curr_node.get_priority() == self.min_priority:
+                        self.container._remove_node(curr_node.get_prev(), curr_node)
+                        return curr_node.get_data()
                 curr_node = curr_node.get_next()
 
 
@@ -103,4 +108,4 @@ if __name__ == "__main__":
     print(q)
     print(q.min_priority)
     print(q.max_priority)
-    print(q.dequeue())
+    print(q.dequeue(reverse=True))
