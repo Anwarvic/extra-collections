@@ -1,11 +1,20 @@
+"""
+PriorityQueue is a data structure which where every node has two values.
+    - Key: Contains any value as the standard Queue
+    - Priority: value that represents the priority
+
+A priority node is represented like the following 0|P:45 where 0 is the key and 
+45 is the priority. The higher the number is, the more priority it has.
+"""
 import random
+import warnings
 from extra.lists.doubly_linked_list import DoublyNode
 from extra.lists.queue import Queue
 
 
 
 
-class DoublyPriorityNode(DoublyNode):
+class PriorityNode(DoublyNode):
     """Basic object for item inside Priority Queue"""
     def __init__(self, key, priority=None):
         if priority is not None and type(priority) not in {int, float}:
@@ -13,7 +22,7 @@ class DoublyPriorityNode(DoublyNode):
         assert key is not None
         super().__init__(key)
         self.priority = \
-            random.randint(0, 100) if priority is None else priority
+            random.randint(-100, 100) if priority is None else priority
     
 
     def get_priority(self):
@@ -48,19 +57,21 @@ class PriorityQueue(Queue):
     def __name__(self):
         return "extra.PriorityQueue()"
 
+    
+    ############################# ENQUEUE ##############################
+    def __validate_priority(self, new_priority):
+        if new_priority is not None and type(new_priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
+    
 
-    def enqueue(self, item):
+    def enqueue(self, item, priority=None):
         """Insert value into the Priority Queue"""
-        if len(self) == 0:
-            self.container.append(item)
-        else:
-            new_data, new_priority = item.data, item.priority
-            for i, _item in enumerate(self.container):
-                curr_data, curr_priority = _item.data, _item.priority
-                if new_priority <= curr_priority:
-                    self.container = self.container[:i] + [item]\
-                                         + self.container[i:]
-                    break
+        super()._validate_item(item)
+        self.__validate_priority(priority)
+        node = PriorityNode(item, priority)
+        super()._enqueue(node)
+    
+    ##############################    DEQUEUE    ##############################
 
 
 
@@ -70,3 +81,4 @@ if __name__ == "__main__":
     q = PriorityQueue()
     q.enqueue(10)
     print(type(q.container[0]))
+    print(q)
