@@ -57,7 +57,13 @@ class PriorityQueue(Queue):
     def __name__(self):
         return "extra.PriorityQueue()"
 
+
+    def __init__(self, max_capacity=float("inf")):
+        super().__init__(max_capacity)
+        self.min_priority = float("inf")
+        self.max_priority = float("-inf")
     
+
     ############################# ENQUEUE ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
@@ -69,10 +75,23 @@ class PriorityQueue(Queue):
         super()._validate_item(item)
         self.__validate_priority(priority)
         node = PriorityNode(item, priority)
+        self.min_priority = min(self.min_priority, node.get_priority())
+        self.max_priority = max(self.min_priority, node.get_priority())
         super()._enqueue(node)
     
     ##############################    DEQUEUE    ##############################
-
+    def dequeue(self):
+        """Removes the highest-priority value from the PriorityQueue"""
+        if self.is_empty():
+            warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
+            return None
+        else:
+            curr_node = self.container.head
+            while(curr_node is not None):
+                if curr_node.get_priority() == self.max_priority:
+                    self.container._remove_node(curr_node.get_prev(), curr_node)
+                    return curr_node.get_data()
+                curr_node = curr_node.get_next()
 
 
 
@@ -82,3 +101,6 @@ if __name__ == "__main__":
     q.enqueue(10)
     print(type(q.container[0]))
     print(q)
+    print(q.min_priority)
+    print(q.max_priority)
+    print(q.dequeue())
