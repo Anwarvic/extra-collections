@@ -66,14 +66,18 @@ class Queue():
                 f"Can't push an empty-string into {self.__name__()}!!")
     
 
-    def enqueue(self, item):
-        """Insert value into the Queue"""
-        self._validate_item(item)
+    def _enqueue(self, item):
         if self.is_full():
             warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
                 "could lead to missing values!!", UserWarning)
             self.container.remove_front()
-        self.container.add_end(item)
+        return self.container._insert(len(self), item)
+
+
+    def enqueue(self, item):
+        """Insert value into the Queue"""
+        self._validate_item(item)
+        self._enqueue(item)
 
 
     ##############################    DEQUEUE    ##############################
