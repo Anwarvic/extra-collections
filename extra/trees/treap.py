@@ -4,7 +4,7 @@ of it maintains two values.
     - Key: Follows standard BST ordering (left is smaller and right is greater)
     - Priority: Randomly assigned value that follows Max-Heap property.
 
-A treap node is represented like the following 0|45 where 0 is the key and 
+A treap node is represented like the following 0|P:45 where 0 is the key and 
 45 is the priority. The higher the number is, the more priority it has.
 """
 import random
@@ -23,7 +23,7 @@ class TreapNode(BSTNode):
             raise TypeError("Given priority has to be a number!!")
         super().__init__(key)
         self.priority = \
-            random.randint(0, 100) if priority is None else priority
+            random.randint(-100, 100) if priority is None else priority
 
 
     def get_priority(self):
