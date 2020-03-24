@@ -1,40 +1,53 @@
-class Item:
+import random
+from extra.lists.doubly_linked_list import DoublyNode
+from extra.lists.queue import Queue
+
+
+
+
+class DoublyPriorityNode(DoublyNode):
     """Basic object for item inside Priority Queue"""
-    def __init__(self, data, priority):
-        self.data = data
-        # priority has to be an integer bigger than or equal to zero
-        assert type(priority) == int and priority >= 0, \
-                                "priority can't be negative values"
-        self.priority = priority
+    def __init__(self, key, priority=None):
+        if priority is not None and type(priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
+        assert key is not None
+        super().__init__(key)
+        self.priority = \
+            random.randint(0, 100) if priority is None else priority
+    
+
+    def get_priority(self):
+        return self.priority
+
+
+    def set_priority(self, new_priority):
+        assert type(new_priority) in {int, float}
+        self.priority = new_priority
+
 
     def __repr__(self):
-        return "({}, {})".format(self.data, self.priority)
+        """Represents Node object as a string"""
+        return f"PriorityNode(data: {self.data}, Priority: {self.priority})"
+
+    
+    def _represent(self):
+        if PriorityQueue.SHOW_PRIORITY:
+            return f"{self.data}|P:{self.priority}"
+        else:
+            return f"{self.data}"
 
 
 
-class PriorityQueue:
+
+class PriorityQueue(Queue):
     """Basic object for the Priority Queue data structure where highest priority
     is zero."""
-    def __init__(self):
-        self.container = []
+    SHOW_PRIORITY = False
 
-    def __repr__(self):
-        top_border = '─┬'
-        middle = ' │'
-        down_border = '─┴'
-        for item in self.container:
-            width = len(str(item))+2 #2: for a space before & after item
-            top_border += ('─'*width) + '┬'
-            middle += " {} │".format(item)
-            down_border += ('─'*width) + '┴'
-        # add extension
-        top_border += '─'
-        middle += ' '
-        down_border += '─'
-        return "{}\n{}\n{}".format(top_border, middle, down_border)
 
-    def __len__(self):
-        return len(self.container)
+    def __name__(self):
+        return "extra.PriorityQueue()"
+
 
     def enqueue(self, item):
         """Insert value into the Priority Queue"""
@@ -49,39 +62,11 @@ class PriorityQueue:
                                          + self.container[i:]
                     break
 
-    def remove_min(self):
-        """Removes value from the Priority Queue (Queue's head)"""
-        return self.container.pop(0)
-
-    def get_max_priority(self):
-        """Returns the highest-priority item to be enqueued"""
-        return self.container[0]
-
-    def get_min_priority(self):
-        """Returns the lowest-priority item to be enqueued"""
-        return self.container[-1]
-
-    def is_empty(self):
-        """Checks if the Priority Queue is empty"""
-        return self.container == 0
-
-    def clear(self):
-        """Clears the whole Priority Queue"""
-        self.container = []
 
 
 
 
 if __name__ == "__main__":
     q = PriorityQueue()
-    q.enqueue(Item(1, 10))
-    q.enqueue(Item(100, 0))
-    q.enqueue(Item(100, 0))
-    q.enqueue(Item("hello", 1))
-    q.enqueue(Item([1,2], 8))
-    q.enqueue(Item(-1, 6))
-    print(q)
-    q.dequeue()
-    print(q)
-    q.clear()
-    print(q)
+    q.enqueue(10)
+    print(type(q.container[0]))
