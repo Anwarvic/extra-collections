@@ -5,7 +5,7 @@ from extra.lists.queue import Queue
 
 
 
-def test_creating_queue():
+def test_creating_empty_queue():
     # empty stack
     q = Queue()
     assert q.max_capacity == float("inf")
