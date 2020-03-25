@@ -81,6 +81,19 @@ class PriorityQueue(Queue):
     
 
     ##############################    DEQUEUE    ##############################
+    def _update_min_max_priority(self):
+        self.min_priority = float("inf")
+        self.max_priority = float("-inf")
+        if not self.is_empty():
+            curr_node = self.container.head
+            while(curr_node is not None):
+                self.min_priority = \
+                    min(curr_node.get_priority(), self.min_priority)
+                self.max_priority = \
+                    max(curr_node.get_priority(), self.max_priority)
+                curr_node = curr_node.get_next()
+
+
     def dequeue(self, lowest_priority=False):
         """Removes the highest-priority value from the PriorityQueue"""
         if self.is_empty():
@@ -91,13 +104,18 @@ class PriorityQueue(Queue):
             while(curr_node is not None):
                 if lowest_priority:
                     if curr_node.get_priority() == self.min_priority:
-                        self.container._remove_node(curr_node.get_prev(), curr_node)
-                        return curr_node.get_data()
+                        self.container._remove_node(curr_node.get_prev(),
+                                                    curr_node)
+                        break
                 else:
                     if curr_node.get_priority() == self.max_priority:
-                        self.container._remove_node(curr_node.get_prev(), curr_node)
-                        return curr_node.get_data()
+                        self.container._remove_node(curr_node.get_prev(),
+                                                    curr_node)
+                        break
                 curr_node = curr_node.get_next()
+        # update min/max priority
+        self._update_min_max_priority()
+        return curr_node.get_data()
 
 
 
