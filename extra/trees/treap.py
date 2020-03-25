@@ -23,7 +23,7 @@ class TreapNode(BSTNode):
             raise TypeError("Given priority has to be a number!!")
         super().__init__(key)
         self.priority = \
-            random.randint(-100, 100) if priority is None else priority
+            random.randint(0, 100) if priority is None else priority
 
 
     def get_priority(self):

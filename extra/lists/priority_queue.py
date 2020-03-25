@@ -22,7 +22,7 @@ class PriorityNode(DoublyNode):
         assert key is not None
         super().__init__(key)
         self.priority = \
-            random.randint(-100, 100) if priority is None else priority
+            random.randint(0, 100) if priority is None else priority
     
 
     def get_priority(self):
@@ -105,7 +105,9 @@ class PriorityQueue(Queue):
 if __name__ == "__main__":
     q = PriorityQueue()
     q.enqueue(10)
+    PriorityQueue.SHOW_PRIORITY = True
     print(type(q.container[0]))
+    print(len(q))
     print(q)
     print(q.min_priority)
     print(q.max_priority)
