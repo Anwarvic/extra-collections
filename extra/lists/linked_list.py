@@ -361,7 +361,7 @@ class LinkedList:
     def _insert(self, idx, item):
         assert 0 <= idx or idx <= self.length
         prev_node, _ = self._get_node(idx)
-        if isinstance(item, self._basic_node):
+        if isinstance(item, Node):  #Keep it generic
             assert item.get_data() is not None
             return self._insert_node(prev_node, item)
         else:
@@ -414,7 +414,8 @@ class LinkedList:
         # if node to be removed is the first
         if prev_node is None:
             if self.length == 1:
-                self.head.data = None #NOTE: don't use set_data() here
+                #NOTE: don't use set_data() here
+                self.head.data = None
             else:
                 self.head = next_node
         else:
@@ -425,8 +426,9 @@ class LinkedList:
     def _remove_idx(self, idx):
         assert 0 <= idx or idx < self.length
         prev_node, node = self._get_node(idx)
+        node_data = node.get_data()
         self._remove_node(prev_node, node)
-        return self._basic_node(node.get_data())
+        return self._basic_node(node_data)
 
 
     def __delitem__(self, idx):
