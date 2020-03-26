@@ -49,7 +49,7 @@ class Queue():
 
 
     ############################## GET ################################
-    def get_first(self):
+    def top(self):
         """Returns the Qeueu head (first element to be inserted) """
         if self.is_empty():
             raise IndexError(\
