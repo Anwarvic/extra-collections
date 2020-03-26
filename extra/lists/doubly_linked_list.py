@@ -188,8 +188,3 @@ class DoublyLinkedList(LinkedList):
         self.tail = rotated.tail
 
 
-
-x = DoublyLinkedList()
-x._insert(0, 1)
-print(x.remove_end())
-print(x.remove_end())
