@@ -54,7 +54,7 @@ class Queue():
         if self.is_empty():
             raise IndexError(\
                 f"Can't retrieve from an empty {self.__name__()}!!")
-        return self.container.head.get_data()
+        return self.container.tail.get_data()
 
 
     ############################# ENQUEUE ##############################
@@ -67,11 +67,12 @@ class Queue():
     
 
     def _enqueue(self, item):
+        assert item is not None
         if self.is_full():
             warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
                 "could lead to missing values!!", UserWarning)
-            self.container.remove_front()
-        return self.container._insert(len(self), item)
+            self.container.remove_end()
+        return self.container._insert(0, item)
 
 
     def enqueue(self, item):
@@ -87,7 +88,7 @@ class Queue():
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
             return None
         else:
-            return self.container.remove_front().get_data()
+            return self.container.remove_end().get_data()
 
 
     def clear(self):
