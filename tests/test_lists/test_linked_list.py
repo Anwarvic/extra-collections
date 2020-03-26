@@ -195,9 +195,9 @@ def test_list_with_one_element():
     #################### test add/remove ####################
     new_value = get_value()
     ll.add_front(new_value)
-    ll.remove_front()
+    assert new_value == ll.remove_front().get_data()
     ll.add_end(new_value)
-    ll.remove_end()
+    assert new_value == ll.remove_end().get_data()
     assert ll == LinkedList(val)
     #################### test insert/split ####################
     with pytest.raises(IndexError): ll.insert(2, get_value())
@@ -281,6 +281,34 @@ def test_list_with_known_values():
     assert ll.is_empty()
 
 
+def test_list_with_random_numbers():
+    # test add_end() and remove_end()
+    lst = get_list(length=100)
+    llist = LinkedList()
+    for i in lst:
+        llist.add_end(i)
+    assert len(llist) == len(lst)
+    assert llist.head.get_data() == lst[0]
+    assert not llist.is_empty()
+    for _ in range(len(lst)):
+        assert llist[0].get_data() == lst[0]
+        assert llist.remove_end().get_data() == lst.pop()
+    assert len(llist) == 0
+    assert llist.is_empty()
+    # test add_front() and remove_front()
+    lst = get_list(length=100)
+    for i in lst:
+        llist.add_front(i)
+    assert len(llist) == len(lst)
+    assert llist.head.get_data() == lst[-1]
+    assert not llist.is_empty()
+    for _ in range(len(lst)):
+        assert llist[0].get_data() == lst[-1]
+        assert llist.remove_front().get_data() == lst.pop()
+    assert len(llist) == 0
+    assert llist.is_empty()
+
+
 def test_relational_operators():
     # linked lists have just one value
     assert LinkedList(3.14) == LinkedList(3.14)
@@ -340,12 +368,10 @@ def test_rotate():
     assert ll.to_list() == [6, 1, 2, 3, 4 ,5]
     assert isinstance(ll.head, Node)
     assert ll.head.get_data() == 6
-    assert str(ll[4]) == "4"
     ll.rotate_left(3)
     assert ll.to_list() == [3, 4 ,5, 6, 1, 2]
     assert ll.head.get_data() == 3
     assert isinstance(ll.head, Node)
-    assert str(ll[-1]) == '2'
 
 
 def test_join_method():
