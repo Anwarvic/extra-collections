@@ -13,11 +13,11 @@ def test_creating_deque():
     assert dq.is_empty()
     with pytest.warns(UserWarning):
         assert dq.dequeue() == None
-        assert dq.pop_first() == None
-        assert dq.pop_last() == None
+        assert dq.pop_left() == None
+        assert dq.pop_right() == None
     with pytest.raises(IndexError):
-        dq.get_first()
-        dq.get_last()
+        dq.get_left()
+        dq.get_right()
     dq.clear() #not to through any errors
     assert dq.max_capacity == float("inf")
     assert not dq.is_full()
@@ -28,15 +28,15 @@ def test_creating_deque():
     assert dq.is_empty()
     with pytest.warns(UserWarning):
         assert dq.dequeue() == None
-        assert dq.pop_first() == None
-        assert dq.pop_last() == None
+        assert dq.pop_left() == None
+        assert dq.pop_right() == None
     with pytest.raises(IndexError):
-        assert dq.get_first() == None
-        assert dq.get_last() == None
+        assert dq.get_left() == None
+        assert dq.get_right() == None
     with pytest.warns(UserWarning):
         dq.enqueue(get_value())
-        dq.append_first(get_value())
-        dq.append_last(get_value())
+        dq.append_left(get_value())
+        dq.append_right(get_value())
     dq.clear() #not to through any errors
     assert dq.max_capacity == 0
     assert dq.is_full()
@@ -44,19 +44,19 @@ def test_creating_deque():
 
 def test_deque_with_max_capacity():
     cap = get_pos_int()
-    # test append_first/pop_first
+    # test append_left/pop_left
     lst = get_list(length=cap)
     dq = Deque(max_capacity=cap)
     assert dq.max_capacity == cap
     for i in lst:
-        dq.append_first(i)
+        dq.append_left(i)
     assert len(dq) == cap
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
-        assert dq.get_first() == lst[-1]
-        assert dq.get_last() == lst[0]
-        assert dq.pop_first() == lst.pop()
+        assert dq.get_left() == lst[-1]
+        assert dq.get_right() == lst[0]
+        assert dq.pop_left() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() == False
@@ -65,19 +65,19 @@ def test_deque_with_max_capacity():
     dq.clear()
     assert dq.max_capacity == cap
 
-    # test append_last/pop_last
+    # test append_right/pop_right
     lst = get_list(length=cap)
     dq = Deque(max_capacity=cap)
     assert dq.max_capacity == cap
     for i in lst:
-        dq.append_last(i)
+        dq.append_right(i)
     assert len(dq) == cap
     assert not dq.is_empty()
     assert dq.is_full()
     for _ in range(cap):
-        assert dq.get_first() == lst[0]
-        assert dq.get_last() == lst[-1]
-        assert dq.pop_last() == lst.pop()
+        assert dq.get_left() == lst[0]
+        assert dq.get_right() == lst[-1]
+        assert dq.pop_right() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() == False
@@ -101,14 +101,14 @@ def test_creating_deque_with_random_numbers():
     lst = get_list(length=100)
     dq = Deque()
     for i in lst:
-        dq.append_last(i)
+        dq.append_right(i)
     assert len(dq) == len(lst)
-    assert dq.get_first() == lst[0]
+    assert dq.get_left() == lst[0]
     assert not dq.is_empty()
     assert not dq.is_full()
     for _ in range(len(lst)):
-        assert dq.get_first() == lst[0]
-        assert dq.dequeue() == lst.pop(0)
+        assert dq.get_left() == lst[0]
+        assert dq.dequeue() == lst.pop()
     assert len(dq) == 0
     assert dq.is_empty()
     with pytest.warns(UserWarning):
@@ -125,7 +125,7 @@ def test_deque_with_known_values():
     assert len(dq) == 3
     with pytest.warns(UserWarning):
         dq.enqueue(16000)
-    assert dq.get_first() == 40
+    assert dq.get_left() == 16000
     assert dq.dequeue() == 40
     assert not dq.is_empty()
     assert not dq.is_full()
@@ -133,32 +133,32 @@ def test_deque_with_known_values():
     assert dq.is_empty()
     assert dq.max_capacity == 3
     assert dq.is_full() == False
-    # test using append_last() / pop_first()
+    # test using append_right() / pop_left()
     dq = Deque(max_capacity=3)
-    dq.append_last(2)
-    dq.append_last(40)
-    dq.append_last(800)
+    dq.append_right(2)
+    dq.append_right(40)
+    dq.append_right(800)
     assert len(dq) == 3
     with pytest.warns(UserWarning):
-        dq.append_last(16000)
-    assert dq.get_first() == 40
-    assert dq.pop_first() == 40
+        dq.append_right(16000)
+    assert dq.get_left() == 40
+    assert dq.pop_left() == 40
     assert not dq.is_empty()
     assert not dq.is_full()
     dq.clear()
     assert dq.is_empty()
     assert dq.max_capacity == 3
     assert dq.is_full() == False
-    # test using append_first() / pop_last()
+    # test using append_left() / pop_right()
     dq = Deque(max_capacity=3)
-    dq.append_first(2)
-    dq.append_first(40)
-    dq.append_first(800)
+    dq.append_left(2)
+    dq.append_left(40)
+    dq.append_left(800)
     assert len(dq) == 3
     with pytest.warns(UserWarning):
-        dq.append_first(16000)
-    assert dq.get_last() == 40
-    assert dq.pop_last() == 40
+        dq.append_left(16000)
+    assert dq.get_right() == 40
+    assert dq.pop_right() == 40
     assert not dq.is_empty()
     assert not dq.is_full()
     dq.clear()
@@ -171,12 +171,12 @@ def test_append_methods():
     dq = Deque()
     with pytest.raises(TypeError):
         dq.enqueue(None)
-        dq.append_first(None)
-        dq.append_last(None)
+        dq.append_left(None)
+        dq.append_right(None)
     with pytest.raises(ValueError):
         dq.enqueue('')
-        dq.append_first('')
-        dq.append_last('') 
+        dq.append_left('')
+        dq.append_right('') 
     dq.enqueue(get_value())
     dq.enqueue(get_int())
     dq.enqueue(get_string())
