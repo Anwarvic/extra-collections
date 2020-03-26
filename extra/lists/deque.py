@@ -18,42 +18,45 @@ class Deque(Queue):
 
     
     ############################## GET ################################
-    def get_last(self):
-        """Returns the Qeueu tail (last element to be enqueued) """
+    def get_left(self):
         if self.is_empty():
             raise IndexError(\
                 f"Can't retrieve from an empty {self.__name__()}!!")
-        return self.container.tail.get_data()
+        return self.container.head.get_data()
+    
+
+    def get_right(self):
+        return super().top()
 
 
     ############################# APPEND ##############################
-    def append_first(self, item):
-        """Insert value into the front of the Deque"""
+    def append_left(self, item):
+        """Insert value into the left-side of the Deque"""
+        super().enqueue(item)
+
+
+    def append_right(self, item):
+        """Insert value into the right-side of the Deque"""
         super()._validate_item(item)
         if self.is_full():
             warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
                 "could lead to missing values!!", UserWarning)
-            self.container.remove_end()
-        self.container.add_front(item)
-
-
-    def append_last(self, item):
-        """Insert value into the end of the Deque"""
-        super().enqueue(item)
+            self.container.remove_front()
+        self.container._insert(len(self), item)
 
 
     ############################## POP ###############################
-    def pop_first(self):
-        """Removes value from the Deque (first-inserted item)"""
-        return super().dequeue()
-
-
-    def pop_last(self):
-        """Removes value from the Deque (most recent)"""
+    def pop_left(self):
+        """Removes value from the left-side of the Deque"""
         if self.is_empty():
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
             return None
         else:
-            return self.container.remove_end().get_data()
+            return self.container.remove_front().get_data()
+
+
+    def pop_right(self):
+        """Removes value from the right-side of the Deque"""
+        return super().dequeue()
 
 
