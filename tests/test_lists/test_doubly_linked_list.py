@@ -333,6 +333,34 @@ def test_list_with_known_values():
     assert dl.is_empty()
 
 
+def test_list_with_random_numbers():
+    # test add_end() and remove_end()
+    lst = get_list(length=100)
+    dl = DoublyLinkedList()
+    for i in lst:
+        dl.add_end(i)
+    assert len(dl) == len(lst)
+    assert dl.head.get_data() == lst[0]
+    assert not dl.is_empty()
+    for _ in range(len(lst)):
+        assert dl[0].get_data() == lst[0]
+        assert dl.remove_end().get_data() == lst.pop()
+    assert len(dl) == 0
+    assert dl.is_empty()
+    # test add_front() and remove_front()
+    lst = get_list(length=100)
+    for i in lst:
+        dl.add_front(i)
+    assert len(dl) == len(lst)
+    assert dl.head.get_data() == lst[-1]
+    assert not dl.is_empty()
+    for _ in range(len(lst)):
+        assert dl[0].get_data() == lst[-1]
+        assert dl.remove_front().get_data() == lst.pop()
+    assert len(dl) == 0
+    assert dl.is_empty()
+
+
 def test_relational_operators():
     # linked lists have just one value
     assert DoublyLinkedList(3.14) == DoublyLinkedList(3.14)
