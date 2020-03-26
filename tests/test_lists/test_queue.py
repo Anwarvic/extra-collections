@@ -6,7 +6,7 @@ from extra.lists.queue import Queue
 
 
 def test_creating_empty_queue():
-    # empty stack
+    # empty queue
     q = Queue()
     assert q.max_capacity == float("inf")
     assert len(q) == 0
@@ -14,11 +14,11 @@ def test_creating_empty_queue():
     with pytest.warns(UserWarning):
         assert q.dequeue() == None
     with pytest.raises(IndexError):
-        q.get_first()
+        q.top()
     q.clear() #not to through any errors
     assert q.max_capacity == float("inf")
     assert not q.is_full()
-    # empty stack with max_capacity == 0
+    # empty queue with max_capacity == 0
     q = Queue(max_capacity=0)
     assert q.max_capacity == 0
     assert len(q) == 0
@@ -26,7 +26,7 @@ def test_creating_empty_queue():
     with pytest.warns(UserWarning):
         assert q.dequeue() == None
     with pytest.raises(IndexError):
-        q.get_first()
+        q.top()
     with pytest.warns(UserWarning):
         q.enqueue(get_value() )
     q.clear() #not to through any errors
@@ -65,17 +65,17 @@ def test_queue_with_invalid_max_capacity():
 
 
 def test_creating_queue_with_random_numbers():
-    # stack with random values
+    # queue with random values
     lst = get_list(length=100)
     q = Queue()
     for i in lst:
         q.enqueue(i)
     assert len(q) == len(lst)
-    assert q.get_first() == lst[0]
+    assert q.top() == lst[0]
     assert not q.is_empty()
     assert not q.is_full()
     for _ in range(len(lst)):
-        assert q.get_first() == lst[0]
+        assert q.top() == lst[0]
         assert q.dequeue() == lst.pop(0)
     assert len(q) == 0
     assert q.is_empty()
@@ -92,7 +92,7 @@ def test_queue_with_known_values():
     assert len(q) == 3
     with pytest.warns(UserWarning):
         q.enqueue(16000)
-    assert q.get_first() == 40
+    assert q.top() == 40
     assert q.dequeue() == 40
     assert not q.is_empty()
     assert not q.is_full()
