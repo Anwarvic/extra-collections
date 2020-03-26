@@ -137,14 +137,16 @@ class DoublyLinkedList(LinkedList):
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if self.length == 1:
-            self.head = self.tail = self._basic_node()
+            #NOTE: don't use set_data() here
+            self.head.data = self.tail.data = None
             self.length -= 1
         elif self.length == 2:
             if prev_node == None:
-                new_node = self._basic_node(next_node.get_data())
+                next_node.set_prev(None)
+                self.head = next_node
             elif next_node == None:
-                new_node = self._basic_node(prev_node.get_data())
-            self.head = self.tail = new_node
+                prev_node.set_next(None)
+                self.tail = prev_node
             self.length -= 1
         else:
             if next_node == None:
@@ -186,3 +188,8 @@ class DoublyLinkedList(LinkedList):
         self.tail = rotated.tail
 
 
+
+x = DoublyLinkedList()
+x._insert(0, 1)
+print(x.remove_end())
+print(x.remove_end())
