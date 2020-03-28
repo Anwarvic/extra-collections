@@ -11,10 +11,8 @@ def test_creating_empty_queue():
     assert q.max_capacity == float("inf")
     assert len(q) == 0
     assert q.is_empty()
-    with pytest.warns(UserWarning):
-        assert q.dequeue() == None
-    with pytest.raises(IndexError):
-        q.top()
+    with pytest.warns(UserWarning): assert q.dequeue() == None
+    with pytest.raises(IndexError): q.top()
     q.clear() #not to through any errors
     assert q.max_capacity == float("inf")
     assert not q.is_full()
@@ -23,12 +21,9 @@ def test_creating_empty_queue():
     assert q.max_capacity == 0
     assert len(q) == 0
     assert q.is_empty()
-    with pytest.warns(UserWarning):
-        assert q.dequeue() == None
-    with pytest.raises(IndexError):
-        q.top()
-    with pytest.warns(UserWarning):
-        q.enqueue(get_value() )
+    with pytest.warns(UserWarning): assert q.dequeue() == None
+    with pytest.raises(IndexError): q.top()
+    with pytest.warns(UserWarning): q.enqueue(get_value() )
     q.clear() #not to through any errors
     assert q.max_capacity == 0
     assert q.is_full()
@@ -56,12 +51,10 @@ def test_queue_with_max_capacity():
 
 
 def test_queue_with_invalid_max_capacity():
-    with pytest.raises(TypeError):
-        Queue(max_capacity=get_list())
-        Queue(max_capacity=get_string())
-    with pytest.raises(ValueError):
-        Queue(max_capacity=get_neg_int())
-        Queue(max_capacity=get_neg_float())
+    with pytest.raises(TypeError): Queue(max_capacity=get_list())
+    with pytest.raises(TypeError): Queue(max_capacity=get_string())
+    with pytest.raises(ValueError): Queue(max_capacity=get_neg_int())
+    with pytest.raises(ValueError): Queue(max_capacity=get_neg_float())
 
 
 def test_creating_queue_with_random_numbers():
@@ -79,8 +72,7 @@ def test_creating_queue_with_random_numbers():
         assert q.dequeue() == lst.pop(0)
     assert len(q) == 0
     assert q.is_empty()
-    with pytest.warns(UserWarning):
-        assert q.dequeue() == None
+    with pytest.warns(UserWarning): assert q.dequeue() == None
     assert q.is_full() == False
 
 
@@ -90,8 +82,7 @@ def test_queue_with_known_values():
     q.enqueue(40)
     q.enqueue(800)
     assert len(q) == 3
-    with pytest.warns(UserWarning):
-        q.enqueue(16000)
+    with pytest.warns(UserWarning): q.enqueue(16000)
     assert q.top() == 40
     assert q.dequeue() == 40
     assert not q.is_empty()
@@ -104,10 +95,8 @@ def test_queue_with_known_values():
 
 def test_enqueue_method():
     q = Queue()
-    with pytest.raises(TypeError):
-        q.enqueue(None)
-    with pytest.raises(ValueError):
-        q.enqueue('')
+    with pytest.raises(TypeError): q.enqueue(None)
+    with pytest.raises(ValueError): q.enqueue('')
     q.enqueue(get_value())
     q.enqueue(get_int())
     q.enqueue(get_string())
