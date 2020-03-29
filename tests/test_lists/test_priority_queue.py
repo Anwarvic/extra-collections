@@ -94,3 +94,23 @@ def test_creating_queue_with_random_values_given_priority():
     assert q.is_empty()
     with pytest.warns(UserWarning): assert q.dequeue() == None
     assert q.is_full() == False
+
+
+def test_creating_queue_with_random_values():
+    # queue with random values with ascending priority
+    lst = get_list(length=1000)
+    q = PriorityQueue()
+    for item in lst:
+        q.enqueue(item)
+    assert len(q) == len(lst)
+    assert not q.is_empty()
+    assert not q.is_full()
+    for _ in range(len(lst)):
+        assert q.top() is not None
+        q.dequeue()
+    assert len(q) == 0
+    assert q.is_empty()
+    with pytest.warns(UserWarning): assert q.dequeue() == None
+    assert q.is_full() == False
+
+
