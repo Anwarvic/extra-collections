@@ -115,6 +115,7 @@ class PriorityQueue(Queue):
                         self.container._remove_node(curr_node.get_prev(),
                                                     curr_node)
                         self._update_min_priority()
+                        break
                 else:
                     if curr_node.get_priority() == self.max_priority:
                         node_data = curr_node.get_data()
