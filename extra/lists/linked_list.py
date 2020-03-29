@@ -417,7 +417,8 @@ class LinkedList:
                 #NOTE: don't use set_data() here
                 self.head.data = None
             else:
-                self.head = next_node
+                self.head.set_next(next_node.get_next())
+                self.head.set_data(next_node.get_data())
         else:
             prev_node.set_next(next_node)
         self.length -= 1
