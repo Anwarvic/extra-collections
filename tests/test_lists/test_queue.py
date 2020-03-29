@@ -57,7 +57,7 @@ def test_queue_with_invalid_max_capacity():
     with pytest.raises(ValueError): Queue(max_capacity=get_neg_float())
 
 
-def test_creating_queue_with_random_numbers():
+def test_creating_queue_with_random_values():
     # queue with random values
     lst = get_list(length=100)
     q = Queue()
