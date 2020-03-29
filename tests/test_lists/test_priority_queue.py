@@ -62,4 +62,35 @@ def test_queue_with_invalid_max_capacity():
     with pytest.raises(ValueError): PriorityQueue(max_capacity=get_neg_float())
 
 
-def 
+def test_creating_queue_with_random_values_given_priority():
+    # queue with random values with ascending priority
+    lst = get_list(length=100)
+    q = PriorityQueue()
+    for i, item in enumerate(lst):
+        q.enqueue(item, priority=i)
+    assert len(q) == len(lst)
+    assert not q.is_empty()
+    assert not q.is_full()
+    for _ in range(len(lst)):
+        # dequeue() the highest priority
+        assert q.dequeue() == lst.pop()
+    assert len(q) == 0
+    assert q.is_empty()
+    with pytest.warns(UserWarning): assert q.dequeue() == None
+    assert q.is_full() == False
+
+    # queue with random values with descending priority
+    lst = get_list(length=100)
+    q = PriorityQueue()
+    for i, item in enumerate(lst):
+        q.enqueue(item, priority=len(lst)-i)
+    assert len(q) == len(lst)
+    assert not q.is_empty()
+    assert not q.is_full()
+    for _ in range(len(lst)):
+        # dequeue() the lowest priority
+        assert q.dequeue(lowest_priority=True) == lst.pop()
+    assert len(q) == 0
+    assert q.is_empty()
+    with pytest.warns(UserWarning): assert q.dequeue() == None
+    assert q.is_full() == False
