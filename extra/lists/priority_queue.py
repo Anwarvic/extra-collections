@@ -76,19 +76,26 @@ class PriorityQueue(Queue):
         self.__validate_priority(priority)
         node = PriorityNode(item, priority)
         self.min_priority = min(self.min_priority, node.get_priority())
-        self.max_priority = max(self.min_priority, node.get_priority())
+        self.max_priority = max(self.max_priority, node.get_priority())
         super()._enqueue(node)
     
 
     ##############################    DEQUEUE    ##############################
-    def _update_min_max_priority(self):
+    def _update_min_priority(self):
         self.min_priority = float("inf")
-        self.max_priority = float("-inf")
         if not self.is_empty():
             curr_node = self.container.head
             while(curr_node is not None):
                 self.min_priority = \
                     min(curr_node.get_priority(), self.min_priority)
+                curr_node = curr_node.get_next()
+    
+
+    def _update_max_priority(self):
+        self.max_priority = float("-inf")
+        if not self.is_empty():
+            curr_node = self.container.head
+            while(curr_node is not None):
                 self.max_priority = \
                     max(curr_node.get_priority(), self.max_priority)
                 curr_node = curr_node.get_next()
@@ -104,29 +111,30 @@ class PriorityQueue(Queue):
             while(curr_node is not None):
                 if lowest_priority:
                     if curr_node.get_priority() == self.min_priority:
+                        node_data = curr_node.get_data()
                         self.container._remove_node(curr_node.get_prev(),
                                                     curr_node)
-                        break
+                        self._update_min_priority()
                 else:
                     if curr_node.get_priority() == self.max_priority:
+                        node_data = curr_node.get_data()
                         self.container._remove_node(curr_node.get_prev(),
                                                     curr_node)
+                        self._update_max_priority()
                         break
                 curr_node = curr_node.get_next()
-        # update min/max priority
-        self._update_min_max_priority()
-        return curr_node.get_data()
+        return node_data
 
 
 
 
 if __name__ == "__main__":
-    q = PriorityQueue()
-    q.enqueue(10)
+    lst = [1, 2, 3]
     PriorityQueue.SHOW_PRIORITY = True
-    print(type(q.container[0]))
-    print(len(q))
+    q = PriorityQueue()
+    for i, item in enumerate(lst):
+        q.enqueue(item, priority=i)
+    for i in range(len(lst)):
+        print(q.dequeue())
+        # assert q.dequeue() == lst.pop()
     print(q)
-    print(q.min_priority)
-    print(q.max_priority)
-    print(q.dequeue(lowest_priority=True))
