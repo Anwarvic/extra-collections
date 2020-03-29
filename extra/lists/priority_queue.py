@@ -126,15 +126,3 @@ class PriorityQueue(Queue):
         return node_data
 
 
-
-
-if __name__ == "__main__":
-    lst = [1, 2, 3]
-    PriorityQueue.SHOW_PRIORITY = True
-    q = PriorityQueue()
-    for i, item in enumerate(lst):
-        q.enqueue(item, priority=i)
-    for i in range(len(lst)):
-        print(q.dequeue())
-        # assert q.dequeue() == lst.pop()
-    print(q)
