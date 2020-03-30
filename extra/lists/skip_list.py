@@ -1,5 +1,5 @@
 import random
-from doubly_linked_list import DoublyNode, DoublyLinkedList
+from extra.lists.doubly_linked_list import DoublyNode, DoublyLinkedList
 
 
 
@@ -48,13 +48,11 @@ class SkipNode(DoublyNode):
 
 
 class SkipList:
-    def __init__(self, value=None):
+    def __init__(self):
         self.num_levels = 1
         #SkipList is an array of LinkedList objects
         self.skiplist = [DoublyLinkedList( SkipNode(float("-inf")) )]
-        if value != None:
-            self.insert(value)
-    
+
 
     ############################## PRINT ##############################
     def __print_node(self, node, zeroth_node, lower_node):
@@ -168,7 +166,7 @@ class SkipList:
     ############################# ITERATOR #############################
     #TODO: fix the bug where -∞ is yielded
     def __iter__(self):
-        for item in self.skiplist[0]:
+        for item in self.skiplist[0][1:]:
             yield item
 
     
@@ -243,7 +241,7 @@ class SkipList:
         
         # promote the new_node if flipping the coin results `Head`
         curr_level = 0
-        while flip_coin() == "head":# TODO: change `if` to `while`
+        while flip_coin() == "head":
             if curr_level >= self.num_levels-1:
                 top_list = self._add_extra_level()
                 upper_prev_node = top_list.head
