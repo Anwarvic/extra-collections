@@ -201,7 +201,7 @@ def test_empty_doubly_linked_list():
     with pytest.raises(IndexError): _ = dl[0]
     with pytest.raises(IndexError): _ = dl[get_pos_int()]
     with pytest.raises(IndexError): _ = dl[get_neg_int()]
-    with pytest.raises(IndexError): _ = dl[0:10]
+    assert DoublyLinkedList() == dl[0:10]
     #################### test insert/set ####################
     with pytest.raises(IndexError): dl.insert(get_pos_int(), get_pos_int())
     with pytest.raises(IndexError): dl.insert(get_neg_int(), get_pos_int())
