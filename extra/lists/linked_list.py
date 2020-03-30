@@ -307,7 +307,7 @@ class LinkedList:
         """Retrieves the element at the given index. It allows -ve indexing"""
         if isinstance(idx, slice):
             indices = range(*idx.indices(self.length))
-            max_idx = indices[-1]
+            max_idx = indices[-1] if self.length > 0 else -1
             indices = set(indices)
             # start getting wanted nodes
             counter = 0
