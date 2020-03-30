@@ -25,18 +25,16 @@ class SkipNode(DoublyNode):
     def __init__(self, item):
         assert type(item) in {int, float, str}, \
             "Skip Lists support only native data-types like: [int, float, str]!"
-        self.data = item
-        self.prev = None
-        self.next = None
+        super().__init__(item)
         self.down = None
 
 
-    def __str__(self):
+    def _represent(self):
         if self.data == float("-inf"):
             return "-∞"
         elif self.data == float("inf"):
             return "∞"
-        return super().__str__()
+        return super()._represent()
 
 
     def get_down(self):
@@ -69,7 +67,7 @@ class SkipList:
         """
         middle = []
         bottom_border = []
-        item = str(zeroth_node)
+        item = zeroth_node._represent()
         width = len(item)+2 #2: for a space before & after an item
         if node != None and zeroth_node.get_data() == node.get_data():
             bottom_border += ['└'] if lower_node == None else ['├']
@@ -127,7 +125,7 @@ class SkipList:
         lower_node = lower_list.head
         curr_node = top_list.head
         while(lower_node != None):
-            item = str(lower_node)
+            item = lower_node._represent()
             width = len(item)+2 #2: for a space before & after an item
             if curr_node != None and lower_node.data == curr_node.data:
                 top_border += ['┌'] + (['─']*width) + ['┐ ']
