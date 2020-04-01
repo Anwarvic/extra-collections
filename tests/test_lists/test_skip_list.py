@@ -19,3 +19,11 @@ def test_skip_node():
     assert _node.get_down() == _node.down == None
 
 
+def test_empty_skiplist():
+    sl = SkipList()
+    assert sl.num_levels == len(sl.level_lists) == 1
+    assert len(sl.level_lists[0]) == 1
+    assert isinstance(sl.level_lists[0].head, SkipNode)
+    assert sl.level_lists[0].head.get_data() == float("-inf")
+
+
