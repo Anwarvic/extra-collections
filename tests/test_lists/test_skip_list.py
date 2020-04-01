@@ -21,9 +21,26 @@ def test_skip_node():
 
 def test_empty_skiplist():
     sl = SkipList()
+    assert sl.is_empty()
+    assert sl.to_list() == []
     assert sl.num_levels == len(sl.level_lists) == 1
     assert len(sl.level_lists[0]) == 1
     assert isinstance(sl.level_lists[0].head, SkipNode)
     assert sl.level_lists[0].head.get_data() == float("-inf")
+    assert get_value() not in sl
+    assert get_string() not in sl
+    assert get_list() not in sl
+    assert get_float() not in sl
+    assert get_int() not in sl
+    with pytest.raises(IndexError): sl[get_int()]
+    with pytest.raises(NotImplementedError): sl[:]
+    # doesn't raise error
+    sl.remove(get_value())
+    sl.remove(get_int())
+    sl.remove(get_float())
+    sl.remove(get_string())
+    sl.remove(get_list())
+    sl.clear()
+
 
 
