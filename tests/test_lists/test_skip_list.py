@@ -55,5 +55,46 @@ def test_skiplist_with_one_element():
     assert val+1 not in sl
     # remove
     sl.remove(val)
-    test_empty_skiplist()
+    assert sl.is_empty()
+    assert sl.to_list() == [_ for _ in sl] == []
+    assert sl.num_levels == len(sl.level_lists) == 1
+    assert len(sl.level_lists[0]) == 1
 
+
+def test_skiplist_with_same_value():
+    val = get_float()
+    #################### using insert() ####################
+    sl = SkipList()
+    for _ in range(get_pos_int()):
+        sl.insert(val)
+    assert len(sl) == 1
+    assert not sl.is_empty()
+    assert sl.num_levels >= 1
+    assert val in sl
+    assert sl.to_list() == [_ for _ in sl] == [val]
+    assert val+1 not in sl
+    # remove
+    sl.remove(val)
+    assert sl.is_empty()
+    assert sl.to_list() == [_ for _ in sl] == []
+    assert sl.num_levels == len(sl.level_lists) == 1
+    assert len(sl.level_lists[0]) == 1
+
+    #################### using from_iterable ####################
+    val = get_float()
+    sl = SkipList.from_iterable([val for _ in range(get_pos_int())])
+    assert len(sl) == 1
+    assert not sl.is_empty()
+    assert sl.num_levels >= 1
+    assert val in sl
+    assert sl.to_list() == [_ for _ in sl] == [val]
+    assert val+1 not in sl
+    # remove
+    sl.remove(val)
+    assert sl.is_empty()
+    assert sl.to_list() == [_ for _ in sl] == []
+    assert sl.num_levels == len(sl.level_lists) == 1
+    assert len(sl.level_lists[0]) == 1
+
+    
+    
