@@ -57,7 +57,7 @@ class SkipList:
 
     def __init__(self):
         self.num_levels = 1
-        #`levels` is an array of DoublyLinkedList objects
+        #`level_listss` is an array of DoublyLinkedList objects
         self.level_lists = [DoublyLinkedList( self._basic_node(float("-inf")) )]
 
 
@@ -299,19 +299,31 @@ class SkipList:
 
     
     ############################## REMOVE ##############################
+    def _remove_level(self, level):
+        assert type(level) == int and 1 <= level < self.num_levels
+        del self.level_lists[level]
+        self.num_levels -= 1
+    
+
     def remove(self, value):
         """removal is done in O(log(n))"""
-        if type(value) in {int, float}:
-            self._validate_item(value)
-            # search for that value
-            found_node, last_accessed_nodes = self._search(value)
-            if found_node.get_data() == value:
-                level = self.num_levels - 1 - len(last_accessed_nodes)
-                while(level >= 0):
-                    self.level_lists[level]._remove_node(found_node.get_prev(),
-                                                        found_node)
-                    level -= 1
-                    found_node = found_node.get_down()
+        if type(value) not in {int, float}:
+            return
+        self._validate_item(value)
+        # search for that value
+        found_node, last_accessed_nodes = self._search(value)
+        #NOTE: len(last_accessed_nodes) can be used to get the level where
+        #  this value was found
+        if found_node.get_data() == value:
+            level = self.num_levels - 1 - len(last_accessed_nodes)
+            while(level >= 0):
+                curr_level_list = self.level_lists[level]
+                curr_level_list._remove_node(found_node.get_prev(), found_node)
+                # check if curr_level_list has only -∞ item
+                if level != 0 and len(curr_level_list) == 1:
+                    self._remove_level(level)
+                level -= 1
+                found_node = found_node.get_down()
     
 
     def __delitem__(self, idx):
@@ -343,11 +355,11 @@ if __name__ == "__main__":
     sk.insert(10)
     sk.insert(100)
     sk.insert(50)
-    sk.insert(-20)
+    # sk.insert(-20)
     print(sk)
-    print(2 in sk)
-    print(100 in sk)
-    print(20 in sk)
-    sk.remove(0)
+    # print(2 in sk)
+    # print(100 in sk)
+    # print(20 in sk)
+    sk.remove(2)
     print(sk)
-    for item in sk: print(item)
+    # for item in sk: print(item)
