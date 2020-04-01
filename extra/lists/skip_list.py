@@ -327,7 +327,7 @@ class SkipList:
 
     ############################## MISC ##############################
     def to_list(self):
-        return [item.get_data() for item in self]
+        return [item for item in self]
 
 
 
