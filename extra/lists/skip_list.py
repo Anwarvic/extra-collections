@@ -23,7 +23,8 @@ def search_sorted(start_node, value):
 
 class SkipNode(DoublyNode):
     def __init__(self, item):
-        assert type(item) in {int, float}
+        if type(item) not in {int, float}:
+            raise TypeError("SkipNode uses only numbers!!")
         super().__init__(item)
         self.down = None
 
@@ -66,6 +67,8 @@ class SkipList:
         
 
     def _validate_index(self, idx, accept_negative=False):
+        if isinstance(idx, slice):
+            raise NotImplementedError("Slices isn't supported yet!!")
         if type(idx) != int:
             raise TypeError("Given index must be an integer!")
         elif idx <= -1 and accept_negative==False:
@@ -74,6 +77,19 @@ class SkipList:
         elif idx < - len(self) or idx >= len(self):
             raise IndexError("Can't find any element at the given index!!")
 
+
+    @classmethod
+    def from_iterable(cls, iterable):
+        if not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        elif isinstance(iterable, cls):
+            return iterable
+        else:
+            skiplist = cls()  #cls._create_instance(cls)
+            for item in iterable:
+                skiplist.insert(item)
+            return skiplist
+        
 
     ############################## PRINT ##############################
     def __print_node(self, node, zeroth_node, lower_node):
