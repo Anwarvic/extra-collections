@@ -79,7 +79,6 @@ def test_skiplist_with_same_value():
     assert sl.to_list() == [_ for _ in sl] == []
     assert sl.num_levels == len(sl.level_lists) == 1
     assert len(sl.level_lists[0]) == 1
-
     #################### using from_iterable ####################
     val = get_float()
     sl = SkipList.from_iterable([val for _ in range(get_pos_int())])
@@ -97,4 +96,42 @@ def test_skiplist_with_same_value():
     assert len(sl.level_lists[0]) == 1
 
     
-    
+def test_skiplist_with_known_values():
+    random.seed(1)
+    sk = SkipList()
+    sk.insert(2)
+    sk.insert(2) #do nothing
+    sk.insert(0)
+    sk.insert(10)
+    sk.insert(100)
+    sk.insert(50)
+    assert not sk.is_empty()
+    assert len(sk) == 5
+    assert 2 in sk
+    assert 10 in sk
+    assert 0 in sk
+    assert 100 in sk
+    assert 50 in sk
+    assert 20 not in sk
+    assert sk.num_levels == 3
+    assert sk.to_list() == [0, 2, 10, 50, 100]
+    # check the structure
+    assert len(sk.level_lists[0]) == 6
+    assert len(sk.level_lists[1]) == 3
+    assert len(sk.level_lists[2]) == 2
+    assert verify_skiplist(sk)
+    # remove an item
+    sk.remove(2)
+    assert not sk.is_empty()
+    assert sk.num_levels == 2
+    assert 2 not in sk
+    assert 10 in sk
+    assert 0 in sk
+    assert 100 in sk
+    assert 50 in sk
+    assert 20 not in sk
+    assert sk.to_list() == [0, 10, 50, 100]
+    # check the structure
+    assert len(sk.level_lists[0]) == 5
+    assert len(sk.level_lists[1]) == 2
+    assert verify_skiplist(sk)
