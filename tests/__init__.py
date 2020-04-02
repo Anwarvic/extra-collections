@@ -102,3 +102,18 @@ def verify_treap_priority(start_node):
         return False
     return verify_treap_priority(left_child) and verify_treap_priority(right_child)
 
+
+def verify_skiplist(skiplist):
+    for level in range(skiplist.num_levels):
+        curr_node = skiplist.level_lists[level].head
+        if curr_node.get_data() == float("-inf"):
+            return False
+        while(curr_node.get_next() is not None):
+            next_node = curr_node.get_next()
+            if curr_node.get_data() >= next_node.get_data():
+                return False
+            if not (curr_node.get_down() is None or \
+                curr_node.get_down().get_data() == curr_node.get_data()):
+                return False
+            curr_node = next_node
+    return True
