@@ -165,4 +165,20 @@ def test_skiplist_with_random_numbers():
 
 
 def test_skiplist_with_from_iterable():
-    pass
+    _set = {get_float() for i in range(get_pos_int())}
+    sk = SkipList.from_iterable(_set)
+    assert len(sk) == len(_set)
+    assert not sk.is_empty()
+    assert sk.to_list() == sorted(_set)
+    assert sk.num_levels == len(sk.level_lists)
+    # search
+    for i in _set:
+        assert i in sk
+    # remove
+    for i in _set:
+        sk.remove(i)
+    assert sk.is_empty()
+    assert len(sk) == 0
+    assert sk.num_levels == 1
+    assert sk.to_list() == []
+
