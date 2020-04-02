@@ -135,3 +135,34 @@ def test_skiplist_with_known_values():
     assert len(sk.level_lists[0]) == 5
     assert len(sk.level_lists[1]) == 2
     assert verify_skiplist(sk)
+    # clear
+    sk.clear()
+    assert len(sk) == 0
+    assert sk.num_levels == 1
+    assert sk.is_empty()
+
+
+def test_skiplist_with_random_numbers():
+    length = get_pos_int()
+    sk = SkipList()
+    for i in range(length):
+        sk.insert(i)
+    assert len(sk) == length
+    assert not sk.is_empty()
+    assert sk.to_list() == [i for i in range(length)]
+    assert sk.num_levels == len(sk.level_lists)
+    # search
+    for i in range(length):
+        assert sk[i] == i
+        assert i in sk
+    # remove
+    for i in range(length):
+        sk.remove(i)
+    assert sk.is_empty()
+    assert len(sk) == 0
+    assert sk.num_levels == 1
+    assert sk.to_list() == []
+
+
+def test_skiplist_with_from_iterable():
+    pass
