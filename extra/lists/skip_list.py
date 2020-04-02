@@ -241,7 +241,8 @@ class SkipList:
     def __getitem__(self, idx):
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
-        return self.level_lists[0].__getitem__(idx+1)
+        node = self.level_lists[0].__getitem__(idx+1)
+        return node.get_data()
 
 
     ############################## INSERT ##############################
@@ -319,7 +320,7 @@ class SkipList:
             while(level >= 0):
                 curr_level_list = self.level_lists[level]
                 curr_level_list._remove_node(found_node.get_prev(), found_node)
-                # check if curr_level_list has only -∞ item
+                # check if curr_level_list is empty()
                 if level != 0 and len(curr_level_list) == 1:
                     self._remove_level(level)
                 level -= 1
