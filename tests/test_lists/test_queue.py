@@ -5,6 +5,7 @@ from extra.lists.queue import Queue
 
 
 
+
 def test_creating_empty_queue():
     # empty queue
     q = Queue()

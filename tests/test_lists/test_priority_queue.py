@@ -5,7 +5,6 @@ from extra.lists.priority_queue import PriorityNode, PriorityQueue
 
 
 
-
 def test_creating_empty_priority_queue():
     # empty priority queue
     q = PriorityQueue()
