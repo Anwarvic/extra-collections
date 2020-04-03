@@ -330,8 +330,8 @@ class SkipList:
     def __delitem__(self, idx):
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
-        node = self.level_lists[0]._get_node(idx+1)
-        self.remove(node)
+        _, node = self.level_lists[0]._get_node(idx+1)
+        self.remove(node.get_data())
     
 
     def clear(self):
@@ -361,6 +361,6 @@ if __name__ == "__main__":
     # print(2 in sk)
     # print(100 in sk)
     # print(20 in sk)
-    sk.remove(2)
+    del sk[1]
     print(sk)
     # for item in sk: print(item)
