@@ -145,6 +145,8 @@ def test_skiplist_with_known_values():
 def test_skiplist_with_random_numbers():
     length = get_pos_int()
     sk = SkipList()
+    ############## insert at the end & remove by value ##############
+    # insert at the end
     for i in range(length):
         sk.insert(i)
     assert len(sk) == length
@@ -158,6 +160,25 @@ def test_skiplist_with_random_numbers():
     # remove
     for i in range(length):
         sk.remove(i)
+    assert sk.is_empty()
+    assert len(sk) == 0
+    assert sk.num_levels == 1
+    assert sk.to_list() == []
+    ############## insert at the front & remove by index ##############
+    # insert at the front
+    for i in range(length):
+        sk.insert(length-1-i)
+    assert len(sk) == length
+    assert not sk.is_empty()
+    assert sk.to_list() == [i for i in range(length)]
+    assert sk.num_levels == len(sk.level_lists)
+    # search
+    for i in range(length):
+        assert sk[i] == i
+        assert i in sk
+    # remove
+    for i in range(length):
+        del sk[0]
     assert sk.is_empty()
     assert len(sk) == 0
     assert sk.num_levels == 1
