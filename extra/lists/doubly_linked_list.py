@@ -93,7 +93,9 @@ class DoublyLinkedList(LinkedList):
             while(counter > idx):
                 counter -= 1
                 curr_node = curr_node.get_prev()
-            return curr_node, curr_node.get_next()
+            prev_node = curr_node
+            curr_node = prev_node.get_next()
+            return prev_node, curr_node
 
 
     ############################## INSERT ##############################
