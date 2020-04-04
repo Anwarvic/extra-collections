@@ -297,10 +297,14 @@ class LinkedList:
         return prev_node, curr_node
 
 
-    def _validate_index(self, idx, accept_negative=False):
-        if type(idx) != int:
+    def _validate_index(self, idx, accept_negative=False, accept_slice=False):
+        if isinstance(idx, slice):
+            if not accept_slice:
+                raise IndexError(\
+                    "Slice indexing isn't supported with this functinoality!!")
+        elif type(idx) != int:
             raise TypeError("Given index must be an integer!")
-        elif idx <= -1 and accept_negative==False:
+        elif idx <= -1 and not accept_negative:
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
         elif idx < -self.length or idx > self.length:
@@ -309,6 +313,8 @@ class LinkedList:
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index. It allows -ve indexing"""
+        # sanity check over given index
+        self._validate_index(idx, accept_negative=True, accept_slice=True)
         if isinstance(idx, slice):
             indices = range(*idx.indices(self.length))
             max_idx = indices[-1] if indices else -1
@@ -326,8 +332,6 @@ class LinkedList:
                 counter += 1
             return out_llist
         else:
-            self._validate_index(idx, accept_negative=True)
-            # sanity check over given index
             if idx == self.length:
                 raise IndexError("Can't find any element at the given index!!")
             # convert idx to positive if -ve
@@ -395,9 +399,12 @@ class LinkedList:
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
         assert 0 <= idx or idx <= self.length
-        assert isinstance(new_node, self._basic_node)
+        assert new_node is not None
         _, old_node = self._get_node(idx)
-        old_node.set_data(new_node.get_data())
+        if isinstance(new_node, self._basic_node):
+            old_node.set_data(new_node.get_data())
+        else:
+            old_node.set_data(new_node)
     
 
     def __setitem__(self, idx, item):
@@ -490,14 +497,10 @@ class LinkedList:
     
 
     ############################# SPLIT/JOIN #############################
-    def split(self, idx):
-        """
-        idx is the start index of the second list after splitting.
-        So, idx=0, then the left_list will be empty while the right_list will be
-        the rest. And the opposite when idx=self.length
-        """
-        self._validate_index(idx)
-        left_list, right_list = self._create_instance(), self._create_instance()
+    def _split(self, idx):
+        assert type(idx) == int
+        left_list = self._create_instance()
+        right_list = self._create_instance()
         if not self.is_empty():
             counter = 0
             prev_node = None
@@ -516,13 +519,24 @@ class LinkedList:
         return left_list, right_list
     
 
+    def split(self, idx):
+        """
+        idx is the start index of the second list after splitting.
+        So, idx=0, then the left_list will be empty while the right_list will be
+        the rest. And the opposite when idx=self.length
+        """
+        self._validate_index(idx)
+        return self._split(idx)
+        
+    
+
     def join(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(\
             f"Type Mismatch! Can't join {self.__name__()} with f{type(other)}.")
         if other.is_empty():
             pass # do nothing
-        elif self.is_empty(): 
+        elif self.is_empty():
             self.head = other.head
             self.length = other.length
         else:
@@ -608,3 +622,6 @@ class LinkedList:
         return copied_list
 
 
+
+x = LinkedList.from_iterable([1, 2, 3])
+print(x[1:])
