@@ -267,6 +267,8 @@ def test_list_with_same_value():
     #test add_front
     for _ in range(length):
         dl.add_front(val)
+    # test __setitem__()
+    dl[1] = val
     assert dl == dl.reverse()
     assert dl == dl.copy()
     assert not dl.is_empty()
