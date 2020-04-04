@@ -228,14 +228,14 @@ class LinkedList:
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is self._STOP_NODE else False
+        return True if pointer2 is other._STOP_NODE else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is self._STOP_NODE else False
+        return True if pointer2 is other._STOP_NODE else False
 
 
     ############################## SEARCH ##############################
