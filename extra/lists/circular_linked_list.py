@@ -69,9 +69,9 @@ class CircularLinkedList(LinkedList):
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
         # start with comparing the heads
-        pointer1 = self.head if not self.is_empty() else None
-        pointer2 = other.head if not other.is_empty() else None
-        if pointer1 is None or pointer2 is None or \
+        pointer1 = self.head
+        pointer2 = other.head
+        if pointer1.get_data() is None or pointer2.get_data() is None or \
             not op(pointer1.get_data(), pointer2.get_data()):
             return pointer1, pointer2
         # start_comparing
@@ -205,12 +205,15 @@ class CircularLinkedList(LinkedList):
 
 
 if __name__ == "__main__":
-    lst = [1, 2, 3, 4, 5]
-    tmp_cll = CircularLinkedList.from_iterable(lst)
-    print(tmp_cll)
-    cll = CircularLinkedList.from_iterable(lst)
+    cll1 = CircularLinkedList("apple")
+    cll2 = CircularLinkedList()
+    print(cll1 > cll2)
+    # lst = [1, 2, 3, 4, 5]
+    # tmp_cll = CircularLinkedList.from_iterable(lst)
+    # print(tmp_cll)
+    # cll = CircularLinkedList.from_iterable(lst)
     
-    print(cll == tmp_cll)
+    # print(cll == tmp_cll)
 
     # l = CircularLinkedList()
     # l.insert(100, 'answer')
