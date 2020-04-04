@@ -9,7 +9,7 @@ class Node:
         self.data = item
         self.next = None
 
-   
+
     def __repr__(self):
         """Represents Node object as a string"""
         data = self.data
@@ -194,7 +194,9 @@ class LinkedList:
         if self.length != other.length:
             return False
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return True if pointer1 == pointer2 is self._STOP_NODE else False
+        return True \
+            if pointer1 is self._STOP_NODE and pointer2 is other._STOP_NODE \
+            else False
     
 
     def __ne__(self, other):
@@ -203,7 +205,9 @@ class LinkedList:
         if self.length != other.length:
             return True
         pointer1, pointer2 = self._compare(other, operator.eq)
-        return False if pointer1 == pointer2 is self._STOP_NODE else True
+        return False \
+            if pointer1 is self._STOP_NODE and pointer2 is self._STOP_NODE \
+            else True
     
 
     def __lt__(self, other):
