@@ -153,16 +153,17 @@ def test_empty_linked_list():
     ll.remove(get_value())
     ll.remove(get_value(), False)
     with pytest.raises(TypeError): ll.remove(get_value(), all=get_string(1))
-    with pytest.raises(IndexError):
-        del ll[0], ll[get_pos_int()], ll[get_neg_int()]
+    with pytest.raises(IndexError): del ll[0]
+    with pytest.raises(IndexError): del ll[get_pos_int()]
+    with pytest.raises(IndexError): del ll[get_neg_int()]
     #################### test __getitem__ ####################
     with pytest.raises(IndexError): _ = ll[0]
     with pytest.raises(IndexError): _ = ll[get_pos_int()]
     with pytest.raises(IndexError): _ = ll[get_neg_int()]
     assert LinkedList() == ll[0:10]
     #################### test insert/set ####################
-    with pytest.raises(IndexError): ll.insert(get_pos_int(), get_pos_int())
-    with pytest.raises(IndexError): ll.insert(get_neg_int(), get_pos_int())
+    with pytest.raises(IndexError): ll.insert(get_pos_int(), get_value())
+    with pytest.raises(IndexError): ll.insert(get_neg_int(), get_value())
     with pytest.raises(IndexError): ll[0] = get_float()
     with pytest.raises(IndexError): ll[get_int()] = Node(get_float())
     with pytest.raises(TypeError): ll.insert(0, None)
@@ -215,6 +216,8 @@ def test_list_with_same_value():
     #test add_front
     for _ in range(length):
         ll.add_front(val)
+    # test __setitem__()
+    ll[1] = val
     assert ll == ll.reverse()
     assert ll == ll.copy()
     assert not ll.is_empty()
