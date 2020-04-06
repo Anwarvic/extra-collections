@@ -497,40 +497,27 @@ class LinkedList:
     
 
     ############################# SPLIT/JOIN #############################
-    def _form_left_list(self, idx):
-        assert type(idx) == int
-        left_list = self._create_instance()
-        counter = 0
-        prev_node = None
-        curr_node = self.head
-        # left list
-        while(counter < idx):
-            prev_node = left_list._insert_value(prev_node,
-                                                curr_node.get_data())
-            curr_node = curr_node.get_next()
-            counter += 1
-        return left_list, prev_node, curr_node
-
-
-    def _form_right_list(self, prev_node, curr_node):
-        assert prev_node is None or isinstance(prev_node, self._basic_node)
-        assert curr_node is None or isinstance(curr_node, self._basic_node)
-        right_list = self._create_instance()
-        while(curr_node is not self._STOP_NODE):
-            prev_node = right_list._insert_value(prev_node,
-                                                curr_node.get_data())
-            curr_node = curr_node.get_next()
-        return right_list
-
-
     def _split(self, idx):
         assert type(idx) == int
-        if self.is_empty():
-            return self._create_instance(), self._create_instance()
-        else:
-            left_list, prev_node, curr_node = self._form_left_list(idx)
-            right_list = self._form_right_list(prev_node, curr_node)
-            return left_list, right_list
+        left_list = self._create_instance()
+        right_list = self._create_instance()
+        if not self.is_empty():
+            counter = 0
+            prev_node = None
+            curr_node = self.head
+            # left list
+            while(counter < idx):
+                prev_node = left_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
+                counter += 1
+            # right list
+            while(counter < self.length):
+                prev_node = right_list._insert_value(prev_node,
+                                                    curr_node.get_data())
+                curr_node = curr_node.get_next()
+                counter += 1
+        return left_list, right_list
     
 
     def split(self, idx):
@@ -541,6 +528,7 @@ class LinkedList:
         """
         self._validate_index(idx)
         return self._split(idx)
+        
     
 
     def join(self, other):
