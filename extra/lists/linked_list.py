@@ -529,7 +529,6 @@ class LinkedList:
         self._validate_index(idx)
         return self._split(idx)
         
-    
 
     def join(self, other):
         if not isinstance(other, self.__class__):
@@ -591,11 +590,12 @@ class LinkedList:
         """Reverses the whole linked list with complexity of O(n)"""
         rev = self._create_instance()
         if not self.is_empty():
+            counter = 0
             curr_node = self.head
-            while(curr_node.get_next() is not self._STOP_NODE):
+            while(counter < self.length):
                 rev.add_front(curr_node.get_data())
                 curr_node = curr_node.get_next()
-            rev.add_front(curr_node.get_data())
+                counter += 1
         return rev
 
 
