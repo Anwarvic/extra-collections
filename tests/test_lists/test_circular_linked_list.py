@@ -171,3 +171,40 @@ def test_circular_linked_list_with_one_element():
     with pytest.raises(IndexError): cll.insert(-1, get_value())
     cll.insert(2, get_value()) #shouldn't raise anything
     cll.split(get_pos_int()) #shouldn't raise anything
+
+
+def test_list_with_same_value():
+    length = get_pos_int()
+    val = get_value()
+    cll = CircularLinkedList()
+    #test add_end
+    for _ in range(length):
+        cll.add_end(val)
+    #test add_front
+    for _ in range(length):
+        cll.add_front(val)
+    # test __setitem__()
+    cll[1] = val
+    assert cll == cll.reverse()
+    assert cll == cll.copy()
+    assert not cll.is_empty()
+    assert len(cll) == 2*length
+    assert cll.count(val) == 2*length
+    assert cll.to_list() == [val]*(2*length)
+    # test split
+    left_list, right_list = cll.split(length)
+    assert len(left_list) == len(right_list) == length
+    # test clear
+    left_list.clear()
+    right_list.clear()
+    assert len(left_list) == len(right_list) == 0
+    # test remove
+    for i in range(length):
+        if i > length//2:
+            cll.remove_end()
+        else:
+            cll.remove_front()
+    assert len(cll) == cll.count(val) == length
+    cll.remove(val, all=True)
+    assert cll.is_empty()
+    assert len(cll) == 0
