@@ -135,3 +135,39 @@ def test_empty_circular_linked_list():
     cll[get_int()] = Node(get_float()) #shouldn't raise anything
     with pytest.raises(TypeError): cll.insert(0, None)
     with pytest.raises(TypeError): cll.insert(0, Node())
+
+
+def test_circular_linked_list_with_one_element():
+    val = get_value()
+    cll = CircularLinkedList()
+    cll.insert(0, val)
+    assert isinstance(cll.head, Node)
+    assert cll.head.get_data() == val
+    assert cll.head.get_next() == cll.head
+    assert len(cll) == 1
+    assert not cll.is_empty()
+    assert val in cll
+    assert [item.get_data() for item in cll] == [val]
+    assert cll.to_list() == [val]
+    assert cll == cll.copy()
+    assert cll == cll.reverse()
+    #################### test rotate ####################
+    assert cll == cll.rotate_left(get_pos_int(), inplace=False)
+    assert cll == cll.rotate_right(get_pos_int(), inplace=False)
+    #################### test operators ####################
+    assert cll != CircularLinkedList()
+    assert cll > CircularLinkedList()
+    assert cll >= CircularLinkedList()
+    assert CircularLinkedList() < cll
+    assert CircularLinkedList() <= cll
+    #################### test add/remove ####################
+    new_value = get_value()
+    cll.add_front(new_value)
+    assert new_value == cll.remove_front().get_data()
+    cll.add_end(new_value)
+    assert new_value == cll.remove_end().get_data()
+    assert cll == CircularLinkedList(val)
+    #################### test insert/split ####################
+    with pytest.raises(IndexError): cll.insert(-1, get_value())
+    cll.insert(2, get_value()) #shouldn't raise anything
+    cll.split(get_pos_int()) #shouldn't raise anything
