@@ -469,10 +469,12 @@ class LinkedList:
         # removes all occurrences (when all==True) of `value` if found.
         assert not isinstance(value, self._basic_node) and value is not None
         assert type(all) == bool
+        counter = 0
         prev = None
         curr_node = self.head
         FOUND_FIRST = False #True when the first occurrence is found
-        while(curr_node != self._STOP_NODE):
+        total_length = self.length
+        while(counter < total_length):
             if all==False and FOUND_FIRST:
                 return
             if curr_node.get_data() == value:
@@ -482,6 +484,7 @@ class LinkedList:
             else:
                 prev = curr_node
                 curr_node = curr_node.get_next()
+            counter += 1
 
     
     def remove(self, value, all=True):
@@ -589,13 +592,12 @@ class LinkedList:
     def reverse(self):
         """Reverses the whole linked list with complexity of O(n)"""
         rev = self._create_instance()
-        if not self.is_empty():
-            counter = 0
-            curr_node = self.head
-            while(counter < self.length):
-                rev.add_front(curr_node.get_data())
-                curr_node = curr_node.get_next()
-                counter += 1
+        counter = 0
+        curr_node = self.head
+        while(counter < self.length):
+            rev.add_front(curr_node.get_data())
+            curr_node = curr_node.get_next()
+            counter += 1
         return rev
 
 
