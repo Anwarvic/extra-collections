@@ -113,19 +113,23 @@ class CircularLinkedList(LinkedList):
         return True
 
 
-    def _validate_index(self, idx, accept_negative=False):
-        if type(idx) != int:
+    def _validate_index(self, idx, accept_negative=False, accept_slice=False):
+        if isinstance(idx, slice):
+            if not accept_slice:
+                raise IndexError(\
+                    "Slice indexing isn't supported with this functinoality!!")
+        elif type(idx) != int:
             raise TypeError("Indices must be an integer!")
-        elif idx <= -1 and accept_negative==False:
+        elif idx <= -1 and not accept_negative:
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
 
 
     def __getitem__(self, idx):
         """Retrieves the element at the given index."""
+        self._validate_index(idx)
         if self.is_empty():
             raise IndexError(f"{self.__name__()} is empty!!")
-        self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         return super().__getitem__(idx)
 
@@ -165,12 +169,10 @@ class CircularLinkedList(LinkedList):
 
     ############################### SET ################################
     def __setitem__(self, idx, item):
-        if self.is_empty():
-            raise IndexError(f"{self.__name__()} is empty!!")
         self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         super()._replace_node(idx, item)
-        # self._STOP_NODE = self.head
+        self._STOP_NODE = self.head
     
 
     ############################## REMOVE ##############################
@@ -192,22 +194,28 @@ class CircularLinkedList(LinkedList):
 
     def __delitem__(self, idx):
         """Removes a node at index=idx from the Circular Linked List"""
-        self._validate_index((idx))
-        idx = idx % self.length if self.length != 0 else 0
-        super()._remove_idx(idx)
-        self._STOP_NODE = self.head
+        self._validate_index(idx)
+        if not self.is_empty():
+            idx = idx % self.length if self.length != 0 else 0
+            node = super()._remove_idx(idx)
+            self._STOP_NODE = self.head
+            return node
 
 
     ############################## MISC ##############################
-
+    def split(self, idx):
+        self._validate_index(idx)
+        idx = idx % self.length if self.length != 0 else 0
+        return super()._split(idx)
+    
 
 
 
 
 if __name__ == "__main__":
-    cll1 = CircularLinkedList("apple")
-    cll2 = CircularLinkedList()
-    print(cll1 > cll2)
+    cll = CircularLinkedList(10)
+    cll.add_front(10)
+    print(cll.remove_front().get_data())
     # lst = [1, 2, 3, 4, 5]
     # tmp_cll = CircularLinkedList.from_iterable(lst)
     # print(tmp_cll)
