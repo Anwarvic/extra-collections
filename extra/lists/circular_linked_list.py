@@ -146,12 +146,9 @@ class CircularLinkedList(LinkedList):
         elif prev_node is None:
             new_node.set_next(self.head.get_next())
             self.head.set_next(new_node)
-            if self.length == 1:
-                self.head = new_node
-            else:
-                #swap data between new_node and self.head
-                new_node.data, self.head.data = self.head.data, new_node.data
-                new_node = self.head #to be returned
+            #swap data between new_node and self.head
+            new_node.data, self.head.data = self.head.data, new_node.data
+            new_node = self.head #to be returned
         else:
             new_node.set_next(prev_node.get_next())
             prev_node.set_next(new_node)
@@ -213,9 +210,9 @@ class CircularLinkedList(LinkedList):
 
 
 if __name__ == "__main__":
-    cll = CircularLinkedList(10)
-    cll.add_front(10)
-    print(cll.remove_front().get_data())
+    cll = CircularLinkedList.from_iterable([10, 10, 10])
+    print(cll.reverse())
+    # cll.remove(10, all=True)
     # lst = [1, 2, 3, 4, 5]
     # tmp_cll = CircularLinkedList.from_iterable(lst)
     # print(tmp_cll)
