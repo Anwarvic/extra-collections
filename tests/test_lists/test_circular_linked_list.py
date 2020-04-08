@@ -210,7 +210,7 @@ def test_list_with_same_value():
     assert len(cll) == 0
 
 
-def test_list_with_known_values():
+def test_circular_linked_list_with_known_values():
     cll = CircularLinkedList()
     cll.add_front(10)
     cll.add_front(5)
@@ -248,4 +248,32 @@ def test_list_with_known_values():
     assert cll.reverse().to_list() == [20, 77, 10, 6, 2]
     assert cll.length == len(cll) == 5
     cll.clear()
+    assert cll.is_empty()
+
+
+def test_circular_linked_list_with_random_numbers():
+    # test add_end() and remove_end()
+    lst = get_list(length=100)
+    cll = CircularLinkedList()
+    for i in lst:
+        cll.add_end(i)
+    assert len(cll) == len(lst)
+    assert cll.head.get_data() == lst[0]
+    assert not cll.is_empty()
+    for _ in range(len(lst)):
+        assert cll[0].get_data() == lst[0]
+        assert cll.remove_end().get_data() == lst.pop()
+    assert len(cll) == 0
+    assert cll.is_empty()
+    # test add_front() and remove_front()
+    lst = get_list(length=100)
+    for i in lst:
+        cll.add_front(i)
+    assert len(cll) == len(lst)
+    assert cll.head.get_data() == lst[-1]
+    assert not cll.is_empty()
+    for _ in range(len(lst)):
+        assert cll[0].get_data() == lst[-1]
+        assert cll.remove_front().get_data() == lst.pop()
+    assert len(cll) == 0
     assert cll.is_empty()
