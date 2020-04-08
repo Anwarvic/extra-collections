@@ -208,3 +208,44 @@ def test_list_with_same_value():
     cll.remove(val, all=True)
     assert cll.is_empty()
     assert len(cll) == 0
+
+
+def test_list_with_known_values():
+    cll = CircularLinkedList()
+    cll.add_front(10)
+    cll.add_front(5)
+    assert cll.to_list() == [5, 10]
+    cll.remove(20)
+    cll.remove_front()
+    assert cll == CircularLinkedList(10)
+    cll.remove_end()
+    assert cll == CircularLinkedList() 
+    cll.insert(0, 100)
+    cll.insert(1, 200)
+    cll.insert(1, 100)
+    assert 100 in cll and 200 in cll
+    assert cll == CircularLinkedList.from_iterable([100, 100, 200])
+    assert cll.copy().to_list() == [100, 100, 200]
+    assert cll.reverse() == CircularLinkedList.from_iterable([200, 100, 100])
+    cll.remove(100)
+    rev = cll.reverse()
+    assert cll == rev == CircularLinkedList(200)
+    cll.clear()
+    assert not rev.is_empty()
+    assert cll.is_empty()
+    ###################################################
+    cll = LinkedList()
+    cll.add_front(6)
+    cll.add_end(20)
+    cll.insert(1, 10)
+    cll.insert(2, 77)
+    cll.insert(4, 43)
+    cll.insert(0, 2)
+    assert 43 in cll
+    assert cll[1:4].to_list() == [6, 10, 77]
+    assert cll.copy().to_list() == [2, 6, 10, 77, 20, 43]
+    del cll[len(cll)-1]
+    assert cll.reverse().to_list() == [20, 77, 10, 6, 2]
+    assert cll.length == len(cll) == 5
+    cll.clear()
+    assert cll.is_empty()
