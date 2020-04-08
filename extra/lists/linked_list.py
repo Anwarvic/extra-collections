@@ -45,9 +45,6 @@ class Node:
 
 class LinkedList:
     """Basic object for the linked list"""
-    _STOP_NODE = None   #node at which we stop iterating
-
-
     def __name__(self):
         return "extra.LinkedList()"
     
@@ -172,21 +169,23 @@ class LinkedList:
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
         # start_comparing
-        pointer1 = self.head if not self.is_empty() else None
-        pointer2 = other.head if not other.is_empty() else None
-        while(pointer1 is not self._STOP_NODE and \
-                            pointer2 is not other._STOP_NODE):
+        counter = 0
+        pointer1 = self.head
+        pointer2 = other.head
+        while(counter < min(self.length, other.length)):
             try:
+                #NOTE: Don't remove the following if-condition
                 if pointer1.get_data() == pointer2.get_data():
-                    pass
+                    pass 
                 elif not op(pointer1.get_data(), pointer2.get_data()):
-                    return pointer1, pointer2
+                    return counter
             except TypeError:
                 raise TypeError(
                     "Inconsists data-types within the two LinkedLists!!")
             pointer1 = pointer1.get_next()
             pointer2 = pointer2.get_next()
-        return pointer1, pointer2
+            counter += 1
+        return counter
 
 
     def __eq__(self, other):
@@ -195,10 +194,8 @@ class LinkedList:
         # check length
         if self.length != other.length:
             return False
-        pointer1, pointer2 = self._compare(other, operator.eq)
-        return True \
-            if pointer1 is self._STOP_NODE and pointer2 is other._STOP_NODE \
-            else False
+        idx = self._compare(other, operator.eq)
+        return True if idx == self.length == other.length else False
     
 
     def __ne__(self, other):
@@ -206,38 +203,36 @@ class LinkedList:
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
         if self.length != other.length:
             return True
-        pointer1, pointer2 = self._compare(other, operator.eq)
-        return False \
-            if pointer1 is self._STOP_NODE and pointer2 is self._STOP_NODE \
-            else True
+        idx = self._compare(other, operator.eq)
+        return False if idx == self.length == other.length else True
     
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
-        pointer1, _ = self._compare(other, operator.lt)
-        return True if pointer1 is self._STOP_NODE else False
+        idx = self._compare(other, operator.lt)
+        return True if idx == self.length else False
     
 
     def __le__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
-        pointer1, _ = self._compare(other, operator.le)
-        return True if pointer1 is self._STOP_NODE else False
+        idx = self._compare(other, operator.le)
+        return True if idx == self.length else False
     
 
     def __gt__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
-        _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is other._STOP_NODE else False
+        idx = self._compare(other, operator.le)
+        return True if idx is other.length else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
-        _, pointer2 = self._compare(other, operator.le)
-        return True if pointer2 is other._STOP_NODE else False
+        idx = self._compare(other, operator.le)
+        return True if idx == other.length else False
 
 
     ############################## SEARCH ##############################
@@ -249,7 +244,6 @@ class LinkedList:
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
-        if self.is_empty(): return start_node
         counter = 0
         curr_node = start_node
         while(counter < self.length):
@@ -283,7 +277,7 @@ class LinkedList:
             else:
                 return False
         found_node = self._search(value, self.head)
-        if found_node is self._STOP_NODE or found_node.get_data() != value:
+        if found_node.get_data() != value:
             return False
         return True
 
