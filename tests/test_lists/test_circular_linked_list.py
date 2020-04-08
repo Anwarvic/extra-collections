@@ -277,3 +277,45 @@ def test_circular_linked_list_with_random_numbers():
         assert cll.remove_front().get_data() == lst.pop()
     assert len(cll) == 0
     assert cll.is_empty()
+
+
+def test_relational_operators():
+    # linked lists have just one value
+    assert CircularLinkedList(3.14) == CircularLinkedList(3.14)
+    assert CircularLinkedList(get_int()) != CircularLinkedList(get_float())
+    assert CircularLinkedList(get_string()) != CircularLinkedList(get_int())
+    assert CircularLinkedList(get_float()) != CircularLinkedList(get_list())
+    assert CircularLinkedList(2.9999) < CircularLinkedList(3)
+    assert CircularLinkedList(3.14) <= CircularLinkedList(3.14)
+    assert CircularLinkedList([1, 2]) > CircularLinkedList([3])
+    assert CircularLinkedList('3.14') >= CircularLinkedList('3.14')
+    with pytest.raises(TypeError): assert CircularLinkedList(get_float()) < LinkedList(get_string())
+    with pytest.raises(TypeError): assert CircularLinkedList(get_value()) <= LinkedList(get_list())
+    with pytest.raises(TypeError): assert CircularLinkedList(get_string()) > LinkedList(get_list())
+    with pytest.raises(TypeError): assert CircularLinkedList(get_list()) >= LinkedList(get_float())
+    # linked lists have more than one value
+    cll1 = CircularLinkedList.from_iterable([1, '2', 3.14])
+    cll2 = CircularLinkedList.from_iterable([1, '2', 5.14])
+    assert cll1 == cll1
+    assert cll1 != cll2
+    assert cll1 <  cll2
+    assert cll1 <= cll2
+    assert cll2 >  cll2
+    assert cll2 >= cll2
+    # slicing lists
+    # assert cll1[:-1] == cll2[:-1]
+    # assert cll1[-1:] != cll2[-1:]
+    # assert cll1[:1]  <  cll2
+    # assert cll1[:2]  <= cll2
+    # with pytest.raises(TypeError): assert cll1[1:] <  cll2
+    # with pytest.raises(TypeError): assert cll1[1:] <= cll2
+    # if the other one isn't a circular linked list
+    actual_list = [1, '2', 5.14]
+    with pytest.raises(TypeError): assert cll1 == actual_list
+    with pytest.raises(TypeError): assert cll1 != actual_list
+    with pytest.raises(TypeError): assert cll1 <  actual_list
+    with pytest.raises(TypeError): assert cll1 <= actual_list
+    with pytest.raises(TypeError): assert cll2 >  actual_list
+    with pytest.raises(TypeError): assert cll2 >= actual_list
+
+
