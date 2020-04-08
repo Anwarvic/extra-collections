@@ -116,14 +116,16 @@ class LinkedList:
         top_border = []
         middle_border = []
         lower_border = []
+        counter = 0
         curr_node = start_node
-        while(curr_node != self._STOP_NODE):
+        while(counter < self.length):
             top_part, middle_part, lower_part = self._print_node(curr_node)
             top_border += top_part
             middle_border += middle_part
             lower_border += lower_part
             # update curr_node
             curr_node = curr_node.get_next()
+            counter += 1
         return top_border, middle_border, lower_border
 
     
@@ -248,11 +250,13 @@ class LinkedList:
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
         if self.is_empty(): return start_node
+        counter = 0
         curr_node = start_node
-        while(curr_node.get_next() != self._STOP_NODE):
+        while(counter < self.length):
             if curr_node.get_data() == value:
                 return curr_node
             curr_node = curr_node.get_next()
+            counter += 1
         return curr_node
 
 
