@@ -15,7 +15,6 @@ class CircularLinkedList(LinkedList):
     def __init__(self, item=None):
         super().__init__(item)
         self.head.next = self.head
-        self._STOP_NODE = self.head
 
     
     def _create_instance(self):
@@ -129,7 +128,6 @@ class CircularLinkedList(LinkedList):
         self._validate_item(item)
         idx = idx % (self.length+1)
         super()._insert(idx, item)
-        self._STOP_NODE = self.head
 
 
     ############################### SET ################################
@@ -137,7 +135,6 @@ class CircularLinkedList(LinkedList):
         self._validate_index(idx)
         idx = idx % self.length if self.length != 0 else 0
         super()._replace_node(idx, item)
-        self._STOP_NODE = self.head
     
 
     ############################## REMOVE ##############################
@@ -163,7 +160,6 @@ class CircularLinkedList(LinkedList):
         if not self.is_empty():
             idx = idx % self.length if self.length != 0 else 0
             node = super()._remove_idx(idx)
-            self._STOP_NODE = self.head
             return node
 
 
