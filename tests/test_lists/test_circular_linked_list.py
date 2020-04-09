@@ -319,7 +319,6 @@ def test_relational_operators():
     with pytest.raises(TypeError): assert cll2 >= actual_list
 
 
-
 def test_rotate():
     # rotate when inplace = False
     cll = CircularLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
