@@ -366,3 +366,27 @@ def test_join_method():
     assert cll1.to_list() == lst
     assert cll2.to_list() == lst+lst
     assert len(cll2) == 2*len(lst)
+
+
+def test_split_method():
+    lst = get_list(length=100)
+    cll = CircularLinkedList.from_iterable(lst)
+    for i in range(len(lst)):
+        # test left list
+        left_list, right_list = cll.split(i)
+        assert isinstance(left_list, LinkedList)
+        assert isinstance(left_list.head, Node)
+        assert left_list.to_list() == lst[:i]
+        assert left_list.copy().to_list() == lst[:i]
+        assert left_list.reverse().to_list() == lst[:i][::-1]
+        # test right list
+        assert isinstance(right_list, CircularLinkedList)
+        assert isinstance(right_list.head, Node)
+        assert right_list.to_list() == lst[i:]
+        assert right_list.copy().to_list() == lst[i:]
+        assert right_list.reverse().to_list() == lst[i:][::-1]
+    cll.add_front(0)
+    cll.add_end('apple')
+    assert cll.length == len(cll) == len(lst)+2
+    assert cll.to_list() == [0]+lst+['apple']
+
