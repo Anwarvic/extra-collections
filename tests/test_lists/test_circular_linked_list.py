@@ -343,3 +343,26 @@ def test_rotate():
     assert cll.to_list() == [3, 4 ,5, 6, 1, 2]
     assert cll.head.get_data() == 3
     assert isinstance(cll.head, Node)
+
+
+def test_join_method():
+    lst = get_list()
+    # two linked lists are empty
+    cll1 = CircularLinkedList(None)
+    cll1.join(CircularLinkedList())
+    assert cll1 == CircularLinkedList()
+    # one linked list is empty
+    cll1 = CircularLinkedList.from_iterable([])
+    cll2 = CircularLinkedList.from_iterable(lst)
+    cll1.join(cll2)
+    assert cll1 == cll2
+    assert len(cll1) == len(lst)
+    cll2.join(cll1)
+    assert len(cll2) == 2*len(lst)
+    # two linked lists are NOT empty
+    cll1 = CircularLinkedList.from_iterable(lst)
+    cll2 = CircularLinkedList.from_iterable(lst)
+    cll2.join(cll1)
+    assert cll1.to_list() == lst
+    assert cll2.to_list() == lst+lst
+    assert len(cll2) == 2*len(lst)
