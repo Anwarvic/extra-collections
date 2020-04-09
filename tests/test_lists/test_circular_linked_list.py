@@ -303,10 +303,10 @@ def test_relational_operators():
     assert cll2 >  cll2
     assert cll2 >= cll2
     # slicing lists
-    # assert cll1[:-1] == cll2[:-1]
-    # assert cll1[-1:] != cll2[-1:]
-    # assert cll1[:1]  <  cll2
-    # assert cll1[:2]  <= cll2
+    with pytest.raises(IndexError): cll1[:-1] == cll2[:-1]
+    with pytest.raises(IndexError): cll1[-1:] != cll2[-1:]
+    with pytest.raises(IndexError): cll1[:1]  <  cll2
+    with pytest.raises(IndexError): cll1[:2]  <= cll2
     # with pytest.raises(TypeError): assert cll1[1:] <  cll2
     # with pytest.raises(TypeError): assert cll1[1:] <= cll2
     # if the other one isn't a circular linked list
@@ -319,3 +319,27 @@ def test_relational_operators():
     with pytest.raises(TypeError): assert cll2 >= actual_list
 
 
+
+def test_rotate():
+    # rotate when inplace = False
+    cll = CircularLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    rotated = cll.rotate_right(1, inplace=False)
+    assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert isinstance(rotated.head, Node)
+    assert rotated.head.get_data() == 6
+    assert rotated[4].get_data() == 4
+    rotated = cll.rotate_left(3, inplace=False)
+    assert isinstance(rotated.head, Node)
+    assert rotated.to_list() == [4, 5, 6, 1, 2, 3]
+    assert rotated.head.get_data() == 4
+    with pytest.raises(IndexError): rotated[-1].get_data() == 3
+    assert cll.to_list() == [1, 2, 3, 4, 5, 6]
+    # rotate when inplace = True
+    cll.rotate_right(1)
+    assert cll.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert isinstance(cll.head, Node)
+    assert cll.head.get_data() == 6
+    cll.rotate_left(3)
+    assert cll.to_list() == [3, 4 ,5, 6, 1, 2]
+    assert cll.head.get_data() == 3
+    assert isinstance(cll.head, Node)
