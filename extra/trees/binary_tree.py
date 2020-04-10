@@ -170,23 +170,6 @@ class BinaryTree(Tree):
         return '\n'.join((line.rstrip() for line in lines[:-1]))
 
 
-    ######################### HEIGHT/DEPTH #########################
-    def _get_depth(self, start_node):
-        assert start_node is None or isinstance(start_node, BinaryTreeNode)
-        if start_node is None:
-            return -1
-        return max( 1 + self._get_depth(start_node.get_left()), #left depth
-                    1 + self._get_depth(start_node.get_right())) # right depth
-
-
-    def get_depth(self):
-        return self._get_depth(self.root)
-    
-
-    def get_height(self):
-        return self._get_depth(self.root)
-
-
     ############################## BALANCED ##############################
     def is_balanced(self):
         """
@@ -355,7 +338,7 @@ class BinaryTree(Tree):
         trav_methods = {"inorder", "postorder", "preorder", "depth-first",
                         "breadth-first"}
         if type(method) != str:
-            raise TypeError("Given traverse method has to be one of these:\n" + \
+            raise TypeError("Given traverse method has to be one of these:\n"+\
                         str(trav_methods))
         # traverse based on given method
         method = method.lower()
@@ -368,7 +351,7 @@ class BinaryTree(Tree):
         elif method == "breadth-first":
             return self.breadth_first_traverse()
         else:
-            raise ValueError("Given traverse method has to be one of these:\n" + \
+            raise ValueError("Given traverse method has to be one of these:\n"+\
                         str(trav_methods))
 
 
