@@ -215,20 +215,6 @@ class BinaryTree(Tree):
         return self.__is_subtree_strict(self.root)
 
 
-    ############################## ITER ##############################
-    def __iter__(self):
-        current_nodes = [self.root]
-        while len(current_nodes) > 0:
-            next_nodes = []
-            for node in current_nodes:
-                yield node
-                if node.get_left() != None:
-                    next_nodes.append(node.get_left())
-                if node.get_right() != None:
-                    next_nodes.append(node.get_right())
-            current_nodes = next_nodes
-
-
     def to_list(self):
         return [node.get_data() for node in self]
 

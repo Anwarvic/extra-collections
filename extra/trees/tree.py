@@ -165,6 +165,15 @@ class Tree:
         return self.__count_leaf_nodes(self.root)
 
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        current_nodes = [self.root]
+        while len(current_nodes) > 0:
+            next_nodes = []
+            for node in current_nodes:
+                yield node
+                next_nodes.extend(node.get_children())
+            current_nodes = next_nodes
 
 
 
@@ -174,8 +183,10 @@ class Tree:
 
 
 if __name__ == "__main__":
-    t = Tree.from_path("./extra/trees/trie.py")
+    t = Tree.from_path("./extra/trees/")
     print(t)
     print(t.get_depth())
     print(len(t))
     print(t.count_leaf_nodes())
+    for i in t:
+        print(i)
