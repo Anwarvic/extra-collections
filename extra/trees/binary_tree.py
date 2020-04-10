@@ -272,7 +272,7 @@ class BinaryTree(Tree):
 
     #################### breadth-first TRAVERSE ####################
     def breadth_first_traverse(self):
-        return self.to_list()
+        return super().to_list()
 
 
     ############################## TRAVERSE ##############################
@@ -295,29 +295,5 @@ class BinaryTree(Tree):
         else:
             raise ValueError("Given traverse method has to be one of these:\n"+\
                         str(trav_methods))
-
-
-    ############################## NODES ##############################
-    def __get_nodes_per_level(self, start_node, level, level_nodes):
-        assert start_node is None or isinstance(start_node, BinaryTreeNode)
-        assert type(level) == int and level >= 0
-        assert type(level_nodes) == list
-        if start_node != None:
-            if level == len(level_nodes):
-                level_nodes.append([])
-            level_nodes[level].append(start_node)
-            if start_node.get_left():
-                self.__get_nodes_per_level(start_node.get_left(),
-                                           level+1,
-                                           level_nodes)
-            if start_node.get_right():
-                self.__get_nodes_per_level(start_node.get_right(),
-                                           level+1,
-                                           level_nodes)
-        return level_nodes
-
-
-    def get_nodes(self):
-        return self.__get_nodes_per_level(self.root, 0, [])
 
 

@@ -88,7 +88,7 @@ class Tree:
     def __count_nodes(self, start_node):
         assert start_node is None or isinstance(start_node, TreeNode)
         total_nodes = 0
-        if start_node != None:
+        if start_node is not None:
             total_nodes += 1
             for child in start_node.get_children():
                 total_nodes += self.__count_nodes(child)
@@ -153,7 +153,7 @@ class Tree:
     def __count_leaf_nodes(self, start_node):
         assert start_node is None or isinstance(start_node, TreeNode)
         total_nodes = 0
-        if start_node != None:
+        if start_node is not None:
             if start_node.is_leaf():
                 total_nodes += 1
             for child in start_node.get_children():
@@ -180,14 +180,23 @@ class Tree:
         return [node.get_data() for node in self]
 
 
+    ##############################      NODES     ##############################
+    def __get_nodes_per_level(self, start_node, level, level_nodes):
+        assert start_node is None or isinstance(start_node, TreeNode)
+        assert type(level) == int and level >= 0
+        assert type(level_nodes) == list
+        if start_node is not None:
+            if level == len(level_nodes):
+                level_nodes.append([])
+            level_nodes[level].append(start_node)
+            for child in start_node.get_children():
+                self.__get_nodes_per_level(child,
+                                           level+1,
+                                           level_nodes)
+        return level_nodes
 
 
+    def get_nodes(self):
+        return self.__get_nodes_per_level(self.root, 0, [])
 
-if __name__ == "__main__":
-    t = Tree.from_path("./extra/trees/")
-    print(t)
-    print(t.get_depth())
-    print(len(t))
-    print(t.count_leaf_nodes())
-    for i in t:
-        print(i)
+
