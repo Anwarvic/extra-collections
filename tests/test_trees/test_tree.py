@@ -48,10 +48,3 @@ def test_tree_with_known_values():
         ['TheSimpsons', 'Abraham + Mona', 'Clancy + Jackie', 'Herb', 'Homer',
         'Marge', 'Patty', 'Selma', 'Bart', 'Lisa', 'Maggie', 'Bart', 'Lisa',
         'Maggie', 'Ling']
-    assert t.get_nodes() == \
-        [
-            [TreeNode("TheSimpsons")],
-            [TreeNode("Abraham + Mona"), TreeNode("Clancy + Jackie")],
-            [TreeNode("Herb"), TreeNode("Homer"), TreeNode("Marge"), TreeNode("Patty"), TreeNode("Selma")], 
-            [TreeNode("Bart"), TreeNode("Lisa"), TreeNode("Maggie"), TreeNode("Bart"), TreeNode("Lisa"), TreeNode("Maggie"), TreeNode("Ling")]
-        ]
