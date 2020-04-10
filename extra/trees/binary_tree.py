@@ -177,9 +177,9 @@ class BinaryTree(Tree):
         two leaf nodes is less than or equal one.
         """
         left_depth = 0 if self.root.get_left() is None \
-                        else 1 + self._get_depth(self.root.get_left()) 
+                        else 1 + super()._get_depth(self.root.get_left()) 
         right_depth = 0 if self.root.get_right() is None \
-                        else 1 + self._get_depth(self.root.get_right()) 
+                        else 1 + super()._get_depth(self.root.get_right()) 
         return abs(left_depth - right_depth) <= 1
 
 
@@ -217,24 +217,6 @@ class BinaryTree(Tree):
         children.
         """
         return self.__is_subtree_strict(self.root)
-
-
-    ############################## LENGTH ##############################
-    #TODO: can be inherited from Tree
-    def __count_nodes(self, start_node):
-        assert start_node is None or isinstance(start_node, BinaryTreeNode)
-        total_nodes = 0
-        if start_node != None:
-            total_nodes += 1
-            if start_node.get_left():
-                total_nodes += self.__count_nodes(start_node.get_left())
-            if start_node.get_right():
-                total_nodes += self.__count_nodes(start_node.get_right())
-        return total_nodes
-
-
-    def __len__(self):
-        return self.__count_nodes(self.root)
 
 
     ########################### LEAF NODES ###########################

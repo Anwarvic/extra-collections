@@ -81,15 +81,18 @@ class Tree:
 
 
     ##############################     LENGTH     ##############################
-    def __get_length(self, curr_node):
-        length = 1
-        for child in curr_node.get_children():
-            length += self.__get_length(child)
-        return length
+    def __count_nodes(self, start_node):
+        assert start_node is None or isinstance(start_node, TreeNode)
+        total_nodes = 0
+        if start_node != None:
+            total_nodes += 1
+            for child in start_node.get_children():
+                total_nodes += self.__count_nodes(child)
+        return total_nodes
 
 
     def __len__(self):
-        return self.__get_length(self.root)
+        return self.__count_nodes(self.root)
 
 
     ##############################     PRINT      ##############################
@@ -145,7 +148,13 @@ class Tree:
 
 
 
+
+
+
+
+
 if __name__ == "__main__":
     t = Tree.from_path("./extra/trees")
     print(t)
     print(t.get_depth())
+    print(len(t))
