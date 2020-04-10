@@ -80,7 +80,7 @@ class Tree:
         return Tree(root)
 
 
-    ############################ LENGTH ############################
+    ##############################     LENGTH     ##############################
     def __get_length(self, curr_node):
         length = 1
         for child in curr_node.get_children():
@@ -92,7 +92,7 @@ class Tree:
         return self.__get_length(self.root)
 
 
-    ############################ PRINT ############################
+    ##############################     PRINT      ##############################
     def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
         """
         seq (list): is a boolean list containing values
@@ -122,6 +122,30 @@ class Tree:
         if self.root.get_children():
             return "\n".join(self.__print_subtree(self.root, [], False))
         else:
-            return str(self.root)
+            return str(self.root.get_data())
 
 
+    ##############################  HEIGHT/DEPTH  ##############################
+    def _get_depth(self, start_node):
+        assert start_node is None or isinstance(start_node, TreeNode)
+        depth = 0
+        for child in start_node.get_children():
+            depth = max(depth, 1 + self._get_depth(child))
+        return depth
+
+
+    def get_depth(self):
+        return self._get_depth(self.root)
+    
+
+    def get_height(self):
+        return self._get_depth(self.root)
+
+
+
+
+
+if __name__ == "__main__":
+    t = Tree.from_path("./extra/trees")
+    print(t)
+    print(t.get_depth())
