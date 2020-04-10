@@ -44,10 +44,6 @@ class BinaryTreeNode(TreeNode):
         self.right = new_node
         
 
-    def is_leaf(self):
-        return self.left == self.right == None
-
-
     def has_one_child(self):
         return not self.is_leaf() \
                 and (self.left is None or self.right is None)
@@ -217,24 +213,6 @@ class BinaryTree(Tree):
         children.
         """
         return self.__is_subtree_strict(self.root)
-
-
-    ########################### LEAF NODES ###########################
-    def __count_leaf_nodes(self, start_node):
-        assert start_node is None or isinstance(start_node, BinaryTreeNode)
-        total_nodes = 0
-        if start_node != None:
-            if start_node.is_leaf():
-                total_nodes += 1
-            if start_node.get_left():
-                total_nodes += self.__count_leaf_nodes(start_node.get_left())
-            if start_node.get_right():
-                total_nodes += self.__count_leaf_nodes(start_node.get_right())
-        return total_nodes
-
-
-    def count_leaf_nodes(self):
-        return self.__count_leaf_nodes(self.root)
 
 
     ############################## ITER ##############################

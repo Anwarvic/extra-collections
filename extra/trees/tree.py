@@ -35,6 +35,10 @@ class TreeNode:
     def set_children(self, lst):
         self.children = [item if isinstance(item, TreeNode) else TreeNode(item)\
             for item in lst]
+    
+
+    def is_leaf(self):
+        return self.get_children() == []
         
 
     def __repr__(self):
@@ -143,6 +147,22 @@ class Tree:
 
     def get_height(self):
         return self._get_depth(self.root)
+    
+
+    ##############################   LEAF NODES   ##############################
+    def __count_leaf_nodes(self, start_node):
+        assert start_node is None or isinstance(start_node, TreeNode)
+        total_nodes = 0
+        if start_node != None:
+            if start_node.is_leaf():
+                total_nodes += 1
+            for child in start_node.get_children():
+                total_nodes += self.__count_leaf_nodes(child)
+        return total_nodes
+
+
+    def count_leaf_nodes(self):
+        return self.__count_leaf_nodes(self.root)
 
 
 
@@ -154,7 +174,8 @@ class Tree:
 
 
 if __name__ == "__main__":
-    t = Tree.from_path("./extra/trees")
+    t = Tree.from_path("./extra/trees/trie.py")
     print(t)
     print(t.get_depth())
     print(len(t))
+    print(t.count_leaf_nodes())
