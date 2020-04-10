@@ -215,10 +215,6 @@ class BinaryTree(Tree):
         return self.__is_subtree_strict(self.root)
 
 
-    def to_list(self):
-        return [node.get_data() for node in self]
-
-
     ######################### Pre-Order TRAVERSE #########################
     def __preorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)

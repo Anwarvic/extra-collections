@@ -176,7 +176,8 @@ class Tree:
             current_nodes = next_nodes
 
 
-
+    def to_list(self):
+        return [node.get_data() for node in self]
 
 
 
