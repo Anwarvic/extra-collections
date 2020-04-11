@@ -177,7 +177,7 @@ class Tree:
         while len(current_nodes) > 0:
             next_nodes = []
             for node in current_nodes:
-                yield node
+                yield node.get_data()
                 next_nodes.extend(node.get_children())
             current_nodes = next_nodes
 
