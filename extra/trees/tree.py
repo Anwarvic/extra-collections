@@ -1,5 +1,5 @@
 import os
-from extra import Extra
+from extra.interface import Extra
 
 
 
@@ -16,26 +16,38 @@ class TreeNode(Extra):
         elif isinstance(value, Extra):
             raise ValueError(\
             f"Can't create {self.__name__()} object using {value.__name__()}!!")
-        self.data = value
-        self.children = []
+        # remove '\n' if found
+        if type(value) == str:
+            value = value.replace('\n', '')
+        self._data = value
+        self._children = []
 
 
     def get_data(self):
-        return self.data
+        return self._data
 
 
     def get_children(self):
-        return self.children
+        return self._children
     
 
     def set_child(self, child):
-        assert isinstance(child, TreeNode)
-        self.children.append(child)
+        if not isinstance(child, TreeNode):
+            raise TypeError(\
+            f"You can't set a child unless it's an {self.__name__()} object!!")
+        self._children.append(child)
     
     
     def set_children(self, lst):
-        self.children = [item if isinstance(item, TreeNode) else TreeNode(item)\
-            for item in lst]
+        if not hasattr(lst, "__iter__"):
+            raise TypeError("Given object isn't iterable!!")
+        children = []
+        for item in lst:
+            if not isinstance(item, TreeNode):
+                raise TypeError("You can't set a child unless it's an " + \
+                    f"{self.__name__()} object!!")
+            children.append(item)
+        self._children = children
     
 
     def is_leaf(self):
@@ -43,14 +55,14 @@ class TreeNode(Extra):
         
 
     def __repr__(self):
-        return f"TreeNode({self.data})"
+        return f"TreeNode({self._data})"
 
 
     @staticmethod
     def swap(node1, node2):
-        assert isinstance(node1, TreeNode)
-        assert isinstance(node1, TreeNode)
-        node1.data, node2.data = node2.data, node1.data
+        if not isinstance(node1, TreeNode) or not isinstance(node2, TreeNode):
+            raise TypeError(f"Incompitable objects' type preventing swapping!!")
+        node1._data, node2._data = node2._data, node1._data
 
 
 
@@ -223,3 +235,7 @@ class Tree(Extra):
         self.__init__()
     
 
+if __name__ == "__main__":
+    t = Tree()
+    t._root = TreeNode("apple\nbanana")
+    print(t)
