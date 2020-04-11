@@ -206,3 +206,7 @@ class Tree:
         return self.__get_nodes_per_level(self._root, 0, [])
 
 
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        self.__init__()
+    
