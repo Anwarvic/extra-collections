@@ -23,10 +23,3 @@ from extra.trees.trie import Trie as Trie
 from extra.trees.radix_trie import RadixTrie as RadixTrie
 from extra.trees.suffix_trie import SuffixTrie as SuffixTries
 
-
-
-
-class Extra:
-    
-    def __name__(self):
-        return "extra.Extra()"
