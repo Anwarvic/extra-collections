@@ -59,11 +59,8 @@ class Tree:
         return "extra.Tree()"
     
 
-    def __init__(self, value):
-        if isinstance(value, TreeNode):
-            self.root = value
-        else:
-            self.root = TreeNode(value)
+    def __init__(self):
+        self._root = None
     
 
     @staticmethod
@@ -78,13 +75,18 @@ class Tree:
 
     @staticmethod
     def from_path(path):
+        t = Tree()
         abs_path = os.path.abspath(path)
         parent, folder = os.path.split(abs_path)
-        root = Tree.__form_tree_from_path(parent, folder)
-        return Tree(root)
+        t._root = Tree.__form_tree_from_path(parent, folder)
+        return t
 
 
     ##############################     LENGTH     ##############################
+    def is_empty(self):
+        return self._root is None
+    
+
     def __count_nodes(self, start_node):
         assert start_node is None or isinstance(start_node, TreeNode)
         total_nodes = 0
@@ -96,7 +98,7 @@ class Tree:
 
 
     def __len__(self):
-        return self.__count_nodes(self.root)
+        return self.__count_nodes(self._root)
 
 
     ##############################     PRINT      ##############################
@@ -126,10 +128,12 @@ class Tree:
 
 
     def __repr__(self):
-        if self.root.get_children():
-            return "\n".join(self.__print_subtree(self.root, [], False))
+        if self.is_empty():
+            return ("-")
+        elif self._root.get_children():
+            return "\n".join(self.__print_subtree(self._root, [], False))
         else:
-            return str(self.root.get_data())
+            return str(self._root.get_data())
 
 
     ##############################  HEIGHT/DEPTH  ##############################
@@ -142,11 +146,11 @@ class Tree:
 
 
     def get_depth(self):
-        return self._get_depth(self.root)
+        return self._get_depth(self._root)
     
 
     def get_height(self):
-        return self._get_depth(self.root)
+        return self._get_depth(self._root)
     
 
     ##############################   LEAF NODES   ##############################
@@ -162,12 +166,14 @@ class Tree:
 
 
     def count_leaf_nodes(self):
-        return self.__count_leaf_nodes(self.root)
+        return self.__count_leaf_nodes(self._root)
 
 
     ##############################      ITER      ##############################
     def __iter__(self):
-        current_nodes = [self.root]
+        if self.is_empty():
+            raise IndexError(f"Can't iterate over an empty {self.__name__()}!!")
+        current_nodes = [self._root]
         while len(current_nodes) > 0:
             next_nodes = []
             for node in current_nodes:
@@ -197,6 +203,6 @@ class Tree:
 
 
     def get_nodes(self):
-        return self.__get_nodes_per_level(self.root, 0, [])
+        return self.__get_nodes_per_level(self._root, 0, [])
 
 
