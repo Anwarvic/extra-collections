@@ -1,7 +1,10 @@
 import os
+from extra import Extra
 
 
-class TreeNode:
+
+
+class TreeNode(Extra):
     def __name__(self):
         return "extra.TreeNode()"
     
@@ -10,11 +13,9 @@ class TreeNode:
         if value is None:
             raise ValueError(\
                 f"Can't use `None` as an initial value for {self.__name__()}!!")
-        elif type(value) == str and value.strip() == '':
-            raise ValueError("Can't use an empty string as an initial "+\
-                f"value for {self.__name__()}!!")
-        elif isinstance(value, TreeNode):
-            raise ValueError("Can't create nested TreeNodes!!")
+        elif isinstance(value, Extra):
+            raise ValueError(\
+            f"Can't create {self.__name__()} object using {value.__name__()}!!")
         self.data = value
         self.children = []
 
@@ -54,7 +55,7 @@ class TreeNode:
 
 
 
-class Tree:
+class Tree(Extra):
     def __name__(self):
         return "extra.Tree()"
     
@@ -88,16 +89,16 @@ class Tree:
     
 
     def __count_nodes(self, start_node):
-        assert start_node is None or isinstance(start_node, TreeNode)
-        total_nodes = 0
-        if start_node is not None:
-            total_nodes += 1
-            for child in start_node.get_children():
-                total_nodes += self.__count_nodes(child)
+        assert isinstance(start_node, TreeNode)
+        total_nodes = 1
+        for child in start_node.get_children():
+            total_nodes += self.__count_nodes(child)
         return total_nodes
 
 
     def __len__(self):
+        if self.is_empty():
+            return 0
         return self.__count_nodes(self._root)
 
 
@@ -161,17 +162,18 @@ class Tree:
 
     ##############################   LEAF NODES   ##############################
     def __count_leaf_nodes(self, start_node):
-        assert start_node is None or isinstance(start_node, TreeNode)
+        assert isinstance(start_node, TreeNode)
+        if start_node.is_leaf():
+            return 1
         total_nodes = 0
-        if start_node is not None:
-            if start_node.is_leaf():
-                total_nodes += 1
-            for child in start_node.get_children():
-                total_nodes += self.__count_leaf_nodes(child)
+        for child in start_node.get_children():
+            total_nodes += self.__count_leaf_nodes(child)
         return total_nodes
 
 
     def count_leaf_nodes(self):
+        if self.is_empty():
+            return 0
         return self.__count_leaf_nodes(self._root)
 
 
@@ -196,7 +198,7 @@ class Tree:
 
     ##############################      NODES     ##############################
     def __get_nodes_per_level(self, start_node, level, level_nodes):
-        assert start_node is None or isinstance(start_node, TreeNode)
+        assert isinstance(start_node, TreeNode)
         assert type(level) == int and level >= 0
         assert type(level_nodes) == list
         if start_node is not None:
@@ -211,6 +213,8 @@ class Tree:
 
 
     def get_nodes(self):
+        if self.is_empty():
+            return []
         return self.__get_nodes_per_level(self._root, 0, [])
 
 
