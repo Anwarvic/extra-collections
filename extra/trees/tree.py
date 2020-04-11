@@ -127,9 +127,13 @@ class Tree:
         return lines
 
 
+    def _print_empty_tree(self):
+        return "--"
+
+
     def __repr__(self):
         if self.is_empty():
-            return ("-")
+            return self._print_empty_tree()
         elif self._root.get_children():
             return "\n".join(self.__print_subtree(self._root, [], False))
         else:
@@ -138,7 +142,7 @@ class Tree:
 
     ##############################  HEIGHT/DEPTH  ##############################
     def _get_depth(self, start_node):
-        assert start_node is None or isinstance(start_node, TreeNode)
+        assert isinstance(start_node, TreeNode)
         depth = 0
         for child in start_node.get_children():
             depth = max(depth, 1 + self._get_depth(child))
@@ -146,11 +150,13 @@ class Tree:
 
 
     def get_depth(self):
+        if self.is_empty():
+            return 0
         return self._get_depth(self._root)
     
 
     def get_height(self):
-        return self._get_depth(self._root)
+        return self.get_depth()
     
 
     ##############################   LEAF NODES   ##############################
@@ -183,7 +189,9 @@ class Tree:
 
 
     def to_list(self):
-        return [node.get_data() for node in self]
+        if self.is_empty():
+            return []
+        return [node for node in self]
 
 
     ##############################      NODES     ##############################
@@ -194,7 +202,7 @@ class Tree:
         if start_node is not None:
             if level == len(level_nodes):
                 level_nodes.append([])
-            level_nodes[level].append(start_node)
+            level_nodes[level].append(start_node.get_data())
             for child in start_node.get_children():
                 self.__get_nodes_per_level(child,
                                            level+1,
@@ -210,3 +218,4 @@ class Tree:
     def clear(self):
         self.__init__()
     
+
