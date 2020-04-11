@@ -16,6 +16,10 @@ def test_treenode():
         assert node.get_children() == []
 
 
+def test_empty_tree():
+    pass
+
+
 def test_tree_with_known_values():
     # create Simpsons Family tree
     root = TreeNode('TheSimpsons')
@@ -40,7 +44,10 @@ def test_tree_with_known_values():
     marge.children = homer.children
     # set root
     root.children = [abraham, jackie]
-    t = Tree(root)
+    t = Tree()
+    t._root = root
+    # test tree
+    assert not t.is_empty()
     assert len(t) == 15
     assert t.get_depth() == t.get_height() == 3
     assert t.count_leaf_nodes() == 9
@@ -48,5 +55,35 @@ def test_tree_with_known_values():
         ['TheSimpsons', 'Abraham + Mona', 'Clancy + Jackie', 'Herb', 'Homer',
         'Marge', 'Patty', 'Selma', 'Bart', 'Lisa', 'Maggie', 'Bart', 'Lisa',
         'Maggie', 'Ling']
+    assert t.get_nodes() == \
+        [['TheSimpsons'],
+        ['Abraham + Mona', 'Clancy + Jackie'],
+        ['Herb', 'Homer', 'Marge', 'Patty', 'Selma'],
+        ['Bart', 'Lisa', 'Maggie', 'Bart', 'Lisa', 'Maggie', 'Ling']]
+    # clear
+    t.clear()
+    assert t.is_empty()
+    assert len(t) == 0
+    assert t.get_depth() == t.get_height() == 0
+    assert t.count_leaf_nodes() == 0
+    assert t.to_list() == []
+    with pytest.raises(IndexError): [i for i in t]
 
 
+def test_invalid_path():
+    val = get_string()
+    t = Tree.from_path(val)
+    assert str(t) == str(val)
+    assert len(t) == 1
+    assert t.get_depth() == t.get_height() == 0
+    assert t.count_leaf_nodes() == 1
+    assert t.to_list() == [val]
+    assert [i for i in t] == [val]
+    # clear
+    t.clear()
+    assert t.is_empty()
+    assert len(t) == 0
+    assert t.get_depth() == t.get_height() == 0
+    assert t.count_leaf_nodes() == 0
+    assert t.to_list() == []
+    with pytest.raises(IndexError): [i for i in t]
