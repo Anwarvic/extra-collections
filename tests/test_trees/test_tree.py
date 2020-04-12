@@ -3,21 +3,34 @@ from tests import *
 from extra.trees.tree import TreeNode, Tree
 
 
+
+
 def test_treenode():
     with pytest.raises(ValueError): TreeNode(None)
-    with pytest.raises(ValueError): TreeNode('')
-    with pytest.raises(ValueError): TreeNode('      ')
-    with pytest.raises(ValueError): TreeNode('\t\n')
     with pytest.raises(ValueError): TreeNode(TreeNode(get_value()))
     # the following shouldn't raise anything
+    TreeNode('')
+    TreeNode('      ')
+    assert TreeNode('\nap\nple\n').get_data() == "apple"
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = TreeNode(val)
         assert node.get_data() == val
         assert node.get_children() == []
+    with pytest.raises(TypeError): TreeNode(get_value()).set_child(get_value)
+    with pytest.raises(TypeError): TreeNode(get_value()).set_children(get_value)
 
 
 def test_empty_tree():
-    pass
+    t = Tree()
+    with pytest.raises(TypeError): Tree(get_value())
+    with pytest.raises(TypeError): Tree(None)
+    assert t.is_empty()
+    assert len(t) == 0
+    assert t.get_depth() == t.get_height() == 0
+    assert t.count_leaf_nodes() == 0
+    assert t.to_list() == []
+    assert t.get_nodes() == []
+    with pytest.raises(IndexError): [i for i in t]
 
 
 def test_tree_with_known_values():
@@ -27,23 +40,23 @@ def test_tree_with_known_values():
     abraham = TreeNode('Abraham + Mona')
     herb = TreeNode('Herb')
     homer = TreeNode('Homer')
-    abraham.children = [herb, homer]
+    abraham.set_children([herb, homer])
     # marge-side
     jackie = TreeNode('Clancy + Jackie')
     marge = TreeNode('Marge')
     patty = TreeNode('Patty')
     selma = TreeNode('Selma')
     ling = TreeNode('Ling')
-    selma.children = [ling]
-    jackie.children = [marge, patty, selma]
+    selma.set_children([ling])
+    jackie.set_children([marge, patty, selma])
     # homer-marge children
     bart = TreeNode('Bart')
     lisa = TreeNode('Lisa')
     maggie = TreeNode('Maggie')
-    homer.children = [bart, lisa, maggie]
-    marge.children = homer.children
+    homer.set_children([bart, lisa, maggie])
+    marge.set_children(homer.get_children())
     # set root
-    root.children = [abraham, jackie]
+    root.set_children([abraham, jackie])
     t = Tree()
     t._root = root
     # test tree
@@ -79,6 +92,7 @@ def test_invalid_path():
     assert t.count_leaf_nodes() == 1
     assert t.to_list() == [val]
     assert [i for i in t] == [val]
+    assert t.get_nodes() == [[val]]
     # clear
     t.clear()
     assert t.is_empty()
