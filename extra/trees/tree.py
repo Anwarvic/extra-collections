@@ -235,7 +235,3 @@ class Tree(Extra):
         self.__init__()
     
 
-if __name__ == "__main__":
-    t = Tree()
-    t._root = TreeNode("apple\nbanana")
-    print(t)
