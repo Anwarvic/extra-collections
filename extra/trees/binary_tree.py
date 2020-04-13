@@ -10,22 +10,22 @@ class BinaryTreeNode(TreeNode):
     
     def __init__(self, value):
         super().__init__(value)
-        self.left = self.right = None
-        del self.children
+        self._left = self._right = None
+        del self._children
 
 
     def get_left(self):
-        return self.left
+        return self._left
 
 
     def get_right(self):
-        return self.right
+        return self._right
 
 
     def get_children(self):
         children = []
-        if self.left != None: children.append(self.left)
-        if self.right != None: children.append(self.right)
+        if self._left is not None: children.append(self._left)
+        if self._right is not None: children.append(self._right)
         return children
 
 
@@ -35,27 +35,31 @@ class BinaryTreeNode(TreeNode):
 
 
     def set_left(self, new_node):
-        assert isinstance(new_node, BinaryTreeNode)
-        self.left = new_node
+        if not isinstance(new_node, BinaryTreeNode):
+            raise TypeError(\
+            f"You can't set a child unless it's an {self.__name__()} object!!")
+        self._left = new_node
 
 
     def set_right(self, new_node):
-        assert isinstance(new_node, BinaryTreeNode)
-        self.right = new_node
+        if not isinstance(new_node, BinaryTreeNode):
+            raise TypeError(\
+            f"You can't set a child unless it's an {self.__name__()} object!!")
+        self._right = new_node
         
 
     def has_one_child(self):
         return not self.is_leaf() \
-                and (self.left is None or self.right is None)
+                and (self._left is None or self._right is None)
 
 
     def __repr__(self):
-        return f"BinaryTreeNode({self.data})"
+        return f"BinaryTreeNode({self._data})"
 
 
     def _represent(self):
         #represents BinaryTreeNode when being printed within a tree
-        return str(self.data)
+        return str(self._data)
 
 
 
