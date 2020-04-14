@@ -49,7 +49,7 @@ class BinaryTreeNode(TreeNode):
         
 
     def has_one_child(self):
-        return not self.is_leaf() \
+        return not super().is_leaf() \
                 and (self._left is None or self._right is None)
 
 
@@ -69,26 +69,15 @@ class BinaryTree(Tree):
         return "extra.BinaryTree()"
     
 
-    def _validate_item(self, item):
-        if item is None:
-            raise TypeError(f"Can't initialize {self.__name__()} with `None`!!")
-        elif type(item) == str and item.strip() == '':
-            raise ValueError(\
-                f"Can't initialize {self.__name__()} with an empty string!!")
-    
-
-    def __init__(self, value):
-        if isinstance(value, BinaryTreeNode):
-            self.root = value
-        else:
-            self.root = BinaryTreeNode(value)
+    def __init__(self):
+        self._root = None
     
 
     @staticmethod
     def __create_subtree(lst):
         if type(lst) not in {list, tuple}: lst = [lst]
         if len(lst) == 0 or len(lst) >= 4:
-            raise ValueError(f"Given {type(lst)} can not be parsed!")
+            raise ValueError(f"Given {type(lst)} can not be parsed!!")
         try:
             parent = BinaryTreeNode(lst[0])
             parent.set_left( BinaryTree.__create_subtree(lst[1]) )
@@ -101,9 +90,10 @@ class BinaryTree(Tree):
     @staticmethod
     def parse(lst):
         if type(lst) not in {list, tuple}:
-            raise TypeError("Given object must be a `list` or `tupel`!!")
-        root = BinaryTree.__create_subtree(lst)
-        return BinaryTree(root)
+            raise TypeError("Given object must be a `list` or `tuple`!!")
+        bt = BinaryTree()
+        bt._root = BinaryTree.__create_subtree(lst)
+        return bt
 
 
     ############################ PRINT ############################
@@ -166,7 +156,7 @@ class BinaryTree(Tree):
 
 
     def __repr__(self):
-        lines, _, _, _ = self.__print_subtree(self.root, 0)
+        lines, _, _, _ = self.__print_subtree(self._root, 0)
         return '\n'.join((line.rstrip() for line in lines[:-1]))
 
 
@@ -176,10 +166,10 @@ class BinaryTree(Tree):
         BinaryTree is balanced if the difference between the depth of any
         two leaf nodes is less than or equal one.
         """
-        left_depth = 0 if self.root.get_left() is None \
-                        else 1 + super()._get_depth(self.root.get_left()) 
-        right_depth = 0 if self.root.get_right() is None \
-                        else 1 + super()._get_depth(self.root.get_right()) 
+        left_depth = 0 if self._root.get_left() is None \
+                        else 1 + super()._get_depth(self._root.get_left()) 
+        right_depth = 0 if self._root.get_right() is None \
+                        else 1 + super()._get_depth(self._root.get_right()) 
         return abs(left_depth - right_depth) <= 1
 
 
@@ -216,7 +206,7 @@ class BinaryTree(Tree):
         BinaryTree is strict if all its non-leaf nodes has left and right
         children.
         """
-        return self.__is_subtree_strict(self.root)
+        return self.__is_subtree_strict(self._root)
 
 
     ######################### Pre-Order TRAVERSE #########################
@@ -233,11 +223,11 @@ class BinaryTree(Tree):
 
 
     def preorder_traverse(self):
-        return self.__preorder_traverse(self.root)
+        return self.__preorder_traverse(self._root)
 
 
     def depth_first_traverse(self):
-        return self.__preorder_traverse(self.root)
+        return self.__preorder_traverse(self._root)
 
 
     ######################### Post-Order TRAVERSE #########################
@@ -254,7 +244,7 @@ class BinaryTree(Tree):
 
 
     def postorder_traverse(self):
-        return self.__postorder_traverse(self.root)
+        return self.__postorder_traverse(self._root)
 
 
     ######################### In-Order TRAVERSE #########################
@@ -271,7 +261,7 @@ class BinaryTree(Tree):
 
 
     def inorder_traverse(self):
-        return self.__inorder_traverse(self.root)
+        return self.__inorder_traverse(self._root)
 
 
     #################### breadth-first TRAVERSE ####################
