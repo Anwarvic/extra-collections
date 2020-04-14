@@ -10,14 +10,9 @@ class TreeNode(Extra):
     
 
     def __init__(self, value):
-        if value is None:
-            raise ValueError(\
-                f"Can't use `None` as an initial value for {self.__name__()}!!")
-        elif isinstance(value, Extra):
-            raise ValueError(\
-            f"Can't create {self.__name__()} object using {value.__name__()}!!")
-        # remove '\n' if found
+        super()._validate_item(value)
         if type(value) == str:
+            # remove '\n' if found
             value = value.replace('\n', '')
         self._data = value
         self._children = []
