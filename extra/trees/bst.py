@@ -16,7 +16,7 @@ class BSTNode(BinaryTreeNode):
 
 
     def get_grand_parent(self):
-        return self.parent.parent if self.parent else None
+        return self.parent.parent if self.parent is not None else None
 
 
     def get_uncle(self):
@@ -81,14 +81,6 @@ class BST(BinaryTree):
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} accepts only numbers!!")
     
-
-    def __init__(self, value):
-        self._validate_item(value)
-        if isinstance(value, self._basic_node):
-            self.root = value
-        else:
-            self.root = self._basic_node(value)
-
 
     @staticmethod
     def from_iterable(iterable):
@@ -202,6 +194,7 @@ class BST(BinaryTree):
     def insert(self, value):
         self._validate_item(value)
         self._insert(value)
+
 
     ##############################   REMOVAL  ##############################
     def _find_replacement(self, start_node):
