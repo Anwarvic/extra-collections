@@ -39,21 +39,24 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_left(self, new_node):
-        assert new_node is None or isinstance(new_node, BSTNode)
+        if not (new_node is None or isinstance(new_node, BSTNode)):
+            raise TypeError(f"Can't set {type(new_node)} as a left child!!")
         self.left = new_node
         if new_node is not None:
             self.left.parent = self
 
 
     def set_right(self, new_node):
-        assert new_node is None or isinstance(new_node, BSTNode)
+        if not (new_node is None or isinstance(new_node, BSTNode)):
+            raise TypeError(f"Can't set {type(new_node)} as a right child!!")
         self.right = new_node
         if new_node is not None:
             self.right.parent = self
 
 
     def set_parent(self, new_node):
-        assert new_node is None or isinstance(new_node, BSTNode)
+        if not (new_node is None or isinstance(new_node, BSTNode)):
+            raise TypeError(f"Can't set {type(new_node)} as a child's parent!!")
         self._parent = new_node
 
 
