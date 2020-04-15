@@ -7,8 +7,9 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 def test_binary_treenode():
     with pytest.raises(ValueError): BinaryTreeNode(None)
-    with pytest.raises(ValueError): BinaryTreeNode('  ')
     with pytest.raises(ValueError): BinaryTreeNode(BinaryTreeNode(get_int()))
+    # make sure white-spaces are normalized
+    assert BinaryTreeNode('\nap\nple\n').get_data() == "apple"
     # the following shouldn't raise anything
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = BinaryTreeNode(val)
@@ -26,23 +27,24 @@ def test_binary_tree():
     root.set_right(BinaryTreeNode("Uncle"))
     root.get_right().set_left(BinaryTreeNode("Cousin"))
     root.get_right().set_right(BinaryTreeNode("Cousin"))
-    btree = BinaryTree(root)
+    btree = BinaryTree()
+    btree._root = root
     #test tree structure
-    assert btree.root.get_data() == "GrandFather"
-    assert btree.root.get_left().get_data() == "Father"
-    assert btree.root.get_left().get_left().get_data() == "Me"
-    assert btree.root.get_left().get_right().get_data() == "Sibling"
-    assert btree.root.get_left().get_left().get_left() is None
-    assert btree.root.get_left().get_left().get_right() is None
-    assert btree.root.get_left().get_right().get_left() is None
-    assert btree.root.get_left().get_right().get_right() is None
-    assert btree.root.get_right().get_data() == "Uncle"
-    assert btree.root.get_right().get_left().get_data() == "Cousin"
-    assert btree.root.get_right().get_right().get_data() == "Cousin"
-    assert btree.root.get_right().get_left().get_left() is None
-    assert btree.root.get_right().get_left().get_right() is None
-    assert btree.root.get_right().get_right().get_left() is None
-    assert btree.root.get_right().get_right().get_right() is None
+    assert btree._root.get_data() == "GrandFather"
+    assert btree._root.get_left().get_data() == "Father"
+    assert btree._root.get_left().get_left().get_data() == "Me"
+    assert btree._root.get_left().get_right().get_data() == "Sibling"
+    assert btree._root.get_left().get_left().get_left() is None
+    assert btree._root.get_left().get_left().get_right() is None
+    assert btree._root.get_left().get_right().get_left() is None
+    assert btree._root.get_left().get_right().get_right() is None
+    assert btree._root.get_right().get_data() == "Uncle"
+    assert btree._root.get_right().get_left().get_data() == "Cousin"
+    assert btree._root.get_right().get_right().get_data() == "Cousin"
+    assert btree._root.get_right().get_left().get_left() is None
+    assert btree._root.get_right().get_left().get_right() is None
+    assert btree._root.get_right().get_right().get_left() is None
+    assert btree._root.get_right().get_right().get_right() is None
     # test various functions
     assert btree.get_depth() == btree.get_height() == 2
     assert btree.is_balanced()
@@ -50,7 +52,7 @@ def test_binary_tree():
     assert btree.is_strict()
     assert len(btree) == 7
     assert btree.count_leaf_nodes() == 4
-    assert [item.get_data() for item in btree] == btree.to_list() == \
+    assert [item for item in btree] == btree.to_list() == \
         ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
     assert btree.preorder_traverse() == btree.depth_first_traverse() == \
         ["GrandFather", "Father", "Me", "Sibling", "Uncle", "Cousin", "Cousin"]
@@ -60,8 +62,6 @@ def test_binary_tree():
         ["Me", "Father", "Sibling", "GrandFather", "Cousin", "Uncle", "Cousin"]
     assert btree.breadth_first_traverse() == \
         ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
-    with pytest.raises(ValueError): BinaryTree(None)
-    with pytest.raises(ValueError): BinaryTree("    ")
     with pytest.raises(ValueError): btree.traverse(get_string())
     with pytest.raises(TypeError): btree.traverse(get_list())
     with pytest.raises(TypeError): btree.traverse(get_int())
@@ -69,17 +69,18 @@ def test_binary_tree():
 
 
 def test_binary_tree_with_numbers():
-    btree = BinaryTree(1)
-    btree.root.set_left(BinaryTreeNode(2))
-    btree.root.set_right(BinaryTreeNode(3))
-    btree.root.get_right().set_left(BinaryTreeNode(6))
-    btree.root.get_right().set_right(BinaryTreeNode(7))
-    btree.root.get_left().set_left(BinaryTreeNode(4))
-    btree.root.get_left().set_right(BinaryTreeNode(5))
+    btree = BinaryTree()
+    btree._root = BinaryTreeNode(1)
+    btree._root.set_left(BinaryTreeNode(2))
+    btree._root.set_right(BinaryTreeNode(3))
+    btree._root.get_right().set_left(BinaryTreeNode(6))
+    btree._root.get_right().set_right(BinaryTreeNode(7))
+    btree._root.get_left().set_left(BinaryTreeNode(4))
+    btree._root.get_left().set_right(BinaryTreeNode(5))
     assert len(btree) == 7
     assert btree.get_height() == 2
-    assert btree.root.get_left().get_data() == 2
-    assert btree._get_depth(btree.root.left) == 1
+    assert btree._root.get_left().get_data() == 2
+    assert btree._get_depth(btree._root.get_left()) == 1
     assert btree.to_list() == [1, 2, 3, 4, 5, 6, 7]
     assert btree.count_leaf_nodes() == 4
     assert btree.is_balanced()
