@@ -1,3 +1,4 @@
+import warnings
 from extra.trees.tree import TreeNode, Tree
 
 
@@ -162,6 +163,11 @@ class BinaryTree(Tree):
         BinaryTree is balanced if the difference between the depth of any
         two leaf nodes is less than or equal one.
         """
+        if self.is_empty():
+            warnings.warn(\
+                f"You are checking the balance of an empty {self.__name__()}",
+                UserWarning)
+            return True
         left_depth = 0 if self._root.get_left() is None \
                         else 1 + super()._get_depth(self._root.get_left()) 
         right_depth = 0 if self._root.get_right() is None \
@@ -174,6 +180,11 @@ class BinaryTree(Tree):
         """
         BinaryTree is perfect if all its levels are completely filled.
         """
+        if self.is_empty():
+            warnings.warn(\
+                f"You are checking the perfection of an empty {self.__name__()}",
+                UserWarning)
+            return True
         for level, nodes in enumerate(self.get_nodes()):
             if 2**level != len(nodes):
                 return False
@@ -202,6 +213,11 @@ class BinaryTree(Tree):
         BinaryTree is strict if all its non-leaf nodes has left and right
         children.
         """
+        if self.is_empty():
+            warnings.warn(\
+                f"You are checking the strictness of an empty {self.__name__()}",
+                UserWarning)
+            return True
         return self.__is_subtree_strict(self._root)
 
 
