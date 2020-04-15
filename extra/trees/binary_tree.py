@@ -69,10 +69,6 @@ class BinaryTree(Tree):
         return "extra.BinaryTree()"
     
 
-    def __init__(self):
-        self._root = None
-    
-
     @staticmethod
     def __create_subtree(lst):
         if type(lst) not in {list, tuple}: lst = [lst]
