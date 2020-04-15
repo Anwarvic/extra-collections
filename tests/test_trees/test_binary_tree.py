@@ -18,6 +18,22 @@ def test_binary_treenode():
         assert node.get_children() == []
 
 
+def test_empty_binary_tree(btree=BinaryTree()):
+    assert len(btree) == 0
+    assert btree.is_empty()
+    assert btree.get_height() == 0
+    assert btree.to_list() == []
+    assert btree.count_leaf_nodes() == 0
+    with pytest.warns(UserWarning): btree.is_balanced()
+    with pytest.warns(UserWarning): btree.is_perfect()
+    with pytest.warns(UserWarning): btree.is_strict()
+    assert btree.preorder_traverse() == []
+    assert btree.postorder_traverse() == []
+    assert btree.inorder_traverse() == []
+    assert btree.breadth_first_traverse() == []
+    assert btree.traverse() == []
+
+
 def test_binary_tree():
     # create tree using BinaryTreeNode
     root = BinaryTreeNode("GrandFather")
@@ -46,6 +62,7 @@ def test_binary_tree():
     assert btree._root.get_right().get_right().get_left() is None
     assert btree._root.get_right().get_right().get_right() is None
     # test various functions
+    assert not btree.is_empty()
     assert btree.get_depth() == btree.get_height() == 2
     assert btree.is_balanced()
     assert btree.is_perfect()
@@ -66,6 +83,9 @@ def test_binary_tree():
     with pytest.raises(TypeError): btree.traverse(get_list())
     with pytest.raises(TypeError): btree.traverse(get_int())
     with pytest.raises(TypeError): btree.traverse(get_float())
+    # clear this binary tree
+    btree.clear()
+    test_empty_binary_tree(btree)
 
 
 def test_binary_tree_with_numbers():
@@ -77,6 +97,7 @@ def test_binary_tree_with_numbers():
     btree._root.get_right().set_right(BinaryTreeNode(7))
     btree._root.get_left().set_left(BinaryTreeNode(4))
     btree._root.get_left().set_right(BinaryTreeNode(5))
+    assert not btree.is_empty()
     assert len(btree) == 7
     assert btree.get_height() == 2
     assert btree._root.get_left().get_data() == 2
@@ -91,6 +112,10 @@ def test_binary_tree_with_numbers():
     assert btree.inorder_traverse() == [4, 2, 5, 1, 6, 3, 7]
     assert btree.breadth_first_traverse() == [1, 2, 3, 4, 5, 6, 7]
     assert btree.traverse() == [4, 2, 5, 1, 6, 3, 7]
+    # clear this binary tree
+    btree.clear()
+    test_empty_binary_tree(btree)
+
 
 
 def test_parse():
@@ -99,10 +124,14 @@ def test_parse():
         ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]],
         ["ADVP", ["ADV","now"]]]]]]]
     btree = BinaryTree.parse(lst)
+    assert not btree.is_empty()
     assert len(btree) == 24
     assert btree.count_leaf_nodes() == 7
     assert not btree.is_balanced()
     assert not btree.is_perfect()
     assert not btree.is_strict()
     assert btree.get_depth() == btree.get_height() == 8
+    # clear this binary tree
+    btree.clear()
+    test_empty_binary_tree(btree)
 
