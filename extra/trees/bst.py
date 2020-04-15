@@ -8,19 +8,19 @@ class BSTNode(BinaryTreeNode):
         if type(value) not in {int, float}:
             raise TypeError(f"{self.__name__()} contains only numbers!!")
         super().__init__(value)
-        self.parent = None
+        self._parent = None
 
 
     def get_parent(self):
-        return self.parent
+        return self._parent
 
 
     def get_grand_parent(self):
-        return self.parent.parent if self.parent is not None else None
+        return self._parent.get_parent() if self._parent is not None else None
 
 
     def get_uncle(self):
-        parent = self.parent
+        parent = self._parent
         if parent is None:
             return None
         grand_parent = parent.parent
@@ -32,7 +32,7 @@ class BSTNode(BinaryTreeNode):
 
     def get_sibling(self):
         # return the brother if found
-        parent = self.parent
+        parent = self._parent
         if parent is None:
             return None
         return parent.right if self.is_left_child() else parent.left        
@@ -54,15 +54,15 @@ class BSTNode(BinaryTreeNode):
 
     def set_parent(self, new_node):
         assert new_node is None or isinstance(new_node, BSTNode)
-        self.parent = new_node
+        self._parent = new_node
 
 
     def is_left_child(self):
-        return self.parent.data > self.data
+        return self._parent.data > self._data
 
 
     def __repr__(self):
-        return f"BSTNode({self.data})"
+        return f"BSTNode({self._data})"
 
 
 
