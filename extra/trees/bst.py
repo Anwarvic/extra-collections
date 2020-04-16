@@ -116,7 +116,7 @@ class BST(BinaryTree):
         if self.is_empty():
             raise IndexError(\
                 f"Can't get the maximum value of an empty {self.__name__()}")
-        max_node = self._get_max_node(self.root)
+        max_node = self._get_max_node(self._root)
         return max_node.get_data()
 
 
@@ -134,7 +134,7 @@ class BST(BinaryTree):
         if self.is_empty():
             raise IndexError(\
                 f"Can't get the minimum value of an empty {self.__name__()}")
-        min_node = self._get_min_node(self.root)
+        min_node = self._get_min_node(self._root)
         return min_node.get_data()
 
 
@@ -159,7 +159,7 @@ class BST(BinaryTree):
     def __contains__(self, find_val):
         if self.is_empty() or type(find_val) not in {int, float}:
             return False
-        found_node = self._search(find_val, self.root)
+        found_node = self._search(find_val, self._root)
         return found_node.get_data() == find_val
 
 
@@ -196,9 +196,9 @@ class BST(BinaryTree):
         assert type(value) in {int, float} or \
                     isinstance(value, self._basic_node)
         if isinstance(value, self._basic_node):
-            return self._insert_node(self.root, value)
+            return self._insert_node(self._root, value)
         else:
-            return self._insert_value(self.root, value)
+            return self._insert_value(self._root, value)
 
 
     def insert(self, value):
@@ -246,10 +246,10 @@ class BST(BinaryTree):
     def _remove(self, del_value, start_node):
         assert type(del_value) in {int, float}
         assert isinstance(start_node, self._basic_node)
-        if self.root.is_leaf() and del_value == self.root.get_data():
+        if self._root.is_leaf() and del_value == self._root.get_data():
             raise IndexError("Can't remove the only item in the tree!")
         # search for the del_value node
-        removed_node = self._search(del_value, self.root)
+        removed_node = self._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
             last_accessed_node = removed_node
@@ -272,7 +272,7 @@ class BST(BinaryTree):
         if self.is_empty or type(del_value) not in {int, float}:
             return 
         self._validate_item(del_value)
-        self._remove(del_value, self.root)
+        self._remove(del_value, self._root)
 
 
     ##############################   ROTATION  ##############################
@@ -324,7 +324,7 @@ class BST(BinaryTree):
         assert parent is None or isinstance(parent, self._basic_node)
         assert isinstance(child, self._basic_node)
         if parent is None:
-            self.root = child
+            self._root = child
         else:
             if parent.get_data() > child.get_data():
                 parent.set_left(child) 
