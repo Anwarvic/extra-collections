@@ -277,6 +277,7 @@ class BST(BinaryTree):
 
     ##############################   ROTATION  ##############################
     def _rotate_left(self, start_node):
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Left")
         middle = start_node.get_right()
         middle.set_parent( start_node.get_parent() )
@@ -286,6 +287,7 @@ class BST(BinaryTree):
 
 
     def _rotate_right(self, start_node):
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Right")
         middle = start_node.get_left()
         middle.set_parent( start_node.get_parent() )
@@ -295,6 +297,7 @@ class BST(BinaryTree):
     
 
     def _rotate_left_right(self, start_node):
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Left-Right")
         middle = start_node.get_left().get_right()
         middle.set_parent( start_node.get_parent() )
@@ -306,6 +309,7 @@ class BST(BinaryTree):
 
 
     def _rotate_right_left(self, start_node):
+        assert isinstance(start_node, self._basic_node)
         # print("Rotating Right-Left")
         middle = start_node.get_right().get_left()
         middle.set_parent( start_node.get_parent() )
@@ -317,6 +321,8 @@ class BST(BinaryTree):
 
 
     def _attach(self, parent, child):
+        assert parent is None or isinstance(parent, self._basic_node)
+        assert isinstance(child, self._basic_node)
         if parent is None:
             self.root = child
         else:
