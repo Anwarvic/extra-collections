@@ -23,11 +23,11 @@ class BSTNode(BinaryTreeNode):
         parent = self._parent
         if parent is None:
             return None
-        grand_parent = parent.parent
+        grand_parent = parent.get_parent()
         if grand_parent is None:
             return None
-        return grand_parent.right \
-            if parent.is_left_child() else grand_parent.left
+        return grand_parent.get_right() \
+            if parent.is_left_child() else grand_parent.get_left()
 
 
     def get_sibling(self):
@@ -35,23 +35,23 @@ class BSTNode(BinaryTreeNode):
         parent = self._parent
         if parent is None:
             return None
-        return parent.right if self.is_left_child() else parent.left        
+        return parent.get_right() if self.is_left_child() else parent.get_left()
 
 
     def set_left(self, new_node):
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a left child!!")
-        self.left = new_node
+        self._left = new_node
         if new_node is not None:
-            self.left.parent = self
+            self._left._parent = self
 
 
     def set_right(self, new_node):
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a right child!!")
-        self.right = new_node
+        self._right = new_node
         if new_node is not None:
-            self.right.parent = self
+            self._right._parent = self
 
 
     def set_parent(self, new_node):
@@ -61,7 +61,7 @@ class BSTNode(BinaryTreeNode):
 
 
     def is_left_child(self):
-        return self._parent.data > self._data
+        return self._parent.get_data() > self.get_data()
 
 
     def __repr__(self):
