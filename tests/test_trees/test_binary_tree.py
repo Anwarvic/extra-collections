@@ -117,7 +117,6 @@ def test_binary_tree_with_numbers():
     test_empty_binary_tree(btree)
 
 
-
 def test_parse():
     lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"],
         ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]],
