@@ -71,16 +71,16 @@ class BSTNode(BinaryTreeNode):
 
 
 class BST(BinaryTree):
-    ############################## INIT ##############################
     _basic_node = BSTNode
 
+    ##TODO: __len__() needs to be O(1)
 
     def __name__(self):
         return "extra.BST()"
 
 
     def _validate_item(self, item):
-        if isinstance(item, self._basic_node): item = item.get_data()
+        super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} accepts only numbers!!")
     
@@ -113,6 +113,9 @@ class BST(BinaryTree):
 
 
     def get_max(self):
+        if self.is_empty():
+            raise IndexError(\
+                f"Can't get the maximum value of an empty {self.__name__()}")
         max_node = self._get_max_node(self.root)
         return max_node.get_data()
 
@@ -128,6 +131,9 @@ class BST(BinaryTree):
 
 
     def get_min(self):
+        if self.is_empty():
+            raise IndexError(\
+                f"Can't get the minimum value of an empty {self.__name__()}")
         min_node = self._get_min_node(self.root)
         return min_node.get_data()
 
@@ -151,7 +157,8 @@ class BST(BinaryTree):
 
 
     def __contains__(self, find_val):
-        self._validate_item(find_val)
+        if self.is_empty() or type(find_val) not in {int, float}:
+            return False
         found_node = self._search(find_val, self.root)
         return found_node.get_data() == find_val
 
@@ -262,6 +269,8 @@ class BST(BinaryTree):
 
 
     def remove(self, del_value):
+        if self.is_empty or type(del_value) not in {int, float}:
+            return 
         self._validate_item(del_value)
         self._remove(del_value, self.root)
 
