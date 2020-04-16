@@ -152,7 +152,12 @@ class BinaryTree(Tree):
             return new_box, len(new_box[0]), new_root_start, new_root_end
 
 
+    def _print_empty_tree(self):
+        return "/ \\"
+
     def __repr__(self):
+        if self.is_empty():
+            return self._print_empty_tree()
         lines, _, _, _ = self.__print_subtree(self._root, 0)
         return '\n'.join((line.rstrip() for line in lines[:-1]))
 
