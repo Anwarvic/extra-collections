@@ -178,12 +178,14 @@ class BST(BinaryTree):
                 return self._insert_node(start_node.get_left(), inserted_node)
             else:
                 start_node.set_left( inserted_node )
+                self._length += 1
                 return inserted_node
         else:
             if start_node.get_right():
                 return self._insert_node(start_node.get_right(), inserted_node)
             else:
                 start_node.set_right( inserted_node )
+                self._length += 1
                 return inserted_node
 
 
@@ -207,9 +209,9 @@ class BST(BinaryTree):
         self._validate_item(value)
         if self.is_empty():
             self._root = self._basic_node(value)
+            self._length += 1
         else:
             self._insert(value)
-        self._length += 1
 
 
     ##############################   REMOVAL  ##############################
@@ -254,6 +256,7 @@ class BST(BinaryTree):
         assert isinstance(start_node, self._basic_node)
         if self._root.is_leaf() and del_value == self._root.get_data():
             self._root = None
+            self._length -= 1
         # search for the del_value node
         removed_node = self._search(del_value, self._root)
         # couldn't find the node
@@ -269,17 +272,18 @@ class BST(BinaryTree):
             parent = replacement.get_parent()
         # replace 'del_node' with 'replacement'
         self._transplant(removed_node, replacement)
+        # decrease bst length
+        self._length -= 1
         # return last accessed node when removing
         last_accessed_node = parent
         return last_accessed_node
 
 
     def remove(self, del_value):
-        if self.is_empty or type(del_value) not in {int, float}:
+        if self.is_empty() or type(del_value) not in {int, float}:
             return 
         self._validate_item(del_value)
         self._remove(del_value, self._root)
-        self._length -= 1
 
 
     ##############################    ROTATION    ##############################
