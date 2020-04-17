@@ -93,7 +93,7 @@ class BinaryTree(Tree):
         return bt
 
 
-    ############################ PRINT ############################
+    ##############################     PRINT      ##############################
     def __print_subtree(self, root, curr_index):
         """
         src: https://github.com/joowani/binarytree/blob/master/binarytree
@@ -155,6 +155,7 @@ class BinaryTree(Tree):
     def _print_empty_tree(self):
         return "/ \\"
 
+
     def __repr__(self):
         if self.is_empty():
             return self._print_empty_tree()
@@ -162,7 +163,7 @@ class BinaryTree(Tree):
         return '\n'.join((line.rstrip() for line in lines[:-1]))
 
 
-    ############################## BALANCED ##############################
+    ##############################    BALANCED    ##############################
     def is_balanced(self):
         """
         BinaryTree is balanced if the difference between the depth of any
@@ -180,7 +181,7 @@ class BinaryTree(Tree):
         return abs(left_depth - right_depth) <= 1
 
 
-    ############################## PERFECT ##############################
+    ##############################    PERFECT     ##############################
     def is_perfect(self):
         """
         BinaryTree is perfect if all its levels are completely filled.
@@ -196,7 +197,7 @@ class BinaryTree(Tree):
         return True
 
 
-    ############################## STRICT ##############################
+    ##############################     STRICT     ##############################
     def __is_subtree_strict(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
         left_node = start_node.get_left()
@@ -226,7 +227,7 @@ class BinaryTree(Tree):
         return self.__is_subtree_strict(self._root)
 
 
-    ######################### Pre-Order TRAVERSE #########################
+    ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
         nodes = []
@@ -247,7 +248,7 @@ class BinaryTree(Tree):
         return self.__preorder_traverse(self._root)
 
 
-    ######################### Post-Order TRAVERSE #########################
+    ##############################   Post-Order   ##############################
     def __postorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
         nodes = []
@@ -264,7 +265,7 @@ class BinaryTree(Tree):
         return self.__postorder_traverse(self._root)
 
 
-    ######################### In-Order TRAVERSE #########################
+    ##############################    In-Order    ##############################
     def __inorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
         nodes = []
@@ -281,12 +282,12 @@ class BinaryTree(Tree):
         return self.__inorder_traverse(self._root)
 
 
-    #################### breadth-first TRAVERSE ####################
+    ##############################  BREADTH-FIRST ##############################
     def breadth_first_traverse(self):
         return super().to_list()
 
 
-    ############################## TRAVERSE ##############################
+    ##############################    TRAVERSE    ##############################
     def traverse(self, method='inorder'):
         trav_methods = {"inorder", "postorder", "preorder", "depth-first",
                         "breadth-first"}
