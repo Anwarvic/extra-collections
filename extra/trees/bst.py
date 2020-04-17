@@ -73,7 +73,9 @@ class BSTNode(BinaryTreeNode):
 class BST(BinaryTree):
     _basic_node = BSTNode
 
-    ##TODO: __len__() needs to be O(1)
+    def __init__(self):
+        super().__init__()
+        self._length = 0
 
     def __name__(self):
         return "extra.BST()"
@@ -87,8 +89,6 @@ class BST(BinaryTree):
 
     @classmethod
     def from_iterable(cls, iterable):
-        #TODO: convert this to classmethod like the one with LinkedList
-        # do that after applying clear()
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
@@ -99,7 +99,12 @@ class BST(BinaryTree):
         return bst
 
 
-    ##############################    MAX   ##############################
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        return self._length
+
+
+    ##############################       MAX      ##############################
     def _get_max_node(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # get the right-most node
@@ -204,6 +209,7 @@ class BST(BinaryTree):
             self._root = self._basic_node(value)
         else:
             self._insert(value)
+        self._length += 1
 
 
     ##############################   REMOVAL  ##############################
@@ -273,9 +279,10 @@ class BST(BinaryTree):
             return 
         self._validate_item(del_value)
         self._remove(del_value, self._root)
+        self._length -= 1
 
 
-    ##############################   ROTATION  ##############################
+    ##############################    ROTATION    ##############################
     def _rotate_left(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # print("Rotating Left")
