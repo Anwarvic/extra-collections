@@ -38,11 +38,11 @@ def test_empty_bst(bst=BST()):
     with pytest.raises(IndexError): bst.get_min()
 
 
-def validate_search_insert_remove(bst=BST()):
+def test_search_insert_remove_input(bst=BST()):
     assert None not in bst
     assert get_string() not in bst
     assert get_list() not in bst
-    with pytest.raises(TypeError): bst.insert(None)
+    with pytest.raises(ValueError): bst.insert(None)
     with pytest.raises(TypeError): bst.insert(get_string())
     with pytest.raises(TypeError): bst.insert(get_list())
     
@@ -79,7 +79,11 @@ def test_bst_one_value():
     #test remove
     bst.remove(9) #do nothing
     bst.remove(val)
+    # test empty bst
+    test_empty_bst(bst)
     # validate
+    test_search_insert_remove_input(bst)
+
     
     
 
@@ -124,20 +128,15 @@ def test_bst_simple():
     assert len(bst) == 4
     assert 4 not in bst
     assert verify_bst_rules(bst._root)
+    # test empty bst
+    bst.clear()
+    test_empty_bst(bst)
     # validate
-    with pytest.raises(TypeError): None in bst
-    with pytest.raises(TypeError): get_string() in bst
-    with pytest.raises(TypeError): get_list() in bst
-    with pytest.raises(TypeError): bst.insert(None)
-    with pytest.raises(TypeError): bst.insert(get_string())
-    with pytest.raises(TypeError): bst.insert(get_list())
-    with pytest.raises(TypeError): bst.remove(None)
-    with pytest.raises(TypeError): bst.remove(get_string())
-    with pytest.raises(TypeError): bst.remove(get_list())
+    test_search_insert_remove_input(bst)
 
 
 def test_bst_from_iterable():
-    lst = [19,7,10,12,22,30,11,25,9,20,14,12]
+    lst = [19,7,10,12,22,30,11,25,9,20,14,12,30,22]
     bst = BST.from_iterable(lst)
     # test structure
     assert verify_bst_rules(bst._root)
@@ -172,6 +171,12 @@ def test_bst_from_iterable():
     assert len(bst) == 10
     assert 22 not in bst
     assert verify_bst_rules(bst._root)
+    # test empty bst
+    bst.clear()
+    test_empty_bst(bst)
+    # validate
+    test_search_insert_remove_input(bst)
+
 
 
 def test_bst_big_example():
@@ -199,7 +204,6 @@ def test_bst_big_example():
     bst.remove(4000)
     bst.remove(65)
     assert verify_bst_rules(bst._root)
-
     assert bst._root.get_data() == 54
     assert len(bst) == 11
     assert bst.get_height() == 4
@@ -207,5 +211,10 @@ def test_bst_big_example():
     assert bst.traverse() == [8, 17, 28, 29, 54, 68, 76, 82, 88, 93, 97]
     assert bst.get_min() == 8
     assert bst.get_max() == 97
+    # test empty bst
+    bst.clear()
+    test_empty_bst(bst)
+    # validate
+    test_search_insert_remove_input(bst)
 
 
