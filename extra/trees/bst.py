@@ -254,9 +254,6 @@ class BST(BinaryTree):
     def _remove(self, del_value, start_node):
         assert type(del_value) in {int, float}
         assert isinstance(start_node, self._basic_node)
-        if self._root.is_leaf() and del_value == self._root.get_data():
-            self._root = None
-            self._length -= 1
         # search for the del_value node
         removed_node = self._search(del_value, self._root)
         # couldn't find the node
@@ -283,7 +280,12 @@ class BST(BinaryTree):
         if self.is_empty() or type(del_value) not in {int, float}:
             return 
         self._validate_item(del_value)
-        self._remove(del_value, self._root)
+        # check if bst has only one item and it's the one to be deleted
+        if self._root.is_leaf() and del_value == self._root.get_data():
+            self._root = None
+            self._length -= 1
+        else:
+            self._remove(del_value, self._root)
 
 
     ##############################    ROTATION    ##############################
