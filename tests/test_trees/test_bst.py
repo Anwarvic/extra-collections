@@ -8,7 +8,7 @@ from extra.trees.bst import BSTNode, BST
 def test_bst_node():
     with pytest.raises(TypeError): BSTNode(None)
     with pytest.raises(TypeError): BSTNode('  ')
-    with pytest.raises(TypeError): BSTNode(BST(get_int()))
+    with pytest.raises(TypeError): BSTNode(BST())
     with pytest.raises(TypeError): BSTNode(get_string())
     with pytest.raises(TypeError): BSTNode(get_list())
     # these shouldn't raise any erros
@@ -19,12 +19,36 @@ def test_bst_node():
         assert node.get_children() == []
 
 
+def test_empty_bst(bst=BST()):
+    assert bst.is_empty()
+    assert len(bst) == 0
+    assert bst.is_empty()
+    assert bst.get_height() == 0
+    assert bst.to_list() == []
+    assert bst.count_leaf_nodes() == 0
+    with pytest.warns(UserWarning): bst.is_balanced()
+    with pytest.warns(UserWarning): bst.is_perfect()
+    with pytest.warns(UserWarning): bst.is_strict()
+    assert bst.preorder_traverse() == []
+    assert bst.postorder_traverse() == []
+    assert bst.inorder_traverse() == []
+    assert bst.breadth_first_traverse() == []
+    assert bst.traverse() == []
+    with pytest.raises(IndexError): bst.get_max()
+    with pytest.raises(IndexError): bst.get_min()
+
+
+def validate_insert_remove(bst=BST()):
+    pass
+
+
 def test_bst_one_value():
+    bst = BST()
     val = get_int()
-    bst = BST(val)
+    bst.insert(val)
     # test structure
-    assert verify_bst_rules(bst.root)
-    assert bst.root.get_data() == val
+    assert verify_bst_rules(bst._root)
+    assert bst._root.get_data() == val
     # test various methods
     assert bst.count_leaf_nodes() == 1
     assert bst.get_max() == val
@@ -45,8 +69,9 @@ def test_bst_one_value():
     assert bst.inorder_traverse() == [val]
     #test remove
     bst.remove(9) #do nothing
-    with pytest.raises(IndexError): bst.remove(val)
+    bst.remove(val)
     # validate
+    
     with pytest.raises(TypeError): None in bst
     with pytest.raises(TypeError): get_string() in bst
     with pytest.raises(TypeError): get_list() in bst
@@ -59,20 +84,21 @@ def test_bst_one_value():
 
 
 def test_bst_simple():
-    bst = BST(4)
+    bst = BST()
+    bst.insert(4)
     bst.insert(2)
     bst.insert(1)
     bst.insert(3)
     bst.insert(5)
     # test structure
-    assert verify_bst_rules(bst.root)
-    assert bst.root.get_data() == 4
-    assert bst.root.get_left().get_data() == 2
-    assert bst.root.get_right().get_data() == 5
-    assert bst.root.get_right().get_left() == None
-    assert bst.root.get_right().get_right() == None
-    assert bst.root.get_left().get_left().get_data() == 1
-    assert bst.root.get_left().get_right().get_data() == 3
+    assert verify_bst_rules(bst._root)
+    assert bst._root.get_data() == 4
+    assert bst._root.get_left().get_data() == 2
+    assert bst._root.get_right().get_data() == 5
+    assert bst._root.get_right().get_left() == None
+    assert bst._root.get_right().get_right() == None
+    assert bst._root.get_left().get_left().get_data() == 1
+    assert bst._root.get_left().get_right().get_data() == 3
     # test various methods
     assert bst.count_leaf_nodes() == 3
     assert bst.get_max() == 5
@@ -96,7 +122,7 @@ def test_bst_simple():
     bst.remove(4)
     assert len(bst) == 4
     assert 4 not in bst
-    assert verify_bst_rules(bst.root)
+    assert verify_bst_rules(bst._root)
     # validate
     with pytest.raises(TypeError): None in bst
     with pytest.raises(TypeError): get_string() in bst
@@ -113,12 +139,12 @@ def test_bst_from_iterable():
     lst = [19,7,10,12,22,30,11,25,9,20,14,12]
     bst = BST.from_iterable(lst)
     # test structure
-    assert verify_bst_rules(bst.root)
-    assert bst.root.get_data() == 19
-    assert bst.root.get_left().get_data() == 7
-    assert bst.root.get_right().get_data() == 22
-    assert bst.root.get_left().get_left() == None
-    assert bst.root.get_left().get_right().get_data() == 10
+    assert verify_bst_rules(bst._root)
+    assert bst._root.get_data() == 19
+    assert bst._root.get_left().get_data() == 7
+    assert bst._root.get_right().get_data() == 22
+    assert bst._root.get_left().get_left() == None
+    assert bst._root.get_left().get_right().get_data() == 10
     # test various methods
     assert len(bst) == 11
     assert bst.count_leaf_nodes() == 5
@@ -144,12 +170,13 @@ def test_bst_from_iterable():
     bst.remove(22)
     assert len(bst) == 10
     assert 22 not in bst
-    assert verify_bst_rules(bst.root)
+    assert verify_bst_rules(bst._root)
 
 
 def test_bst_big_example():
     # SRC: "Data Structures and Algorithms in Python" book
-    bst = BST(44)
+    bst = BST()
+    bst.insert(44)
     bst.insert(17)
     bst.insert(8)
     bst.insert(32)
@@ -164,15 +191,15 @@ def test_bst_big_example():
     bst.insert(76)
     bst.insert(68)
     bst.insert(80)
-    assert verify_bst_rules(bst.root)
+    assert verify_bst_rules(bst._root)
     bst.remove(80)
     bst.remove(32)
     bst.remove(44)
     bst.remove(4000)
     bst.remove(65)
-    assert verify_bst_rules(bst.root)
+    assert verify_bst_rules(bst._root)
 
-    assert bst.root.get_data() == 54
+    assert bst._root.get_data() == 54
     assert len(bst) == 11
     assert bst.get_height() == 4
     assert bst.is_balanced()
