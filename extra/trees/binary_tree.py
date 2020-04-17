@@ -110,7 +110,7 @@ class BinaryTree(Tree):
             l_box, l_box_width, l_root_start, l_root_end = \
                 self.__print_subtree(root.get_left(), 2 * curr_index + 1)
             r_box, r_box_width, r_root_start, r_root_end = \
-                self.__print_subtree(root.right, 2 * curr_index + 2,)
+                self.__print_subtree(root.get_right(), 2 * curr_index + 2,)
 
             # Draw the branch connecting the current root node to the left sub-box
             # Pad the line with whitespaces where necessary
