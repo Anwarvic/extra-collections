@@ -38,8 +38,17 @@ def test_empty_bst(bst=BST()):
     with pytest.raises(IndexError): bst.get_min()
 
 
-def validate_insert_remove(bst=BST()):
-    pass
+def validate_search_insert_remove(bst=BST()):
+    assert None not in bst
+    assert get_string() not in bst
+    assert get_list() not in bst
+    with pytest.raises(TypeError): bst.insert(None)
+    with pytest.raises(TypeError): bst.insert(get_string())
+    with pytest.raises(TypeError): bst.insert(get_list())
+    
+    bst.remove(None) #do nothing
+    bst.remove(get_string()) #do nothing
+    bst.remove(get_list()) #do nothing
 
 
 def test_bst_one_value():
@@ -72,15 +81,7 @@ def test_bst_one_value():
     bst.remove(val)
     # validate
     
-    with pytest.raises(TypeError): None in bst
-    with pytest.raises(TypeError): get_string() in bst
-    with pytest.raises(TypeError): get_list() in bst
-    with pytest.raises(TypeError): bst.insert(None)
-    with pytest.raises(TypeError): bst.insert(get_string())
-    with pytest.raises(TypeError): bst.insert(get_list())
-    with pytest.raises(TypeError): bst.remove(None)
-    with pytest.raises(TypeError): bst.remove(get_string())
-    with pytest.raises(TypeError): bst.remove(get_list())
+    
 
 
 def test_bst_simple():
