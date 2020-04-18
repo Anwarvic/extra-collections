@@ -295,7 +295,13 @@ class BST(BinaryTree):
 
 
     def remove(self, del_value):
-        if self.is_empty() or type(del_value) not in {int, float}:
+        if self.is_empty():
+            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            return
+        elif type(del_value) not in {int, float}:
+            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+                UserWarning
+            )
             return 
         # check if bst has only one item and it's the one to be deleted
         if self._root.is_leaf() and del_value == self._root.get_data():
