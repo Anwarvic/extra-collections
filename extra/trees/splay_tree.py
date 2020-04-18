@@ -109,13 +109,13 @@ class SplayTree(BST):
     
     
     def splay(self, start_node):
-        self.root = self.__splaying(start_node)
+        self._root = self.__splaying(start_node)
 
 
     ############################## SEARCH ##############################
     def find(self, find_val):
         super()._validate_item(find_val)
-        node = super()._search(find_val, self.root)
+        node = super()._search(find_val, self._root)
         self.splay(node)
         return node.get_data() == find_val
 
@@ -130,7 +130,7 @@ class SplayTree(BST):
     ############################## REMOVAL ##############################
     def remove(self, del_value):
         super()._validate_item(del_value)
-        node = super()._remove(del_value, self.root)
+        node = super()._remove(del_value, self._root)
         self.splay(node)
 
 
