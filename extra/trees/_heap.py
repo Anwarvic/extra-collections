@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from extra.interface import Extra
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
@@ -21,7 +22,7 @@ class HeapNode(BinaryTreeNode):
 
 
 
-class Heap(ABC):
+class Heap(ABC, Extra):
     ############################ INIT ############################
     _basic_node = HeapNode
 
@@ -31,18 +32,14 @@ class Heap(ABC):
     
 
     def _validate_item(self, item):
-        if isinstance(item, self._basic_node): item = item.get_data()
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} accepts only numbers!!")
+        super()._validate_item(item)
         
 
     @abstractmethod
-    def __init__(self, value=None):
-        if value is None:
-            self._heap = []
-        else:
-            self._validate_item(value)
-            self._heap = [value]
+    def __init__(self):
+        self._heap = []
 
 
     @classmethod
@@ -81,14 +78,13 @@ class Heap(ABC):
                 parent_node.right = self._basic_node(self._heap[idx])
                 q.append(parent_node.right)
                 idx += 1
-        return BinaryTree(root)
+        btree = BinaryTree()
+        btree._root = root
+        return btree
     
 
     def __repr__(self):
-        if self.is_empty():
-            return "/ \\"
-        root = self._transform()
-        btree = BinaryTree(root)
+        btree = self._transform()
         return str( btree )
 
     
@@ -105,7 +101,8 @@ class Heap(ABC):
     
     ############################## SEARCH ##############################
     def __contains__(self, num):
-        self._validate_item(num)
+        if self.is_empty() or type(num) not in {int, float}:
+            return False
         return num in self._heap
 
 
@@ -170,25 +167,25 @@ class Heap(ABC):
     def remove(self, del_val, is_min_heap=True):
         """Removes first utterence of given value"""
         #TODO: try to handle more than just the first utterence
-        self._validate_item(del_val)
         assert type(is_min_heap) == bool
-        # make sure the heap is not empty
-        if not self.is_empty():
-            try:
-                del_idx = self._heap.index(del_val)
-            except ValueError:
-                # del_value wasn't found in the heap
-                return
-            last_idx = len(self._heap)-1
-            # swap between removed item and last item
-            self._heap[last_idx], self._heap[del_idx] = \
-                                    self._heap[del_idx], self._heap[last_idx]
-            # set last item to -inf or inf based on heap type
-            self._heap[last_idx]=float('-inf') if is_min_heap else float('inf')
-            # start swapping when needed
-            self.__rebalance(del_idx, is_min_heap)
-            # remove the (+/-)inf
-            self._heap.pop()
+
+        if self.is_empty() or del_val not in {int, float}:
+            return
+        try:
+            del_idx = self._heap.index(del_val)
+        except ValueError:
+            # del_value wasn't found in the heap
+            return
+        last_idx = len(self._heap) - 1
+        # swap between removed item and last item
+        self._heap[last_idx], self._heap[del_idx] = \
+                                self._heap[del_idx], self._heap[last_idx]
+        # set last item to -inf or inf based on heap type
+        self._heap[last_idx]=float('-inf') if is_min_heap else float('inf')
+        # start swapping when needed
+        self.__rebalance(del_idx, is_min_heap)
+        # remove the (+/-)inf
+        self._heap.pop()
     
 
     def clear(self):
