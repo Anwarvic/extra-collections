@@ -46,9 +46,9 @@ def test_search_insert_remove_input(bst=BST()):
     with pytest.raises(TypeError): bst.insert(get_string())
     with pytest.raises(TypeError): bst.insert(get_list())
     
-    bst.remove(None) #do nothing
-    bst.remove(get_string()) #do nothing
-    bst.remove(get_list()) #do nothing
+    with pytest.warns(UserWarning): bst.remove(None)
+    with pytest.warns(UserWarning): bst.remove(get_string())
+    with pytest.warns(UserWarning): bst.remove(get_list())
 
 
 def test_bst_one_value():
@@ -77,7 +77,7 @@ def test_bst_one_value():
     assert bst.postorder_traverse() == [val]
     assert bst.inorder_traverse() == [val]
     #test remove
-    bst.remove(9) #do nothing
+    with pytest.warns(UserWarning): bst.remove(9)
     bst.remove(val)
     # test empty bst
     test_empty_bst(bst)
@@ -123,7 +123,7 @@ def test_bst_simple():
     assert bst.postorder_traverse() == [1, 3, 2, 5, 4]
     assert bst.inorder_traverse() == [1, 2, 3, 4, 5]
     #test remove
-    bst.remove(9) #do nothing
+    with pytest.warns(UserWarning): bst.remove(9)
     bst.remove(4)
     assert len(bst) == 4
     assert 4 not in bst
@@ -166,7 +166,7 @@ def test_bst_from_iterable():
     assert bst.postorder_traverse()== [9, 11, 14, 12, 10, 7, 20, 25, 30, 22, 19]
     assert bst.inorder_traverse() == [7, 9, 10, 11, 12, 14, 19, 20, 22, 25, 30]
     #test remove
-    bst.remove(50) #do nothing
+    with pytest.warns(UserWarning): bst.remove(50)
     bst.remove(22)
     assert len(bst) == 10
     assert 22 not in bst
@@ -201,7 +201,7 @@ def test_bst_big_example():
     bst.remove(80)
     bst.remove(32)
     bst.remove(44)
-    bst.remove(4000)
+    with pytest.warns(UserWarning): bst.remove(4000)
     bst.remove(65)
     assert verify_bst_rules(bst._root)
     assert bst._root.get_data() == 54
