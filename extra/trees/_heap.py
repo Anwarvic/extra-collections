@@ -16,7 +16,7 @@ class HeapNode(BinaryTreeNode):
     
 
     def __repr__(self):
-        return f"HeapNode({self.data})"
+        return f"HeapNode({self._data})"
 
 
 
