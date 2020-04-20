@@ -200,6 +200,7 @@ class BinaryTree(Tree):
     ##############################     STRICT     ##############################
     def __is_subtree_strict(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
+
         left_node = start_node.get_left()
         right_node = start_node.get_right()
 
@@ -230,6 +231,7 @@ class BinaryTree(Tree):
     ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
+
         nodes = []
         if start_node != None:
             nodes.append(start_node.get_data())
@@ -251,6 +253,7 @@ class BinaryTree(Tree):
     ##############################   Post-Order   ##############################
     def __postorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
+
         nodes = []
         if start_node != None:
             if start_node.get_left():
@@ -268,6 +271,7 @@ class BinaryTree(Tree):
     ##############################    In-Order    ##############################
     def __inorder_traverse(self, start_node):
         assert start_node is None or isinstance(start_node, BinaryTreeNode)
+        
         nodes = []
         if start_node != None:
             if start_node.get_left():
