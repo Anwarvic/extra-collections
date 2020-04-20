@@ -97,6 +97,7 @@ class Tree(Extra):
 
     def __count_nodes(self, start_node):
         assert isinstance(start_node, TreeNode)
+
         total_nodes = 1
         for child in start_node.get_children():
             total_nodes += self.__count_nodes(child)
@@ -151,6 +152,7 @@ class Tree(Extra):
     ##############################  HEIGHT/DEPTH  ##############################
     def _get_depth(self, start_node):
         assert isinstance(start_node, TreeNode)
+
         depth = 0
         for child in start_node.get_children():
             depth = max(depth, 1 + self._get_depth(child))
@@ -170,6 +172,7 @@ class Tree(Extra):
     ##############################   LEAF NODES   ##############################
     def __count_leaf_nodes(self, start_node):
         assert isinstance(start_node, TreeNode)
+
         if start_node.is_leaf():
             return 1
         total_nodes = 0
@@ -208,6 +211,7 @@ class Tree(Extra):
         assert isinstance(start_node, TreeNode)
         assert type(level) == int and level >= 0
         assert type(level_nodes) == list
+        
         if start_node is not None:
             if level == len(level_nodes):
                 level_nodes.append([])
