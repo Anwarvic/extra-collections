@@ -8,8 +8,8 @@ class MinHeap(Heap):
         return "extra.MinHeap()"
     
 
-    def __init__(self, value=None):
-        super().__init__(value)
+    def __init__(self):
+        super().__init__()
     
 
     def get_min(self):
@@ -40,8 +40,8 @@ class MaxHeap(Heap):
         return "extra.MinHeap()"
 
 
-    def __init__(self, value=None):
-        super().__init__(value)
+    def __init__(self):
+        super().__init__()
 
 
     def get_min(self):

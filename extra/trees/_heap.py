@@ -1,3 +1,4 @@
+import warnings
 from abc import ABC, abstractmethod
 from extra.interface import Extra
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
@@ -32,9 +33,9 @@ class Heap(ABC, Extra):
     
 
     def _validate_item(self, item):
+        super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} accepts only numbers!!")
-        super()._validate_item(item)
         
 
     @abstractmethod
@@ -66,17 +67,18 @@ class Heap(ABC, Extra):
     def _transform(self):
         # transform the list-shaped heap to a tree-shaped
         assert not self.is_empty()
+
         root = self._basic_node(self._heap[0])
         q = [root]
         idx = 1
         while (idx < len(self)):
             parent_node = q.pop(0)
-            parent_node.left = self._basic_node(self._heap[idx])
-            q.append(parent_node.left)
+            parent_node.set_left( self._basic_node(self._heap[idx]) )
+            q.append(parent_node.get_left())
             idx += 1
             if idx < len(self):
-                parent_node.right = self._basic_node(self._heap[idx])
-                q.append(parent_node.right)
+                parent_node.set_right( self._basic_node(self._heap[idx]) )
+                q.append(parent_node.get_right())
                 idx += 1
         btree = BinaryTree()
         btree._root = root
@@ -84,6 +86,8 @@ class Heap(ABC, Extra):
     
 
     def __repr__(self):
+        if self.is_empty():
+            return "/ \\"
         btree = self._transform()
         return str( btree )
 
@@ -164,17 +168,26 @@ class Heap(ABC, Extra):
                 break
 
 
-    def remove(self, del_val, is_min_heap=True):
+    def remove(self, del_value, is_min_heap=True):
         """Removes first utterence of given value"""
         #TODO: try to handle more than just the first utterence
         assert type(is_min_heap) == bool
 
-        if self.is_empty() or del_val not in {int, float}:
+        if self.is_empty():
+            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            return
+        elif type(del_value) not in {int, float}:
+            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+                UserWarning
+            )
             return
         try:
-            del_idx = self._heap.index(del_val)
+            del_idx = self._heap.index(del_value)
         except ValueError:
             # del_value wasn't found in the heap
+            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+                UserWarning
+            )
             return
         last_idx = len(self._heap) - 1
         # swap between removed item and last item
