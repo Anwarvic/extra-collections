@@ -1,4 +1,3 @@
-# from trie import TrieNode, Trie
 from extra.trees.trie import TrieNode, Trie
 
 
@@ -37,20 +36,20 @@ class RadixTrie(Trie):
                 new_node = TrieNode(remaining_word)
                 curr_node.set_child(ch, new_node)
                 remaining_word = ''
-                self.nodes_count += 1
+                self._nodes_count += 1
             # child is prefix of the remaining_word
             elif idx <= len(remaining_word) and idx != len(child_data):
                 # split child
                 new_node = TrieNode(child_data[:idx])
-                child.data = child_data[idx:]
+                child._data = child_data[idx:]
                 new_node.set_child(child_data[idx], child)
                 # connect new_node to curr_node
                 curr_node.set_child(child_data[0], new_node)
                 remaining_word = remaining_word[idx:]
-                self.nodes_count += 1
+                self._nodes_count += 1
             curr_node = new_node
         # mark current node as a word
-        curr_node.is_word = True
+        curr_node._is_word = True
 
 
     ######################### AUTO-COMPLETION #########################    
@@ -75,7 +74,7 @@ class RadixTrie(Trie):
                 curr_node = child
        
         # check the current node
-        if curr_node.is_word:
+        if curr_node._is_word:
             candidates.append(prefix)
         # get candidates starting from given prefix
         for child in curr_node.get_children():
