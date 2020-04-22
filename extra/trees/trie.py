@@ -104,7 +104,7 @@ class Trie(Tree):
                 f"{self.__name__()} contains only characters!!")
         if not accept_empty_string and len(word.strip()) == 0:
             raise ValueError(\
-                f"An empty string can't be used with {self.__name__()}!!")
+                f"White-spaces can't be used with {self.__name__()}!!")
     
 
     def __contains__(self, word):
@@ -145,7 +145,8 @@ class Trie(Tree):
                 UserWarning
             )
             return
-        self._validate_item(word, accept_empty_string=False)
+        elif word == "":
+            return
         last_node, remaining_word = self._follow_path(word)
         if remaining_word == "": #found the whole word
             curr_node = last_node
