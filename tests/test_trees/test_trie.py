@@ -24,22 +24,22 @@ def test_empty_trie():
     t = Trie()
     t.clear()
     assert len(t) == 1
-    assert isinstance(t.root, TrieNode)
-    assert t.root.get_data() == "ROOT"
+    assert isinstance(t._root, TrieNode)
+    assert t._root.get_data() == "ROOT"
     assert '' not in t
     assert get_string() not in t
     assert t.has_prefix('')
     assert t.auto_complete() == t.auto_complete('') \
         == t.auto_complete(get_string()) == []
-    with pytest.raises(TypeError): t.insert(None)
+    with pytest.raises(ValueError): t.insert(None)
     with pytest.raises(TypeError): t.insert(get_int())
-    with pytest.raises(TypeError): t.remove(None)
-    with pytest.raises(TypeError): t.remove(get_list())
-    with pytest.raises(TypeError): get_float() in t
-    with pytest.raises(TypeError): None not in t
-    with pytest.raises(TypeError): t.has_prefix(None)
-    with pytest.raises(TypeError): t.has_prefix(get_int())
-    with pytest.raises(TypeError): t.auto_complete(None)
+    with pytest.warns(UserWarning): t.remove(None)
+    with pytest.warns(UserWarning): t.remove(get_list())
+    assert get_float() not in t
+    assert None not in t
+    assert not t.has_prefix(None)
+    assert not t.has_prefix(get_int())
+    with pytest.raises(ValueError): t.auto_complete(None)
     with pytest.raises(TypeError): t.auto_complete(get_list())
     with pytest.raises(ValueError): t.insert('')
     with pytest.raises(ValueError): t.insert(' \n\t  ')
@@ -72,9 +72,9 @@ def test_trie_many_words():
     assert t.has_prefix('ca')
     assert len(t) == 16
     # explort Trie
-    assert t.root.get_data() == "ROOT"
-    assert t.root.get_child('t').get_data() == 't'
-    assert list(t.root.get_child('c').get_characters()) == ['a', 'o']
+    assert t._root.get_data() == "ROOT"
+    assert t._root.get_child('t').get_data() == 't'
+    assert list(t._root.get_child('c').get_characters()) == ['a', 'o']
     # test find() and get_cadidates()
     assert 'cards' in t
     assert 'c' not in t
