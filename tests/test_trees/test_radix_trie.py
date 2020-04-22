@@ -8,27 +8,27 @@ def test_empty_radix_trie():
     rt = RadixTrie()
     rt.clear()
     assert len(rt) == 1
-    assert isinstance(rt.root, TrieNode)
-    assert rt.root.get_data() == "ROOT"
+    assert isinstance(rt._root, TrieNode)
+    assert rt._root.get_data() == "ROOT"
     assert '' not in rt
     assert get_string() not in rt
     assert rt.has_prefix('')
     assert rt.auto_complete() == rt.auto_complete('') \
         == rt.auto_complete(get_string()) == []
-    with pytest.raises(TypeError): rt.insert(None)
+    with pytest.raises(ValueError): rt.insert(None)
     with pytest.raises(TypeError): rt.insert(get_int())
-    with pytest.raises(TypeError): rt.remove(None)
-    with pytest.raises(TypeError): rt.remove(get_list())
-    with pytest.raises(TypeError): get_float() in rt
-    with pytest.raises(TypeError): None not in rt
-    with pytest.raises(TypeError): rt.has_prefix(None)
-    with pytest.raises(TypeError): rt.has_prefix(get_int())
-    with pytest.raises(TypeError): rt.auto_complete(None)
+    with pytest.warns(UserWarning): rt.remove(None)
+    with pytest.warns(UserWarning): rt.remove(get_list())
+    assert get_float() not in rt
+    assert None not in rt
+    assert not rt.has_prefix(None)
+    assert not rt.has_prefix(get_int())
+    with pytest.raises(ValueError): rt.auto_complete(None)
     with pytest.raises(TypeError): rt.auto_complete(get_list())
     with pytest.raises(ValueError): rt.insert('')
     with pytest.raises(ValueError): rt.insert(' \n\t  ')
-    with pytest.raises(ValueError): rt.remove('')
-    with pytest.raises(ValueError): rt.remove(' \n\t  ')
+    rt.remove('') # do nothing
+    rt.remove(' \n\t  ')  # do nothing
 
 
 def test_radix_trie_with_simple_example():
@@ -73,7 +73,7 @@ def test_radix_trie_with_wiki_example():
     rt.insert("rubicon")
     rt.insert("rubicundus")
     assert len(rt) == 14
-    assert list(rt.root.get_characters()) == ['r']
+    assert list(rt._root.get_characters()) == ['r']
     assert 'r' not in rt
     assert rt.has_prefix('r')
     assert "ruber" in rt
