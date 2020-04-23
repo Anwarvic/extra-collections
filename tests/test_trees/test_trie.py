@@ -43,8 +43,8 @@ def test_empty_trie():
     with pytest.raises(TypeError): t.auto_complete(get_list())
     with pytest.raises(ValueError): t.insert('')
     with pytest.raises(ValueError): t.insert(' \n\t  ')
-    with pytest.raises(ValueError): t.remove('')
-    with pytest.raises(ValueError): t.remove(' \n\t  ')
+    t.remove('') # do nothing
+    t.remove(' \n\t  ') # do nothing
 
 
 def test_trie_similar_words():
