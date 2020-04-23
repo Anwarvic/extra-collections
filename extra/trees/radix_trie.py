@@ -21,7 +21,7 @@ class RadixTrie(Trie):
         return "extra.RadixTrie()"
     
 
-    ############################## INSERTION ##############################
+    ##############################   INSERTION    ##############################
     def insert(self, word):
         super()._validate_item(word, accept_empty_string=False)
         last_node, remaining_word = super()._follow_path(word)
@@ -52,7 +52,7 @@ class RadixTrie(Trie):
         curr_node._is_word = True
 
 
-    ######################### AUTO-COMPLETION #########################    
+    ############################## AUTOCOMPLETION ##############################
     def auto_complete(self, prefix=''):
         super()._validate_item(prefix)
         candidates = []
