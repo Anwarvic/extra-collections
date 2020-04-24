@@ -430,7 +430,7 @@ def test_red_black_tree_insert_remove_invalid_examples():
     with pytest.warns(UserWarning): rbtree.remove(get_string())
     with pytest.warns(UserWarning): rbtree.remove(get_list())
     with pytest.warns(UserWarning): rbtree.remove(RedBlackNode(10))
-    with pytest.warns(UserWarning): rbtree.remove(RedBlackTree(10))
+    with pytest.warns(UserWarning): rbtree.remove(RedBlackTree())
 
 
 def test_double_black_left_left_case():
