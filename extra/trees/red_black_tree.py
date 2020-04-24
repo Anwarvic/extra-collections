@@ -127,7 +127,7 @@ class RedBlackTree(BST):
         return black_height + 1
 
 
-    ############################## INSERTION ##############################
+    ##############################    INSERTION   ##############################
     def __recolor_case3(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # get basic info
@@ -222,7 +222,7 @@ class RedBlackTree(BST):
             self._root.set_color(Color.BLACK)
 
 
-    ############################## REMOVAL ##############################
+    ##############################     REMOVAL    ##############################
     def _find_replacement(self, start_node):
         """
         NOTE: Here, we're tyring to exploit two characteristics of Red-black
