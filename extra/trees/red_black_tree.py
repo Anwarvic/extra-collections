@@ -47,38 +47,38 @@ class Color(Enum):
 class RedBlackNode(BSTNode):  
     def __init__(self, value):
         super().__init__(value)
-        self.color = Color.RED
+        self._color = Color.RED
 
 
     def get_color(self):
-        return self.color
+        return self._color
 
 
     def set_color(self, color):
         if color not in {Color.RED, Color.BLACK}:
             raise ValueError("Invalid color!!")
-        self.color = color
+        self._color = color
     
 
     def __repr__(self):
-        if self.color == Color.RED:
-            return f"RedNode({self.data})"
-        elif self.color == Color.BLACK:
-            return f"BlackNode({self.data})"
+        if self._color == Color.RED:
+            return f"RedNode({self._data})"
+        elif self._color == Color.BLACK:
+            return f"BlackNode({self._data})"
 
 
     def _represent(self):
-        if self.color == Color.RED:
-            return str(self.data)+'|R'
-        elif self.color == Color.BLACK:
-            return str(self.data)+'|B'
+        if self._color == Color.RED:
+            return str(self._data)+'|R'
+        elif self._color == Color.BLACK:
+            return str(self._data)+'|B'
 
 
     @staticmethod
     def swap(node1, node2):
         #TODO: use super().swap(node1, node2) here
-        node1.data, node2.data = node2.data, node1.data
-        node1.color, node2.color = node2.color, node1.color
+        node1._data, node2._data = node2._data, node1._data
+        node1._color, node2._color = node2._color, node1._color
 
 
 
@@ -92,36 +92,32 @@ class RedBlackTree(BST):
         return "extra.RedBlackTree()"
     
 
-    def __init__(self, value):
-        super().__init__(value)
-        self.root.set_color(Color.BLACK)
+    def __init__(self):
+        super().__init__()
 
 
-    @staticmethod
-    def from_iterable(iterable):
+    @classmethod
+    def from_iterable(cls, iterable):
         #TODO: convert this to classmethod like the one with LinkedList
         # do that after applying clear()
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
             raise ValueError("The given iterable is empty!!")
-        rbtree = None
+        rbtree = cls()
         for item in iterable:
-            if rbtree is None:
-                rbtree = RedBlackTree(item)
-            else:
-                rbtree.insert(item)
+            rbtree.insert(item)
         return rbtree
     
 
-    ############################## HEIGHT ##############################
+    ##############################     HEIGHT     ##############################
     def get_black_height(self):
         """
         Number of black nodes from root till to any leaf node, the root node
         is not counted
         """
         black_height = 0
-        start_node = self.root.get_left()
+        start_node = self._root.get_left()
         while(start_node is not None):
             if start_node.get_color() == Color.BLACK:
                 black_height += 1
@@ -207,7 +203,7 @@ class RedBlackTree(BST):
         if parent.get_color() == Color.BLACK:
             #do nothing
             # print("Case I")
-            return self.root
+            return self._root
         else:
             # case II
             if uncle and uncle.get_color() == Color.RED:
@@ -223,7 +219,7 @@ class RedBlackTree(BST):
                 grandparent = self.__recolor_case3(start_node)
                 # set connection
                 if great_grandparent:
-                    if great_grandparent.data > grandparent.get_data():
+                    if great_grandparent.get_data() > grandparent.get_data():
                         great_grandparent.set_left(grandparent)
                     else:
                         great_grandparent.set_right(grandparent)
@@ -235,9 +231,9 @@ class RedBlackTree(BST):
         # insert new node
         new_node = super()._insert(value)
         # recolor starting from new_node till root
-        self.root = self.__recolor(new_node)
-        # root is black (isn't essential tho!!)
-        self.root.set_color(Color.BLACK)
+        self._root = self.__recolor(new_node)
+        # root is always black
+        self._root.set_color(Color.BLACK)
 
 
     ############################## REMOVAL ##############################
@@ -273,7 +269,7 @@ class RedBlackTree(BST):
         assert parent is None or isinstance(parent, RedBlackNode)
         assert isinstance(child, RedBlackNode)
         if parent is None:
-            self.root = child
+            self._root = child
         else:
             if parent.get_data() > child.get_data():
                 parent.set_left(child) 
@@ -296,7 +292,8 @@ class RedBlackTree(BST):
         assert isinstance(parent, RedBlackNode)
         assert double_black_node is None or \
             isinstance(double_black_node, RedBlackNode)
-        while double_black_node != self.root and (not double_black_node \
+        
+        while double_black_node != self._root and (not double_black_node \
             or double_black_node.get_color() == Color.BLACK):
             # double black node is the left-child
             if double_black_node == parent.get_left():
@@ -339,7 +336,7 @@ class RedBlackTree(BST):
                     grandparent = parent.get_parent()
                     parent = self.__rotate_left(parent)
                     self.__attach(grandparent, parent)
-                    double_black_node = self.root
+                    double_black_node = self._root
             ##### Mirror image of the previous if-condition ######
             # double black node is the right-child
             else:
@@ -382,9 +379,9 @@ class RedBlackTree(BST):
                     grandparent = parent.get_parent()
                     parent = self.__rotate_right(parent)
                     self.__attach(grandparent, parent)
-                    double_black_node = self.root
+                    double_black_node = self._root
         # make sure root is always black
-        self.root.set_color(Color.BLACK)
+        self._root.set_color(Color.BLACK)
 
 
     def remove(self, del_value):
@@ -396,11 +393,11 @@ class RedBlackTree(BST):
         """
         super()._validate_item(del_value)
         # check edge case
-        if self.root.is_leaf() and del_value == self.root.get_data():
+        if self._root.is_leaf() and del_value == self._root.get_data():
             raise ValueError("Can't remove the only item in the tree!")
 
         # search for the del_value node
-        removed_node = super()._search(del_value, self.root)
+        removed_node = super()._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
             return
