@@ -14,7 +14,7 @@ class Stack(Extra):
         if type(max_capacity) not in {int, float}:
             raise TypeError("Max Capacity has to be a number!!")
         elif max_capacity < 0:
-            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0!")
+            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0")
         self._container = []
         self._max_capacity = max_capacity
 
@@ -47,7 +47,8 @@ class Stack(Extra):
     def push(self, item):
         """Pushs item to the stack"""
         if self.is_full():
-            raise OverflowError("Stackoverflow! Can't push into a full stack!")
+            raise OverflowError(\
+                f"Stackoverflow! Can't push into a full {self.__name__()}!")
         super()._validate_item(item)
         self._container.append(item)
 
@@ -56,7 +57,7 @@ class Stack(Extra):
     def peek(self):
         """Returns the top item from the stack"""
         if self.is_empty():
-            raise IndexError("Can't peek from an empty Stack!!")
+            raise IndexError(f"Can't peek from an empty {self.__name__()}!!")
         return self._container[-1]
 
 
@@ -64,8 +65,8 @@ class Stack(Extra):
     def pop(self):
         """Pops item from the stack"""
         if self.is_empty():
-            warnings.warn("Popping from empty Stack!!", UserWarning)
-            return None
+            warnings.warn(f"Popping from empty {self.__name__()}!!", UserWarning)
+            return
         else:
             return self._container.pop()
 
@@ -83,6 +84,6 @@ class Stack(Extra):
 
     def is_full(self):
         """Checks if the stack is at full capacity"""
-        return len(self) == self._max_capacity
+        return len(self) >= self._max_capacity
 
 
