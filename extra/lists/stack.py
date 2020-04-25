@@ -1,9 +1,10 @@
 import warnings
+from extra.interface import Extra
 
 
 
 
-class Stack:
+class Stack(Extra):
     """Basic object for the Stack data structure"""
     def __name__(self):
         return "extra.Stack()"
@@ -14,8 +15,8 @@ class Stack:
             raise TypeError("Max Capacity has to be a number!!")
         elif max_capacity < 0:
             raise ValueError(f"Max capacity of {self.__name__()} must be >= 0!")
-        self.container = []
-        self.max_capacity = max_capacity
+        self._container = []
+        self._max_capacity = max_capacity
 
 
     ############################## PRINT ##############################
@@ -24,7 +25,7 @@ class Stack:
         top_border    = '┌'
         middle_border = '│'
         down_border   = '└'
-        for item in self.container:
+        for item in self._container:
             width = len(str(item))+2 #2: for a space before & after item
             top_border += ('─'*width) + '┬'
             middle_border += " {} │".format(item)
@@ -36,27 +37,19 @@ class Stack:
         return "{}\n{}\n{}".format(top_border, middle_border, down_border)
 
 
-    ############################## LENGTH ##############################
+    ##############################     LENGTH     ##############################
     def __len__(self):
         """Gets the length of the stack with complexity of O(1)"""
-        return len(self.container)
+        return len(self._container)
 
 
-    ############################## PUSH ###############################
-    def __validate_item(self, item):
-        if item is None:
-            raise TypeError(f"Can't push `None` into {self.__name__()}!!")
-        elif type(item) == str and item.strip() == '':
-            raise ValueError(\
-                f"Can't push an empty-string into {self.__name__()}!!")
-
-
+    ##############################      PUSH     ###############################
     def push(self, item):
         """Pushs item to the stack"""
         if self.is_full():
             raise OverflowError("Stackoverflow! Can't push into a full stack!")
-        self.__validate_item(item)
-        self.container.append(item)
+        super()._validate_item(item)
+        self._container.append(item)
 
 
     ############################## PEEK ###############################
@@ -64,7 +57,7 @@ class Stack:
         """Returns the top item from the stack"""
         if self.is_empty():
             raise IndexError("Can't peek from an empty Stack!!")
-        return self.container[-1]
+        return self._container[-1]
 
 
     ############################# REMOVE #############################
@@ -74,22 +67,22 @@ class Stack:
             warnings.warn("Popping from empty Stack!!", UserWarning)
             return None
         else:
-            return self.container.pop()
+            return self._container.pop()
 
 
     def clear(self):
         """Clears the stack"""
-        self.__init__(max_capacity=self.max_capacity)
+        self.__init__(max_capacity=self._max_capacity)
 
 
     ############################# STATUS #############################
     def is_empty(self):
         """Checks if the stack is empty"""
-        return len(self.container) == 0
+        return len(self._container) == 0
     
 
     def is_full(self):
         """Checks if the stack is at full capacity"""
-        return len(self) == self.max_capacity
+        return len(self) == self._max_capacity
 
 
