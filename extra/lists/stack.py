@@ -12,9 +12,11 @@ class Stack(Extra):
     
     def __init__(self, max_capacity=float("inf")):
         if type(max_capacity) not in {int, float}:
-            raise TypeError("Max Capacity has to be a number!!")
+            raise TypeError(\
+                f"Max Capacity {self.__name__()} has to be a number!!")
         elif max_capacity < 0:
-            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0")
+            raise ValueError(\
+                f"Max capacity of {self.__name__()} must be >= 0")
         self._container = []
         self._max_capacity = max_capacity
 
