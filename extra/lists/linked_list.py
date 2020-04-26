@@ -9,7 +9,7 @@ class Node(Extra):
     def __name__(self):
         return "extra.Node()"
     
-    
+
     def __init__(self, item=None):
         self._data = item
         self._next = None
@@ -37,9 +37,15 @@ class Node(Extra):
     
 
     def set_next(self, next_node):
-        if not isinstance(next_node, Node)::
-            raise TypeError(f"Can't set {next_node} as a next node as it isn't a {self.__name__()}!!")
-        self._next = next_node
+        if next_node is None:
+            self._next = None
+        elif not isinstance(next_node, Node):
+            raise TypeError(
+                f"Can't set {type(next_node)} as a {self.__name__()}!!")
+        elif next_node.get_data() is None:
+            raise ValueError(f"{self.__name__()} data can't be `None`!!")
+        else:
+            self._next = next_node
 
 
     def _represent(self):
