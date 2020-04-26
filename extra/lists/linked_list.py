@@ -1,44 +1,49 @@
 import warnings, operator
+from extra.interface import Extra
 
 
 
 
-class Node:
+class Node(Extra):
     """Basic object for the Node used for linked lists"""
+    def __name__(self):
+        return "extra.Node()"
+    
+    
     def __init__(self, item=None):
-        self.data = item
-        self.next = None
+        self._data = item
+        self._next = None
 
 
     def __repr__(self):
         """Represents Node object as a string"""
-        data = self.data
-        nxt = self.next.data if self.next else None
-        return f"Node(data: {data}, next: {nxt})"
+        nxt = self._next._data if self._next else None
+        return f"Node(data: {self._data}, next: {nxt})"
 
 
     def get_data(self):
-        return self.data
+        return self._data
     
 
     def set_data(self, data):
-        assert data is not None
-        self.data = data
+        super()._validate_item(data)
+        if type(data) == str:
+            data = data.replace('\n', '')
+        self._data = data
     
 
     def get_next(self):
-        return self.next
+        return self._next
     
 
     def set_next(self, next_node):
-        assert ( isinstance(next_node, Node) and \
-                next_node.get_data() is not None)\
-                or next_node is None
-        self.next = next_node
+        if not isinstance(next_node, Node)::
+            raise TypeError(f"Can't set {next_node} as a next node as it isn't a {self.__name__()}!!")
+        self._next = next_node
 
 
     def _represent(self):
-        return str(self.data)
+        return str(self._data)
 
 
 
