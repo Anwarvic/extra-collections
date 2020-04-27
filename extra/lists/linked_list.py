@@ -10,14 +10,15 @@ class Node(Extra):
         return "extra.Node()"
     
 
-    def __init__(self, item=None):
+    def __init__(self, item):
+        super()._validate_item(item)
         self._data = item
         self._next = None
 
 
     def __repr__(self):
         """Represents Node object as a string"""
-        nxt = self._next._data if self._next else None
+        nxt = self._next.get_data() if self._next is not None else None
         return f"Node(data: {self._data}, next: {nxt})"
 
 
@@ -58,17 +59,9 @@ class LinkedList(Extra):
     """Basic object for the linked list"""
     _basic_node = Node
     
-    def __init__(self, item=None):
-        if isinstance(item, Node):
-            if not isinstance(item, self._basic_node):
-                warnings.warn(f"You are initializing {self.__name__()} "+ \
-                    "with a generic Node()!!", UserWarning)
-            item.set_next(None)
-            self._head = item
-            self._length = 1 if item.get_data() is not None else 0
-        else:
-            self._head = self._basic_node(item)
-            self._length = 1 if item is not None else 0
+    def __init__(self):
+        self._head = None
+        self._length = 0
 
 
     def __name__(self):
@@ -273,14 +266,8 @@ class LinkedList(Extra):
 
     def __contains__(self, value):
         #NOTE: DON'T validate the given value
-        # check if value is a Node() object
-        if isinstance(value, Node):
-            # if value is the same object as self._basic_node
-            if isinstance(value, self._basic_node):
-                value = value.get_data()
-            # if value is a generic Node object
-            else:
-                return False
+        if value is None or self.is_empty():
+            return False
         found_node = self._search(value, self._head)
         if found_node.get_data() != value:
             return False
