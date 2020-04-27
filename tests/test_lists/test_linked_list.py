@@ -7,18 +7,6 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 
-def test_empty_node():
-    node = Node()
-    assert node.get_data() == node._data == None
-    assert node.get_next() == node._next == None
-    node = Node(None)
-    assert node.get_data() == None
-    assert node.get_next() == None
-    node.set_next(None)
-    with pytest.raises(ValueError): node.set_data(None)
-    with pytest.raises(ValueError): node.set_next(Node())
-
-
 def test_not_empty_node():
     # Given value: str
     s = get_string()
@@ -27,7 +15,6 @@ def test_not_empty_node():
     assert node.get_data() != s.upper()
     assert node.get_next() == node._next == None
     with pytest.raises(ValueError): node.set_data(None)
-    with pytest.raises(ValueError): node.set_next(Node())
     with pytest.raises(TypeError): node.set_next(get_string())
     with pytest.raises(TypeError): node.set_next(get_value())
     # Given value: has __iter__ attribute
@@ -38,14 +25,14 @@ def test_not_empty_node():
     node.set_next(Node(get_string()))
     # Given value: LinkedList()
     ll = LinkedList.from_iterable(get_list())
-    node = Node(ll)
-    assert node.get_data() == ll
+    with pytest.raises(ValueError): Node(ll)
     
 
 def test_creating_linked_list_from_constructor():
     # Using constructor
     val = get_value()
-    ll = LinkedList(val)
+    ll = LinkedList()
+    ll.add_front(val)
     assert isinstance(ll._head, Node)
     assert ll._head.get_data() == val
     assert ll._head.get_next() == ll._head._next == None
@@ -53,9 +40,8 @@ def test_creating_linked_list_from_constructor():
     assert ll.to_list() == [item for item in ll] == [val]
     # Using Node
     val = get_value()
-    node = Node(val)
-    node.set_next(Node(get_value()))
-    ll = LinkedList(node)
+    ll = LinkedList()
+    ll.add_end(val)
     assert isinstance(ll._head, Node)
     ll._head.get_data() == val
     ll._head.get_next() == ll._head._next == None
@@ -73,7 +59,7 @@ def test_creating_linked_list_from_iterable():
     assert ll.to_list() == [item for item in ll] == lst
     # Using from_iterable (has None)
     with pytest.raises(ValueError): LinkedList.from_iterable([1, 2, None, 3])
-    with pytest.raises(ValueError): LinkedList().add_end(LinkedList(10))
+    with pytest.raises(ValueError): LinkedList().add_end(LinkedList())
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     ll = LinkedList.from_iterable(lst)
@@ -97,10 +83,6 @@ def test_creating_linked_list_from_iterable():
 def test_empty_linked_list():
     EMPTY = "┌─\n│\n└─" #represents empty LinkedList
     ll = LinkedList.from_iterable([])
-    assert isinstance(ll._head, Node)
-    assert ll._head.get_data() == None
-    assert ll._head._next == None
-    assert not isinstance(ll._head._next, Node)
     assert str(ll) == EMPTY
     assert ll._length == len(ll) == 0
     assert ll.is_empty()
@@ -109,26 +91,25 @@ def test_empty_linked_list():
     assert len(ll.copy()) == 0
     assert len(ll.reverse()) == 0
     #################### test operators ####################
-    assert LinkedList() == LinkedList(Node())
+    assert LinkedList() == LinkedList()
     assert ll == ll.copy()
     assert ll == ll.reverse()
-    assert LinkedList() != LinkedList(get_value())
-    assert LinkedList() < LinkedList(get_value())
-    assert LinkedList() <= LinkedList(get_value())
-    assert LinkedList(get_value()) > LinkedList()
-    assert LinkedList(get_value()) >= LinkedList()
+    assert LinkedList() != LinkedList.from_iterable([get_value()])
+    assert LinkedList() < LinkedList.from_iterable([get_value()])
+    assert LinkedList() <= LinkedList.from_iterable([get_value()])
+    assert LinkedList.from_iterable([get_value()]) > LinkedList()
+    assert LinkedList.from_iterable([get_value()]) >= LinkedList()
     #################### test count ####################
     assert ll.count(0) == 0
     assert ll.count(None) == 0
-    assert ll.count(Node()) == 0
     assert ll.count(get_value()) == 0
+    assert ll.count(Node(get_value())) == 0
     #################### test __contains__ ####################
-    assert None in ll
-    assert Node() in ll
+    assert None not in ll
+    assert Node(get_value()) not in ll
     assert 0 not in ll
     assert get_value() not in ll
-    assert Node(get_float()) not in ll
-    # assert LinkedList(get_value()) not in ll
+    assert LinkedList() not in ll
     #################### test split ####################
     left_list, right_list = ll.split(0)
     assert str(left_list) == str(right_list) == EMPTY
@@ -167,7 +148,6 @@ def test_empty_linked_list():
     with pytest.raises(IndexError): ll[0] = get_float()
     with pytest.raises(IndexError): ll[get_int()] = Node(get_float())
     with pytest.raises(ValueError): ll.insert(0, None)
-    with pytest.raises(ValueError): ll.insert(0, Node())
 
 
 def test_list_with_one_element():
@@ -199,7 +179,7 @@ def test_list_with_one_element():
     assert new_value == ll.remove_front().get_data()
     ll.add_end(new_value)
     assert new_value == ll.remove_end().get_data()
-    assert ll == LinkedList(val)
+    assert ll == LinkedList.from_iterable([val])
     #################### test insert/split ####################
     with pytest.raises(IndexError): ll.insert(2, get_value())
     with pytest.raises(IndexError): ll.insert(-1, get_value())
@@ -250,7 +230,7 @@ def test_list_with_known_values():
     assert ll.to_list() == [5, 10]
     ll.remove(20)
     ll.remove_front()
-    assert ll == LinkedList(10)
+    assert ll == LinkedList.from_iterable([10])
     ll.remove_end()
     assert ll == LinkedList() 
     ll.insert(0, 100)
@@ -262,7 +242,7 @@ def test_list_with_known_values():
     assert ll.reverse() == LinkedList.from_iterable([200, 100, 100])
     ll.remove(100)
     rev = ll.reverse()
-    assert ll == rev == LinkedList(200)
+    assert ll == rev == LinkedList.from_iterable([200])
     ll.clear()
     assert not rev.is_empty()
     assert ll.is_empty()
@@ -314,18 +294,18 @@ def test_list_with_random_numbers():
 
 def test_relational_operators():
     # linked lists have just one value
-    assert LinkedList(3.14) == LinkedList(3.14)
-    assert LinkedList(get_int()) != LinkedList(get_float())
-    assert LinkedList(get_string()) != LinkedList(get_int())
-    assert LinkedList(get_float()) != LinkedList(get_list())
-    assert LinkedList(2.9999) < LinkedList(3)
-    assert LinkedList(3.14) <= LinkedList(3.14)
-    assert LinkedList([1, 2]) > LinkedList([3])
-    assert LinkedList('3.14') >= LinkedList('3.14')
-    with pytest.raises(TypeError): assert LinkedList(get_float()) < LinkedList(get_string())
-    with pytest.raises(TypeError): assert LinkedList(get_value()) <= LinkedList(get_list())
-    with pytest.raises(TypeError): assert LinkedList(get_string()) > LinkedList(get_list())
-    with pytest.raises(TypeError): assert LinkedList(get_list()) >= LinkedList(get_float())
+    assert LinkedList.from_iterable([3.14]) == LinkedList.from_iterable([3.14])
+    assert LinkedList.from_iterable([get_int()]) != LinkedList.from_iterable([get_float()])
+    assert LinkedList.from_iterable([get_string()]) != LinkedList.from_iterable([get_int()])
+    assert LinkedList.from_iterable([get_float()]) != LinkedList.from_iterable([get_list()])
+    assert LinkedList.from_iterable([2.9999]) < LinkedList.from_iterable([3])
+    assert LinkedList.from_iterable([3.14]) <= LinkedList.from_iterable([3.14])
+    assert LinkedList.from_iterable([1, 2]) > LinkedList.from_iterable([3])
+    assert LinkedList.from_iterable(['3.14']) >= LinkedList.from_iterable(['3.14'])
+    with pytest.raises(TypeError): LinkedList.from_iterable([get_float()]) < LinkedList.from_iterable([get_string()])
+    with pytest.raises(TypeError): LinkedList.from_iterable([get_value()]) <= LinkedList.from_iterable([get_list()])
+    with pytest.raises(TypeError): LinkedList.from_iterable([get_string()]) > LinkedList.from_iterable([get_list()])
+    with pytest.raises(TypeError): LinkedList.from_iterable([get_list()]) >= LinkedList.from_iterable([get_float()])
     # linked lists have more than one value
     llist1 = LinkedList.from_iterable([1, '2', 3.14])
     llist2 = LinkedList.from_iterable([1, '2', 5.14])
@@ -380,7 +360,7 @@ def test_rotate():
 def test_join_method():
     lst = get_list()
     # two linked lists are empty
-    llist1 = LinkedList(None)
+    llist1 = LinkedList()
     llist1.join(LinkedList())
     assert llist1 == LinkedList()
     # one linked list is empty
@@ -407,13 +387,11 @@ def test_split_method():
         # test left list
         left_list, right_list = ll.split(i)
         assert isinstance(left_list, LinkedList)
-        assert isinstance(left_list._head, Node)
         assert left_list.to_list() == lst[:i]
         assert left_list.copy().to_list() == lst[:i]
         assert left_list.reverse().to_list() == lst[:i][::-1]
         # test right list
         assert isinstance(right_list, LinkedList)
-        assert isinstance(right_list._head, Node)
         assert right_list.to_list() == lst[i:]
         assert right_list.copy().to_list() == lst[i:]
         assert right_list.reverse().to_list() == lst[i:][::-1]
