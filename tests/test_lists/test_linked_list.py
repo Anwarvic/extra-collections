@@ -8,79 +8,79 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 def test_empty_node():
-    _node = Node()
-    assert _node.get_data() == _node.data == None
-    assert _node.get_next() == _node.next == None
-    _node = Node(None)
-    assert _node.get_data() == None
-    assert _node.get_next() == None
-    _node.set_next(None)
-    with pytest.raises(AssertionError): _node.set_data(None)
-    with pytest.raises(AssertionError): _node.set_next(Node())
+    node = Node()
+    assert node.get_data() == node._data == None
+    assert node.get_next() == node._next == None
+    node = Node(None)
+    assert node.get_data() == None
+    assert node.get_next() == None
+    node.set_next(None)
+    with pytest.raises(ValueError): node.set_data(None)
+    with pytest.raises(ValueError): node.set_next(Node())
 
 
 def test_not_empty_node():
     # Given value: str
     s = get_string()
-    _node = Node(s)
-    assert _node.get_data() == _node.data == s
-    assert _node.get_data() != s.upper()
-    assert _node.get_next() == _node.next == None
-    with pytest.raises(AssertionError): _node.set_data(None)
-    with pytest.raises(AssertionError): _node.set_next(Node())
-    with pytest.raises(AssertionError): _node.set_next(get_string())
-    with pytest.raises(AssertionError): _node.set_next(get_value())
+    node = Node(s)
+    assert node.get_data() == node._data == s
+    assert node.get_data() != s.upper()
+    assert node.get_next() == node._next == None
+    with pytest.raises(ValueError): node.set_data(None)
+    with pytest.raises(ValueError): node.set_next(Node())
+    with pytest.raises(TypeError): node.set_next(get_string())
+    with pytest.raises(TypeError): node.set_next(get_value())
     # Given value: has __iter__ attribute
     lst = get_list()
-    _node = Node(lst)
-    assert _node.get_data() == lst
-    assert _node.get_next() == None
-    _node.set_next(Node(get_string()))
+    node = Node(lst)
+    assert node.get_data() == lst
+    assert node.get_next() == None
+    node.set_next(Node(get_string()))
     # Given value: LinkedList()
     ll = LinkedList.from_iterable(get_list())
-    _node = Node(ll)
-    assert _node.get_data() == ll
+    node = Node(ll)
+    assert node.get_data() == ll
     
 
 def test_creating_linked_list_from_constructor():
     # Using constructor
     val = get_value()
     ll = LinkedList(val)
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == val
-    assert ll.head.get_next() == ll.head.next == None
-    assert len(ll) == ll.length == 1
-    assert ll.to_list() == [item.get_data() for item in ll] == [val]
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == val
+    assert ll._head.get_next() == ll._head._next == None
+    assert len(ll) == ll._length == 1
+    assert ll.to_list() == [item for item in ll] == [val]
     # Using Node
     val = get_value()
     node = Node(val)
     node.set_next(Node(get_value()))
     ll = LinkedList(node)
-    assert isinstance(ll.head, Node)
-    ll.head.get_data() == val
-    ll.head.get_next() == ll.head.next == None
-    assert len(ll) == ll.length == 1
-    assert ll.to_list() == [item.get_data() for item in ll] == [val]
+    assert isinstance(ll._head, Node)
+    ll._head.get_data() == val
+    ll._head.get_next() == ll._head._next == None
+    assert len(ll) == ll._length == 1
+    assert ll.to_list() == [item for item in ll] == [val]
 
 
 def test_creating_linked_list_from_iterable():
     # Using from_iterable (small length)
     lst = get_list()
     ll = LinkedList.from_iterable(lst)
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == lst[0]
-    assert len(ll) == ll.length == len(lst)
-    assert ll.to_list() == [item.get_data() for item in ll] == lst
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == lst[0]
+    assert len(ll) == ll._length == len(lst)
+    assert ll.to_list() == [item for item in ll] == lst
     # Using from_iterable (has None)
-    with pytest.raises(TypeError): LinkedList.from_iterable([1, 2, None, 3])
-    with pytest.raises(TypeError): LinkedList().add_end(LinkedList(10))
+    with pytest.raises(ValueError): LinkedList.from_iterable([1, 2, None, 3])
+    with pytest.raises(ValueError): LinkedList().add_end(LinkedList(10))
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     ll = LinkedList.from_iterable(lst)
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == lst[0]
-    assert len(ll) == ll.length == len(lst)
-    assert ll.to_list() == [item.get_data() for item in ll] == lst
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == lst[0]
+    assert len(ll) == ll._length == len(lst)
+    assert ll.to_list() == [item for item in ll] == lst
     for _ in range(100): #check random indices
         idx = get_pos_int(b=10000-1)
         assert ll[idx].get_data() == lst[idx]
@@ -89,20 +89,20 @@ def test_creating_linked_list_from_iterable():
     tmp_ll = LinkedList.from_iterable(lst)
     ll = LinkedList.from_iterable(tmp_ll)
     assert ll == tmp_ll
-    assert ll.head.get_data() == tmp_ll.head.get_data()
-    assert len(ll) == ll.length == len(lst)
-    assert ll.to_list() == [item.get_data() for item in ll] == lst
+    assert ll._head.get_data() == tmp_ll._head.get_data()
+    assert len(ll) == ll._length == len(lst)
+    assert ll.to_list() == [item for item in ll] == lst
 
 
 def test_empty_linked_list():
     EMPTY = "┌─\n│\n└─" #represents empty LinkedList
     ll = LinkedList.from_iterable([])
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == None
-    assert ll.head.next == None
-    assert not isinstance(ll.head.next, Node)
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == None
+    assert ll._head._next == None
+    assert not isinstance(ll._head._next, Node)
     assert str(ll) == EMPTY
-    assert ll.length == len(ll) == 0
+    assert ll._length == len(ll) == 0
     assert ll.is_empty()
     assert ll.to_list() == []
     assert [_ for _ in ll ] == []
@@ -166,21 +166,21 @@ def test_empty_linked_list():
     with pytest.raises(IndexError): ll.insert(get_neg_int(), get_value())
     with pytest.raises(IndexError): ll[0] = get_float()
     with pytest.raises(IndexError): ll[get_int()] = Node(get_float())
-    with pytest.raises(TypeError): ll.insert(0, None)
-    with pytest.raises(TypeError): ll.insert(0, Node())
+    with pytest.raises(ValueError): ll.insert(0, None)
+    with pytest.raises(ValueError): ll.insert(0, Node())
 
 
 def test_list_with_one_element():
     val = get_value()
     ll = LinkedList()
     ll.insert(0, val)
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == val
-    assert ll.head.get_next() == None
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == val
+    assert ll._head.get_next() == None
     assert len(ll) == 1
     assert not ll.is_empty()
     assert val in ll
-    assert [item.get_data() for item in ll] == [val]
+    assert [item for item in ll] == [val]
     assert ll.to_list() == [val]
     assert ll == ll.copy()
     assert ll == ll.reverse()
@@ -279,7 +279,7 @@ def test_list_with_known_values():
     assert ll.copy().to_list() == [2, 6, 10, 77, 20, 43]
     del ll[len(ll)-1]
     assert ll.reverse().to_list() == [20, 77, 10, 6, 2]
-    assert ll.length == len(ll) == 5
+    assert ll._length == len(ll) == 5
     ll.clear()
     assert ll.is_empty()
 
@@ -291,7 +291,7 @@ def test_list_with_random_numbers():
     for i in lst:
         llist.add_end(i)
     assert len(llist) == len(lst)
-    assert llist.head.get_data() == lst[0]
+    assert llist._head.get_data() == lst[0]
     assert not llist.is_empty()
     for _ in range(len(lst)):
         assert llist[0].get_data() == lst[0]
@@ -303,7 +303,7 @@ def test_list_with_random_numbers():
     for i in lst:
         llist.add_front(i)
     assert len(llist) == len(lst)
-    assert llist.head.get_data() == lst[-1]
+    assert llist._head.get_data() == lst[-1]
     assert not llist.is_empty()
     for _ in range(len(lst)):
         assert llist[0].get_data() == lst[-1]
@@ -357,24 +357,24 @@ def test_rotate():
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     rotated = ll.rotate_right(1, inplace=False)
     assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
-    assert isinstance(rotated.head, Node)
-    assert rotated.head.get_data() == 6
+    assert isinstance(rotated._head, Node)
+    assert rotated._head.get_data() == 6
     assert rotated[4].get_data() == 4
     rotated = ll.rotate_left(3, inplace=False)
-    assert isinstance(rotated.head, Node)
+    assert isinstance(rotated._head, Node)
     assert rotated.to_list() == [4, 5, 6, 1, 2, 3]
-    assert rotated.head.get_data() == 4
+    assert rotated._head.get_data() == 4
     assert rotated[-1].get_data() == 3
     assert ll.to_list() == [1, 2, 3, 4, 5, 6]
     # rotate when inplace = True
     ll.rotate_right(1)
     assert ll.to_list() == [6, 1, 2, 3, 4 ,5]
-    assert isinstance(ll.head, Node)
-    assert ll.head.get_data() == 6
+    assert isinstance(ll._head, Node)
+    assert ll._head.get_data() == 6
     ll.rotate_left(3)
     assert ll.to_list() == [3, 4 ,5, 6, 1, 2]
-    assert ll.head.get_data() == 3
-    assert isinstance(ll.head, Node)
+    assert ll._head.get_data() == 3
+    assert isinstance(ll._head, Node)
 
 
 def test_join_method():
@@ -407,18 +407,18 @@ def test_split_method():
         # test left list
         left_list, right_list = ll.split(i)
         assert isinstance(left_list, LinkedList)
-        assert isinstance(left_list.head, Node)
+        assert isinstance(left_list._head, Node)
         assert left_list.to_list() == lst[:i]
         assert left_list.copy().to_list() == lst[:i]
         assert left_list.reverse().to_list() == lst[:i][::-1]
         # test right list
         assert isinstance(right_list, LinkedList)
-        assert isinstance(right_list.head, Node)
+        assert isinstance(right_list._head, Node)
         assert right_list.to_list() == lst[i:]
         assert right_list.copy().to_list() == lst[i:]
         assert right_list.reverse().to_list() == lst[i:][::-1]
     ll.add_front(0)
     ll.add_end('apple')
-    assert ll.length == len(ll) == len(lst)+2
+    assert ll._length == len(ll) == len(lst)+2
     assert ll.to_list() == [0]+lst+['apple']
 
