@@ -1,4 +1,3 @@
-import warnings
 # from linked_list import Node, LinkedList
 from extra.lists.linked_list import Node, LinkedList
 
@@ -7,60 +6,62 @@ from extra.lists.linked_list import Node, LinkedList
 
 class DoublyNode(Node):
     """Basic object for the Node used for double linked lists"""
-    def __init__(self, item=None):
-        self.data = item
-        self.prev = None
-        self.next = None
+    def __name__(self):
+        return "extra.DoublyNode()"
+    
+
+    def __init__(self, item):
+        super().__init__(item)
+        self._prev = None
 
 
     def __repr__(self):
         """Represents Node object as a string"""
-        data = self.data
-        prv = self.prev.data if self.prev else None
-        nxt = self.next.data if self.next else None
-        return f"DoublyNode(data: {data}, prev: {prv}, next: {nxt})"
+        prv = self._prev.get_data() if self._prev is not None else None
+        nxt = self._next.get_data() if self._next is not None else None
+        return f"DoublyNode(data: {self.data}, prev: {prv}, next: {nxt})"
     
 
     def get_prev(self):
-        return self.prev
+        return self._prev
     
 
     def set_prev(self, prev_node):
-        assert ( isinstance(prev_node, DoublyNode) and \
-                prev_node.get_data() is not None)\
-                or prev_node is None
-        self.prev = prev_node
-        if prev_node is not None: prev_node.next = self 
+        if prev_node is None:
+            self._prev = None
+        elif not isinstance(prev_node, DoublyNode):
+            raise TypeError(
+                f"Can't set {type(prev_node)} as a {self.__name__()}!!")
+        else:
+            self._prev = prev_node
+            prev_node._next = self
     
 
     def set_next(self, next_node):
-        assert ( isinstance(next_node, DoublyNode) and \
-                next_node.get_data() is not None)\
-                or next_node is None
-        self.next = next_node
-        if next_node is not None: next_node.prev = self
+        if next_node is None:
+            self._next = None
+        elif not isinstance(next_node, DoublyNode):
+            raise TypeError(
+                f"Can't set {type(next_node)} as a {self.__name__()}!!")
+        else:
+            self._next = next_node
+            next_node._prev = self
 
 
 
 
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
+    _basic_node = DoublyNode
+   
+   
     def __name__(self):
         return "extra.DoublyLinkedList()"
 
     
-    def __init__(self, item=None):
-        self._basic_node = DoublyNode
-        if isinstance(item, Node):
-            if not isinstance(item, self._basic_node):
-                warnings.warn(f"You are initializing {self.__name__()} "+ \
-                    "with a generic Node()!!", UserWarning)
-            item.set_next(None)
-            self.head = self.tail = item
-            self.length = 1 if item.get_data() is not None else 0
-        else:
-            self.head = self.tail = self._basic_node(item)
-            self.length = 1 if item is not None else 0
+    def __init__(self):
+        super().__init__()
+        self._tail = None
     
 
     def _create_instance(self):
@@ -84,12 +85,12 @@ class DoublyLinkedList(LinkedList):
     ############################## SEARCH ##############################
     def _get_node(self, idx):
         # iterate over the double linked list (forwards)
-        if idx <= self.length//2:
+        if idx <= self._length//2:
             return super()._get_node(idx)
         else:
             # iterate over the double linked list (backwards)
-            counter = self.length
-            curr_node = self.tail
+            counter = self._length
+            curr_node = self._tail
             while(counter > idx):
                 counter -= 1
                 curr_node = curr_node.get_prev()
@@ -101,60 +102,61 @@ class DoublyLinkedList(LinkedList):
     ############################## INSERT ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
-        if isinstance(item, Node):
-            assert item.get_data() != None, \
+        if isinstance(item, self._basic_node):
+            assert item.get_data() is not None, \
                 "Can't insert `None` value as a node!!"
             new_node = item
         else:
-            assert item != None, "Can't insert `None` value as a node!!"
+            assert item is not None, "Can't insert `None` value as a node!!"
             new_node = self._basic_node(item)
         # start inserting the node
-        if self.length == 0:
-            self.head = self.tail = new_node
-        elif self.length == 1:
-            if prev_node == None:
-                new_node.set_next(self.tail)
-                self.head = new_node
+        if self._length == 0:
+            self._head = self._tail = new_node
+        elif self._length == 1:
+            if prev_node is None:
+                new_node.set_next(self._tail)
+                self._head = new_node
             else:
-                self.tail = new_node
-                self.head.set_next(self.tail)
+                self._tail = new_node
+                self._head.set_next(self._tail)
         else:
-            if prev_node == None:
-                new_node.set_next(self.head)
-                self.head = new_node
+            if prev_node is None:
+                new_node.set_next(self._head)
+                self._head = new_node
             else:
-                if prev_node.get_next() == None:
-                    self.tail.set_next(new_node)
-                    self.tail = new_node
+                if prev_node.get_next() is None:
+                    self._tail.set_next(new_node)
+                    self._tail = new_node
                 else:
                     new_node.set_next(prev_node.get_next())
                     prev_node.set_next(new_node)
-        self.length += 1
+        self._length += 1
         return new_node
     
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
-        assert node_to_be_removed != None, "Can't remove `None`!!"
+        assert node_to_be_removed is not None, "Can't remove `None`!!"
+
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
-        if self.length == 1:
+        if self._length == 1:
             #NOTE: don't use set_data() here
-            self.head.data = self.tail.data = None
-            self.length -= 1
-        elif self.length == 2:
-            if prev_node == None:
+            self._head.data = self._tail.data = None
+            self._length -= 1
+        elif self._length == 2:
+            if prev_node is None:
                 next_node.set_prev(None)
-                self.head = next_node
-            elif next_node == None:
+                self._head = next_node
+            elif next_node is None:
                 prev_node.set_next(None)
-                self.tail = prev_node
-            self.length -= 1
+                self._tail = prev_node
+            self._length -= 1
         else:
-            if next_node == None:
+            if next_node is None:
                 prev_node.set_next(next_node)
-                self.tail = prev_node
-                self.length -= 1
+                self._tail = prev_node
+                self._length -= 1
             else:
                 super()._remove_node(prev_node, node_to_be_removed)
 
@@ -166,27 +168,33 @@ class DoublyLinkedList(LinkedList):
         if other_dlist.is_empty():
             pass # do nothing
         elif self.is_empty(): 
-            self.head = other_dlist.head
-            self.tail = other_dlist.tail
-            self.length += other_dlist.length
+            self._head = other_dlist._head
+            self._tail = other_dlist._tail
+            self._length += other_dlist._length
         else:
-            self.tail.set_next(other_dlist.head)
-            self.tail = other_dlist.tail
-            self.length += other_dlist.length
+            self._tail.set_next(other_dlist._head)
+            self._tail = other_dlist._tail
+            self._length += other_dlist._length
     
 
     ##############################  ROTATION  ##############################
     def rotate_left(self, distance, inplace=True):
+        if type(inplace) != bool:
+            raise TypeError("`inplace` is a boolean flag (True by default)!!")
+        super()._validate_distance(distance)
         rotated = self._rotate(distance, "LEFT")
         if not inplace: return rotated
-        self.head = rotated.head
-        self.tail = rotated.tail
+        self._head = rotated._head
+        self._tail = rotated._tail
         
     
     def rotate_right(self, distance, inplace=True):
+        if type(inplace) != bool:
+            raise TypeError("`inplace` is a boolean flag (True by default)!!")
+        super()._validate_distance(distance)
         rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
-        self.head = rotated.head
-        self.tail = rotated.tail
+        self._head = rotated._head
+        self._tail = rotated._tail
 
 
