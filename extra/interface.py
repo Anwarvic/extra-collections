@@ -9,5 +9,5 @@ class Extra:
             raise ValueError(\
                 f"Can't use `None` as an initial value for {self.__name__()}!!")
         elif isinstance(item, Extra):
-            raise ValueError(\
+            raise TypeError(\
             f"Can't create {self.__name__()} object using {item.__name__()}!!")
