@@ -43,8 +43,6 @@ class Node(Extra):
         elif not isinstance(next_node, Node):
             raise TypeError(
                 f"Can't set {type(next_node)} as a {self.__name__()}!!")
-        elif next_node.get_data() is None:
-            raise ValueError(f"{self.__name__()} data can't be `None`!!")
         else:
             self._next = next_node
 
@@ -485,7 +483,7 @@ class LinkedList(Extra):
     
     def remove(self, value, all=True):
         if type(all) != bool:
-            raise TypeError("`all` is a boolean flag (True by default)!")
+            raise TypeError("`all` is a boolean flag (True by default)!!")
         super()._validate_item(value)
         self._remove_value(value, all=all)
 
@@ -546,7 +544,7 @@ class LinkedList(Extra):
 
 
     ##############################    ROTATION    ##############################
-    def __validate_distance(self, distance):
+    def _validate_distance(self, distance):
         # It doesn't happen inplace
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
@@ -566,7 +564,6 @@ class LinkedList(Extra):
 
     def _rotate(self, distance, direction):
         #TODO: when distance is -ve, rotate right
-        self.__validate_distance(distance)
         distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
@@ -577,12 +574,18 @@ class LinkedList(Extra):
 
 
     def rotate_left(self, distance, inplace=True):
+        if type(inplace) != bool:
+            raise TypeError("`inplace` is a boolean flag (True by default)!!")
+        self._validate_distance(distance)
         rotated = self._rotate(distance, "LEFT")
         if not inplace: return rotated
         self._head = rotated._head
         
     
     def rotate_right(self, distance, inplace=True):
+        if type(inplace) != bool:
+            raise TypeError("`inplace` is a boolean flag (True by default)!!")
+        self._validate_distance(distance)
         rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
         self._head = rotated._head
