@@ -28,7 +28,8 @@ class Stack(Extra):
         middle_border = '│'
         down_border   = '└'
         for item in self._container:
-            width = len(str(item))+2 #2: for a space before & after item
+            #NOTE: +2 for a space before & after `item`
+            width = len(str(item))+2
             top_border += ('─'*width) + '┬'
             middle_border += " {} │".format(item)
             down_border += ('─'*width) + '┴'
