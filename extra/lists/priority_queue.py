@@ -19,29 +19,29 @@ class PriorityNode(DoublyNode):
     def __init__(self, key, priority=None):
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
-        assert key is not None
+        super()._validate_item(key)
         super().__init__(key)
-        self.priority = \
+        self._priority = \
             random.randint(0, 100) if priority is None else priority
     
 
     def get_priority(self):
-        return self.priority
+        return self._priority
 
 
     def set_priority(self, new_priority):
         assert type(new_priority) in {int, float}
-        self.priority = new_priority
+        self._priority = new_priority
 
 
     def __repr__(self):
         """Represents Node object as a string"""
-        return f"PriorityNode(data: {self.data}, Priority: {self.priority})"
+        return f"PriorityNode(data: {self.data}, Priority: {self._priority})"
 
     
     def _represent(self):
         if PriorityQueue.SHOW_PRIORITY:
-            return f"{self.data}|P:{self.priority}"
+            return f"{self.data}|P:{self._priority}"
         else:
             return f"{self.data}"
 
@@ -60,11 +60,11 @@ class PriorityQueue(Queue):
 
     def __init__(self, max_capacity=float("inf")):
         super().__init__(max_capacity)
-        self.min_priority = float("inf")
-        self.max_priority = float("-inf")
+        self._min_priority = float("inf")
+        self._max_priority = float("-inf")
     
 
-    ############################# ENQUEUE ##############################
+    ##############################     ENQUEUE    ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -75,29 +75,29 @@ class PriorityQueue(Queue):
         super()._validate_item(item)
         self.__validate_priority(priority)
         node = PriorityNode(item, priority)
-        self.min_priority = min(self.min_priority, node.get_priority())
-        self.max_priority = max(self.max_priority, node.get_priority())
+        self._min_priority = min(self._min_priority, node.get_priority())
+        self._max_priority = max(self._max_priority, node.get_priority())
         super()._enqueue(node)
     
 
-    ##############################    DEQUEUE    ##############################
+    ##############################     DEQUEUE    ##############################
     def _update_min_priority(self):
-        self.min_priority = float("inf")
+        self._min_priority = float("inf")
         if not self.is_empty():
-            curr_node = self.container.head
+            curr_node = self._container._head
             while(curr_node is not None):
-                self.min_priority = \
-                    min(curr_node.get_priority(), self.min_priority)
+                self._min_priority = \
+                    min(curr_node.get_priority(), self._min_priority)
                 curr_node = curr_node.get_next()
     
 
     def _update_max_priority(self):
-        self.max_priority = float("-inf")
+        self._max_priority = float("-inf")
         if not self.is_empty():
-            curr_node = self.container.head
+            curr_node = self._container._head
             while(curr_node is not None):
-                self.max_priority = \
-                    max(curr_node.get_priority(), self.max_priority)
+                self._max_priority = \
+                    max(curr_node.get_priority(), self._max_priority)
                 curr_node = curr_node.get_next()
 
 
@@ -107,19 +107,19 @@ class PriorityQueue(Queue):
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
             return None
         else:
-            curr_node = self.container.head
+            curr_node = self._container._head
             while(curr_node is not None):
                 if lowest_priority:
-                    if curr_node.get_priority() == self.min_priority:
+                    if curr_node.get_priority() == self._min_priority:
                         node_data = curr_node.get_data()
-                        self.container._remove_node(curr_node.get_prev(),
+                        self._container._remove_node(curr_node.get_prev(),
                                                     curr_node)
                         self._update_min_priority()
                         break
                 else:
-                    if curr_node.get_priority() == self.max_priority:
+                    if curr_node.get_priority() == self._max_priority:
                         node_data = curr_node.get_data()
-                        self.container._remove_node(curr_node.get_prev(),
+                        self._container._remove_node(curr_node.get_prev(),
                                                     curr_node)
                         self._update_max_priority()
                         break
