@@ -36,14 +36,14 @@ class PriorityNode(DoublyNode):
 
     def __repr__(self):
         """Represents Node object as a string"""
-        return f"PriorityNode(data: {self.data}, Priority: {self._priority})"
+        return f"PriorityNode(data: {self._data}, Priority: {self._priority})"
 
     
     def _represent(self):
         if PriorityQueue.SHOW_PRIORITY:
-            return f"{self.data}|P:{self._priority}"
+            return f"{self._data}|P:{self._priority}"
         else:
-            return f"{self.data}"
+            return f"{self._data}"
 
 
 
