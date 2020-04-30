@@ -25,7 +25,7 @@ def test_not_empty_node():
     node.set_next(Node(get_string()))
     # Given value: LinkedList()
     ll = LinkedList.from_iterable(get_list())
-    with pytest.raises(ValueError): Node(ll)
+    with pytest.raises(TypeError): Node(ll)
     
 
 def test_creating_linked_list_from_constructor():
@@ -59,7 +59,7 @@ def test_creating_linked_list_from_iterable():
     assert ll.to_list() == [item for item in ll] == lst
     # Using from_iterable (has None)
     with pytest.raises(ValueError): LinkedList.from_iterable([1, 2, None, 3])
-    with pytest.raises(ValueError): LinkedList().add_end(LinkedList())
+    with pytest.raises(TypeError): LinkedList().add_end(LinkedList())
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     ll = LinkedList.from_iterable(lst)
