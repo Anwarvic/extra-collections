@@ -12,6 +12,8 @@ class Node(Extra):
 
     def __init__(self, item):
         super()._validate_item(item)
+        if type(item) == str:
+            item = item.replace('\n', '\\n')
         self._data = item
         self._next = None
 
@@ -43,6 +45,8 @@ class Node(Extra):
         elif not isinstance(next_node, Node):
             raise TypeError(
                 f"Can't set {type(next_node)} as a {self.__name__()}!!")
+        elif next_node.get_data() is None:
+            raise ValueError(f"{self.__name__()} data can't be `None`!!")
         else:
             self._next = next_node
 
@@ -161,7 +165,7 @@ class LinkedList(Extra):
         counter = 0
         curr_node = self._head
         while(counter < self._length):
-            yield curr_node.get_data()
+            yield curr_node
             counter += 1
             curr_node = curr_node.get_next()
 
@@ -583,8 +587,6 @@ class LinkedList(Extra):
         
     
     def rotate_right(self, distance, inplace=True):
-        if type(inplace) != bool:
-            raise TypeError("`inplace` is a boolean flag (True by default)!!")
         self._validate_distance(distance)
         rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
@@ -605,7 +607,7 @@ class LinkedList(Extra):
 
 
     def to_list(self):
-        return [item for item in self]
+        return [item.get_data() for item in self]
 
 
     def count(self, value):
@@ -623,7 +625,8 @@ class LinkedList(Extra):
         if not self.is_empty():
             copied_node = None
             for val in self:
-                copied_node = copied_list._insert_value(copied_node, val)
+                copied_node = \
+                    copied_list._insert_value(copied_node, val.get_data())
         return copied_list
 
 
