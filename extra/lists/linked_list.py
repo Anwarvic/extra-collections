@@ -31,7 +31,7 @@ class Node(Extra):
     def set_data(self, data):
         super()._validate_item(data)
         if type(data) == str:
-            data = data.replace('\n', '')
+            data = data.replace('\n', '\\n')
         self._data = data
     
 
@@ -165,7 +165,7 @@ class LinkedList(Extra):
         counter = 0
         curr_node = self._head
         while(counter < self._length):
-            yield curr_node
+            yield curr_node.get_data()
             counter += 1
             curr_node = curr_node.get_next()
 
@@ -374,20 +374,20 @@ class LinkedList(Extra):
     def add_front(self, item):
         """Adds node at the head of the linked list with complexity of O(1)"""
         super()._validate_item(item)
-        return self._insert(0, item)
+        self._insert(0, item)
 
 
     def add_end(self, item):
         """Adds node at the tail of the linked list with complexity of O(n)"""
         super()._validate_item(item)
-        return self._insert(len(self), item)
+        self._insert(len(self), item)
     
     
     def insert(self, idx, item):
         """Inserts a certain item at a given index into the linked list"""
         self._validate_index(idx)
         super()._validate_item(item)
-        return self._insert(idx, item)
+        self._insert(idx, item)
 
 
     ##############################       SET      ##############################
@@ -607,7 +607,7 @@ class LinkedList(Extra):
 
 
     def to_list(self):
-        return [item.get_data() for item in self]
+        return [item for item in self]
 
 
     def count(self, value):
@@ -625,8 +625,7 @@ class LinkedList(Extra):
         if not self.is_empty():
             copied_node = None
             for val in self:
-                copied_node = \
-                    copied_list._insert_value(copied_node, val.get_data())
+                copied_node = copied_list._insert_value(copied_node, val)
         return copied_list
 
 
