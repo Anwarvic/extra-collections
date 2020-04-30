@@ -68,7 +68,7 @@ class DoublyLinkedList(LinkedList):
         return DoublyLinkedList()
 
 
-    ############################## PRINT ##############################
+    ##############################      PRINT     ##############################
     def _print_node(self, node):
         top_border    = [' ┌']
         middle_border = ['⟷│']
@@ -82,7 +82,7 @@ class DoublyLinkedList(LinkedList):
         return top_border, middle_border, lower_border
 
 
-    ############################## SEARCH ##############################
+    ##############################     SEARCH     ##############################
     def _get_node(self, idx):
         # iterate over the double linked list (forwards)
         if idx <= self._length//2:
@@ -99,7 +99,7 @@ class DoublyLinkedList(LinkedList):
             return prev_node, curr_node
 
 
-    ############################## INSERT ##############################
+    ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
         if isinstance(item, self._basic_node):
@@ -134,7 +134,7 @@ class DoublyLinkedList(LinkedList):
         return new_node
     
 
-    ############################## REMOVE ##############################
+    ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed is not None, "Can't remove `None`!!"
 
@@ -161,7 +161,7 @@ class DoublyLinkedList(LinkedList):
                 super()._remove_node(prev_node, node_to_be_removed)
 
 
-    ##############################  Join  ##############################
+    ##############################      Join      ##############################
     def join(self, other_dlist):
         if not isinstance(other_dlist, self.__class__):
             raise TypeError("Type Mismatch! Can't join this Doubly Linked List.")
@@ -177,7 +177,7 @@ class DoublyLinkedList(LinkedList):
             self._length += other_dlist._length
     
 
-    ##############################  ROTATION  ##############################
+    ##############################    ROTATION    ##############################
     def rotate_left(self, distance, inplace=True):
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
