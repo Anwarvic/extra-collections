@@ -26,9 +26,8 @@ class Queue(Extra):
         top_border = '─┬'
         middle_border = direction_char+'│'
         down_border = '─┴'
-        counter = 0
         curr_node = self._container._head
-        while counter < len(self._container):
+        while curr_node is not None:
             #NOTE: +2 for a space before & after `curr_node`
             width = len(curr_node._represent())+2
             top_border += ('─'*width) + '┬'
