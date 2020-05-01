@@ -11,25 +11,25 @@ class Deque(Queue):
         return "extra.Deque()"
     
 
-    ############################## PRINT ##############################
+    ##############################      PRINT     ##############################
     def __repr__(self):
         """Represents the deque as a string."""
         return super()._print_queue('⟷')
 
     
-    ############################## GET ################################
+    ##############################       GET      ##############################
     def get_left(self):
         if self.is_empty():
             raise IndexError(\
                 f"Can't retrieve from an empty {self.__name__()}!!")
-        return self.container.head.get_data()
+        return self._container._head.get_data()
     
 
     def get_right(self):
         return super().top()
 
 
-    ############################# APPEND ##############################
+    ##############################     APPEND     ##############################
     def append_left(self, item):
         """Insert value into the left-side of the Deque"""
         super().enqueue(item)
@@ -41,18 +41,18 @@ class Deque(Queue):
         if self.is_full():
             warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
                 "could lead to missing values!!", UserWarning)
-            self.container.remove_front()
-        self.container._insert(len(self), item)
+            self._container.remove_front()
+        self._container._insert(len(self), item)
 
 
-    ############################## POP ###############################
+    ##############################       POP      ##############################
     def pop_left(self):
         """Removes value from the left-side of the Deque"""
         if self.is_empty():
             warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
-            return None
+            return
         else:
-            return self.container.remove_front().get_data()
+            return self._container.remove_front().get_data()
 
 
     def pop_right(self):
