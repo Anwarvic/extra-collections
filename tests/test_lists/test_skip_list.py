@@ -7,26 +7,26 @@ from extra.lists.skip_list import SkipNode, SkipList
 
 def test_skip_node():
     # can't be empty
-    with pytest.raises(TypeError): SkipNode(None)
+    with pytest.raises(ValueError): SkipNode(None)
     with pytest.raises(TypeError): SkipNode(SkipNode(10))
     with pytest.raises(TypeError): SkipNode(get_string())
     with pytest.raises(TypeError): SkipNode(get_list())
     # test SkipNode
     val = get_float()
-    _node = SkipNode(val)
-    assert _node.get_data() == _node.data == val
-    assert _node.get_next() == _node.next == None
-    assert _node.get_down() == _node.down == None
+    node = SkipNode(val)
+    assert node.get_data() == node._data == val
+    assert node.get_next() == node._next == None
+    assert node.get_down() == node._down == None
 
 
 def test_empty_skiplist():
     sl = SkipList()
     assert sl.is_empty()
     assert sl.to_list() == [_ for _ in sl] == []
-    assert sl.num_levels == len(sl.level_lists) == 1
-    assert len(sl.level_lists[0]) == 1
-    assert isinstance(sl.level_lists[0].head, SkipNode)
-    assert sl.level_lists[0].head.get_data() == float("-inf")
+    assert sl.num_levels == len(sl._level_lists) == 1
+    assert len(sl._level_lists[0]) == 1
+    assert isinstance(sl._level_lists[0]._head, SkipNode)
+    assert sl._level_lists[0]._head.get_data() == float("-inf")
     assert get_value() not in sl
     assert get_string() not in sl
     assert get_list() not in sl
@@ -57,8 +57,8 @@ def test_skiplist_with_one_element():
     sl.remove(val)
     assert sl.is_empty()
     assert sl.to_list() == [_ for _ in sl] == []
-    assert sl.num_levels == len(sl.level_lists) == 1
-    assert len(sl.level_lists[0]) == 1
+    assert sl.num_levels == len(sl._level_lists) == 1
+    assert len(sl._level_lists[0]) == 1
 
 
 def test_skiplist_with_same_value():
@@ -77,8 +77,8 @@ def test_skiplist_with_same_value():
     sl.remove(val)
     assert sl.is_empty()
     assert sl.to_list() == [_ for _ in sl] == []
-    assert sl.num_levels == len(sl.level_lists) == 1
-    assert len(sl.level_lists[0]) == 1
+    assert sl.num_levels == len(sl._level_lists) == 1
+    assert len(sl._level_lists[0]) == 1
     #################### using from_iterable ####################
     val = get_float()
     sl = SkipList.from_iterable([val for _ in range(get_pos_int())])
@@ -92,8 +92,8 @@ def test_skiplist_with_same_value():
     sl.remove(val)
     assert sl.is_empty()
     assert sl.to_list() == [_ for _ in sl] == []
-    assert sl.num_levels == len(sl.level_lists) == 1
-    assert len(sl.level_lists[0]) == 1
+    assert sl.num_levels == len(sl._level_lists) == 1
+    assert len(sl._level_lists[0]) == 1
 
     
 def test_skiplist_with_known_values():
@@ -116,9 +116,9 @@ def test_skiplist_with_known_values():
     assert sk.num_levels == 3
     assert sk.to_list() == [0, 2, 10, 50, 100]
     # check the structure
-    assert len(sk.level_lists[0]) == 6
-    assert len(sk.level_lists[1]) == 3
-    assert len(sk.level_lists[2]) == 2
+    assert len(sk._level_lists[0]) == 6
+    assert len(sk._level_lists[1]) == 3
+    assert len(sk._level_lists[2]) == 2
     assert verify_skiplist(sk)
     # remove an item
     sk.remove(2)
@@ -132,8 +132,8 @@ def test_skiplist_with_known_values():
     assert 20 not in sk
     assert sk.to_list() == [0, 10, 50, 100]
     # check the structure
-    assert len(sk.level_lists[0]) == 5
-    assert len(sk.level_lists[1]) == 2
+    assert len(sk._level_lists[0]) == 5
+    assert len(sk._level_lists[1]) == 2
     assert verify_skiplist(sk)
     # clear
     sk.clear()
@@ -152,7 +152,7 @@ def test_skiplist_with_random_numbers():
     assert len(sk) == length
     assert not sk.is_empty()
     assert sk.to_list() == [i for i in range(length)]
-    assert sk.num_levels == len(sk.level_lists)
+    assert sk.num_levels == len(sk._level_lists)
     # search
     for i in range(length):
         assert sk[i] == i
@@ -171,7 +171,7 @@ def test_skiplist_with_random_numbers():
     assert len(sk) == length
     assert not sk.is_empty()
     assert sk.to_list() == [i for i in range(length)]
-    assert sk.num_levels == len(sk.level_lists)
+    assert sk.num_levels == len(sk._level_lists)
     # search
     for i in range(length):
         assert sk[i] == i
@@ -191,7 +191,7 @@ def test_skiplist_with_from_iterable():
     assert len(sk) == len(_set)
     assert not sk.is_empty()
     assert sk.to_list() == sorted(_set)
-    assert sk.num_levels == len(sk.level_lists)
+    assert sk.num_levels == len(sk._level_lists)
     # search
     for i in _set:
         assert i in sk
