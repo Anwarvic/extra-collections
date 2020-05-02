@@ -25,10 +25,25 @@ def search_sorted(prev_node, start_node, value):
 
 
 class SkipNode(Node):
+    def __name__(self):
+        return "extra.SkipNode()"
+    
     def __init__(self, item):
         super()._validate_item(item)
         super().__init__(item)
         self._down = None
+    
+
+    def __repr__(self):
+        """Represents Node object as a string"""
+        if self._data == float("-inf"):
+            data = "-∞"
+        elif self._data == float("inf"):
+            data = "∞"
+        else:
+            data = self._data
+        nxt = self._next.get_data() if self._next is not None else None
+        return f"SkipNode(data: {data}, next: {nxt})"
 
 
     def _represent(self):
@@ -44,7 +59,7 @@ class SkipNode(Node):
     
 
     def set_down(self, other_node):
-        if isinstance(other_node, SkipNode):
+        if not isinstance(other_node, SkipNode):
             raise TypeError(f"Given object has to be {self.__name__()}!!")
         self._down = other_node
 
@@ -63,7 +78,7 @@ class SkipList(Extra):
         self.num_levels = 1
         #`level_lists` is an array of LinkedList objects
         tmp_ll = LinkedList()
-        tmp_ll._head = self._basic_node(float("-inf"))
+        tmp_ll._insert_node(tmp_ll._head, self._basic_node(float("-inf")))
         self._level_lists = [tmp_ll]
 
 
@@ -118,7 +133,8 @@ class SkipList(Extra):
             middle += [f"| {item} │⟶"]
         else:
             middle += [f"⟶{'⟶'*width}⟶⟶"]
-            if lower_node != None and lower_node.data == zeroth_node.data:
+            if lower_node is not None and \
+                        lower_node.get_data() == zeroth_node.get_data():
                 bottom_border += ['┌'] + (['─']*width) + ['┐ ']
             else:
                 bottom_border += [' '] + ([' ']*width) + ['  ']
@@ -143,7 +159,7 @@ class SkipList(Extra):
         zeroth_node = zeroth_list._head
         curr_node = curr_list._head
         lower_node = self._level_lists[level-1]._head if level > 0 else None
-        while(zeroth_node != None):
+        while(zeroth_node is not None):
             middle_part, bottom_part = \
                 self.__print_node(curr_node, zeroth_node, lower_node)
             middle += middle_part
@@ -173,7 +189,8 @@ class SkipList(Extra):
         while(lower_node != None):
             item = lower_node._represent()
             width = len(item)+2 #2: for a space before & after an item
-            if curr_node != None and lower_node.data == curr_node.data:
+            if curr_node is not None and \
+                        lower_node.get_data() == curr_node.get_data():
                 top_border += ['┌'] + (['─']*width) + ['┐ ']
                 curr_node = curr_node.get_next()
             else:
@@ -204,7 +221,7 @@ class SkipList(Extra):
 
     ##############################     LENGTH     ##############################    
     def __len__(self):
-        return len(self._level_lists[0])
+        return len(self._level_lists[0]) - 1
     
 
     def is_empty(self):
@@ -262,7 +279,7 @@ class SkipList(Extra):
     def _add_extra_level(self):
         top_list = self._level_lists[self.num_levels-1]
         new_llist = LinkedList()
-        new_llist._head = self._basic_node(float("-inf"))
+        new_llist._insert_node(new_llist._head, self._basic_node(float("-inf")))
         # connect the head of the new linked list to the lower linked list
         new_llist._head.set_down(top_list._head)
         # add new linked list to the SkipList
