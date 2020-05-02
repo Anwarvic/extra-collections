@@ -335,6 +335,7 @@ class LinkedList(Extra):
 
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, new_node):
+        assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert isinstance(new_node, self._basic_node)
         assert new_node.get_data() is not None
 
