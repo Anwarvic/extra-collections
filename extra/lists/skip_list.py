@@ -1,5 +1,6 @@
 import random
-from extra.lists.doubly_linked_list import DoublyNode, DoublyLinkedList
+from extra.interface import Extra
+from extra.lists.linked_list import Node, LinkedList
 
 
 
@@ -10,44 +11,47 @@ def flip_coin():
     return random.choice(['head','tail'])
 
 
-def search_sorted(start_node, value):
+def search_sorted(prev_node, start_node, value):
     # search a sorted linked list and return the last accessed node.
-    prev = curr_node = start_node
-    while(curr_node != None and curr_node.get_data() <= value):
-        prev = curr_node
-        curr_node = curr_node.get_next()
-    return prev
+    curr_node = start_node
+    next_node = curr_node.get_next()
+    while(next_node is not None and next_node.get_data() <= value):
+        prev_node = curr_node
+        curr_node = next_node
+        next_node = curr_node.get_next()
+    return prev_node, curr_node
 
 
 
 
-class SkipNode(DoublyNode):
+class SkipNode(Node):
     def __init__(self, item):
-        if type(item) not in {int, float}:
-            raise TypeError("SkipNode uses only numbers!!")
+        super()._validate_item(item)
         super().__init__(item)
-        self.down = None
+        self._down = None
 
 
     def _represent(self):
-        if self.data == float("-inf"):
+        if self._data == float("-inf"):
             return "-∞"
-        elif self.data == float("inf"):
+        elif self._data == float("inf"):
             return "∞"
         return super()._represent()
 
 
     def get_down(self):
-        return self.down
+        return self._down
     
 
     def set_down(self, other_node):
-        self.down = other_node
+        if isinstance(other_node, SkipNode):
+            raise TypeError(f"Given object has to be {self.__name__()}!!")
+        self._down = other_node
 
 
 
 
-class SkipList:
+class SkipList(Extra):
     _basic_node = SkipNode
 
 
@@ -57,11 +61,14 @@ class SkipList:
 
     def __init__(self):
         self.num_levels = 1
-        #`level_listss` is an array of DoublyLinkedList objects
-        self.level_lists = [DoublyLinkedList( self._basic_node(float("-inf")) )]
+        #`level_lists` is an array of LinkedList objects
+        tmp_ll = LinkedList()
+        tmp_ll._head = self._basic_node(float("-inf"))
+        self._level_lists = [tmp_ll]
 
 
     def _validate_item(self, item):
+        super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"{self.__name__()} supports only numbers!!")
         
@@ -108,9 +115,9 @@ class SkipList:
             bottom_border += ['└'] if lower_node == None else ['├']
             bottom_border += (['─']*width)
             bottom_border += ['┘ '] if lower_node == None else ['┤ ']
-            middle += [f"| {item} │⟷"]
+            middle += [f"| {item} │⟶"]
         else:
-            middle += [f"⟷{'⟷'*width}⟷⟷"]
+            middle += [f"⟶{'⟶'*width}⟶⟶"]
             if lower_node != None and lower_node.data == zeroth_node.data:
                 bottom_border += ['┌'] + (['─']*width) + ['┐ ']
             else:
@@ -126,23 +133,26 @@ class SkipList:
         first into my mind.
         """
         assert level < self.num_levels
-        zeroth_list = self.level_lists[0]
-        curr_list = self.level_lists[level]
+
+        zeroth_list = self._level_lists[0]
+        curr_list = self._level_lists[level]
         # the following two lists will represent the output of this function
         bottom_border = []
         middle = []
         # iterate over two lists in parallel
-        zeroth_node = zeroth_list.head
-        curr_node = curr_list.head
-        lower_node = self.level_lists[level-1].head if level > 0 else None
+        zeroth_node = zeroth_list._head
+        curr_node = curr_list._head
+        lower_node = self._level_lists[level-1]._head if level > 0 else None
         while(zeroth_node != None):
             middle_part, bottom_part = \
                 self.__print_node(curr_node, zeroth_node, lower_node)
             middle += middle_part
             bottom_border += bottom_part
-            if curr_node != None and zeroth_node.data == curr_node.data:
+            if curr_node is not None and \
+                        zeroth_node.get_data() == curr_node.get_data():
                 curr_node = curr_node.get_next()
-            if lower_node != None and zeroth_node.data == lower_node.data:
+            if lower_node is not None and \
+                        zeroth_node.get_data() == lower_node.get_data():
                 lower_node = lower_node.get_next()
             zeroth_node = zeroth_node.get_next()
         return "{}\n{}".format(''.join(middle), ''.join(bottom_border))
@@ -153,13 +163,13 @@ class SkipList:
         This method is only responsible for just one thing, to print out the 
         top border of the Skip List.
         """
-        lower_list = self.level_lists[0]
-        top_list = self.level_lists[self.num_levels-1]
+        lower_list = self._level_lists[0]
+        top_list = self._level_lists[self.num_levels-1]
         # the following two lists will represent the output of this function
         top_border = []
         # iterate over two lists in parallel
-        lower_node = lower_list.head
-        curr_node = top_list.head
+        lower_node = lower_list._head
+        curr_node = top_list._head
         while(lower_node != None):
             item = lower_node._represent()
             width = len(item)+2 #2: for a space before & after an item
@@ -192,37 +202,40 @@ class SkipList:
         return "\n".join(output)
     
 
-    ############################## LENGTH ##############################    
+    ##############################     LENGTH     ##############################    
     def __len__(self):
-        return len(self.level_lists[0]) - 1
+        return len(self._level_lists[0])
     
 
     def is_empty(self):
         return len(self) == 0
 
 
-    ############################# ITERATOR #############################
+    ##############################    ITERATOR    ##############################
     def __iter__(self):
-        for item in self.level_lists[0][1:]:
+        for item in self._level_lists[0][1:]:
             yield item.get_data()
 
     
-    ############################## SEARCH ##############################
+    ##############################     SEARCH     ##############################
     def _search(self, value):
         # returns the last accessed node when searching a certain value.
         assert type(value) in {int, float}
+
         last_accessed_nodes = []
-        top_list = self.level_lists[self.num_levels-1]
-        start_node = top_list.head
+        top_list = self._level_lists[self.num_levels-1]
+        prev_node = None
+        start_node = top_list._head
         while(start_node.get_down() != None):
-            found_node = search_sorted(start_node, value)
+            prev_node, found_node = search_sorted(prev_node, start_node, value)
             if found_node.get_data() == value:
-                return found_node, last_accessed_nodes
+                return prev_node, found_node, last_accessed_nodes
             last_accessed_nodes.append(found_node)
             start_node = found_node.get_down()
-        found_node = search_sorted(start_node, value)
+            if prev_node is not None: prev_node = prev_node.get_down() 
+        prev_node, found_node = search_sorted(prev_node, start_node, value)
         assert len(last_accessed_nodes) == self.num_levels-1
-        return found_node, last_accessed_nodes[::-1]
+        return prev_node, found_node, last_accessed_nodes[::-1]
 
 
     def search(self, value):
@@ -230,7 +243,7 @@ class SkipList:
         if type(value) not in {int, float}:
             return False
         self._validate_item(value)
-        found_node, _ = self._search(value)
+        _, found_node, _ = self._search(value)
         return found_node.get_data() == value
 
 
@@ -241,18 +254,19 @@ class SkipList:
     def __getitem__(self, idx):
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
-        node = self.level_lists[0].__getitem__(idx+1)
+        node = self._level_lists[0].__getitem__(idx+1)
         return node.get_data()
 
 
-    ############################## INSERT ##############################
+    ##############################     INSERT     ##############################
     def _add_extra_level(self):
-        top_list = self.level_lists[self.num_levels-1]
-        new_llist = DoublyLinkedList(self._basic_node(float("-inf")))
+        top_list = self._level_lists[self.num_levels-1]
+        new_llist = LinkedList()
+        new_llist._head = self._basic_node(float("-inf"))
         # connect the head of the new linked list to the lower linked list
-        new_llist.head.set_down(top_list.head)
+        new_llist._head.set_down(top_list._head)
         # add new linked list to the SkipList
-        self.level_lists.append(new_llist)
+        self._level_lists.append(new_llist)
         self.num_levels += 1
         return new_llist
     
@@ -264,7 +278,7 @@ class SkipList:
         # create new node with the same data as curr_data
         upper_node = self._basic_node(curr_node.get_data())
         # connect the upper list to the new node
-        upper_node = self.level_lists[curr_level+1]._insert_node(
+        upper_node = self._level_lists[curr_level+1]._insert_node(
                                                     upper_prev_node, upper_node)
         # connect the current list with the upper one
         upper_node.set_down(curr_node)
@@ -277,21 +291,21 @@ class SkipList:
         """
         self._validate_item(value)
         # search for that value
-        found_node, last_accessed_nodes = self._search(value)
+        _, found_node, last_accessed_nodes = self._search(value)
         # `value` already exists in our SkipList
         if found_node.get_data() == value:
             return
         # create new_node with the new value
         new_node = self._basic_node(value)
         # insert new_node to the 0th linkedlist
-        curr_node = self.level_lists[0]._insert_node(found_node, new_node) 
+        curr_node = self._level_lists[0]._insert_node(found_node, new_node) 
         
         # promote the new_node if flipping the coin results `Head`
         curr_level = 0
         while flip_coin() == "head":
             if curr_level >= self.num_levels-1:
                 top_list = self._add_extra_level()
-                upper_prev_node = top_list.head
+                upper_prev_node = top_list._head
             else:
                 upper_prev_node = last_accessed_nodes[curr_level]
             # promote new_node
@@ -299,10 +313,10 @@ class SkipList:
             curr_level += 1
 
     
-    ############################## REMOVE ##############################
+    ##############################     REMOVE     ##############################
     def _remove_level(self, level):
         assert type(level) == int and 1 <= level < self.num_levels
-        del self.level_lists[level]
+        del self._level_lists[level]
         self.num_levels -= 1
     
 
@@ -312,25 +326,32 @@ class SkipList:
             return
         self._validate_item(value)
         # search for that value
-        found_node, last_accessed_nodes = self._search(value)
+        prev_node, found_node, last_accessed_nodes = self._search(value)
         #NOTE: len(last_accessed_nodes) can be used to get the level where
         #  this value was found
         if found_node.get_data() == value:
             level = self.num_levels - 1 - len(last_accessed_nodes)
             while(level >= 0):
-                curr_level_list = self.level_lists[level]
-                curr_level_list._remove_node(found_node.get_prev(), found_node)
+                curr_level_list = self._level_lists[level]
+                curr_level_list._remove_node(prev_node, found_node)
                 # check if curr_level_list is empty()
                 if level != 0 and len(curr_level_list) == 1:
                     self._remove_level(level)
                 level -= 1
                 found_node = found_node.get_down()
-    
+                # update value of prev_node
+                if prev_node is not None and found_node is not None:
+                    prev_node = prev_node.get_down()
+                    next_node = prev_node.get_next()
+                    while(next_node.get_data() != found_node.get_data()):
+                        prev_node = next_node
+                        next_node = prev_node.get_next()
+
 
     def __delitem__(self, idx):
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
-        _, node = self.level_lists[0]._get_node(idx+1)
+        _, node = self._level_lists[0]._get_node(idx+1)
         self.remove(node.get_data())
     
 
@@ -338,7 +359,7 @@ class SkipList:
         self.__init__()
     
 
-    ############################## MISC ##############################
+    ##############################      MISC      ##############################
     def to_list(self):
         return [item for item in self]
 
@@ -348,19 +369,29 @@ class SkipList:
 
 
 if __name__ == "__main__":
+    # sk = SkipList()
+    # print(sk)
+    # sk.insert(2)
+    # sk.insert(2)
+    # sk.insert(0)
+    # sk.insert(10)
+    # sk.insert(100)
+    # sk.insert(50)
+    # # sk.insert(-20)
+    # print(sk)
+    # # print(2 in sk)
+    # # print(100 in sk)
+    # # print(20 in sk)
+    # del sk[1]
+    # print(sk)
+    # # for item in sk: print(item)
+
     sk = SkipList()
+    for i in range(10):
+        sk.insert(i)
     print(sk)
-    sk.insert(2)
-    sk.insert(2)
-    sk.insert(0)
-    sk.insert(10)
-    sk.insert(100)
-    sk.insert(50)
-    # sk.insert(-20)
+    sk.remove(5)
+    sk.remove(0)
+    sk.remove(9)
+    sk.clear()
     print(sk)
-    # print(2 in sk)
-    # print(100 in sk)
-    # print(20 in sk)
-    del sk[1]
-    print(sk)
-    # for item in sk: print(item)
