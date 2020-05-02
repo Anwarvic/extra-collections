@@ -383,34 +383,3 @@ class SkipList(Extra):
         return [item for item in self]
 
 
-
-
-
-
-if __name__ == "__main__":
-    # sk = SkipList()
-    # print(sk)
-    # sk.insert(2)
-    # sk.insert(2)
-    # sk.insert(0)
-    # sk.insert(10)
-    # sk.insert(100)
-    # sk.insert(50)
-    # # sk.insert(-20)
-    # print(sk)
-    # # print(2 in sk)
-    # # print(100 in sk)
-    # # print(20 in sk)
-    # del sk[1]
-    # print(sk)
-    # # for item in sk: print(item)
-
-    sk = SkipList()
-    for i in range(10):
-        sk.insert(i)
-    print(sk)
-    sk.remove(5)
-    sk.remove(0)
-    sk.remove(9)
-    sk.clear()
-    print(sk)
