@@ -30,6 +30,8 @@ class SkipNode(Node):
     
     def __init__(self, item):
         super()._validate_item(item)
+        if type(item) not in {int, float}:
+            raise TypeError(f"{self.__name__()} contains numbers only!!")
         super().__init__(item)
         self._down = None
     
@@ -231,7 +233,7 @@ class SkipList(Extra):
     ##############################    ITERATOR    ##############################
     def __iter__(self):
         for item in self._level_lists[0][1:]:
-            yield item.get_data()
+            yield item
 
     
     ##############################     SEARCH     ##############################
