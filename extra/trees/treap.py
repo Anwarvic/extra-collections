@@ -8,6 +8,7 @@ A treap node is represented like the following 0|P:45 where 0 is the key and
 45 is the priority. The higher the number is, the more priority it has.
 """
 import random
+import warnings
 from extra.trees.bst import BSTNode, BST
 
 
@@ -88,7 +89,7 @@ class Treap(BST):
         super()._validate_item(value)
         self.__validate_priority(priority)
         # perform standard BST-insert
-        new_node = super()._insert_node(self.root,
+        new_node = super()._insert_node(self._root,
                             self._basic_node(value, priority))
         # using rotations when necessary
         parent = new_node.get_parent()
@@ -108,13 +109,20 @@ class Treap(BST):
 
     ##############################     REMOVAL    ##############################
     def remove(self, del_value):
-        # validate del_value
-        super()._validate_item(del_value)
+        if self.is_empty():
+            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            return
+        elif type(del_value) not in {int, float}:
+            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+                UserWarning
+            )
+            return
         # check if it's the only value
-        if self.root.is_leaf() and del_value == self.root.get_data():
-            raise IndexError("Can't remove the only item in the tree!")
+        if self._root.is_leaf() and del_value == self._root.get_data():
+            self._root = None
+            self._length -= 1
         # search for the del_value node
-        removed_node = super()._search(del_value, self.root)
+        removed_node = super()._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
             return
@@ -142,5 +150,7 @@ class Treap(BST):
             parent.set_left(None)
         else:
             parent.set_right(None)
+        # decrement treap length
+        self._length -= 1
 
 
