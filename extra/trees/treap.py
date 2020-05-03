@@ -88,23 +88,27 @@ class Treap(BST):
         # validate inserted value
         super()._validate_item(value)
         self.__validate_priority(priority)
-        # perform standard BST-insert
-        new_node = super()._insert_node(self._root,
-                            self._basic_node(value, priority))
-        # using rotations when necessary
-        parent = new_node.get_parent()
-        while(parent is not None):
-            grandparent = parent.get_parent()
-            if parent.get_priority() > new_node.get_priority():
-                break
-            else:
-                if new_node.is_left_child():
-                    parent = super()._rotate_right(parent)
+        if self.is_empty():
+            self._root = self._basic_node(value)
+            self._length += 1
+        else:
+            # perform standard BST-insert
+            new_node = super()._insert_node(self._root,
+                                self._basic_node(value, priority))
+            # using rotations when necessary
+            parent = new_node.get_parent()
+            while(parent is not None):
+                grandparent = parent.get_parent()
+                if parent.get_priority() > new_node.get_priority():
+                    break
                 else:
-                    parent = super()._rotate_left(parent)
-                super()._attach(grandparent, parent)
-                new_node = parent
-                parent = grandparent
+                    if new_node.is_left_child():
+                        parent = super()._rotate_right(parent)
+                    else:
+                        parent = super()._rotate_left(parent)
+                    super()._attach(grandparent, parent)
+                    new_node = parent
+                    parent = grandparent
 
 
     ##############################     REMOVAL    ##############################
@@ -118,39 +122,40 @@ class Treap(BST):
             )
             return
         # check if it's the only value
-        if self._root.is_leaf() and del_value == self._root.get_data():
+        elif self._root.is_leaf() and del_value == self._root.get_data():
             self._root = None
             self._length -= 1
-        # search for the del_value node
-        removed_node = super()._search(del_value, self._root)
-        # couldn't find the node
-        if removed_node.get_data() != del_value:
-            return
-        # rotate till removed_node is leaf
-        parent = removed_node.get_parent()
-        while(not removed_node.is_leaf()):
-            # get children's priority
-            left_child = removed_node.get_left()
-            right_child = removed_node.get_right()
-            left_priority = left_child.get_priority() if left_child else -1
-            right_priority = right_child.get_priority() if right_child else -1
-            # perform rotation
-            if left_priority > right_priority:
-                removed_node = super()._rotate_right(removed_node)
-                super()._attach(parent, removed_node)
-                parent = removed_node
-                removed_node = parent.get_right()
-            else:
-                removed_node = super()._rotate_left(removed_node)
-                super()._attach(parent, removed_node)
-                parent = removed_node
-                removed_node = parent.get_left()
-        # perform the removal
-        if removed_node.is_left_child():
-            parent.set_left(None)
         else:
-            parent.set_right(None)
-        # decrement treap length
-        self._length -= 1
+            # search for the del_value node
+            removed_node = super()._search(del_value, self._root)
+            # couldn't find the node
+            if removed_node.get_data() != del_value:
+                return
+            # rotate till removed_node is leaf
+            parent = removed_node.get_parent()
+            while(not removed_node.is_leaf()):
+                # get children's priority
+                left_child = removed_node.get_left()
+                right_child = removed_node.get_right()
+                left_priority = left_child.get_priority() if left_child  else -1
+                right_priority=right_child.get_priority() if right_child else -1
+                # perform rotation
+                if left_priority > right_priority:
+                    removed_node = super()._rotate_right(removed_node)
+                    super()._attach(parent, removed_node)
+                    parent = removed_node
+                    removed_node = parent.get_right()
+                else:
+                    removed_node = super()._rotate_left(removed_node)
+                    super()._attach(parent, removed_node)
+                    parent = removed_node
+                    removed_node = parent.get_left()
+            # perform the removal
+            if removed_node.is_left_child():
+                parent.set_left(None)
+            else:
+                parent.set_right(None)
+            # decrement treap length
+            self._length -= 1
 
 
