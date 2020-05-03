@@ -7,11 +7,11 @@ from extra.trees.tree import TreeNode, Tree
 
 def test_treenode():
     with pytest.raises(ValueError): TreeNode(None)
-    with pytest.raises(ValueError): TreeNode(TreeNode(get_value()))
+    with pytest.raises(TypeError): TreeNode(TreeNode(get_value()))
     # the following shouldn't raise anything
     TreeNode('')
     TreeNode('      ')
-    assert TreeNode('\nap\nple\n').get_data() == "apple"
+    assert TreeNode('\nap\nple\n').get_data() == "\\nap\\nple\\n"
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = TreeNode(val)
         assert node.get_data() == val
