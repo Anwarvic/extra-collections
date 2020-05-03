@@ -173,7 +173,7 @@ class BST(BinaryTree):
 
     ############################## INSERTION ##############################
     def _insert_node(self, start_node, inserted_node):
-        assert isinstance(start_node, self._basic_node)
+        assert start_node is None or isinstance(start_node, self._basic_node)
         assert inserted_node is None or \
             isinstance(inserted_node, self._basic_node)
         
@@ -200,7 +200,7 @@ class BST(BinaryTree):
 
 
     def _insert_value(self, start_node, value):
-        assert isinstance(start_node, self._basic_node)
+        assert start_node is None or isinstance(start_node, self._basic_node)
         assert type(value) in {float, int}
 
         inserted_node = self._basic_node(value)
