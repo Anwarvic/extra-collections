@@ -7,9 +7,9 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 def test_binary_treenode():
     with pytest.raises(ValueError): BinaryTreeNode(None)
-    with pytest.raises(ValueError): BinaryTreeNode(BinaryTreeNode(get_int()))
+    with pytest.raises(TypeError): BinaryTreeNode(BinaryTreeNode(get_int()))
     # make sure white-spaces are normalized
-    assert BinaryTreeNode('\nap\nple\n').get_data() == "apple"
+    assert BinaryTreeNode('\nap\nple\n').get_data() == "\\nap\\nple\\n"
     # the following shouldn't raise anything
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = BinaryTreeNode(val)
