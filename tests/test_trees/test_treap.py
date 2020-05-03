@@ -29,11 +29,11 @@ def test_treap_node():
 
 def test_treap_one_value():
     val = get_int()
-    treap = Treap(val)
+    treap = Treap()
+    treap.insert(val)
     # test structure
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
-    assert treap.root.get_data() == val
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
     # test various methods
     assert treap.count_leaf_nodes() == 1
     assert treap.get_max() == val
@@ -54,30 +54,31 @@ def test_treap_one_value():
     assert treap.inorder_traverse() == [val]
     #test remove
     treap.remove(9) #do nothing
-    with pytest.raises(IndexError): treap.remove(val)
+    treap.remove(val)
     # validate
-    with pytest.raises(TypeError): None in treap
-    with pytest.raises(TypeError): get_string() in treap
-    with pytest.raises(TypeError): get_list() in treap
-    with pytest.raises(TypeError): treap.insert(None)
+    assert None not in treap
+    assert get_string() not in treap
+    assert get_list() not in treap
+    with pytest.raises(ValueError): treap.insert(None)
     with pytest.raises(TypeError): treap.insert(get_string())
     with pytest.raises(TypeError): treap.insert(get_list())
     with pytest.raises(TypeError): treap.insert(get_int(), get_string())
     with pytest.raises(TypeError): treap.insert(get_int(), get_list())
-    with pytest.raises(TypeError): treap.remove(None)
-    with pytest.raises(TypeError): treap.remove(get_string())
-    with pytest.raises(TypeError): treap.remove(get_list())
+    with pytest.warns(UserWarning): treap.remove(None)
+    with pytest.warns(UserWarning): treap.remove(get_string())
+    with pytest.warns(UserWarning): treap.remove(get_list())
 
 
 def test_treap_simple():
-    treap = Treap(4)
+    treap = Treap()
+    treap.insert(4)
     treap.insert(2)
     treap.insert(1)
     treap.insert(3)
     treap.insert(5)
     # test structure
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
     # test various methods
     assert len(treap) == 5
     assert treap.get_max() == 5
@@ -92,47 +93,47 @@ def test_treap_simple():
     treap.remove(4)
     assert len(treap) == 4
     assert 4 not in treap
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
     # validate
-    with pytest.raises(TypeError): None in treap
-    with pytest.raises(TypeError): get_string() in treap
-    with pytest.raises(TypeError): get_list() in treap
-    with pytest.raises(TypeError): treap.insert(None)
+    assert None not in treap
+    assert get_string() not in treap
+    assert get_list() not in treap
+    with pytest.raises(ValueError): treap.insert(None)
     with pytest.raises(TypeError): treap.insert(get_string())
     with pytest.raises(TypeError): treap.insert(get_list())
     with pytest.raises(TypeError): treap.insert(get_int(), get_string())
     with pytest.raises(TypeError): treap.insert(get_int(), get_list())
-    with pytest.raises(TypeError): treap.remove(None)
-    with pytest.raises(TypeError): treap.remove(get_string())
-    with pytest.raises(TypeError): treap.remove(get_list())
+    with pytest.warns(UserWarning): treap.remove(None)
+    with pytest.warns(UserWarning): treap.remove(get_string())
+    with pytest.warns(UserWarning): treap.remove(get_list())
 
 
 def test_treap_from_iterable():
     lst = [50, 30, 70, 20, 40, 80, 0]
     treap = Treap.from_iterable(lst, seed="extra")
     # test structure
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
-    assert treap.root.get_data() == 30
-    assert treap.root.get_priority() == 87
-    assert treap.root.get_left().get_data() == 20
-    assert treap.root.get_left().get_priority() == 57
-    assert treap.root.get_left().get_left().get_data() == 0
-    assert treap.root.get_left().get_left().get_priority() == 5
-    assert treap.root.get_left().get_right() is None
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
+    assert treap._root.get_data() == 30
+    assert treap._root.get_priority() == 87
+    assert treap._root.get_left().get_data() == 20
+    assert treap._root.get_left().get_priority() == 57
+    assert treap._root.get_left().get_left().get_data() == 0
+    assert treap._root.get_left().get_left().get_priority() == 5
+    assert treap._root.get_left().get_right() is None
     
-    assert treap.root.get_right().get_data() == 70
-    assert treap.root.get_right().get_priority() == 57
-    assert treap.root.get_right().get_left().get_data() == 50
-    assert treap.root.get_right().get_left().get_priority() == 3
-    assert treap.root.get_right().get_left().get_left().get_data() == 40
-    assert treap.root.get_right().get_left().get_left().get_priority() == 2
-    assert treap.root.get_right().get_left().get_right() is None
-    assert treap.root.get_right().get_right().get_data() == 80
-    assert treap.root.get_right().get_right().get_priority() == 13
-    assert treap.root.get_right().get_right().get_left() is None
-    assert treap.root.get_right().get_right().get_right() is None
+    assert treap._root.get_right().get_data() == 70
+    assert treap._root.get_right().get_priority() == 57
+    assert treap._root.get_right().get_left().get_data() == 50
+    assert treap._root.get_right().get_left().get_priority() == 3
+    assert treap._root.get_right().get_left().get_left().get_data() == 40
+    assert treap._root.get_right().get_left().get_left().get_priority() == 2
+    assert treap._root.get_right().get_left().get_right() is None
+    assert treap._root.get_right().get_right().get_data() == 80
+    assert treap._root.get_right().get_right().get_priority() == 13
+    assert treap._root.get_right().get_right().get_left() is None
+    assert treap._root.get_right().get_right().get_right() is None
 
     # test various methods
     assert len(treap) == 7
@@ -159,24 +160,24 @@ def test_treap_from_iterable():
     treap.remove(30)
     assert len(treap) == 6
     assert 30 not in treap
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
 
 
 def test_treap_with_random_numbers():
     length = get_pos_int()
     lst = [get_float() for _ in range(length)]
     treap = Treap.from_iterable(lst)
-    assert verify_bst_rules(treap.root)
-    assert verify_treap_priority(treap.root)
+    assert verify_bst_rules(treap._root)
+    assert verify_treap_priority(treap._root)
     assert len(treap) == len(lst)
     assert treap.get_max() == max(lst)
     assert treap.get_min() == min(lst)
     for item in lst[1:]:
         assert item in treap
         treap.remove(item)
-        assert verify_bst_rules(treap.root)
-        assert verify_treap_priority(treap.root)
+        assert verify_bst_rules(treap._root)
+        assert verify_treap_priority(treap._root)
         assert item not in treap
     assert len(treap) == 1
-    with pytest.raises(IndexError): treap.remove(treap.root.get_data())
+    treap.remove(treap._root.get_data())
