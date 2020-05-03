@@ -22,29 +22,29 @@ class TreapNode(BSTNode):
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
         super().__init__(key)
-        self.priority = \
+        self._priority = \
             random.randint(0, 100) if priority is None else priority
 
 
     def get_priority(self):
-        return self.priority
+        return self._priority
 
 
     def set_priority(self, new_priority):
         assert type(new_priority) in {int, float}
-        self.priority = new_priority
+        self._priority = new_priority
 
 
     def __repr__(self):
         """Represents Node object as a string"""
-        return f"TreapNode(data: {self.data}, Priority: {self.priority})"
+        return f"TreapNode(data: {self._data}, Priority: {self._priority})"
 
 
     def _represent(self):
         if Treap.SHOW_PRIORITY:
-            return f"{self.data}|P:{self.priority}"
+            return f"{self._data}|P:{self._priority}"
         else:
-            return f"{self.data}"
+            return f"{self._data}"
 
 
 
@@ -58,31 +58,26 @@ class Treap(BST):
         return "extra.Treap()"
     
 
-    def __init__(self, key, seed=None):
+    def __init__(self, seed=None):
         # to keep consistency
         if seed is not None: random.seed(seed)
-        super().__init__(key)
+        super().__init__()
 
     
-    @staticmethod
-    def from_iterable(iterable, seed=None):
+    @classmethod
+    def from_iterable(cls, iterable, seed=None):
         if seed is not None: random.seed(seed)
-        #TODO: convert this to classmethod like the one with LinkedList
-        # do that after applying clear()
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
             raise ValueError("The given iterable is empty!!")
-        treap = None
+        treap = cls()
         for item in iterable:
-            if treap is None:
-                treap = Treap(item)
-            else:
-                treap.insert(item)
+            treap.insert(item)
         return treap
 
 
-    ############################## INSERTION ##############################
+    ##############################    INSERTION   ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -111,7 +106,7 @@ class Treap(BST):
                 parent = grandparent
 
 
-    ##############################  REMOVAL  ##############################
+    ##############################     REMOVAL    ##############################
     def remove(self, del_value):
         # validate del_value
         super()._validate_item(del_value)
