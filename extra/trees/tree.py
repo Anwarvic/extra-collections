@@ -12,8 +12,7 @@ class TreeNode(Extra):
     def __init__(self, value):
         super()._validate_item(value)
         if type(value) == str:
-            # remove '\n' if found
-            value = value.replace('\n', '')
+            value = value.replace('\n', '\\n')
         self._data = value
         self._children = []
 
