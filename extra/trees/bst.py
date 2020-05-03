@@ -304,7 +304,7 @@ class BST(BinaryTree):
             )
             return 
         # check if bst has only one item and it's the one to be deleted
-        if self._root.is_leaf() and del_value == self._root.get_data():
+        elif self._root.is_leaf() and del_value == self._root.get_data():
             self._root = None
             self._length -= 1
         else:
