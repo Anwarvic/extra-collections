@@ -21,15 +21,10 @@ class SuffixTrie(Extra):
             raise ValueError(\
                 f"An empty string can't be inserted to {self.__name__()}!!")
         # Ukkonen's algorithm
+        self._word = word
         self._rt = RadixTrie()
         for idx in range(len(word)):
             self._rt.insert(word[idx:])
-
-
-    @abstractmethod
-    def from_iterable(self, iterable):
-        #TODO:
-        pass
 
 
     def __repr__(self):
