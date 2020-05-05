@@ -36,13 +36,32 @@ class SuffixTrie(Extra):
         return self._rt.has_prefix(suffix)
 
 
-    def has_substr(self, substr):
-        return self._rt.has_prefix(substr)
+    # def has_substr(self, substr):
+    #     return self._rt.has_prefix(substr)
+
+
+    ##############################       LCS      ##############################
+    def __get_deepest_node(self):
+        if self._rt.is_empty():
+            return self._rt._root
+        level_nodes = \
+            self._rt._get_nodes_per_level(self._rt._root, 0, [], False)
+        deepest_node = level_nodes[-1][0]
+        return deepest_node
 
 
     def get_lcs(self):
         #TODO:stands for "Longest Common Substring"
-        pass
+        if self._rt.is_empty():
+            return self._rt._root
+        lcs = []
+        deepest_node = self.__get_deepest_node()
+        parent = deepest_node.get_parent()
+        while(parent is not self._rt._root):
+            lcs.append(parent.get_data())
+            parent = parent.get_parent()
+        return "".join(lcs[::-1])
+
 
 
     def get_lrs(self):
@@ -93,11 +112,10 @@ if __name__ == "__main__":
     # st = SuffixTrie("nonsense")
     # print(st)
     # print("Total Nodes:", len(st))
-    # print(st.has_substr("se"))
-    # print(st.get_lrs())
+    # print(st.get_lcs())
 
 
     st = SuffixTrie("ABABABA")
     print(st)
-    print(st.get_lrs())    
+    print(st.get_lcs())  #ABABA
 
