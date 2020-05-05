@@ -206,7 +206,7 @@ class Tree(Extra):
 
 
     ##############################      NODES     ##############################
-    def __get_nodes_per_level(self, start_node, level, level_nodes):
+    def _get_nodes_per_level(self,start_node,level,level_nodes,save_data=True):
         assert isinstance(start_node, TreeNode)
         assert type(level) == int and level >= 0
         assert type(level_nodes) == list
@@ -214,18 +214,19 @@ class Tree(Extra):
         if start_node is not None:
             if level == len(level_nodes):
                 level_nodes.append([])
-            level_nodes[level].append(start_node.get_data())
+            if save_data:
+                level_nodes[level].append(start_node.get_data())
+            else:
+                level_nodes[level].append(start_node)
             for child in start_node.get_children():
-                self.__get_nodes_per_level(child,
-                                           level+1,
-                                           level_nodes)
+                self._get_nodes_per_level(child,level+1,level_nodes,save_data)
         return level_nodes
 
 
     def get_nodes(self):
         if self.is_empty():
             return []
-        return self.__get_nodes_per_level(self._root, 0, [])
+        return self._get_nodes_per_level(self._root, 0, [], True)
 
 
     ##############################      CLEAR     ##############################
