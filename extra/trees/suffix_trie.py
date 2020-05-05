@@ -9,14 +9,22 @@ from extra.trees.radix_trie import RadixTrie
 
 
 class SuffixTrie(Extra):
+    def __name__(self):
+        return "extra.SuffixTrie"
 
+    
     def __init__(self, word):
-        assert type(word) == str, "The initial value must be a string!!"
-        assert len(word) > 0, "An empty string can't be used!!"
+        super()._validate_item(word)
+        if type(word) != str:
+            raise TypeError(f"Can't insert {type(word)} into {self.__name__()}")
+        elif len(word) == 0:
+            raise ValueError(\
+                f"An empty string can't be inserted to {self.__name__()}!!")
         # Ukkonen's algorithm
         self._rt = RadixTrie()
         for idx in range(len(word)):
             self._rt.insert(word[idx:])
+
 
     @abstractmethod
     def from_iterable(self, iterable):
@@ -51,7 +59,7 @@ class SuffixTrie(Extra):
 
 
     def get_lcs(self):
-        #TODO:stands for "Longest Common Substring"
+        #NOTE:stands for "Longest Common Substring"
         if self._rt.is_empty():
             return self._rt._root
         lcs = []
