@@ -3,20 +3,20 @@ Suffix trees store information about a single string and exports a huge amount
 of structural information about that string.
 """
 from abc import abstractmethod
+from extra.interface import Extra
+from extra.trees.radix_trie import RadixTrie
 
-from radix_trie import RadixTrie
 
 
-
-class SuffixTrie:
+class SuffixTrie(Extra):
 
     def __init__(self, word):
         assert type(word) == str, "The initial value must be a string!!"
         assert len(word) > 0, "An empty string can't be used!!"
         # Ukkonen's algorithm
-        self.rt = RadixTrie()
+        self._rt = RadixTrie()
         for idx in range(len(word)):
-            self.rt.insert(word[idx:])
+            self._rt.insert(word[idx:])
 
     @abstractmethod
     def from_iterable(self, iterable):
@@ -25,29 +25,29 @@ class SuffixTrie:
 
 
     def __repr__(self):
-        return str(self.rt)
+        return str(self._rt)
 
 
     def __len__(self):
-        return len(self.rt)
+        return len(self._rt)
 
 
     def has_suffix(self, suffix):
-        return self.rt.has_prefix(suffix)
+        return self._rt.has_prefix(suffix)
 
 
     def has_substr(self, substr):
-        return substr in self.rt
+        return self._rt.has_prefix(substr)
 
 
     def get_lcs(self):
-        #TODO:stands for "longest Common Substring"
+        #TODO:stands for "Longest Common Substring"
         pass
 
 
     def get_lrs(self):
         """TODO
-        LRS stands for "longest Repeated Substring". lrs is the longest
+        LRS stands for "Longest Repeated Substring". lrs is the longest
         substring that occurs at least twice.
         """
         pass
@@ -77,12 +77,12 @@ class SuffixTrie:
 if __name__ == "__main__":
     # st = SuffixTrie("banana")
     # print(st)
-    # print(st.find('nan'))
+    # print(st.has_substr('nan'))
     
-    st = SuffixTrie("ATCGATCGA")
-    print(st)
-    print(st.get_longest_repeated_substr())
-    print("Total Nodes:", len(st))
+    # st = SuffixTrie("ATCGATCGA")
+    # print(st)
+    # # print(st.get_longest_repeated_substr())
+    # print("Total Nodes:", len(st))
 
 
     # st = SuffixTrie("minimize")
@@ -94,10 +94,10 @@ if __name__ == "__main__":
     # print(st)
     # print("Total Nodes:", len(st))
     # print(st.has_substr("se"))
-    # print(st.get_longest_repeated_substr())
+    # print(st.get_lrs())
 
 
-    # st = SuffixTrie("ABABABA")
-    # print(st)
-    # print(st.get_longest_repeated_substr())    
+    st = SuffixTrie("ABABABA")
+    print(st)
+    print(st.get_lrs())    
 
