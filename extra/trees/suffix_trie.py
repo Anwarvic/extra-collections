@@ -44,27 +44,31 @@ class SuffixTrie(Extra):
 
 
     ##############################       LCS      ##############################
-    def __get_deepest_node(self):
+    def __get_deepest_nodes(self):
         if self._rt.is_empty():
             return self._rt._root
         level_nodes = \
             self._rt._get_nodes_per_level(self._rt._root, 0, [], False)
-        deepest_node = level_nodes[-1][0]
-        return deepest_node
+        return level_nodes[-1]
 
 
     def get_lcs(self):
         #NOTE:stands for "Longest Common Substring"
         if self._rt.is_empty():
-            return self._rt._root
-        lcs = []
-        deepest_node = self.__get_deepest_node()
-        parent = deepest_node.get_parent()
-        while(parent is not self._rt._root):
-            lcs.append(parent.get_data())
-            parent = parent.get_parent()
-        return "".join(lcs[::-1])
-
+            return []
+        lcs_set = set()
+        longest_length = 0
+        for node in self.__get_deepest_nodes():
+            lcs = []
+            parent = node.get_parent()
+            while(parent is not self._rt._root):
+                parent_data = parent.get_data()
+                lcs.append(parent_data)
+                longest_length = max(longest_length, len(parent_data))
+                parent = parent.get_parent()
+            lcs_set.add("".join(lcs[::-1]))
+        # return the longest ones
+        return [substr for substr in lcs_set if len(substr) == longest_length]
 
 
     def get_lrs(self):
@@ -118,7 +122,7 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    st = SuffixTrie("ABABABA")
+    st = SuffixTrie("abcpqrabpqpq")
     print(st)
     print(st.get_lcs())  #ABABA
 
