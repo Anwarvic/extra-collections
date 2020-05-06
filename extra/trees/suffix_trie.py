@@ -24,7 +24,7 @@ class SuffixTrie(Extra):
         self._word = word
         self._rt = RadixTrie()
         for idx in range(len(word)):
-            self._rt.insert(word[idx:])
+            self._rt.insert(word[len(word)-idx-1:])
 
 
     def __repr__(self):
@@ -64,9 +64,10 @@ class SuffixTrie(Extra):
             while(parent is not self._rt._root):
                 parent_data = parent.get_data()
                 lcs.append(parent_data)
-                longest_length = max(longest_length, len(parent_data))
                 parent = parent.get_parent()
-            lcs_set.add("".join(lcs[::-1]))
+            lcs = "".join(lcs[::-1])
+            longest_length = max(longest_length, len(lcs))
+            lcs_set.add(lcs)
         # return the longest ones
         return [substr for substr in lcs_set if len(substr) == longest_length]
 
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    st = SuffixTrie("abcpqrabpqpq")
+    st = SuffixTrie("GEEKSFORGEEKS")
     print(st)
-    print(st.get_lcs())  #ABABA
+    print(st.get_lcs())
 
