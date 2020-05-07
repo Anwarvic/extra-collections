@@ -49,6 +49,8 @@ class LinkedList:
 
     @staticmethod
     def from_iterable(iterable):
+        if not hasattr(iterable, "__iter__"):
+            raise TypeError("Given object has no `iter` attribute")
         l = LinkedList()
         curr_node = l.head
         for item in iterable:
@@ -62,6 +64,7 @@ class LinkedList:
 
     ############################## PRINT ##############################
     def _print_node(self, node):
+        assert isinstance(node, Node)
         top_border = ['┌']
         middle = ['│']
         lower_border = ['└']
@@ -74,6 +77,8 @@ class LinkedList:
     
         
     def _print_linked_list(self, start_node, stop_node=None):
+        assert isinstance(start_node, Node)
+        assert stop_node == None or isinstance(stop_node, Node)
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
         top_border = []
         middle = []
@@ -138,6 +143,9 @@ class LinkedList:
         containing that value if found. If not found, it returns the last node
         in the Linked List.
         """
+        assert not isinstance(value, Node)
+        assert isinstance(start_node, Node)
+        assert stop_node == None or isinstance(stop_node, None)
         # returns `None` if Linked List is empty
         if self.is_empty(): return start_node
         curr_node = start_node
@@ -156,6 +164,7 @@ class LinkedList:
 
 
     def _get_node(self, idx):
+        assert 0 <= idx < self.length
         # iterate over the linked list
         counter = 0
         prev_node = None
@@ -220,11 +229,8 @@ class LinkedList:
         
 
     def _insert_node(self, prev_node, new_node):
-        assert isinstance(new_node, Node),\
-            "The inserted item needs to be a `Node` object!!"
-        assert new_node.get_data() != None,\
-            "Can't insert `None` value as a node!!"
-        
+        assert isinstance(new_node, Node)
+        assert new_node.get_data() != None
         # start inserting the node
         if self.length == 0:
             self.head = new_node
@@ -239,15 +245,14 @@ class LinkedList:
 
 
     def _insert_value(self, prev_node, value):
-        assert value != None, "Can't insert `None` value as a node!!"
-        assert not isinstance(value, Node),\
-            "Passed argument is a `Node`, use _insert_node() instead!"
+        assert value != None
+        assert not isinstance(value, Node)
         new_node = Node(value)
         return self._insert_node(prev_node, new_node)
     
 
     def _insert(self, idx, item):
-        assert 0 <= idx <= self.length, "Invalid index in while inserting"
+        assert 0 <= idx <= self.length
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):
             assert item.get_data() != None
@@ -278,8 +283,8 @@ class LinkedList:
 
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
-        assert 0 <= idx <= self.length, "Invalid index in while Replacing!"
-        assert isinstance(new_node, Node), "new_node isn't a Node object!"
+        assert 0 <= idx <= self.length
+        assert isinstance(new_node, Node)
         _, old_node = self._get_node(idx)
         old_node.set_data(new_node.get_data())
     
@@ -292,7 +297,8 @@ class LinkedList:
 
     ############################## REMOVE ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
-        assert node_to_be_removed != None, "Can't remove `None` node!!"
+        assert prev_node == None or isinstance(prev_node, Node)
+        assert isinstance(node_to_be_removed, Node)
         next_node = node_to_be_removed.get_next()
         # if node to be removed is the first
         if prev_node == None:
@@ -306,6 +312,7 @@ class LinkedList:
 
 
     def _remove_idx(self, idx):
+        assert 0 <= idx < self.length
         prev_node, node = self._get_node(idx)
         self._remove_node(prev_node, node)
 
@@ -320,20 +327,21 @@ class LinkedList:
 
     def remove_front(self):
         """Removes the linked list head with complexity of O(1)"""
-        #NOTE: I check the length 'cause I don't wanna throw an IndexError
         if not self.is_empty():
             self.__delitem__(0)
 
 
     def remove_end(self):
         """Removes the linked list tail with complexity of O(n)"""
-        #NOTE: I check the length 'cause I don't wanna throw an IndexError
         if not self.is_empty():
             self.__delitem__( self.length-1 )
 
 
     def _remove_value(self, value, stop_node, all):
         # removes all occurrences (when all==True) of `value` if found.
+        assert not isinstance(value, Node)
+        assert stop_node == None or isinstance(stop_node, Node)
+        assert type(all) == bool
         prev = None
         curr_node = self.head
         FOUND_FIRST = False #True when the first occurrence is found
@@ -421,8 +429,8 @@ class LinkedList:
         
 
     def _rotate(self, distance, direction):
-        assert type(distance) == int and distance >= 0, \
-            "Amount of Rotation needs to be `int` value bigger than zero!!'"
+        if type(distance) != int or distance < 0:
+            raise ValueError("Rotation distance has to be an `int` >= zero!!")
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT": distance = self.length - distance
         left_list, right_list = self.split(distance)
@@ -438,6 +446,7 @@ class LinkedList:
 
     def rotate_right(self, distance):
         return self._rotate(distance, "RIGHT")
+
 
 
 
