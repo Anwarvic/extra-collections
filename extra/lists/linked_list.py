@@ -62,6 +62,7 @@ class LinkedList:
             l.length += 1
         return l
 
+
     ############################## PRINT ##############################
     def _print_node(self, node):
         assert isinstance(node, Node)
@@ -108,11 +109,6 @@ class LinkedList:
         top_border, middle, lower_border = self._print_linked_list(self.head)
         return "{}\n{}\n{}".format(\
             ''.join(top_border), ''.join(middle), ''.join(lower_border))
-
-
-    # def __repr__(self): #TODO: comment this operator
-    #     output = [str(item) for item in self]
-    #     return '[' + ", ".join(output) + ']'
 
 
     ############################## LENGTH ##############################
@@ -291,6 +287,8 @@ class LinkedList:
 
     def __setitem__(self, idx, item):
         self._validate_index(idx)
+        if idx == self.length:
+            raise IndexError("Can't find any element at the given index!!")
         self._validate_inserted_item(item)
         self._replace_node(idx, item)
         
