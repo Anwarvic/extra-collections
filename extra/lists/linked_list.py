@@ -392,6 +392,8 @@ class LinkedList:
 
     def count(self, value):
         total_count = 0
+        if isinstance(value, Node):
+            value = value.get_data()
         for node in self:
             if node.get_data() == value:
                 total_count += 1
@@ -436,8 +438,10 @@ class LinkedList:
         
 
     def _rotate(self, distance, direction):
-        if type(distance) != int or distance < 0:
-            raise ValueError("Rotation distance has to be an `int` >= zero!!")
+        if type(distance) != int:
+            raise TypeError("Rotation distance has to be an `int`!!")
+        if distance < 0:
+            raise ValueError("Rotation distance has to be >= zero!!")
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT": distance = self.length - distance
         left_list, right_list = self.split(distance)
