@@ -153,6 +153,8 @@ class LinkedList:
 
 
     def __contains__(self, value):
+        if isinstance(value, Node):
+            value = value.get_data()
         found_node = self._search(value, self.head)
         if found_node == None or found_node.get_data() != value:
             return False
@@ -451,6 +453,11 @@ class LinkedList:
 
     def rotate_right(self, distance):
         return self._rotate(distance, "RIGHT")
+
+
+    def sort(self):
+        #TODO: use comparators with sorted()
+        pass
 
 
 
