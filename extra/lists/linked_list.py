@@ -162,7 +162,7 @@ class LinkedList:
 
 
     def _get_node(self, idx):
-        assert 0 <= idx < self.length
+        assert 0 <= idx or idx < self.length
         # iterate over the linked list
         counter = 0
         prev_node = None
@@ -250,7 +250,7 @@ class LinkedList:
     
 
     def _insert(self, idx, item):
-        assert 0 <= idx <= self.length
+        assert 0 <= idx or idx <= self.length
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):
             assert item.get_data() != None
@@ -281,7 +281,7 @@ class LinkedList:
 
     ############################### SET ################################
     def _replace_node(self, idx, new_node):
-        assert 0 <= idx <= self.length
+        assert 0 <= idx or idx <= self.length
         assert isinstance(new_node, Node)
         _, old_node = self._get_node(idx)
         old_node.set_data(new_node.get_data())
@@ -314,7 +314,7 @@ class LinkedList:
 
 
     def _remove_idx(self, idx):
-        assert 0 <= idx < self.length
+        assert 0 <= idx or idx < self.length
         prev_node, node = self._get_node(idx)
         self._remove_node(prev_node, node)
 
@@ -402,12 +402,13 @@ class LinkedList:
 
     def copy(self):
         copied_list = LinkedList()
-        copied_node = None
-        curr_node = self.head
-        while(curr_node != None):
-            copied_node = copied_list._insert_value(copied_node,
-                                                    curr_node.get_data())
-            curr_node = curr_node.get_next()
+        if not self.is_empty():
+            copied_node = None
+            curr_node = self.head
+            while(curr_node != None):
+                copied_node = copied_list._insert_value(copied_node,
+                                                        curr_node.get_data())
+                curr_node = curr_node.get_next()
         return copied_list
 
 
@@ -445,9 +446,10 @@ class LinkedList:
         distance = distance % self.length if self.length > 0 else 0
         if direction == "RIGHT": distance = self.length - distance
         left_list, right_list = self.split(distance)
-        last_right_node, _ = right_list._get_node(len(right_list))
-        if len(left_list) > 0:
-            last_right_node.set_next(left_list.head)
+        if not self.is_empty():
+            last_right_node, _ = right_list._get_node(len(right_list))
+            if len(left_list) > 0:
+                last_right_node.set_next(left_list.head)
         return right_list
 
 
