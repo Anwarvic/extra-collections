@@ -286,6 +286,8 @@ class LinkedList:
     
 
     def __setitem__(self, idx, item):
+        #TODO: handle -ve indexing
+        #TODO: handle slice objects
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
@@ -317,6 +319,8 @@ class LinkedList:
 
     def __delitem__(self, idx):
         """Removes a node at index=idx from the linked list"""
+        #TODO: handle -ve indexing
+        #TODO: handle slice objects
         self._validate_index(idx)
         if idx == self.length:
             raise IndexError("Can't find any element at the given index!!")
@@ -337,7 +341,7 @@ class LinkedList:
 
     def _remove_value(self, value, stop_node, all):
         # removes all occurrences (when all==True) of `value` if found.
-        assert not isinstance(value, Node)
+        assert not isinstance(value, Node) and value != None
         assert stop_node == None or isinstance(stop_node, Node)
         assert type(all) == bool
         prev = None
@@ -356,6 +360,9 @@ class LinkedList:
 
     
     def remove(self, value, all=True):
+        if type(all) != bool:
+            raise ValueError("`all` is a boolean flag (True by default)!")
+        self._validate_inserted_item(value)
         self._remove_value(value, stop_node=None, all=all)
 
 
