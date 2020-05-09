@@ -21,10 +21,10 @@ class SuffixTrie(Extra):
             raise ValueError(\
                 f"An empty string can't be inserted to {self.__name__()}!!")
         # Ukkonen's algorithm
-        self._word = word
+        self._word = word + '$'
         self._rt = RadixTrie()
-        for idx in range(len(word)):
-            self._rt.insert(word[len(word)-idx-1:])
+        for idx in range(len(self._word)):
+            self._rt.insert(self._word[idx:])
 
 
     def __repr__(self):
@@ -49,6 +49,8 @@ class SuffixTrie(Extra):
             return self._rt._root
         level_nodes = \
             self._rt._get_nodes_per_level(self._rt._root, 0, [], False)
+        if len(level_nodes) > 2:
+            return level_nodes[-1] + level_nodes[-2]
         return level_nodes[-1]
 
 
@@ -73,10 +75,14 @@ class SuffixTrie(Extra):
 
 
     def get_lrs(self):
-        """TODO
+        """
         LRS stands for "Longest Repeated Substring". lrs is the longest
         substring that occurs at least twice.
         """
+        return self.get_lcs()
+
+    
+    def count_num_occurrences(self, pattern):
         pass
 
 
