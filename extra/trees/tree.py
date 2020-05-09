@@ -169,21 +169,21 @@ class Tree(Extra):
     
 
     ##############################   LEAF NODES   ##############################
-    def __count_leaf_nodes(self, start_node):
+    def _count_leaf_nodes(self, start_node):
         assert isinstance(start_node, TreeNode)
 
         if start_node.is_leaf():
             return 1
         total_nodes = 0
         for child in start_node.get_children():
-            total_nodes += self.__count_leaf_nodes(child)
+            total_nodes += self._count_leaf_nodes(child)
         return total_nodes
 
 
     def count_leaf_nodes(self):
         if self.is_empty():
             return 0
-        return self.__count_leaf_nodes(self._root)
+        return self._count_leaf_nodes(self._root)
 
 
     ##############################      ITER      ##############################
