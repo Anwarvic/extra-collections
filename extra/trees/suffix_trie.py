@@ -35,15 +35,11 @@ class SuffixTrie(Extra):
         return len(self._rt)
 
 
-    def has_suffix(self, suffix):
-        return self._rt.has_prefix(suffix)
+    def has_substr(self, substr):
+        return self._rt.has_prefix(substr)
 
 
-    # def has_substr(self, substr):
-    #     return self._rt.has_prefix(substr)
-
-
-    ##############################       LCS      ##############################
+    ##############################     LCS/LRS    ##############################
     def __get_deepest_nodes(self):
         if self._rt.is_empty():
             return self._rt._root
@@ -55,7 +51,7 @@ class SuffixTrie(Extra):
 
 
     def get_lcs(self):
-        #NOTE:stands for "Longest Common Substring"
+        # NOTE:stands for "Longest Common Substring"
         if self._rt.is_empty():
             return []
         lcs_set = set()
@@ -75,15 +71,26 @@ class SuffixTrie(Extra):
 
 
     def get_lrs(self):
-        """
-        LRS stands for "Longest Repeated Substring". lrs is the longest
-        substring that occurs at least twice.
-        """
+        # NOTE: stands for "Longest Repeated Substring". 
+        # lrs is the longest substring that occurs at least twice.
         return self.get_lcs()
 
     
-    def count_num_occurrences(self, pattern):
-        pass
+    ##############################    MATCHING    ##############################
+    def count_pattern_occurrences(self, pattern):
+        if type(pattern) != str:
+            return 0
+        last_node, remaining = self._rt._follow_path(pattern)
+        if remaining:
+            child = last_node.get_child(remaining[0])
+            child_data = child.get_data() if child else ''
+            if child_data[:len(remaining)] == remaining:
+                last_node = child
+            else:
+                return 0
+        if last_node == self._rt._root:
+            return 0
+        return self._rt._count_leaf_nodes(last_node)
 
 
     def get_longest_palindrome(self):
@@ -108,10 +115,6 @@ class SuffixTrie(Extra):
 
 
 if __name__ == "__main__":
-    # st = SuffixTrie("banana")
-    # print(st)
-    # print(st.has_substr('nan'))
-    
     # st = SuffixTrie("ATCGATCGA")
     # print(st)
     # # print(st.get_longest_repeated_substr())
@@ -129,7 +132,7 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    st = SuffixTrie("GEEKSFORGEEKS")
+    st = SuffixTrie("PAPERSFORPAPERS")
     print(st)
     print(st.get_lcs())
 
