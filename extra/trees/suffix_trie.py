@@ -21,10 +21,11 @@ class SuffixTrie(Extra):
             raise ValueError(\
                 f"An empty string can't be inserted to {self.__name__()}!!")
         # Ukkonen's algorithm
-        self._word = word + '$'
+        self._word = word
         self._rt = RadixTrie()
         for idx in range(len(self._word)):
-            self._rt.insert(self._word[idx:])
+            self._rt.insert(self._word[idx:] + "$ ⟶ " + str(idx))
+        self._rt.insert("$ ⟶ " + str(len(self._word)))
 
 
     def __repr__(self):
@@ -50,7 +51,7 @@ class SuffixTrie(Extra):
         return level_nodes[-1]
 
 
-    def get_lcs(self):
+    def get_longest_common_substring(self):
         # NOTE:stands for "Longest Common Substring"
         if self._rt.is_empty():
             return []
@@ -70,10 +71,10 @@ class SuffixTrie(Extra):
         return [substr for substr in lcs_set if len(substr) == longest_length]
 
 
-    def get_lrs(self):
+    def get_longest_repeated_substring(self):
         # NOTE: stands for "Longest Repeated Substring". 
         # lrs is the longest substring that occurs at least twice.
-        return self.get_lcs()
+        return self.get_longest_common_substring()
 
     
     ##############################    MATCHING    ##############################
@@ -98,10 +99,10 @@ class SuffixTrie(Extra):
         pass
 
 
-    def get_lowest_common_ancestor(self):
-        #TODO
+    def get_lca(self):
+        #NOTE: stands for "Lowest Common Ancestor"
         pass
-    
+       
 
     def to_suffix_array(self):
         #TODO
@@ -132,7 +133,13 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    st = SuffixTrie("PAPERSFORPAPERS")
-    print(st)
-    print(st.get_lcs())
+    # st = SuffixTrie("PAPERSFORPAPERS")
+    # print(st)
+    # print(st.get_longest_common_substring())
+    # print(st.count_pattern_occurrences('P'))
 
+
+
+    st = SuffixTrie("banana")
+    print(st.get_longest_common_substring())
+    print(st)
