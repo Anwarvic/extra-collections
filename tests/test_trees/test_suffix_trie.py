@@ -6,25 +6,25 @@ from extra.trees.suffix_trie import SuffixTrie
 
 def test_lcs():
     st = SuffixTrie("ABABABA")
-    assert st.get_lcs() == ["ABABA"]
+    assert st.get_longest_common_substring() == ["ABABA"]
 
     st = SuffixTrie("banana")
-    assert st.get_lcs() == ["ana"]
+    assert st.get_longest_common_substring() == ["ana"]
 
     st = SuffixTrie("PAPERSFORPAPERS")
-    assert st.get_lcs() == ["PAPERS"]
+    assert st.get_longest_common_substring() == ["PAPERS"]
 
     st = SuffixTrie("AAAAAAAAAA")
-    assert st.get_lcs() == ["AAAAAAAAA"]
+    assert st.get_longest_common_substring() == ["AAAAAAAAA"]
 
     st = SuffixTrie("ABCDEFG")
-    assert st.get_lcs() == [""]
+    assert st.get_longest_common_substring() == [""]
 
     st = SuffixTrie("ATCGATCGA")
-    assert st.get_lcs() == ["ATCGA"]
+    assert st.get_longest_common_substring() == ["ATCGA"]
 
     st = SuffixTrie("abcpqrabpqpq")
-    assert sorted(st.get_lcs()) == ["ab", "pq"]
+    assert sorted(st.get_longest_common_substring()) == ["ab", "pq"]
 
 
 def test_count_pattern_occurrence():
