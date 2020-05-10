@@ -22,10 +22,13 @@ class SuffixTrie(Extra):
                 f"An empty string can't be inserted to {self.__name__()}!!")
         # Ukkonen's algorithm
         self._word = word
+        # dictionary containing suffix-index as key and leaf nodes as values 
+        self._leaf_nodes = {}
         self._rt = RadixTrie()
         for idx in range(len(self._word)):
-            self._rt.insert(self._word[idx:] + "$ ⟶ " + str(idx))
-        self._rt.insert("$ ⟶ " + str(len(self._word)))
+            leaf_node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
+            self._leaf_nodes[idx] = leaf_node
+        self._leaf_nodes[idx] = self._rt._insert("$ ⟶ " + str(idx))
 
 
     def __repr__(self):
