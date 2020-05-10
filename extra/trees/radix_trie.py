@@ -22,8 +22,8 @@ class RadixTrie(Trie):
     
 
     ##############################   INSERTION    ##############################
-    def insert(self, word):
-        super()._validate_item(word, accept_empty_string=False)
+    def _insert(self, word):
+        assert type(word) == str and len(word) > 0
         last_node, remaining_word = super()._follow_path(word)
         curr_node = last_node
         while(remaining_word):
@@ -50,6 +50,13 @@ class RadixTrie(Trie):
             curr_node = new_node
         # mark current node as a word
         curr_node._is_word = True
+        # return the newest created node after insertion
+        return curr_node
+    
+
+    def insert(self, word):
+        super()._validate_item(word, accept_empty_string=False)
+        self._insert(word)
 
 
     ############################## AUTOCOMPLETION ##############################
