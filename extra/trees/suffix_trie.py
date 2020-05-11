@@ -8,6 +8,20 @@ from extra.trees.radix_trie import TrieNode, RadixTrie
 
 
 
+
+def lcp(word1, word2):
+    # NOTE: LCP stands for Longest Common Prefix
+    assert type(word1)==str and type(word2)==str
+    assert len(word1)>0 and len(word2)>0
+
+    for i in range(min(len(word1), len(word2))):
+        if word1[i] != word2[i]:
+            return word1[:i]
+    return word1 if len(word1) < len(word2) else word2
+
+
+
+
 class SuffixTrie(Extra):
     def __name__(self):
         return "extra.SuffixTrie"
