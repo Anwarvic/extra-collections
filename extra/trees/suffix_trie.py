@@ -131,7 +131,9 @@ class SuffixTrie(Extra):
                 f"`i` and `j` values can't exceed {len(self._word)} " + 
                 f"since it is the length of given word `{self._word}`!!"
             )
-
+        ith_ancestors_data = self._get_ancestors_data(self._leaf_nodes[i])
+        jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
+        return lcp(ith_ancestors_data, jth_ancestors_data)
 
         
         
@@ -173,6 +175,6 @@ if __name__ == "__main__":
 
 
     st = SuffixTrie("banana")
-    # print(st.get_longest_common_substring())
+    print(st.get_longest_common_substring())
     print(st.get_lowest_common_ancestor(2, 4))
-    # print(st)
+    print(st)
