@@ -4,7 +4,7 @@ of structural information about that string.
 """
 from abc import abstractmethod
 from extra.interface import Extra
-from extra.trees.radix_trie import RadixTrie
+from extra.trees.radix_trie import TrieNode, RadixTrie
 
 
 
@@ -20,10 +20,12 @@ class SuffixTrie(Extra):
         elif len(word) == 0:
             raise ValueError(\
                 f"An empty string can't be inserted to {self.__name__()}!!")
+        
         # Ukkonen's algorithm
-        self._word = word
+        self._word = word.replace('$', '')
         # dictionary containing suffix-index as key and leaf nodes as values 
         self._leaf_nodes = {}
+        # SuffixTrie is basically a RadixTrie
         self._rt = RadixTrie()
         for idx in range(len(self._word)):
             leaf_node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
@@ -54,20 +56,25 @@ class SuffixTrie(Extra):
         return level_nodes[-1]
 
 
+    def _get_ancestors_data(self, node):
+        assert type(node) is TrieNode
+
+        ancestors_data = []
+        parent = node.get_parent()
+        while(parent is not self._rt._root):
+            parent_data = parent.get_data()
+            ancestors_data.append(parent_data)
+            parent = parent.get_parent()
+        return "".join(ancestors_data[::-1])
+
+
     def get_longest_common_substring(self):
-        # NOTE:stands for "Longest Common Substring"
         if self._rt.is_empty():
             return []
         lcs_set = set()
         longest_length = 0
         for node in self.__get_deepest_nodes():
-            lcs = []
-            parent = node.get_parent()
-            while(parent is not self._rt._root):
-                parent_data = parent.get_data()
-                lcs.append(parent_data)
-                parent = parent.get_parent()
-            lcs = "".join(lcs[::-1])
+            lcs = self._get_ancestors_data(node)            
             longest_length = max(longest_length, len(lcs))
             lcs_set.add(lcs)
         # return the longest ones
@@ -75,8 +82,7 @@ class SuffixTrie(Extra):
 
 
     def get_longest_repeated_substring(self):
-        # NOTE: stands for "Longest Repeated Substring". 
-        # lrs is the longest substring that occurs at least twice.
+        # LRS is the longest substring that occurs at least twice.
         return self.get_longest_common_substring()
 
     
@@ -98,17 +104,26 @@ class SuffixTrie(Extra):
 
 
     def get_longest_palindrome(self):
-        #TODO
         pass
 
 
-    def get_lca(self):
-        #NOTE: stands for "Lowest Common Ancestor"
-        pass
+    def get_lowest_common_ancestor(self, i, j):
+        if type(i) != int or type(j) != int:
+            raise TypeError("`i` and `j` should be integer values!!")
+        elif i < 0 or j < 0 :
+            raise ValueError("`i` and `j` should be postive integer values!!")
+        elif i >= len(self._word) or j >= len(self._word):
+            raise ValueError(\
+                f"`i` and `j` values can't exceed {len(self._word)} " + 
+                f"since it is the length of given word `{self._word}`!!"
+            )
+
+
+        
+        
        
 
     def to_suffix_array(self):
-        #TODO
         pass
 
 
@@ -144,5 +159,6 @@ if __name__ == "__main__":
 
 
     st = SuffixTrie("banana")
-    print(st.get_longest_common_substring())
-    print(st)
+    # print(st.get_longest_common_substring())
+    print(st.get_lowest_common_ancestor(2, 4))
+    # print(st)
