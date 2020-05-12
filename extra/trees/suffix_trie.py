@@ -42,11 +42,21 @@ class SuffixTrie(Extra):
         self._leaf_nodes = {}
         # SuffixTrie is basically a RadixTrie
         self._rt = RadixTrie()
+        # suffix_array
+        self._suffix_array = []
         for idx in range(len(self._word)):
-            leaf_node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
-            self._leaf_nodes[idx] = leaf_node
+            self._leaf_nodes[idx] = \
+                self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
+            self._suffix_array.append( (idx, word[idx:]) )
+        
+        # edge case
         self._leaf_nodes[len(self._word)] = \
             self._rt._insert("$ ⟶ " + str(len(self._word)))
+        self._suffix_array.append((len(self._word), '$'))
+
+        # sort suffix array alphabetically
+        self._suffix_array = \
+            [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
 
 
     def __repr__(self):
@@ -59,6 +69,10 @@ class SuffixTrie(Extra):
 
     def has_substr(self, substr):
         return self._rt.has_prefix(substr)
+
+
+    def to_suffix_array(self):
+        return self._suffix_array
 
 
     ##############################     LCS/LRS    ##############################
@@ -101,36 +115,6 @@ class SuffixTrie(Extra):
         # LRS is the longest substring that occurs at least twice.
         return self.get_longest_common_substring()
 
-    
-    ##############################    MATCHING    ##############################
-    def count_pattern_occurrences(self, pattern):
-        if type(pattern) != str:
-            return 0
-        last_node, remaining = self._rt._follow_path(pattern)
-        if remaining:
-            child = last_node.get_child(remaining[0])
-            child_data = child.get_data() if child else ''
-            if child_data[:len(remaining)] == remaining:
-                last_node = child
-            else:
-                return 0
-        if last_node == self._rt._root:
-            return 0
-        return self._rt._count_leaf_nodes(last_node)
-
-
-    def get_longest_palindrome(self):
-        tmp_st = deepcopy(self)
-        # adding the reverse of the original word
-        rev_word = self._word[::-1]
-        # dictionary containing suffix-index as key and leaf nodes as values 
-        for idx in range(len(rev_word)):
-            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
-            tmp_st._leaf_nodes[idx] = leaf_node
-        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
-        
-        print(tmp_st)
-
 
     def get_lowest_common_ancestor(self, i, j):
         if type(i) != int or type(j) != int:
@@ -146,16 +130,36 @@ class SuffixTrie(Extra):
         jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
         return lcp(ith_ancestors_data, jth_ancestors_data)
 
-        
-        
-       
 
-    def to_suffix_array(self):
-        word = self._word + '$'
-        arr = [(i, word[i:]) for i in range(len(word))]
-        return [k for k, v in sorted(arr, key=lambda  x: x[1])]
+    ##############################    MATCHING    ##############################
+    def count_pattern_occurrences(self, pattern):
+        if type(pattern) != str:
+            return 0
+        last_node, remaining = self._rt._follow_path(pattern)
+        if remaining:
+            child = last_node.get_child(remaining[0])
+            child_data = child.get_data() if child else ''
+            if child_data[:len(remaining)] == remaining:
+                last_node = child
+            else:
+                return 0
+        if last_node == self._rt._root:
+            return 0
+        return self._rt._count_leaf_nodes(last_node)
+    
+    
+    def get_longest_palindrome(self):
+        tmp_st = deepcopy(self)
+        # adding the reverse of the original word
+        rev_word = self._word[::-1]
+        # dictionary containing suffix-index as key and leaf nodes as values 
+        for idx in range(len(rev_word)):
+            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
+            tmp_st._leaf_nodes[idx] = leaf_node
+        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
+        
+        print(tmp_st)
 
-         
 
 
 
