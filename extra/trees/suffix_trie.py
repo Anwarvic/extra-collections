@@ -129,8 +129,26 @@ class SuffixTrie(Extra):
         ith_ancestors_data = self._get_ancestors_data(self._leaf_nodes[i])
         jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
         return lcp(ith_ancestors_data, jth_ancestors_data)
+    
+    
+    ##############################   PALINDROME   ##############################
+    def _create_lcp_array(self):
+        pass
 
 
+    def get_longest_palindrome(self):
+        tmp_st = deepcopy(self)
+        # adding the reverse of the original word
+        rev_word = self._word[::-1]
+        # dictionary containing suffix-index as key and leaf nodes as values 
+        for idx in range(len(rev_word)):
+            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
+            tmp_st._leaf_nodes[idx] = leaf_node
+        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
+        
+        print(tmp_st)
+
+    
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
         if type(pattern) != str:
@@ -146,19 +164,6 @@ class SuffixTrie(Extra):
         if last_node == self._rt._root:
             return 0
         return self._rt._count_leaf_nodes(last_node)
-    
-    
-    def get_longest_palindrome(self):
-        tmp_st = deepcopy(self)
-        # adding the reverse of the original word
-        rev_word = self._word[::-1]
-        # dictionary containing suffix-index as key and leaf nodes as values 
-        for idx in range(len(rev_word)):
-            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
-            tmp_st._leaf_nodes[idx] = leaf_node
-        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
-        
-        print(tmp_st)
 
 
 
