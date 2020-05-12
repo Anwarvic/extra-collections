@@ -41,4 +41,10 @@ def test_count_pattern_occurrence():
     assert st.count_pattern_occurrences("ban") == 1
     assert st.count_pattern_occurrences("bann") == 0
     assert st.count_pattern_occurrences("bananab") == 0
+
+
+def test_get_longest_palindrome():
+    assert SuffixTrie("banana").get_longest_palindrome() == "anana"
+    assert SuffixTrie("nonsense").get_longest_palindrome() == "non"
+    assert SuffixTrie("1234aba4321").get_longest_palindrome() == "1234aba4321"
     
