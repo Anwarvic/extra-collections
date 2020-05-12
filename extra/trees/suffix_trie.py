@@ -2,7 +2,6 @@
 Suffix trees store information about a single string and exports a huge amount
 of structural information about that string.
 """
-from copy import deepcopy
 from abc import abstractmethod
 from extra.interface import Extra
 from extra.trees.radix_trie import TrieNode, RadixTrie
@@ -10,7 +9,7 @@ from extra.trees.radix_trie import TrieNode, RadixTrie
 
 
 
-def lcp(word1, word2):
+def get_lcp(word1, word2):
     # NOTE: LCP stands for Longest Common Prefix
     assert type(word1)==str and type(word2)==str
     assert len(word1)>0 and len(word2)>0
@@ -19,6 +18,27 @@ def lcp(word1, word2):
         if word1[i] != word2[i]:
             return word1[:i]
     return word1 if len(word1) < len(word2) else word2
+
+
+def create_suffix_array(word):
+    assert type(word)==str and len(word)>0
+
+    suffix_array = [ (idx, word[idx:]) for idx in range(len(word)) ]
+    # sort suffix array alphabetically
+    suffix_array = sorted(suffix_array, key=lambda  x: x[1])
+    return suffix_array
+
+
+def create_lcp_array(suffix_array):
+    assert type(suffix_array)==list and len(suffix_array)>0
+
+    lcp_array = [0]
+    for i in range(len(suffix_array)-1):
+        _, first_suffix = suffix_array[i]
+        _, second_suffix = suffix_array[i+1]
+        lcp = get_lcp(first_suffix, second_suffix)
+        lcp_array.append(len(lcp))
+    return lcp_array
 
 
 
@@ -47,7 +67,7 @@ class SuffixTrie(Extra):
         for idx in range(len(self._word)):
             self._leaf_nodes[idx] = \
                 self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
-            self._suffix_array.append( (idx, word[idx:]) )
+            self._suffix_array.append( (idx, self._word[idx:]) )
         
         # edge case
         self._leaf_nodes[len(self._word)] = \
@@ -128,27 +148,30 @@ class SuffixTrie(Extra):
             )
         ith_ancestors_data = self._get_ancestors_data(self._leaf_nodes[i])
         jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
-        return lcp(ith_ancestors_data, jth_ancestors_data)
+        return get_lcp(ith_ancestors_data, jth_ancestors_data)
     
     
     ##############################   PALINDROME   ##############################
-    def _create_lcp_array(self):
-        pass
-
-
     def get_longest_palindrome(self):
-        tmp_st = deepcopy(self)
-        # adding the reverse of the original word
-        rev_word = self._word[::-1]
-        # dictionary containing suffix-index as key and leaf nodes as values 
-        for idx in range(len(rev_word)):
-            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
-            tmp_st._leaf_nodes[idx] = leaf_node
-        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
+        # NOTE A palindrome is a string that reads the same if reversed
+        # like "madam" or "".
+        word = self._word + '$' + self._word[::-1]
+        suffix_arr = create_suffix_array(word)
+        lcp_arr = create_lcp_array(suffix_arr)
+        # start searching
+        position = 0
+        longest_length = 0
+        length = len(self._word)
+        for i in range(1, len(word)):
+            if lcp_arr[i] > longest_length:
+                if ((suffix_arr[i-1][0] < length and suffix_arr[i][0] > length)
+                    or
+                    (suffix_arr[i][0]< length and suffix_arr[i-1][0] > length)):
+                    longest_length = lcp_arr[i]
+                    position = suffix_arr[i][0]
+        return word[position : position+longest_length]
         
-        print(tmp_st)
-
-    
+        
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
         if type(pattern) != str:
@@ -199,8 +222,8 @@ if __name__ == "__main__":
 
 
     st = SuffixTrie("banana")
+    st.get_longest_palindrome ()
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
-    # st.get_longest_palindrome ()
-    print(st.to_suffix_array())
+    # print(st.to_suffix_array())
     # print(st)
