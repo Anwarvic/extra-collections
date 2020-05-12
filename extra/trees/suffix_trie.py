@@ -20,27 +20,6 @@ def get_lcp(word1, word2):
     return word1 if len(word1) < len(word2) else word2
 
 
-def create_suffix_array(word):
-    assert type(word)==str and len(word)>0
-
-    suffix_array = [ (idx, word[idx:]) for idx in range(len(word)) ]
-    # sort suffix array alphabetically
-    suffix_array = sorted(suffix_array, key=lambda  x: x[1])
-    return suffix_array
-
-
-def create_lcp_array(suffix_array):
-    assert type(suffix_array)==list and len(suffix_array)>0
-
-    lcp_array = [0]
-    for i in range(len(suffix_array)-1):
-        _, first_suffix = suffix_array[i]
-        _, second_suffix = suffix_array[i+1]
-        lcp = get_lcp(first_suffix, second_suffix)
-        lcp_array.append(len(lcp))
-    return lcp_array
-
-
 
 
 class SuffixTrie(Extra):
@@ -155,22 +134,7 @@ class SuffixTrie(Extra):
     def get_longest_palindrome(self):
         # NOTE A palindrome is a string that reads the same if reversed
         # like "madam" or "".
-        word = self._word + '$' + self._word[::-1]
-        suffix_arr = create_suffix_array(word)
-        lcp_arr = create_lcp_array(suffix_arr)
-        # start searching
-        position = 0
-        longest_length = 0
-        length = len(self._word)
-        for i in range(1, len(word)):
-            if lcp_arr[i] > longest_length:
-                if ((suffix_arr[i-1][0] < length and suffix_arr[i][0] > length)
-                    or
-                    (suffix_arr[i][0]< length and suffix_arr[i-1][0] > length)):
-                    longest_length = lcp_arr[i]
-                    position = suffix_arr[i][0]
-        return word[position : position+longest_length]
-        
+        pass
         
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
@@ -221,8 +185,9 @@ if __name__ == "__main__":
 
 
 
-    st = SuffixTrie("banana")
-    st.get_longest_palindrome ()
+    st = SuffixTrie("xyztuvananakvutzyx")
+    st = SuffixTrie("1234xaba4321")
+    print(st.get_longest_palindrome ())
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
     # print(st.to_suffix_array())
