@@ -2,6 +2,7 @@
 Suffix trees store information about a single string and exports a huge amount
 of structural information about that string.
 """
+from copy import deepcopy
 from abc import abstractmethod
 from extra.interface import Extra
 from extra.trees.radix_trie import TrieNode, RadixTrie
@@ -28,6 +29,7 @@ class SuffixTrie(Extra):
 
     
     def __init__(self, word):
+        # Ukkonen's algorithm
         super()._validate_item(word)
         if type(word) != str:
             raise TypeError(f"Can't insert {type(word)} into {self.__name__()}")
@@ -35,7 +37,6 @@ class SuffixTrie(Extra):
             raise ValueError(\
                 f"An empty string can't be inserted to {self.__name__()}!!")
         
-        # Ukkonen's algorithm
         self._word = word.replace('$', '')
         # dictionary containing suffix-index as key and leaf nodes as values 
         self._leaf_nodes = {}
@@ -44,7 +45,8 @@ class SuffixTrie(Extra):
         for idx in range(len(self._word)):
             leaf_node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
             self._leaf_nodes[idx] = leaf_node
-        self._leaf_nodes[idx] = self._rt._insert("$ ⟶ " + str(idx))
+        self._leaf_nodes[len(self._word)] = \
+            self._rt._insert("$ ⟶ " + str(len(self._word)))
 
 
     def __repr__(self):
@@ -118,7 +120,16 @@ class SuffixTrie(Extra):
 
 
     def get_longest_palindrome(self):
-        pass
+        tmp_st = deepcopy(self)
+        # adding the reverse of the original word
+        rev_word = self._word[::-1]
+        # dictionary containing suffix-index as key and leaf nodes as values 
+        for idx in range(len(rev_word)):
+            leaf_node = tmp_st._rt._insert(rev_word[idx:] + "# ⟶ " + str(idx))
+            tmp_st._leaf_nodes[idx] = leaf_node
+        tmp_st._leaf_nodes[idx] = tmp_st._rt._insert("$ ⟶ " + str(idx))
+        
+        print(tmp_st)
 
 
     def get_lowest_common_ancestor(self, i, j):
@@ -140,7 +151,11 @@ class SuffixTrie(Extra):
        
 
     def to_suffix_array(self):
-        pass
+        word = self._word + '$'
+        arr = [(i, word[i:]) for i in range(len(word))]
+        return [k for k, v in sorted(arr, key=lambda  x: x[1])]
+
+         
 
 
 
@@ -175,6 +190,8 @@ if __name__ == "__main__":
 
 
     st = SuffixTrie("banana")
-    print(st.get_longest_common_substring())
-    print(st.get_lowest_common_ancestor(2, 4))
-    print(st)
+    # print(st.get_longest_common_substring())
+    # print(st.get_lowest_common_ancestor(2, 4))
+    # st.get_longest_palindrome ()
+    print(st.to_suffix_array())
+    # print(st)
