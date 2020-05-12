@@ -12,7 +12,6 @@ from extra.trees.radix_trie import TrieNode, RadixTrie
 def get_lcp(word1, word2):
     # NOTE: LCP stands for Longest Common Prefix
     assert type(word1)==str and type(word2)==str
-    assert len(word1)>0 and len(word2)>0
 
     for i in range(min(len(word1), len(word2))):
         if word1[i] != word2[i]:
@@ -134,7 +133,28 @@ class SuffixTrie(Extra):
     def get_longest_palindrome(self):
         # NOTE A palindrome is a string that reads the same if reversed
         # like "madam" or "".
+        rev = self._word[::-1]
+        longest_palindrome = ''
+        for i in range(len(rev)):
+            lcp = ''
+            suffix = rev[i:]
+            last_node, remaining = self._rt._follow_path(suffix)
+            if remaining:
+                child = last_node.get_child(remaining[0])
+                child_data = child.get_data() if child else ''
+                lcp = get_lcp(child_data, remaining)
+                remaining = remaining[len(lcp):]
+            palindrome = suffix[:len(suffix)-len(remaining)]
+            if len(palindrome) > len(longest_palindrome):
+                longest_palindrome = palindrome
+        return longest_palindrome
+            
+
+    
+
+    def is_palindrome(self):
         pass
+            
         
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
@@ -185,8 +205,8 @@ if __name__ == "__main__":
 
 
 
-    st = SuffixTrie("xyztuvananakvutzyx")
-    st = SuffixTrie("1234xaba4321")
+    st = SuffixTrie("nonsense")
+    print(st)
     print(st.get_longest_palindrome ())
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
