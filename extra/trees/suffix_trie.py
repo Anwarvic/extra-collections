@@ -132,29 +132,26 @@ class SuffixTrie(Extra):
     ##############################   PALINDROME   ##############################
     def get_longest_palindrome(self):
         # NOTE A palindrome is a string that reads the same if reversed
-        # like "madam" or "".
+        # like "madam" or "anna".
         rev = self._word[::-1]
         longest_palindrome = ''
         for i in range(len(rev)):
-            lcp = ''
             suffix = rev[i:]
-            last_node, remaining = self._rt._follow_path(suffix)
+            node, remaining = self._rt._follow_path(suffix)
             if remaining:
-                child = last_node.get_child(remaining[0])
-                child_data = child.get_data() if child else ''
-                lcp = get_lcp(child_data, remaining)
-                remaining = remaining[len(lcp):]
-            palindrome = suffix[:len(suffix)-len(remaining)]
-            if len(palindrome) > len(longest_palindrome):
-                longest_palindrome = palindrome
+                child = node.get_child(remaining[0])
+                if child is not None and child.is_leaf():
+                    child_data = child.get_data() if child else ''
+                    position = int(child_data.split(" ⟶ ")[1])
+                    lcp = get_lcp(child_data, remaining)
+                    remaining = remaining[len(lcp):]
+                    end_position = len(suffix)-len(remaining)
+                    if position == len(self._word)-i-end_position:
+                        palindrome = suffix[:end_position]
+                        if len(palindrome) > len(longest_palindrome):
+                            longest_palindrome = palindrome
         return longest_palindrome
-            
-
-    
-
-    def is_palindrome(self):
-        pass
-            
+               
         
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
@@ -205,7 +202,10 @@ if __name__ == "__main__":
 
 
 
+    st = SuffixTrie("banana")
     st = SuffixTrie("nonsense")
+    st = SuffixTrie("1234aba4321")
+    st = SuffixTrie("abacdfgdcaba")
     print(st)
     print(st.get_longest_palindrome ())
     # print(st.get_longest_common_substring())
