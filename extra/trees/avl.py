@@ -22,11 +22,15 @@ class AVLNode(BSTNode):
 
     def decrement_height(self):
         self._height -= 1
+    
+
+    def __repr__(self):
+        return f"AVLNode({self._data})"
 
 
 
 
-def AVL(BST):
+class AVL(BST):
     _basic_node = AVLNode
 
 
@@ -41,14 +45,29 @@ def AVL(BST):
             self._length += 1
         else:
             inserted_node = self._insert(value)
-            parent = inserted_node.get_parent()
-            while(parent is not None):
+            child = inserted_node
+            parent = child.get_parent()
+            while(parent is not None and parent._height < 1+child._height):
                 parent.increment_height()
-                parent = parent.get_parent()
+                child = parent
+                parent = child.get_parent()
+
 
 
 
 if __name__ == "__main__":
     avl = AVL()
     avl.insert(43)
+    avl.insert(18)
+    avl.insert(22)
+    avl.insert(9)
+    avl.insert(21)
+    avl.insert(6)
+    avl.insert(8)
+    avl.insert(20)
+    avl.insert(63)
+    avl.insert(50)
+    avl.insert(62)
+    avl.insert(51)
     print(avl)
+    print('='*50)
