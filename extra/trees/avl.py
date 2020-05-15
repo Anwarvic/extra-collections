@@ -24,6 +24,12 @@ class AVLNode(BSTNode):
         self._height -= 1
     
 
+    def is_balanced(self):
+        left_height  = self.get_left().get_height() or 0
+        right_height = self.get_right().get_height() or 0
+        return abs(right_height - left_height) <= 1
+    
+
     def __repr__(self):
         return f"AVLNode({self._data})"
 
@@ -51,6 +57,7 @@ class AVL(BST):
                 parent.increment_height()
                 child = parent
                 parent = child.get_parent()
+            # rebalance child
 
 
 
