@@ -5,6 +5,10 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
 class BSTNode(BinaryTreeNode):
+    def __name__(self):
+        return "extra.BSTNode"
+    
+    
     def __init__(self, value):
         if type(value) not in {int, float}:
             raise TypeError(f"{self.__name__()} contains only numbers!!")
