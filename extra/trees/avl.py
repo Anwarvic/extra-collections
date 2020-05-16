@@ -60,45 +60,38 @@ class AVL(BST):
     
     ##############################     ROTATE     ##############################
     def _rotate_left(self, start_node):
-        asupe
-        # adjust height
+        middle = super()._rotate_left(start_node)
+        # adjust heights
+        left_height, _ = middle.get_children_heights()
+        middle.get_left().set_height(left_height-2)
         return middle
 
 
     def _rotate_right(self, start_node):
-        assert isinstance(start_node, self._basic_node)
-
-        # print("Rotating Right")
-        middle = start_node.get_left()
-        middle.set_parent( start_node.get_parent() )
-        start_node.set_left(middle.get_right())
-        middle.set_right(start_node)
+        middle = super()._rotate_right(start_node)
+        # adjust heights
+        _, right_height = middle.get_children_heights()
+        middle.get_right().set_height(right_height-2)
         return middle
     
 
     def _rotate_left_right(self, start_node):
-        assert isinstance(start_node, self._basic_node)
-
-        # print("Rotating Left-Right")
-        middle = start_node.get_left().get_right()
-        middle.set_parent( start_node.get_parent() )
-        start_node.get_left().set_right(middle.get_left())
-        middle.set_left(start_node.get_left())
-        start_node.set_left(middle.get_right())
-        middle.set_right(start_node)
+        middle = super()._rotate_left_right(start_node)
+        # adjust heights
+        _, right_height = middle.get_children_heights()
+        middle.increment_height()
+        middle.get_left().decrement_height()
+        middle.get_right().set_height(right_height-2)
         return middle
 
 
     def _rotate_right_left(self, start_node):
-        assert isinstance(start_node, self._basic_node)
-
-        # print("Rotating Right-Left")
-        middle = start_node.get_right().get_left()
-        middle.set_parent( start_node.get_parent() )
-        start_node.get_right().set_left(middle.get_right())
-        middle.set_right(start_node.get_right())
-        start_node.set_right(middle.get_left())
-        middle.set_left(start_node)
+        middle = super()._rotate_left_right(start_node)
+        # adjust heights
+        left_height, _ = middle.get_children_heights()
+        middle.increment_height()
+        middle.get_left().set_height(left_height-2)
+        middle.get_right().decrement_height()
         return middle
 
     ##############################     BALANCE    ##############################
@@ -110,7 +103,6 @@ class AVL(BST):
             return self._get_unbalanced_node(parent)
         return grand_parent, parent, child
             
-
 
     def _rebalance(self, start_node):
         if start_node is None:
@@ -126,11 +118,6 @@ class AVL(BST):
                 else:
                     # left-right
                     middle = super()._rotate_left_right(grand_parent)
-                    # adjust height
-                    middle.increment_height()
-                    middle.get_left().decrement_height()
-                    middle.get_right().set_height(middle.get_right().)
-                    # attach changed subtree
                     self._attach(grand_parent.get_parent(), middle)
             else:
                 if node.is_left_child():
