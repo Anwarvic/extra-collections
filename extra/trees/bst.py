@@ -6,9 +6,9 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 class BSTNode(BinaryTreeNode):
     def __name__(self):
-        return "extra.BSTNode"
+        return "extra.BSTNode()"
     
-    
+
     def __init__(self, value):
         if type(value) not in {int, float}:
             raise TypeError(f"{self.__name__()} contains only numbers!!")
@@ -79,13 +79,13 @@ class BST(BinaryTree):
     _basic_node = BSTNode
 
 
+    def __name__(self):
+        return "extra.BST()"
+
+
     def __init__(self):
         super().__init__()
         self._length = 0
-
-
-    def __name__(self):
-        return "extra.BST()"
 
 
     def _validate_item(self, item):
@@ -175,7 +175,7 @@ class BST(BinaryTree):
         return found_node.get_data() == find_val
 
 
-    ############################## INSERTION ##############################
+    ##############################     INSERT     ##############################
     def _insert_node(self, start_node, inserted_node):
         assert isinstance(start_node, self._basic_node)
         assert inserted_node is None or \
@@ -230,7 +230,7 @@ class BST(BinaryTree):
             self._insert(value)
 
 
-    ##############################   REMOVAL  ##############################
+    ##############################     REMOVE     ##############################
     def _find_replacement(self, start_node):
         assert isinstance(start_node, self._basic_node)
 
@@ -315,7 +315,7 @@ class BST(BinaryTree):
             self._remove(del_value, self._root)
 
 
-    ##############################    ROTATION    ##############################
+    ##############################     ROTATE     ##############################
     def _rotate_left(self, start_node):
         assert isinstance(start_node, self._basic_node)
 
