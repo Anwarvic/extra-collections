@@ -110,25 +110,26 @@ class AVL(BST):
         # general case
         grand_parent, parent, node = self._get_unbalanced_node(start_node)
         if grand_parent is not None:
+            great_grand_parent = grand_parent.get_parent() 
             if parent.is_left_child():
                 if node.is_left_child():
                     # left-left
-                    middle = super()._rotate_right(grand_parent)
-                    self._attach(grand_parent.get_parent(), middle)
+                    middle = self._rotate_right(grand_parent)
+                    self._attach(great_grand_parent, middle)
                 else:
                     # left-right
-                    middle = super()._rotate_left_right(grand_parent)
-                    self._attach(grand_parent.get_parent(), middle)
+                    middle = self._rotate_left_right(grand_parent)
+                    self._attach(great_grand_parent, middle)
             else:
                 if node.is_left_child():
                     # right-left
-                    middle = super()._rotate_right_left(grand_parent)
-                    self._attach(grand_parent.get_parent(), middle)
+                    middle = self._rotate_right_left(grand_parent)
+                    self._attach(great_grand_parent, middle)
                 else:
                     # right-right
-                    middle = super()._rotate_left(grand_parent)
-                    self._attach(grand_parent.get_parent(), middle)
-            self._rebalance(grand_parent.get_parent())
+                    middle = self._rotate_left(grand_parent)
+                    self._attach(great_grand_parent, middle)
+            self._rebalance(great_grand_parent)
 
         
 
