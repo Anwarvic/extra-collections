@@ -47,6 +47,7 @@ def test_creating_linked_list():
     # Using constructor
     val = get_value()
     ll = LinkedList(val)
+    assert isinstance(ll.head, Node)
     assert ll.head.get_data() == val
     assert ll.head.get_next() == ll.head.next == None
     assert len(ll) == ll.length == 1
@@ -56,6 +57,7 @@ def test_creating_linked_list():
     node = Node(val)
     node.set_next(Node(get_value()))
     ll = LinkedList(node)
+    assert isinstance(ll.head, Node)
     ll.head.get_data() == val
     ll.head.get_next() == ll.head.next == None
     assert len(ll) == ll.length == 1
@@ -74,12 +76,14 @@ def test_creating_linked_list():
     # Using from_iterable (small length)
     lst = get_list()
     ll = LinkedList.from_iterable(lst)
+    assert isinstance(ll.head, Node)
     assert ll.head.get_data() == lst[0]
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
     ll = LinkedList.from_iterable(lst)
+    assert isinstance(ll.head, Node)
     assert ll.head.get_data() == lst[0]
     assert len(ll) == ll.length == len(lst)
     assert ll.to_list() == [item.get_data() for item in ll] == lst
@@ -134,10 +138,10 @@ def test_empty_list():
         ll.split(-1)
         ll.split(get_int())
     #################### test rotate ####################
-    assert ll.rotate_left(get_pos_int()) == ll
-    assert ll.rotate_right(get_pos_int()) == ll
-    assert len(ll.rotate_left(get_pos_int())) == 0
-    assert len(ll.rotate_right(get_pos_int())) == 0
+    assert ll.rotate_left(get_pos_int(), inplace=False) == ll
+    assert ll.rotate_right(get_pos_int(), inplace=False) == ll
+    assert len(ll.rotate_left(get_pos_int(), inplace=False)) == 0
+    assert len(ll.rotate_right(get_pos_int(), inplace=False)) == 0
     with pytest.raises(TypeError):
         ll.rotate_left(get_string())
         ll.rotate_right(get_float())
@@ -210,6 +214,7 @@ def test_list_with_one_element():
     val = get_value()
     ll = LinkedList()
     ll.insert(0, val)
+    assert isinstance(ll.head, Node)
     assert ll.head.get_data() == val
     assert ll.head.get_next() == None
     assert len(ll) == 1
@@ -220,8 +225,8 @@ def test_list_with_one_element():
     assert ll == ll.copy()
     assert ll == ll.reverse()
     #################### test rotate ####################
-    assert ll == ll.rotate_left(get_pos_int())
-    assert ll == ll.rotate_right(get_pos_int())
+    assert ll == ll.rotate_left(get_pos_int(), inplace=False)
+    assert ll == ll.rotate_right(get_pos_int(), inplace=False)
     #################### test operators ####################
     assert ll != LinkedList()
     assert ll > LinkedList()
@@ -303,8 +308,9 @@ def test_rotate():
     ll = LinkedList.from_iterable([1, 2, 3, 4, 5, 6])
     rotated = ll.rotate_right(1, inplace=False)
     assert rotated.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert isinstance(ll.head, Node)
     assert rotated.head.get_data() == 6
-    assert rotated[4] == 4
+    assert rotated[4].get_data() == 4
     rotated = ll.rotate_left(3)
     assert rotated.to_list() == [3, 4 ,5, 6, 1, 2]
     assert rotated.head.get_data() == 3
@@ -313,12 +319,14 @@ def test_rotate():
     # rotate when inplace = True
     ll.rotate_right(1)
     assert ll.to_list() == [6, 1, 2, 3, 4 ,5]
+    assert isinstance(ll.head, Node)
     assert ll.head.get_data() == 6
-    assert ll[4] == 4
+    assert str(ll[4]) == "4"
     ll.rotate_left(3)
     assert ll.to_list() == [3, 4 ,5, 6, 1, 2]
     assert ll.head.get_data() == 3
-    assert ll[-1] == 5
+    assert isinstance(ll.head, Node)
+    assert str(ll[-1]) == '5'
 
 
 def test_split():
@@ -327,12 +335,14 @@ def test_split():
     assert isinstance(left_list, LinkedList)
     assert isinstance(right_list, LinkedList)
     assert left_list.to_list() == [1, 2, 3, 4, 5]
+    assert isinstance(ll.head, Node)
     assert left_list.head.get_data() == 1
 
     assert right_list.reverse() == LinkedList(6)
+    assert isinstance(ll.head, Node)
     assert right_list.head.get_data() == 6
     assert right_list.head.get_next() is None
     ll.add_front(0)
     assert ll.length == len(ll) == 7
-    assert ll.to_list == list(range(7))
+    assert ll.to_list == [0, 1, 2, 3, 4, 5, 6]
 
