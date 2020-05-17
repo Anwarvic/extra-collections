@@ -7,7 +7,22 @@ def test_avlnode():
     pass
 
 
-
+def test_empty_avl(avl=AVL()):
+    assert avl.is_empty()
+    assert len(avl) == 0
+    assert avl.get_height() == 0
+    assert avl.to_list() == []
+    assert avl.count_leaf_nodes() == 0
+    with pytest.warns(UserWarning): avl.is_balanced()
+    with pytest.warns(UserWarning): avl.is_perfect()
+    with pytest.warns(UserWarning): avl.is_strict()
+    assert avl.preorder_traverse() == []
+    assert avl.postorder_traverse() == []
+    assert avl.inorder_traverse() == []
+    assert avl.breadth_first_traverse() == []
+    assert avl.traverse() == []
+    with pytest.raises(IndexError): avl.get_max()
+    with pytest.raises(IndexError): avl.get_min()
 
 
 def test_simple_avl_tree():
@@ -28,8 +43,7 @@ def test_simple_avl_tree():
     # test main methods
     assert not avl.is_empty()
     assert len(avl) == 9
-    assert avl.get_height() == 0
-    assert avl.to_list() == []
+    assert avl.get_height() == 3
     assert avl.count_leaf_nodes() == 4
     assert avl.is_balanced()
     assert not avl.is_perfect()
@@ -50,9 +64,9 @@ def test_simple_avl_tree():
     assert root.get_height() == 3
     assert root.get_left().get_data() == 17
     assert root.get_left().get_height() == 1
-    assert root.get_left().get_right.get_data() == 32
-    assert root.get_left().get_right.get_height() == 0
-    assert root.get_left().right_left() is None
+    assert root.get_left().get_right().get_data() == 32
+    assert root.get_left().get_right().get_height() == 0
+    assert root.get_left().get_left() is None
     assert root.get_right().get_data() == 62
     assert root.get_right().get_height() == 2
     assert root.get_right().get_left().get_data() == 50
