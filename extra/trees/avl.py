@@ -78,10 +78,9 @@ class AVL(BST):
     def _rotate_left_right(self, start_node):
         middle = super()._rotate_left_right(start_node)
         # adjust heights
-        _, right_height = middle.get_children_heights()
         middle.increment_height()
         middle.get_left().decrement_height()
-        middle.get_right().set_height(right_height-2)
+        middle.get_right().decrement_height()
         return middle
 
 
@@ -104,34 +103,28 @@ class AVL(BST):
         return grand_parent, parent, child
             
 
-    def _rebalance(self, start_node):
-        if start_node is None:
-            return
-        # general case
-        grand_parent, parent, node = self._get_unbalanced_node(start_node)
-        if grand_parent is not None:
-            great_grand_parent = grand_parent.get_parent() 
-            if parent.is_left_child():
-                if node.is_left_child():
-                    # left-left
-                    middle = self._rotate_right(grand_parent)
-                    self._attach(great_grand_parent, middle)
-                else:
-                    # left-right
-                    middle = self._rotate_left_right(grand_parent)
-                    self._attach(great_grand_parent, middle)
-            else:
-                if node.is_left_child():
-                    # right-left
-                    middle = self._rotate_right_left(grand_parent)
-                    self._attach(great_grand_parent, middle)
-                else:
-                    # right-right
-                    middle = self._rotate_left(grand_parent)
-                    self._attach(great_grand_parent, middle)
-            self._rebalance(great_grand_parent)
+    def _rebalance(self, grand_parent, parent, node):
+        assert isinstance(grand_parent, self._basic_node)
+        assert isinstance(parent, self._basic_node)
+        assert isinstance(node, self._basic_node)
 
-        
+        if parent.is_left_child():
+            if node.is_left_child():
+                # left-left
+                middle = self._rotate_right(grand_parent)
+            else:
+                # left-right
+                middle = self._rotate_left_right(grand_parent)
+        else:
+            if node.is_left_child():
+                # right-left
+                middle = self._rotate_right_left(grand_parent)
+            else:
+                # right-right
+                middle = self._rotate_left(grand_parent)
+        return middle
+                    
+
 
     ##############################     INSERT     ##############################
     def insert(self, value):
@@ -143,12 +136,19 @@ class AVL(BST):
             inserted_node = self._insert(value)
             child = inserted_node
             parent = child.get_parent()
+            grand_parent = child.get_grand_parent()
             while(parent is not None and parent._height < 1+child._height):
                 parent.increment_height()
+                if grand_parent is not None and not grand_parent.is_balanced():
+                    great_grand_parent = grand_parent.get_parent()
+                    middle = self._rebalance(grand_parent, parent, child)
+                    self._attach(great_grand_parent, middle)
+                    parent = middle
+                    grand_parent = great_grand_parent
                 child = parent
-                parent = child.get_parent()
-            # rebalance child
-            self._rebalance(inserted_node)
+                parent = grand_parent
+                grand_parent = child.get_grand_parent()
+            
 
 
 
@@ -166,4 +166,7 @@ if __name__ == "__main__":
     avl.insert(62)
     avl.insert(54)
     print(avl)
+    print(avl.postorder_traverse())
+    print(avl.inorder_traverse())
+    print(avl.breadth_first_traverse())
     print('='*50)
