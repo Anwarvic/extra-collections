@@ -123,7 +123,16 @@ class AVL(BST):
                 # right-right
                 middle = self._rotate_left(grand_parent)
         return middle
-                    
+    
+
+    def is_balanced(self):
+        """
+        BinaryTree is balanced if the difference between the depth of any
+        two leaf nodes is less than or equal one.
+        """
+        if self.is_empty():
+            return super().is_balanced()
+        return self._root.is_balanced()
 
 
     ##############################     INSERT     ##############################
