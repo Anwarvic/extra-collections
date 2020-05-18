@@ -64,6 +64,7 @@ class AVL(BST):
     
     ##############################     ROTATE     ##############################
     def _rotate_left(self, start_node):
+        print("HERE")
         middle = super()._rotate_left(start_node)
         # adjust heights
         middle.get_left().decrement_height(value=2)
@@ -102,7 +103,7 @@ class AVL(BST):
         while(grand_parent is not None and grand_parent.is_balanced()):
             return self._get_unbalanced_node(parent)
         return grand_parent, parent, child
-            
+    
 
     def _rebalance(self, grand_parent, parent):
         assert isinstance(grand_parent, self._basic_node)
@@ -142,43 +143,38 @@ class AVL(BST):
 
 
     ##############################     INSERT     ##############################
-    def insert(self, value):
-        self._validate_item(value)
-        if self.is_empty():
-            self._root = self._basic_node(value)
-            self._length += 1
+    def _insert(self, value):
+        assert type(value) in {int, float} or \
+                    isinstance(value, self._basic_node)
+        
+        if isinstance(value, self._basic_node):
+            inserted_node = self._insert_node(self._root, value)
         else:
-            inserted_node = self._insert(value)
-            child = inserted_node
-            parent = child.get_parent()
-            while(parent is not None and parent._height < 1+child._height):
-                grand_parent = parent.get_parent()
-                parent.increment_height()
-                if not parent.is_balanced():
-                    middle = self._rebalance(parent, child)
-                    self._attach(grand_parent, middle)
-                    parent = middle
-                child = parent
-                parent = grand_parent
-            
+            inserted_node = self._insert_value(self._root, value)
+        # update heights & rebalance when needed
+        child = inserted_node
+        parent = child.get_parent()
+        while(parent is not None and parent._height < 1+child._height):
+            grand_parent = parent.get_parent()
+            parent.increment_height()
+            if not parent.is_balanced():
+                middle = self._rebalance(parent, child)
+                self._attach(grand_parent, middle)
+                parent = middle
+            child = parent
+            parent = grand_parent
+        return inserted_node
+    
 
+    ##############################     REMOVE     ##############################
+    # def remove(self, del_value):
+    #     if self.is_empty() or type(del_value) not in {int, float}:
+    #         super().remove(del_value)
+    #     elif 
 
 
 
 
 if __name__ == "__main__":
     avl = AVL()
-    avl.insert(43)
-    avl.insert(18)
-    avl.insert(22)
-    avl.insert(9)
-    avl.insert(21)
-    avl.insert(6)
-    avl.insert(8)
-    avl.insert(20)
-    avl.insert(63)
-    avl.insert(50)
-    avl.insert(62)
-    avl.insert(51)
-    print(avl)
-    print('='*50)
+    
