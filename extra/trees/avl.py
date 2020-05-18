@@ -66,14 +66,14 @@ class AVL(BST):
     def _rotate_left(self, start_node):
         middle = super()._rotate_left(start_node)
         # adjust heights
-        middle.get_left().decrement_height()
+        middle.get_left().decrement_height(value=2)
         return middle
 
 
     def _rotate_right(self, start_node):
         middle = super()._rotate_right(start_node)
         # adjust heights
-        middle.get_right().decrement_height()
+        middle.get_right().decrement_height(value=2)
         return middle
     
 
@@ -87,10 +87,10 @@ class AVL(BST):
 
 
     def _rotate_right_left(self, start_node):
-        middle = super()._rotate_left_right(start_node)
+        middle = super()._rotate_right_left(start_node)
         # adjust heights
         middle.increment_height()
-        middle.get_left().decrement_height()
+        middle.get_left().decrement_height(value=2)
         middle.get_right().decrement_height()
         return middle
 
