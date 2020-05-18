@@ -44,6 +44,19 @@ def test_empty_avl(avl=AVL()):
     with pytest.raises(IndexError): avl.get_min()
 
 
+def test_search_insert_remove_input(avl=AVL()):
+    assert None not in avl
+    assert get_string() not in avl
+    assert get_list() not in avl
+    with pytest.raises(ValueError): avl.insert(None)
+    with pytest.raises(TypeError): avl.insert(get_string())
+    with pytest.raises(TypeError): avl.insert(get_list())
+    
+    # with pytest.warns(UserWarning): avl.remove(None)
+    # with pytest.warns(UserWarning): avl.remove(get_string())
+    # with pytest.warns(UserWarning): avl.remove(get_list())
+
+
 def test_simple_avl_tree():
     # src: Data Structures and Algorithms in Python Book (page: 506)
     avl = AVL()
