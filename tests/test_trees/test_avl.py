@@ -231,7 +231,44 @@ def test_search_insert_remove_input(avl=AVL()):
 
 
 def test_left_rotation():
-    pass
+    avl = AVL()
+    avl.insert(10)
+    avl.insert(5)
+    avl.insert(0)
+
+    verify_bst_rules(avl._root)
+
+    # test main methods
+    assert not avl.is_empty()
+    assert len(avl) == 3
+    assert avl.get_height() == 1
+    assert avl.count_leaf_nodes() == 2
+    assert avl.is_balanced()
+    assert avl.is_perfect()
+    assert avl.is_strict()
+    assert avl.to_list() == [5, 0, 10]
+    
+    assert avl.preorder_traverse() == [5, 0, 10]
+    assert avl.postorder_traverse() == [0, 10, 5]
+    assert avl.inorder_traverse() == [0, 5, 10]
+    assert avl.breadth_first_traverse() == [5, 0, 10]
+    assert avl.traverse() == [0, 5, 10]
+    assert avl.get_max() == 10
+    assert avl.get_min() == 0
+
+    # test nodes-heights
+    root = avl._root
+    assert root.get_data() == 5
+    assert root.get_height() == 1
+    assert root.get_left().get_data() == 0
+    assert root.get_left().get_height() == 0
+    assert root.get_left().get_left() is None
+    assert root.get_left().get_right() is None
+    assert root.get_right().get_data() == 10
+    assert root.get_right().get_height() == 0
+    assert root.get_right().get_left() is None
+    assert root.get_right().get_right() is None
+
 
 
 def test_right_rotation():
