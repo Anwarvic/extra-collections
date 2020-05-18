@@ -311,11 +311,11 @@ def test_rotate():
     assert isinstance(ll.head, Node)
     assert rotated.head.get_data() == 6
     assert rotated[4].get_data() == 4
-    rotated = ll.rotate_left(3)
-    assert rotated.to_list() == [3, 4 ,5, 6, 1, 2]
-    assert rotated.head.get_data() == 3
-    assert rotated[-1] == 5
-    assert ll.to_list == [1, 2, 3, 4, 5, 6]
+    rotated = ll.rotate_left(3, inplace=False)
+    assert rotated.to_list() == [4, 5, 6, 1, 2, 3]
+    assert rotated.head.get_data() == 4
+    assert rotated[-1].get_data() == 3
+    assert ll.to_list() == [1, 2, 3, 4, 5, 6]
     # rotate when inplace = True
     ll.rotate_right(1)
     assert ll.to_list() == [6, 1, 2, 3, 4 ,5]
@@ -326,7 +326,7 @@ def test_rotate():
     assert ll.to_list() == [3, 4 ,5, 6, 1, 2]
     assert ll.head.get_data() == 3
     assert isinstance(ll.head, Node)
-    assert str(ll[-1]) == '5'
+    assert str(ll[-1]) == '2'
 
 
 def test_split():
@@ -335,14 +335,14 @@ def test_split():
     assert isinstance(left_list, LinkedList)
     assert isinstance(right_list, LinkedList)
     assert left_list.to_list() == [1, 2, 3, 4, 5]
-    assert isinstance(ll.head, Node)
+    assert isinstance(left_list.head, Node)
     assert left_list.head.get_data() == 1
 
     assert right_list.reverse() == LinkedList(6)
-    assert isinstance(ll.head, Node)
+    assert isinstance(right_list.head, Node)
     assert right_list.head.get_data() == 6
     assert right_list.head.get_next() is None
     ll.add_front(0)
     assert ll.length == len(ll) == 7
-    assert ll.to_list == [0, 1, 2, 3, 4, 5, 6]
+    assert ll.to_list() == [0, 1, 2, 3, 4, 5, 6]
 
