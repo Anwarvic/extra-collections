@@ -23,6 +23,7 @@ class AVLNode(BSTNode):
     def decrement_height(self):
         self._height -= 1
     
+
     def set_height(self, new_height):
         if type(new_height) != int:
             raise TypeError("Height has to be an integer number >= 0!!")
@@ -32,9 +33,9 @@ class AVLNode(BSTNode):
     
 
     def get_children_heights(self):
-        left_height  = self.get_left().get_height() \
+        left_height  = 1 + self.get_left().get_height() \
                             if self.get_left() is not None else 0
-        right_height = self.get_right().get_height() \
+        right_height = 1 + self.get_right().get_height() \
                             if self.get_right() is not None else 0
         return [left_height, right_height]
     
@@ -62,16 +63,14 @@ class AVL(BST):
     def _rotate_left(self, start_node):
         middle = super()._rotate_left(start_node)
         # adjust heights
-        left_height, _ = middle.get_children_heights()
-        middle.get_left().set_height(left_height-2)
+        middle.get_left().decrement_height()
         return middle
 
 
     def _rotate_right(self, start_node):
         middle = super()._rotate_right(start_node)
         # adjust heights
-        _, right_height = middle.get_children_heights()
-        middle.get_right().set_height(right_height-2)
+        middle.get_right().decrement_height()
         return middle
     
 
@@ -87,9 +86,8 @@ class AVL(BST):
     def _rotate_right_left(self, start_node):
         middle = super()._rotate_left_right(start_node)
         # adjust heights
-        left_height, _ = middle.get_children_heights()
         middle.increment_height()
-        middle.get_left().set_height(left_height-2)
+        middle.get_left().decrement_height()
         middle.get_right().decrement_height()
         return middle
 
@@ -103,11 +101,16 @@ class AVL(BST):
         return grand_parent, parent, child
             
 
-    def _rebalance(self, grand_parent, parent, node):
+    def _rebalance(self, grand_parent, parent):
         assert isinstance(grand_parent, self._basic_node)
         assert isinstance(parent, self._basic_node)
-        assert isinstance(node, self._basic_node)
 
+        # get the cause of the imbalance
+        left_height, right_height = parent.get_children_heights()
+        node = parent.get_left() \
+            if left_height > right_height else parent.get_right()
+        
+        # determine the direction
         if parent.is_left_child():
             if node.is_left_child():
                 # left-left
@@ -145,18 +148,15 @@ class AVL(BST):
             inserted_node = self._insert(value)
             child = inserted_node
             parent = child.get_parent()
-            grand_parent = child.get_grand_parent()
             while(parent is not None and parent._height < 1+child._height):
+                grand_parent = parent.get_parent()
                 parent.increment_height()
-                if grand_parent is not None and not grand_parent.is_balanced():
-                    great_grand_parent = grand_parent.get_parent()
-                    middle = self._rebalance(grand_parent, parent, child)
-                    self._attach(great_grand_parent, middle)
+                if not parent.is_balanced():
+                    middle = self._rebalance(parent, child)
+                    self._attach(grand_parent, middle)
                     parent = middle
-                    grand_parent = great_grand_parent
                 child = parent
                 parent = grand_parent
-                grand_parent = child.get_grand_parent()
             
 
 
@@ -165,17 +165,17 @@ class AVL(BST):
 
 if __name__ == "__main__":
     avl = AVL()
-    avl.insert(44)
-    avl.insert(17)
-    avl.insert(78)
-    avl.insert(32)
+    avl.insert(43)
+    avl.insert(18)
+    avl.insert(22)
+    avl.insert(9)
+    avl.insert(21)
+    avl.insert(6)
+    avl.insert(8)
+    avl.insert(20)
+    avl.insert(63)
     avl.insert(50)
-    avl.insert(88)
-    avl.insert(48)
     avl.insert(62)
-    avl.insert(54)
+    avl.insert(51)
     print(avl)
-    print(avl.postorder_traverse())
-    print(avl.inorder_traverse())
-    print(avl.breadth_first_traverse())
     print('='*50)
