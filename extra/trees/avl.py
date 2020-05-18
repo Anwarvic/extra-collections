@@ -16,20 +16,23 @@ class AVLNode(BSTNode):
         return self._height
     
 
-    def increment_height(self):
-        self._height += 1
-    
-
-    def decrement_height(self):
-        self._height -= 1
-    
-
-    def set_height(self, new_height):
+    def __validate_height(self, new_height):
         if type(new_height) != int:
             raise TypeError("Height has to be an integer number >= 0!!")
         elif new_height < 0:
             raise ValueError("Height has to be an integer number >= 0!!")
-        self._height = new_height
+    
+
+    def increment_height(self, value=1):
+        self.__validate_height(value)
+        self._height += value
+    
+
+    def decrement_height(self, value=1):
+        self.__validate_height(value)
+        self._height -= value
+    
+
     
 
     def get_children_heights(self):
@@ -79,7 +82,7 @@ class AVL(BST):
         # adjust heights
         middle.increment_height()
         middle.get_left().decrement_height()
-        middle.get_right().decrement_height()
+        middle.get_right().decrement_height(value=2)
         return middle
 
 
