@@ -52,9 +52,9 @@ def test_search_insert_remove_input(avl=AVL()):
     with pytest.raises(TypeError): avl.insert(get_string())
     with pytest.raises(TypeError): avl.insert(get_list())
     
-    # with pytest.warns(UserWarning): avl.remove(None)
-    # with pytest.warns(UserWarning): avl.remove(get_string())
-    # with pytest.warns(UserWarning): avl.remove(get_list())
+    with pytest.warns(UserWarning): avl.remove(None)
+    with pytest.warns(UserWarning): avl.remove(get_string())
+    with pytest.warns(UserWarning): avl.remove(get_list())
 
 
 def test_avl_one_value():
@@ -154,3 +154,76 @@ def test_simple_avl_tree():
     assert root.get_right().get_right().get_right().get_right() is None
 
 
+def test_avl_big_example():
+    avl = AVL()
+    avl.insert(43)
+    avl.insert(18)
+    avl.insert(22)
+    avl.insert(9)
+    avl.insert(21)
+    avl.insert(6)
+    avl.insert(8)
+    avl.insert(20)
+    avl.insert(63)
+    avl.insert(50)
+    avl.insert(62)
+    avl.insert(51)
+
+    verify_bst_rules(avl._root)
+
+    # test main methods
+    assert not avl.is_empty()
+    assert len(avl) == 12
+    assert avl.get_height() == 3
+    assert avl.count_leaf_nodes() == 6
+    assert avl.is_balanced()
+    assert not avl.is_perfect()
+    assert not avl.is_strict()
+    assert avl.to_list() == [22, 18, 50, 8, 21, 43, 62, 6, 9, 20, 51, 63]
+    
+    assert avl.preorder_traverse() == [22, 18, 8, 6, 9, 21, 20, 50, 43, 62, 51, 63]
+    assert avl.postorder_traverse() == [6, 9, 8, 20, 21, 18, 43, 51, 63, 62, 50, 22]
+    assert avl.inorder_traverse() == [6, 8, 9, 18, 20, 21, 22, 43, 50, 51, 62, 63]
+    assert avl.breadth_first_traverse() == [22, 18, 50, 8, 21, 43, 62, 6, 9, 20, 51, 63]
+    assert avl.traverse() == [6, 8, 9, 18, 20, 21, 22, 43, 50, 51, 62, 63]
+    assert avl.get_max() == 63
+    assert avl.get_min() == 6
+
+    # test nodes-heights
+    root = avl._root
+    assert root.get_data() == 22
+    assert root.get_height() == 3
+    assert root.get_left().get_data() == 18
+    assert root.get_left().get_height() == 2
+    assert root.get_left().get_left().get_data() == 8
+    assert root.get_left().get_left().get_height() == 1
+    assert root.get_left().get_left().get_left().get_data() == 6
+    assert root.get_left().get_left().get_left().get_height() == 0
+    assert root.get_left().get_left().get_left().get_left() is None
+    assert root.get_left().get_left().get_left().get_right() is None
+    assert root.get_left().get_left().get_right().get_data() == 9
+    assert root.get_left().get_left().get_right().get_height() == 0
+    assert root.get_left().get_left().get_right().get_left() is None
+    assert root.get_left().get_left().get_right().get_right() is None
+    assert root.get_left().get_right().get_data() == 21
+    assert root.get_left().get_right().get_height() == 1
+    assert root.get_left().get_right().get_right() is None
+    assert root.get_left().get_right().get_left().get_data() == 20
+    assert root.get_left().get_right().get_left().get_height() == 0
+    assert root.get_left().get_right().get_left().get_left() is None
+    assert root.get_left().get_right().get_left().get_right() is None
+
+    assert root.get_right().get_data() == 50
+    assert root.get_right().get_height() == 2
+    assert root.get_right().get_left().get_data() == 43
+    assert root.get_right().get_left().get_height() == 0
+    assert root.get_right().get_left().get_left() is None
+    assert root.get_right().get_left().get_right() is None
+    assert root.get_right().get_right().get_data() == 62
+    assert root.get_right().get_right().get_height() == 1
+    assert root.get_right().get_right().get_left().get_data() == 51
+    assert root.get_right().get_right().get_left().get_height() == 0
+    assert root.get_right().get_right().get_right().get_data() == 63
+    assert root.get_right().get_right().get_right().get_height() == 0
+    assert root.get_right().get_right().get_right().get_left() is None
+    assert root.get_right().get_right().get_right().get_right() is None
