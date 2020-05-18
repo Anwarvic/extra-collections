@@ -57,6 +57,40 @@ def test_search_insert_remove_input(avl=AVL()):
     # with pytest.warns(UserWarning): avl.remove(get_list())
 
 
+def test_avl_one_value():
+    avl = AVL()
+    val = get_int()
+    avl.insert(val)
+    # test structure
+    assert verify_bst_rules(avl._root)
+    assert avl._root.get_data() == val
+    # test various methods
+    assert avl.count_leaf_nodes() == 1
+    assert avl.get_max() == val
+    assert avl.get_min() == val
+    assert avl.get_height() == 0
+    assert avl.is_balanced()
+    assert avl.is_perfect()
+    assert avl.is_strict()
+    # test __contains__
+    assert val in avl
+    assert 100 not in avl
+    assert 1.1 not in avl
+    # test __iter__ / traverse
+    assert avl.to_list() == [val]
+    assert avl.preorder_traverse() == [val]
+    assert avl.depth_first_traverse() == [val]
+    assert avl.postorder_traverse() == [val]
+    assert avl.inorder_traverse() == [val]
+    #test remove
+    with pytest.warns(UserWarning): avl.remove(9)
+    avl.remove(val)
+    # test empty avl
+    test_empty_avl(avl)
+    # validate
+    test_search_insert_remove_input(avl)
+
+
 def test_simple_avl_tree():
     # src: Data Structures and Algorithms in Python Book (page: 506)
     avl = AVL()
