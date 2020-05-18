@@ -44,19 +44,6 @@ def test_empty_avl(avl=AVL()):
     with pytest.raises(IndexError): avl.get_min()
 
 
-def test_search_insert_remove_input(avl=AVL()):
-    assert None not in avl
-    assert get_string() not in avl
-    assert get_list() not in avl
-    with pytest.raises(ValueError): avl.insert(None)
-    with pytest.raises(TypeError): avl.insert(get_string())
-    with pytest.raises(TypeError): avl.insert(get_list())
-    
-    with pytest.warns(UserWarning): avl.remove(None)
-    with pytest.warns(UserWarning): avl.remove(get_string())
-    with pytest.warns(UserWarning): avl.remove(get_list())
-
-
 def test_avl_one_value():
     avl = AVL()
     val = get_int()
@@ -155,6 +142,7 @@ def test_simple_avl_tree():
 
 
 def test_avl_big_example():
+    # src: https://www.youtube.com/watch?v=7m94k2Qhg68
     avl = AVL()
     avl.insert(43)
     avl.insert(18)
@@ -227,3 +215,69 @@ def test_avl_big_example():
     assert root.get_right().get_right().get_right().get_height() == 0
     assert root.get_right().get_right().get_right().get_left() is None
     assert root.get_right().get_right().get_right().get_right() is None
+
+
+def test_search_insert_remove_input(avl=AVL()):
+    assert None not in avl
+    assert get_string() not in avl
+    assert get_list() not in avl
+    with pytest.raises(ValueError): avl.insert(None)
+    with pytest.raises(TypeError): avl.insert(get_string())
+    with pytest.raises(TypeError): avl.insert(get_list())
+    
+    with pytest.warns(UserWarning): avl.remove(None)
+    with pytest.warns(UserWarning): avl.remove(get_string())
+    with pytest.warns(UserWarning): avl.remove(get_list())
+
+
+def test_left_rotation():
+    pass
+
+
+def test_right_rotation():
+    avl = AVL()
+    avl.insert(10)
+    avl.insert(5)
+    avl.insert(0)
+
+    verify_bst_rules(avl._root)
+
+    # test main methods
+    assert not avl.is_empty()
+    assert len(avl) == 3
+    assert avl.get_height() == 1
+    assert avl.count_leaf_nodes() == 2
+    assert avl.is_balanced()
+    assert avl.is_perfect()
+    assert avl.is_strict()
+    assert avl.to_list() == [5, 0, 10]
+    
+    assert avl.preorder_traverse() == [5, 0, 10]
+    assert avl.postorder_traverse() == [0, 10, 5]
+    assert avl.inorder_traverse() == [0, 5, 10]
+    assert avl.breadth_first_traverse() == [5, 0, 10]
+    assert avl.traverse() == [0, 5, 10]
+    assert avl.get_max() == 10
+    assert avl.get_min() == 0
+
+    # test nodes-heights
+    root = avl._root
+    assert root.get_data() == 5
+    assert root.get_height() == 1
+    assert root.get_left().get_data() == 0
+    assert root.get_left().get_height() == 0
+    assert root.get_left().get_left() is None
+    assert root.get_left().get_right() is None
+    assert root.get_right().get_data() == 10
+    assert root.get_right().get_height() == 0
+    assert root.get_right().get_left() is None
+    assert root.get_right().get_right() is None
+
+
+
+def test_left_right_rotation():
+    pass
+
+
+def test_right_left_rotation():
+    pass
