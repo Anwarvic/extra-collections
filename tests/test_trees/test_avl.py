@@ -3,8 +3,27 @@ from tests import *
 from extra.trees.avl import AVLNode, AVL
 
 
-def test_avlnode():
-    pass
+def test_avl_node():
+    with pytest.raises(TypeError): AVLNode(None)
+    with pytest.raises(TypeError): AVLNode('  ')
+    with pytest.raises(TypeError): AVLNode(AVL())
+    with pytest.raises(TypeError): AVLNode(get_string())
+    with pytest.raises(TypeError): AVLNode(get_list())
+    # these shouldn't raise any erros
+    for val in [get_int(), get_float()]:
+        node = AVLNode(val)
+        assert node.get_data() == val
+        assert node.get_left() == node.get_right() == None
+        assert node.get_children() == []
+        assert node._height == 0
+        assert node.get_children_heights() == [0, 0]
+        assert node.is_balanced()
+        with pytest.raises(TypeError): node.increment_height(get_string())
+        with pytest.raises(TypeError): node.decrement_height(get_string())
+        with pytest.raises(TypeError): node.increment_height(get_float())
+        with pytest.raises(TypeError): node.decrement_height(get_float())
+        with pytest.raises(ValueError): node.decrement_height(get_neg_int())
+        with pytest.raises(ValueError): node.decrement_height(get_neg_int())
 
 
 def test_empty_avl(avl=AVL()):
