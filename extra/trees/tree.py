@@ -149,23 +149,30 @@ class Tree(Extra):
 
 
     ##############################  HEIGHT/DEPTH  ##############################
-    def _get_depth(self, start_node):
+    def _get_height(self, start_node):
         assert isinstance(start_node, TreeNode)
 
-        depth = 0
+        height = 0
         for child in start_node.get_children():
-            depth = max(depth, 1 + self._get_depth(child))
-        return depth
+            height = max(height, 1 + self._get_height(child))
+        return height
+    
 
+    def get_height(self):
+        if self.is_empty():
+            return 0
+        return self._get_height(self._root)
+    
+
+    def _get_depth(self, start_node):
+        assert isinstance(start_node, TreeNode)
+        return self._get_height(self._root) - self._get_height(start_node)
+        
 
     def get_depth(self):
         if self.is_empty():
             return 0
         return self._get_depth(self._root)
-    
-
-    def get_height(self):
-        return self.get_depth()
     
 
     ##############################   LEAF NODES   ##############################
