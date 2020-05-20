@@ -18,12 +18,9 @@ def test_avl_node():
         assert node._height == 0
         assert node.get_children_heights() == [0, 0]
         assert node.is_balanced()
-        with pytest.raises(TypeError): node.increment_height(get_string())
-        with pytest.raises(TypeError): node.decrement_height(get_string())
-        with pytest.raises(TypeError): node.increment_height(get_float())
-        with pytest.raises(TypeError): node.decrement_height(get_float())
-        with pytest.raises(ValueError): node.decrement_height(get_neg_int())
-        with pytest.raises(ValueError): node.decrement_height(get_neg_int())
+        with pytest.raises(TypeError): node.set_height(get_string())
+        with pytest.raises(TypeError): node.set_height(get_float())
+        with pytest.raises(ValueError): node.set_height(get_neg_int())
 
 
 def test_empty_avl(avl=AVL()):
@@ -76,6 +73,9 @@ def test_avl_one_value():
     test_empty_avl(avl)
     # validate
     test_search_insert_remove_input(avl)
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
 
 
 def test_simple_avl_tree():
@@ -139,6 +139,9 @@ def test_simple_avl_tree():
     assert root.get_right().get_right().get_right().get_height() == 0
     assert root.get_right().get_right().get_right().get_left() is None
     assert root.get_right().get_right().get_right().get_right() is None
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
 
 
 def test_avl_big_example():
@@ -216,6 +219,10 @@ def test_avl_big_example():
     assert root.get_right().get_right().get_right().get_left() is None
     assert root.get_right().get_right().get_right().get_right() is None
 
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
+
 
 def test_search_insert_remove_input(avl=AVL()):
     assert None not in avl
@@ -232,9 +239,9 @@ def test_search_insert_remove_input(avl=AVL()):
 
 def test_left_rotation():
     avl = AVL()
-    avl.insert(10)
-    avl.insert(5)
     avl.insert(0)
+    avl.insert(5)
+    avl.insert(10)
 
     verify_bst_rules(avl._root)
 
@@ -268,6 +275,10 @@ def test_left_rotation():
     assert root.get_right().get_height() == 0
     assert root.get_right().get_left() is None
     assert root.get_right().get_right() is None
+
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
 
 
 def test_right_rotation():
@@ -309,6 +320,9 @@ def test_right_rotation():
     assert root.get_right().get_left() is None
     assert root.get_right().get_right() is None
 
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
 
 
 def test_left_right_rotation():
@@ -349,7 +363,10 @@ def test_left_right_rotation():
     assert root.get_right().get_height() == 0
     assert root.get_right().get_left() is None
     assert root.get_right().get_right() is None
-
+    
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
 
 
 def test_right_left_rotation():
@@ -390,3 +407,8 @@ def test_right_left_rotation():
     assert root.get_right().get_height() == 0
     assert root.get_right().get_left() is None
     assert root.get_right().get_right() is None
+
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
+
