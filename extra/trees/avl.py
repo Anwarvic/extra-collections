@@ -175,7 +175,25 @@ class AVL(BST):
         return inserted_node
     
 
+    ##############################     REMOVE     ##############################
+    def _remove(self, del_value, start_node):
+        assert type(del_value) in {int, float}
+        assert isinstance(start_node, self._basic_node)
 
+        length_before = self._length
+        last_accessed_node = super()._remove(del_value, start_node)
+        if self._length != length_before:
+            parent = last_accessed_node
+            while(parent is not None):
+                grand_parent = parent.get_parent()
+                if parent.is_leaf():
+                    parent.decrement_height()
+                if not parent.is_balanced():
+                    parent = self._rebalance(parent)
+                    self._attach(grand_parent, parent)
+                parent = grand_parent
+        return last_accessed_node
+        
 
         
 
