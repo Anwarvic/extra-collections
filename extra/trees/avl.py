@@ -33,8 +33,6 @@ class AVLNode(BSTNode):
         self._height -= value
     
 
-    
-
     def get_children_heights(self):
         left_height  = 1 + self.get_left().get_height() \
                             if self.get_left() is not None else 0
@@ -50,6 +48,16 @@ class AVLNode(BSTNode):
 
     def __repr__(self):
         return f"AVLNode({self._data})"
+    
+
+    @staticmethod
+    def swap_height(first, second):
+        assert first is None or isinstance(first, AVLNode)
+        assert first is None or isinstance(first, AVLNode)
+
+        first_height = first.get_height() if first is not None else 0
+        second_height = second.get_height() if second is not None else 0
+        first._height, second._height = second_height, first_height
 
 
 
@@ -64,17 +72,16 @@ class AVL(BST):
     
     ##############################     ROTATE     ##############################
     def _rotate_left(self, start_node):
-        print("HERE")
         middle = super()._rotate_left(start_node)
         # adjust heights
-        middle.get_left().decrement_height(value=2)
+        AVLNode.swap_height(middle, middle.get_left())
         return middle
 
 
     def _rotate_right(self, start_node):
         middle = super()._rotate_right(start_node)
         # adjust heights
-        middle.get_right().decrement_height(value=2)
+        AVLNode.swap_height(middle, middle.get_right())
         return middle
     
 
@@ -168,29 +175,7 @@ class AVL(BST):
         return inserted_node
     
 
-    ##############################     REMOVE     ##############################
-    def _remove(self, del_value, start_node):
-        assert type(del_value) in {int, float}
-        assert isinstance(start_node, self._basic_node)
 
-        length_before = self._length
-        last_accessed_node = super()._remove(del_value, start_node)
-        if self._length != length_before:
-            if last_accessed_node.is_leaf():
-                last_accessed_node.decrement_height()
-            child = last_accessed_node
-            parent = child.get_parent()
-            while(parent is not None and parent._height > 1+child._height):
-                grand_parent = parent.get_parent()
-                parent.decrement_height()
-                if not parent.is_balanced():
-                    middle = self._rebalance(parent, child)
-                    self._attach(grand_parent, middle)
-                    parent = middle
-                child = parent
-                parent = grand_parent
-        return last_accessed_node
-        
 
         
 
@@ -209,5 +194,5 @@ if __name__ == "__main__":
     avl.insert(88)
     print(avl)
     avl.remove(17)
-    print(avl)
     print()
+    print(avl)
