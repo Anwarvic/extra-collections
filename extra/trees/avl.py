@@ -12,6 +12,16 @@ class AVLNode(BSTNode):
         self._height = 0
     
 
+    def set_left(self, new_node):
+        super().set_left(new_node)
+        self._height = max(self.get_children_heights())
+    
+
+    def set_right(self, new_node):
+        super().set_right(new_node)
+        self._height = max(self.get_children_heights())
+    
+
     def get_height(self):
         return self._height
     
@@ -67,50 +77,37 @@ class AVL(BST):
 
     
     ##############################     ROTATE     ##############################
-    def _rotate_left(self, start_node):
-        assert isinstance(start_node, self._basic_node)
-
-        # print("Rotating Left")
-        grand_parent = start_node
-        parent = grand_parent.get_right()
-        # adjust connections
-        grand_parent.set_right(parent.get_left())
-        grand_parent._height = max(grand_parent.get_children_heights())
-        parent.set_left(grand_parent)
-        parent._height = max(parent.get_children_heights())
-        return parent
+    # def _rotate_left(self, start_node):
+    #     middle = super()._rotate_left(start_node)
+    #     # adjust heights
+    #     right_subtree = middle.get_right()
+    #     right_subtree._heights = max(right_subtree.get_children_heights())
+    #     middle._height = max(middle.get_children_heights())
+    #     return middle
 
 
-    def _rotate_right(self, start_node):
-        assert isinstance(start_node, self._basic_node)
-        
-        # print("Rotating Right")
-        grand_parent = start_node
-        parent = grand_parent.get_left()
-        # adjust connections
-        grand_parent.set_left(parent.get_right())
-        grand_parent._height = max(grand_parent.get_children_heights())
-        parent.set_right(grand_parent)
-        parent._height = max(parent.get_children_heights())
-        return parent
+    # def _rotate_right(self, start_node):
+    #     middle = super()._rotate_right(start_node)
+    #     # adjust heights
+    #     return middle
     
 
-    def _rotate_left_right(self, start_node):
-        middle = super()._rotate_left_right(start_node)
-        # adjust heights
-        middle.increment_height()
-        middle.get_left().decrement_height()
-        middle.get_right().decrement_height(value=2)
-        return middle
+    # def _rotate_left_right(self, start_node):
+    #     middle = super()._rotate_left_right(start_node)
+    #     # adjust heights
+    #     middle.increment_height()
+    #     middle.get_left().decrement_height()
+    #     middle.get_right().decrement_height(value=2)
+    #     return middle
 
 
-    def _rotate_right_left(self, start_node):
-        middle = super()._rotate_right_left(start_node)
-        # adjust heights
-        middle.increment_height()
-        middle.get_left().decrement_height(value=2)
-        middle.get_right().decrement_height()
-        return middle
+    # def _rotate_right_left(self, start_node):
+    #     middle = super()._rotate_right_left(start_node)
+    #     # adjust heights
+    #     middle.increment_height()
+    #     middle.get_left().decrement_height(value=2)
+    #     middle.get_right().decrement_height()
+    #     return middle
 
     ##############################     BALANCE    ##############################
     def _get_unbalanced_node(self, start_node):
@@ -174,9 +171,9 @@ class AVL(BST):
         # update heights & rebalance when needed
         child = inserted_node
         parent = child.get_parent()
-        while(parent is not None and parent._height < 1+child._height):
+        while(parent is not None):
             grand_parent = parent.get_parent()
-            parent.increment_height()
+            parent._height = max(parent.get_children_heights())
             if not parent.is_balanced():
                 parent = self._rebalance(parent)
                 self._attach(grand_parent, parent)
@@ -210,22 +207,22 @@ class AVL(BST):
 
 
 if __name__ == "__main__":
-    # avl = AVL()
-    # avl.insert(44)
-    # avl.insert(62)
-    # avl.insert(17)
-    # avl.insert(32)
-    # avl.insert(50)
-    # avl.insert(78)
-    # avl.insert(48)
-    # avl.insert(54)
-    # avl.insert(88)
-    # print(avl)
+    avl = AVL()
+    avl.insert(44)
+    avl.insert(62)
+    avl.insert(17)
+    avl.insert(32)
+    avl.insert(50)
+    avl.insert(78)
+    avl.insert(48)
+    avl.insert(54)
+    avl.insert(88)
+    print(avl)
     # avl.remove(17)
     # print()
     # print(avl)
-    avl = AVL()
-    avl.insert(10)
-    avl.insert(5)
-    avl.insert(0)
-    print(avl)
+    # avl = AVL()
+    # avl.insert(0)
+    # avl.insert(5)
+    # avl.insert(10)
+    # print(avl)
