@@ -26,23 +26,6 @@ class AVLNode(BSTNode):
         return self._height
     
 
-    def __validate_height(self, new_height):
-        if type(new_height) != int:
-            raise TypeError("Height has to be an integer number >= 0!!")
-        elif new_height < 0:
-            raise ValueError("Height has to be an integer number >= 0!!")
-    
-
-    def increment_height(self, value=1):
-        self.__validate_height(value)
-        self._height += value
-    
-
-    def decrement_height(self, value=1):
-        self.__validate_height(value)
-        self._height -= value
-    
-
     def get_left_height(self):
         return 1 + self.get_left().get_height() \
             if self.get_left() is not None else 0
@@ -55,6 +38,14 @@ class AVLNode(BSTNode):
 
     def get_children_heights(self):
         return [self.get_left_height(), self.get_right_height()]
+    
+
+    def set_height(self, new_height):
+        if type(new_height) != int:
+            raise TypeError("Height has to be an integer number >= 0!!")
+        elif new_height < 0:
+            raise ValueError("Height has to be an integer number >= 0!!")
+        self._height = new_height
     
 
     def is_balanced(self):
@@ -136,15 +127,13 @@ class AVL(BST):
         else:
             inserted_node = super()._insert_value(self._root, value)
         # update heights & rebalance when needed
-        child = inserted_node
-        parent = child.get_parent()
+        parent = inserted_node.get_parent()
         while(parent is not None):
             grand_parent = parent.get_parent()
             parent._height = max(parent.get_children_heights())
             if not parent.is_balanced():
                 parent = self._rebalance(parent)
                 self._attach(grand_parent, parent)
-            child = parent
             parent = grand_parent
         return inserted_node
     
