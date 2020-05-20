@@ -65,8 +65,13 @@ class AVL(BST):
 
     def __name__(self):
         return "extra.AVL()"
-
     
+
+    ##############################     HEIGHT     ##############################
+    def _get_height(self, start_node):
+        return start_node.get_height()
+    
+
     ##############################     BALANCE    ##############################
     def _get_unbalanced_node(self, start_node):
         child = start_node
