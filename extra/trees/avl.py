@@ -130,7 +130,7 @@ class AVL(BST):
         parent = inserted_node.get_parent()
         while(parent is not None):
             grand_parent = parent.get_parent()
-            parent._height = max(parent.get_children_heights())
+            parent.set_height(max(parent.get_children_heights()))
             if not parent.is_balanced():
                 parent = self._rebalance(parent)
                 self._attach(grand_parent, parent)
@@ -149,7 +149,7 @@ class AVL(BST):
             parent = last_accessed_node
             while(parent is not None):
                 grand_parent = parent.get_parent()
-                parent._height = max(parent.get_children_heights())
+                parent.set_height(max(parent.get_children_heights()))
                 if not parent.is_balanced():
                     parent = self._rebalance(parent)
                     self._attach(grand_parent, parent)
