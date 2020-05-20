@@ -62,7 +62,8 @@ def test_tree_with_known_values():
     # test tree
     assert not t.is_empty()
     assert len(t) == 15
-    assert t.get_depth() == t.get_height() == 3
+    assert t.get_depth() == 0
+    assert t.get_height() == 3
     assert t.count_leaf_nodes() == 9
     assert t.to_list() == \
         ['TheSimpsons', 'Abraham + Mona', 'Clancy + Jackie', 'Herb', 'Homer',

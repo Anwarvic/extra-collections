@@ -26,7 +26,8 @@ def test_splay_tree_example1():
     assert stree.is_balanced()
     assert not stree.is_perfect()
     assert not stree.is_strict()
-    assert stree.get_depth() == stree.get_height() == 5
+    assert stree.get_depth() == 0
+    assert stree.get_height() == 5
     assert stree.count_leaf_nodes() == 4
     assert stree.get_max() == 17
     assert stree.get_min() == 3
@@ -78,7 +79,8 @@ def test_splay_tree_example2():
     assert not stree.is_balanced()
     assert not stree.is_perfect()
     assert not stree.is_strict()
-    assert stree.get_depth() == stree.get_height() == 4
+    assert stree.get_depth() == 0
+    assert stree.get_height() == 4
     assert stree.count_leaf_nodes() == 3
     assert stree.get_max() == 11
     assert stree.get_min() == 3

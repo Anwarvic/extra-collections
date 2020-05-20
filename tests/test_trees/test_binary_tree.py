@@ -63,7 +63,8 @@ def test_binary_tree():
     assert btree._root.get_right().get_right().get_right() is None
     # test various functions
     assert not btree.is_empty()
-    assert btree.get_depth() == btree.get_height() == 2
+    assert btree.get_depth() == 0
+    assert btree.get_height() == 2
     assert btree.is_balanced()
     assert btree.is_perfect()
     assert btree.is_strict()
@@ -129,7 +130,8 @@ def test_parse():
     assert not btree.is_balanced()
     assert not btree.is_perfect()
     assert not btree.is_strict()
-    assert btree.get_depth() == btree.get_height() == 8
+    assert btree.get_depth() == 0
+    assert btree.get_height() == 8
     # clear this binary tree
     btree.clear()
     test_empty_binary_tree(btree)

@@ -35,7 +35,8 @@ def test_red_black_tree_from_iterable():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 7
     assert rbtree.get_min() == 0
-    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 1
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -64,7 +65,8 @@ def test_red_black_special_case():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 15
     assert rbtree.get_min() == 1
-    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 1
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -95,7 +97,8 @@ def test_red_black_tree_insert_example1():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 30
     assert rbtree.get_min() == 10
-    assert rbtree.get_height() == rbtree.get_depth() == 2
+    assert rbtree.get_height() == 2
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -134,7 +137,8 @@ def test_red_black_tree_insert_example2():
     assert rbtree.count_leaf_nodes() == 4
     assert rbtree.get_max() == 23
     assert rbtree.get_min() == 5
-    assert rbtree.get_height() == rbtree.get_depth() == 3
+    assert rbtree.get_height() == 3
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     
     # check data/colors
@@ -188,7 +192,8 @@ def test_red_black_tree_insert_example3():
     assert rbtree.count_leaf_nodes() == 4
     assert rbtree.get_max() == 80
     assert rbtree.get_min() == 5
-    assert rbtree.get_height() == rbtree.get_depth() == 3
+    assert rbtree.get_height() == 3
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -240,7 +245,8 @@ def test_red_black_tree_insert_example4():
     assert rbtree.count_leaf_nodes() == 5
     assert rbtree.get_max() == 18
     assert rbtree.get_min() == 3
-    assert rbtree.get_height() == rbtree.get_depth() == 3
+    assert rbtree.get_height() == 3
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -296,7 +302,8 @@ def test_red_black_tree_insert_remove_example1():
     assert rbtree.count_leaf_nodes() == 3
     assert rbtree.get_max() == 9
     assert rbtree.get_min() == 1
-    assert rbtree.get_height() == rbtree.get_depth() == 2
+    assert rbtree.get_height() == 2
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -341,7 +348,8 @@ def test_red_black_tree_insert_remove_example2():
     assert rbtree.count_leaf_nodes() == 3
     assert rbtree.get_max() == 26
     assert rbtree.get_min() == 7
-    assert rbtree.get_height() == rbtree.get_depth() == 3
+    assert rbtree.get_height() == 3
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -388,7 +396,8 @@ def test_red_black_tree_insert_remove_example3():
     assert rbtree.count_leaf_nodes() == 5
     assert rbtree.get_max() == 27
     assert rbtree.get_min() == 1
-    assert rbtree.get_height() == rbtree.get_depth() == 3
+    assert rbtree.get_height() == 3
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -449,7 +458,8 @@ def test_double_black_left_left_case():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 40
     assert rbtree.get_min() == 20
-    assert rbtree.get_height() == rbtree.get_depth() == 2
+    assert rbtree.get_height() == 2
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -484,7 +494,8 @@ def test_double_black_left_right_case():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 40
     assert rbtree.get_min() == 30
-    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -516,7 +527,8 @@ def test_double_black_right_left_case():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 40
     assert rbtree.get_min() == 30
-    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
@@ -547,7 +559,8 @@ def test_double_black_right_right_case():
     assert rbtree.count_leaf_nodes() == 2
     assert rbtree.get_max() == 50
     assert rbtree.get_min() == 30
-    assert rbtree.get_height() == rbtree.get_depth() == 1
+    assert rbtree.get_height() == 1
+    assert rbtree.get_depth() == 0
     assert rbtree.get_black_height() == 2
     # check data/colors
     assert isinstance(rbtree._root, RedBlackNode)
