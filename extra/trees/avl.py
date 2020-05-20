@@ -76,39 +76,6 @@ class AVL(BST):
         return "extra.AVL()"
 
     
-    ##############################     ROTATE     ##############################
-    # def _rotate_left(self, start_node):
-    #     middle = super()._rotate_left(start_node)
-    #     # adjust heights
-    #     right_subtree = middle.get_right()
-    #     right_subtree._heights = max(right_subtree.get_children_heights())
-    #     middle._height = max(middle.get_children_heights())
-    #     return middle
-
-
-    # def _rotate_right(self, start_node):
-    #     middle = super()._rotate_right(start_node)
-    #     # adjust heights
-    #     return middle
-    
-
-    # def _rotate_left_right(self, start_node):
-    #     middle = super()._rotate_left_right(start_node)
-    #     # adjust heights
-    #     middle.increment_height()
-    #     middle.get_left().decrement_height()
-    #     middle.get_right().decrement_height(value=2)
-    #     return middle
-
-
-    # def _rotate_right_left(self, start_node):
-    #     middle = super()._rotate_right_left(start_node)
-    #     # adjust heights
-    #     middle.increment_height()
-    #     middle.get_left().decrement_height(value=2)
-    #     middle.get_right().decrement_height()
-    #     return middle
-
     ##############################     BALANCE    ##############################
     def _get_unbalanced_node(self, start_node):
         child = start_node
@@ -193,8 +160,7 @@ class AVL(BST):
             parent = last_accessed_node
             while(parent is not None):
                 grand_parent = parent.get_parent()
-                if parent.is_leaf():
-                    parent.decrement_height()
+                parent._height = max(parent.get_children_heights())
                 if not parent.is_balanced():
                     parent = self._rebalance(parent)
                     self._attach(grand_parent, parent)
@@ -218,11 +184,9 @@ if __name__ == "__main__":
     avl.insert(54)
     avl.insert(88)
     print(avl)
-    # avl.remove(17)
-    # print()
-    # print(avl)
-    # avl = AVL()
-    # avl.insert(0)
-    # avl.insert(5)
-    # avl.insert(10)
-    # print(avl)
+    avl.remove(17)
+    avl.remove(50)
+    avl.remove(62)
+    print()
+    print(avl)
+    print(avl._root.get_height())
