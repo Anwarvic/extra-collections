@@ -33,12 +33,18 @@ class AVLNode(BSTNode):
         self._height -= value
     
 
+    def get_left_height(self):
+        return 1 + self.get_left().get_height() \
+            if self.get_left() is not None else 0
+        
+
+    def get_right_height(self):
+        return 1 + self.get_right().get_height() \
+            if self.get_right() is not None else 0
+    
+
     def get_children_heights(self):
-        left_height  = 1 + self.get_left().get_height() \
-                            if self.get_left() is not None else 0
-        right_height = 1 + self.get_right().get_height() \
-                            if self.get_right() is not None else 0
-        return [left_height, right_height]
+        return [self.get_left_height(), self.get_right_height()]
     
 
     def is_balanced(self):
@@ -49,16 +55,6 @@ class AVLNode(BSTNode):
     def __repr__(self):
         return f"AVLNode({self._data})"
     
-
-    @staticmethod
-    def swap_height(first, second):
-        assert first is None or isinstance(first, AVLNode)
-        assert first is None or isinstance(first, AVLNode)
-
-        first_height = first.get_height() if first is not None else 0
-        second_height = second.get_height() if second is not None else 0
-        first._height, second._height = second_height, first_height
-
 
 
 
@@ -72,17 +68,31 @@ class AVL(BST):
     
     ##############################     ROTATE     ##############################
     def _rotate_left(self, start_node):
-        middle = super()._rotate_left(start_node)
-        # adjust heights
-        AVLNode.swap_height(middle, middle.get_left())
-        return middle
+        assert isinstance(start_node, self._basic_node)
+
+        # print("Rotating Left")
+        grand_parent = start_node
+        parent = grand_parent.get_right()
+        # adjust connections
+        grand_parent.set_right(parent.get_left())
+        grand_parent._height = max(grand_parent.get_children_heights())
+        parent.set_left(grand_parent)
+        parent._height = max(parent.get_children_heights())
+        return parent
 
 
     def _rotate_right(self, start_node):
-        middle = super()._rotate_right(start_node)
-        # adjust heights
-        AVLNode.swap_height(middle, middle.get_right())
-        return middle
+        assert isinstance(start_node, self._basic_node)
+        
+        # print("Rotating Right")
+        grand_parent = start_node
+        parent = grand_parent.get_left()
+        # adjust connections
+        grand_parent.set_left(parent.get_right())
+        grand_parent._height = max(grand_parent.get_children_heights())
+        parent.set_right(grand_parent)
+        parent._height = max(parent.get_children_heights())
+        return parent
     
 
     def _rotate_left_right(self, start_node):
@@ -200,17 +210,22 @@ class AVL(BST):
 
 
 if __name__ == "__main__":
+    # avl = AVL()
+    # avl.insert(44)
+    # avl.insert(62)
+    # avl.insert(17)
+    # avl.insert(32)
+    # avl.insert(50)
+    # avl.insert(78)
+    # avl.insert(48)
+    # avl.insert(54)
+    # avl.insert(88)
+    # print(avl)
+    # avl.remove(17)
+    # print()
+    # print(avl)
     avl = AVL()
-    avl.insert(44)
-    avl.insert(62)
-    avl.insert(17)
-    avl.insert(32)
-    avl.insert(50)
-    avl.insert(78)
-    avl.insert(48)
-    avl.insert(54)
-    avl.insert(88)
-    print(avl)
-    avl.remove(17)
-    print()
+    avl.insert(10)
+    avl.insert(5)
+    avl.insert(0)
     print(avl)
