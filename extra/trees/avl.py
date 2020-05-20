@@ -105,11 +105,14 @@ class AVL(BST):
         return grand_parent, parent, child
     
 
-    def _rebalance(self, grand_parent, parent):
+    def _rebalance(self, grand_parent):
         assert isinstance(grand_parent, self._basic_node)
-        assert isinstance(parent, self._basic_node)
 
-        # get the cause of the imbalance
+        # get the heavy parent
+        left_height, right_height = grand_parent.get_children_heights()
+        parent = grand_parent.get_left() \
+            if left_height > right_height else grand_parent.get_right()
+        # get the heavy child
         left_height, right_height = parent.get_children_heights()
         node = parent.get_left() \
             if left_height > right_height else parent.get_right()
@@ -148,9 +151,9 @@ class AVL(BST):
                     isinstance(value, self._basic_node)
         
         if isinstance(value, self._basic_node):
-            inserted_node = self._insert_node(self._root, value)
+            inserted_node = super()._insert_node(self._root, value)
         else:
-            inserted_node = self._insert_value(self._root, value)
+            inserted_node = super()._insert_value(self._root, value)
         # update heights & rebalance when needed
         child = inserted_node
         parent = child.get_parent()
@@ -158,23 +161,53 @@ class AVL(BST):
             grand_parent = parent.get_parent()
             parent.increment_height()
             if not parent.is_balanced():
-                middle = self._rebalance(parent, child)
-                self._attach(grand_parent, middle)
-                parent = middle
+                parent = self._rebalance(parent)
+                self._attach(grand_parent, parent)
             child = parent
             parent = grand_parent
         return inserted_node
     
 
     ##############################     REMOVE     ##############################
-    # def remove(self, del_value):
-    #     if self.is_empty() or type(del_value) not in {int, float}:
-    #         super().remove(del_value)
-    #     elif 
+    def _remove(self, del_value, start_node):
+        assert type(del_value) in {int, float}
+        assert isinstance(start_node, self._basic_node)
 
+        length_before = self._length
+        last_accessed_node = super()._remove(del_value, start_node)
+        if self._length != length_before:
+            if last_accessed_node.is_leaf():
+                last_accessed_node.decrement_height()
+            child = last_accessed_node
+            parent = child.get_parent()
+            while(parent is not None and parent._height > 1+child._height):
+                grand_parent = parent.get_parent()
+                parent.decrement_height()
+                if not parent.is_balanced():
+                    middle = self._rebalance(parent, child)
+                    self._attach(grand_parent, middle)
+                    parent = middle
+                child = parent
+                parent = grand_parent
+        return last_accessed_node
+        
+
+        
 
 
 
 if __name__ == "__main__":
     avl = AVL()
-    
+    avl.insert(44)
+    avl.insert(62)
+    avl.insert(17)
+    avl.insert(32)
+    avl.insert(50)
+    avl.insert(78)
+    avl.insert(48)
+    avl.insert(54)
+    avl.insert(88)
+    print(avl)
+    avl.remove(17)
+    print(avl)
+    print()
