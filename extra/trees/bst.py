@@ -100,7 +100,7 @@ class BST(BinaryTree):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
             raise ValueError("The given iterable is empty!!")
-        bst = BST()
+        bst = cls()
         for item in iterable:
             bst.insert(item)
         return bst
