@@ -73,9 +73,6 @@ def test_avl_one_value():
     test_empty_avl(avl)
     # validate
     test_search_insert_remove_input(avl)
-    # clear
-    avl.clear()
-    test_empty_avl(avl)
 
 
 def test_simple_avl_tree():
@@ -412,3 +409,67 @@ def test_right_left_rotation():
     avl.clear()
     test_empty_avl(avl)
 
+
+def test_remove_avl():
+    # src: Data Structures and Algorithms in Python Book (page: 508)
+    avl = AVL.from_iterable([44, 62, 17, 32, 50, 78, 48, 54, 88])
+    avl.remove(17)
+    avl.remove(50)
+    avl.remove(62)
+
+    verify_bst_rules(avl._root)
+
+    # test main methods
+    assert not avl.is_empty()
+    assert len(avl) == 6
+    assert avl.get_height() == 2
+    assert avl.count_leaf_nodes() == 3
+    assert avl.is_balanced()
+    assert not avl.is_perfect()
+    assert not avl.is_strict()
+    assert avl.to_list() == [54, 44, 78, 32, 48, 88]
+    
+    assert avl.preorder_traverse() == [54, 44, 32, 48, 78, 88]
+    assert avl.postorder_traverse() == [32, 48, 44, 88, 78, 54]
+    assert avl.inorder_traverse() == [32, 44, 48, 54, 78, 88]
+    assert avl.breadth_first_traverse() == [54, 44, 78, 32, 48, 88]
+    assert avl.traverse() == [32, 44, 48, 54, 78, 88]
+    assert avl.get_max() == 88
+    assert avl.get_min() == 32
+
+    # test nodes-heights
+    root = avl._root
+    assert root.get_data() == 54
+    assert root.get_height() == 2
+    assert root.get_left().get_data() == 44
+    assert root.get_left().get_height() == 1
+    assert root.get_left().get_left().get_data() == 32
+    assert root.get_left().get_left().get_height() == 0
+    assert root.get_left().get_left().get_left() is None
+    assert root.get_left().get_left().get_right() is None
+    assert root.get_left().get_right().get_data() == 48
+    assert root.get_left().get_right().get_height() == 0
+    assert root.get_left().get_right().get_left() is None
+    assert root.get_left().get_right().get_right() is None
+
+    assert root.get_right().get_data() == 78
+    assert root.get_right().get_height() == 1
+    assert root.get_right().get_left() is None
+    assert root.get_right().get_right().get_data() == 88
+    assert root.get_right().get_right().get_height() == 0
+    assert root.get_right().get_right().get_left() is None
+    assert root.get_right().get_right().get_right() is None
+
+    # clear
+    avl.clear()
+    test_empty_avl(avl)
+
+
+
+# def test_random_avl():
+#     length = 100
+#     avl = AVL()
+#     for _ in range(length):
+#         avl.insert(get_int())
+#         assert avl.is_balanced()
+    
