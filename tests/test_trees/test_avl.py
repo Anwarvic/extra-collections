@@ -465,11 +465,14 @@ def test_remove_avl():
     test_empty_avl(avl)
 
 
-
-# def test_random_avl():
-#     length = 100
-#     avl = AVL()
-#     for _ in range(length):
-#         avl.insert(get_int())
-#         assert avl.is_balanced()
-    
+def test_random_avl():
+    length = 100
+    avl = AVL()
+    for _ in range(length):
+        avl.insert(get_int())
+        assert avl.is_balanced()
+    lst = avl.to_list()
+    random.shuffle(lst)
+    for num in lst:
+        avl.remove(num)
+        assert avl.is_balanced()
