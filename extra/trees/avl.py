@@ -162,25 +162,3 @@ class AVL(BST):
         return last_accessed_node
         
 
-        
-
-
-
-if __name__ == "__main__":
-    avl = AVL()
-    avl.insert(44)
-    avl.insert(62)
-    avl.insert(17)
-    avl.insert(32)
-    avl.insert(50)
-    avl.insert(78)
-    avl.insert(48)
-    avl.insert(54)
-    avl.insert(88)
-    print(avl)
-    avl.remove(17)
-    avl.remove(50)
-    avl.remove(62)
-    print()
-    print(avl)
-    print(avl._root.get_height())
