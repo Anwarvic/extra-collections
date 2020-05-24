@@ -1,3 +1,9 @@
+"""
+Linked List
+===========
+Linked List is pretty!!
+"""
+
 import warnings, operator
 from extra.interface import Extra
 

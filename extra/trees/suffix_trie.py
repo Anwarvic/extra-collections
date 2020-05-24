@@ -2,6 +2,7 @@
 Suffix trees store information about a single string and exports a huge amount
 of structural information about that string.
 """
+from copy import deepcopy
 from abc import abstractmethod
 from extra.interface import Extra
 from extra.trees.radix_trie import TrieNode, RadixTrie
@@ -17,6 +18,14 @@ def get_lcp(word1, word2):
         if word1[i] != word2[i]:
             return word1[:i]
     return word1 if len(word1) < len(word2) else word2
+
+
+def is_palindrome(word):
+    assert type(word) == str
+    for i in range(len(word)//2):
+        if word[i] != word[len(word)-1-i]:
+            return False
+    return True
 
 
 
@@ -138,18 +147,19 @@ class SuffixTrie(Extra):
         for i in range(len(rev)):
             suffix = rev[i:]
             node, remaining = self._rt._follow_path(suffix)
-            if remaining:
-                child = node.get_child(remaining[0])
-                if child is not None and child.is_leaf():
-                    child_data = child.get_data() if child else ''
-                    position = int(child_data.split(" ⟶ ")[1])
-                    lcp = get_lcp(child_data, remaining)
-                    remaining = remaining[len(lcp):]
-                    end_position = len(suffix)-len(remaining)
-                    if position == len(self._word)-i-end_position:
-                        palindrome = suffix[:end_position]
-                        if len(palindrome) > len(longest_palindrome):
-                            longest_palindrome = palindrome
+            if not remaining: remaining = '$'
+            child = node.get_child(remaining[0])
+            if child is not None and child.is_leaf():
+                child_data = child.get_data() if child else ''
+                position = int(child_data.split(" ⟶ ")[1])
+                lcp = get_lcp(child_data, remaining)
+                remaining = remaining[len(lcp):]
+                end_position = len(suffix)-len(remaining)
+                if position == len(self._word)-i-end_position:
+                    palindrome = suffix[:end_position]
+                    if is_palindrome(palindrome) and \
+                        len(palindrome) > len(longest_palindrome):
+                        longest_palindrome = palindrome
         return longest_palindrome
                
         
@@ -207,7 +217,7 @@ if __name__ == "__main__":
     st = SuffixTrie("1234aba4321")
     st = SuffixTrie("abacdfgdcaba")
     print(st)
-    print(st.get_longest_palindrome ())
+    print(st.get_longest_palindrome())
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
     # print(st.to_suffix_array())

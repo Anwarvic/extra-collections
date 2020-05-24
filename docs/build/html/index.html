@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to extra-collections’s documentation! &#8212; extra-collections 1.0.0 documentation</title>
+    <title>extra-collections’s documentation! &#8212; extra-collections 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,6 +14,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linked List" href="linked_list.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -31,18 +32,59 @@
           <div class="body" role="main">
             
   <div class="section" id="module-extra.interface">
-<span id="welcome-to-extra-collections-s-documentation"></span><h1>Welcome to extra-collections’s documentation!<a class="headerlink" href="#module-extra.interface" title="Permalink to this headline">¶</a></h1>
+<span id="extra-collections-s-documentation"></span><h1>extra-collections’s documentation!<a class="headerlink" href="#module-extra.interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="extra-collections">
 <h2>Extra Collections<a class="headerlink" href="#extra-collections" title="Permalink to this headline">¶</a></h2>
-<p>“extra-collections” or “extra” for short is a python package that provides an
-intuitive python implementation for the most common data structures out there in
-the world around us. Some of these data structures are simple like “LinkedList”,
-“Stack” and “Queue” and some of them are much complicated like <cite>SkipList</cite>, “Trie”,
-and “RedBlackTree”.</p>
-<p>The name was inspired by <a class="reference external" href="https://docs.python.org/3.8/library/collections.html">collections</a>
-python package that provides a pythonic implementation for the basic data
-structures. This package provides far more data structures, hence the name
+<p>“extra-collections” (“extra” for short) is a python library that provides an
+intuitive pythonic implementation of the most common data structures used in
+most of the software projects in the market. Some of these data structures are
+simple such as <cite>Stack</cite> or <cite>Queue</cite>; and some are much more complicated such as
+<cite>SkipList</cite> or <cite>RedBlackTree</cite>.</p>
+<p>The name of this pacakge was inspired by the
+<a class="reference external" href="https://docs.python.org/3.8/library/collections.html">collections</a> python
+library which provides a pythonic implementation for some basic data structures.
+“extra” provides an additional set of data structures, hence the name…
 “extra-collections”.</p>
+<div class="section" id="available-data-structures">
+<h3>Available Data Structures<a class="headerlink" href="#available-data-structures" title="Permalink to this headline">¶</a></h3>
+<p>In this release, you can find +20 data structures that can be categorized into
+two categories:</p>
+<div class="section" id="list-based-data-structures">
+<h4>1. List-based Data Structures:<a class="headerlink" href="#list-based-data-structures" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="linked_list.html#linked-list-label"><span class="std std-ref">Linked List</span></a></p></li>
+<li><p>Doubly Linked List</p></li>
+<li><p>Circular Linked List</p></li>
+<li><p>Stack</p></li>
+<li><p>Queue</p></li>
+<li><p>PriorityQueue</p></li>
+<li><p>Deque</p></li>
+<li><p>SkipList</p></li>
+</ul>
+</div>
+<div class="section" id="tree-based-data-structures">
+<h4>2. Tree-based Data Structures:<a class="headerlink" href="#tree-based-data-structures" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Tree</p></li>
+<li><p>BinaryTree</p></li>
+<li><p>BST (Binary Search Tree)</p></li>
+<li><p>AVL (Adel’son-Vel’skii and Landis)</p></li>
+<li><p>SplayTree</p></li>
+<li><p>RedBlackTree</p></li>
+<li><p>MinHeap</p></li>
+<li><p>MaxHeap</p></li>
+<li><p>Treap</p></li>
+<li><p>Trie</p></li>
+<li><p>RadixTrie</p></li>
+<li><p>SuffixTrie</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="how-to-use-the-documentation">
+<h3>How to use the documentation<a class="headerlink" href="#how-to-use-the-documentation" title="Permalink to this headline">¶</a></h3>
+<p>Documentation is available in two forms: docstrings provided
+with the code, and a loose standing reference guide, available from
+<a class="reference external" href="https://www.scipy.org">the NumPy homepage</a>.</p>
 <dl class="py class">
 <dt id="extra.interface.Extra">
 <em class="property">class </em><code class="sig-prename descclassname">extra.interface.</code><code class="sig-name descname">Extra</code><a class="headerlink" href="#extra.interface.Extra" title="Permalink to this definition">¶</a></dt>
@@ -50,16 +92,9 @@ structures. This package provides far more data structures, hence the name
 </dd></dl>
 
 </div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
 </div>
 
 
@@ -79,11 +114,15 @@ structures. This package provides far more data structures, hence the name
 
 
 <h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linked_list.html">Linked List</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="linked_list.html" title="next chapter">Linked List</a></li>
   </ul></li>
 </ul>
 </div>

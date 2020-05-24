@@ -20,9 +20,9 @@ Available Data Structures
 In this release, you can find +20 data structures that can be categorized into
 two categories:
 
-# List-based Data Structures:
+1. List-based Data Structures:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Linked List
+* :ref:`linked_list_label`
 * Doubly Linked List
 * Circular Linked List
 * Stack
@@ -31,8 +31,20 @@ two categories:
 * Deque
 * SkipList
 
-# Tree-based Data Structures:
+2. Tree-based Data Structures:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Tree
+* BinaryTree
+* BST (Binary Search Tree)
+* AVL (Adel'son-Vel'skii and Landis)
+* SplayTree
+* RedBlackTree
+* MinHeap
+* MaxHeap
+* Treap
+* Trie
+* RadixTrie
+* SuffixTrie
 
 
 

@@ -1,19 +1,12 @@
 
-Welcome to extra-collections's documentation!
+extra-collections's documentation!
 =============================================
 
 .. automodule:: extra.interface
     :members:
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
+   linked_list
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

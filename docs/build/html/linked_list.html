@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Linked List &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="extra-collections’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-extra.lists.linked_list">
+<span id="linked-list"></span><span id="linked-list-label"></span><h1>Linked List<a class="headerlink" href="#module-extra.lists.linked_list" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Linked List<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Linked List is pretty!!</p>
+<dl class="py class">
+<dt id="extra.lists.linked_list.LinkedList">
+<em class="property">class </em><code class="sig-prename descclassname">extra.lists.linked_list.</code><code class="sig-name descname">LinkedList</code><a class="headerlink" href="#extra.lists.linked_list.LinkedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic object for the linked list</p>
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.add_end">
+<code class="sig-name descname">add_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.add_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds node at the tail of the linked list with complexity of O(n)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.add_front">
+<code class="sig-name descname">add_front</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.add_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds node at the head of the linked list with complexity of O(1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes within the linked list with complexity of O(1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em>, <em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a certain item at a given index into the linked list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if linked list is empty</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.remove_end">
+<code class="sig-name descname">remove_end</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.remove_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the linked list tail with complexity of O(n)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.remove_front">
+<code class="sig-name descname">remove_front</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.remove_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the linked list head with complexity of O(1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.reverse">
+<code class="sig-name descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverses the whole linked list with complexity of O(n)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.linked_list.LinkedList.split">
+<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.LinkedList.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>idx is the start index of the second list after splitting.
+So, idx=0, then the left_list will be empty while the right_list will be
+the rest. And the opposite when idx=self._length</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.lists.linked_list.Node">
+<em class="property">class </em><code class="sig-prename descclassname">extra.lists.linked_list.</code><code class="sig-name descname">Node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.linked_list.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic object for the Node used for linked lists</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Linked List</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Linked List</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">extra-collections’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/linked_list.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
