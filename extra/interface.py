@@ -55,28 +55,26 @@ with the code, and a loose standing reference guide, available from
 `the NumPy homepage <https://www.scipy.org>`_.
 
 """
-
+from numpy import sort
 class Extra:
-    """An example docstring for a class definition."""
+    """Extra is the package interface which means that all objects inherits from
+    this class. So, each object in this pacakge is an Extra object in the fisrt
+    place."""
     
-    def __name__(self):
-        """
-        Blah blah blah.
-        Parameters
-        ---------
-        name
-            A string to assign to the `name` instance attribute.
-        """
-        return "extra.Extra()"
-    
-
     def _validate_item(self, item):
         """
-        Return information about an instance created from ExampleClass.
+        Makes sure the input variable type can be processed. The main use for 
+        this method is to make sure we can't create nested objects from the 
+        package.
+        
+        :param item: the input object of any type.
+        
+        :raises [ValueError]: if `item` is `None`
+        :raises [TypeError]: if `item` is an `Extra` object. 
         """
         if item is None:
             raise ValueError(\
-                f"Can't use `None` as an initial value for {self.__name__()}!!")
+                f"Can't use `None` as an initial value for {self.__module__}!!")
         elif isinstance(item, Extra):
             raise TypeError(\
-            f"Can't create {self.__name__()} object using {item.__name__()}!!")
+            f"Can't create {self.__module__} object using {item.__module__}!!")

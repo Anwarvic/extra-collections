@@ -1,7 +1,93 @@
 """
 Linked List
 ===========
-Linked List is pretty!!
+A linked list is a simple linear data structure where objects are linked using
+pointers to their associated location. Unlike arrays whose objects are stored at
+continuous locations. Each node stores a reference to an object that is an
+element of the sequence, as well as a reference to the next node of the linked 
+list.
+
+The first node of a linked list is known as the **head** of the linked list. 
+By starting at the linked list's head and moving to the latter nodes using each
+node's next reference, we can reach the end of the list. This process is
+commonly known as *traversing* the linked list. 
+ 
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+- **k** is the value of a parameter.
+
++----------------+--------------------------------------------------------+-------------+-------------+
+| Method         | Description                                            | Worst-case  | Optimal     |
++================+========================================================+=============+=============+
+| __len__()      | Returns the number of nodes                            | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| is_empty()     | Checks if object is empty                              | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __repr__()     | Represents the object                                  | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __eq__()       | Checks if two linked lists are equal                   | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __ne__()       | Checks if two linked lists are not equal               | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __lt__()       | Checks if the linked list is less than the other       | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __le__()       | Checks if the list is less than or equal the other     | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __gt__()       | Checks if the linked list is greater than the other    | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __gt__()       | Checks if the list is greater than or equal the other  | O(max(n,m)) | O(max(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __getitem__()  | Returns the number of nodes                            | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| insert()       | Adds the given item at the given index                 | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __setitem__()  | Replaces the value at the given index with given value | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __delitem__()  | Deletes the value at the given index                   | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove_end()   | Removes the node at the tail                           | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove()       | Removes the given value if found                       | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| split()        | Splits the list into two at the given index            | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| join()         | Joins two linked lists into one                        | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| rotate_left()  | Left-rotates the list by the given value               | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| rotate_right() | Right-rotates the list by the given value              | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| to_list()      | Converts the linked list to built-in list              | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| count()        | Counts how many the given value found in the list      | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| copy()         | Copies the linked list                                 | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+
+
+
+
 """
 
 import warnings, operator
@@ -12,9 +98,6 @@ from extra.interface import Extra
 
 class Node(Extra):
     """Basic object for the Node used for linked lists"""
-    def __name__(self):
-        return "extra.Node()"
-    
 
     def __init__(self, item):
         super()._validate_item(item)
@@ -50,9 +133,9 @@ class Node(Extra):
             self._next = None
         elif not isinstance(next_node, Node):
             raise TypeError(
-                f"Can't set {type(next_node)} as a {self.__name__()}!!")
+                f"Can't set {type(next_node)} as a {self.__module__}!!")
         elif next_node.get_data() is None:
-            raise ValueError(f"{self.__name__()} data can't be `None`!!")
+            raise ValueError(f"{self.__module__} data can't be `None`!!")
         else:
             self._next = next_node
 
@@ -70,10 +153,6 @@ class LinkedList(Extra):
     def __init__(self):
         self._head = None
         self._length = 0
-
-
-    def __name__(self):
-        return "extra.LinkedList()"
 
 
     def _create_instance(self):
@@ -207,7 +286,7 @@ class LinkedList(Extra):
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         # check length
         if self._length != other._length:
             return False
@@ -217,7 +296,7 @@ class LinkedList(Extra):
 
     def __ne__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         if self._length != other._length:
             return True
         idx = self._compare(other, operator.eq)
@@ -226,28 +305,28 @@ class LinkedList(Extra):
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         idx = self._compare(other, operator.lt)
         return True if idx == self._length else False
     
 
     def __le__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         idx = self._compare(other, operator.le)
         return True if idx == self._length else False
     
 
     def __gt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         idx = self._compare(other, operator.le)
         return True if idx is other._length else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__name__()} to {type(other)}")
+            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
         idx = self._compare(other, operator.le)
         return True if idx == other._length else False
 
@@ -542,7 +621,7 @@ class LinkedList(Extra):
     def join(self, other):
         if not isinstance(other, self.__class__):
             raise TypeError(\
-            f"Type Mismatch! Can't join {self.__name__()} with f{type(other)}.")
+            f"Type Mismatch! Can't join {self.__module__} with f{type(other)}.")
         if other.is_empty():
             pass # do nothing
         elif self.is_empty():
