@@ -3,7 +3,7 @@ extra-collections's documentation!
 =============================================
 
 .. automodule:: extra.interface
-    :members:
+
 
 .. toctree::
    :hidden:
