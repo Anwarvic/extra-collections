@@ -1,6 +1,6 @@
 
 extra-collections's documentation!
-=============================================
+==================================
 
 .. automodule:: extra.interface
 
