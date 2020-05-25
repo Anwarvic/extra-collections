@@ -1,6 +1,4 @@
 """
-Linked List
-===========
 A linked list is a simple linear data structure where objects are linked using
 pointers to their associated location. Unlike arrays whose objects are stored at
 continuous locations. Each node stores a reference to an object that is an
@@ -86,8 +84,9 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 
 
-
-
+Class Documentation
+===================
+Here are all of the public methods of `Linked List` objects:
 """
 
 import warnings, operator
@@ -156,11 +155,13 @@ class LinkedList(Extra):
 
 
     def _create_instance(self):
+        """Returns an instance of the class"""
         return LinkedList()
 
 
     @classmethod
     def from_iterable(cls, iterable):
+       
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         elif isinstance(iterable, cls):
