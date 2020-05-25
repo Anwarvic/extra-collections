@@ -161,7 +161,56 @@ class LinkedList(Extra):
 
     @classmethod
     def from_iterable(cls, iterable):
-       
+        """
+        A class method which creates a linked list instance using an iterable.
+
+        Parameters
+        ----------
+        iterable: any iterable object.
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        linked_list: LinkedList()
+            It returns a LinkedList() instance with the same values in the same
+            order.
+        
+        Raises
+        ------
+        TypeError: in case the given object isn't iterable
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([10, -5, 7, 9])
+        >>> ll
+        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶
+        └────┘ └────┘ └───┘ └───┘ 
+
+        >>> ll = LinkedList.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+
+        >>> ll_1 = LinkedList.from_iterable([2, 5])
+        >>> ll_2 = LinkedList.from_iterable(ll_1)
+        >>> ll_2
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶
+        └───┘ └───┘ 
+
+        Notes
+        -----
+        Since most of the data structures found in this package are iterables, 
+        then you can use this classmethod to convert from one type to the other
+        like so:
+
+        >>> dll = DoublyLinkedList.from_iterable([2, 5])
+        >>> ll = LinkedList.from_iterable(dll)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶
+        └───┘ └───┘ 
+        """
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         elif isinstance(iterable, cls):
