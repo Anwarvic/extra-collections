@@ -8,10 +8,6 @@ from extra.lists.linked_list import Node, LinkedList
 
 class CircularLinkedList(LinkedList):
     """Basic object for the Circular Linked List"""
-    def __name__(self):
-        return "extra.CircularLinkedList()"
-    
-   
     def _create_instance(self):
         return CircularLinkedList()
     
@@ -25,16 +21,10 @@ class CircularLinkedList(LinkedList):
            ↑                                       │
            └───────────────────────────────────────┘
         """
-        if self.is_empty():
+        if super().is_empty():
             return super()._print_empty_linked_list()
-        # start with just the head
-        first_line, second_line, third_line = self._print_node(self._head)
-        # print the remaining nodes if found
-        top_part, middle_part, lower_part = \
-            self._print_linked_list(self._head.get_next())
-        first_line  += top_part
-        second_line += middle_part
-        third_line  += lower_part
+        first_line, second_line, third_line = \
+                super()._print_linked_list(self._head)
         # backtrace representation
         second_line += [' ┐']
         third_line  += [' │']
@@ -54,27 +44,6 @@ class CircularLinkedList(LinkedList):
 
 
     ##############################     SEARCH     ##############################
-    # def __contains__(self, value):
-    #     #NOTE: DON'T validate the given value
-    #     # check if value is a Node() object
-    #     if isinstance(value, Node):
-    #         # if value is the same object as self._basic_node
-    #         if isinstance(value, self._basic_node):
-    #             value = value.get_data()
-    #         # if value is a generic Node object
-    #         else:
-    #             return False
-    #     # check the head
-    #     if self._head.get_data() == value:
-    #         return True
-    #     # search the rest of the CircularLinkedList()
-    #     found_node = self._search( value,
-    #                             start_node = self._head.get_next())
-    #     if found_node == None or found_node.get_data() != value:
-    #         return False
-    #     return True
-
-
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         if isinstance(idx, slice):
             if not accept_slice:
@@ -91,7 +60,7 @@ class CircularLinkedList(LinkedList):
         """Retrieves the element at the given index."""
         self._validate_index(idx)
         if self.is_empty():
-            raise IndexError(f"{self.__name__()} is empty!!")
+            raise IndexError(f"{self.__module__} is empty!!")
         idx = idx % self._length if self._length != 0 else 0
         return super().__getitem__(idx)
 
@@ -166,3 +135,7 @@ class CircularLinkedList(LinkedList):
         return super()._split(idx)
     
 
+if __name__ == "__main__":
+
+    ll_1 = CircularLinkedList.from_iterable([2])
+    print(ll_1)
