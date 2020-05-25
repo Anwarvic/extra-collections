@@ -22,7 +22,7 @@ two categories:
 
 1. List-based Data Structures:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* :ref:`linked_list_label`
+* :ref:`linked_list`
 * Doubly Linked List
 * Circular Linked List
 * Stack
