@@ -436,12 +436,32 @@ class LinkedList(Extra):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
-        """Gets the length of the linked list with complexity of O(1)"""
+        """
+        Gets the length of the linked list with complexity of O(1)
+        
+        Returns
+        -------
+        length: int
+            The length of the `LinkedList()` instance. By length, I mean the
+            number of nodes found inside.
+        
+        Examples
+        --------
+        >>> ll = LinkedList()
+        >>> len(ll)
+        0
+        >>> ll = LinkedList.from_iterable((2, 5, 0))
+        >>> len(ll)
+        3
+        """
         return self._length
     
 
     def is_empty(self):
-        """Checks if linked list is empty"""
+        """
+        Checks if `LinkedList()` instance is empty
+        
+        """
         return self._length == 0
 
     
