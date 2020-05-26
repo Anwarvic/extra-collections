@@ -518,7 +518,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()` instance
+        other: `LinkedList()`
             The other instance that we want to compare with the current one
         op: operator.function
             An operator function that represents ==, >=, <=, !=, <, > operators
@@ -563,6 +563,31 @@ class LinkedList(Extra):
 
 
     def __eq__(self, other):
+        """
+        Checks if two `LinkedList()` instances are equal to each other.
+        By equal, the two instances are equal in length and every single element
+        in the first instance is equal to the opposing element in **value** and
+        **type** as well.
+
+        Parameters
+        ----------
+        other: `LinkedList()`
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        status: bool
+            `True` if both instances are equal, and `False` otherwise.
+
+        Examples
+        --------
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 == ll_2
+        False
+        >>> ll_1 == ll_1
+        True
+        """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
