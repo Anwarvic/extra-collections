@@ -479,6 +479,23 @@ class LinkedList(Extra):
     
     ##############################    OPERATOR    ##############################
     def __iter__(self):
+        """
+        Iterates over the `LinkedList()` instance and returns a generator.
+
+        Returns
+        -------
+        node: generator
+            A generator for each node in the `LinkedList()` instance.
+        
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> for item in ll:
+        ...     print(item)
+        1
+        2
+        3
+        """
         counter = 0
         curr_node = self._head
         while(counter < self._length):
