@@ -202,7 +202,15 @@ class LinkedList(Extra):
     __name__ = "extra.LinkedList()"
     
     def __init__(self):
-        """Creates a `LinkedList()` object!!"""
+        """
+        Creates a `LinkedList()` object!!
+        
+        Example
+        -------
+        >>> ll = LinkedList()
+        >>> type(ll)
+        <class 'extra.lists.linked_list.LinkedList'>
+        """
         self._head = None
         self._length = 0
 
