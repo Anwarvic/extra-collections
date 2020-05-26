@@ -461,6 +461,18 @@ class LinkedList(Extra):
         """
         Checks if `LinkedList()` instance is empty
         
+        Returns
+        -------
+        empty_flag: bool
+            A boolean flag showing the status of the `LinkedList()` instance.
+            `True` shows that the instance is empty and `False` otherwise.
+        
+        >>> ll = LinkedList()
+        >>> ll.is_empty()
+        True
+        >>> ll.add_front(5)
+        >>> ll.is_empty()
+        False
         """
         return self._length == 0
 
