@@ -202,12 +202,20 @@ class LinkedList(Extra):
     __name__ = "extra.LinkedList()"
     
     def __init__(self):
+        """Creates a `LinkedList()` object!!"""
         self._head = None
         self._length = 0
 
 
     def _create_instance(self):
-        """Returns an instance of the class"""
+        """
+        Returns an instance of the class
+
+        Returns
+        -------
+        linked_list: LinkedList()
+            It returns an empty LinkedList() instance.
+        """
         return LinkedList()
 
 
@@ -288,6 +296,33 @@ class LinkedList(Extra):
 
     ##############################     PRINT      ##############################
     def _print_node(self, node):
+        """
+        Prints the given node within the `LinkedList()` instance.
+
+        Parameters
+        ----------
+        node: a `Node()` object that we want to print
+
+        Returns
+        -------
+        (top_border, middle, lower_border): tuple
+            It returns a tuple of three strings representing the given node
+            when printed.
+        
+        Raises
+        ------
+        AssertionError: In case the given object isn't `Node()`
+
+        Example
+        -------
+        >>> ll = LinkedList()
+        >>> ll.add_front(10)
+        >>> lines = ["".join(x) for x in ll._print_node(ll._head)]
+        >>> "\n".join(lines)
+        ┌────┐ 
+        │ 10 │⟶
+        └────┘
+        """
         assert isinstance(node, self._basic_node)
 
         top_border = ['┌']
@@ -302,6 +337,26 @@ class LinkedList(Extra):
     
 
     def _print_empty_linked_list(self):
+        """
+        Prints the `LinkedList()` instance when it's empty.
+
+        Returns
+        -------
+        empty_ll: str
+            A string representing an empty `LinkedList()` instance
+
+        Raises
+        ------
+        AssertionError: In case the `LinkedList()` instance isn't empty!!
+
+        Example
+        -------
+        >>> ll = LinkedList()
+        >>> ll
+        ┌─
+        │
+        └─
+        """
         assert self._length == 0
 
         top_border    = ['┌─']
@@ -312,6 +367,33 @@ class LinkedList(Extra):
 
         
     def _print_linked_list(self, start_node):
+        """
+        Prints the given node within the `LinkedList()` instance.
+
+        Parameters
+        ----------
+        node: a `Node()` object that we want to print
+
+        Returns
+        -------
+        (top_border, middle, lower_border): tuple
+            It returns a tuple of three strings representing the given node
+            when printed.
+        
+        Raises
+        ------
+        AssertionError: In case the given object isn't `Node()`
+
+        Example
+        -------
+        >>> ll = LinkedList()
+        >>> ll.add_front(10)
+        >>> lines = ["".join(x) for x in ll._print_node(ll._head)]
+        >>> "\n".join(lines)
+        ┌────┐ 
+        │ 10 │⟶
+        └────┘
+        """
         assert isinstance(start_node, self._basic_node)
 
         # NOTE: complexity of + operator is O(1) in lists and O(n) in string
