@@ -201,6 +201,7 @@ class LinkedList(Extra):
     _basic_node = Node
     __name__ = "extra.LinkedList()"
     
+
     def __init__(self):
         """
         Creates a `LinkedList()` object!!
@@ -262,14 +263,17 @@ class LinkedList(Extra):
 
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
+
         >>> ll = LinkedList.from_iterable([2, None])
         ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
+
         >>> ll = LinkedList.from_iterable(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `LinkedList` objects will raise `TypeError` as well
+
         >>> ll_1 = LinkedList.from_iterable([1])
         >>> ll_2 = LinkedList.from_iterable([1, ll_1])
         TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
@@ -467,6 +471,8 @@ class LinkedList(Extra):
             A boolean flag showing the status of the `LinkedList()` instance.
             `True` shows that the instance is empty and `False` otherwise.
         
+        Example
+        --------
         >>> ll = LinkedList()
         >>> ll.is_empty()
         True
@@ -506,9 +512,32 @@ class LinkedList(Extra):
 
     def _compare(self, other, op):
         """
-        Returns the last two nodes that don't match the given operator. They
-        could be the end of both LinkedList or just some random nodes in the
-        middle.
+        Compares two intances of `LinkedList()`and returns the index at which 
+        two nodes didn't satisfy the given operator. They could be the end of
+        both instances or at just some random position in the middle.
+
+        Parameters
+        ----------
+        other: `LinkedList()` instance
+            The other instance that we want to compare with the current one
+        op: operator.function
+            An operator function that represents ==, >=, <=, !=, <, > operators
+        
+        Returns
+        -------
+        counter: int
+            The index at which the given operator wasn't satisfied
+        
+        Examples
+        --------
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1._compare(ll_2, operator.eq)
+        1
+        >>> ll_1.comprare(ll_1, operator.le)
+        2
+        >>> ll_1._compare(LinkedList(), operator.eq)
+        0
         """
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
