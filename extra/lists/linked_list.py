@@ -86,9 +86,9 @@ Generally, we are going to use the following indicators in the table:
 
 Class Documentation
 ===================
-Here are all of the public methods of `Linked List` objects:
+Here are all of the public methods that can be used with `Linked List()`
+objects:
 """
-
 import warnings, operator
 from extra.interface import Extra
 
@@ -528,6 +528,11 @@ class LinkedList(Extra):
         counter: int
             The index at which the given operator wasn't satisfied
         
+        Raises
+        ------
+        TypeError: In case one element in the first instance doesn't match the
+            type of the opposing element in the other instance.
+        
         Examples
         --------
         >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
@@ -555,7 +560,9 @@ class LinkedList(Extra):
                     return counter
             except TypeError:
                 raise TypeError(
-                    "Inconsists data-types within the two LinkedLists!!")
+                    f"Inconsist data-types within the two {self.__name__} " + 
+                    "instances!!"
+                )
             pointer1 = pointer1.get_next()
             pointer2 = pointer2.get_next()
             counter += 1
@@ -565,9 +572,9 @@ class LinkedList(Extra):
     def __eq__(self, other):
         """
         Checks if two `LinkedList()` instances are equal to each other.
-        By equal, the two instances are equal in length and every single element
-        in the first instance is equal to the opposing element in **value** and
-        **type** as well.
+        By equal, I mean the two instances are equal in length and every single
+        element in the first instance is equal to the opposing element in both
+        **value** and **type**.
 
         Parameters
         ----------
@@ -600,6 +607,31 @@ class LinkedList(Extra):
     
 
     def __ne__(self, other):
+        """
+        Checks if two `LinkedList()` instances are NOT equal to each other.
+        By equal, I mean the two instances are equal in length and every single
+        element in the first instance is equal to the opposing element in both
+        **value** and **type**.
+
+        Parameters
+        ----------
+        other: `LinkedList()`
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        status: bool
+            `True` if both instances are equal, and `False` otherwise.
+
+        Examples
+        --------
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 == ll_2
+        False
+        >>> ll_1 == ll_1
+        True
+        """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
