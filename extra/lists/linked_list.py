@@ -528,6 +528,10 @@ class LinkedList(Extra):
         counter: int
             The index at which the given operator wasn't satisfied
         
+        all_equal: bool
+            `True` if all elements in both instances are exactly the same.
+            `False` other wise
+        
         Raises
         ------
         TypeError: In case one element in the first instance doesn't match the
@@ -551,13 +555,16 @@ class LinkedList(Extra):
         counter = 0
         pointer1 = self._head
         pointer2 = other._head
+        all_equal = True
         while(counter < min(self._length, other._length)):
             try:
                 #NOTE: Don't remove the following if-condition
                 if pointer1.get_data() == pointer2.get_data():
-                    pass 
+                    pass
+                elif all_equal and pointer1.get_data() != pointer2.get_data():
+                    all_equal = False
                 elif not op(pointer1.get_data(), pointer2.get_data()):
-                    return counter
+                    break
             except TypeError:
                 raise TypeError(
                     f"Inconsist data-types within the two {self.__name__} " + 
@@ -566,15 +573,19 @@ class LinkedList(Extra):
             pointer1 = pointer1.get_next()
             pointer2 = pointer2.get_next()
             counter += 1
-        return counter
+        return counter, all_equal
 
 
     def __eq__(self, other):
         """
-        Checks if two `LinkedList()` instances are equal to each other.
-        By equal, I mean the two instances are equal in length and every single
-        element in the first instance is equal to the opposing element in both
-        **value** and **type**.
+        Checks if two `LinkedList()` instances are equal to each other. And this
+        happens if, and only if, the following two conditions are satisfied:
+        
+        1. The two instances are equal in length (have same number of elements).
+
+        2. Every single element in the first instance is equal, in both \
+            **value** and **type**, to the opposing element of the other \
+            instance.
 
         Parameters
         ----------
@@ -602,16 +613,21 @@ class LinkedList(Extra):
         # check length
         if self._length != other._length:
             return False
-        idx = self._compare(other, operator.eq)
+        idx, _ = self._compare(other, operator.eq)
         return True if idx == self._length == other._length else False
     
 
     def __ne__(self, other):
         """
         Checks if two `LinkedList()` instances are NOT equal to each other.
-        By equal, I mean the two instances are equal in length and every single
-        element in the first instance is equal to the opposing element in both
-        **value** and **type**.
+        And this happens if, and only if, the following either one of these two
+        conditions is satisfied:
+        
+        1. The two instances are NOT equal in length (number of elements).
+
+        2. Just one element in the first instance is NOT equal, in either \
+            **value** or **type**, to the opposing element of the other \
+            instance.
 
         Parameters
         ----------
@@ -621,7 +637,7 @@ class LinkedList(Extra):
         Returns
         -------
         status: bool
-            `True` if both instances are equal, and `False` otherwise.
+            `True` if both instances are NOT equal, and `False` otherwise.
 
         Examples
         --------
@@ -638,17 +654,41 @@ class LinkedList(Extra):
             )
         if self._length != other._length:
             return True
-        idx = self._compare(other, operator.eq)
+        idx, _ = self._compare(other, operator.eq)
         return False if idx == self._length == other._length else True
     
 
     def __lt__(self, other):
+        """
+        Checks if the first `LinkedList()` instance is less than or equal the 
+        other instance. And this happens if all elements in the first instance
+        are equal or less than the opposing elements in the second instance.
+
+        Parameters
+        ----------
+        other: `LinkedList()`
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        status: bool
+            `True` if both instances are NOT equal, and `False` otherwise.
+
+        Examples
+        --------
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 < ll_2
+        True
+        >>> ll_2 < ll_1
+        False
+        """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        idx = self._compare(other, operator.lt)
-        return True if idx == self._length else False
+        idx, all_equal = self._compare(other, operator.lt)
+        return True if idx == self._length and not all_equal else False
     
 
     def __le__(self, other):
