@@ -927,7 +927,7 @@ class LinkedList(Extra):
     ##############################     SEARCH     ##############################
     def _search(self, value, start_node):
         """
-        Search the Linked List for a given value and returns the first node
+        Searches the Linked List for a given value and returns the first node
         containing that value if found. If not found, it returns the last node
         in the Linked List.
 
@@ -945,6 +945,12 @@ class LinkedList(Extra):
         Node():
             Either the node object that contains the given value or the last
             node in the `LinkedList()` instance if the given value wasn't found.
+        
+        Raises:
+        -------
+        AssertionError: This happens in two cases
+            1. If `value` is an instance of `Node()`.
+            2. If the `start_node` isn't an instance of `Node()`.
 
         Examples
         --------
@@ -984,12 +990,11 @@ class LinkedList(Extra):
 
         Examples
         --------
-
         >>> ll = LinkedList.from_iterable([1, 3, 5])
         >>> 1 in ll
         True
         >>> 0 in ll
-        Falses
+        False
         >>> "hello" in ll
         False
         """
@@ -1003,6 +1008,22 @@ class LinkedList(Extra):
 
     def _get_node(self, idx):
         """
+        Retrieves the `Node()` at the given index of the `LinkedList()`
+        instance.
+
+        Parameters
+        ----------
+        idx: int
+            The index at which the `Node()` object should be returned.
+        
+        Returns
+        -------
+        Node():
+            The node at the given index.
+        
+        Raises
+        ------
+        AssertionError: If the given index is bigger than the LinkedList length.
         """
         assert 0 <= idx or idx < self._length
         # iterate over the linked list
