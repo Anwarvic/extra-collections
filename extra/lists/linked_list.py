@@ -278,7 +278,7 @@ class LinkedList(Extra):
         >>> ll_2 = LinkedList.from_iterable([1, ll_1])
         TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
 
-        Notes
+        Note
         -----
         Since most of the data structures found in this package are iterables, 
         then you can use this classmethod to convert from one data structure to
@@ -720,28 +720,42 @@ class LinkedList(Extra):
 
     def __le__(self, other):
         """
-        Checks if the first `LinkedList()` instance is less than or equal the 
+        Checks if the first `LinkedList()` instance is less than or equal to the
         other instance. And this happens if all elements in the first instance
-        are less than or equal the opposing elements in the second instance.
+        are equal or less than the opposing element of the second instance.
 
         Parameters
         ----------
-        other: `LinkedList()`
+        LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        status: bool
-            `True` if the first instance is less than or equal the second, and
-            `False` otherwise.
+        bool
+            `True` if the first instance is less than the second, and `False`
+            otherwise.
 
         Examples
         --------
-        >>> ll_1 = LinkedList.from_iterable([0, 5])
-        >>> ll_2 = LinkedList.from_iterable([0, 5, 1])
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 <= ll_2
         True
-        >>> ll_2 <= ll_1
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 <= ll_2
+        True
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 <= ll_2
+        True
+
+        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 <= ll_2
         False
         """
         if not isinstance(other, self.__class__):
