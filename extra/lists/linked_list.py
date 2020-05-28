@@ -830,6 +830,51 @@ class LinkedList(Extra):
     
 
     def __ge__(self, other):
+        """
+        Checks if the first `LinkedList()` instance is greater than or equal to
+        the other instance. And this happens if all elements in the first
+        instance are greater than or equal to the opposing element of the
+        second instance.
+
+        Parameters
+        ----------
+        LinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if the first instance is greater than or equal to the second,
+            and `False` otherwise.
+
+        Examples
+        --------
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 5])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 >= ll_2
+        True
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 2, 1])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 >= ll_2
+        True
+
+        >>> ll_1 = LinkedList.from_iterable([1, 5])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 >= ll_2
+        False
+
+        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 >= ll_2
+        False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 >= ll_2
+        True
+        """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
