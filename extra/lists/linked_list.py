@@ -887,11 +887,11 @@ class LinkedList(Extra):
         """
         Search the Linked List for a given value and returns the first node
         containing that value if found. If not found, it returns the last node
-        in the Linked List which is `None`.
+        in the Linked List.
 
         Parameters
         ----------
-        value: AnyPythonObject
+        value: Object
             The value to be searched for in the `LinkedList()` instance.
         
         start_node: Node()
@@ -901,8 +901,8 @@ class LinkedList(Extra):
         Returns
         -------
         Node():
-            Either the node object that contains the given value or `None` if it
-            wasn't found.
+            Either the node object that contains the given value or the last
+            node in the `LinkedList()` instance if the given value wasn't found.
 
         Examples
         --------
@@ -910,15 +910,15 @@ class LinkedList(Extra):
         >>> ll._search(2, ll._head)
         Node(data: 2, next: 3)
         >>> ll._search(0, ll._head)
-        None
+        Node(data: 2, next: None)
         >>> ll._search(1, ll._head._next)
-        None
+        Node(data: 2, next: None)
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
 
         curr_node = start_node
-        while(curr_node is not None):
+        while(curr_node.get_next() is not None):
             if curr_node.get_data() == value:
                 return curr_node
             curr_node = curr_node.get_next()
@@ -927,7 +927,29 @@ class LinkedList(Extra):
 
     def __contains__(self, value):
         """
-        pass
+        Checks if the given value exists in the `LinkedList()` instance.
+
+        Parameters
+        ----------
+        value: Object
+            The value to be searched for in the `LinkedList()` instance.
+        
+        Returns
+        -------
+        bool
+            `True` if the given value exists in the `LinkedList()` instance, and
+            `False` otherwise.
+
+        Examples
+        --------
+
+        >>> ll = LinkedList.from_iterable([1, 3, 5])
+        >>> 1 in ll
+        True
+        >>> 0 in ll
+        Falses
+        >>> "hello" in ll
+        False
         """
         if value is None or self.is_empty():
             return False
