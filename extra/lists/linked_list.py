@@ -604,6 +604,13 @@ class LinkedList(Extra):
         -------
         bool
             `True` if both instances are equal, and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
 
         Examples
         --------
@@ -647,6 +654,13 @@ class LinkedList(Extra):
         bool
             `True` if both instances are NOT equal, and `False` otherwise.
 
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
+        
         Examples
         --------
         >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
@@ -683,6 +697,13 @@ class LinkedList(Extra):
         bool
             `True` if the first instance is less than the second, and `False`
             otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
 
         Examples
         --------
@@ -739,6 +760,13 @@ class LinkedList(Extra):
         bool
             `True` if the first instance is less than or equal to the second
             instance, and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
 
         Examples
         --------
@@ -794,6 +822,13 @@ class LinkedList(Extra):
             `True` if the first instance is greater than the second, and `False`
             otherwise.
 
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
+        
         Examples
         --------
 
@@ -846,6 +881,13 @@ class LinkedList(Extra):
         bool
             `True` if the first instance is greater than or equal to the second,
             and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a `LinkedList()` instance.
+            2. In case one element in the first instance doesn't match the type of \
+                the opposing element in the other instance.
 
         Examples
         --------
@@ -960,6 +1002,8 @@ class LinkedList(Extra):
 
 
     def _get_node(self, idx):
+        """
+        """
         assert 0 <= idx or idx < self._length
         # iterate over the linked list
         counter = 0
