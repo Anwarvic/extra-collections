@@ -885,25 +885,50 @@ class LinkedList(Extra):
     ##############################     SEARCH     ##############################
     def _search(self, value, start_node):
         """
-        Search the Linked List for a given `value` and returns the first node
+        Search the Linked List for a given value and returns the first node
         containing that value if found. If not found, it returns the last node
-        in the Linked List.
+        in the Linked List which is `None`.
+
+        Parameters
+        ----------
+        value: AnyPythonObject
+            The value to be searched for in the `LinkedList()` instance.
+        
+        start_node: Node()
+            A reference to the object object at which we want to start search
+            for the given value.
+        
+        Returns
+        -------
+        Node():
+            Either the node object that contains the given value or `None` if it
+            wasn't found.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll._search(2, ll._head)
+        Node(data: 2, next: 3)
+        >>> ll._search(0, ll._head)
+        None
+        >>> ll._search(1, ll._head._next)
+        None
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
 
-        counter = 0
         curr_node = start_node
-        while(counter < self._length):
+        while(curr_node is not None):
             if curr_node.get_data() == value:
                 return curr_node
             curr_node = curr_node.get_next()
-            counter += 1
         return curr_node
 
 
     def __contains__(self, value):
-        #NOTE: DON'T validate the given value
+        """
+        pass
+        """
         if value is None or self.is_empty():
             return False
         found_node = self._search(value, self._head)
@@ -1268,7 +1293,5 @@ class LinkedList(Extra):
 
 
 if __name__ == "__main__":
-    ll_1 = LinkedList.from_iterable([1, 3])
-    ll_2 = LinkedList.from_iterable([1, 3, 2])
-
-    print(ll_1 < ll_2)
+    ll = LinkedList.from_iterable([1, 2, 3])
+    print(ll._search(1, ll._head._next))
