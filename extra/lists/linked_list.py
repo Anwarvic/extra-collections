@@ -706,6 +706,11 @@ class LinkedList(Extra):
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 < ll_2
         False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 < ll_2
+        False
         """
         if not isinstance(other, self.__class__):
             raise TypeError(
@@ -757,6 +762,11 @@ class LinkedList(Extra):
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 <= ll_2
         False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 <= ll_2
+        True
         """
         if not isinstance(other, self.__class__):
             raise TypeError(
@@ -787,17 +797,17 @@ class LinkedList(Extra):
         Examples
         --------
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 5])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 > ll_2
-        False
+        True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 2, 1])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
         >>> ll_1 > ll_2
-        False
+        True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_1 = LinkedList.from_iterable([1, 5])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 > ll_2
         False
@@ -806,16 +816,17 @@ class LinkedList(Extra):
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 > ll_2
         False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 > ll_2
+        False
         """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        idx, all_equal = self._compare(other, operator.lt)
-        if all_equal:
-            return True if self._length > other._length else False
-        else:
-            return True if idx == other._length else False
+        return not (self <= other)
     
 
     def __ge__(self, other):
@@ -823,8 +834,7 @@ class LinkedList(Extra):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        idx = self._compare(other, operator.le)
-        return True if idx == other._length else False
+        return not (self < other)
 
 
     ##############################     SEARCH     ##############################
