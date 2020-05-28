@@ -697,7 +697,7 @@ class LinkedList(Extra):
         >>> ll_1 < ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_1 = LinkedList.from_iterable([1, 5])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 < ll_2
         False
@@ -732,8 +732,8 @@ class LinkedList(Extra):
         Returns
         -------
         bool
-            `True` if the first instance is less than the second, and `False`
-            otherwise.
+            `True` if the first instance is less than or equal to the second
+            instance, and `False` otherwise.
 
         Examples
         --------
@@ -748,10 +748,10 @@ class LinkedList(Extra):
         >>> ll_1 <= ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_1 = LinkedList.from_iterable([1, 5])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
         >>> ll_1 <= ll_2
-        True
+        False
 
         >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
@@ -767,12 +767,55 @@ class LinkedList(Extra):
     
 
     def __gt__(self, other):
+        """
+        Checks if the first `LinkedList()` instance is greater than the other
+        instance. And this happens if all elements in the first instance are
+        equal with at least one element greater than the opposing element of the
+        second instance.
+
+        Parameters
+        ----------
+        LinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if the first instance is greater than the second, and `False`
+            otherwise.
+
+        Examples
+        --------
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 > ll_2
+        False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 > ll_2
+        False
+
+        >>> ll_1 = LinkedList.from_iterable([1, 3])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 > ll_2
+        False
+
+        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
+        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 > ll_2
+        False
+        """
         if not isinstance(other, self.__class__):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        idx = self._compare(other, operator.le)
-        return True if idx is other._length else False
+        idx, all_equal = self._compare(other, operator.lt)
+        if all_equal:
+            return True if self._length > other._length else False
+        else:
+            return True if idx == other._length else False
     
 
     def __ge__(self, other):
@@ -1170,7 +1213,7 @@ class LinkedList(Extra):
 
 
 if __name__ == "__main__":
-    ll_1 = LinkedList.from_iterable([1, 3, 2])
+    ll_1 = LinkedList.from_iterable([1, 3])
     ll_2 = LinkedList.from_iterable([1, 3, 2])
 
-    print(ll_1 <= ll_2)
+    print(ll_1 < ll_2)
