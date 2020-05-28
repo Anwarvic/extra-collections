@@ -222,7 +222,7 @@ class LinkedList(Extra):
 
         Returns
         -------
-        linked_list: LinkedList()
+        LinkedList()
             It returns an empty LinkedList() instance.
         """
         return LinkedList()
@@ -241,7 +241,7 @@ class LinkedList(Extra):
         
         Returns
         -------
-        linked_list: LinkedList()
+        LinkedList()
             It returns a LinkedList() instance with the same values in the same
             order.
         
@@ -354,7 +354,7 @@ class LinkedList(Extra):
 
         Returns
         -------
-        empty_ll: str
+        str
             A string representing an empty `LinkedList()` instance
 
         Raises
@@ -380,7 +380,13 @@ class LinkedList(Extra):
         
     def _print_linked_list(self, start_node):
         """
-        Prints the given node within the `LinkedList()` instance.
+        Prints the given node within the `LinkedList()` instance. Each node in
+        the linked list is printed in three lines. So, the following is how the
+        `Node(1.0)` look like:
+        ┌─────┐ 
+        │ 1.0 │⟶
+        └─────┘
+
 
         Parameters
         ----------
@@ -388,9 +394,11 @@ class LinkedList(Extra):
 
         Returns
         -------
-        (top_border, middle, lower_border): tuple
-            It returns a tuple of three strings representing the given node
-            when printed.
+        tuple
+            It returns a tuple of three lists representing the three lines of 
+            the printed node. For example, the first item in the `tuple` is a 
+            list of strings collectively represent the first line, and same goes
+            for the second and third item.
         
         Raises
         ------
@@ -445,7 +453,7 @@ class LinkedList(Extra):
         
         Returns
         -------
-        length: int
+        int
             The length of the `LinkedList()` instance. By length, I mean the
             number of nodes found inside.
         
@@ -463,11 +471,11 @@ class LinkedList(Extra):
 
     def is_empty(self):
         """
-        Checks if `LinkedList()` instance is empty
+        Checks if `LinkedList()` instance is empty or not.
         
         Returns
         -------
-        empty_flag: bool
+        bool
             A boolean flag showing the status of the `LinkedList()` instance.
             `True` shows that the instance is empty and `False` otherwise.
         
@@ -490,8 +498,8 @@ class LinkedList(Extra):
 
         Returns
         -------
-        node: generator
-            A generator for each node in the `LinkedList()` instance.
+        generator
+            A generator for the value of each node in the instance.
         
         Examples
         --------
@@ -594,7 +602,7 @@ class LinkedList(Extra):
         
         Returns
         -------
-        status: bool
+        bool
             `True` if both instances are equal, and `False` otherwise.
 
         Examples
@@ -620,7 +628,7 @@ class LinkedList(Extra):
     def __ne__(self, other):
         """
         Checks if two `LinkedList()` instances are NOT equal to each other.
-        And this happens if, and only if, the following either one of these two
+        And this happens if, and only if, either one of the following two
         conditions is satisfied:
         
         1. The two instances are NOT equal in length (number of elements).
@@ -636,7 +644,7 @@ class LinkedList(Extra):
         
         Returns
         -------
-        status: bool
+        bool
             `True` if both instances are NOT equal, and `False` otherwise.
 
         Examples
