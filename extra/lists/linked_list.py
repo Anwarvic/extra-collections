@@ -1418,8 +1418,46 @@ class LinkedList(Extra):
     
 
     def __setitem__(self, idx, item):
-        #TODO: handle -ve indexing
-        #TODO: handle slice objects
+        """
+        Replaces the value at the given index with the given item. It does that
+        in time-complexity of O(k) where **k** is the index value.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+        
+        Raises
+        ------
+        IndexError: If the given index is either negative or out of the
+            boundaries.
+        ValueError: If the given object is `None`.
+        TypeError: This get raised in one of the following cases:
+            1. If the given index type is not `int`.
+            2. If the given object is an instance of `Extra`.
+        
+        TODOs
+        -----
+        1. Handle negative indexing
+        2. Handle slice objects
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll[0] = 10
+        >>> ll[2] = 30
+        >>> ll
+        ┌────┐ ┌───┐ ┌────┐ 
+        │ 10 │⟶│ 2 │⟶│ 30 │⟶
+        └────┘ └───┘ └────┘ 
+        >>> ll[-1] = 0
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> ll[3] = 40
+        IndexError: Given index is out of the boundaries!!
+        """
         self._validate_index(idx)
         if idx == self._length:
             raise IndexError("Given index is out of the boundaries!!")
