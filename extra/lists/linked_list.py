@@ -1160,6 +1160,34 @@ class LinkedList(Extra):
 
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, new_node):
+        """
+        Insertd a `new_node` at a position defined by the given `prev_node`.
+
+        Parameters
+        ----------
+        prev_node: Node()
+            A reference to the node next to which a new node should be inserted.
+        new_node: Node()
+            A referece to the new node to be inserted.
+        
+        Returns
+        -------
+        Node():
+            A reference to the new node after inserted in the `LinkedList()`.
+        
+        Raises
+        ------
+        Assertion: This happens in one of the following cases:
+            1. The `prev_node` isn't a `Node()` object
+            2. The `new_node` isn't a `Node()` object
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> new_node = Node(10)
+        >>> ll._insert_node(ll._head, new_node)
+        Node(data: 10, next: 2)
+        """
         assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert isinstance(new_node, self._basic_node)
         assert new_node.get_data() is not None
@@ -1179,6 +1207,9 @@ class LinkedList(Extra):
 
 
     def _insert_value(self, prev_node, value):
+        """
+        
+        """
         assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert value is not None and not isinstance(value, self._basic_node)
         
