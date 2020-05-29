@@ -1347,7 +1347,37 @@ class LinkedList(Extra):
     
     
     def insert(self, idx, item):
-        """Inserts a certain item at a given index into the linked list"""
+        """
+        Insertd a value at a position defined by the given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+        
+        
+        Raises
+        ------
+        IndexError: This happens in one of the following cases: 
+            1. If the given index is out of the `LinkedList()` boundaries.
+            2. If the given index is less than zero (-ve).
+        TypeError: This happens in one of the following cases:
+            1. If the given index isn't integer.
+            2. If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll.insert(1, 10)
+        >>> ll
+        ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └────┘ └───┘ └───┘ 
+        """
         self._validate_index(idx)
         super()._validate_item(item)
         self._insert(idx, item)
