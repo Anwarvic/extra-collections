@@ -1038,6 +1038,43 @@ class LinkedList(Extra):
 
 
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
+        """
+        Checks the validity of the given index and returns `True` if it's valid
+        and `False` if it is not.
+
+        Parameters
+        ----------
+        idx: int
+            The index value.
+        accept_negative: bool
+            A flag to enable accepting negative indices, default `False`.
+        accept_slice: bool
+            A flag to enable accepting `slice` objects, default `False`.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: This happens in one of the following cases: 
+            1. if the given index is a `slice` object while `accept_slice` \
+                flag is `False`.
+            2. If the given index is out of the `LinkedList()` boundaries.
+        
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll._validate_index('1')
+        TypeError: Given index must be an integer!!
+        >>> ll._validate_index(-2)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> ll._validate_index(slice(0, 2))
+        IndexError: Slice indexing isn't supported with this functinoality!!
+        
+        And it would return nothing if the given index if valid:
+
+        >>> ll._validate_index(2)
+        >>> ll._validate_index(-2, accept_negative=True)
+        >>> ll._validate_index(slice(0, 2), accept_slice=True)
+        """
         if isinstance(idx, slice):
             if not accept_slice:
                 raise IndexError(\
