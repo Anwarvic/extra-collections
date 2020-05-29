@@ -1089,7 +1089,47 @@ class LinkedList(Extra):
 
 
     def __getitem__(self, idx):
-        """Retrieves the element at the given index. It allows -ve indexing"""
+        """
+        Retrieves the element at the given index. The given index could be a 
+        zero-based `int` or a `slice` object. This method supports negative
+        indexing.
+
+        Parameters
+        ----------
+        idx: int or slice
+            The index (multiple indices) to be used to retrieve values from the
+            `LinkedList()` instance.
+        
+        Returns
+        -------
+        object or LinkedList():
+            If the given index is an `int`, then it returns the value at this 
+            index. If the given index is a `slice` object, then it returns a 
+            `LinkedList()` instance containing the desired values.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If the given index is out of the `LinkedList()` boundaries.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> ll[0]
+        1
+        >>> ll[-2]
+        4
+        >>> ll[2:]
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 3 │⟶│ 4 │⟶│ 5 │⟶
+        └───┘ └───┘ └───┘ 
+        >>> ll[0:5:2]
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶│ 5 │⟶
+        └───┘ └───┘ └───┘ 
+        >>> ll[10]
+        IndexError: Can't find any element at the given index!!
+        """
         # sanity check over given index
         self._validate_index(idx, accept_negative=True, accept_slice=True)
         if isinstance(idx, slice):
@@ -1115,7 +1155,7 @@ class LinkedList(Extra):
             if idx <= -1: idx += self._length
             # get the item
             _, node = self._get_node(idx)
-            return node
+            return node.get_data()
 
 
     ##############################     INSERT     ##############################
