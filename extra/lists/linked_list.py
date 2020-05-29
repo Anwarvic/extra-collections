@@ -1092,7 +1092,7 @@ class LinkedList(Extra):
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
         elif idx < -self._length or idx > self._length:
-            raise IndexError("Can't find any element at the given index!!")
+            raise IndexError("Given index is out of the boundaries!!")
 
 
     def __getitem__(self, idx):
@@ -1136,7 +1136,7 @@ class LinkedList(Extra):
         │ 1 │⟶│ 3 │⟶│ 5 │⟶
         └───┘ └───┘ └───┘ 
         >>> ll[10]
-        IndexError: Can't find any element at the given index!!
+        IndexError: Given index is out of the boundaries!!
         """
         # sanity check over given index
         self._validate_index(idx, accept_negative=True, accept_slice=True)
@@ -1158,7 +1158,7 @@ class LinkedList(Extra):
             return out_llist
         else:
             if idx == self._length:
-                raise IndexError("Can't find any element at the given index!!")
+                raise IndexError("Given index is out of the boundaries!!")
             # convert idx to positive if -ve
             if idx <= -1: idx += self._length
             # get the item
@@ -1377,6 +1377,12 @@ class LinkedList(Extra):
         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └────┘ └───┘ └───┘ 
+        >>> ll.insert(5, 8)
+        IndexError: Given index is out of the boundaries!!
+        >>> ll.insert(1, None)
+        ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
+        >>> ll.insert(-1, 100)
+        IndexError: Negative indexing isn't supported with this functinoality!!
         """
         self._validate_index(idx)
         super()._validate_item(item)
@@ -1385,6 +1391,22 @@ class LinkedList(Extra):
 
     ##############################       SET      ##############################
     def _replace_node(self, idx, new_node):
+        """
+        Replaces the node at the given index with the `new_node`.
+
+        Parameters
+        ----------
+        idx: int
+            The index at which we want to replace the node.
+        new_node: Node()
+            The new node that will replace the old one.
+        
+        Raises
+        ------
+        AssertionError: This can be raised in the following cases:
+            1. if the given index is out of the boundaries.
+            2. If the `new_node` is not `None`.
+        """
         assert 0 <= idx or idx <= self._length
         assert new_node is not None
 
@@ -1400,7 +1422,7 @@ class LinkedList(Extra):
         #TODO: handle slice objects
         self._validate_index(idx)
         if idx == self._length:
-            raise IndexError("Can't find any element at the given index!!")
+            raise IndexError("Given index is out of the boundaries!!")
         super()._validate_item(item)
         self._replace_node(idx, item)
         
@@ -1439,7 +1461,7 @@ class LinkedList(Extra):
         #TODO: handle slice objects
         self._validate_index(idx)
         if idx == self._length:
-            raise IndexError("Can't find any element at the given index!!")
+            raise IndexError("Given index is out of the boundaries!!")
         return self._remove_idx(idx)
     
 
