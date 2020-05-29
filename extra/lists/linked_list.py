@@ -231,7 +231,9 @@ class LinkedList(Extra):
     @classmethod
     def from_iterable(cls, iterable):
         """
-        A class method which creates a linked list instance using an iterable.
+        A class method which creates a linked list instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
 
         Parameters
         ----------
@@ -449,7 +451,7 @@ class LinkedList(Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the linked list with complexity of O(1)
+        Gets the length of the linked list in time-complexity of O(1)
         
         Returns
         -------
@@ -471,7 +473,8 @@ class LinkedList(Extra):
 
     def is_empty(self):
         """
-        Checks if `LinkedList()` instance is empty or not.
+        Checks if `LinkedList()` instance is empty or not in time-complexity of
+        O(1).
         
         Returns
         -------
@@ -494,7 +497,9 @@ class LinkedList(Extra):
     ##############################    OPERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the `LinkedList()` instance and returns a generator.
+        Iterates over the `LinkedList()` instance and returns a generator in 
+        time-complexity of O(n) where **n** is the number of elements in the 
+        `LinkedList()` instance.
 
         Returns
         -------
@@ -975,7 +980,9 @@ class LinkedList(Extra):
 
     def __contains__(self, value):
         """
-        Checks if the given value exists in the `LinkedList()` instance.
+        Checks if the given value exists in the `LinkedList()` instance in time-
+        complexity of O(n) where **n** is the total number of elements in the
+        `LinkedList()` instance.
 
         Parameters
         ----------
@@ -1092,7 +1099,8 @@ class LinkedList(Extra):
         """
         Retrieves the element at the given index. The given index could be a 
         zero-based `int` or a `slice` object. This method supports negative
-        indexing.
+        indexing. This method does that in time-complexity of O(k) where **k**
+        is the given index.
 
         Parameters
         ----------
@@ -1176,10 +1184,9 @@ class LinkedList(Extra):
             A reference to the new node after being inserted in the
             `LinkedList()`.
             
-        
         Raises
         ------
-        Assertion: This happens in one of the following cases:
+        AssertionError: This happens in one of the following cases:
             1. The `prev_node` isn't a `Node()` object
             2. The `new_node` isn't a `Node()` object
         
@@ -1227,14 +1234,13 @@ class LinkedList(Extra):
         
         Raises
         ------
-        Assertion: This happens in one of the following cases:
+        AssertionError: This happens in one of the following cases:
             1. The `prev_node` isn't a `Node()` object.
             2. The `value` is `None` or an instance of `Node()`.
         
         Example
         -------
         >>> ll = LinkedList.from_iterable([1, 2, 3])
-        >>> new_node = Node(10)
         >>> ll._insert_value(ll._head, 10)
         Node(data: 10, next: 2)
         """
@@ -1246,6 +1252,34 @@ class LinkedList(Extra):
     
 
     def _insert(self, idx, item):
+        """
+        Insertd a value at a position defined by the given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+        
+        Returns
+        -------
+        Node():
+            A reference to the new node after being inserted in the
+            `LinkedList()`.
+        
+        Raises
+        ------
+        AssertionError: If the given index is out of the `LinkedList()`
+            boundaries.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll._insert(1, 10)
+        Node(data: 10, next: 2)
+        """
         assert 0 <= idx or idx <= self._length
         prev_node, _ = self._get_node(idx)
         if isinstance(item, Node):  #Keep it generic
@@ -1257,7 +1291,7 @@ class LinkedList(Extra):
 
 
     def add_front(self, item):
-        """Adds node at the head of the linked list with complexity of O(1)"""
+        
         super()._validate_item(item)
         self._insert(0, item)
 
