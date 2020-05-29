@@ -1291,7 +1291,29 @@ class LinkedList(Extra):
 
 
     def add_front(self, item):
+        """
+        Adds the given value at the head of the `LinkedList()` instance in
+        time-complexity of O(1).
+
+        Parameters
+        ----------
+        item: object
+            The value to be inserted at the `LinkedList()` head.
         
+        Raises
+        ------
+        TypeError: If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll.add_front(10)
+        >>> ll
+        ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └────┘ └───┘ └───┘ └───┘         
+        """
         super()._validate_item(item)
         self._insert(0, item)
 
