@@ -190,7 +190,24 @@ class Node(Extra):
 
 
     def _represent(self):
-        """A helpful function used to represent the node when printing!!"""
+        """
+        A helpful function used to represent the node when printing!!
+        
+        Returns
+        -------
+        str:
+            A string representing the Node is a very simple way.
+        
+        Example
+        -------
+        >>> x = Node(10)
+        >>> x
+        Node(data:10, next:None)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+        """
         return str(self._data)
 
 
@@ -1169,7 +1186,7 @@ class LinkedList(Extra):
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, new_node):
         """
-        Insertd a `new_node` at a position defined by the given `prev_node`.
+        Inserts a `new_node` at a position defined by the given `prev_node`.
 
         Parameters
         ----------
@@ -1467,6 +1484,35 @@ class LinkedList(Extra):
 
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
+        """
+        Removes a node from the `LinkedList()` instance.
+
+        Parameters
+        ----------
+        prev_node: Node()
+            A reference to the node next to the node that will be removed.
+        node_to_be_removed: Node()
+            A referece to the node to be removed.
+        
+        Raises
+        ------
+        AssertionError: This happens in one of the following cases:
+            1. The `prev_node` isn't a `Node()` object
+            2. The `node_to_be_removed` isn't a `Node()` object
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ 
+        >>> ll._remove_node(ll._head, ll._head._next)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        """
         assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert isinstance(node_to_be_removed, self._basic_node)
 
@@ -1475,7 +1521,7 @@ class LinkedList(Extra):
         if prev_node is None:
             if self._length == 1:
                 #NOTE: don't use set_data() here
-                self._head.data = None
+                self._head._data = None
             else:
                 self._head.set_next(next_node.get_next())
                 self._head.set_data(next_node.get_data())
