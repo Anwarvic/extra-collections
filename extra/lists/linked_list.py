@@ -1319,7 +1319,29 @@ class LinkedList(Extra):
 
 
     def add_end(self, item):
-        """Adds node at the tail of the linked list with complexity of O(n)"""
+        """
+        Adds the given value at the tail of the `LinkedList()` instance in
+        time-complexity of O(n).
+
+        Parameters
+        ----------
+        item: object
+            The value to be inserted at the `LinkedList()` head.
+        
+        Raises
+        ------
+        TypeError: If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll.add_end(10)
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌────┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 10 │⟶
+        └───┘ └───┘ └───┘ └────┘         
+        """
         super()._validate_item(item)
         self._insert(len(self), item)
     
