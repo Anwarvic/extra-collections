@@ -1565,9 +1565,39 @@ class LinkedList(Extra):
 
 
     def __delitem__(self, idx):
-        """Removes a node at index=idx from the linked list"""
-        #TODO: handle -ve indexing
-        #TODO: handle slice objects
+        """
+        Deletes the value at the given index. It does that in time-complexity
+        of O(k) where **k** is the index value.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index where the node that should be
+            removed.
+        
+        Raises
+        ------
+        IndexError: If the given index is either negative or out of the
+            boundaries.
+        
+        TODOs
+        -----
+        1. Handle negative indexing
+        2. Handle slice objects
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> del ll[0] = 10
+        >>> ll
+        ┌───┐ ┌────┐ 
+        │ 2 │⟶│ 30 │⟶
+        └───┘ └────┘ 
+        >>> del ll[-1] = 0
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> del ll[3]
+        IndexError: Given index is out of the boundaries!!
+        """
         self._validate_index(idx)
         if idx == self._length:
             raise IndexError("Given index is out of the boundaries!!")
