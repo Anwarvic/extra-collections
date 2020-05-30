@@ -1628,9 +1628,26 @@ class LinkedList(Extra):
 
 
     def remove_end(self):
-        """Removes the linked list tail with complexity of O(n)"""
+        """
+        Removes the value at the tail of the `LinkedList()` instance in time-
+        complexity of O(n).
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll.remove_end()
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶
+        └───┘ └───┘ 
+        >>> ll.remove_end()
+        >>> ll
+        ┌───┐ 
+        │ 1 │⟶
+        └───┘ 
+        """
         if not self.is_empty():
-            return self.__delitem__( self._length-1 )
+            self.__delitem__( self._length-1 )
 
 
     def _remove_value(self, value, all):
