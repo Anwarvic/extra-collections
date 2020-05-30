@@ -1531,12 +1531,37 @@ class LinkedList(Extra):
 
 
     def _remove_idx(self, idx):
+        """
+        Removes a node from the `LinkedList()` at the given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            removed.
+        
+        Raises
+        ------
+        AssertionError: If The given index is either negative or bigger than or
+            equal the length of the `LinkedList()` instance.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ 
+        >>> ll._remove_idx(1)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        """
         assert 0 <= idx or idx < self._length
 
         prev_node, node = self._get_node(idx)
-        node_data = node.get_data()
         self._remove_node(prev_node, node)
-        return self._basic_node(node_data)
 
 
     def __delitem__(self, idx):
@@ -1546,7 +1571,7 @@ class LinkedList(Extra):
         self._validate_index(idx)
         if idx == self._length:
             raise IndexError("Given index is out of the boundaries!!")
-        return self._remove_idx(idx)
+        self._remove_idx(idx)
     
 
     def remove_front(self):
