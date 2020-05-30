@@ -1329,7 +1329,7 @@ class LinkedList(Extra):
         >>> ll
         ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 10 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
-        └────┘ └───┘ └───┘ └───┘         
+        └────┘ └───┘ └───┘ └───┘ 
         """
         super()._validate_item(item)
         self._insert(0, item)
@@ -1605,9 +1605,26 @@ class LinkedList(Extra):
     
 
     def remove_front(self):
-        """Removes the linked list head with complexity of O(1)"""
+        """
+        Removes the value at the head of the `LinkedList()` instance in time-
+        complexity of O(1).
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll.remove_front()
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        >>> ll.remove_front()
+        >>> ll
+        ┌───┐ 
+        │ 3 │⟶
+        └───┘ 
+        """
         if not self.is_empty():
-            return self.__delitem__(0)
+            self.__delitem__(0)
 
 
     def remove_end(self):
