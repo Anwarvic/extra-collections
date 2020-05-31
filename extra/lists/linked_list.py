@@ -1985,7 +1985,7 @@ class LinkedList(Extra):
 
     def _rotate(self, distance, direction):
         """
-        Rotates the `LinkedList()` instance into the given `direction` by a
+        Rotates the `LinkedList()` instance to the given `direction` by a
         certain given `distance` and returns the rotated instance. It does all
         of that in time-complexity of O(n) where **n** is the number of elements
         in the `LinkedList()` instance.
@@ -2035,7 +2035,7 @@ class LinkedList(Extra):
 
     def rotate_left(self, distance, inplace=True):
         """
-        Rotates the `LinkedList()` instance into the left by a certain given
+        Rotates the `LinkedList()` instance to the left by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
         O(n) where **n** is the number of elements in the `LinkedList()`
@@ -2044,7 +2044,7 @@ class LinkedList(Extra):
         Parameters
         ----------
         distance: int
-            The rotation distance.
+            The rotation distance to the left.
         inplace: bool
             A flag to determine if the rotation is going to be in-place or not.
             (default `True`).
@@ -2076,6 +2076,39 @@ class LinkedList(Extra):
         
     
     def rotate_right(self, distance, inplace=True):
+        """
+        Rotates the `LinkedList()` instance to the right by a certain given
+        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
+        it returns the rotated instance. The time-compelxity of this method is
+        O(n) where **n** is the number of elements in the `LinkedList()`
+        instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance to the right.
+        inplace: bool
+            A flag to determine if the rotation is going to be in-place or not.
+            (default `True`).
+        
+        Returns
+        -------
+        LinkedList():
+            The rotated instance if `inplace=True`
+        
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll.rotate_right(1)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> ll.rotate_right(15)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        """
         self._validate_distance(distance)
         rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
