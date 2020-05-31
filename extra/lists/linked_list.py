@@ -1985,10 +1985,10 @@ class LinkedList(Extra):
 
     def _rotate(self, distance, direction):
         """
-        Rotates the given `LinkedList()` into the given `direction` by a certain
-        given `distance` and returns the rotated instance. It does all of that
-        in time-complexity of O(n) where **n** is the number of elements in the
-        `LinkedList()` instance.
+        Rotates the `LinkedList()` instance into the given `direction` by a
+        certain given `distance` and returns the rotated instance. It does all
+        of that in time-complexity of O(n) where **n** is the number of elements
+        in the `LinkedList()` instance.
 
         Parameters
         ----------
@@ -2034,6 +2034,39 @@ class LinkedList(Extra):
 
 
     def rotate_left(self, distance, inplace=True):
+        """
+        Rotates the `LinkedList()` instance into the left by a certain given
+        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
+        it returns the rotated instance. The time-compelxity of this method is
+        O(n) where **n** is the number of elements in the `LinkedList()`
+        instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance.
+        inplace: bool
+            A flag to determine if the rotation is going to be in-place or not.
+            (default `True`).
+        
+        Returns
+        -------
+        LinkedList():
+            The rotated instance if `inplace=True`
+        
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll.rotate_left(1)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> ll.rotate_left(10)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        """
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
         self._validate_distance(distance)
