@@ -68,7 +68,7 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | split()        | Splits the list into two at the given index            | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| join()         | Joins two linked lists into one                        | O(n)        | O(n)        |
+| extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | rotate_left()  | Left-rotates the list by the given value               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -1406,6 +1406,41 @@ class LinkedList(Extra):
         self._insert(idx, item)
 
 
+    def extend(self, other):
+        """
+        Extends the current `LinkedList()` instance by appending the elements of
+        the other `LinkedList()` instance in time-complexity of O(n) where **n**
+        is the lengh of the current instance.
+
+        Parameters
+        ----------
+        other: LinkedList()
+            The `LinkedList()` whose elements will be appended.
+                
+        Raises
+        ------
+        TypeError: If the given object isn't a `LinkedList()` instance.
+
+        Example
+        -------
+
+
+        """
+        if not isinstance(other, self.__class__):
+            raise TypeError("Type Mismatch! " + 
+                f"Can't extend `{self.__name__}` with `{type(other)}`!!"
+            )
+        if other.is_empty():
+            pass # do nothing
+        elif self.is_empty():
+            self._head = other._head
+            self._length = other._length
+        else:
+            last_node, _ = self._get_node(self._length)
+            last_node.set_next(other._head)
+            self._length += other._length
+    
+    
     ##############################       SET      ##############################
     def _replace_node(self, idx, new_node):
         """
@@ -1766,7 +1801,7 @@ class LinkedList(Extra):
         self.__init__()
     
 
-    ##############################   SPLIT/JOIN   ##############################
+    ##############################      SPLIT     ##############################
     def _split(self, idx):
         """
         Splits the `LinkedList()` instance into two instances based on the given
@@ -1882,22 +1917,6 @@ class LinkedList(Extra):
         return self._split(idx)
         
 
-    def join(self, other):
-        if not isinstance(other, self.__class__):
-            raise TypeError("Type Mismatch! " + 
-                f"Can't join `{self.__name__}` with `{type(other)}`!!"
-            )
-        if other.is_empty():
-            pass # do nothing
-        elif self.is_empty():
-            self._head = other._head
-            self._length = other._length
-        else:
-            last_node, _ = self._get_node(self._length)
-            last_node.set_next(other._head)
-            self._length += other._length
-
-
     ##############################    ROTATION    ##############################
     def _validate_distance(self, distance):
         # It doesn't happen inplace
@@ -1922,7 +1941,7 @@ class LinkedList(Extra):
         # split based on distance
         left_list, right_list = self.split(distance)
         # join them to mimic rotation effect
-        right_list.join(left_list)
+        right_list.extend(left_list)
         # return rotated
         return right_list
 
