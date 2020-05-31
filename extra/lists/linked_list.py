@@ -1984,6 +1984,46 @@ class LinkedList(Extra):
 
 
     def _rotate(self, distance, direction):
+        """
+        Rotates the given `LinkedList()` into the given `direction` by a certain
+        given `distance` and returns the rotated instance. It does all of that
+        in time-complexity of O(n) where **n** is the number of elements in the
+        `LinkedList()` instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance.
+        direction: str
+            A string representing the rotation directions. It's either "RIGHT"
+            or "LEFT".
+        
+        Returns
+        -------
+        LinkedList():
+            The rotated instance.
+        
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll._rotate(1, "LEFT")
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> ll._rotate(1, "RIGHT")
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> ll._rotate(10, "LEFT")
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> ll._rotate(15, "RIGHT")
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        """
         distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
