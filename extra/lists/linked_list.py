@@ -1952,6 +1952,28 @@ class LinkedList(Extra):
     
     
     def __calibrate_distance(self, distance, direction):
+        """
+        Converts invalid distance value into a valid one paying attentionthe
+        given rotation direction.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance.
+        direction: str
+            A string representing the rotation directions. It's either "RIGHT"
+            or "LEFT".
+        
+        Returns
+        -------
+        int: The clibrated distance value.
+
+        Raises
+        ------
+        AssertionError: It can be raised due to one of the following cases:
+            1. The type of given `distance` isn't `int`.
+            2. The direction value is not "RIGHT" or "LEFT".
+        """
         assert type(distance) == int
         assert direction in {"RIGHT", "LEFT"}
 
