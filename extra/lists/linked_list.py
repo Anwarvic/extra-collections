@@ -1768,6 +1768,48 @@ class LinkedList(Extra):
 
     ##############################   SPLIT/JOIN   ##############################
     def _split(self, idx):
+        """
+        Splits the `LinkedList()` instance into two instances based on the given
+        index in time-complexity of O(n) where **n** is the number of elements
+        in the original instance. We can consider `idx` as the start index of
+        the second `LinkedList()` after splitting. If `idx=0`, then the first
+        returned `LinkedList()` will be empty while the second returned
+        `LinkedList()` will be the same length as the original.
+
+        Parameters
+        ----------
+        idx: int
+            A positive integer pointing to the index at which the `LinkedList()`
+            instance should be split.
+        
+        Returns
+        -------
+        LinkedList(): 
+            The left `LinkedList()` instance returned after split.
+        LinkedList(): 
+            The right `LinkedList()` instance returned after split
+        
+        Raises
+        ------
+        AssertionError: If the index's type is not integer.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐
+        │ 1 │⟶│ 2 │⟶│ 3 │
+        └───┘ └───┘ └───┘
+        >>> left, right = ll._split(1)
+        >>> left
+        ┌───┐ 
+        │ 1 │⟶
+        └───┘ 
+        >>> right
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        """
         assert type(idx) == int
 
         left_list = self._create_instance()
@@ -1837,7 +1879,6 @@ class LinkedList(Extra):
 
 
     def _rotate(self, distance, direction):
-        #TODO: when distance is -ve, rotate right
         distance = self.__calibrate_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
@@ -1899,6 +1940,3 @@ class LinkedList(Extra):
         return copied_list
 
 
-if __name__ == "__main__":
-    ll = LinkedList.from_iterable([1, 2, 3])
-    print(ll._search(1, ll._head._next))
