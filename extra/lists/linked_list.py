@@ -1746,7 +1746,23 @@ class LinkedList(Extra):
 
 
     def clear(self):
-        """Removes all nodes within the linked list with complexity of O(1)"""
+        """
+        Removes all nodes within the linked list in time-complexity of O(1).
+
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ 
+        >>> ll.clear()
+        >>> ll.is_empty()
+        True
+        >>> ll
+        ┌─
+        │
+        └─
+        """
         self.__init__()
     
 
