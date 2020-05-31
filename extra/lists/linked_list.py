@@ -1835,9 +1835,48 @@ class LinkedList(Extra):
 
     def split(self, idx):
         """
-        idx is the start index of the second list after splitting.
-        So, idx=0, then the left_list will be empty while the right_list will be
-        the rest. And the opposite when idx=self._length
+        Splits the `LinkedList()` instance into two instances based on the given
+        index in time-complexity of O(n) where **n** is the number of elements
+        in the original instance. We can consider `idx` as the start index of
+        the second `LinkedList()` after splitting. If `idx=0`, then the first
+        returned `LinkedList()` will be empty while the second returned
+        `LinkedList()` will be the same length as the original.
+
+        Parameters
+        ----------
+        idx: int
+            A positive integer pointing to the index at which the `LinkedList()`
+            instance should be split.
+        
+        Returns
+        -------
+        LinkedList(): 
+            The left `LinkedList()` instance returned after split.
+        LinkedList(): 
+            The right `LinkedList()` instance returned after split
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If the given index is either negative or out of the
+            `LinkedList()` boundaries.
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐
+        │ 1 │⟶│ 2 │⟶│ 3 │
+        └───┘ └───┘ └───┘
+        >>> left, right = ll._split(1)
+        >>> left
+        ┌───┐ 
+        │ 1 │⟶
+        └───┘ 
+        >>> right
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ 
         """
         self._validate_index(idx)
         return self._split(idx)
