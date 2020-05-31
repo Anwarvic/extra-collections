@@ -1063,8 +1063,8 @@ class LinkedList(Extra):
 
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         """
-        Checks the validity of the given index and returns `True` if it's valid
-        and `False` if it is not.
+        Checks the validity of the given index.It raises the appropriate error
+        when the index isn't valid and it returns nothing if the index is valid.
 
         Parameters
         ----------
@@ -1919,7 +1919,32 @@ class LinkedList(Extra):
 
     ##############################    ROTATION    ##############################
     def _validate_distance(self, distance):
-        # It doesn't happen inplace
+        """
+        Checks the validity of the given distance value. It raises the
+        appropriate error when the distance isn't valid and it returns nothing
+        if the distance is valid.
+
+        Parameters
+        ----------
+        distance: int
+            The distance value (mainly used for rotation).
+        
+        Raises
+        ------
+        TypeError: If the given distance isn't `int`.
+        ValueError: If the given distance is negative.
+        
+        Examples
+        --------
+        >>> ll = LinkedList()
+        >>> ll._validate_distance(1)
+        >>> ll._validate_distance('1')
+        TypeError: Rotation distance has to be an `int`!!
+        >>> ll._validate_distance(-2)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> ll._validate_index(slice(0, 2))
+        ValueError: Rotation distance has to be >= zero!!
+        """
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
         if distance < 0:
