@@ -1656,7 +1656,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        value: int
+        value: object
             The value to be removed from the `LinkedList()` instance.
         all: bool
             A flag; if `True`, all occurrences of the given value are remove. If
@@ -1664,7 +1664,7 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: This get raised in the following cases:
+        AssertionError: This get raised in one of the following cases:
             1. If The given value is `None` or and instance of `Extra` class.
             2. If `all` flag isn't boolean.
         
@@ -1706,6 +1706,39 @@ class LinkedList(Extra):
 
     
     def remove(self, value, all=True):
+        """
+        Removes node(s) whose value equal to the given value.
+
+        Parameters
+        ----------
+        value: object
+            The value to be removed from the `LinkedList()` instance.
+        all: bool
+            A flag (default: `True`); if `True`, all occurrences of the given value are remove. If
+            `False`, only the first occurrence is removed.
+        
+        Raises
+        ------
+        ValueError: If The given value is `None`.
+        TypeError: This get raised in one of the following cases:
+            1. If the type of the `all` flag isn't boolean.
+            2. If the given value is an instance of `Extra` class.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> ll.remove(2, False)
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> ll._remove_value(10) #does nothing
+        >>> ll._remove_value(2, True)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        """
         if type(all) != bool:
             raise TypeError("`all` is a boolean flag (True by default)!!")
         super()._validate_item(value)
