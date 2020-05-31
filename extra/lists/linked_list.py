@@ -1651,6 +1651,38 @@ class LinkedList(Extra):
 
 
     def _remove_value(self, value, all):
+        """
+        Removes node(s) whose value equal to the given value.
+
+        Parameters
+        ----------
+        value: int
+            The value to be removed from the `LinkedList()` instance.
+        all: bool
+            A flag; if `True`, all occurrences of the given value are remove. If
+            `False`, only the first occurrence is removed.
+        
+        Raises
+        ------
+        AssertionError: This get raised in the following cases:
+            1. If The given value is `None` or and instance of `Extra` class.
+            2. If `all` flag isn't boolean.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> ll._remove_value(2, False)
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        >>> ll._remove_value(10, False) #does nothing
+        >>> ll._remove_value(2, True)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        """
         # removes all occurrences (when all==True) of `value` if found.
         assert not isinstance(value, self._basic_node) and value is not None
         assert type(all) == bool
