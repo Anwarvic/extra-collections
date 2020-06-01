@@ -2207,6 +2207,24 @@ class LinkedList(Extra):
 
 
     def copy(self):
+        """
+        Copies the `LinkedList()` instance in a shallow-manner.
+
+        Returns
+        -------
+        LinkedList():
+            The shallow copy of the original instance.
+        
+        Example
+        ------
+        >>> ll = LinkedList()
+        >>> ll.add_end(10)
+        >>> ll.add_end(20)
+        >>> ll.copy()
+        ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶
+        └────┘ └────┘ 
+        """
         copied_list = self._create_instance()
         if not self.is_empty():
             copied_node = None
