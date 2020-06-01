@@ -2145,6 +2145,29 @@ class LinkedList(Extra):
 
 
     def to_list(self):
+        """
+        Converts the `LinkedList()` instance to a `list` in time-complexity of
+        O(n) where **n** is the number of elements in the instance.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `LinkedList()`
+            instance.
+        
+        Example
+        -------
+        >>> ll = LinkedList()
+        >>> ll.add_front(20)
+        >>> ll.add_front(10)
+        >>> ll.add_end(30)
+        >>> ll
+        ┌────┐ ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶│ 30 │⟶
+        └────┘ └────┘ └────┘ 
+        >>> ll.to_list()
+        [10, 20, 30]
+        """
         return [item for item in self]
 
 
