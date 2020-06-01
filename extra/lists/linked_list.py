@@ -70,9 +70,9 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(n)        | O(n)        |
+| rotate_left()  | Left-rotates the list by the given value               | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(n)        | O(n)        |
+| rotate_right() | Right-rotates the list by the given value              | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
