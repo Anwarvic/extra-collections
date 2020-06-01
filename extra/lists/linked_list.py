@@ -2117,7 +2117,23 @@ class LinkedList(Extra):
     
     ##############################      MISC      ##############################
     def reverse(self):
-        """Reverses the whole linked list with complexity of O(n)"""
+        """
+        Reverses the whole `LinkedList()` instance in time-complexity of O(n)
+        where **n** is the number of elements in the linked list.
+
+        Returns
+        -------
+        LinkedList():
+            The reversed `LinkedList()` instance.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll.reverse()
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
+        """
         rev = self._create_instance()
         counter = 0
         curr_node = self._head
