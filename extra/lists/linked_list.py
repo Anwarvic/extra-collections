@@ -2172,6 +2172,31 @@ class LinkedList(Extra):
 
 
     def count(self, value):
+        """
+        Counts the number of occurrence the given value is in our `LinkedList()`
+        instance.
+
+        Parameters
+        ----------
+        value: object
+            The object to count its occurrences
+        
+        Returns
+        -------
+        int:
+            The number of times the given value is found in the `LinkedList()`
+            instance. And 0 if it wasn't found.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> ll.count(3)
+        1
+        >>> ll.count(1)
+        2
+        >>> ll.count("he")
+        0
+        """
         total_count = 0
         if isinstance(value, self._basic_node):
             value = value.get_data()
