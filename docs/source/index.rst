@@ -9,4 +9,5 @@ extra-collections's documentation!
    :hidden:
 
    linked_list
+   doubly_linked_list
 
