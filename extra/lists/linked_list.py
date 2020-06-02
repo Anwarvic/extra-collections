@@ -32,21 +32,21 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __eq__()       | Checks if two linked lists are equal                   | O(max(n,m)) | O(max(n,m)) |
+| __eq__()       | Checks if two linked lists are equal                   | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __ne__()       | Checks if two linked lists are not equal               | O(max(n,m)) | O(max(n,m)) |
+| __ne__()       | Checks if two linked lists are not equal               | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __lt__()       | Checks if the linked list is less than the other       | O(max(n,m)) | O(max(n,m)) |
+| __lt__()       | Checks if the linked list is less than the other       | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __le__()       | Checks if the list is less than or equal the other     | O(max(n,m)) | O(max(n,m)) |
+| __le__()       | Checks if the list is less than or equal the other     | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the linked list is greater than the other    | O(max(n,m)) | O(max(n,m)) |
+| __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the list is greater than or equal the other  | O(max(n,m)) | O(max(n,m)) |
+| __gt__()       | Checks if the list is greater than or equal the other  | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __getitem__()  | Returns the number of nodes                            | O(1)        | O(1)        |
+| __getitem__()  | Returns the element at a certain index.                | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -54,7 +54,7 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | insert()       | Adds the given item at the given index                 | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __setitem__()  | Replaces the value at the given index with given value | O(n)        | O(n)        |
+| __setitem__()  | Replaces the value at the given index with given value | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __delitem__()  | Deletes the value at the given index                   | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
