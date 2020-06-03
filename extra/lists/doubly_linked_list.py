@@ -95,24 +95,72 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 class DoublyNode(Node):
-    """Basic object for the Node used for double linked lists"""
+    """Basic object for the Node used for doubly linked lists"""
     def __init__(self, item):
+        """
+        Creates a `DoublyNode()` object used mainly with `DoublyLinkedList()`
+        objects!!
+
+        Parameters
+        ----------
+        item: object 
+            The value to be saved within the `DoublyNode()` instance.
+
+        Raises
+        ------
+        TypeError: If the given item is an `Extra` object.
+        ValueError: If the given item is `None`.
+        """
         super().__init__(item)
         self._prev = None
 
 
     def __repr__(self):
-        """Represents Node object as a string"""
+        """
+        Represents `DoublyNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `Node()` instance.
+        
+        Example
+        -------
+        >>> x = Node(10)
+        >>> x
+        >>> Node(data: 10, next:None)
+        """
         prv = self._prev.get_data() if self._prev is not None else None
         nxt = self._next.get_data() if self._next is not None else None
         return f"DoublyNode(data: {self.data}, prev: {prv}, next: {nxt})"
     
 
     def get_prev(self):
+        """
+        Returns the prev `DoublyNode()` instance of the current one.
+
+        Returns
+        -------
+        Node():
+            The `Node()` instance that follows the current `DoublyNode()` or
+            `None`.
+        """
         return self._prev
     
 
     def set_prev(self, prev_node):
+        """
+        Sets the prev pointer of the current `DoublyNode()` to the given node.
+
+        Parameters
+        ----------
+        next_node: DoublyNode()
+            The `DoublyNode()` instance that will follow the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is an `Extra` object.
+        """
         if prev_node is None:
             self._prev = None
         elif not isinstance(prev_node, DoublyNode):
@@ -124,6 +172,18 @@ class DoublyNode(Node):
     
 
     def set_next(self, next_node):
+        """
+        Sets the next pointer of the current `DoublyNode()` to the given node.
+
+        Parameters
+        ----------
+        next_node: DoublyNode()
+            The `DoublyNode()` that will follow the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is an `Extra` object.
+        """
         if next_node is None:
             self._next = None
         elif not isinstance(next_node, DoublyNode):
