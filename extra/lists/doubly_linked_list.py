@@ -361,7 +361,29 @@ class DoublyLinkedList(LinkedList):
         return self._length
     
 
-    
+    def is_empty(self):
+        """
+        Checks if `DoublyLinkedList()` instance is empty or not in time-
+        complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `DoublyLinkedList()` instance is empty
+            or not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
+        
+        Example
+        --------
+        >>> dll = DoublyLinkedList()
+        >>> dll.is_empty()
+        True
+        >>> dll.add_front(5)
+        >>> dll.is_empty()
+        False
+        """
+        return self._length == 0
+
     
     ##############################    OPERATOR    ##############################
 
