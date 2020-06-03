@@ -338,6 +338,33 @@ class DoublyLinkedList(LinkedList):
         return top_border, middle_border, lower_border
 
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `DoublyLinkedList()` in time-complexity of O(1)
+        
+        Returns
+        -------
+        int:
+            The length of the `DoublyLinkedList()` instance. By Length, I mean
+            the number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> dll = DoublyLinkedList()
+        >>> len(dll)
+        0
+        >>> dll = DoublyLinkedList.from_iterable((2, 5, 0))
+        >>> len(dll)
+        3
+        """
+        return self._length
+    
+
+    
+    
+    ##############################    OPERATOR    ##############################
+
     ##############################     SEARCH     ##############################
     def _get_node(self, idx):
         """
