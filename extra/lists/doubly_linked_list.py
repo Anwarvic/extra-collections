@@ -659,6 +659,36 @@ class DoublyLinkedList(LinkedList):
 
 
     ##############################     SEARCH     ##############################
+    def __contains__(self, value):
+        """
+        Checks if the given value exists in the DoublyLinkedList() instance in
+        time-complexity of O(n) where **n** is the total number of elements in
+        the DoublyLinkedList() instance.
+
+        Parameters
+        ----------
+        value: Object
+            The value to be searched for in the DoublyLinkedList() instance.
+        
+        Returns
+        -------
+        bool
+            `True` if the given value exists in the DoublyLinkedList() instance,
+            and `False` otherwise.
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 3, 5])
+        >>> 1 in dll
+        True
+        >>> 0 in dll
+        False
+        >>> "hello" in dll
+        False
+        """
+        return super().__contains__(value)
+
+
     def _get_node(self, idx):
         """
         Iterates over the DoublyLinkedList() instance and returns the node at
