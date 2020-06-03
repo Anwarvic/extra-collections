@@ -602,7 +602,61 @@ class DoublyLinkedList(LinkedList):
         return super().__gt__(other)
     
 
-    
+    def __ge__(self, other):
+        """
+        Checks if the first DoublyLinkedList() instance is greater than or equal
+        to the other instance. And this happens if all elements in the first
+        instance are greater than or equal to the opposing element of the
+        second instance.
+
+        Parameters
+        ----------
+        DoublyLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if the first instance is greater than or equal to the second,
+            and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
+
+        Examples
+        --------
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 5])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 >= dll_2
+        True
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2, 1])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 >= dll_2
+        True
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 >= dll_2
+        False
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 >= dll_2
+        False
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 >= dll_2
+        True
+        """
+        return super().__ge__(other)
+
 
     ##############################     SEARCH     ##############################
     def _get_node(self, idx):
