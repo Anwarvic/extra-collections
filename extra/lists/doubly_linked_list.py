@@ -257,8 +257,8 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> ll = DoublyLinkedList.from_iterable([10, -5, 7, 9])
-        >>> ll
+        >>> dll = DoublyLinkedList.from_iterable([10, -5, 7, 9])
+        >>> dll
          ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         ⟷│ 10 │⟷│ -5 │⟷│ 7 │⟷│ 9 │⟷
          └────┘ └────┘ └───┘ └───┘ 
@@ -266,18 +266,18 @@ class DoublyLinkedList(LinkedList):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> ll = DoublyLinkedList.from_iterable([2, None])
+        >>> dll = DoublyLinkedList.from_iterable([2, None])
         ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> ll = DoublyLinkedList.from_iterable(2)
+        >>> dll = DoublyLinkedList.from_iterable(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `DoublyLinkedList` objects will raise `TypeError` as well
 
-        >>> ll_1 = DoublyLinkedList.from_iterable([1])
-        >>> ll_2 = DoublyLinkedList.from_iterable([1, ll_1])
+        >>> dll_1 = DoublyLinkedList.from_iterable([1])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, ll_1])
         TypeError: Can't create `extra.DoublyLinkedList()` using `extra.DoublyLinkedList()`!!
 
         Note
@@ -295,9 +295,37 @@ class DoublyLinkedList(LinkedList):
         """
         return super().from_iterable(iterable)
     
-    
+
     ##############################      PRINT     ##############################
     def _print_node(self, node):
+        """
+        Prints the given node of the `DoublyLinkedList()` instance.
+
+        Parameters
+        ----------
+        node: `DoublyNode()`
+            The `DoublyNode()` object that we want to print.
+
+        Returns
+        -------
+        tuple
+            It returns a tuple of three strings representing the given node
+            when printed.
+        
+        Raises
+        ------
+        AssertionError: In case the given object isn't `DoublyNode()`
+
+        Example
+        -------
+        >>> dll = DoublyLinkedList()
+        >>> dll.add_front(10)
+        >>> lines = ["".join(x) for x in dll._print_node(dll._head)]
+        >>> "\n".join(lines)
+         ┌────┐
+        ⟷│ 10 │⟷
+         └────┘
+        """
         top_border    = [' ┌']
         middle_border = ['⟷│']
         lower_border  = [' └']
