@@ -98,7 +98,7 @@ class DoublyNode(Node):
     """Basic object for the Node used for doubly linked lists"""
     def __init__(self, item):
         """
-        Creates a `DoublyNode()` object used mainly with `DoublyLinkedList()`
+        Creates a `DoublyNode()` object used mainly with DoublyLinkedList()
         objects!!
 
         Parameters
@@ -204,7 +204,7 @@ class DoublyLinkedList(LinkedList):
    
     def __init__(self):
         """
-        Creates a `DoublyLinkedList()` object!!
+        Creates a DoublyLinkedList() object!!
         
         Example
         -------
@@ -299,7 +299,7 @@ class DoublyLinkedList(LinkedList):
     ##############################      PRINT     ##############################
     def _print_node(self, node):
         """
-        Prints the given node of the `DoublyLinkedList()` instance.
+        Prints the given node of the DoublyLinkedList() instance.
 
         Parameters
         ----------
@@ -341,12 +341,12 @@ class DoublyLinkedList(LinkedList):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `DoublyLinkedList()` in time-complexity of O(1)
+        Gets the length of the DoublyLinkedList() in time-complexity of O(1)
         
         Returns
         -------
         int:
-            The length of the `DoublyLinkedList()` instance. By Length, I mean
+            The length of the DoublyLinkedList() instance. By Length, I mean
             the number of nodes of in the instance.
         
         Examples
@@ -363,13 +363,13 @@ class DoublyLinkedList(LinkedList):
 
     def is_empty(self):
         """
-        Checks if `DoublyLinkedList()` instance is empty or not in time-
+        Checks if DoublyLinkedList() instance is empty or not in time-
         complexity of O(1).
         
         Returns
         -------
         bool:
-            A boolean flag showing if the `DoublyLinkedList()` instance is empty
+            A boolean flag showing if the DoublyLinkedList() instance is empty
             or not. `True` shows that this instance is empty and `False` shows
             it's not empty.
         
@@ -388,9 +388,9 @@ class DoublyLinkedList(LinkedList):
     ##############################    OPERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the `DoublyLinkedList()` instance and returns a generator
+        Iterates over the DoublyLinkedList() instance and returns a generator
         in time-complexity of O(n) where **n** is the number of elements in the 
-        `DoublyLinkedList()` instance.
+        DoublyLinkedList() instance.
 
         Returns
         -------
@@ -406,15 +406,60 @@ class DoublyLinkedList(LinkedList):
         2
         3
         """
-        super().__iter__()
+        return super().__iter__()
     
+
+    def __eq__(self, other):
+        """
+        Checks if two DoublyLinkedList() instances are equal to each other.
+        And this happens if, and only if, the following two conditions are met:
+        
+        1. The two instances are equal in length (have same number of elements).
+
+        2. Every single element in the first instance is equal, in both \
+            **value** and **type**, to the opposing element of the other \
+            instance.
+
+        Parameters
+        ----------
+        other: DoublyLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if both instances are equal, and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a DoublyLinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
+
+        Examples
+        --------
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 == dll_2
+        False
+        >>> dll_1 == dll_1
+        True
+        """
+        return super().__eq__(other)
+
+
+   
+    
+
+
     
     ##############################     SEARCH     ##############################
     def _get_node(self, idx):
         """
-        Iterates over the `DoublyLinkedList()` instance and returns the node at
+        Iterates over the DoublyLinkedList() instance and returns the node at
         the given index. If the given index is less than half of the
-        `DoublyLinkedList()` length, it starts iterating from left to right. And
+        DoublyLinkedList() length, it starts iterating from left to right. And
         if the index is bigger, it starts iterating from right to left in order
         to make the searching process a little bit faster.
 
