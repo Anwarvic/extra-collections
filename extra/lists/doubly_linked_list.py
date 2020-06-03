@@ -786,6 +786,35 @@ class DoublyLinkedList(LinkedList):
 
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, item):
+        """
+        Inserts a `new_node` at a position defined by the given `prev_node`.
+
+        Parameters
+        ----------
+        prev_node: DoublyNode()
+            A reference to the node next to which a new node should be inserted.
+        new_node: DoublyNode()
+            A referece to the new node to be inserted.
+        
+        Returns
+        -------
+        DoublyNode():
+            A reference to the new node after being inserted in the
+            DoublyLinkedList().
+            
+        Raises
+        ------
+        AssertionError: This happens in one of the following cases:
+            1. The `prev_node` isn't a `DoublyNode()` object
+            2. The `new_node` isn't a `DoublyNode()` object
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> new_node = DoublyNode(10)
+        >>> dll._insert_node(dll._head, new_node)
+        DoublyNode(data: 10, prev: 1, next: 2)
+        """
         # handle different types of `item`
         if isinstance(item, self._basic_node):
             assert item.get_data() is not None, \
