@@ -216,6 +216,14 @@ class DoublyLinkedList(LinkedList):
     
 
     def _create_instance(self):
+        """
+        Returns an instance of the class
+
+        Returns
+        -------
+        DoublyLinkedList()
+            It returns an empty DoublyLinkedList() instance.
+        """
         return DoublyLinkedList()
 
 
