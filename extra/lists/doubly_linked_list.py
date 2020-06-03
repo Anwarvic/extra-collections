@@ -132,7 +132,7 @@ class DoublyNode(Node):
         """
         prv = self._prev.get_data() if self._prev is not None else None
         nxt = self._next.get_data() if self._next is not None else None
-        return f"DoublyNode(data: {self.data}, prev: {prv}, next: {nxt})"
+        return f"DoublyNode(data: {self._data}, prev: {prv}, next: {nxt})"
     
 
     def get_prev(self):
@@ -340,6 +340,38 @@ class DoublyLinkedList(LinkedList):
 
     ##############################     SEARCH     ##############################
     def _get_node(self, idx):
+        """
+        Iterates over the `DoublyLinkedList()` instance and returns the node at
+        the given index. If the given index is less than half of the
+        `DoublyLinkedList()` length, it starts iterating from left to right. And
+        if the index is bigger, it starts iterating from right to left in order
+        to make the searching process a little bit faster.
+
+        Parameters
+        ----------
+        idx: int
+            An integer number pointing at the node to be returned.
+        
+        Returns
+        -------
+        DoublyNode():
+            The previus `DoublyNode()` object to the node at the given index.
+        DoublyNode():
+            The `DoublyNode()` object at the given index.
+        
+        Raises
+        ------
+        AssertionError: If the given index is bigger than the LinkedList length.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> prev_node, node = dll._get_node(2)
+        >>> prev_node
+        (DoublyNode(data: 2, prev: 1, next: 3)
+        >>> node
+        DoublyNode(data: 3, prev: 2, next: None)
+        """
         # iterate over the double linked list (forwards)
         if idx <= self._length//2:
             return super()._get_node(idx)
