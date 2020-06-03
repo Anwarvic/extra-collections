@@ -737,6 +737,53 @@ class DoublyLinkedList(LinkedList):
             return prev_node, curr_node
 
 
+    def __getitem__(self, idx):
+        """
+        Retrieves the element at the given index. The given index could be a 
+        zero-based `int` or a `slice` object. This method supports negative
+        indexing. This method does that in time-complexity of O(k) where **k**
+        is the given index.
+
+        Parameters
+        ----------
+        idx: int or slice
+            The index (multiple indices) to be used to retrieve values from the
+            LinkedList() instance.
+        
+        Returns
+        -------
+        object or DoublyLinkedList():
+            If the given index is an `int`, then it returns the value at this 
+            index. If the given index is a `slice` object, then it returns a 
+            DoublyLinkedList() instance containing the desired values.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If the given index is out of the DoublyLinkedList()
+            boundaries.
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> dll[0]
+        1
+        >>> dll[-2]
+        4
+        >>> dll[2:]
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 3 │⟷│ 4 │⟷│ 5 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> dll[0:5:2]
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 3 │⟷│ 5 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> dll[10]
+        IndexError: Given index is out of the boundaries!!
+        """
+        return super().__getitem__(idx)
+    
+
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, item):
         # handle different types of `item`
