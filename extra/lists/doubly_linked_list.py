@@ -848,6 +848,32 @@ class DoublyLinkedList(LinkedList):
         return new_node
     
 
+    def add_front(self, item):
+        """
+        Adds the given value at the head of the DoublyLinkedList() instance in
+        time-complexity of O(1).
+
+        Parameters
+        ----------
+        item: object
+            The value to be inserted at the DoublyLinkedList() head.
+        
+        Raises
+        ------
+        TypeError: If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll.add_front(10)
+        >>> dll
+         ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 10 │⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └────┘ └───┘ └───┘ └───┘ 
+        """
+        super().add_front(item)
+
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed is not None, "Can't remove `None`!!"
