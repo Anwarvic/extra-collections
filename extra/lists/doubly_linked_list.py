@@ -386,7 +386,29 @@ class DoublyLinkedList(LinkedList):
 
     
     ##############################    OPERATOR    ##############################
+    def __iter__(self):
+        """
+        Iterates over the `DoublyLinkedList()` instance and returns a generator
+        in time-complexity of O(n) where **n** is the number of elements in the 
+        `DoublyLinkedList()` instance.
 
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> for item in dll:
+        ...     print(item)
+        1
+        2
+        3
+        """
+        super().__iter__()
+    
+    
     ##############################     SEARCH     ##############################
     def _get_node(self, idx):
         """
