@@ -96,6 +96,9 @@ from extra.lists.linked_list import Node, LinkedList
 
 class DoublyNode(Node):
     """Basic object for the Node used for doubly linked lists"""
+    __name__ = "extra.DoublyNode()"
+
+
     def __init__(self, item):
         """
         Creates a `DoublyNode()` object used mainly with DoublyLinkedList()
@@ -165,7 +168,7 @@ class DoublyNode(Node):
             self._prev = None
         elif not isinstance(prev_node, DoublyNode):
             raise TypeError(
-                f"Can't set {type(prev_node)} as a {self.__module__}!!")
+                f"Can't set {type(prev_node)} as a {self.__name__}!!")
         else:
             self._prev = prev_node
             prev_node._next = self
@@ -188,7 +191,7 @@ class DoublyNode(Node):
             self._next = None
         elif not isinstance(next_node, DoublyNode):
             raise TypeError(
-                f"Can't set {type(next_node)} as a {self.__module__}!!")
+                f"Can't set {type(next_node)} as a {self.__name__}!!")
         else:
             self._next = next_node
             next_node._prev = self
@@ -902,7 +905,46 @@ class DoublyLinkedList(LinkedList):
         super().add_end(item)
     
 
+    def insert(self, idx, item):
+        """
+        Insertd a value at a position defined by the given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+              
+        Raises
+        ------
+        IndexError: This happens in one of the following cases: 
+            1. If the given index is out of the DoublyLinkedList() boundaries.
+            2. If the given index is less than zero (-ve).
+        TypeError: This happens in one of the following cases:
+            1. If the given index isn't integer.
+            2. If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll.insert(1, 10)
+        >>> dll
+         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 10 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └────┘ └───┘ └───┘ 
+        >>> dll.insert(5, 8)
+        IndexError: Given index is out of the boundaries!!
+        >>> dll.insert(1, None)
+        ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
+        >>> dll.insert(-1, 100)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        """
+        super().insert(idx, item)
     
+
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed is not None, "Can't remove `None`!!"
