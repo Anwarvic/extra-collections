@@ -199,6 +199,7 @@ class DoublyNode(Node):
 class DoublyLinkedList(LinkedList):
     """Basic object for the double linked list"""
     _basic_node = DoublyNode
+    __name__ = "extra.DoublyLinkedList()"
    
    
     def __init__(self):
@@ -227,6 +228,74 @@ class DoublyLinkedList(LinkedList):
         return DoublyLinkedList()
 
 
+    @classmethod
+    def from_iterable(cls, iterable):
+        """
+        A class method which creates a doubly linked list instance using an
+        iterable in time-complexity of O(n) where **n** is the number of
+        elements inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable object.
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        DoublyLinkedList()
+            It returns a DoublyLinkedList() instance with the same values in
+            the same order.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the iterable elements is an `Extra` object.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> ll = DoublyLinkedList.from_iterable([10, -5, 7, 9])
+        >>> ll
+         ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        ⟷│ 10 │⟷│ -5 │⟷│ 7 │⟷│ 9 │⟷
+         └────┘ └────┘ └───┘ └───┘ 
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> ll = DoublyLinkedList.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> ll = DoublyLinkedList.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `DoublyLinkedList` objects will raise `TypeError` as well
+
+        >>> ll_1 = DoublyLinkedList.from_iterable([1])
+        >>> ll_2 = DoublyLinkedList.from_iterable([1, ll_1])
+        TypeError: Can't create `extra.DoublyLinkedList()` using `extra.DoublyLinkedList()`!!
+
+        Note
+        -----
+        Since most of the data structures found in this package are iterables, 
+        then you can use this classmethod to convert from one data structure to
+        `DoublyLinkedList` just like so:
+
+        >>> ll = LinkedList.from_iterable([2, 5])
+        >>> dll = DoublyLinkedList.from_iterable(ll)
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 5 │⟷
+         └───┘ └───┘ 
+        """
+        return super().from_iterable(iterable)
+    
+    
     ##############################      PRINT     ##############################
     def _print_node(self, node):
         top_border    = [' ┌']
