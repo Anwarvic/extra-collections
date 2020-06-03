@@ -202,6 +202,15 @@ class DoublyLinkedList(LinkedList):
    
    
     def __init__(self):
+        """
+        Creates a `DoublyLinkedList()` object!!
+        
+        Example
+        -------
+        >>> ll = DoublyLinkedList()
+        >>> type(ll)
+        <class 'extra.lists.doubly_linked_list.DoublyLinkedList'>
+        """
         super().__init__()
         self._tail = None
     
