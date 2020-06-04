@@ -1092,6 +1092,43 @@ class DoublyLinkedList(LinkedList):
                 super()._remove_node(prev_node, node_to_be_removed)
 
 
+    def __delitem__(self, idx):
+        """
+        Deletes the value at the given index. It does that in time-complexity
+        of O(min(k,n/2)) where **k** is the index value and **n** is the number
+        of elements in the DoublyLinkedList() instance.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index where the node that should be
+            removed.
+        
+        Raises
+        ------
+        IndexError: If the given index is either negative or out of the
+            boundaries.
+        
+        TODOs
+        -----
+        1. Handle negative indexing
+        2. Handle slice objects
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> del dll[0]
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ 
+        >>> del dll[-1]
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> del dll[3]
+        IndexError: Given index is out of the boundaries!!
+        """
+        super().__delitem__(idx)
+
     ##############################      SPLIT      ##############################
     
     
