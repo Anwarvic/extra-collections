@@ -1129,6 +1129,29 @@ class DoublyLinkedList(LinkedList):
         """
         super().__delitem__(idx)
 
+
+    def remove_front(self):
+        """
+        Removes the value at the head of the DoublyLinkedList() instance in time-
+        complexity of O(1).
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll.remove_front()
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ 
+        >>> dll.remove_front()
+        >>> dll
+         ┌───┐ 
+        ⟷│ 3 │⟷
+         └───┘ 
+        """
+        super().remove_front()
+    
+
     ##############################      SPLIT      ##############################
     
     
