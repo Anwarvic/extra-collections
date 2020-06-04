@@ -986,6 +986,52 @@ class DoublyLinkedList(LinkedList):
             self._length += other._length
 
 
+    ##############################       SET      ##############################
+    def __setitem__(self, idx, item):
+        """
+        Replaces the value at the given index with the given item. It does that
+        in time-complexity of O(min(k,n/2)) where **k** is the index value and
+        **n** is the number of elements in the DoublyLinkedList() instance.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+        
+        Raises
+        ------
+        IndexError: If the given index is either negative or out of the
+            boundaries.
+        ValueError: If the given object is `None`.
+        TypeError: This get raised in one of the following cases:
+            1. If the given index type is not `int`.
+            2. If the given object is an instance of `Extra`.
+        
+        TODOs
+        -----
+        1. Handle negative indexing
+        2. Handle slice objects
+
+        Examples
+        --------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll[0] = 10
+        >>> ll[2] = 30
+        >>> ll
+        ┌────┐ ┌───┐ ┌────┐ 
+        │ 10 │⟶│ 2 │⟶│ 30 │⟶
+        └────┘ └───┘ └────┘ 
+        >>> ll[-1] = 0
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> ll[3] = 40
+        IndexError: Given index is out of the boundaries!!
+        """
+        super().__setitem__(idx, item)
+
+
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed is not None, "Can't remove `None`!!"
