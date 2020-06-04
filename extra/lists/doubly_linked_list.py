@@ -1211,6 +1211,28 @@ class DoublyLinkedList(LinkedList):
         super().remove(value, all)    
     
 
+    def clear(self):
+        """
+        Removes all nodes within the DoublyLinkedList() in time-complexity of
+        O(1).
+
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> dll.clear()
+        >>> dll.is_empty()
+        True
+        >>> dll
+        ┌─
+        │
+        └─
+        """
+        super().clear()
+    
+    
     ##############################      SPLIT      ##############################
     
     
