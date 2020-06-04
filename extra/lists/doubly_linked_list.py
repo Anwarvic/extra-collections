@@ -1232,9 +1232,55 @@ class DoublyLinkedList(LinkedList):
         """
         super().clear()
     
-    
+
     ##############################      SPLIT      ##############################
-    
+    def split(self, idx):
+        """
+        Splits the DoublyLinkedList() instance into two instances based on the
+        given index in time-complexity of O(min(k,n/2)) where **k** is the index
+        and **n** is the number of elements in the original instance. We can
+        consider `idx` as the start index of the second DoublyLinkedList() after
+        splitting. If `idx=0`, then the first returned DoublyLinkedList() will
+        be empty while the second returned DoublyLinkedList() will be the same
+        length as the original.
+
+        Parameters
+        ----------
+        idx: int
+            A positive integer pointing to the index at which the 
+            DoublyLinkedList() instance should be split.
+        
+        Returns
+        -------
+        DoublyLinkedList(): 
+            The left DoublyLinkedList() instance returned after split.
+        DoublyLinkedList(): 
+            The right DoublyLinkedList() instance returned after split
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If the given index is either negative or out of the
+            DoublyLinkedList() boundaries.
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> left, right = dll._split(1)
+        >>> left
+         ┌───┐ 
+        ⟷│ 1 │⟷
+         └───┘ 
+        >>> right
+         ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ 
+        """
+        return super().split(idx)
     
 
     ##############################    ROTATION    ##############################
