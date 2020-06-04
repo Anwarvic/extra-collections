@@ -1025,7 +1025,7 @@ class DoublyLinkedList(LinkedList):
         >>> ll[2] = 30
         >>> ll
         ┌────┐ ┌───┐ ┌────┐ 
-        │ 10 │⟶│ 2 │⟶│ 30 │⟶
+        │ 10 │⟷│ 2 │⟷│ 30 │⟷
         └────┘ └───┘ └────┘ 
         >>> ll[-1] = 0
         IndexError: Negative indexing isn't supported with this functinoality!!
@@ -1173,7 +1173,44 @@ class DoublyLinkedList(LinkedList):
         """
         super().remove_end()
     
+
+    def remove(self, value, all=True):
+        """
+        Removes node(s) whose value equal to the given value.
+
+        Parameters
+        ----------
+        value: object
+            The value to be removed from the DoublyLinkedList() instance.
+        all: bool
+            A flag (default: `True`); if `True`, all occurrences of the given
+            value are remove. If `False`, only the first occurrence is removed.
+        
+        Raises
+        ------
+        ValueError: If The given value is `None`.
+        TypeError: This get raised in one of the following cases:
+            1. If the type of the `all` flag isn't boolean.
+            2. If the given value is an instance of `Extra` class.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> dll.remove(2, False)
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 3 │⟷│ 2 │⟷│ 2 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
+        >>> dll._remove_value(10) #does nothing
+        >>> dll._remove_value(2, True)
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 3 │⟷
+         └───┘ └───┘ 
+        """
+        super().remove(value, all)    
     
+
     ##############################      SPLIT      ##############################
     
     
