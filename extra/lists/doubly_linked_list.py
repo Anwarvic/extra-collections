@@ -1152,6 +1152,28 @@ class DoublyLinkedList(LinkedList):
         super().remove_front()
     
 
+    def remove_end(self):
+        """
+        Removes the value at the tail of the DoublyLinkedList() instance in
+        time-complexity of O(1).
+
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll.remove_end()
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷
+         └───┘ └───┘ 
+        >>> dll.remove_end()
+        >>> dll
+         ┌───┐ 
+        ⟷│ 1 │⟷
+         └───┘ 
+        """
+        super().remove_end()
+    
+    
     ##############################      SPLIT      ##############################
     
     
