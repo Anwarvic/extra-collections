@@ -945,6 +945,47 @@ class DoublyLinkedList(LinkedList):
         super().insert(idx, item)
     
 
+    def extend(self, other):
+        """
+        Extends the current DoublyLinkedList() instance by appending the
+        elements of the other DoublyLinkedList() instance in time-complexity of
+        O(1).
+
+        Parameters
+        ----------
+        other: DoublyLinkedList()
+            The DoublyLinkedList() instance whose elements will be appended.
+                
+        Raises
+        ------
+        TypeError: If the given object isn't a DoublyLinkedList() instance.
+
+        Example
+        -------
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2])
+        >>> dll_2 = DoublyLinkedList.from_iterable([3, 4, 5])
+        >>> dll_1.extend(dll_2)
+        >>> dll_1
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 5 │⟷
+         └───┘ └───┘ └───┘ └───┘ └───┘ 
+        """
+        if not isinstance(other, self.__class__):
+            raise TypeError("Type Mismatch! " + 
+                f"Can't extend `{self.__name__}` with `{type(other)}`!!"
+            )
+        if other.is_empty():
+            pass # do nothing
+        elif self.is_empty(): 
+            self._head = other._head
+            self._tail = other._tail
+            self._length += other._length
+        else:
+            self._tail.set_next(other._head)
+            self._tail = other._tail
+            self._length += other._length
+
+
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         assert node_to_be_removed is not None, "Can't remove `None`!!"
@@ -972,20 +1013,8 @@ class DoublyLinkedList(LinkedList):
                 super()._remove_node(prev_node, node_to_be_removed)
 
 
-    ##############################      Join      ##############################
-    def join(self, other_dlist):
-        if not isinstance(other_dlist, self.__class__):
-            raise TypeError("Type Mismatch! Can't join this Doubly Linked List.")
-        if other_dlist.is_empty():
-            pass # do nothing
-        elif self.is_empty(): 
-            self._head = other_dlist._head
-            self._tail = other_dlist._tail
-            self._length += other_dlist._length
-        else:
-            self._tail.set_next(other_dlist._head)
-            self._tail = other_dlist._tail
-            self._length += other_dlist._length
+    ##############################      SPLIT      ##############################
+    
     
 
     ##############################    ROTATION    ##############################
