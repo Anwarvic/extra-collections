@@ -336,8 +336,11 @@ class DoublyLinkedList(LinkedList):
         width = len(item)+2 #2: for a space before & after an item
         top_border += (['─']*width) + ['┐']
         middle_border += [f" {item} │"]
-        if node.get_next() is None: middle_border += ['⟷']
         lower_border += (['─']*width) + ['┘']
+        if node.get_next() is None:
+            top_border += [' ']
+            middle_border += ['⟷']
+            lower_border += [' ']
         return top_border, middle_border, lower_border
 
 
@@ -1034,6 +1037,36 @@ class DoublyLinkedList(LinkedList):
 
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
+        """
+        Removes a node from the DoublyLinkedList() instance.
+
+        Parameters
+        ----------
+        prev_node: DoublyNode()
+            A reference to the node next to the node that will be removed.
+        node_to_be_removed: DoublyNode()
+            A referece to the node to be removed.
+        
+        Raises
+        ------
+        AssertionError: This happens in one of the following cases:
+            1. The `prev_node` isn't a `DoublyNode()` object or `None.
+            2. The `node_to_be_removed` isn't a `DoublyNode()` object
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> dll._remove_node(dll._head, dll._head._next)
+        >>> dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 3 │⟷
+         └───┘ └───┘ 
+        """
+        assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert node_to_be_removed is not None, "Can't remove `None`!!"
 
         next_node = node_to_be_removed.get_next()
