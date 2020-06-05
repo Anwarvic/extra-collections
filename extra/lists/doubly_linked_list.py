@@ -1448,3 +1448,25 @@ class DoublyLinkedList(LinkedList):
         return super().count(value)
     
 
+    def copy(self):
+        """
+        Copies the DoublyLinkedList() instance in a shallow-manner.
+
+        Returns
+        -------
+        DoublyLinkedList():
+            The shallow copy of the original instance.
+        
+        Example
+        ------
+        >>> dll = DoublyLinkedList()
+        >>> dll.add_end(10)
+        >>> dll.add_end(20)
+        >>> dll.copy()
+         ┌────┐ ┌────┐ 
+        ⟷│ 10 │⟷│ 20 │⟷
+         └────┘ └────┘ 
+        """
+        return super().copy()
+
+
