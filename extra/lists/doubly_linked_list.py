@@ -1390,3 +1390,30 @@ class DoublyLinkedList(LinkedList):
          └───┘ └───┘ └───┘ └───┘ 
         """
         return super().reverse()
+    
+
+    def to_list(self):
+        """
+        Converts the DoublyLinkedList() instance to a `list` in time-complexity
+        of O(n) where **n** is the number of elements in the instance.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the
+            DoublyLinkedList() instance.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList()
+        >>> dll.add_front(20)
+        >>> dll.add_front(10)
+        >>> dll.add_end(30)
+        >>> dll
+         ┌────┐ ┌────┐ ┌────┐ 
+        ⟷│ 10 │⟷│ 20 │⟷│ 30 │⟷
+         └────┘ └────┘ └────┘ 
+        >>> dll.to_list()
+        [10, 20, 30]
+        """
+        return super().to_list()
