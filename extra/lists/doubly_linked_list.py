@@ -1370,3 +1370,23 @@ class DoublyLinkedList(LinkedList):
         self._tail = rotated._tail
 
 
+    ##############################      MISC      ##############################
+    def reverse(self):
+        """
+        Reverses the whole DoublyLinkedList() instance in time-complexity of
+        O(n) where **n** is the number of elements in the DoublyLinkedList().
+
+        Returns
+        -------
+        DoublyLinkedList():
+            The reversed DoublyLinkedList() instance.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4])
+        >>> dll.reverse()
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 4 │⟷│ 3 │⟷│ 2 │⟷│ 1 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
+        """
+        return super().reverse()
