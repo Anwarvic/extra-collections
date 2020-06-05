@@ -1289,8 +1289,8 @@ class DoublyLinkedList(LinkedList):
         Rotates the DoublyLinkedList() instance to the left by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
-        O(n) where **n** is the number of elements in the DoublyLinkedList()
-        instance.
+        of O(min(k,n/2)) where **k** is the index and  **n** is the number of
+        elements in the DoublyLinkedList() instance.
 
         Parameters
         ----------
@@ -1328,6 +1328,39 @@ class DoublyLinkedList(LinkedList):
         
     
     def rotate_right(self, distance, inplace=True):
+        """
+        Rotates the DoublyLinkedList() instance to the right by a certain given
+        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
+        it returns the rotated instance. The time-compelxity of this method is
+        O(min(k,n/2)) where **k** is the index and **n** is the number of
+        elements in the original instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance to the right.
+        inplace: bool
+            A flag to determine if the rotation is going to be in-place or not.
+            (default `True`).
+        
+        Returns
+        -------
+        DoublyLinkedList():
+            The rotated instance if `inplace=True`
+        
+        Examples
+        --------
+        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4])
+        >>> dll.rotate_right(1)
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 4 │⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> dll.rotate_right(15)
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 1 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
+        """
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
         super()._validate_distance(distance)
