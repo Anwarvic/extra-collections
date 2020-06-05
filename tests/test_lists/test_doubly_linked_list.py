@@ -90,7 +90,7 @@ def test_creating_doubly_linked_list_from_iterable():
     assert dl.to_list() == [item for item in dl] == lst
     for _ in range(100): #check random indices
         idx = get_pos_int(b=10000-1)
-        assert dl[idx].get_data() == lst[idx]
+        assert dl[idx] == lst[idx]
     # Using Linked List
     lst = get_list()
     tmp_dl = DoublyLinkedList.from_iterable(lst)
@@ -310,8 +310,9 @@ def test_list_with_random_numbers():
     assert dl._head.get_data() == lst[0]
     assert not dl.is_empty()
     for _ in range(len(lst)):
-        assert dl[0].get_data() == lst[0]
-        assert dl.remove_end().get_data() == lst.pop()
+        assert dl[0] == lst[0]
+        lst.pop()
+        dl.remove_end()
     assert len(dl) == 0
     assert dl.is_empty()
     # test add_front() and remove_front()
@@ -322,8 +323,9 @@ def test_list_with_random_numbers():
     assert dl._head.get_data() == lst[-1]
     assert not dl.is_empty()
     for _ in range(len(lst)):
-        assert dl[0].get_data() == lst[-1]
-        assert dl.remove_front().get_data() == lst.pop()
+        assert dl[0] == lst[-1]
+        lst.pop()
+        dl.remove_front()
     assert len(dl) == 0
     assert dl.is_empty()
 
@@ -349,8 +351,8 @@ def test_relational_operators():
     assert dllist1 != dllist2
     assert dllist1 < dllist2
     assert dllist1 <= dllist2
-    assert dllist2 > dllist2
-    assert dllist2 >= dllist2
+    assert dllist2 > dllist1
+    assert dllist2 >= dllist1
     # slicing lists
     assert dllist1[:-1] == dllist2[:-1]
     assert dllist1[-1:] != dllist2[-1:]
@@ -387,7 +389,7 @@ def test_rotate():
     assert rotated._head.get_prev() is None
     assert rotated._tail.get_data() == 5
     assert rotated._tail.get_next() is None
-    assert rotated[4].get_data() == 4
+    assert rotated[4] == 4
     rotated = dl.rotate_left(3, inplace=False)
     assert isinstance(rotated._head, DoublyNode)
     assert isinstance(rotated._tail, DoublyNode)
@@ -396,7 +398,7 @@ def test_rotate():
     assert rotated._head.get_prev() is None
     assert rotated._tail.get_data() == 3
     assert rotated._tail.get_next() is None
-    assert rotated[-2].get_data() == 2
+    assert rotated[-2] == 2
     assert dl.to_list() == [1, 2, 3, 4, 5, 6]
     # rotate when inplace = True
     dl.rotate_right(1)
@@ -407,7 +409,7 @@ def test_rotate():
     assert dl._head.get_prev() is None
     assert dl._tail.get_data() == 5
     assert dl._tail.get_next() is None
-    assert dl[4].get_data() == 4
+    assert dl[4] == 4
     dl.rotate_left(3)
     assert isinstance(rotated._head, DoublyNode)
     assert isinstance(rotated._tail, DoublyNode)
@@ -416,34 +418,34 @@ def test_rotate():
     assert dl._head.get_prev() is None
     assert dl._tail.get_data() == 2
     assert dl._tail.get_next() is None
-    assert dl[-1].get_data() == 2
+    assert dl[-1]    == 2
 
 
-def test_join_method():
+def test_extend_method():
     lst = get_list()
     # two Doubly linked lists are empty
     dllist1 = DoublyLinkedList()
-    dllist1.join(DoublyLinkedList())
+    dllist1.extend(DoublyLinkedList())
     assert dllist1 == DoublyLinkedList()
     # one linked list is empty
     dllist1 = DoublyLinkedList.from_iterable([])
     dllist2 = DoublyLinkedList.from_iterable(lst)
-    dllist1.join(dllist2)
+    dllist1.extend(dllist2)
     assert dllist1 == dllist2
     assert len(dllist1) == len(lst)
-    dllist2.join(dllist1)
+    dllist2.extend(dllist1)
     assert len(dllist2) == 2*len(lst)
     # two linked lists are NOT empty
     dllist1 = DoublyLinkedList.from_iterable(lst)
     dllist2 = DoublyLinkedList.from_iterable(lst)
-    dllist2.join(dllist1)
+    dllist2.extend(dllist1)
     assert dllist1.to_list() == lst
     assert dllist2.to_list() == lst+lst
     assert len(dllist2) == 2*len(lst)
-    # join other data type
-    with pytest.raises(TypeError): DoublyLinkedList().join(LinkedList())
-    with pytest.raises(TypeError): DoublyLinkedList().join(get_list())
-    with pytest.raises(TypeError): DoublyLinkedList().join(get_value())
+    # extend other data type
+    with pytest.raises(TypeError): DoublyLinkedList().extend(LinkedList())
+    with pytest.raises(TypeError): DoublyLinkedList().extend(get_list())
+    with pytest.raises(TypeError): DoublyLinkedList().extend(get_value())
 
 
 def test_split():
