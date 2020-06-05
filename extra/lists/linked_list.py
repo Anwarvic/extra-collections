@@ -102,11 +102,12 @@ class Node(Extra):
 
     def __init__(self, item):
         """
-        Creates a `Node()` object used mainly with `LinkedList()` objects!!
+        Creates a `Node()` object used mainly with LinkedList() objects!!
 
         Parameters
         ----------
-        item: the value to be saved within the `Node()` instance
+        item: object 
+            The value to be saved within the `Node()` instance
 
         Raises
         ------
@@ -121,7 +122,20 @@ class Node(Extra):
 
 
     def __repr__(self):
-        """Represents Node object as a string"""
+        """
+        Represents `Node()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `Node()` instance.
+        
+        Example
+        -------
+        >>> x = Node(10)
+        >>> x
+        >>> Node(data: 10, next:None)
+        """
         nxt = self._next.get_data() if self._next is not None else None
         return f"Node(data: {self._data}, next: {nxt})"
 
@@ -132,7 +146,8 @@ class Node(Extra):
         
         Returns
         -------
-        data: the data saved inside the `Node()` instance
+        object:
+            The data saved inside the `Node()` instance
         """
         return self._data
     
@@ -143,7 +158,8 @@ class Node(Extra):
         
         Parameters
         ----------
-        data: any python object except `None`
+        data: object
+            The python object to be saved within the `Node()`.
 
         Raises
         ------
@@ -158,11 +174,12 @@ class Node(Extra):
 
     def get_next(self):
         """
-        Returns the next Node() instance of the current one
+        Returns the next `Node()` instance of the current one.
 
         Returns
         -------
-        node: the `Node()` instance that follows the current `Node()` or `None`.
+        Node():
+            The `Node()` instance that follows the current `Node()` or `None`.
         """
         return self._next
     
@@ -173,7 +190,8 @@ class Node(Extra):
 
         Parameters
         ----------
-        next_node: the `Node()` that will follow the current `Node()`.
+        next_node: Node()
+            The `Node()` that will follow the current `Node()`.
 
         Raises
         ------
@@ -221,7 +239,7 @@ class LinkedList(Extra):
 
     def __init__(self):
         """
-        Creates a `LinkedList()` object!!
+        Creates a LinkedList() object!!
         
         Example
         -------
@@ -328,15 +346,16 @@ class LinkedList(Extra):
     ##############################     PRINT      ##############################
     def _print_node(self, node):
         """
-        Prints the given node within the `LinkedList()` instance.
+        Prints the given node of the LinkedList() instance.
 
         Parameters
         ----------
-        node: a `Node()` object that we want to print
+        node: `Node()`
+            The `Node()` object that we want to print.
 
         Returns
         -------
-        (top_border, middle, lower_border): tuple
+        tuple
             It returns a tuple of three strings representing the given node
             when printed.
         
@@ -369,16 +388,16 @@ class LinkedList(Extra):
 
     def _print_empty_linked_list(self):
         """
-        Prints the `LinkedList()` instance when it's empty.
+        Prints the LinkedList() instance when it's empty.
 
         Returns
         -------
         str
-            A string representing an empty `LinkedList()` instance
+            A string representing an empty LinkedList() instance
 
         Raises
         ------
-        AssertionError: In case the `LinkedList()` instance isn't empty!!
+        AssertionError: In case the LinkedList() instance isn't empty!!
 
         Example
         -------
@@ -399,7 +418,7 @@ class LinkedList(Extra):
         
     def _print_linked_list(self, start_node):
         """
-        Prints the given node within the `LinkedList()` instance. Each node in
+        Prints the given node within the LinkedList() instance. Each node in
         the linked list is printed in three lines. So, the following is how the
         `Node(1.0)` look like:
         ┌─────┐ 
@@ -468,13 +487,13 @@ class LinkedList(Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the linked list in time-complexity of O(1)
+        Gets the length of the LinkedList() in time-complexity of O(1)
         
         Returns
         -------
-        int
-            The length of the `LinkedList()` instance. By length, I mean the
-            number of nodes found inside.
+        int:
+            The length of the LinkedList() instance. By Length, I mean the
+            number of nodes of in the instance.
         
         Examples
         --------
@@ -490,14 +509,15 @@ class LinkedList(Extra):
 
     def is_empty(self):
         """
-        Checks if `LinkedList()` instance is empty or not in time-complexity of
+        Checks if LinkedList() instance is empty or not in time-complexity of
         O(1).
         
         Returns
         -------
-        bool
-            A boolean flag showing the status of the `LinkedList()` instance.
-            `True` shows that the instance is empty and `False` otherwise.
+        bool:
+            A boolean flag showing if the LinkedList() instance is empty or
+            not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
         
         Example
         --------
@@ -514,14 +534,14 @@ class LinkedList(Extra):
     ##############################    OPERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the `LinkedList()` instance and returns a generator in 
+        Iterates over the LinkedList() instance and returns a generator in 
         time-complexity of O(n) where **n** is the number of elements in the 
-        `LinkedList()` instance.
+        LinkedList() instance.
 
         Returns
         -------
-        generator
-            A generator for the value of each node in the instance.
+        generator:
+            The value of each node in the instance.
         
         Examples
         --------
@@ -542,13 +562,13 @@ class LinkedList(Extra):
 
     def _compare(self, other, op):
         """
-        Compares two intances of `LinkedList()`and returns the index at which 
+        Compares two intances of LinkedList()and returns the index at which 
         two nodes didn't satisfy the given operator. They could be the end of
         both instances or at just some random position in the middle.
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The other instance that we want to compare with the current one
         op: operator.function
             An operator function that represents ==, >=, <=, !=, <, > operators
@@ -608,7 +628,7 @@ class LinkedList(Extra):
 
     def __eq__(self, other):
         """
-        Checks if two `LinkedList()` instances are equal to each other. And this
+        Checks if two LinkedList() instances are equal to each other. And this
         happens if, and only if, the following two conditions are satisfied:
         
         1. The two instances are equal in length (have same number of elements).
@@ -619,7 +639,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -630,9 +650,9 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
 
         Examples
         --------
@@ -656,7 +676,7 @@ class LinkedList(Extra):
 
     def __ne__(self, other):
         """
-        Checks if two `LinkedList()` instances are NOT equal to each other.
+        Checks if two LinkedList() instances are NOT equal to each other.
         And this happens if, and only if, either one of the following two
         conditions is satisfied:
         
@@ -668,7 +688,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -679,18 +699,18 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
         
         Examples
         --------
         >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
         >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
-        >>> ll_1 == ll_2
-        False
-        >>> ll_1 == ll_1
+        >>> ll_1 != ll_2
         True
+        >>> ll_1 != ll_1
+        False
         """
         if not isinstance(other, self.__class__):
             raise TypeError(
@@ -704,7 +724,7 @@ class LinkedList(Extra):
 
     def __lt__(self, other):
         """
-        Checks if the first `LinkedList()` instance is less than the other
+        Checks if the first LinkedList() instance is less than the other
         instance. And this happens if all elements in the first instance are
         equal with at least one element less than the opposing element of the
         second instance.
@@ -723,7 +743,7 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
+            1. If the other instance isn't a LinkedList() instance.
             2. In case one element in the first instance doesn't match the type of \
                 the opposing element in the other instance.
 
@@ -768,9 +788,9 @@ class LinkedList(Extra):
 
     def __le__(self, other):
         """
-        Checks if the first `LinkedList()` instance is less than or equal to the
+        Checks if the first LinkedList() instance is less than or equal to the
         other instance. And this happens if all elements in the first instance
-        are equal or less than the opposing element of the second instance.
+        are equal or less than the opposing elements of the second instance.
 
         Parameters
         ----------
@@ -786,9 +806,9 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
 
         Examples
         --------
@@ -828,7 +848,7 @@ class LinkedList(Extra):
 
     def __gt__(self, other):
         """
-        Checks if the first `LinkedList()` instance is greater than the other
+        Checks if the first LinkedList() instance is greater than the other
         instance. And this happens if all elements in the first instance are
         equal with at least one element greater than the opposing element of the
         second instance.
@@ -847,9 +867,9 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
         
         Examples
         --------
@@ -888,7 +908,7 @@ class LinkedList(Extra):
 
     def __ge__(self, other):
         """
-        Checks if the first `LinkedList()` instance is greater than or equal to
+        Checks if the first LinkedList() instance is greater than or equal to
         the other instance. And this happens if all elements in the first
         instance are greater than or equal to the opposing element of the
         second instance.
@@ -907,9 +927,9 @@ class LinkedList(Extra):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
 
         Examples
         --------
@@ -956,7 +976,7 @@ class LinkedList(Extra):
         Parameters
         ----------
         value: Object
-            The value to be searched for in the `LinkedList()` instance.
+            The value to be searched for in the LinkedList() instance.
         
         start_node: Node()
             A reference to the object object at which we want to start search
@@ -966,7 +986,7 @@ class LinkedList(Extra):
         -------
         Node():
             Either the node object that contains the given value or the last
-            node in the `LinkedList()` instance if the given value wasn't found.
+            node in the LinkedList() instance if the given value wasn't found.
         
         Raises:
         -------
@@ -997,19 +1017,19 @@ class LinkedList(Extra):
 
     def __contains__(self, value):
         """
-        Checks if the given value exists in the `LinkedList()` instance in time-
+        Checks if the given value exists in the LinkedList() instance in time-
         complexity of O(n) where **n** is the total number of elements in the
-        `LinkedList()` instance.
+        LinkedList() instance.
 
         Parameters
         ----------
         value: Object
-            The value to be searched for in the `LinkedList()` instance.
+            The value to be searched for in the LinkedList() instance.
         
         Returns
         -------
         bool
-            `True` if the given value exists in the `LinkedList()` instance, and
+            `True` if the given value exists in the LinkedList() instance, and
             `False` otherwise.
 
         Examples
@@ -1032,7 +1052,7 @@ class LinkedList(Extra):
 
     def _get_node(self, idx):
         """
-        Retrieves the `Node()` at the given index of the `LinkedList()`
+        Retrieves the `Node()` at the given index of the LinkedList()
         instance.
 
         Parameters
@@ -1043,11 +1063,22 @@ class LinkedList(Extra):
         Returns
         -------
         Node():
+            The previous node to the node at the given index.
+        Node():
             The node at the given index.
         
         Raises
         ------
         AssertionError: If the given index is bigger than the LinkedList length.
+
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> prev_node, node = ll._get_node(2)
+        >>> prev_node
+        (Node(data: 2, next: 3)
+        >>> node
+        Node(data: 3, next: None)
         """
         assert 0 <= idx or idx < self._length
         # iterate over the linked list
@@ -1081,7 +1112,7 @@ class LinkedList(Extra):
         IndexError: This happens in one of the following cases: 
             1. if the given index is a `slice` object while `accept_slice` \
                 flag is `False`.
-            2. If the given index is out of the `LinkedList()` boundaries.
+            2. If the given index is out of the LinkedList() boundaries.
         
         Examples
         --------
@@ -1123,19 +1154,19 @@ class LinkedList(Extra):
         ----------
         idx: int or slice
             The index (multiple indices) to be used to retrieve values from the
-            `LinkedList()` instance.
+            LinkedList() instance.
         
         Returns
         -------
         object or LinkedList():
             If the given index is an `int`, then it returns the value at this 
             index. If the given index is a `slice` object, then it returns a 
-            `LinkedList()` instance containing the desired values.
+            LinkedList() instance containing the desired values.
         
         Raises
         ------
         TypeError: If the given index isn't `int`.
-        IndexError: If the given index is out of the `LinkedList()` boundaries.
+        IndexError: If the given index is out of the LinkedList() boundaries.
 
         Examples
         --------
@@ -1199,7 +1230,7 @@ class LinkedList(Extra):
         -------
         Node():
             A reference to the new node after being inserted in the
-            `LinkedList()`.
+            LinkedList().
             
         Raises
         ------
@@ -1247,7 +1278,7 @@ class LinkedList(Extra):
         -------
         Node():
             A reference to the new node after being inserted in the
-            `LinkedList()`.
+            LinkedList().
         
         Raises
         ------
@@ -1284,11 +1315,11 @@ class LinkedList(Extra):
         -------
         Node():
             A reference to the new node after being inserted in the
-            `LinkedList()`.
+            LinkedList().
         
         Raises
         ------
-        AssertionError: If the given index is out of the `LinkedList()`
+        AssertionError: If the given index is out of the LinkedList()
             boundaries.
         
         Example
@@ -1309,13 +1340,13 @@ class LinkedList(Extra):
 
     def add_front(self, item):
         """
-        Adds the given value at the head of the `LinkedList()` instance in
+        Adds the given value at the head of the LinkedList() instance in
         time-complexity of O(1).
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the `LinkedList()` head.
+            The value to be inserted at the LinkedList() head.
         
         Raises
         ------
@@ -1337,13 +1368,13 @@ class LinkedList(Extra):
 
     def add_end(self, item):
         """
-        Adds the given value at the tail of the `LinkedList()` instance in
+        Adds the given value at the tail of the LinkedList() instance in
         time-complexity of O(n).
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the `LinkedList()` head.
+            The value to be inserted at the LinkedList() tail.
         
         Raises
         ------
@@ -1375,11 +1406,10 @@ class LinkedList(Extra):
         item: object
             An object to be inserted.
         
-        
         Raises
         ------
         IndexError: This happens in one of the following cases: 
-            1. If the given index is out of the `LinkedList()` boundaries.
+            1. If the given index is out of the LinkedList() boundaries.
             2. If the given index is less than zero (-ve).
         TypeError: This happens in one of the following cases:
             1. If the given index isn't integer.
@@ -1408,23 +1438,28 @@ class LinkedList(Extra):
 
     def extend(self, other):
         """
-        Extends the current `LinkedList()` instance by appending the elements of
-        the other `LinkedList()` instance in time-complexity of O(n) where **n**
+        Extends the current LinkedList() instance by appending the elements of
+        the other LinkedList() instance in time-complexity of O(n) where **n**
         is the lengh of the current instance.
 
         Parameters
         ----------
         other: LinkedList()
-            The `LinkedList()` whose elements will be appended.
+            The LinkedList() instance whose elements will be appended.
                 
         Raises
         ------
-        TypeError: If the given object isn't a `LinkedList()` instance.
+        TypeError: If the given object isn't a LinkedList() instance.
 
         Example
         -------
-
-
+        >>> ll_1 = LinkedList.from_iterable([1, 2])
+        >>> ll_2 = LinkedList.from_iterable([3, 4, 5])
+        >>> ll_1.extend(ll_2)
+        >>> ll_1
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶
+        └───┘ └───┘ └───┘ └───┘ └───┘ 
         """
         if not isinstance(other, self.__class__):
             raise TypeError("Type Mismatch! " + 
@@ -1520,7 +1555,7 @@ class LinkedList(Extra):
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         """
-        Removes a node from the `LinkedList()` instance.
+        Removes a node from the LinkedList() instance.
 
         Parameters
         ----------
@@ -1532,7 +1567,7 @@ class LinkedList(Extra):
         Raises
         ------
         AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object
+            1. The `prev_node` isn't a `Node()` object or `None.
             2. The `node_to_be_removed` isn't a `Node()` object
         
         Example
@@ -1567,7 +1602,7 @@ class LinkedList(Extra):
 
     def _remove_idx(self, idx):
         """
-        Removes a node from the `LinkedList()` at the given index.
+        Removes a node from the LinkedList() at the given index.
 
         Parameters
         ----------
@@ -1578,7 +1613,7 @@ class LinkedList(Extra):
         Raises
         ------
         AssertionError: If The given index is either negative or bigger than or
-            equal the length of the `LinkedList()` instance.
+            equal the length of the LinkedList() instance.
         
         Example
         -------
@@ -1623,12 +1658,12 @@ class LinkedList(Extra):
         Examples
         --------
         >>> ll = LinkedList.from_iterable([1, 2, 3])
-        >>> del ll[0] = 10
+        >>> del ll[0]
         >>> ll
-        ┌───┐ ┌────┐ 
-        │ 2 │⟶│ 30 │⟶
-        └───┘ └────┘ 
-        >>> del ll[-1] = 0
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ 
+        >>> del ll[-1]
         IndexError: Negative indexing isn't supported with this functinoality!!
         >>> del ll[3]
         IndexError: Given index is out of the boundaries!!
@@ -1641,7 +1676,7 @@ class LinkedList(Extra):
 
     def remove_front(self):
         """
-        Removes the value at the head of the `LinkedList()` instance in time-
+        Removes the value at the head of the LinkedList() instance in time-
         complexity of O(1).
 
         Examples
@@ -1664,8 +1699,9 @@ class LinkedList(Extra):
 
     def remove_end(self):
         """
-        Removes the value at the tail of the `LinkedList()` instance in time-
-        complexity of O(n).
+        Removes the value at the tail of the LinkedList() instance in time-
+        complexity of O(n) where **n** is the number of elements in the 
+        LinkedList() instance.
 
         Examples
         --------
@@ -1692,7 +1728,7 @@ class LinkedList(Extra):
         Parameters
         ----------
         value: object
-            The value to be removed from the `LinkedList()` instance.
+            The value to be removed from the LinkedList() instance.
         all: bool
             A flag; if `True`, all occurrences of the given value are remove. If
             `False`, only the first occurrence is removed.
@@ -1747,10 +1783,10 @@ class LinkedList(Extra):
         Parameters
         ----------
         value: object
-            The value to be removed from the `LinkedList()` instance.
+            The value to be removed from the LinkedList() instance.
         all: bool
-            A flag (default: `True`); if `True`, all occurrences of the given value are remove. If
-            `False`, only the first occurrence is removed.
+            A flag (default: `True`); if `True`, all occurrences of the given
+            value are remove. If `False`, only the first occurrence is removed.
         
         Raises
         ------
@@ -1782,7 +1818,7 @@ class LinkedList(Extra):
 
     def clear(self):
         """
-        Removes all nodes within the linked list in time-complexity of O(1).
+        Removes all nodes within the LinkedList() in time-complexity of O(1).
 
         Example
         -------
@@ -1804,25 +1840,25 @@ class LinkedList(Extra):
     ##############################      SPLIT     ##############################
     def _split(self, idx):
         """
-        Splits the `LinkedList()` instance into two instances based on the given
+        Splits the LinkedList() instance into two instances based on the given
         index in time-complexity of O(n) where **n** is the number of elements
         in the original instance. We can consider `idx` as the start index of
-        the second `LinkedList()` after splitting. If `idx=0`, then the first
-        returned `LinkedList()` will be empty while the second returned
-        `LinkedList()` will be the same length as the original.
+        the second LinkedList() after splitting. If `idx=0`, then the first
+        returned LinkedList() will be empty while the second returned
+        LinkedList() will be the same length as the original.
 
         Parameters
         ----------
         idx: int
-            A positive integer pointing to the index at which the `LinkedList()`
+            A positive integer pointing to the index at which the LinkedList()
             instance should be split.
         
         Returns
         -------
         LinkedList(): 
-            The left `LinkedList()` instance returned after split.
+            The left LinkedList() instance returned after split.
         LinkedList(): 
-            The right `LinkedList()` instance returned after split
+            The right LinkedList() instance returned after split
         
         Raises
         ------
@@ -1870,39 +1906,39 @@ class LinkedList(Extra):
 
     def split(self, idx):
         """
-        Splits the `LinkedList()` instance into two instances based on the given
+        Splits the LinkedList() instance into two instances based on the given
         index in time-complexity of O(n) where **n** is the number of elements
         in the original instance. We can consider `idx` as the start index of
-        the second `LinkedList()` after splitting. If `idx=0`, then the first
-        returned `LinkedList()` will be empty while the second returned
-        `LinkedList()` will be the same length as the original.
+        the second LinkedList() after splitting. If `idx=0`, then the first
+        returned LinkedList() will be empty while the second returned
+        LinkedList() will be the same length as the original.
 
         Parameters
         ----------
         idx: int
-            A positive integer pointing to the index at which the `LinkedList()`
+            A positive integer pointing to the index at which the LinkedList()
             instance should be split.
         
         Returns
         -------
         LinkedList(): 
-            The left `LinkedList()` instance returned after split.
+            The left LinkedList() instance returned after split.
         LinkedList(): 
-            The right `LinkedList()` instance returned after split
+            The right LinkedList() instance returned after split
         
         Raises
         ------
         TypeError: If the given index isn't `int`.
         IndexError: If the given index is either negative or out of the
-            `LinkedList()` boundaries.
+            LinkedList() boundaries.
 
         Examples
         --------
         >>> ll = LinkedList.from_iterable([1, 2, 3])
         >>> ll
-        ┌───┐ ┌───┐ ┌───┐
-        │ 1 │⟶│ 2 │⟶│ 3 │
-        └───┘ └───┘ └───┘
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶
+        └───┘ └───┘ └───┘ 
         >>> left, right = ll._split(1)
         >>> left
         ┌───┐ 
@@ -1985,10 +2021,10 @@ class LinkedList(Extra):
 
     def _rotate(self, distance, direction):
         """
-        Rotates the `LinkedList()` instance to the given `direction` by a
+        Rotates the LinkedList() instance to the given `direction` by a
         certain given `distance` and returns the rotated instance. It does all
         of that in time-complexity of O(n) where **n** is the number of elements
-        in the `LinkedList()` instance.
+        in the LinkedList() instance.
 
         Parameters
         ----------
@@ -2035,10 +2071,10 @@ class LinkedList(Extra):
 
     def rotate_left(self, distance, inplace=True):
         """
-        Rotates the `LinkedList()` instance to the left by a certain given
+        Rotates the LinkedList() instance to the left by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
-        O(n) where **n** is the number of elements in the `LinkedList()`
+        O(n) where **n** is the number of elements in the LinkedList()
         instance.
 
         Parameters
@@ -2077,10 +2113,10 @@ class LinkedList(Extra):
     
     def rotate_right(self, distance, inplace=True):
         """
-        Rotates the `LinkedList()` instance to the right by a certain given
+        Rotates the LinkedList() instance to the right by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
-        O(n) where **n** is the number of elements in the `LinkedList()`
+        O(n) where **n** is the number of elements in the LinkedList()
         instance.
 
         Parameters
@@ -2118,13 +2154,13 @@ class LinkedList(Extra):
     ##############################      MISC      ##############################
     def reverse(self):
         """
-        Reverses the whole `LinkedList()` instance in time-complexity of O(n)
-        where **n** is the number of elements in the linked list.
+        Reverses the whole LinkedList() instance in time-complexity of O(n)
+        where **n** is the number of elements in the LinkedList().
 
         Returns
         -------
         LinkedList():
-            The reversed `LinkedList()` instance.
+            The reversed LinkedList() instance.
         
         Example
         -------
@@ -2146,13 +2182,13 @@ class LinkedList(Extra):
 
     def to_list(self):
         """
-        Converts the `LinkedList()` instance to a `list` in time-complexity of
+        Converts the LinkedList() instance to a `list` in time-complexity of
         O(n) where **n** is the number of elements in the instance.
 
         Returns
         -------
         list:
-            A `list` object containing the same elements as the `LinkedList()`
+            A `list` object containing the same elements as the LinkedList()
             instance.
         
         Example
@@ -2173,7 +2209,7 @@ class LinkedList(Extra):
 
     def count(self, value):
         """
-        Counts the number of occurrence the given value is in our `LinkedList()`
+        Counts the number of occurrence the given value is in our LinkedList()
         instance.
 
         Parameters
@@ -2184,7 +2220,7 @@ class LinkedList(Extra):
         Returns
         -------
         int:
-            The number of times the given value is found in the `LinkedList()`
+            The number of times the given value is found in the LinkedList()
             instance. And 0 if it wasn't found.
         
         Example
@@ -2208,7 +2244,7 @@ class LinkedList(Extra):
 
     def copy(self):
         """
-        Copies the `LinkedList()` instance in a shallow-manner.
+        Copies the LinkedList() instance in a shallow-manner.
 
         Returns
         -------
