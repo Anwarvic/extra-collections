@@ -1417,3 +1417,34 @@ class DoublyLinkedList(LinkedList):
         [10, 20, 30]
         """
         return super().to_list()
+    
+
+    def count(self, value):
+        """
+        Counts the number of occurrence the given value is in our
+        DoublyLinkedList() instance.
+
+        Parameters
+        ----------
+        value: object
+            The object to count its occurrences
+        
+        Returns
+        -------
+        int:
+            The number of times the given value is found in the
+            DoublyLinkedList() instance. And 0 if it wasn't found.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> dll.count(3)
+        1
+        >>> dll.count(1)
+        2
+        >>> dll.count("he")
+        0
+        """
+        return super().count(value)
+    
+
