@@ -112,6 +112,14 @@ class CircularLinkedList(LinkedList):
 
 
     def _create_instance(self):
+        """
+        Returns an instance of the class
+
+        Returns
+        -------
+        CircularLinkedList()
+            It returns an empty CircularLinkedList() instance.
+        """
         return CircularLinkedList()
     
 
