@@ -297,7 +297,48 @@ class CircularLinkedList(LinkedList):
         return super().__iter__()
     
 
-    
+    def __eq__(self, other):
+        """
+        Checks if two CircularLinkedList() instances are equal to each other.
+        And this happens if, and only if, the following two conditions are met:
+        
+        1. The two instances are equal in length (have same number of elements).
+
+        2. Every single element in the first instance is equal, in both \
+            **value** and **type**, to the opposing element of the other \
+            instance.
+
+        Parameters
+        ----------
+        other: CircularLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if both instances are equal, and `False` otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a CircularLinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
+
+        Examples
+        --------
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 == cll_2
+        False
+        >>> cll_1 == cll_1
+        True
+        """
+        return super().__eq__(other)
+
+
+
+
 
     ##############################     SEARCH     ##############################
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
