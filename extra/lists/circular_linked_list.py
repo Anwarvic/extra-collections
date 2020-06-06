@@ -337,6 +337,47 @@ class CircularLinkedList(LinkedList):
         return super().__eq__(other)
 
 
+    def __ne__(self, other):
+        """
+        Checks if two CircularLinkedList() instances are NOT equal to each other.
+        And this happens if, and only if, either one of the following two
+        conditions is satisfied:
+        
+        1. The two instances are NOT equal in length (number of elements).
+
+        2. Just one element in the first instance is NOT equal, in either \
+            **value** or **type**, to the opposing element of the other \
+            instance.
+
+        Parameters
+        ----------
+        other: CircularLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if both instances are NOT equal, and `False` otherwise.
+
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of  the opposing element in the other instance.
+        
+        Examples
+        --------
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 != cll_2
+        True
+        >>> cll_1 != cll_1
+        False
+        """
+        return super().__ne__(other)
+    
+
 
 
 
