@@ -201,8 +201,8 @@ class CircularLinkedList(LinkedList):
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶│ 6 │⟶│ 7 │⟶ ┐
         └───┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘  │
-           ↑                                       │
-           └───────────────────────────────────────┘
+          ↑                                        │
+          └────────────────────────────────────────┘
         """
         if super().is_empty():
             return super()._print_empty_linked_list()
@@ -226,6 +226,31 @@ class CircularLinkedList(LinkedList):
             first_line, second_line, third_line, fourth_line, fifth_line)
 
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the CircularLinkedList() in time-complexity of O(1)
+        
+        Returns
+        -------
+        int:
+            The length of the CircularLinkedList() instance. By Length, I mean
+            the number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> cll = CircularLinkedList()
+        >>> len(cll)
+        0
+        >>> cll = CircularLinkedList.from_iterable((2, 5, 0))
+        >>> len(cll)
+        3
+        """
+        return self._length
+    
+
+    
+    
     ##############################     SEARCH     ##############################
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         if isinstance(idx, slice):
@@ -307,8 +332,7 @@ class CircularLinkedList(LinkedList):
         self._validate_index(idx)
         if not self.is_empty():
             idx = idx % self._length if self._length != 0 else 0
-            node = super()._remove_idx(idx)
-            return node
+            super()._remove_idx(idx)
 
 
     ############################## MISC ##############################
