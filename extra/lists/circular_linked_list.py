@@ -273,6 +273,32 @@ class CircularLinkedList(LinkedList):
         return self._length == 0
 
     
+    ##############################    OPERATOR    ##############################
+    def __iter__(self):
+        """
+        Iterates over the CircularLinkedList() instance and returns a generator
+        in time-complexity of O(n) where **n** is the number of elements in the 
+        CircularLinkedList() instance.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> for item in cll:
+        ...     print(item)
+        1
+        2
+        3
+        """
+        return super().__iter__()
+    
+
+    
+
     ##############################     SEARCH     ##############################
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         if isinstance(idx, slice):
