@@ -98,6 +98,19 @@ class CircularLinkedList(LinkedList):
     __name__ = "extra.CircularLinkedList()"
 
 
+    def __init__(self):
+        """
+        Creates a CircularLinkedList() object!!
+        
+        Example
+        -------
+        >>> ll = CircularLinkedList()
+        >>> type(ll)
+        <class 'extra.lists.circular_linked_list.CircularLinkedList'>
+        """
+        super().__init__()
+
+
     def _create_instance(self):
         return CircularLinkedList()
     
