@@ -123,6 +123,78 @@ class CircularLinkedList(LinkedList):
         return CircularLinkedList()
     
 
+    @classmethod
+    def from_iterable(cls, iterable):
+        """
+        A class method which creates a CircularLinkedList() instance using an
+        iterable in time-complexity of O(n) where **n** is the number of
+        elements inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable object.
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        CircularLinkedList()
+            It returns a CircularLinkedList() instance with the same values in
+            the same order.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the iterable elements is an `Extra` object.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([10, -5, 7, 9])
+        >>> cll
+        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶ ┐
+        └────┘ └────┘ └───┘ └───┘  │
+           ↑                       │
+           └───────────────────────┘
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> cll = CircularLinkedList.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> cll = CircularLinkedList.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `CircularLinkedList` objects will raise `TypeError` as well
+
+        >>> cll_1 = CircularLinkedList.from_iterable([1])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, cll_1])
+        TypeError: Can't create `extra.CircularLinkedList()` using `extra.CircularLinkedList()`!!
+
+        Note
+        -----
+        Since most of the data structures found in this package are iterables, 
+        then you can use this classmethod to convert from one data structure to
+        `CircularLinkedList` just like so:
+
+        >>> ll = LinkedList.from_iterable([2, 5])
+        >>> cll = CircularLinkedList.from_iterable(ll)
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        """
+        return super().from_iterable(iterable)
+    
+
     ##############################      PRINT     ##############################
     def __repr__(self):
         """Represents the Circular linked list as a string
