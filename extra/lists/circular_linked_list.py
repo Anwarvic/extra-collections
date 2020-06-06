@@ -249,7 +249,29 @@ class CircularLinkedList(LinkedList):
         return self._length
     
 
-    
+    def is_empty(self):
+        """
+        Checks if CircularLinkedList() instance is empty or not in time-
+        complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the CircularLinkedList() instance is empty
+            or not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
+        
+        Example
+        --------
+        >>> cll = CircularLinkedList()
+        >>> cll.is_empty()
+        True
+        >>> cll.add_front(5)
+        >>> cll.is_empty()
+        False
+        """
+        return self._length == 0
+
     
     ##############################     SEARCH     ##############################
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
