@@ -434,6 +434,62 @@ class CircularLinkedList(LinkedList):
         return super().__le__(other)
     
     
+    def __gt__(self, other):
+        """
+        Checks if the first CircularLinkedList() instance is greater than the
+        other instance. And this happens if all elements in the first instance
+        are equal with at least one element greater than the opposing element of
+        the second instance.
+
+        Parameters
+        ----------
+        CircularLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if the first instance is greater than the second, and `False`
+            otherwise.
+
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
+        
+        Examples
+        --------
+
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 5])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 > cll_2
+        True
+
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 2, 1])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 > cll_2
+        True
+
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 5])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 > cll_2
+        False
+
+        >>> cll_1 = CircularLinkedList.from_iterable([5, 2, 1])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 > cll_2
+        False
+
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_2 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_1 > cll_2
+        False
+        """
+        return super().__gt__(other)
+    
+
 
 
 
