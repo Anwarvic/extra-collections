@@ -1,13 +1,103 @@
-import operator
+"""
+A circular linked list is a simple linear data structure where objects are
+linked using pointers to their associated location. Unlike arrays whose objects
+are stored at continuous locations. Each node stores a reference to an object
+that is an element of the sequence, as well as a reference to the next node of
+the circular linked list.
 
-# from linked_list import Node, LinkedList
-from extra.lists.linked_list import Node, LinkedList
+The first node of a circular linked list is known as the **head** of the linked
+list. And the last node is known as the **tail**. The **tail** of a circular
+linked list always points to the **head**. 
+ 
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+- **k** is the value of a parameter.
+
++----------------+--------------------------------------------------------+-------------+-------------+
+| Method         | Description                                            | Worst-case  | Optimal     |
++================+========================================================+=============+=============+
+| __len__()      | Returns the number of nodes                            | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| is_empty()     | Checks if object is empty                              | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __repr__()     | Represents the object                                  | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __eq__()       | Checks if two linked lists are equal                   | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __ne__()       | Checks if two linked lists are not equal               | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __lt__()       | Checks if the linked list is less than the other       | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __le__()       | Checks if the list is less than or equal the other     | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __gt__()       | Checks if the list is greater than or equal the other  | O(min(n,m)) | O(min(n,m)) |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __getitem__()  | Returns the element at a certain index.                | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| insert()       | Adds the given item at the given index                 | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __setitem__()  | Replaces the value at the given index with given value | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __delitem__()  | Deletes the value at the given index                   | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove_end()   | Removes the node at the tail                           | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| remove()       | Removes the given value if found                       | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| split()        | Splits the list into two at the given index            | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| rotate_left()  | Left-rotates the list by the given value               | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| rotate_right() | Right-rotates the list by the given value              | O(k)        | O(k)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| to_list()      | Converts the linked list to built-in list              | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| count()        | Counts how many the given value found in the list      | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| copy()         | Copies the linked list                                 | O(n)        | O(n)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `Linked List()`
+objects:
+"""
+from extra.lists.linked_list import LinkedList
 
 
 
 
 class CircularLinkedList(LinkedList):
     """Basic object for the Circular Linked List"""
+    __name__ = "extra.CircularLinkedList()"
+
+
     def _create_instance(self):
         return CircularLinkedList()
     
@@ -134,8 +224,3 @@ class CircularLinkedList(LinkedList):
         idx = idx % self._length if self._length != 0 else 0
         return super()._split(idx)
     
-
-if __name__ == "__main__":
-
-    ll_1 = CircularLinkedList.from_iterable([2])
-    print(ll_1)
