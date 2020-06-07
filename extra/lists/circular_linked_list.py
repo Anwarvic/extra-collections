@@ -604,6 +604,43 @@ class CircularLinkedList(LinkedList):
 
     ##############################     SEARCH     ##############################
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
+        """
+        Checks the validity of the given index.It raises the appropriate error
+        when the index isn't valid and it returns nothing if the index is valid.
+
+        Parameters
+        ----------
+        idx: int
+            The index value.
+        accept_negative: bool
+            A flag to enable accepting negative indices, default `False`.
+        accept_slice: bool
+            A flag to enable accepting `slice` objects, default `False`.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: This happens in one of the following cases: 
+            1. if the given index is a `slice` object while `accept_slice` \
+                flag is `False`.
+            2. If the given index is out of the CircularLinkedList() boundaries.
+        
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll._validate_index('1')
+        TypeError: Given index must be an integer!!
+        >>> cll._validate_index(-2)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> cll._validate_index(slice(0, 2))
+        IndexError: Slice indexing isn't supported with this functinoality!!
+        
+        And it would return nothing if the given index if valid:
+
+        >>> cll._validate_index(2)
+        >>> cll._validate_index(-2, accept_negative=True)
+        >>> cll._validate_index(slice(0, 2), accept_slice=True)
+        """
         if isinstance(idx, slice):
             if not accept_slice:
                 raise IndexError(\
