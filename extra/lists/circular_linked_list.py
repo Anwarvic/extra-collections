@@ -603,6 +603,36 @@ class CircularLinkedList(LinkedList):
 
 
     ##############################     SEARCH     ##############################
+    def __contains__(self, value):
+        """
+        Checks if the given value exists in the CircularLinkedList() instance in
+        time-complexity of O(n) where **n** is the total number of elements in
+        the CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        value: Object
+            The value to be searched for in the CircularLinkedList() instance.
+        
+        Returns
+        -------
+        bool
+            `True` if the given value exists in the CircularLinkedList()
+            instance, and `False` otherwise.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 3, 5])
+        >>> 1 in cll
+        True
+        >>> 0 in cll
+        False
+        >>> "hello" in cll
+        False
+        """
+        return super().__contains__(value)
+    
+
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         """
         Checks the validity of the given index.It raises the appropriate error
