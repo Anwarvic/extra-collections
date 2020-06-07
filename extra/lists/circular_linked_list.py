@@ -45,17 +45,17 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __getitem__()  | Returns the element at a certain index.                | O(k)        | O(k)        |
+| __getitem__()  | Returns the element at a certain index.                | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| insert()       | Adds the given item at the given index                 | O(k)        | O(k)        |
+| insert()       | Adds the given item at the given index                 | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __setitem__()  | Replaces the value at the given index with given value | O(k)        | O(k)        |
+| __setitem__()  | Replaces the value at the given index with given value | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __delitem__()  | Deletes the value at the given index                   | O(n)        | O(n)        |
+| __delitem__()  | Deletes the value at the given index                   | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -65,13 +65,13 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| split()        | Splits the list into two at the given index            | O(n)        | O(n)        |
+| split()        | Splits the list into two at the given index            | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(k)        | O(k)        |
+| rotate_left()  | Left-rotates the list by the given value               | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(k)        | O(k)        |
+| rotate_right() | Right-rotates the list by the given value              | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -653,7 +653,8 @@ class CircularLinkedList(LinkedList):
         IndexError: This happens in one of the following cases: 
             1. if the given index is a `slice` object while `accept_slice` \
                 flag is `False`.
-            2. If the given index is out of the CircularLinkedList() boundaries.
+            2. If the given index is negative while `accept_negative` flag is \
+                `False`.
         
         Examples
         --------
@@ -676,17 +677,59 @@ class CircularLinkedList(LinkedList):
                 raise IndexError(\
                     "Slice indexing isn't supported with this functinoality!!")
         elif type(idx) != int:
-            raise TypeError("Indices must be an integer!")
+            raise TypeError("Given index must be an integer!!")
         elif idx <= -1 and not accept_negative:
             raise IndexError(\
                 "Negative indexing isn't supported with this functinoality!!")
 
 
     def __getitem__(self, idx):
-        """Retrieves the element at the given index."""
+        """
+        Retrieves the element at the given index. The given index must be a 
+        zero-based `int`. This method doesn't support neither negative indexing
+        nor `slice` objects. This method does that in time-complexity of O(k%n) 
+        where **k** is the given index and **n** is the number of elements found
+        in the CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        idx: int
+            The index to be used to retrieve value from the CircularLinkedList()
+            instance.
+        
+        Returns
+        -------
+        object
+            It returns the value at this the given index.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If CircularLinkedList() is empty.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> cll[0]
+        1
+        >>> cll[-2]
+        4
+        >>> cll[10]
+        1
+
+        Note
+        ----
+        Notice that the only case this method raises an `IndexError` is when the
+        CircularLinkedList() instance is empty. Other than that, the method will
+        keep iterating over the CircularLinkedList() instance till it reaches
+        the given index. That's why eventhough the previous CircularLinkedList()
+        instance is 5 element long, the method doesn't raise and `IndexError`
+        when trying to retrieve the 10th element (`cll[10]`).
+
+        """
         self._validate_index(idx)
         if self.is_empty():
-            raise IndexError(f"{self.__module__} is empty!!")
+            raise IndexError(f"{self.__name__} is empty!!")
         idx = idx % self._length if self._length != 0 else 0
         return super().__getitem__(idx)
 
