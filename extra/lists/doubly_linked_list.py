@@ -234,7 +234,7 @@ class DoublyLinkedList(LinkedList):
     @classmethod
     def from_iterable(cls, iterable):
         """
-        A class method which creates a doubly linked list instance using an
+        A class method which creates a DoublyLinkedList() instance using an
         iterable in time-complexity of O(n) where **n** is the number of
         elements inside the given `iterable`.
 
@@ -495,6 +495,62 @@ class DoublyLinkedList(LinkedList):
         """
         return super().__ne__(other)
     
+
+    def __lt__(self, other):
+        """
+        Checks if the first DoublyLinkedList() instance is less than the other
+        instance. And this happens if all elements in the first instance are
+        equal with at least one element less than the opposing element of the
+        second instance.
+
+        Parameters
+        ----------
+        DoublyLinkedList()
+            The other instance that we want to compare with the current one
+        
+        Returns
+        -------
+        bool
+            `True` if the first instance is less than the second, and `False`
+            otherwise.
+        
+        Raises
+        ------
+        TypeError: This happens in two cases
+            1. If the other instance isn't a LinkedList() instance.
+            2. In case one element in the first instance doesn't match the \
+                type of the opposing element in the other instance.
+
+        Examples
+        --------
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 < dll_2
+        True
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 < dll_2
+        True
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 < dll_2
+        False
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 < dll_2
+        False
+
+        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 < dll_2
+        False
+        """
+        return super().__lt__(other)
+
 
     def __le__(self, other):
         """
