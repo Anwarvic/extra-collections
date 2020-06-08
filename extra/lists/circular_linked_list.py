@@ -736,8 +736,37 @@ class CircularLinkedList(LinkedList):
 
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, new_node):
+        """
+        Inserts a `new_node` at a position defined by the given `prev_node`.
+
+        Parameters
+        ----------
+        prev_node: Node()
+            A reference to the node next to which a new node should be inserted.
+        new_node: Node()
+            A referece to the new node to be inserted.
+        
+        Returns
+        -------
+        Node():
+            A reference to the new node after being inserted in the
+            CircularLinkedList().
+            
+        Raises
+        ------
+        AssertionError: This happens in one of the following cases:
+            1. The `prev_node` isn't a `Node()` object
+            2. The `new_node` isn't a `Node()` object
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> new_node = Node(10)
+        >>> cll._insert_node(cll._head, new_node)
+        Node(data: 10, next: 2)
+        """
+        assert isinstance(prev_node, self._basic_node)
         assert isinstance(new_node, self._basic_node)
-        assert new_node.get_data() is not None
 
         # start inserting the node
         if self._length == 0:
