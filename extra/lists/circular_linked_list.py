@@ -845,6 +845,46 @@ class CircularLinkedList(LinkedList):
 
 
     def insert(self, idx, item):
+        """
+        Insertd a value at a position defined by the given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index at which the given value should be
+            inserted.
+        item: object
+            An object to be inserted.
+              
+        Raises
+        ------
+        IndexError: This happens only if the index is less than zero (-ve).
+        TypeError: This happens in one of the following cases:
+            1. If the given index isn't integer.
+            2. If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll.insert(1, 10)
+        >>> cll
+        ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └────┘ └───┘ └───┘  │
+          ↑                       │
+          └───────────────────────┘
+        >>> cll.insert(15, 8)  #index is bigger than instance length
+        ┌───┐ ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 8 │⟶│ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘ └────┘ └───┘ └───┘  │
+          ↑                             │
+          └─────────────────────────────┘
+        >>> cll.insert(1, None)
+        ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
+        >>> cll.insert(-1, 100)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        """
         self._validate_index((idx))
         self._validate_item(item)
         idx = idx % (self._length+1)
