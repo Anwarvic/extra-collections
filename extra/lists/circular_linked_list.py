@@ -813,7 +813,37 @@ class CircularLinkedList(LinkedList):
         """
         super().add_front(item)
     
-    
+
+    def add_end(self, item):
+        """
+        Adds the given value at the tail of the CircularLinkedList() instance in
+        time-complexity of O(n) where **n** is the number of elements in the 
+        instance.
+
+        Parameters
+        ----------
+        item: object
+            The value to be inserted at the CircularLinkedList() tail.
+        
+        Raises
+        ------
+        TypeError: If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll.add_end(10)
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌────┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 10 │⟶ ┐
+        └───┘ └───┘ └───┘ └────┘  │
+          ↑                       │
+          └───────────────────────┘
+        """
+        super().add_end(item)
+
+
     def insert(self, idx, item):
         self._validate_index((idx))
         self._validate_item(item)
