@@ -67,7 +67,7 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | split()        | Splits the list into two at the given index            | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
+| extend()       | Extends the linked list using another linked list.     | O(n+m)      | O(n+m)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | rotate_left()  | Left-rotates the list by the given value               | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -755,7 +755,7 @@ class CircularLinkedList(LinkedList):
         Raises
         ------
         AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object
+            1. The `prev_node` isn't a `Node()` object or `None`.
             2. The `new_node` isn't a `Node()` object
         
         Example
@@ -765,7 +765,7 @@ class CircularLinkedList(LinkedList):
         >>> cll._insert_node(cll._head, new_node)
         Node(data: 10, next: 2)
         """
-        assert isinstance(prev_node, self._basic_node)
+        assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert isinstance(new_node, self._basic_node)
 
         # start inserting the node
@@ -891,6 +891,52 @@ class CircularLinkedList(LinkedList):
         super()._insert(idx, item)
 
 
+    def extend(self, other):
+        """
+        Extends the current CircularLinkedList() instance by appending the
+        elements of the other CircularLinkedList() instance in time-complexity
+        of O(n+m) where **n** is the number of elements in the original instance
+        and **m** is the number of elements in the other instance.
+
+        Parameters
+        ----------
+        other: CircularLinkedList()
+            The CircularLinkedList() instance whose elements will be appended.
+                
+        Raises
+        ------
+        TypeError: If the given object isn't a CircularLinkedList() instance.
+
+        Example
+        -------
+        >>> cll_1 = CircularLinkedList.from_iterable([1, 2])
+        >>> cll_2 = CircularLinkedList.from_iterable([3, 4, 5])
+        >>> cll_1.extend(cll_2)
+        >>> cll_1
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘ └───┘  │
+          ↑                            │
+          └────────────────────────────┘
+        """
+        if not isinstance(other, self.__class__):
+            raise TypeError("Type Mismatch! " + 
+                f"Can't extend `{self.__name__}` with `{type(other)}`!!"
+            )
+        if not other.is_empty():
+            counter = 0
+            curr_node = self._head if not self.is_empty() else None
+            while(counter < self._length-1):
+                counter += 1
+                curr_node = curr_node.get_next()
+            prev_node = curr_node
+            # now, let's add the new values
+            for item in other:
+                new_node = self._basic_node(item)
+                self._insert_node(prev_node, new_node)
+                prev_node = new_node
+    
+
     ##############################       SET      ##############################
     def __setitem__(self, idx, item):
         self._validate_index(idx)
@@ -930,3 +976,9 @@ class CircularLinkedList(LinkedList):
         idx = idx % self._length if self._length != 0 else 0
         return super()._split(idx)
     
+
+if __name__ == "__main__":
+    cll_1 = CircularLinkedList.from_iterable([1, 2])
+    cll_2 = CircularLinkedList.from_iterable([3, 4, 5])
+    cll_1.extend(cll_2)
+    print(cll_1)
