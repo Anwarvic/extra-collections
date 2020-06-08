@@ -784,6 +784,35 @@ class CircularLinkedList(LinkedList):
         self._length += 1
         return new_node
     
+
+    def add_front(self, item):
+        """
+        Adds the given value at the head of the CircularLinkedList() instance in
+        time-complexity of O(1).
+
+        Parameters
+        ----------
+        item: object
+            The value to be inserted at the CircularLinkedList() head.
+        
+        Raises
+        ------
+        TypeError: If the given item is an instance of `Extra`.
+        ValueError: If the given item is `None`.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll.add_front(10)
+        >>> cll
+        ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └────┘ └───┘ └───┘ └───┘  │
+           ↑                      │
+           └──────────────────────┘
+        """
+        super().add_front(item)
+    
     
     def insert(self, idx, item):
         self._validate_index((idx))
