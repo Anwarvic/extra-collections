@@ -70,9 +70,9 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(k)        | O(k)        |
+| rotate_left()  | Left-rotates the list by the given value               | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(k)        | O(k)        |
+| rotate_right() | Right-rotates the list by the given value              | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -266,7 +266,7 @@ class LinkedList(Extra):
     @classmethod
     def from_iterable(cls, iterable):
         """
-        A class method which creates a linked list instance using an iterable
+        A class method which creates a LinkedList() instance using an iterable
         in time-complexity of O(n) where **n** is the number of elements inside
         the given `iterable`.
 
@@ -1113,6 +1113,8 @@ class LinkedList(Extra):
             1. if the given index is a `slice` object while `accept_slice` \
                 flag is `False`.
             2. If the given index is out of the LinkedList() boundaries.
+            3. If the given index is negative while `accept_negative` flag is \
+                `False`.
         
         Examples
         --------
@@ -1477,31 +1479,28 @@ class LinkedList(Extra):
     
     
     ##############################       SET      ##############################
-    def _replace_node(self, idx, new_node):
+    def _replace_value(self, idx, new_value):
         """
-        Replaces the node at the given index with the `new_node`.
+        Replaces the value of the node at the given index with the `new_value`.
 
         Parameters
         ----------
         idx: int
             The index at which we want to replace the node.
-        new_node: Node()
-            The new node that will replace the old one.
+        new_value: object
+            The new value that will replace the old one.
         
         Raises
         ------
         AssertionError: This can be raised in the following cases:
             1. if the given index is out of the boundaries.
-            2. If the `new_node` is not `None`.
+            2. If the `new_value` is not `None`.
         """
         assert 0 <= idx or idx <= self._length
-        assert new_node is not None
+        assert new_value is not None
 
         _, old_node = self._get_node(idx)
-        if isinstance(new_node, self._basic_node):
-            old_node.set_data(new_node.get_data())
-        else:
-            old_node.set_data(new_node)
+        old_node.set_data(new_value)
     
 
     def __setitem__(self, idx, item):
@@ -1549,7 +1548,7 @@ class LinkedList(Extra):
         if idx == self._length:
             raise IndexError("Given index is out of the boundaries!!")
         super()._validate_item(item)
-        self._replace_node(idx, item)
+        self._replace_value(idx, item)
         
 
     ##############################     REMOVE     ##############################
