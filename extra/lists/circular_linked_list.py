@@ -1207,10 +1207,101 @@ class CircularLinkedList(LinkedList):
         """
 
 
-    ############################## MISC ##############################
+    ##############################      SPLIT     ##############################
     def split(self, idx):
+        """
+        Splits the CircularLinkedList() instance into two instances based on the
+        given index in time-complexity of O(min(k,n/2)) where **k** is the index
+        and **n** is the number of elements in the original instance. We can
+        consider `idx` as the start index of the second CircularLinkedList()
+        after splitting. If `idx=0`, the first returned CircularLinkedList()
+        will be empty while the second returned CircularLinkedList() will be the
+        same length as the original.
+
+        Parameters
+        ----------
+        idx: int
+            A positive integer pointing to the index at which the 
+            CircularLinkedList() instance should be split.
+        
+        Returns
+        -------
+        CircularLinkedList(): 
+            The left CircularLinkedList() instance returned after split.
+        CircularLinkedList(): 
+            The right CircularLinkedList() instance returned after split
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: If the given index is either negative or out of the
+            CircularLinkedList() boundaries.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘ └───┘  │
+          ↑                │
+          └────────────────┘
+        >>> left, right = cll.split(1)
+        >>> left
+        ┌───┐ 
+        │ 1 │⟶ ┐
+        └───┘  │
+          ↑    │
+          └────┘
+        >>> right
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        """
         self._validate_index(idx)
         idx = idx % self._length if self._length != 0 else 0
         return super()._split(idx)
     
 
+    ##############################    ROTATION    ##############################
+    def rotate_left(self, distance, inplace=True):
+        """
+        Rotates the CircularLinkedList() instance to the left by a certain given
+        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
+        it returns the rotated instance. The time-compelxity of this method is
+        of O(k%n) where **k** is the index and  **n** is the number of elements
+        in the CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance to the left.
+        inplace: bool
+            A flag to determine if the rotation is going to be in-place or not.
+            (default `True`).
+        
+        Returns
+        -------
+        CircularLinkedList():
+            The rotated instance if `inplace=True`
+        
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll.rotate_left(1)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> cll.rotate_left(10)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        """
+        return super().rotate_left(distance, inplace)
