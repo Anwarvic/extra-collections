@@ -1115,6 +1115,34 @@ class CircularLinkedList(LinkedList):
         """
         super().remove_front()
 
+    
+    def remove_end(self):
+        """
+        Removes the value at the tail of the CircularLinkedList() instance in
+        time-complexity of O(k%n) where **k** is the index value and **n** is
+        the number of elements in the CircularLinkedList() instance.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll.remove_end()
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        >>> cll.remove_end()
+        >>> cll
+        ┌───┐ 
+        │ 1 │⟶ ┐
+        └───┘  │
+          ↑    │
+          └────┘
+        """
+        super().remove_end()    
+
+    
     ############################## MISC ##############################
     def split(self, idx):
         self._validate_index(idx)
