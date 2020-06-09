@@ -1090,6 +1090,31 @@ class CircularLinkedList(LinkedList):
             super()._remove_idx(idx)
 
 
+    def remove_front(self):
+        """
+        Removes the value at the head of the CircularLinkedList() instance in time-
+        complexity of O(1).
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll.remove_front()
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        >>> cll.remove_front()
+        >>> cll
+        ┌───┐ 
+        │ 3 │⟶ ┐
+        └───┘  │
+          ↑    │
+          └────┘
+        """
+        super().remove_front()
+
     ############################## MISC ##############################
     def split(self, idx):
         self._validate_index(idx)
