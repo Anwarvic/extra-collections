@@ -1143,6 +1143,50 @@ class CircularLinkedList(LinkedList):
         super().remove_end()    
 
     
+    def remove(self, value, all=True):
+        """
+        Removes node(s) whose value equal to the given value.
+
+        Parameters
+        ----------
+        value: object
+            The value to be removed from the CircularLinkedList() instance.
+        all: bool
+            A flag (default: `True`); if `True`, all occurrences of the given
+            value are remove. If `False`, only the first occurrence is removed.
+        
+        Raises
+        ------
+        ValueError: If The given value is `None`.
+        TypeError: This get raised in one of the following cases:
+            1. If the type of the `all` flag isn't boolean.
+            2. If the given value is an instance of `Extra` class.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> cll.remove(2, False)
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        >>> cll.remove(10) #does nothing
+        >>> cll.remove(2)
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        """
+        super().remove(value, all)    
+
+
+
+
+
     ############################## MISC ##############################
     def split(self, idx):
         self._validate_index(idx)
@@ -1150,7 +1194,3 @@ class CircularLinkedList(LinkedList):
         return super()._split(idx)
     
 
-if __name__ == "__main__":
-    cll = CircularLinkedList.from_iterable([1, 2, 3])
-    cll[31] = 20
-    print(cll)
