@@ -968,26 +968,65 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
-        >>> ll[0] = 10
-        >>> ll[2] = 30
-        >>> ll
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll[0] = 10
+        >>> cll[2] = 30
+        >>> cll
         ┌────┐ ┌───┐ ┌────┐ 
-        │ 10 │⟷│ 2 │⟷│ 30 │⟷
-        └────┘ └───┘ └────┘ 
-        >>> ll[-1] = 0
+        │ 10 │⟶│ 2 │⟶│ 30 │⟶ ┐
+        └────┘ └───┘ └────┘  │
+           ↑                 │
+           └─────────────────┘
+        >>> cll[-1] = 0
         IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> ll[3] = 40
-        IndexError: Given index is out of the boundaries!!
+        >>> cll[31] = 20 #index is out of boundaries
+        >>> cll
+        ┌────┐ ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶│ 30 │⟶ ┐
+        └────┘ └────┘ └────┘  │
+           ↑                  │
+           └──────────────────┘
         """
         self._validate_index(idx)
         idx = idx % self._length if self._length != 0 else 0
-        new_node = self._basic_node(item)
-        super()._replace_value(idx, new_node)
+        super()._replace_value(idx, item)
     
 
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
+        """
+        Removes a node from the CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        prev_node: Node()
+            A reference to the node next to the node that will be removed.
+        node_to_be_removed: Node()
+            A referece to the node to be removed.
+        
+        Raises
+        ------
+        AssertionError: This happens in one of the following cases:
+            1. The `prev_node` isn't a `Node()` object or `None.
+            2. The `node_to_be_removed` isn't a `Node()` object
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘ └───┘  │
+          ↑                │
+          └────────────────┘
+        >>> cll._remove_node(cll._head, cll._head._next)
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
+        """
         assert prev_node is None or isinstance(prev_node, self._basic_node)
         assert isinstance(node_to_be_removed, self._basic_node)
 
@@ -1020,7 +1059,6 @@ class CircularLinkedList(LinkedList):
     
 
 if __name__ == "__main__":
-    cll_1 = CircularLinkedList.from_iterable([1, 2])
-    cll_2 = CircularLinkedList.from_iterable([3, 4, 5])
-    cll_1.extend(cll_2)
-    print(cll_1)
+    cll = CircularLinkedList.from_iterable([1, 2, 3])
+    cll[31] = 20
+    print(cll)
