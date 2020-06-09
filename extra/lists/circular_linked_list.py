@@ -1184,7 +1184,27 @@ class CircularLinkedList(LinkedList):
         super().remove(value, all)    
 
 
+    def clear(self):
+        """
+        Removes all nodes within the CircularLinkedList() in time-complexity of
+        O(1).
 
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘ └───┘  │
+          ↑                │
+          └────────────────┘
+        >>> cll.clear()
+        >>> cll.is_empty()
+        True
+        >>> cll
+        ┌─
+        │
+        └─
+        """
 
 
     ############################## MISC ##############################
