@@ -1305,3 +1305,46 @@ class CircularLinkedList(LinkedList):
           └──────────────────────┘
         """
         return super().rotate_left(distance, inplace)
+
+
+    def rotate_right(self, distance, inplace=True):
+        """
+        Rotates the CircularLinkedList() instance to the right by a certain
+        given `distance`. If `inplace=True`, it does the rotation in-place. If
+        not, it returns the rotated instance. The time-compelxity of this method
+        is O(k%n) where **k** is the index and **n** is the number of elements
+        in the CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        distance: int
+            The rotation distance to the right.
+        inplace: bool
+            A flag to determine if the rotation is going to be in-place or not.
+            (default `True`).
+        
+        Returns
+        -------
+        CircularLinkedList():
+            The rotated instance if `inplace=True`
+        
+        Examples
+        --------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll.rotate_right(1)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        >>> # it works fine when the distance is bigger than the instance length
+        >>> dll.rotate_right(15)
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        """
+        return super().rotate_right(distance, inplace)
+
+
