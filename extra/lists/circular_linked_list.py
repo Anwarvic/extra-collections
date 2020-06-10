@@ -1371,3 +1371,34 @@ class CircularLinkedList(LinkedList):
         """
         return super().reverse()
     
+
+    def to_list(self):
+        """
+        Converts the CircularLinkedList() instance to a `list` in time-complexity
+        of O(n) where **n** is the number of elements in the instance.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the
+            CircularLinkedList() instance.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList()
+        >>> cll.add_front(20)
+        >>> cll.add_front(10)
+        >>> cll.add_end(30)
+        >>> cll
+        ┌────┐ ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶│ 30 │⟶ ┐
+        └────┘ └────┘ └────┘  │
+           ↑                  │
+           └──────────────────┘
+        >>> cll.to_list()
+        [10, 20, 30]
+        """
+        return super().to_list()
+    
+
+    
