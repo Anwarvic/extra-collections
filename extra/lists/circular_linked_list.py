@@ -1430,4 +1430,27 @@ class CircularLinkedList(LinkedList):
         return super().count(value)
     
 
-    
+    def copy(self):
+        """
+        Copies the CircularLinkedList() instance in a shallow-manner.
+
+        Returns
+        -------
+        CircularLinkedList():
+            The shallow copy of the original instance.
+        
+        Example
+        ------
+        >>> cll = CircularLinkedList()
+        >>> cll.add_end(10)
+        >>> cll.add_end(20)
+        >>> cll.copy()
+        ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶ ┐
+        └────┘ └────┘  │
+           ↑           │
+           └───────────┘
+        """
+        return super().copy()
+
+
