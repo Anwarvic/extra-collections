@@ -1348,3 +1348,26 @@ class CircularLinkedList(LinkedList):
         return super().rotate_right(distance, inplace)
 
 
+    ##############################      MISC      ##############################
+    def reverse(self):
+        """
+        Reverses the whole CircularLinkedList() instance in time-complexity of
+        O(n) where **n** is the number of elements in the CircularLinkedList().
+
+        Returns
+        -------
+        CircularLinkedList():
+            The reversed CircularLinkedList() instance.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll.reverse()
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
+        """
+        return super().reverse()
+    
