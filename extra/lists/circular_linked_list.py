@@ -1271,7 +1271,7 @@ class CircularLinkedList(LinkedList):
         Rotates the CircularLinkedList() instance to the left by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
-        of O(k%n) where **k** is the index and  **n** is the number of elements
+        of O(k%n) where **k** is the index and **n** is the number of elements
         in the CircularLinkedList() instance.
 
         Parameters
