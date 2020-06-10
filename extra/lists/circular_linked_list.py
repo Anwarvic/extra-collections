@@ -1401,4 +1401,33 @@ class CircularLinkedList(LinkedList):
         return super().to_list()
     
 
+    def count(self, value):
+        """
+        Counts the number of occurrence the given value is in our
+        CircularLinkedList() instance.
+
+        Parameters
+        ----------
+        value: object
+            The object to count its occurrences
+        
+        Returns
+        -------
+        int:
+            The number of times the given value is found in the
+            CircularLinkedList() instance. And 0 if it wasn't found.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> cll.count(3)
+        1
+        >>> cll.count(1)
+        2
+        >>> cll.count("he")
+        0
+        """
+        return super().count(value)
+    
+
     
