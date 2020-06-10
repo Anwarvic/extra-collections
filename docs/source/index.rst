@@ -10,4 +10,5 @@ extra-collections's documentation!
 
    linked_list
    doubly_linked_list
+   circular_linked_list
 
