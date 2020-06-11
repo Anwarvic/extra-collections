@@ -158,6 +158,35 @@ class Stack(Extra):
         return len(self._container)
 
 
+    def is_empty(self):
+        """
+        Checks if Stack() instance is empty or not in time-complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Stack() instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's not
+            empty.
+        
+        Example
+        --------
+        >>> s = Stack()
+        >>> s.is_empty()
+        True
+        >>> s.push(5)
+        >>> s.is_empty()
+        False
+        """
+        return len(self._container) == 0
+    
+
+    def is_full(self):
+        """Checks if the stack is at full capacity"""
+        return len(self) == self._max_capacity
+
+
+
     ##############################      PUSH      ##############################
     def push(self, item):
         """
@@ -306,16 +335,5 @@ class Stack(Extra):
         as before.
         """
         self.__init__(max_capacity=self._max_capacity)
-
-
-    #############################      STATUS      #############################
-    def is_empty(self):
-        """Checks if the stack is empty"""
-        return len(self._container) == 0
-    
-
-    def is_full(self):
-        """Checks if the stack is at full capacity"""
-        return len(self) == self._max_capacity
 
 
