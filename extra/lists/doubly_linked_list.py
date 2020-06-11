@@ -344,6 +344,26 @@ class DoublyLinkedList(LinkedList):
         return top_border, middle_border, lower_border
 
 
+    def __repr__(self):
+        """
+        Represents the DoublyLinkedList() instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `DoublyLinkedList()` instance.
+        
+        Example
+        -------
+        >>> dll = DoublyLinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> dll
+         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        ⟷│ 20 │⟷│ 77 │⟷│ 10 │⟷│ 6 │⟷│ 2 │⟷
+         └────┘ └────┘ └────┘ └───┘ └───┘ 
+        """
+        return super().__repr__()
+
+
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
@@ -517,7 +537,7 @@ class DoublyLinkedList(LinkedList):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
+            1. If the other instance isn't a DoublyLinkedList() instance.
             2. In case one element in the first instance doesn't match the \
                 type of the opposing element in the other instance.
 
@@ -810,7 +830,7 @@ class DoublyLinkedList(LinkedList):
         ----------
         idx: int or slice
             The index (multiple indices) to be used to retrieve values from the
-            LinkedList() instance.
+            DoublyLinkedList() instance.
         
         Returns
         -------
@@ -1257,8 +1277,8 @@ class DoublyLinkedList(LinkedList):
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 3 │⟷│ 2 │⟷│ 2 │⟷
          └───┘ └───┘ └───┘ └───┘ 
-        >>> dll._remove_value(10) #does nothing
-        >>> dll._remove_value(2, True)
+        >>> dll.remove(10) #does nothing
+        >>> dll.remove(2)
         >>> dll
          ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 3 │⟷
@@ -1289,7 +1309,7 @@ class DoublyLinkedList(LinkedList):
         super().clear()
     
 
-    ##############################      SPLIT      ##############################
+    ##############################      SPLIT     ##############################
     def split(self, idx):
         """
         Splits the DoublyLinkedList() instance into two instances based on the
@@ -1326,7 +1346,7 @@ class DoublyLinkedList(LinkedList):
          ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └───┘ └───┘ 
-        >>> left, right = dll._split(1)
+        >>> left, right = dll.split(1)
         >>> left
          ┌───┐ 
         ⟷│ 1 │⟷
