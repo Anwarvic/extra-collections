@@ -236,7 +236,36 @@ class Stack(Extra):
 
     ############################# REMOVE #############################
     def pop(self):
-        """Pops item from the stack"""
+        """
+        Pops the top item from the Stack().
+        
+        Returns
+        -------
+        object:
+            The Stack() instance's top item.
+        
+        Raises
+        ------
+        UserWarning: If the Stack() instance is empty!!
+
+        Example
+        -------
+        >>> s = Stack()
+        >>> s.pop()
+        UserWarning: Popping from empty `extra.Stack()`!!
+        >>> s.push(10)
+        >>> s.push(20)
+        >>> s
+        ┌────┬────┬─
+        │ 10 │ 20 │ 
+        └────┴────┴─
+        >>> s.pop()
+        20
+        >>> s
+        ┌────┬─
+        │ 10 │
+        └────┴─
+        """
         if self.is_empty():
             warnings.warn(
                 f"Popping from empty `{self.__name__}`!!",
