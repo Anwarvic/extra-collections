@@ -99,7 +99,24 @@ class Stack(Extra):
 
     ############################## PRINT ##############################
     def __repr__(self):
-        """Represents the stack as a string."""
+        """
+        Represents the Stack() instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `Stack()` instance.
+        
+        Example
+        -------
+        >>> s = Stack()
+        >>> s.push(10)
+        >>> s.push(20)
+        >>> s
+        ┌────┬────┬─
+        │ 10 │ 20 │ 
+        └────┴────┴─
+        """
         top_border    = '┌'
         middle_border = '│'
         down_border   = '└'
