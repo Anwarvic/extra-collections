@@ -135,7 +135,26 @@ class Stack(Extra):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
-        """Gets the length of the stack with complexity of O(1)"""
+        """
+        Gets the length of the Stack() instance in time-complexity of O(1).
+
+        Returns
+        -------
+        int:
+            The length of the Stack() instance. By Length, I mean the
+            number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> s = Stack()
+        >>> len(s)
+        0
+        >>> s.puah(1)
+        >>> s.push(2)
+        >>> s.push(3)
+        >>> len(s)
+        3
+        """
         return len(self._container)
 
 
