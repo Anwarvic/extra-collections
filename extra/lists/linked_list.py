@@ -42,7 +42,7 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the list is greater than or equal the other  | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the list is greater than or equal the other. | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -472,7 +472,18 @@ class LinkedList(Extra):
 
     
     def __repr__(self):
-        """Represents the linked list as a string like so:
+        """
+        Represents the linked list as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `LinkedList()` instance.
+        
+        Example
+        -------
+        >>> ll = LinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> ll
         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶
         └────┘ └────┘ └────┘ └───┘ └───┘ 
@@ -1802,8 +1813,8 @@ class LinkedList(Extra):
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶
         └───┘ └───┘ └───┘ └───┘ 
-        >>> ll._remove_value(10) #does nothing
-        >>> ll._remove_value(2, True)
+        >>> ll.remove(10) #does nothing
+        >>> ll.remove(2)
         >>> ll
         ┌───┐ ┌───┐ 
         │ 1 │⟶│ 3 │⟶
@@ -1938,7 +1949,7 @@ class LinkedList(Extra):
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └───┘ └───┘ 
-        >>> left, right = ll._split(1)
+        >>> left, right = ll.split(1)
         >>> left
         ┌───┐ 
         │ 1 │⟶
