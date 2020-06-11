@@ -45,17 +45,56 @@ class Stack(Extra):
 
     
     def __init__(self, max_capacity=float("inf")):
+        """
+        Creates a Stack() object!!
+        
+        Parameters
+        ----------
+        max_capacity: int
+            It's a positive integer representing the maximum number of elements
+            a Stack() should contain (Default: inf).
+        
+        Raises
+        ------
+        TypeError: If the type of `max_capacity` isn't `int` or `float`.
+        ValueError: If the given value of `max_capacity` is less than zero.
 
+        Example
+        -------
+        >>> s = Stack()
+        >>> type(s)
+        <class 'extra.lists.stack.Stack'>
+        >>> s._max_capacity
+        inf
+
+        You can define the maximum capacity for your own instance:
+
+        >>> s = Stack(10)
+        >>> s._max_capacity
+        10
+
+        Note
+        ----
+        If you passed a `float` number as the maximum capacity, then the value
+        that get assigned is the rounding of that number:
+
+        >>> s = Stack(10.6)
+        >>> s._max_capacity
+        11
+        """
         if type(max_capacity) not in {int, float}:
             raise TypeError(
                 f"Max Capacity `{self.__name__}` has to be a number!!"
             )
         elif max_capacity < 0:
             raise ValueError(
-                f"Max capacity of `{self.__name__}` must be >= 0"
+                f"Max capacity of `{self.__name__}` has to be >= 0"
             )
         self._container = []
-        self._max_capacity = max_capacity
+        
+        self._max_capacity = round(max_capacity) \
+            if max_capacity != float("inf") \
+            else max_capacity
 
 
     ############################## PRINT ##############################
@@ -127,6 +166,6 @@ class Stack(Extra):
 
     def is_full(self):
         """Checks if the stack is at full capacity"""
-        return len(self) >= self._max_capacity
+        return len(self) == self._max_capacity
 
 
