@@ -182,7 +182,29 @@ class Stack(Extra):
     
 
     def is_full(self):
-        """Checks if the stack is at full capacity"""
+        """
+        Checks if Stack() instance is at full-capacity in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Stack() instance is full or not.
+            `True` shows that this instance is full and `False` shows it's not
+            full.
+        
+        Example
+        --------
+        >>> s = Stack(max_capacity=2)
+        >>> s.is_full()
+        False
+        >>> s.push(5)
+        >>> s.is_full()
+        True
+        >>> s.push(10)
+        >>> s.is_full()
+        True
+        """
         return len(self) == self._max_capacity
 
 
