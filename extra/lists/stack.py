@@ -1,3 +1,38 @@
+"""
+A stack is the simplest linear data structure where objects that are inserted
+and removed according to the last-in, first-out (LIFO) principle. A user may
+insert objects into a stack at any time, but may only access or remove the most
+recently inserted object that remains at, the so-called, **top** of the stack.
+
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+- **k** is the value of a parameter.
+
++------------+--------------------------------------------+-------------+-------------+
+| Method     | Description                                | Worst-case  | Optimal     |
++============+============================================+=============+=============+
+| __len__()  | Returns the number of values in the stack. | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| push()     | Adds new value to the top of the stack.    | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| pop()      | Adds the value from the top of the stack.  | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| peek()     | Returns the value at the top of the stack. | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| clear()    | Clears the stack.                          | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_empty() | Checks if the stack is empty.              | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_full()  | Checks if the stack is full.               | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+"""
 import warnings
 from extra.interface import Extra
 
@@ -6,17 +41,19 @@ from extra.interface import Extra
 
 class Stack(Extra):
     """Basic object for the Stack data structure"""
-    def __name__(self):
-        return "extra.Stack()"
+    __name__ = "extra.Stack()"
 
     
     def __init__(self, max_capacity=float("inf")):
+
         if type(max_capacity) not in {int, float}:
-            raise TypeError(\
-                f"Max Capacity {self.__name__()} has to be a number!!")
+            raise TypeError(
+                f"Max Capacity `{self.__name__}` has to be a number!!"
+            )
         elif max_capacity < 0:
-            raise ValueError(\
-                f"Max capacity of {self.__name__()} must be >= 0")
+            raise ValueError(
+                f"Max capacity of `{self.__name__}` must be >= 0"
+            )
         self._container = []
         self._max_capacity = max_capacity
 
@@ -51,7 +88,7 @@ class Stack(Extra):
         """Pushs item to the stack"""
         if self.is_full():
             raise OverflowError(\
-                f"Stackoverflow! Can't push into a full {self.__name__()}!")
+                f"Stackoverflow! Can't push into a full `{self.__name__}`!!")
         super()._validate_item(item)
         self._container.append(item)
 
@@ -60,7 +97,7 @@ class Stack(Extra):
     def peek(self):
         """Returns the top item from the stack"""
         if self.is_empty():
-            raise IndexError(f"Can't peek from an empty {self.__name__()}!!")
+            raise IndexError(f"Can't peek from an empty `{self.__name__}`!!")
         return self._container[-1]
 
 
@@ -68,7 +105,10 @@ class Stack(Extra):
     def pop(self):
         """Pops item from the stack"""
         if self.is_empty():
-            warnings.warn(f"Popping from empty {self.__name__()}!!", UserWarning)
+            warnings.warn(
+                f"Popping from empty `{self.__name__}`!!",
+                UserWarning
+            )
             return
         else:
             return self._container.pop()
