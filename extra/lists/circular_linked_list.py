@@ -197,12 +197,23 @@ class CircularLinkedList(LinkedList):
 
     ##############################      PRINT     ##############################
     def __repr__(self):
-        """Represents the Circular linked list as a string
-        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
-        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶│ 6 │⟶│ 7 │⟶ ┐
-        └───┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘  │
-          ↑                                        │
-          └────────────────────────────────────────┘
+        """
+        Represents the CircularLinkedList instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `CircularLinkedList()` instance.
+        
+        Example
+        -------
+        >>> cll = CircularLinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> cll
+        ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ ┐
+        └────┘ └────┘ └────┘ └───┘ └───┘  │
+           ↑                              │
+           └──────────────────────────────┘
         """
         if super().is_empty():
             return super()._print_empty_linked_list()
