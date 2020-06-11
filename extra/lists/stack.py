@@ -203,7 +203,32 @@ class Stack(Extra):
 
     ############################## PEEK ###############################
     def peek(self):
-        """Returns the top item from the stack"""
+        """
+        Returns the top item from the Stack() instance.
+
+        Returns
+        -------
+        object:
+            The Stack() instance's top item.
+        
+        Raises
+        ------
+        IndexError: If the Stack() instance is empty!!
+
+        Example
+        -------
+        >>> s = Stack()
+        >>> s.peek()
+        IndexError: Can't peek from an empty `extra.Stack()`!!
+        >>> s.push(10)
+        >>> s.push(20)
+        >>> s
+        ┌────┬────┬─
+        │ 10 │ 20 │ 
+        └────┴────┴─
+        >>> s.peek()
+        20
+        """
         if self.is_empty():
             raise IndexError(f"Can't peek from an empty `{self.__name__}`!!")
         return self._container[-1]
