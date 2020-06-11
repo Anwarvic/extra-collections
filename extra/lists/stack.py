@@ -160,10 +160,43 @@ class Stack(Extra):
 
     ##############################      PUSH     ###############################
     def push(self, item):
-        """Pushs item to the stack"""
+        """
+        Pushs the given `item` to the Stack(). This item will be at the top of
+        the Stack() instance.
+
+        Parameters
+        ----------
+        item: object
+            The python object to be pushed to the Stack().
+        
+        Raises
+        ------
+        OverflowError: If the Stack() instance was full!! By "full", I mean \
+            the number of items in the Stack() equals to the assigned maximum
+            capacity.
+        ValueError: If the given `item` is `None`.
+        TypeError: If the given `item` is an `Extra` object.
+
+        Example
+        -------
+        >>> s = Stack(max_capactity=2)
+        >>> s
+        ┌─
+        │ 
+        └─
+        >>> s.push(1)
+        >>> s.push(2)
+        >>> s
+        ┌───┬───┬─
+        │ 1 │ 2 │ 
+        └───┴───┴─
+        >>> s.push(3)
+        OverflowError: Stackoverflow! Can't push into a full `extra.Stack()`!!
+        """
         if self.is_full():
-            raise OverflowError(\
-                f"Stackoverflow! Can't push into a full `{self.__name__}`!!")
+            raise OverflowError(
+                f"Stackoverflow! Can't push into a full `{self.__name__}`!!"
+            )
         super()._validate_item(item)
         self._container.append(item)
 
