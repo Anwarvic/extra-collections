@@ -97,7 +97,7 @@ class Stack(Extra):
             else max_capacity
 
 
-    ############################## PRINT ##############################
+    ##############################     PRINT      ##############################
     def __repr__(self):
         """
         Represents the Stack() instance as a string.
@@ -158,11 +158,11 @@ class Stack(Extra):
         return len(self._container)
 
 
-    ##############################      PUSH     ###############################
+    ##############################      PUSH      ##############################
     def push(self, item):
         """
-        Pushs the given `item` to the Stack(). This item will be at the top of
-        the Stack() instance.
+        Pushs the given `item` to the Stack() in time-complexity of O(1). This
+        item will be at the top of the Stack() instance.
 
         Parameters
         ----------
@@ -201,10 +201,11 @@ class Stack(Extra):
         self._container.append(item)
 
 
-    ############################## PEEK ###############################
+    ##############################      PEEK      ##############################
     def peek(self):
         """
-        Returns the top item from the Stack() instance.
+        Returns the top item from the Stack() instance in time-complexity of
+        O(1).
 
         Returns
         -------
@@ -234,10 +235,10 @@ class Stack(Extra):
         return self._container[-1]
 
 
-    ############################# REMOVE #############################
+    ##############################     REMOVE     ##############################
     def pop(self):
         """
-        Pops the top item from the Stack().
+        Pops the top item from the Stack() in time-complexity of O(1).
         
         Returns
         -------
@@ -277,11 +278,37 @@ class Stack(Extra):
 
 
     def clear(self):
-        """Clears the stack"""
+        """
+        Removes all objects within the Stack() instance in time-complexity of
+        O(1).
+
+        Example
+        -------
+        >>> s = Stack()
+        >>> s.push(1)
+        >>> s.push(2)
+        >>> s.push(3)
+        ┌───┬───┬───┬─
+        │ 1 │ 2 │ 3 │ 
+        └───┴───┴───┴─
+        >>> len(s)
+        3
+        >>> s.clear()
+        >>> s
+        ┌─
+        │
+        └─
+        >>> len(s)
+
+        Note
+        ----
+        When you clear the Stack() instance, the max capacity remains the same
+        as before.
+        """
         self.__init__(max_capacity=self._max_capacity)
 
 
-    ############################# STATUS #############################
+    #############################      STATUS      #############################
     def is_empty(self):
         """Checks if the stack is empty"""
         return len(self._container) == 0
