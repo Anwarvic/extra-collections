@@ -108,7 +108,7 @@ class Queue(Extra):
         ----------
         direction_char: str
             A character that shows the direction when needed. A space character
-            shows that there's no direction. (Default: ' ')
+            shows that there'q no direction. (Default: ' ')
         
         Returns
         -------
@@ -175,7 +175,26 @@ class Queue(Extra):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
-        """Gets the length of the linked list with complexity of O(1)"""
+        """
+        Gets the length of the Queue() instance in time-complexity of O(1).
+
+        Returns
+        -------
+        int:
+            The length of the Queue() instance. By Length, I mean the
+            number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> q = Queue()
+        >>> len(q)
+        0
+        >>> q.enqueue(1)
+        >>> q.enqueue(2)
+        >>> q.enqueue(3)
+        >>> len(q)
+        3
+        """
         return len(self._container)
 
 
