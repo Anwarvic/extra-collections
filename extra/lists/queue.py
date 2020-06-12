@@ -222,6 +222,29 @@ class Queue(Extra):
 
 
     def is_full(self):
+        """
+        Checks if Queue() instance is at full-capacity in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Queue() instance is full or not.
+            `True` shows that this instance is full and `False` shows it'q not
+            full.
+        
+        Example
+        --------
+        >>> q = Queue(max_capacity=2)
+        >>> q.is_full()
+        False
+        >>> q.enqueue(5)
+        >>> q.is_full()
+        True
+        >>> q.enqueue(10)
+        >>> q.is_full()
+        True
+        """
         return len(self) == self._max_capacity
     
 
