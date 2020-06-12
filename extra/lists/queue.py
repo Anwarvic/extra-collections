@@ -1,3 +1,40 @@
+"""
+A queue is a close cousin of the queue, as a queue is a collection of objects
+that are inserted and removed according to the first-in, first-out (FIFO)
+principle. That is, elements can be inserted at any time,
+but only the element that has been in the queue the longest can be next removed.
+We usually say that elements enter a queue at the back and are removed from
+the front.
+
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+- **k** is the value of a parameter.
+
++------------+--------------------------------------------+-------------+-------------+
+| Method     | Description                                | Worst-case  | Optimal     |
++============+============================================+=============+=============+
+| __len__()  | Returns the number of values in the queue. | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| enqueue()  | Adds new value to the top of the queue.    | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| dequeue()  | Adds the value from the top of the queue.  | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| top()      | Returns the value at the top of the queue. | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| clear()    | Clears the queue.                          | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_empty() | Checks if the queue is empty.              | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_full()  | Checks if the queue is full.               | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+"""
 import warnings
 from extra.interface import Extra
 from extra.lists.doubly_linked_list import DoublyLinkedList
