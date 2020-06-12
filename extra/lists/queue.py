@@ -198,53 +198,76 @@ class Queue(Extra):
         return len(self._container)
 
 
-    ##############################      GET     ################################
-    def top(self):
-        """Returns the Qeueu head (first element to be inserted) """
-        if self.is_empty():
-            raise IndexError(\
-                f"Can't retrieve from an empty `{self.__name__}`!!")
-        return self._container._tail.get_data()
+    def is_empty(self):
+        """
+        Checks if Queue() instance is empty or not in time-complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Queue() instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's not
+            empty.
+        
+        Example
+        --------
+        >>> q = Queue()
+        >>> q.is_empty()
+        True
+        >>> q.enqueue(5)
+        >>> q.is_empty()
+        False
+        """
+        return self._container.is_empty()
 
+
+    def is_full(self):
+        return len(self) == self._max_capacity
+    
 
     ##############################     ENQUEUE    ##############################
     def _enqueue(self, item):
-        assert item is not None
+        assert item is not None and not isinstance (item, Extra)
         if self.is_full():
-            warnings.warn(f"Enqueuing to a full `{self.__name__}` "+\
-                "could lead to missing values!!", UserWarning)
+            warnings.warn(
+                f"Enqueuing to a full `{self.__name__}` " +
+                "could lead to missing values!!",
+                UserWarning
+            )
             self._container.remove_end()
         return self._container._insert(0, item)
 
 
     def enqueue(self, item):
-        """Insert value into the Queue"""
         super()._validate_item(item)
         self._enqueue(item)
 
 
+    ##############################      TOP     ################################
+    def top(self):
+        if self.is_empty():
+            raise IndexError(
+                f"Can't retrieve from an empty `{self.__name__}`!!"
+            )
+        return self._container._tail.get_data()
+
+
+
     ##############################    DEQUEUE     ##############################
     def dequeue(self):
-        """Removes value from the Queue (Queue'q head)"""
         if self.is_empty():
-            warnings.warn(f"Dequeuing from an empty `{self.__name__}`!!")
+            warnings.warn(
+                f"Dequeuing from an empty `{self.__name__}`!!",
+                UserWarning
+            )
             return
         else:
-            return self._container.remove_end().get_data()
+            tail_value = self._container._tail.get_data()
+            self._container.remove_end()
+            return tail_value
 
 
     def clear(self):
-        """Clears the whole Queue"""
         self.__init__(max_capacity=self._max_capacity)
-
-
-    ##############################     STATUS     ##############################
-    def is_empty(self):
-        """Checks if the Queue is empty"""
-        return self._container.is_empty()
-
-
-    def is_full(self):
-        return len(self) >= self._max_capacity
 
 
