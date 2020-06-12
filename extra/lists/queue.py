@@ -152,7 +152,24 @@ class Queue(Extra):
 
 
     def __repr__(self):
-        """Represents the queue as a string."""
+        """
+        Represents the Queue() instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `Queue()` instance.
+        
+        Example
+        -------
+        >>> q = Queue()
+        >>> q.enqueue(10)
+        >>> q.enqueue(20)
+        >>> q
+        ─┬────┬────┬─
+        ⟶│ 20 │ 10 │⟶
+        ─┴────┴────┴─
+        """
         return self._print_queue(direction_char='⟶')
 
 
