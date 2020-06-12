@@ -44,22 +44,94 @@ from extra.lists.doubly_linked_list import DoublyLinkedList
 
 class Queue(Extra):
     """Basic object for the Queue data structure"""
-    def __name__(self):
-        return "extra.Queue()"
+    __name__ = "extra.Queue()"
     
     
     def __init__(self, max_capacity=float("inf")):
+        """
+        Creates a Queue() object!!
+        
+        Parameters
+        ----------
+        max_capacity: int
+            It'q a positive integer representing the maximum number of elements
+            a Queue() should contain (Default: inf).
+        
+        Raises
+        ------
+        TypeError: If the type of `max_capacity` isn't `int` or `float`.
+        ValueError: If the given value of `max_capacity` is less than zero.
+
+        Example
+        -------
+        >>> q = Queue()
+        >>> type(q)
+        <class 'extra.lists.queue.Queue'>
+        >>> q._max_capacity
+        inf
+
+        You can define the maximum capacity for your own instance:
+
+        >>> q = Queue(10)
+        >>> q._max_capacity
+        10
+
+        Note
+        ----
+        If you passed a `float` number as the maximum capacity, then the value
+        that get assigned is the rounding of that number:
+
+        >>> q = Queue(10.6)
+        >>> q._max_capacity
+        11
+        """
         if type(max_capacity) not in {int, float}:
             raise TypeError(
-                f"Max Capacity of {self.__name__()} has to be a number!!")
+                f"Max Capacity of `{self.__name__}` has to be a number!!"
+            )
         elif max_capacity < 0:
-            raise ValueError(f"Max capacity of {self.__name__()} must be >= 0")
+            raise ValueError(
+                f"Max capacity of `{self.__name__}` has to be >= 0"
+            )
         self._container = DoublyLinkedList()
-        self._max_capacity = max_capacity
+        self._max_capacity = round(max_capacity) \
+            if max_capacity != float("inf") \
+            else max_capacity
 
 
     ##############################      PRINT     ##############################
     def _print_queue(self, direction_char=' '):
+        """
+        Represents the Queue() instance as a string.
+
+        Parameters
+        ----------
+        direction_char: str
+            A character that shows the direction when needed. A space character
+            shows that there's no direction. (Default: ' ')
+        
+        Returns
+        -------
+        str:
+            A string representing the content of the Queue() instance.
+        
+        Example
+        -------
+        >>> q = Queue()
+        >>> q.enqueue(10)
+        >>> q._print_queue()
+        ─┬────┬─
+         │ 10 │ 
+        ─┴────┴─
+        >>> q._print_queue('x')
+        ─┬────┬─
+        x│ 10 │x
+        ─┴────┴─
+        >>> q._print_queue('⟶')
+        ─┬────┬─
+        ⟶│ 10 │⟶
+        ─┴────┴─
+        """
         top_border = '─┬'
         middle_border = direction_char+'│'
         down_border = '─┴'
@@ -95,7 +167,7 @@ class Queue(Extra):
         """Returns the Qeueu head (first element to be inserted) """
         if self.is_empty():
             raise IndexError(\
-                f"Can't retrieve from an empty {self.__name__()}!!")
+                f"Can't retrieve from an empty `{self.__name__}`!!")
         return self._container._tail.get_data()
 
 
@@ -103,7 +175,7 @@ class Queue(Extra):
     def _enqueue(self, item):
         assert item is not None
         if self.is_full():
-            warnings.warn(f"Enqueuing to a full {self.__name__()} "+\
+            warnings.warn(f"Enqueuing to a full `{self.__name__}` "+\
                 "could lead to missing values!!", UserWarning)
             self._container.remove_end()
         return self._container._insert(0, item)
@@ -117,9 +189,9 @@ class Queue(Extra):
 
     ##############################    DEQUEUE     ##############################
     def dequeue(self):
-        """Removes value from the Queue (Queue's head)"""
+        """Removes value from the Queue (Queue'q head)"""
         if self.is_empty():
-            warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
+            warnings.warn(f"Dequeuing from an empty `{self.__name__}`!!")
             return
         else:
             return self._container.remove_end().get_data()
