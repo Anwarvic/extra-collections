@@ -421,6 +421,33 @@ class Queue(Extra):
 
 
     def clear(self):
+        """
+        Removes all objects within the Queue() instance in time-complexity of
+        O(1).
+
+        Example
+        -------
+        >>> q = Queue()
+        >>> q.enqueue(1)
+        >>> q.enqueue(2)
+        >>> q.enqueue(3)
+        ─┬───┬───┬───┬─
+        ⟶│ 3 │ 2 │ 1 │⟶
+        ─┴───┴───┴───┴─
+        >>> len(q)
+        3
+        >>> q.clear()
+        >>> q
+        ┌─
+        │
+        └─
+        >>> len(q)
+
+        Note
+        ----
+        When you clear the Queue() instance, the max capacity remains the same
+        as before.
+        """
         self.__init__(max_capacity=self._max_capacity)
 
 
