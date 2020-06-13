@@ -298,6 +298,42 @@ class Queue(Extra):
 
 
     def enqueue(self, item):
+        """
+        Inserts the given `item` to end of the Queue(), it does that in time-
+        complexity of O(1). 
+
+        Parameters
+        ----------
+        item: object
+            The python object to be pushed to the Queue().
+        
+        Raises
+        ------
+        UserWarning: If the Queue() instance was full!! By "full", I mean \
+            the number of items in the Queue() equals to the assigned maximum
+            capacity.
+        AssertionError: If the given `item` is `None` or an instance of `Extra`
+
+        Example
+        -------
+        >>> q = Queue(max_capactity=2)
+        >>> q
+        ┌─
+        │ 
+        └─
+        >>> q.enqueue(1)
+        >>> q.enqueue(2)
+        >>> q
+        ─┬───┬───┬─
+        ⟶│ 2 │ 1 │⟶
+        ─┴───┴───┴─
+        >>> q.enqueue(3)
+        UserWarning: Enqueuing to a full `extra.Queue()` could lead to missing values!!
+        >>> q
+        ─┬───┬───┬─
+        ⟶│ 3 │ 2 │⟶
+        ─┴───┴───┴─
+        """
         super()._validate_item(item)
         self._enqueue(item)
 
