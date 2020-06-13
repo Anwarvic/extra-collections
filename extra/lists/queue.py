@@ -377,6 +377,37 @@ class Queue(Extra):
 
     ##############################    DEQUEUE     ##############################
     def dequeue(self):
+        """
+        Pops the first inserted item from the Queue() in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        object:
+            The Queue() instance's first item.
+        
+        Raises
+        ------
+        UserWarning: If the Queue() instance is empty!!
+
+        Example
+        -------
+        >>> q = Queue()
+        >>> q.dequeue()
+        UserWarning: Popping from empty `extra.Queue()`!!
+        >>> q.enqueue(10)
+        >>> q.enqueue(20)
+        >>> q
+        ─┬────┬────┬─
+        ⟶│ 20 │ 10 │⟶
+        ─┴────┴────┴─
+        >>> q.dequeue()
+        10
+        >>> q
+        ─┬────┬─
+        ⟶│ 20 │⟶
+        ─┴────┴─
+        """
         if self.is_empty():
             warnings.warn(
                 f"Dequeuing from an empty `{self.__name__}`!!",
