@@ -340,6 +340,33 @@ class Queue(Extra):
 
     ##############################      TOP     ################################
     def top(self):
+        """
+        Returns the first item inserted to the Queue() instance in time-
+        complexity of O(1).
+
+        Returns
+        -------
+        object:
+            The Queue() instance's first inserted item.
+        
+        Raises
+        ------
+        IndexError: If the Queue() instance is empty!!
+
+        Example
+        -------
+        >>> q = Queue()
+        >>> q.top()
+        IndexError: Can't retrieve from an empty `extra.Queue()`!!
+        >>> q.enqueue(10)
+        >>> q.enqueue(20)
+        >>> q
+        ─┬────┬────┬─
+        ⟶│ 20 │ 10 │⟶
+        ─┴────┴────┴─
+        >>> q.top()
+        10
+        """
         if self.is_empty():
             raise IndexError(
                 f"Can't retrieve from an empty `{self.__name__}`!!"
