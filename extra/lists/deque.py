@@ -92,6 +92,24 @@ class Deque(Queue):
 
     ##############################      PRINT     ##############################
     def __repr__(self):
+        """
+        Represents the Deque() instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `Deque()` instance.
+        
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.append_left(10)
+        >>> dq.append_left(20)
+        >>> dq
+        ─┬────┬────┬─
+        ⟷│ 20 │ 10 │⟷
+        ─┴────┴────┴─
+        """
         return super()._print_queue('⟷')
     
 
