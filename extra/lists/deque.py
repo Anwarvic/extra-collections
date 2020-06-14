@@ -394,6 +394,37 @@ class Deque(Queue):
 
 
     def pop_right(self):
+        """
+        Pops the right-most inserted item from the Deque() in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        object:
+            The Deque() instance's right-most item.
+        
+        Raises
+        ------
+        UserWarning: If the Deque() instance is empty!!
+
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.dequeue()
+        UserWarning: Popping from empty `extra.Deque()`!!
+        >>> dq.append_right(10)
+        >>> dq.append_right(20)
+        >>> dq
+        ─┬────┬────┬─
+        ⟷│ 10 │ 20 │⟷
+        ─┴────┴────┴─
+        >>> dq.pop_right()
+        20
+        >>> dq
+        ─┬────┬─
+        ⟷│ 10 │⟷
+        ─┴────┴─
+        """
         return super().dequeue()
 
 
