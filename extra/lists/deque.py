@@ -190,6 +190,47 @@ class Deque(Queue):
     
     ##############################     APPEND     ##############################
     def append_left(self, item):
+        """
+        Inserts the given `item` to left-side of the Deque(), it does that in
+        time-complexity of O(1). 
+
+        Parameters
+        ----------
+        item: object
+            The python object to be pushed to the Deque().
+        
+        Raises
+        ------
+        UserWarning: If the Deque() instance was full!! By "full", I mean \
+            the number of items in the Deque() equals to the assigned maximum
+            capacity.
+        ValueError: If the given `item` is `None`.
+        TypeError: If the given `item` is an instance of `Extra`.
+
+        Example
+        -------
+        >>> dq = Deque(max_capactity=2)
+        >>> dq
+        ─┬
+        ⟷│
+        ─┴
+        >>> dq.append_left(1)
+        >>> dq.append_left(2)
+        >>> dq
+        ─┬───┬───┬─
+        ⟷│ 2 │ 1 │⟷
+        ─┴───┴───┴─
+        >>> dq.append_left(3)
+        UserWarning: Enqueuing to a full `extra.Deque()` could lead to missing values!!
+        >>> dq
+        ─┬───┬───┬─
+        ⟷│ 3 │ 2 │⟷
+        ─┴───┴───┴─
+
+        Note
+        ----
+        This method does the same job as `Queue().enqueue`.
+        """
         super().enqueue(item)
 
 
