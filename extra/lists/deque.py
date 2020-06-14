@@ -115,6 +115,26 @@ class Deque(Queue):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
+        """
+        Gets the length of the Deque() instance in time-complexity of O(1).
+
+        Returns
+        -------
+        int:
+            The length of the Deque() instance. By Length, I mean the
+            number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> dq = Deque()
+        >>> len(dq)
+        0
+        >>> dq.append_left(1)
+        >>> dq.append_right(2)
+        >>> dq.append_left(3)
+        >>> len(dq)
+        3
+        """
         return super().__len__()
 
 
