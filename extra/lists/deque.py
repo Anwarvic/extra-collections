@@ -162,6 +162,29 @@ class Deque(Queue):
 
 
     def is_full(self):
+        """
+        Checks if Deque() instance is at full-capacity in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Deque() instance is full or not.
+            `True` shows that this instance is full and `False` shows it'dq not
+            full.
+        
+        Example
+        --------
+        >>> dq = Deque(max_capacity=2)
+        >>> dq.is_full()
+        False
+        >>> dq.append_left(5)
+        >>> dq.is_full()
+        False
+        >>> dq.append_right(10)
+        >>> dq.is_full()
+        True
+        """
         return super().is_full()
 
     
