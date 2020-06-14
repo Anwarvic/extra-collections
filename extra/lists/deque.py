@@ -286,6 +286,33 @@ class Deque(Queue):
 
     #############################       GET       ##############################
     def get_left(self):
+        """
+        Returns the left-most item inserted to the Deque() instance in time-
+        complexity of O(1).
+
+        Returns
+        -------
+        object:
+            The Deque() instance's left-most inserted item.
+        
+        Raises
+        ------
+        IndexError: If the Deque() instance is empty!!
+
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.top()
+        IndexError: Can't retrieve from an empty `extra.Deque()`!!
+        >>> dq.append_left(10)
+        >>> dq.append_left(20)
+        >>> dq
+        ─┬────┬────┬─
+        ⟷│ 20 │ 10 │⟷
+        ─┴────┴────┴─
+        >>> dq.get_left()
+        20
+        """
         if self.is_empty():
             raise IndexError(
                 f"Can't retrieve from an empty `{self.__name__}`!!"
