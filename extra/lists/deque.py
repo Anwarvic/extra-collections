@@ -235,6 +235,43 @@ class Deque(Queue):
 
 
     def append_right(self, item):
+        """
+        Inserts the given `item` to right-side of the Deque(), it does that in
+        time-complexity of O(1). 
+
+        Parameters
+        ----------
+        item: object
+            The python object to be pushed to the Deque().
+        
+        Raises
+        ------
+        UserWarning: If the Deque() instance was full!! By "full", I mean \
+            the number of items in the Deque() equals to the assigned maximum
+            capacity.
+        ValueError: If the given `item` is `None`.
+        TypeError: If the given `item` is an instance of `Extra`.
+
+        Example
+        -------
+        >>> dq = Deque(max_capactity=2)
+        >>> dq
+        ─┬
+        ⟷│
+        ─┴
+        >>> dq.append_right(1)
+        >>> dq.append_right(2)
+        >>> dq
+        ─┬───┬───┬─
+        ⟷│ 1 │ 2 │⟷
+        ─┴───┴───┴─
+        >>> dq.append_right(3)
+        UserWarning: Enqueuing to a full `extra.Deque()` could lead to missing values!!
+        >>> dq
+        ─┬───┬───┬─
+        ⟷│ 2 │ 3 │⟷
+        ─┴───┴───┴─
+        """
         super()._validate_item(item)
         if self.is_full():
             warnings.warn(
