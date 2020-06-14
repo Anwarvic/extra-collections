@@ -139,6 +139,25 @@ class Deque(Queue):
 
 
     def is_empty(self):
+        """
+        Checks if Deque() instance is empty or not in time-complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Deque() instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's not
+            empty.
+        
+        Example
+        --------
+        >>> dq = Deque()
+        >>> dq.is_empty()
+        True
+        >>> dq.enqueue(5)
+        >>> dq.is_empty()
+        False
+        """
         return super().is_empty()
 
 
