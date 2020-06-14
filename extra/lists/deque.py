@@ -321,6 +321,33 @@ class Deque(Queue):
     
 
     def get_right(self):
+        """
+        Returns the right-most item inserted to the Deque() instance in time-
+        complexity of O(1).
+
+        Returns
+        -------
+        object:
+            The Deque() instance's right-most inserted item.
+        
+        Raises
+        ------
+        IndexError: If the Deque() instance is empty!!
+
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.top()
+        IndexError: Can't retrieve from an empty `extra.Deque()`!!
+        >>> dq.append_right(10)
+        >>> dq.append_right(20)
+        >>> dq
+        ─┬────┬────┬─
+        ⟷│ 10 │ 20 │⟷
+        ─┴────┴────┴─
+        >>> dq.get_right()
+        20
+        """
         return super().top()
 
 
