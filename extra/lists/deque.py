@@ -355,6 +355,37 @@ class Deque(Queue):
 
     ##############################       POP      ##############################
     def pop_left(self):
+        """
+        Pops the left-most inserted item from the Deque() in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        object:
+            The Deque() instance's left-most item.
+        
+        Raises
+        ------
+        UserWarning: If the Deque() instance is empty!!
+
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.dequeue()
+        UserWarning: Popping from empty `extra.Deque()`!!
+        >>> dq.append_left(10)
+        >>> dq.append_left(20)
+        >>> dq
+        ─┬────┬────┬─
+        ⟷│ 20 │ 10 │⟷
+        ─┴────┴────┴─
+        >>> dq.pop_left()
+        20
+        >>> dq
+        ─┬────┬─
+        ⟷│ 10 │⟷
+        ─┴────┴─
+        """
         if self.is_empty():
             warnings.warn(f"Dequeuing from an empty `{self.__name__}`!!")
             return
