@@ -429,6 +429,33 @@ class Deque(Queue):
 
 
     def clear(self):
+        """
+        Removes all objects within the Deque() instance in time-complexity of
+        O(1).
+
+        Example
+        -------
+        >>> dq = Deque()
+        >>> dq.append_right(1)
+        >>> dq.append_left(2)
+        >>> dq.append_right(3)
+        ─┬───┬───┬───┬─
+        ⟷│ 2 │ 1 │ 3 │⟷
+        ─┴───┴───┴───┴─
+        >>> len(dq)
+        3
+        >>> dq.clear()
+        >>> dq
+        ─┬
+        ⟷│
+        ─┴
+        >>> len(dq)
+
+        Note
+        ----
+        When you clear the Deque() instance, the max capacity remains the same
+        as before.
+        """
         super().clear()
 
 
