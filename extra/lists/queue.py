@@ -34,6 +34,12 @@ Generally, we are going to use the following indicators in the table:
 +------------+--------------------------------------------+-------------+-------------+
 | is_full()  | Checks if the queue is full.               | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `Queue()` objects:
 """
 import warnings
 from extra.interface import Extra
@@ -240,7 +246,7 @@ class Queue(Extra):
         False
         >>> q.enqueue(5)
         >>> q.is_full()
-        True
+        False
         >>> q.enqueue(10)
         >>> q.is_full()
         True
@@ -270,9 +276,9 @@ class Queue(Extra):
         -------
         >>> q = Queue(max_capactity=2)
         >>> q
-        ┌─
-        │ 
-        └─
+        ─┬
+        ⟶│
+        ─┴
         >>> q._enqueue(1)
         >>> q._enqueue(2)
         >>> q
@@ -312,15 +318,16 @@ class Queue(Extra):
         UserWarning: If the Queue() instance was full!! By "full", I mean \
             the number of items in the Queue() equals to the assigned maximum
             capacity.
-        AssertionError: If the given `item` is `None` or an instance of `Extra`
+        ValueError: If the given `item` is `None`.
+        TypeError: If the given `item` is an instance of `Extra`.
 
         Example
         -------
         >>> q = Queue(max_capactity=2)
         >>> q
-        ┌─
-        │ 
-        └─
+        ─┬
+        ⟶│
+        ─┴
         >>> q.enqueue(1)
         >>> q.enqueue(2)
         >>> q
@@ -438,9 +445,9 @@ class Queue(Extra):
         3
         >>> q.clear()
         >>> q
-        ┌─
-        │
-        └─
+        ─┬
+        ⟶│
+        ─┴
         >>> len(q)
 
         Note
