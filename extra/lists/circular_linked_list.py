@@ -85,7 +85,7 @@ Generally, we are going to use the following indicators in the table:
 
 Class Documentation
 ===================
-Here are all of the public methods that can be used with `Linked List()`
+Here are all of the public methods that can be used with `CircularLinkedList()`
 objects:
 """
 from extra.lists.linked_list import LinkedList
