@@ -38,6 +38,12 @@ Generally, we are going to use the following indicators in the table:
 +----------------+---------------------------------------------------+-------------+-------------+
 | is_full()      | Checks if the deque is full.                      | O(1)        | O(1)        |
 +----------------+---------------------------------------------------+-------------+-------------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `Deque()` objects:
 """
 import warnings
 from extra.lists.queue import Queue
