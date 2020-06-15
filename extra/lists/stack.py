@@ -32,6 +32,12 @@ Generally, we are going to use the following indicators in the table:
 +------------+--------------------------------------------+-------------+-------------+
 | is_full()  | Checks if the stack is full.               | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `Stack()` objects:
 """
 import warnings
 from extra.interface import Extra
@@ -91,7 +97,6 @@ class Stack(Extra):
                 f"Max capacity of `{self.__name__}` has to be >= 0"
             )
         self._container = []
-        
         self._max_capacity = round(max_capacity) \
             if max_capacity != float("inf") \
             else max_capacity
@@ -200,13 +205,12 @@ class Stack(Extra):
         False
         >>> s.push(5)
         >>> s.is_full()
-        True
+        False
         >>> s.push(10)
         >>> s.is_full()
         True
         """
         return len(self) == self._max_capacity
-
 
 
     ##############################      PUSH      ##############################
