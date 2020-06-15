@@ -86,8 +86,7 @@ Generally, we are going to use the following indicators in the table:
 
 Class Documentation
 ===================
-Here are all of the public methods that can be used with `Linked List()`
-objects:
+Here are all of the public methods that can be used with `LinkedList()` objects:
 """
 import warnings, operator
 from extra.interface import Extra
