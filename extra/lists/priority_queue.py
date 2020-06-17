@@ -105,6 +105,43 @@ class PriorityQueue(Queue):
 
 
     def __init__(self, max_capacity=float("inf")):
+        """
+        Creates a PriorityQueue() object!!
+        
+        Parameters
+        ----------
+        max_capacity: int
+            It's a positive integer representing the maximum number of elements
+            a PriorityQueue() should contain (Default: inf).
+        
+        Raises
+        ------
+        TypeError: If the type of `max_capacity` isn't `int` or `float`.
+        ValueError: If the given value of `max_capacity` is less than zero.
+
+        Example
+        -------
+        >>> pq = PriorityQueue()
+        >>> type(pq)
+        <class 'extra.lists.priority_queue.PriorityQueue'>
+        >>> pq._max_capacity
+        inf
+
+        You can define the maximum capacity for your own instance:
+
+        >>> pq = PriorityQueue(10)
+        >>> pq._max_capacity
+        10
+
+        Note
+        ----
+        If you passed a `float` number as the maximum capacity, then the value
+        that get assigned is the rounding of that number:
+
+        >>> pq = PriorityQueue(10.6)
+        >>> pq._max_capacity
+        11
+        """
         super().__init__(max_capacity)
         self._min_priority = float("inf")
         self._max_priority = float("-inf")
