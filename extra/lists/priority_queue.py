@@ -206,6 +206,26 @@ class PriorityQueue(Queue):
 
 
     def is_empty(self):
+        """
+        Checks if PriorityQueue() instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the PriorityQueue() instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> pq = PriorityQueue()
+        >>> pq.is_empty()
+        True
+        >>> pq.enqueue(5)
+        >>> pq.is_empty()
+        False
+        """
         return super().is_empty()
 
 
