@@ -258,6 +258,32 @@ class PriorityQueue(Queue):
 
     ##############################     ENQUEUE    ##############################
     def __validate_priority(self, new_priority):
+        """
+        Checks the validity of the given priority. It raises the appropriate
+        error when the priority value isn't valid and it returns nothing if the
+        priority value is valid.
+
+        Parameters
+        ----------
+        idx: int
+            The priority value.
+        
+        Raises
+        ------
+        TypeError: If the given priority value isn't a number.
+        
+        Examples
+        --------
+        >>> pq = PriorityQueue()
+        >>> pq.__validate_priority("10")
+        TypeError: Given priority has to be a number!!
+        
+        And it would return nothing if the given index if valid:
+
+        >>> pq.__validate_priority(10)
+        >>> pq.__validate_priority(-2)
+        >>> pq.__validate_priority(2.3)
+        """
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
     
