@@ -230,6 +230,29 @@ class PriorityQueue(Queue):
 
 
     def is_full(self):
+        """
+        Checks if PriorityQueue() instance is at full-capacity in time-
+        complexity of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the PriorityQueue() instance is full or
+            not. `True` shows that this instance is full and `False` shows it's
+            not full.
+        
+        Example
+        --------
+        >>> pq = PriorityQueue(max_capacity=2)
+        >>> pq.is_full()
+        False
+        >>> pq.enqueue(5)
+        >>> pq.is_full()
+        False
+        >>> pq.enqueue(10)
+        >>> pq.is_full()
+        True
+        """
         return super().is_full()
     
 
