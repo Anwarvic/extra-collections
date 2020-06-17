@@ -149,6 +149,33 @@ class PriorityQueue(Queue):
 
     ##############################      PRINT     ##############################
     def __repr__(self):
+        """
+        Represents the PriorityQueue() instance as a string.
+
+        Returns
+        -------
+        str:
+            The string-representation of the `PriorityQueue()` instance.
+        
+        Example
+        -------
+        >>> pq = PriorityQueue()
+        >>> pq.enqueue(10, priority=1)
+        >>> pq.enqueue(20, priority=5)
+        >>> pq
+        ─┬────┬────┬─
+        ⟶│ 20 │ 10 │⟶
+        ─┴────┴────┴─
+
+        You can show the priority of these items by enabling `SHOW_PRIOIRYT`
+        static variable:
+
+        >>> PriorityQueue.SHOW_PRIORITY = True
+        >>> pq
+        ─┬────────┬────────┬─
+        ⟶│ 20|P:5 │ 10|P:1 │⟶
+        ─┴────────┴────────┴─
+        """
         return super().__repr__()
     
 
