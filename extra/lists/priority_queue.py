@@ -181,6 +181,27 @@ class PriorityQueue(Queue):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
+        """
+        Gets the length of the PriorityQueue() instance in time-complexity of
+        O(1).
+
+        Returns
+        -------
+        int:
+            The length of the PriorityQueue() instance. By Length, I mean the
+            number of elements of in the instance.
+        
+        Examples
+        --------
+        >>> pq = PriorityQueue()
+        >>> len(pq)
+        0
+        >>> pq.enqueue(1)
+        >>> pq.enqueue(2)
+        >>> pq.enqueue(3)
+        >>> len(pq)
+        3
+        """
         return super().__len__()
 
 
