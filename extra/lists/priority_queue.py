@@ -289,6 +289,49 @@ class PriorityQueue(Queue):
     
 
     def enqueue(self, item, priority=None):
+        """
+        Inserts the given `item` to the end of the PriorityQueue(), it does that
+        in time-complexity of O(1). 
+
+        Parameters
+        ----------
+        item: object
+            The python object to be pushed to the PriorityQueue().
+        priority: int or float
+            The priority of the object. The higher this value is, the higher 
+            the object priority will be. If `priority=None`, then a random
+            integer number will be assigned.
+        
+        Raises
+        ------
+        UserWarning: If the PriorityQueue() instance was full!! By "full", I \
+            mean the number of items in the PriorityQueue() equals to the \
+            assigned maximum capacity.
+        ValueError: If the given `item` is `None`.
+        TypeError: It can be raised due to one of the following reasons:
+            1. If the given `item` is an instance of `Extra`.
+            2. If the given `priority` isn't a number.
+
+        Example
+        -------
+        >>> pq = PriorityQueue(max_capactity=2)
+        >>> pq
+        ─┬
+        ⟶│
+        ─┴
+        >>> pq.enqueue(1)
+        >>> pq.enqueue(2)
+        >>> pq
+        ─┬───┬───┬─
+        ⟶│ 2 │ 1 │⟶
+        ─┴───┴───┴─
+        >>> pq.enqueue(3)
+        UserWarning: Enqueuing to a full `extra.PriorityQueue()` could lead to missing values!!
+        >>> pq
+        ─┬───┬───┬─
+        ⟶│ 3 │ 2 │⟶
+        ─┴───┴───┴─
+        """
         super()._validate_item(item)
         self.__validate_priority(priority)
         node = PriorityNode(item, priority)
