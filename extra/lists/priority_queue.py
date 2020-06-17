@@ -1,10 +1,60 @@
 """
-PriorityQueue is a data structure which where every node has two values.
-    - Key: Contains any value as the standard Queue
-    - Priority: value that represents the priority
+A priority queue is a collection of prioritized elements that allows arbitrary
+element insertion, and allows the removal of the element that has the highest
+priority. When an element is added to a priority queue, the user designates its
+priority by providing an associated priority. The element with the minimum 
+priority will be the next to be removed from the queue.
 
-A priority node is represented like the following 0|P:45 where 0 is the key and 
-45 is the priority. The higher the number is, the more priority it has.
+In other words, a piority queue is data structure where each node contains two
+values:
+
+- **data**: The value inserted to the queue.
+- **priority**: A numeric value that indicates how important this object is. \
+    The bigger this numeric value is, the higher its priority in thq queue is.
+
+Note
+----
+The priority values are always hidden. If you want to see the priorty for each
+item in the PriorityQueue(), you can set the static variable `SHOW_PRIORITY` to
+`True` just like so:
+
+>>> PriorityQueue.SHOW_PRIORITY = True
+
+[image]
+
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+- **k** is the value of a parameter.
+
++------------+--------------------------------------------+-------------+-------------+
+| Method     | Description                                | Worst-case  | Optimal     |
++============+============================================+=============+=============+
+| __len__()  | Returns the number of values in the queue. | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| enqueue()  | Adds new value to the top of the queue.    | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| dequeue()  | Adds the value from the top of the queue.  | O(n)        | O(n)        |
++------------+--------------------------------------------+-------------+-------------+
+| top()      | Returns the value at the top of the queue. | O(n)        | O(n)        |
++------------+--------------------------------------------+-------------+-------------+
+| clear()    | Clears the queue.                          | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_empty() | Checks if the queue is empty.              | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+| is_full()  | Checks if the queue is full.               | O(1)        | O(1)        |
++------------+--------------------------------------------+-------------+-------------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `PriorityQueue()` objects:
 """
 import random
 import warnings
@@ -15,7 +65,7 @@ from extra.lists.queue import Queue
 
 
 class PriorityNode(DoublyNode):
-    """Basic object for item inside Priority Queue"""
+    """Basic object for item inside Priority PriorityQueue"""
     def __init__(self, key, priority=None):
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -49,19 +99,33 @@ class PriorityNode(DoublyNode):
 
 
 class PriorityQueue(Queue):
-    """Basic object for the Priority Queue data structure where highest priority
-    is zero."""
+    """Basic object for the Priority PriorityQueue data structure."""
     SHOW_PRIORITY = False
-
-
-    def __name__(self):
-        return "extra.PriorityQueue()"
+    __name__ = "extra.PriorityQueue()"
 
 
     def __init__(self, max_capacity=float("inf")):
         super().__init__(max_capacity)
         self._min_priority = float("inf")
         self._max_priority = float("-inf")
+    
+
+    ##############################      PRINT     ##############################
+    def __repr__(self):
+        return super().__repr__()
+    
+
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        return super().__len__()
+
+
+    def is_empty(self):
+        return super().is_empty()
+
+
+    def is_full(self):
+        return super().is_full()
     
 
     ##############################     ENQUEUE    ##############################
@@ -71,13 +135,17 @@ class PriorityQueue(Queue):
     
 
     def enqueue(self, item, priority=None):
-        """Insert value into the Priority Queue"""
         super()._validate_item(item)
         self.__validate_priority(priority)
         node = PriorityNode(item, priority)
         self._min_priority = min(self._min_priority, node.get_priority())
         self._max_priority = max(self._max_priority, node.get_priority())
         super()._enqueue(node)
+    
+
+    ##############################      TOP     ################################
+    def top(self):
+        return super().top()
     
 
     ##############################     DEQUEUE    ##############################
@@ -102,10 +170,12 @@ class PriorityQueue(Queue):
 
 
     def dequeue(self, lowest_priority=False):
-        """Removes the highest-priority value from the PriorityQueue"""
         if self.is_empty():
-            warnings.warn(f"Dequeuing from an empty {self.__name__()}!!")
-            return None
+            warnings.warn(
+                f"Dequeuing from an empty `{self.__name__}`!!",
+                UserWarning
+            )
+            return
         else:
             curr_node = self._container._head
             while(curr_node is not None):
@@ -125,5 +195,9 @@ class PriorityQueue(Queue):
                         break
                 curr_node = curr_node.get_next()
         return node_data
+
+
+    def clear(self):
+        super().clear()
 
 
