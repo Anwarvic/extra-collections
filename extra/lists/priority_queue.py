@@ -342,6 +342,33 @@ class PriorityQueue(Queue):
 
     ##############################      TOP     ################################
     def top(self):
+        """
+        Returns the first item inserted to the PriorityQueue() instance in time-
+        complexity of O(1).
+
+        Returns
+        -------
+        object:
+            The PriorityQueue() instance's first inserted item.
+        
+        Raises
+        ------
+        IndexError: If the PriorityQueue() instance is empty!!
+
+        Example
+        -------
+        >>> pq = PriorityQueue()
+        >>> pq.top()
+        IndexError: Can't retrieve from an empty `extra.PriorityQueue()`!!
+        >>> pq.enqueue(10)
+        >>> pq.enqueue(20)
+        >>> pq
+        ─┬────┬────┬─
+        ⟶│ 20 │ 10 │⟶
+        ─┴────┴────┴─
+        >>> pq.top()
+        10
+        """
         return super().top()
     
 
