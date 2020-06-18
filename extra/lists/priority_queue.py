@@ -466,6 +466,34 @@ class PriorityQueue(Queue):
 
 
     def clear(self):
+        """
+        Removes all objects within the PriorityQueue() instance in time-
+        complexity of O(1).
+
+        Example
+        -------
+        >>> pq = PriorityQueue()
+        >>> pq.enqueue(1)
+        >>> pq.enqueue(2)
+        >>> pq.enqueue(3)
+        ─┬───┬───┬───┬─
+        ⟶│ 3 │ 2 │ 1 │⟶
+        ─┴───┴───┴───┴─
+        >>> len(pq)
+        3
+        >>> pq.clear()
+        >>> pq
+        ─┬
+        ⟶│
+        ─┴
+        >>> len(pq)
+        0
+
+        Note
+        ----
+        When you clear the PriorityQueue() instance, the max capacity remains
+        the same as before.
+        """
         super().clear()
 
 
