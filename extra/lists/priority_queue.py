@@ -390,6 +390,12 @@ class PriorityQueue(Queue):
     
 
     def _update_max_priority(self):
+        """
+        Updates the value of `_max_priority` member variable by iterating over
+        the PriorityQueue() instance and assigns it to the highest priority. If
+        the PriorityQueue() is empty, then the value of `_max_priority` will be
+        `-inf`.
+        """
         self._max_priority = float("-inf")
         if not self.is_empty():
             curr_node = self._container._head
