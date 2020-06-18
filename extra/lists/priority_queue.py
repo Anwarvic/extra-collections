@@ -406,6 +406,38 @@ class PriorityQueue(Queue):
 
 
     def dequeue(self, lowest_priority=False):
+        """
+        Pops the item that has the highest priority from the PriorityQueue()
+        instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        object:
+            The item that has the highest priority in the PriorityQueue().
+        
+        Raises
+        ------
+        UserWarning: If the PriorityQueue() instance is empty!!
+
+        Example
+        -------
+        >>> pq = PriorityQueue()
+        >>> PriorityQueue.SHOW_PRIORITY = True
+        >>> pq.dequeue()
+        UserWarning: Dequeuing from empty `extra.PriorityQueue()`!!
+        >>> pq.enqueue(10, priority=0)
+        >>> pq.enqueue(20, prioirty=2)
+        >>> pq
+        ─┬────────┬────────┬─
+        ⟶│ 20|P:2 │ 10|P:0 │⟶
+        ─┴────────┴────────┴─
+        >>> pq.dequeue()
+        20
+        >>> pq
+        ─┬────────┬─
+        ⟶│ 10|P:0 │⟶
+        ─┴────────┴─
+        """
         if self.is_empty():
             warnings.warn(
                 f"Dequeuing from an empty `{self.__name__}`!!",
