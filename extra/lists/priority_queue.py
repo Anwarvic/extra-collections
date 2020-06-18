@@ -374,6 +374,12 @@ class PriorityQueue(Queue):
 
     ##############################     DEQUEUE    ##############################
     def _update_min_priority(self):
+        """
+        Updates the value of `_min_priority` member variable by iterating over
+        the PriorityQueue() instance and assigns it to the lowest priority. If
+        the PriorityQueue() is empty, then the value of `_min_priority` will be
+        `inf`.
+        """
         self._min_priority = float("inf")
         if not self.is_empty():
             curr_node = self._container._head
