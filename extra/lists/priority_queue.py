@@ -110,7 +110,20 @@ class PriorityNode(DoublyNode):
 
 
     def set_priority(self, new_priority):
-        assert type(new_priority) in {int, float}
+        """
+        Sets the priority of the current node with the new value.
+
+        Parameters
+        ----------
+        new_priority: int or float
+            The new priority of the node.
+
+        Raises
+        ------
+        TypeError: If the given priority isn't a number.
+        """
+        if type(new_priority) not in {int, float}:
+            raise TypeError("Given priority has to be a number!!")
         self._priority = new_priority
 
 
