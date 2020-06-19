@@ -354,7 +354,8 @@ class Stack(Extra):
         │
         └─
         >>> len(s)
-
+        0
+        
         Note
         ----
         When you clear the Stack() instance, the max capacity remains the same
