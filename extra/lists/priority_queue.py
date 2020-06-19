@@ -128,7 +128,20 @@ class PriorityNode(DoublyNode):
 
 
     def __repr__(self):
-        """Represents Node object as a string"""
+        """
+        Represents `PriorityNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `PriorityNode()` instance.
+        
+        Example
+        -------
+        >>> x = PriorityNode(10, priority=0)
+        >>> x
+        >>> PriorityNode(data: 10, priority:0)
+        """
         return f"PriorityNode(data: {self._data}, Priority: {self._priority})"
 
     
