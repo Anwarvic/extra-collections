@@ -10,7 +10,7 @@ values:
 
 - **data**: The value inserted to the queue.
 - **priority**: A numeric value that indicates how important this object is. \
-    The bigger this numeric value is, the higher its priority in thq queue is.
+    The bigger this numeric value is, the higher its priority in the queue is.
 
 Note
 ----
@@ -66,11 +66,33 @@ from extra.lists.queue import Queue
 
 class PriorityNode(DoublyNode):
     """Basic object for item inside Priority PriorityQueue"""
-    def __init__(self, key, priority=None):
+    __name__ = "extra.DoublyNode()"
+
+
+    def __init__(self, item, priority=None):
+        """
+        Creates a `PriorityNode()` object used mainly with PriorityQueue()
+        objects!!
+
+        Parameters
+        ----------
+        item: object
+            The value to be saved within the `DoublyNode()` instance.
+        priority: int or float
+            It is a numeric value that indicates how important this object is.
+            The bigger this numeric value is, the higher its priority in the
+            queue is. If `priority=None`, then a random integer number will be
+            assigned.
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item is an `Extra` object.
+        """
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
-        super()._validate_item(key)
-        super().__init__(key)
+        super()._validate_item(item)
+        super().__init__(item)
         self._priority = \
             random.randint(0, 100) if priority is None else priority
     
@@ -298,9 +320,10 @@ class PriorityQueue(Queue):
         item: object
             The python object to be pushed to the PriorityQueue().
         priority: int or float
-            The priority of the object. The higher this value is, the higher 
-            the object priority will be. If `priority=None`, then a random
-            integer number will be assigned.
+            The priority is a numeric value that indicates how important this
+            object is. The bigger this numeric value is, the higher its priority
+            in the queue is. If `priority=None`, then a random integer number
+            will be assigned.
         
         Raises
         ------
