@@ -459,8 +459,3 @@ class Queue(Extra):
         self.__init__(max_capacity=self._max_capacity)
 
 
-if __name__ == "__main__":
-    q = Queue(max_capacity=1)
-    q.enqueue(10)
-    q.enqueue(10)
-    print(q)

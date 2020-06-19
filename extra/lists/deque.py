@@ -357,8 +357,6 @@ class Deque(Queue):
         return super().top()
 
 
-
-
     ##############################       POP      ##############################
     def pop_left(self):
         """

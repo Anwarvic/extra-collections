@@ -125,13 +125,13 @@ class DoublyNode(Node):
         Returns
         -------
         str:
-            A string representing the `Node()` instance.
+            A string representing the `DoublyNode()` instance.
         
         Example
         -------
-        >>> x = Node(10)
+        >>> x = DoublyNode(10)
         >>> x
-        >>> Node(data: 10, next:None)
+        >>> Node(data: 10, prev: None, next: None)
         """
         prv = self._prev.get_data() if self._prev is not None else None
         nxt = self._next.get_data() if self._next is not None else None
