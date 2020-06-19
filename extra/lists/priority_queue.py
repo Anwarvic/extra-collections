@@ -98,6 +98,14 @@ class PriorityNode(DoublyNode):
     
 
     def get_priority(self):
+        """
+        Returns the priority of the current node.
+
+        Returns
+        -------
+        int or float:
+            The priority of the current node.
+        """
         return self._priority
 
 
