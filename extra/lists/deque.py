@@ -286,8 +286,8 @@ class Deque(Queue):
                 UserWarning
             )
             self._container.remove_front()
-        self._container._insert(len(self), item)
-
+        if self._max_capacity > 0:
+            self._container._insert(len(self), item)
 
 
     #############################       GET       ##############################
@@ -396,7 +396,9 @@ class Deque(Queue):
             warnings.warn(f"Dequeuing from an empty `{self.__name__}`!!")
             return
         else:
-            return self._container.remove_front().get_data()
+            head_value = self._container._head.get_data()
+            self._container.remove_front()
+            return head_value
 
 
     def pop_right(self):
@@ -456,6 +458,7 @@ class Deque(Queue):
         ⟷│
         ─┴
         >>> len(dq)
+        0
 
         Note
         ----

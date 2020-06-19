@@ -60,7 +60,7 @@ class Queue(Extra):
         Parameters
         ----------
         max_capacity: int
-            It'q a positive integer representing the maximum number of elements
+            It's a positive integer representing the maximum number of elements
             a Queue() should contain (Default: inf).
         
         Raises
@@ -114,7 +114,7 @@ class Queue(Extra):
         ----------
         direction_char: str
             A character that shows the direction when needed. A space character
-            shows that there'q no direction. (Default: ' ')
+            shows that there's no direction. (Default: ' ')
         
         Returns
         -------
@@ -236,7 +236,7 @@ class Queue(Extra):
         -------
         bool:
             A boolean flag showing if the Queue() instance is full or not.
-            `True` shows that this instance is full and `False` shows it'q not
+            `True` shows that this instance is full and `False` shows it's not
             full.
         
         Example
@@ -270,7 +270,7 @@ class Queue(Extra):
         UserWarning: If the Queue() instance was full!! By "full", I mean \
             the number of items in the Queue() equals to the assigned maximum
             capacity.
-        AssertionError: If the given `item` is `None` or an instance of `Extra`
+        AssertionError: If the given `item` is `None`
 
         Example
         -------
@@ -292,7 +292,7 @@ class Queue(Extra):
         ⟶│ 3 │ 2 │⟶
         ─┴───┴───┴─
         """
-        assert item is not None and not isinstance (item, Extra)
+        assert item is not None
         if self.is_full():
             warnings.warn(
                 f"Enqueuing to a full `{self.__name__}` " +
@@ -300,7 +300,8 @@ class Queue(Extra):
                 UserWarning
             )
             self._container.remove_end()
-        return self._container._insert(0, item)
+        if self._max_capacity > 0:
+            self._container._insert(0, item)
 
 
     def enqueue(self, item):
@@ -381,7 +382,6 @@ class Queue(Extra):
         return self._container._tail.get_data()
 
 
-
     ##############################    DEQUEUE     ##############################
     def dequeue(self):
         """
@@ -401,7 +401,7 @@ class Queue(Extra):
         -------
         >>> q = Queue()
         >>> q.dequeue()
-        UserWarning: Popping from empty `extra.Queue()`!!
+        UserWarning: Dequeuing from empty `extra.Queue()`!!
         >>> q.enqueue(10)
         >>> q.enqueue(20)
         >>> q
@@ -449,7 +449,8 @@ class Queue(Extra):
         ⟶│
         ─┴
         >>> len(q)
-
+        0
+        
         Note
         ----
         When you clear the Queue() instance, the max capacity remains the same
@@ -458,3 +459,8 @@ class Queue(Extra):
         self.__init__(max_capacity=self._max_capacity)
 
 
+if __name__ == "__main__":
+    q = Queue(max_capacity=1)
+    q.enqueue(10)
+    q.enqueue(10)
+    print(q)
