@@ -146,6 +146,31 @@ class PriorityNode(DoublyNode):
 
     
     def _represent(self):
+        """
+        A helpful function used to represent the node when printing!!
+        
+        Returns
+        -------
+        str:
+            A string representing the Node is a very simple way.
+        
+        Example
+        -------
+        >>> x = PriorityNode(10, priority=2)
+        >>> x
+        PriorityNode(data:10, priority:2)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+
+        And if we set the `SHOW_PRIORITY` static variable to `True`, it will 
+        look like this:
+        
+        >>> PriorityQueue.SHOW_PRIORITY = True
+        >>> x._represent()
+        10|P:2
+        """
         if PriorityQueue.SHOW_PRIORITY:
             return f"{self._data}|P:{self._priority}"
         else:
