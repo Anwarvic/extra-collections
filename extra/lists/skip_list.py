@@ -169,6 +169,18 @@ class SkipNode(Node):
     
 
     def set_down(self, other_node):
+        """
+        Sets the down pointer of the current `SkipNode()` to the given node.
+
+        Parameters
+        ----------
+        other_node: SkipNode()
+            The `SkipNode()` that will follow the current `SkipNode()`.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `SkipNode()` object.
+        """
         if not isinstance(other_node, SkipNode):
             raise TypeError(f"Given object has to be `{self.__name__}`!!")
         self._down = other_node
