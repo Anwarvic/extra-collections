@@ -105,10 +105,24 @@ def search_sorted(prev_node, start_node, value):
 
 
 class SkipNode(Node):
-    def __name__(self):
-        return "extra.SkipNode()"
+    """Basic object for the Node used for skip lists"""
+    __name__ = "extra.SkipNode()"
     
+
     def __init__(self, item):
+        """
+        Creates a `SkipNode()` object used mainly with SkipList() objects!!
+
+        Parameters
+        ----------
+        item: object 
+            The value to be saved within the `SkipNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item isn't a number.
+        """
         super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"`{self.__name__}` contains numbers only!!")
@@ -149,6 +163,7 @@ class SkipNode(Node):
 
 
 class SkipList(Extra):
+
     _basic_node = SkipNode
     __name__ = "extra.SkipList()"
     
