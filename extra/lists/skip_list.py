@@ -131,7 +131,20 @@ class SkipNode(Node):
     
 
     def __repr__(self):
-        """Represents Node object as a string"""
+        """
+        Represents `SkipNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `SkipNode()` instance.
+        
+        Example
+        -------
+        >>> x = SkipNode(10)
+        >>> x
+        >>> SkipNode(data: 10, next:None)
+        """
         if self._data == float("-inf"):
             data = "-∞"
         elif self._data == float("inf"):
