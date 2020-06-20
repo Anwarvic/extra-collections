@@ -155,15 +155,16 @@ class SkipNode(Node):
         return f"SkipNode(data: {data}, next: {nxt})"
 
 
-    def _represent(self):
-        if self._data == float("-inf"):
-            return "-∞"
-        elif self._data == float("inf"):
-            return "∞"
-        return super()._represent()
-
-
     def get_down(self):
+        """
+        Returns the down `SkipNode()` instance of the current one.
+
+        Returns
+        -------
+        Node():
+            The `SkipNode()` instance that is below the current `SkipNode()`
+            or `None` if there weren't any.
+        """
         return self._down
     
 
@@ -171,6 +172,14 @@ class SkipNode(Node):
         if not isinstance(other_node, SkipNode):
             raise TypeError(f"Given object has to be `{self.__name__}`!!")
         self._down = other_node
+
+
+    def _represent(self):
+        if self._data == float("-inf"):
+            return "-∞"
+        elif self._data == float("inf"):
+            return "∞"
+        return super()._represent()
 
 
 
