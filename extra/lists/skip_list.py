@@ -187,6 +187,24 @@ class SkipNode(Node):
 
 
     def _represent(self):
+        """
+        A helpful function used to represent the SkipNode() when printing!!
+        
+        Returns
+        -------
+        str:
+            A string representing the SkipNode() is a very simple way.
+        
+        Example
+        -------
+        >>> x = SkipNode(10)
+        >>> x
+        SkipNode(data:10, next:None)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+        """
         if self._data == float("-inf"):
             return "-∞"
         elif self._data == float("inf"):
