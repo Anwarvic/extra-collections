@@ -69,6 +69,29 @@ def flip_coin():
 
 
 def search_sorted(prev_node, start_node, value):
+    """
+    A helper function to search the SkipList() instance starting from a certain
+    node and searching for a certain value.
+
+    Parameters
+    ----------
+    prev_node: SkipNode()
+        A reference to the node that is previous to the `start_node`.
+    start_node: SkipNode()
+        A reference to the node at which the searching starts.
+    value: int or float
+        The number for which we started searching.
+    
+    Returns
+    -------
+    SkipNode()
+        A reference to the node previus to the node containing the value if the
+        value was found. If the value wasn't found, then this will be either 
+        `None` or the second last node in the skiplist.
+    SkipNode()
+        A reference to the node containg the value if the value was found. If 
+        the value wasn't found, then this will be the last node in the skiplist.
+    """
     # search a sorted linked list and return the last accessed node.
     curr_node = start_node
     next_node = curr_node.get_next()
