@@ -47,6 +47,24 @@ from extra.lists.linked_list import Node, LinkedList
 #helper functions
 random.seed(1)
 def flip_coin():
+    """
+    A helper function to mimic the action of flipping a coin. The result is
+    totally random,
+
+    Returns
+    -------
+    str:
+        Either "head" or "tail".
+    
+    Example
+    -------
+    >>> flip_coin()
+    'tail'
+    >>> flip_coin()
+    'head'
+    >>> flip_coin()
+    'head'
+    """
     return random.choice(['head','tail'])
 
 
