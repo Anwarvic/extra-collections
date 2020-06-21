@@ -39,7 +39,7 @@ we expect the height of the skip list to be about **log(n)**.
 """
 import random
 from extra.interface import Extra
-from extra.lists.linked_list import Node, SkipList
+from extra.lists.linked_list import Node, LinkedList
 
 
 
@@ -230,8 +230,8 @@ class SkipList(Extra):
         >>> type(ll)
         <class 'extra.lists.skip_list.SkipList'>
         """
-        #`level_lists` is an array of SkipList() objects
-        ll = SkipList()
+        #`level_lists` is an array of LinkedList() objects
+        ll = LinkedList()
         ll._insert_node(ll._head, self._basic_node(float("-inf")))
         self._level_lists = [ll]
         self._num_levels = 1
@@ -290,9 +290,9 @@ class SkipList(Extra):
         
         Using nested `SkipList` objects will raise `TypeError` as well
 
-        >>> ll_1 = LinkedList.from_iterable([1])
-        >>> ll_2 = SkipList.from_iterable([1, ll_1])
-        TypeError: Can't create `extra.SkipList()` using `extra.LinkedList()`!!
+        >>> sl_1 = SkipList.from_iterable([1])
+        >>> sl_2 = SkipList.from_iterable([1, sl_1])
+        TypeError: Can't create `extra.SkipList()` using `extra.SkipList()`!!
 
         Note
         -----
@@ -316,20 +316,44 @@ class SkipList(Extra):
     ##############################     PRINT      ##############################
     def __print_node(self, node, zeroth_node, lower_node):
         """
-        This private method is responsible for representing each node in the 
-        Skip List. To do its job, it needs to use two other nodes:
-        - zeroth_node: node of the 0th level of the Skip List where all nodes
-            are represented.
-        - lower_node: node of the lower level.
+        Prints the given node of the SkipList() instance.
+
+        Parameters
+        ----------
+        node: SkipNode()
+            The SkipNode() to be printed.
+        zeroth_node: SkipNode()
+            The SkipNode() of the lowest LinkedList (zeorth level) attached to
+            the given `node`.
+        lower_node: SkipNode()
+            The SkipNode() which is directly below the `node`.
+
+        Returns
+        -------
+        tuple
+            It returns a tuple of three strings representing the given node
+            when printed.
+        
+        Raises
+        ------
+        AssertionError: This can be raised in the following cases:
+            1. The `node` is not neither `None` nor an instance of SkipNode()
+            2. The `zeroth_node` is not neither `None` nor an instance of \
+                SkipNode()
+            3. The `lower_node` is not neither `None` nor an instance of \
+                SkipNode()
         """
+        assert node is None or isinstance(node, self._basic_node)
+        assert zeroth_node is None or isinstance(zeroth_node, self._basic_node)
+        assert lower_node is None or isinstance(lower_node, self._basic_node)
         middle = []
         bottom_border = []
         item = zeroth_node._represent()
         width = len(item)+2 #2: for a space before & after an item
-        if node != None and zeroth_node.get_data() == node.get_data():
-            bottom_border += ['└'] if lower_node == None else ['├']
+        if node is not None and zeroth_node.get_data() == node.get_data():
+            bottom_border += ['└'] if lower_node is None else ['├']
             bottom_border += (['─']*width)
-            bottom_border += ['┘ '] if lower_node == None else ['┤ ']
+            bottom_border += ['┘ '] if lower_node is None else ['┤ ']
             middle += [f"| {item} │⟶"]
         else:
             middle += [f"⟶{'⟶'*width}⟶⟶"]
@@ -475,13 +499,13 @@ class SkipList(Extra):
         IndexError: This happens in one of the following cases: 
             1. if the given index is a `slice` object while `accept_slice` \
                 flag is `False`.
-            2. If the given index is out of the SkipList() boundaries.
+            2. If the given index is out of the LinkedList() boundaries.
             3. If the given index is negative while `accept_negative` flag is \
                 `False`.
         
         Examples
         --------
-        >>> ll = SkipList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList.from_iterable([1, 2, 3])
         >>> ll._validate_index('1')
         TypeError: Given index must be an integer!!
         >>> ll._validate_index(-2)
@@ -552,7 +576,7 @@ class SkipList(Extra):
     ##############################     INSERT     ##############################
     def _add_extra_level(self):
         top_list = self._level_lists[self._num_levels-1]
-        new_llist = SkipList()
+        new_llist = LinkedList()
         new_llist._insert_node(new_llist._head, self._basic_node(float("-inf")))
         # connect the head of the new linked list to the lower linked list
         new_llist._head.set_down(top_list._head)
