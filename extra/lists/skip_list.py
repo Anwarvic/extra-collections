@@ -39,7 +39,7 @@ we expect the height of the skip list to be about **log(n)**.
 """
 import random
 from extra.interface import Extra
-from extra.lists.linked_list import Node, LinkedList
+from extra.lists.linked_list import Node, SkipList
 
 
 
@@ -230,86 +230,78 @@ class SkipList(Extra):
         >>> type(ll)
         <class 'extra.lists.skip_list.SkipList'>
         """
-        #`level_lists` is an array of LinkedList() objects
-        ll = LinkedList()
+        #`level_lists` is an array of SkipList() objects
+        ll = SkipList()
         ll._insert_node(ll._head, self._basic_node(float("-inf")))
         self._level_lists = [ll]
         self._num_levels = 1
-
-
-    def _validate_item(self, item):
-        """
-        Checks the validity of the given item. It raises the appropriate error
-        when the item isn't valid and it returns nothing if the item is valid.
-
-        Parameters
-        ----------
-        item: object
-        
-        Raises
-        ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item is not a number.      
-        """
-        super()._validate_item(item)
-        if type(item) not in {int, float}:
-            raise TypeError(f"`{self.__name__}` supports only numbers!!")
-        
-
-    def _validate_index(self, idx, accept_negative=False, accept_slice=False):
-        """
-        Checks the validity of the given index. It raises the appropriate error
-        when the index isn't valid and it returns nothing if the index is valid.
-
-        Parameters
-        ----------
-        idx: int
-            The index value.
-        accept_negative: bool
-            A flag to enable accepting negative indices, default `False`.
-        
-        Raises
-        ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. if the given index is a `slice` object while `accept_slice` \
-                flag is `False`.
-            2. If the given index is out of the LinkedList() boundaries.
-            3. If the given index is negative while `accept_negative` flag is \
-                `False`.
-        
-        Examples
-        --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
-        >>> ll._validate_index('1')
-        TypeError: Given index must be an integer!!
-        >>> ll._validate_index(-2)
-        IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> ll._validate_index(slice(0, 2))
-        IndexError: Slice indexing isn't supported with this functinoality!!
-        
-        And it would return nothing if the given index if valid:
-
-        >>> ll._validate_index(2)
-        >>> ll._validate_index(-2, accept_negative=True)
-        >>> ll._validate_index(slice(0, 2), accept_slice=True)
-        """
-        if isinstance(idx, slice):
-            if not accept_slice:
-                raise IndexError(
-                    "Slice indexing isn't supported with this functinoality!!"
-                )
-        if type(idx) != int:
-            raise TypeError("Given index must be an integer!")
-        elif idx <= -1 and accept_negative==False:
-            raise IndexError(\
-                "Negative indexing isn't supported with this functinoality!!")
-        elif idx < - len(self) or idx >= len(self):
-            raise IndexError("Can't find any element at the given index!!")
-
+    
 
     @classmethod
     def from_iterable(cls, iterable):
+        """
+        A class method which creates a SkipList() instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: any iterable object.
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        SkipList()
+            It returns a SkipList() instance with the same values in the same
+            order.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable isnot a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> sl = SkipList.from_iterable([10, -5, 7, 9])
+        >>> sl
+        ┌────┐                    ┌────┐ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ┌────┐             ├────┤ 
+        | -∞ │⟶| -5 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ├────┤ ┌───┐ ┌───┐ ├────┤ 
+        | -∞ │⟶| -5 │⟶| 7 │⟶| 9 │⟶| 10 │⟶
+        └────┘ └────┘ └───┘ └───┘ └────┘ 
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> sl = SkipList.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.SkipList()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> sl = SkipList.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `SkipList` objects will raise `TypeError` as well
+
+        >>> ll_1 = LinkedList.from_iterable([1])
+        >>> ll_2 = SkipList.from_iterable([1, ll_1])
+        TypeError: Can't create `extra.SkipList()` using `extra.LinkedList()`!!
+
+        Note
+        -----
+        Inserting values into different levels in the skip list is completely
+        random. So, running the previous example will return different values
+        each time you run it. So, in order to obtain the same result as before
+        you need to set `random.seed(1)` before running any of the previous 
+        example.
+        """
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         elif isinstance(iterable, cls):
@@ -446,6 +438,77 @@ class SkipList(Extra):
 
     
     ##############################     SEARCH     ##############################
+    def _validate_item(self, item):
+        """
+        Checks the validity of the given item. It raises the appropriate error
+        when the item isn't valid and it returns nothing if the item is valid.
+
+        Parameters
+        ----------
+        item: object
+        
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item is not a number.      
+        """
+        super()._validate_item(item)
+        if type(item) not in {int, float}:
+            raise TypeError(f"`{self.__name__}` supports only numbers!!")
+        
+
+    def _validate_index(self, idx, accept_negative=False, accept_slice=False):
+        """
+        Checks the validity of the given index. It raises the appropriate error
+        when the index isn't valid and it returns nothing if the index is valid.
+
+        Parameters
+        ----------
+        idx: int
+            The index value.
+        accept_negative: bool
+            A flag to enable accepting negative indices, default `False`.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: This happens in one of the following cases: 
+            1. if the given index is a `slice` object while `accept_slice` \
+                flag is `False`.
+            2. If the given index is out of the SkipList() boundaries.
+            3. If the given index is negative while `accept_negative` flag is \
+                `False`.
+        
+        Examples
+        --------
+        >>> ll = SkipList.from_iterable([1, 2, 3])
+        >>> ll._validate_index('1')
+        TypeError: Given index must be an integer!!
+        >>> ll._validate_index(-2)
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> ll._validate_index(slice(0, 2))
+        IndexError: Slice indexing isn't supported with this functinoality!!
+        
+        And it would return nothing if the given index if valid:
+
+        >>> ll._validate_index(2)
+        >>> ll._validate_index(-2, accept_negative=True)
+        >>> ll._validate_index(slice(0, 2), accept_slice=True)
+        """
+        if isinstance(idx, slice):
+            if not accept_slice:
+                raise IndexError(
+                    "Slice indexing isn't supported with this functinoality!!"
+                )
+        if type(idx) != int:
+            raise TypeError("Given index must be an integer!")
+        elif idx <= -1 and accept_negative==False:
+            raise IndexError(\
+                "Negative indexing isn't supported with this functinoality!!")
+        elif idx < - len(self) or idx >= len(self):
+            raise IndexError("Can't find any element at the given index!!")
+
+
     def _search(self, value):
         # returns the last accessed node when searching a certain value.
         assert type(value) in {int, float}
@@ -489,7 +552,7 @@ class SkipList(Extra):
     ##############################     INSERT     ##############################
     def _add_extra_level(self):
         top_list = self._level_lists[self._num_levels-1]
-        new_llist = LinkedList()
+        new_llist = SkipList()
         new_llist._insert_node(new_llist._head, self._basic_node(float("-inf")))
         # connect the head of the new linked list to the lower linked list
         new_llist._head.set_down(top_list._head)
