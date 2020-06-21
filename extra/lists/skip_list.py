@@ -215,17 +215,26 @@ class SkipNode(Node):
 
 
 class SkipList(Extra):
-
+    """Basic object for the skip list"""
     _basic_node = SkipNode
     __name__ = "extra.SkipList()"
     
     
     def __init__(self):
+        """
+        Creates a SkipList() object!!
+        
+        Example
+        -------
+        >>> ll = SkipList()
+        >>> type(ll)
+        <class 'extra.lists.skip_list.SkipList'>
+        """
+        #`level_lists` is an array of LinkedList() objects
+        ll = LinkedList()
+        ll._insert_node(ll._head, self._basic_node(float("-inf")))
+        self._level_lists = [ll]
         self._num_levels = 1
-        #`level_lists` is an array of LinkedList objects
-        tmp_ll = LinkedList()
-        tmp_ll._insert_node(tmp_ll._head, self._basic_node(float("-inf")))
-        self._level_lists = [tmp_ll]
 
 
     def _validate_item(self, item):
