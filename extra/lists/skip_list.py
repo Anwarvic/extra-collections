@@ -418,8 +418,11 @@ class SkipList(Extra):
 
     def __print_top_border(self):
         """
-        This method is only responsible for just one thing, to print out the 
-        top border of the Skip List.
+        Prints out the top border of the Skip List.
+
+        Returns:
+        str:
+            A one-line string representing the top-border of the SkipList()
         """
         lower_list = self._level_lists[0]
         top_list = self._level_lists[self._num_levels-1]
