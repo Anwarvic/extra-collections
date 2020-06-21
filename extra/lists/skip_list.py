@@ -446,17 +446,27 @@ class SkipList(Extra):
 
     def __repr__(self):
         """
-        The complexity of this method is O(n*l) where:
-            - n: is the number of nodes in the first list
-            - l: is the number of levels
-        Skip List is gonna look like this:
-        ┌────┐                     ┌───┐
-        │ -∞ │⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷⟷│ 2 │⟷
-        ├────┤        ┌────┐       ├───┤
-        │ -∞ │⟷⟷⟷⟷⟷⟷⟷⟷│ 10 │⟷⟷⟷⟷⟷⟷⟷│ 2 │⟷
-        ├────┤ ┌────┐ ├────┤ ┌───┐ ├───┤
-        │ -∞ │⟷│ 77 │⟷│ 10 │⟷│ 6 │⟷│ 2 │⟷
-        └────┘ └────┘ └────┘ └───┘ └───┘
+        Represents the linked list as a string. The time-complexity of this
+        method is O(n*h) where **n** is the number of nodes in the SkipList()
+        and **h** is the height of the SkipList().
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `SkipList()` instance.
+
+        Example
+        -------
+        >>> random.seed(1)
+        >>> sl = SkipList.from_iterable([20, 77, 10, 6, 2])
+        >>> sl
+        ┌────┐                    ┌────┐        
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 20 │⟶⟶⟶⟶⟶⟶⟶⟶
+        ├────┤                    ├────┤ ┌────┐ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 20 │⟶| 77 │⟶
+        ├────┤ ┌───┐ ┌───┐ ┌────┐ ├────┤ ├────┤ 
+        | -∞ │⟶| 2 │⟶| 6 │⟶| 10 │⟶| 20 │⟶| 77 │⟶
+        └────┘ └───┘ └───┘ └────┘ └────┘ └────┘ 
         """
         output = [self.__print_top_border()]
         output += [self.__print_level(level) \
