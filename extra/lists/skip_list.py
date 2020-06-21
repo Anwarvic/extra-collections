@@ -331,8 +331,9 @@ class SkipList(Extra):
         Returns
         -------
         tuple
-            It returns a tuple of three strings representing the given node
-            when printed.
+            It returns a tuple of two lists representing the given middle-part
+            and lower-part of the node when printed knowing that each node will
+            be printed in three lines in total.
         
         Raises
         ------
@@ -367,11 +368,28 @@ class SkipList(Extra):
 
     def __print_level(self, level):
         """
-        This private method is responsible for representing each level in the 
-        Skip List.
-        NOTE: I know this isn't the best way to do it, but that's what popped up
-        first into my mind.
+        Prints each level in the SkipList() instance.
+        
+        Parameters
+        ----------
+        level: int
+            A positive zero-indexed integer representing the level rank. The
+            lowest level of the SkipList() is zero.
+        
+        Returns
+        -------
+        str: 
+            A string representing a whole level in the SkipList() knowing that 
+            each level should be printed in three lines. This method returns the
+            lower & middle line.
+        
+        Raises
+        ------
+        AssertionError: In the following cases:
+            1. If the type of the given level isn't a level.
+            2. If the level index is bigger than the SkipList() height.
         """
+        assert type(level) == int
         assert level < self._num_levels
 
         zeroth_list = self._level_lists[0]
