@@ -238,6 +238,19 @@ class SkipList(Extra):
 
 
     def _validate_item(self, item):
+        """
+        Checks the validity of the given item. It raises the appropriate error
+        when the item isn't valid and it returns nothing if the item is valid.
+
+        Parameters
+        ----------
+        item: object
+        
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item is not a number.      
+        """
         super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"`{self.__name__}` supports only numbers!!")
