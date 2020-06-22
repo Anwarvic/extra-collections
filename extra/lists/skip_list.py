@@ -545,6 +545,25 @@ class SkipList(Extra):
 
     ##############################    ITERATOR    ##############################
     def __iter__(self):
+        """
+        Iterates over the SkipList() instance and returns a generator in 
+        time-complexity of O(n) where **n** is the number of elements in the 
+        SkipList() instance.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Examples
+        --------
+        >>> sl = SkipList.from_iterable([3, 1, 2])
+        >>> for item in sl:
+        ...     print(item)
+        1
+        2
+        3
+        """
         for item in self._level_lists[0][1:]:
             yield item
 
