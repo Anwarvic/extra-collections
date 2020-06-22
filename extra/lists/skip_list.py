@@ -499,6 +499,26 @@ class SkipList(Extra):
     
 
     def is_empty(self):
+        """
+        Checks if SkipList() instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the SkipList() instance is empty or
+            not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
+        
+        Example
+        --------
+        >>> ll = SkipList()
+        >>> ll.is_empty()
+        True
+        >>> ll.insert(5)
+        >>> ll.is_empty()
+        False
+        """
         return len(self) == 0
 
     ##############################     HEIGHT     ##############################
