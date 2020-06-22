@@ -521,9 +521,27 @@ class SkipList(Extra):
         """
         return len(self) == 0
 
+
     ##############################     HEIGHT     ##############################
     def get_height(self):
+        """
+        Gets the height of the SkipNode() instance. SkipNode() height is the 
+        number of levels where each level is a LinkedList() object.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> random.seed(1)
+        >>> sl = SkipList.from_iterable([20, 77, 10, 6, 2])
+        >>> sl.get_height()
+        3
+        """
         return self._num_levels
+
 
     ##############################    ITERATOR    ##############################
     def __iter__(self):
