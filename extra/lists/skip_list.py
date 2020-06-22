@@ -828,6 +828,24 @@ class SkipList(Extra):
     
     
     def _promote(self, upper_prev_node, curr_node, curr_level):
+        """
+        Promotes a node to the higher level. Promoting is done by copying the
+        node from (x)th level to the (x+1)th level.
+
+        Parameters
+        ----------
+        upper_prev_node: SkipNode()
+            The tail of the LinkedList() object in the above level.
+        curr_node: SkipNode()
+            The node to be promoted.
+        curr_level: int
+            The current level rank (level of the node before promoting).
+        
+        Returns
+        -------
+        SkipNode():
+            The SkipNode() object after being promoted in the higher level.
+        """
         assert isinstance(upper_prev_node, self._basic_node)
         assert isinstance(curr_node, self._basic_node)
         assert curr_level < self._num_levels
