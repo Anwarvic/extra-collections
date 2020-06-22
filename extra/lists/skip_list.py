@@ -806,6 +806,16 @@ class SkipList(Extra):
 
     ##############################     INSERT     ##############################
     def _add_extra_level(self):
+        """
+        Creates a new level at the top of the SkipList(), a new level is a new
+        LinkedList() instance attached to the SkipList().
+
+        Returns
+        -------
+        LinkedList():
+            The newly-created LinkedList() instance after being attached to the
+            other LinkedList() object in the lower level.
+        """
         top_list = self._level_lists[self._num_levels-1]
         new_llist = LinkedList()
         new_llist._insert_node(new_llist._head, self._basic_node(float("-inf")))
@@ -821,6 +831,7 @@ class SkipList(Extra):
         assert isinstance(upper_prev_node, self._basic_node)
         assert isinstance(curr_node, self._basic_node)
         assert curr_level < self._num_levels
+
         # create new node with the same data as curr_data
         upper_node = self._basic_node(curr_node.get_data())
         # connect the upper list to the new node
