@@ -476,7 +476,26 @@ class SkipList(Extra):
 
     ##############################     LENGTH     ##############################    
     def __len__(self):
-        return len(self._level_lists[0]) - 1
+        """
+        Gets the length of the SkipList() in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the SkipList() instance. By Length, I mean the
+            number of nodes of in the instance.
+        
+        Examples
+        --------
+        >>> sl = SkipList()
+        >>> len(sl)
+        0
+        >>> sl = SkipList.from_iterable((2, 5, 0))
+        >>> len(sl)
+        3
+        """
+        n = len(self._level_lists[0])
+        return  n-1 if n > 0 else 0
     
 
     def is_empty(self):
