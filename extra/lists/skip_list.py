@@ -35,6 +35,11 @@ for each item in the skip list. Thus, we expect the lowest linked list, at
 **n/2** items, and the one above it to have about **n/4** items. In other words,
 we expect the height of the skip list to be about **log(n)**.
 
+Note
+----
+The -∞ setntinel value is put in the SkipList() as a convention. So, it doesn't
+count as an element in the SkipList(). In other words, the zeroths element in 
+the above skip list is `0` not `-∞`.
 
 """
 import random
@@ -599,6 +604,8 @@ class SkipList(Extra):
             The index value.
         accept_negative: bool
             A flag to enable accepting negative indices, default `False`.
+        accept_slice: bool
+            A flag to enable accepting `slice` objects, default `False`.
         
         Raises
         ------
@@ -606,25 +613,25 @@ class SkipList(Extra):
         IndexError: This happens in one of the following cases: 
             1. if the given index is a `slice` object while `accept_slice` \
                 flag is `False`.
-            2. If the given index is out of the LinkedList() boundaries.
+            2. If the given index is out of the SkipList() boundaries.
             3. If the given index is negative while `accept_negative` flag is \
                 `False`.
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
-        >>> ll._validate_index('1')
+        >>> sl = SkipList.from_iterable([1, 2, 3])
+        >>> sl._validate_index('1')
         TypeError: Given index must be an integer!!
-        >>> ll._validate_index(-2)
+        >>> sl._validate_index(-2)
         IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> ll._validate_index(slice(0, 2))
+        >>> sl._validate_index(slice(0, 2))
         IndexError: Slice indexing isn't supported with this functinoality!!
         
         And it would return nothing if the given index if valid:
 
-        >>> ll._validate_index(2)
-        >>> ll._validate_index(-2, accept_negative=True)
-        >>> ll._validate_index(slice(0, 2), accept_slice=True)
+        >>> sl._validate_index(2)
+        >>> sl._validate_index(-2, accept_negative=True)
+        >>> sl._validate_index(slice(0, 2), accept_slice=True)
         """
         if isinstance(idx, slice):
             if not accept_slice:
@@ -746,10 +753,55 @@ class SkipList(Extra):
     
 
     def __getitem__(self, idx):
+        """
+        Retrieves the element at the given index in time-complexity of O(k)
+        where **k** is the given index. The given index is a zero-based `int`.
+        This method doesn't support negative indexing and doesn't support
+        `slice` objects either. 
+
+        Parameters
+        ----------
+        idx: int
+            The index (multiple indices) to be used to retrieve values from the
+            LinkedList() instance.
+        
+        Returns
+        -------
+        int or float:
+            The value at this index inside the SkipList() instance.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: This happens in one of the following cases: 
+            1. If the given index is negative.
+            2. if the given index is a `slice` object.
+            3. If the given index is out of the SkipList() boundaries.
+
+        Examples
+        --------
+        >>> sl = SkipList.from_iterable([4, 3, 1, 5, 2])
+        >>> sl[0]
+        1
+        >>> sl[4]
+        5
+        >>> sl[10]
+        IndexError: Can't find any element at the given index!!
+        >>> sl[-2]
+        IndexError: Negative indexing isn't supported with this functinoality!!
+        >>> sl[2:]
+        IndexError: Slice indexing isn't supported with this functinoality!!
+
+        Note
+        ----
+        The -∞ setntinel value is put in the SkipList() as a convention. So, it
+        doesn't count as an element in the SkipList(). In other words, the
+        zeroths element in the above skip list is `0` not `-∞`.
+        """
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
         node = self._level_lists[0].__getitem__(idx+1)
-        return node.get_data()
+        return node
 
 
     ##############################     INSERT     ##############################
