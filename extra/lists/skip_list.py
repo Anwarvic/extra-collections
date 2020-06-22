@@ -641,6 +641,53 @@ class SkipList(Extra):
 
 
     def _search(self, value):
+        """
+        Searches the SkipList() for a given value and returns the first node
+        containing that value if found and some other necessary info. If not
+        found, it returns the node whose value is less that the given value and
+        yet bigger than other values.
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be searched for in the SkipList() instance.
+        
+        Returns
+        -------
+        SkipNode():
+            If the value is found, this object represents the previous node to
+            the found node. If the value isn't found, this object represents
+            the previous node to the last accessed node.
+        SkipNode():
+            If the value is found, this object is the found node. If the value
+            is not found, this object is the last accessed node.
+        list:
+            A list of all accessed SkipNode() objects sorted in descending
+            manner.
+        
+        Raises:
+        -------
+        AssertionError: If the given value isn't a number
+
+        Examples
+        --------
+        >>> sl = SkipList.from_iterable([10, -2, 3])
+        >>> sl
+        ┌────┐              ┌────┐ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ┌────┐       ├────┤ 
+        | -∞ │⟶| -2 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ├────┤ ┌───┐ ├────┤ 
+        | -∞ │⟶| -2 │⟶| 3 │⟶| 10 │⟶
+        └────┘ └────┘ └───┘ └────┘ 
+        >>> prev_node, node, last_accessed_nodes = sl._search(3)
+        >>> prev_node
+        SkipNode(data: -2, next: 3)
+        >>> node
+        Node(data: 2, next: None)
+        >>> last_accessed_nodes
+        [SkipNode(data: -2, next: 10), SkipNode(data: -∞, next: 10)]
+        """
         # returns the last accessed node when searching a certain value.
         assert type(value) in {int, float}
 
