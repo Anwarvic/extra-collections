@@ -581,7 +581,7 @@ class SkipList(Extra):
         Raises
         ------
         ValueError: If the given item is `None`.
-        TypeError: If the given item is not a number.      
+        TypeError: If the given item is not a number.
         """
         super()._validate_item(item)
         if type(item) not in {int, float}:
@@ -707,17 +707,42 @@ class SkipList(Extra):
         return prev_node, found_node, last_accessed_nodes[::-1]
 
 
-    def search(self, value):
-        """Search Skip List is one in O(log(n)) time"""
+    def __contains__(self, value):
+        """
+        Checks if the given value exists in the SkipList() instance in time-
+        complexity of O(log(n)) where **n** is the total number of elements in
+        the SkipList() instance.
+
+        Parameters
+        ----------
+        value: Object
+            The value to be searched for in the SkipList() instance.
+        
+        Returns
+        -------
+        bool
+            `True` if the given value exists in the SkipList() instance, and
+            `False` otherwise.
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        
+        Examples
+        --------
+        >>> sl = SkipList.from_iterable([1, 3, 5])
+        >>> 1 in sl
+        True
+        >>> 0 in sl
+        False
+        >>> "hello" in sl
+        False
+        """
         if type(value) not in {int, float}:
             return False
         self._validate_item(value)
         _, found_node, _ = self._search(value)
         return found_node.get_data() == value
-
-
-    def __contains__(self, value):
-        return self.search(value)
     
 
     def __getitem__(self, idx):
