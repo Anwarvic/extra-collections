@@ -1059,6 +1059,27 @@ class SkipList(Extra):
     
 
     def clear(self):
+        """
+        Removes all nodes within the SkipList() in time-complexity of O(1).
+
+        Example
+        -------
+        >>> sl = SkipList.from_iterable([4, 3, 1, 5])
+        ┌────┐             ┌───┐       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤       ┌───┐ ├───┤       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐ 
+        | -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶
+        └────┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> sl.clear()
+        >>> sl.is_empty()
+        True
+        >>> sl
+        ┌────┐ 
+        | -∞ │⟶
+        └────┘ 
+        """
         self.__init__()
     
 
