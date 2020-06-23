@@ -1085,6 +1085,33 @@ class SkipList(Extra):
 
     ##############################      MISC      ##############################
     def to_list(self):
+        """
+        Converts the SkipList() instance to a `list` in time-complexity of O(n)
+        where **n** is the number of elements in the instance.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the SkipList()
+            instance.
+        
+        Example
+        -------
+        >>> sl = SkipList()
+        >>> sl.insert(20)
+        >>> sl.insert(10)
+        >>> sl.insert(30)
+        >>> sl
+        ┌────┐        ┌────┐        
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶| 20 │⟶⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌────┐ ├────┤        
+        | -∞ │⟶| 10 │⟶| 20 │⟶⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ├────┤ ├────┤ ┌────┐ 
+        | -∞ │⟶| 10 │⟶| 20 │⟶| 30 │⟶
+        └────┘ └────┘ └────┘ └────┘ 
+        >>> ll.to_list()
+        [10, 20, 30]
+        """
         return [item for item in self]
 
 
