@@ -924,16 +924,66 @@ class SkipList(Extra):
     
     ##############################     REMOVE     ##############################
     def _remove_level(self, level):
+        """
+        Removes a level from the SkipList() instance. We need to do so when 
+        deleting a value from the SkipList() instance which results in a a
+        whole level being empty, so we will need to get rid of this level.
+
+        Parameters
+        ----------
+        level: int
+            The level rank which we want to remove.
+        
+        Raises
+        ------
+        AssertionError: This can happen in two cases:
+            1. If the type of the given `level` isn't `int`.
+            2. If the level is less than 1 and greater than the total number \
+                of levels.
+        """
         assert type(level) == int and 1 <= level < self._num_levels
+        
         del self._level_lists[level]
         self._num_levels -= 1
     
 
     def remove(self, value):
-        """removal is done in O(log(n))"""
+        """
+        Removes node whose value equal to the given value.
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be removed from the SkipList() instance.
+               
+        Example
+        -------
+        >>> random.seed(1)
+        >>> sl = SkipList.from_iterable([4, 3, 1, 5])
+        >>> sl
+        ┌────┐             ┌───┐       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤       ┌───┐ ├───┤       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐ 
+        | -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶
+        └────┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> sl.remove(10) #does nothing
+        >>> sl.remove(4)
+        >>> sl
+        ┌────┐       ┌───┐       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌───┐ ├───┤ ┌───┐ 
+        | -∞ │⟶| 1 │⟶| 3 │⟶| 5 │⟶
+        └────┘ └───┘ └───┘ └───┘ 
+
+        Note
+        ----
+        In the previuos example, the top level was deleted when we removed `4` 
+        since it was empty after removal.
+        """
         if type(value) not in {int, float}:
             return
-        self._validate_item(value)
         # search for that value
         prev_node, found_node, last_accessed_nodes = self._search(value)
         #NOTE: len(last_accessed_nodes) can be used to get the level where
