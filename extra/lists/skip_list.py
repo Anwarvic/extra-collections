@@ -862,7 +862,41 @@ class SkipList(Extra):
 
     def insert(self, value):
         """
-        Inserts a value to our Skip List. Insertion is done in O(log(n)) time
+        Insertd a value to the SkipList() instance in time-complexity of
+        O(log(n)) where **n** is the number of elements in the SkipList().
+
+        Parameters
+        ----------
+        value: int or float
+            The number to be inserted in the SkipList() instance.
+        
+        Raises
+        ------
+        TypeError: If the given `value` isn't a number.
+
+        Example
+        -------
+        >>> random.seed(1)
+        >>> sl = SkipList.from_iterable([2, 1, 3])
+        >>> sl.insert(10)
+        >>> sl
+        ┌────┐                   ┌───┐       ┌────┐ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤             ┌───┐ ├───┤       ├────┤ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ┌───┐ ┌───┐ ├───┤ ├───┤ ┌───┐ ├────┤ 
+        | -∞ │⟶| 1 │⟶| 2 │⟶| 3 │⟶| 4 │⟶| 5 │⟶| 10 │⟶
+        └────┘ └───┘ └───┘ └───┘ └───┘ └───┘ └────┘ 
+        >>> ll.insert("10")
+        TypeError: `extra.SkipList()` supports only numbers!!
+
+        Note
+        -----
+        Inserting values into different levels in the skip list is completely
+        random. So, running the previous example will return different values
+        each time you run it. So, in order to obtain the same result as before
+        you need to set `random.seed(1)` before running any of the previous 
+        example.
         """
         self._validate_item(value)
         # search for that value
