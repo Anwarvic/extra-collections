@@ -1008,6 +1008,50 @@ class SkipList(Extra):
 
 
     def __delitem__(self, idx):
+        """
+        Removes node at a given index.
+
+        Parameters
+        ----------
+        idx: int
+            An integer pointing to the index where the node that should be
+            removed.
+        
+        Raises
+        ------
+        TypeError: If the given index isn't `int`.
+        IndexError: This happens in one of the following cases: 
+            1. If the given index is negative.
+            2. If the given index is out of the SkipList() boundaries.
+            3. if the given index is a `slice` object.
+        
+        Example
+        -------
+        >>> random.seed(1)
+        >>> sl = SkipList.from_iterable([4, 3, 1, 5])
+        >>> sl
+        ┌────┐             ┌───┐       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤       ┌───┐ ├───┤       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐ 
+        | -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶
+        └────┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> del sl[2]
+        >>> sl
+        ┌────┐       ┌───┐       
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶⟶⟶⟶⟶⟶⟶
+        ├────┤ ┌───┐ ├───┤ ┌───┐ 
+        | -∞ │⟶| 1 │⟶| 3 │⟶| 5 │⟶
+        └────┘ └───┘ └───┘ └───┘ 
+        >>> del sl[10]
+        IndexError: Can't find any element at the given index!!
+
+        Note
+        ----
+        In the previuos example, the top level was deleted when we removed `4` 
+        since it was empty after removal.
+        """
         self._validate_index(idx)
         #NOTE: idx+1 to skip -∞
         _, node = self._level_lists[0]._get_node(idx+1)
