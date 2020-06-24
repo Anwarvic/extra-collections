@@ -132,6 +132,14 @@ class TreeNode(Extra):
 
 
     def get_children(self):
+        """
+        Returns a list of all the children TreeNode() instances.
+
+        Returns
+        -------
+        list:
+            A list of all the children TreeNode() instances.
+        """
         return self._children
     
 
