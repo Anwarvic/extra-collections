@@ -297,6 +297,22 @@ class Tree(Extra):
         return [node for node in self]
 
 
+    ##############################     SEARCH     ##############################
+    def _search(self, value):
+        queue = [self._root]
+        while(queue):
+            curr_node = queue.pop()
+            if curr_node.get_data() == value:
+                return curr_node
+            queue.extend(curr_node.get_children())
+        return None
+            
+    
+    def __contains__(self, value):
+        found_node = self._search(value)
+        return True if found_node is not None else False
+
+
     ##############################      NODES     ##############################
     def _get_nodes_per_level(self,start_node,level,level_nodes,save_data=True):
         assert isinstance(start_node, TreeNode)
@@ -326,3 +342,22 @@ class Tree(Extra):
         self.__init__()
     
 
+if __name__ == "__main__":
+    root = TreeNode('TheSimpsons')
+    # homer-side
+    abraham = TreeNode('Abraham')
+    herb = TreeNode('Herb')
+    homer = TreeNode('Homer')
+    abraham.set_children([herb, homer])
+    # homer-marge children
+    bart = TreeNode('Bart')
+    lisa = TreeNode('Lisa')
+    maggie = TreeNode('Maggie')
+    homer.set_children([bart, lisa, maggie])
+    root.set_children([abraham])
+    t = Tree()
+    t._root = root
+
+
+    print(t)
+    print("Lisa" in t)
