@@ -228,6 +228,35 @@ class TreeNode(Extra):
 
     @staticmethod
     def swap(node1, node2):
+        """
+        A static method to swap the data within the given two `TreeNode()`
+        instances.
+
+        Parameters
+        ----------
+        node1: TreeNode()
+            The first `TreeNode()` instance whose data should be swapped.
+        node2: TreeNode()
+            The second `TreeNode()` instance whose data should be swapped.
+
+        Raises
+        ------
+        TypeError: If one of the given instances isn't a `TreeNode()` object.
+
+        Example
+        -------
+        >>> x = TreeNode(10)
+        >>> y = TreeNode(20)
+        >>>
+        >>> TreeNode.swap(x, y)
+        >>> x
+        TreeNode(20)
+        >>> y
+        TreeNode(10)
+        >>>
+        >>> TreeNode.swap(x, 10)
+        TypeError: Incompitable objects' type preventing swapping!!
+        """
         if not isinstance(node1, TreeNode) or not isinstance(node2, TreeNode):
             raise TypeError(f"Incompitable objects' type preventing swapping!!")
         node1._data, node2._data = node2._data, node1._data
