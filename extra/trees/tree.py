@@ -209,6 +209,20 @@ class TreeNode(Extra):
         
 
     def __repr__(self):
+        """
+        Represents `TreeNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `TreeNode()` instance.
+        
+        Example
+        -------
+        >>> x = TreeNode(10)
+        >>> x
+        >>> TreeNode(10)
+        """
         return f"TreeNode({self._data})"
 
 
