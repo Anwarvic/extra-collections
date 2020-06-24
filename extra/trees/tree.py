@@ -454,8 +454,41 @@ class Tree(Extra):
     ##############################     PRINT      ##############################
     def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
         """
-        seq (list): is a boolean list containing values
+        Prints the subtree starting at the given `start_node` parameter.
+
+        Parameters
+        ----------
+        start_node: TreeNode()
+            The TreeNode() at which the sub-tree printing begines
+        lines: list
+            A list of all lines that should be printed before printing the 
+            current subtree.
+        is_last_child: bool
+            A boolean value showing if the given `start_node` is the last child.
+            `True` means that `start_node` is the last child.
+        seq: list
+            A list of boolean values saved showing earlier nodes being the last
+            child.
+
+        Returns
+        -------
+        list
+            A list of all lines that should be printed to represent the whole
+            subtree.
+        
+        Raises
+        ------
+        AssertionError: This can be raised in the following cases:
+            1. The `start_node` isn't an instance of `TreeNode()`.
+            2. The type of `lines` is not `list`.
+            3. The `is_last_child` is not a boolean value.
+            4. The type of `seq` variable isn't a `list`.
         """
+        assert isinstance(start_node, TreeNode)
+        assert type(lines) == list
+        assert type(is_last_child) == bool
+        assert type(seq) == list
+
         line = []
         if seq:
             for is_parent_last_child in seq[1:]:
