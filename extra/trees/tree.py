@@ -1,3 +1,50 @@
+"""
+A tree is a non-linear data structure that stores elements hierarchically. With
+the exception of the top element, each element in a tree has a parent element
+and zero or more children elements. We typically call the top element the root
+of the tree, but it is drawn as the highest element, with the other elements
+being connected below (just the opposite of an actual tree).
+
+The following is a simple tree that represents the family-tree of Homer Simpson
+from The Simpsons show :)
+
+.. code-block::
+
+    TheSimpsons
+    └─┬ Abraham
+      ├── Herb
+      └─┬ Homer
+        ├── Bart
+        ├── Lisa
+        └── Maggie
+
+In the previous tree, we can say the following:
+
+- "Abraham" is the **only child** of the "TheSimpsons".
+- "Abraham" is the **parent** of both "Herb" and "Homer" which means that \
+    "Herb" and "Homer" are the **two children** of "Abraham".
+- Same goes for "Bart", "Lisa" and "Maggie" as they are the **three children** \
+    of "Homer"; and "Homer" is their parent.
+- "Bart", "Lisa" and "Maggie" have **no children**.
+- As we can see, each entry in the tree can have *zero*, *one*, *two*, *three* \
+    or even more children for each parent.
+
+Now, let's try to use the previous tree to explain a few terms:
+
+- **Tree Node**: Each entry in the tree data structure is called a tree node. \
+    So, "TheSimpsons", "Abraham", "Herb", ... "Maggie" are all tree nodes. So,
+    the number of nodes in the previous tree is 7.
+- **Root**: The root is the first tree node in the tree and it's the only \
+    treenode that has no *parent*. So, "TheSimpsons" is the root of the \
+    previuos tree.
+- **Leaf Node**: The leaf node is a tree node that has no children. So, both \
+    "Bart", "Lisa" and "Maggie" are leaf nodes. So, the number of leaf nodes \
+    in the previous tree is 3.
+- **Height*: The tree height is the number of edges between the root and the \
+    furthest leaf node. In this case, the tree height is 3.
+
+
+"""
 import os
 from extra.interface import Extra
 
