@@ -365,6 +365,39 @@ class Tree(Extra):
 
 
     ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `Tree()` instance in time-complexity of O(n) 
+        where **n** is the number of nodes in the tree.
+        
+        Returns
+        -------
+        int:
+            The length of the `Tree()` instance. Length is the number of tree
+            nodes in the instance.
+        
+        Examples
+        --------
+        >>> t = Tree()
+        >>> len(t)
+        0
+        >>> x = TreeNode(2021)
+        >>> y = TreeNode("hello")
+        >>> z = TreeNode("world")
+        >>> x.set_children([y, z])
+        >>> t._root = x
+        >>> t
+        2021
+        ├── hello
+        └── world
+        >>> len(t)
+        3
+        """
+        if self.is_empty():
+            return 0
+        return self.__count_nodes(self._root)
+
+
     def is_empty(self):
         return self._root is None
     
@@ -376,12 +409,6 @@ class Tree(Extra):
         for child in start_node.get_children():
             total_nodes += self.__count_nodes(child)
         return total_nodes
-
-
-    def __len__(self):
-        if self.is_empty():
-            return 0
-        return self.__count_nodes(self._root)
 
 
     ##############################     PRINT      ##############################
