@@ -165,13 +165,31 @@ class TreeNode(Extra):
     
     
     def set_children(self, lst):
+        """
+        Sets multiple `TreeNode()` instances as children for the current one.
+
+        Parameters
+        ----------
+        lst: iterable (list, tuple, ...)
+            A list of the `TreeNode()` instances that will be set as children to
+            the current `TreeNode()`.
+
+        Raises
+        ------
+        TypeError: This can be raised in either of these two cases:
+            1. If the given object isn't iterable.
+            2. If the given object has an element which isn't a `TreeNode()` \
+                instance.
+        """
         if not hasattr(lst, "__iter__"):
             raise TypeError("Given object isn't iterable!!")
         children = []
         for item in lst:
             if not isinstance(item, TreeNode):
-                raise TypeError("You can't set a child unless it's an " + \
-                    f"`{self.__name__}` object!!")
+                raise TypeError(
+                    f"You can't set a child unless it's an `{self.__name__}` " + 
+                    "object!!"
+                )
             children.append(item)
         self._children = children
     
