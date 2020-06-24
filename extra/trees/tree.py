@@ -40,7 +40,7 @@ Now, let's try to use the previous tree to explain a few terms:
 - **Leaf Node**: The leaf node is a tree node that has no children. So, both \
     "Bart", "Lisa" and "Maggie" are leaf nodes. So, the number of leaf nodes \
     in the previous tree is 3.
-- **Height*: The tree height is the number of edges between the root and the \
+- **Height**: The tree height is the number of edges between the root and the \
     furthest leaf node. In this case, the tree height is 3.
 
 The following table sums up all the different public functionality in this
@@ -288,6 +288,32 @@ class Tree(Extra):
 
     @staticmethod
     def __form_tree_from_path(parent_abs_path, curr_folder):
+        """
+        Creates a `Tree()` instance of the content of a given directory. Each
+        path/file in each sub-directory will be represented as a `TreeNode()`
+        instance.
+
+        Parameters
+        ----------
+        parent_abs_path: str
+            The absolute path of the parent of the current directory.
+        curr_folder: str
+            The name of the current directory
+        
+        Returns
+        -------
+        TreeNode()
+            A tree node representing the root of the hierarchy of the 
+            `curr_folder` directory.
+        
+        Raises
+        ------
+        AssertionError: This can be raised if either of the two parameters
+        weren't string.
+        """
+        assert type(parent_abs_path) == str
+        assert type(curr_folder) == str
+
         node = TreeNode(curr_folder)
         abs_path = os.path.join(parent_abs_path, curr_folder)
         if os.path.isdir(abs_path):
@@ -298,6 +324,39 @@ class Tree(Extra):
 
     @staticmethod
     def from_path(path):
+        """
+        Creates a `Tree()` instance of the hierarchy of a given directory/path.
+        Each file in each sub-directory will be represented as a `TreeNode()`
+        instance.
+
+        Parameters
+        ----------
+        path: str
+            The path which will be the root of the returned `Tree()` object.
+
+        Returns
+        ------
+        Tree()
+            The `Tree()` object representing the hierarchy of the given path.
+        
+        Raises
+        ------
+        TypeError: If the given path was invalid.
+
+        Example
+        -------
+        >>> Tree.from_path("example")
+        trees
+        ├── script.py
+        ├─┬ folder
+        │ ├── file.txt
+        │ ├── file2.txt
+        │ └── file3.txt
+        ├── script2.py
+        └── script3.py
+        """
+        if type(path) != str or not os.path.exists(path):
+            raise TypeError("Invalid path was given!!")
         t = Tree()
         abs_path = os.path.abspath(path)
         parent, folder = os.path.split(abs_path)
