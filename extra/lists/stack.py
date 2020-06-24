@@ -253,6 +253,8 @@ class Stack(Extra):
                 f"Stackoverflow! Can't push into a full `{self.__name__}`!!"
             )
         super()._validate_item(item)
+        if type(item) == str:
+            item = item.replace('\n', '\\n')
         self._container.append(item)
 
 
