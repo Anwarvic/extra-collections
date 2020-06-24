@@ -89,11 +89,29 @@ from extra.interface import Extra
 
 
 class TreeNode(Extra):
-    def __name__(self):
-        return "extra.TreeNode()"
+    """
+    A tree node is the basic unit for building Trees. A tree node must contain
+    a value and this value can't be `None`. Each tree node has zero or more
+    child tree nodes.
+    """
+    __name__ = "extra.TreeNode()"
     
 
     def __init__(self, value):
+        """
+        Creates a `TreeNode()` object which is the basic unit for building 
+        Tree() objects!!
+
+        Parameters
+        ----------
+        value: object
+            The value to be saved within the `TreeNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item is an `Extra()` object.
+        """
         super()._validate_item(value)
         if type(value) == str:
             value = value.replace('\n', '\\n')
@@ -102,6 +120,7 @@ class TreeNode(Extra):
 
 
     def get_data(self):
+
         return self._data
 
 
@@ -112,7 +131,7 @@ class TreeNode(Extra):
     def set_child(self, child):
         if not isinstance(child, TreeNode):
             raise TypeError(\
-            f"You can't set a child unless it's an {self.__name__()} object!!")
+            f"You can't set a child unless it's an `{self.__name__}` object!!")
         self._children.append(child)
     
     
@@ -123,7 +142,7 @@ class TreeNode(Extra):
         for item in lst:
             if not isinstance(item, TreeNode):
                 raise TypeError("You can't set a child unless it's an " + \
-                    f"{self.__name__()} object!!")
+                    f"`{self.__name__}` object!!")
             children.append(item)
         self._children = children
     
@@ -280,7 +299,7 @@ class Tree(Extra):
     ##############################      ITER      ##############################
     def __iter__(self):
         if self.is_empty():
-            raise IndexError(f"Can't iterate over an empty {self.__name__()}!!")
+            raise IndexError(f"Can't iterate over an empty `{self.__name__}`!!")
         current_nodes = [self._root]
         while len(current_nodes) > 0:
             next_nodes = []
