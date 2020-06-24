@@ -365,6 +365,35 @@ class Tree(Extra):
 
 
     ##############################     LENGTH     ##############################
+    def __count_nodes(self, start_node):
+        """
+        Recurrsively, cunts the number of `TreeNode()` instances found in the
+        `Tree()` object.
+
+        Parameters
+        ----------
+        start_node: TreeNode()
+            The `TreeNode()` instance at which we are going to start counting
+            the tree nodes. At the beginning, this will be the root of the
+            `Tree()` instance.
+        
+        Returns
+        -------
+        int:
+            The number of `TreeNode()` objects found in the `Tree()` instance.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't an `TreeNode()` object.
+        """
+        assert isinstance(start_node, TreeNode)
+
+        total_nodes = 1
+        for child in start_node.get_children():
+            total_nodes += self.__count_nodes(child)
+        return total_nodes
+
+ 
     def __len__(self):
         """
         Gets the length of the `Tree()` instance in time-complexity of O(n) 
@@ -421,15 +450,6 @@ class Tree(Extra):
         """
         return self._root is None
     
-
-    def __count_nodes(self, start_node):
-        assert isinstance(start_node, TreeNode)
-
-        total_nodes = 1
-        for child in start_node.get_children():
-            total_nodes += self.__count_nodes(child)
-        return total_nodes
-
 
     ##############################     PRINT      ##############################
     def __print_subtree(self, start_node, lines, is_last_child, seq=[]):
