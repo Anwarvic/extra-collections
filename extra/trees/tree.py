@@ -399,6 +399,26 @@ class Tree(Extra):
 
 
     def is_empty(self):
+        """
+        Checks if the `Tree()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the Tree() instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> t = Tree()
+        >>> t.is_empty()
+        True
+        >>> t._root = TreeNode(1)
+        >>> t.is_empty()
+        False
+        """
         return self._root is None
     
 
