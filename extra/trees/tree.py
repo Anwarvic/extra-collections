@@ -92,7 +92,7 @@ class TreeNode(Extra):
     """
     A tree node is the basic unit for building Trees. A tree node must contain
     a value and this value can't be `None`. Each tree node has zero or more
-    child tree nodes.
+    child tree nodes. The node that has no children is called a **leaf node**.
     """
     __name__ = "extra.TreeNode()"
     
@@ -195,6 +195,16 @@ class TreeNode(Extra):
     
 
     def is_leaf(self):
+        """
+        Checks if the current `TreeNode()` instance is a leaf node. A leaf node
+        is a tree node that has no children.
+
+        Returns
+        -------
+        bool:
+            `True` if the current `TreeNode()` has no children and `False`
+            otherwise.
+        """
         return self.get_children() == []
         
 
