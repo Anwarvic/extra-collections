@@ -144,9 +144,23 @@ class TreeNode(Extra):
     
 
     def set_child(self, child):
+        """
+        Sets the given `TreeNode()` as a child for the current `TreeNode()`.
+
+        Parameters
+        ----------
+        child: TreeNode()
+            The `TreeNode()` that will be a child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `TreeNode()` object.
+        """
         if not isinstance(child, TreeNode):
-            raise TypeError(\
-            f"You can't set a child unless it's an `{self.__name__}` object!!")
+            raise TypeError(
+                f"You can't set a child unless it's an `{self.__name__}` " + 
+                "object!!"
+            )
         self._children.append(child)
     
     
