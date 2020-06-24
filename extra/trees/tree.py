@@ -265,11 +265,24 @@ class TreeNode(Extra):
 
 
 class Tree(Extra):
-    def __name__(self):
-        return "extra.Tree()"
+    """
+    A tree is a non-linear data structure that can be defined recursively using
+    a collection of `TreeNode()` instances, where each node has a list of
+    references to the children TreeNode() instances.
+    """
+    __name__ = "extra.Tree()"
     
 
     def __init__(self):
+        """
+        Creates an empty `Tree()` object!!
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> type(t)
+        <class 'extra.trees.tree.Tree'>
+        """
         self._root = None
     
 
