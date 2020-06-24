@@ -50,33 +50,32 @@ Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
 - **k** is the value of a parameter.
-- **h** is the height of the skip list.
 
-+----------------+------------------------------------------+------------+-----------+
-| Method         | Description                              | Worst-case | Optimal   |
-+================+==========================================+============+===========+
-| __len__()      | Returns the number of nodes              | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| is_empty()     | Checks if object is empty                | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| __repr__()     | Represents the object                    | O(n*h)     | O(n*h)    |
-+----------------+------------------------------------------+------------+-----------+
-| __iters__()    | Iterates over the object                 | O(n)       | O(n)      |
-+----------------+------------------------------------------+------------+-----------+
-| __contains__() | Checks the existence of the given item   | O(log(n))  | O(log(n)) |
-+----------------+------------------------------------------+------------+-----------+
-| __getitem__()  | Returns the element at a certain index.  | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| __delitem__()  | Deletes the value at the given index     | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| insert()       | Adds the given item to the instance      | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| remove()       | Removes the given value if found         | O(log(n))  | O(log(n)) |
-+----------------+------------------------------------------+------------+-----------+
-| clear()        | Clears the whole skip list               | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| to_list()      | Converts the skip list to built-in list. | O(n)       | O(n)      |
-+----------------+------------------------------------------+------------+-----------+
++--------------------+------------------------------------------+------------+---------+
+| Method             | Description                              | Worst-case | Optimal |
++====================+==========================================+============+=========+
+| __len__()          | Returns the number of nodes              | O(n)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| is_empty()         | Checks if object is empty                | O(1)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| __repr__()         | Represents the object                    | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| __iter__()         | Iterates over the object                 | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| __contains__()     | Checks the existence of the given item   | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_height()       | Gets the tree's height                   | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_depth()        | Gets the tree's depth                    | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_nodes()        | Returns a list of all nodes per level    | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| count_leaf_nodes() | Counts all leaf nodss in the tree        | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| clear()            | Clears the whole tree instance           | O(1)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| to_list()          | Converts the tree instance to  list.     | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
 
 
 Class Documentation
@@ -341,23 +340,3 @@ class Tree(Extra):
     def clear(self):
         self.__init__()
     
-
-if __name__ == "__main__":
-    root = TreeNode('TheSimpsons')
-    # homer-side
-    abraham = TreeNode('Abraham')
-    herb = TreeNode('Herb')
-    homer = TreeNode('Homer')
-    abraham.set_children([herb, homer])
-    # homer-marge children
-    bart = TreeNode('Bart')
-    lisa = TreeNode('Lisa')
-    maggie = TreeNode('Maggie')
-    homer.set_children([bart, lisa, maggie])
-    root.set_children([abraham])
-    t = Tree()
-    t._root = root
-
-
-    print(t)
-    print("Lisa" in t)
