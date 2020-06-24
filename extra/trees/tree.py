@@ -120,7 +120,14 @@ class TreeNode(Extra):
 
 
     def get_data(self):
+        """
+        Returns the data stored in the `TreeNode()` instance.
 
+        Returns
+        -------
+        object:
+            The object stored in the `TreeNode()`.
+        """
         return self._data
 
 
