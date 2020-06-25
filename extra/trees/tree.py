@@ -483,6 +483,10 @@ class Tree(Extra):
             2. The type of `lines` is not `list`.
             3. The `is_last_child` is not a boolean value.
             4. The type of `seq` variable isn't a `list`.
+        
+        TODOs
+        -----
+        Refactor this method... it requires a lot redundant information.
         """
         assert isinstance(start_node, TreeNode)
         assert type(lines) == list
@@ -511,10 +515,64 @@ class Tree(Extra):
 
 
     def _print_empty_tree(self):
+        """
+        Prints the `Tree()` instance when it's empty.
+
+        Returns
+        -------
+        str
+            A string representing an empty `Tree()` instance.
+
+        Raises
+        ------
+        AssertionError: In case the `Tree()` instance isn't empty!!
+
+        Example
+        -------
+        >>> t = Tree()
+        >>> t
+        --
+        """
+        assert self.is_empty()
         return "--"
 
 
     def __repr__(self):
+        """
+        Represents the `Tree()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `Tree()` instance.
+
+        Example
+        -------
+        >>> t = Tree()
+        >>> t
+        --
+        >>> # the following is "The Simpsons" family tree :)
+        >>> abraham = TreeNode('Abraham')
+        >>> herb = TreeNode('Herb')
+        >>> homer = TreeNode('Homer')
+        >>> abraham.set_children([herb, homer])
+        >>> # homer-marge children
+        >>> bart = TreeNode('Bart')
+        >>> lisa = TreeNode('Lisa')
+        >>> maggie = TreeNode('Maggie')
+        >>> homer.set_children([bart, lisa, maggie])
+        >>> root = TreeNode('TheSimpsons')
+        >>> root.set_child(abraham)
+        >>> t._root = root
+        >>> t
+        TheSimpsons
+        └─┬ Abraham
+          ├── Herb
+          └─┬ Homer
+            ├── Bart
+            ├── Lisa
+            └── Maggie
+        """
         if self.is_empty():
             return self._print_empty_tree()
         elif self._root.get_children():
