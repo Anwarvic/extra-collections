@@ -747,6 +747,53 @@ class Tree(Extra):
 
     ##############################   LEAF NODES   ##############################
     def _count_leaf_nodes(self, start_node):
+        """
+        Counts the number of leaf nodes in the given subtree defined by the
+        given `start_node` parameter. Leaf nodes are the tree nodes that have
+        no children.
+
+        Parameters
+        ----------
+        start_node: TreeNode()
+            The `TreeNode()` which represents the root of the subtree whose leaf
+            nodes will be counted
+        
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't a `TreeNode()`
+
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t._count_leaf_nodes(t._root)
+        5
+        >>> t._count_leaf_nodes(first_child)
+        3
+        >>> t._count_leaf_nodes(second_child)
+        2
+        """
         assert isinstance(start_node, TreeNode)
 
         if start_node.is_leaf():
