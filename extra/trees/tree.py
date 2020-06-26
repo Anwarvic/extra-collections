@@ -894,6 +894,37 @@ class Tree(Extra):
 
 
     def to_list(self):
+        """
+        Converts the Tree() instance to a `list` where values will be inserted 
+        in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the Tree() instance.
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.to_list()
+        [10, 100, 200, 1, 2, 3, 4, 5]
+        """
         if self.is_empty():
             return []
         return [node for node in self]
