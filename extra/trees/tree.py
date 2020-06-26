@@ -805,6 +805,38 @@ class Tree(Extra):
 
 
     def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `Tree()` instance. Leaf nodes are
+        the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            subtree.
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.count_leaf_nodes()
+        5
+        """
         if self.is_empty():
             return 0
         return self._count_leaf_nodes(self._root)
