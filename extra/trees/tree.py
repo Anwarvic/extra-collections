@@ -584,14 +584,15 @@ class Tree(Extra):
     ##############################  HEIGHT/DEPTH  ##############################
     def _get_height(self, start_node):
         """
-        Gets the height of the `Tree()` instance. The tree's height is the 
-        number of edges between the given `start_node` and the furthest leaf 
-        node.
+        Gets the height of the subtree defined by the given `start_node`
+        parameter. The tree's height is the number of edges between the given
+        `start_node` and the furthest leaf node.
 
         Returns
         -------
         int:
-            A positive integer representing the height of the instance.
+            A positive integer representing the height of the given
+            `start_node`.
         
         Raises
         ------
@@ -638,10 +639,6 @@ class Tree(Extra):
         int:
             A positive integer representing the height of the instance.
         
-        Raises
-        ------
-        AssertionError: If the given `start_node` isn't a `TreeNode()`
-        
         Example
         -------
         >>> t = Tree()
@@ -670,6 +667,44 @@ class Tree(Extra):
     
 
     def _get_depth(self, start_node):
+        """
+        Gets the depth of the subtree defined by the `start_node` parameter. The
+        tree's depth is the number of edges between the given `start_node` and
+        the tree's root.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the given `start_node`.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t._get_depth(t._root)
+        0
+        >>> t._get_depth(first_child)
+        >>> 1
+        """
         assert isinstance(start_node, TreeNode)
         return self._get_height(self._root) - self._get_height(start_node)
         
