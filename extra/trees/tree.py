@@ -710,6 +710,36 @@ class Tree(Extra):
         
 
     def get_depth(self):
+        """
+        Gets the depth of the `Tree()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the given `start_node`.
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.get_depth()
+        0
+        """
         if self.is_empty():
             return 0
         return self._get_depth(self._root)
