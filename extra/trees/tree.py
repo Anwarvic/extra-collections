@@ -628,6 +628,42 @@ class Tree(Extra):
     
 
     def get_height(self):
+        """
+        Gets the height of the `Tree()` instance. The tree's height is the 
+        number of edges between the given `start_node` and the furthest leaf 
+        node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.get_height()
+        2
+        """
         if self.is_empty():
             return 0
         return self._get_height(self._root)
