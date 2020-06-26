@@ -844,15 +844,53 @@ class Tree(Extra):
 
     ##############################      ITER      ##############################
     def __iter__(self):
-        if self.is_empty():
-            raise IndexError(f"Can't iterate over an empty `{self.__name__}`!!")
-        current_nodes = [self._root]
-        while len(current_nodes) > 0:
-            next_nodes = []
-            for node in current_nodes:
-                yield node.get_data()
-                next_nodes.extend(node.get_children())
-            current_nodes = next_nodes
+        """
+        Iterates over the `Tree()` instance and returns a generator of the 
+        `TreeNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Examples
+        --------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> for value in t:
+        ...     print(value)
+        10
+        100
+        200
+        1
+        2
+        3
+        4
+        5
+        """
+        if not self.is_empty():
+            current_nodes = [self._root]
+            while len(current_nodes) > 0:
+                next_nodes = []
+                for node in current_nodes:
+                    yield node.get_data()
+                    next_nodes.extend(node.get_children())
+                current_nodes = next_nodes
 
 
     def to_list(self):
