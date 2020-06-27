@@ -199,6 +199,14 @@ class BinaryTreeNode(TreeNode):
 
 
     def get_children(self):
+        """
+        Returns a list of all the children of the `BinaryTreeNode()` instance.
+
+        Returns
+        -------
+        list:
+            A list of all the children of the `BinaryTreeNode()` instance.
+        """
         children = []
         if self._left is not None: children.append(self._left)
         if self._right is not None: children.append(self._right)
