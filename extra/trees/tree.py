@@ -933,6 +933,43 @@ class Tree(Extra):
     ##############################     SEARCH     ##############################
     def _search(self, value):
         """
+        Searches the `Tree()` for a given value and returns the node containing
+        that value if found. If not found, it returns `None`.
+
+        Parameters
+        ----------
+        value: object
+            The value to be searched for in the `Tree()` instance.
+        
+        Returns
+        -------
+        TreeNode() or None:
+            If the value is found, this object represents the found node. If the
+            value isn't found, this object will be `None`.
+        
+        Examples
+        --------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t._search(100)
+        TreeNode(100)
+        >>> t._search(50)
+        None
         """
         queue = [self._root]
         while(queue):
