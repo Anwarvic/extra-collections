@@ -1066,7 +1066,40 @@ class Tree(Extra):
         return level_nodes
 
 
-    def get_nodes(self):
+    def get_nodes_per_level(self):
+        """
+        Retrieves all treenodes within the `Tree()` instance so that all
+        treenodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.get_nodes_per_level()
+        [[10], [100, 200], [1, 2, 3, 4, 5]]
+        """
         if self.is_empty():
             return []
         return self._get_nodes_per_level(self._root, 0, [], True)
