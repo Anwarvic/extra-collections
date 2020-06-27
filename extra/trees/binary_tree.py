@@ -175,6 +175,14 @@ class BinaryTreeNode(TreeNode):
 
 
     def get_left(self):
+        """
+        Returns the left-child of the current `BinaryTreeNode()` instance.
+
+        Returns
+        -------
+        object:
+            The object stored in the `BinaryTreeNode()`.
+        """
         return self._left
 
 
