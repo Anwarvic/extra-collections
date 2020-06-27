@@ -1026,6 +1026,30 @@ class Tree(Extra):
 
     ##############################      NODES     ##############################
     def _get_nodes_per_level(self,start_node,level,level_nodes,save_data=True):
+        """
+        Retrieves all treenodes within the subtree defined by `start_node` 
+        parameter so that all treenodes in a certain level will be concatenated
+        into a standalone list.
+
+        Parameters
+        ----------
+        start_node: TreeNode()
+            The `TreeNode()` which is the root of the subtree.
+        level: int
+            A postive integer representing the level of `start_node`.
+        nodes: list
+            A list of all previous nodes.
+        save_data: bool (default=True)
+            A boolean value to choose either to save the `TreeNode()` data or
+            the `TreeNode()` object itself. `True` means to save just the data.
+        
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        """
         assert isinstance(start_node, TreeNode)
         assert type(level) == int and level >= 0
         assert type(level_nodes) == list
