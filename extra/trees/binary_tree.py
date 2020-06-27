@@ -214,21 +214,52 @@ class BinaryTreeNode(TreeNode):
 
 
     def set_children(self, lst):
-        raise NotImplementedError(\
-            "You can use set_left() or set_right() methods instead!!")
+        raise NotImplementedError(
+            "You can use `set_left()` or `set_right()` methods instead!!"
+        )
 
 
     def set_left(self, new_node):
+        """
+        Sets the given `BinaryTreeNode()` as a left child for the current
+        `BinaryTreeNode()`.
+
+        Parameters
+        ----------
+        child: BinaryTreeNode()
+            The `BinaryTreeNode()` that will be a left child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `BinaryTreeNode()` object.
+        """
         if not isinstance(new_node, BinaryTreeNode):
-            raise TypeError(\
-            f"You can't set a child unless it's an {self.__name__()} object!!")
+            raise TypeError(
+                f"You can't set a child unless it's an `{self.__name__}` " + 
+                "object!!"
+            )
         self._left = new_node
 
 
     def set_right(self, new_node):
+        """
+        Sets the given `BinaryTreeNode()` as a right child for the current
+        `BinaryTreeNode()`.
+
+        Parameters
+        ----------
+        child: BinaryTreeNode()
+            The `BinaryTreeNode()` that will be a right child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `BinaryTreeNode()` object.
+        """
         if not isinstance(new_node, BinaryTreeNode):
-            raise TypeError(\
-            f"You can't set a child unless it's an {self.__name__()} object!!")
+            raise TypeError(
+                f"You can't set a child unless it's an `{self.__name__}` " + 
+                "object!!"
+            )
         self._right = new_node
         
 
@@ -357,7 +388,7 @@ class BinaryTree(Tree):
         """
         if self.is_empty():
             warnings.warn(\
-                f"You are checking the balance of an empty {self.__name__()}",
+                f"You are checking the balance of an empty `{self.__name__}`",
                 UserWarning)
             return True
         left_depth = 0 if self._root.get_left() is None \
@@ -374,7 +405,7 @@ class BinaryTree(Tree):
         """
         if self.is_empty():
             warnings.warn(\
-                f"You are checking the perfection of an empty {self.__name__()}",
+                f"You are checking the perfection of an empty `{self.__name__}`",
                 UserWarning)
             return True
         for level, nodes in enumerate(self.get_nodes_per_level()):
@@ -408,7 +439,7 @@ class BinaryTree(Tree):
         """
         if self.is_empty():
             warnings.warn(\
-                f"You are checking the strictness of an empty {self.__name__()}",
+                f"You are checking the strictness of an empty `{self.__name__}`",
                 UserWarning)
             return True
         return self.__is_subtree_strict(self._root)
