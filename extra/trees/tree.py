@@ -932,6 +932,8 @@ class Tree(Extra):
 
     ##############################     SEARCH     ##############################
     def _search(self, value):
+        """
+        """
         queue = [self._root]
         while(queue):
             curr_node = queue.pop()
@@ -972,5 +974,33 @@ class Tree(Extra):
 
     ##############################      CLEAR     ##############################
     def clear(self):
+        """
+        Removes all nodes within the `Tree()` instance in constant time.
+
+        Example
+        -------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> t.clear()
+        >>> t
+        --
+        >>> t.is_empty()
+        True
+        """
         self.__init__()
     
