@@ -264,6 +264,16 @@ class BinaryTreeNode(TreeNode):
         
 
     def has_one_child(self):
+        """
+        Checks if the current `BinaryTreeNode()` has only one child. This child
+        can be the left or the right one.
+
+        Returns
+        -------
+        bool:
+            `True` if the current `BinaryTreeNode()` has only one child. `False`
+            if it has either zero or two children.
+        """
         return not super().is_leaf() \
                 and (self._left is None or self._right is None)
 
