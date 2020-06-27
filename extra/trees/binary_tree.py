@@ -1,3 +1,143 @@
+"""
+A binary tree is a non-linear data structure that stores elements hierarchical.
+With the exception of the top element, each element in the binary tree has a
+parent element and zero or one or two children elements. We typically call the
+top element the root of the binary tree, but it is drawn as the highest element, 
+with the other elements being connected below (just the opposite of an actual
+tree). In other words, we can consider the binary tree a tree data structure with the
+only exception that every tree node in the binary tree has at most two children
+while every tree node in the tree can have more than two children.
+
+So, the following is a simple binary tree that represents a small family:
+
+.. code-block::
+
+              ___________GrandFather_________              <--- level 0
+             /                               \\
+         _Father___                      ___Uncle__        <--- level 1
+        /          \\                   /           \\
+      You        Sibling             Cousin1      Cousin2  <--- level 2
+
+In the previous binary tree, we can say the following:
+
+- "GrandFather" tree node has no parent.
+- "Father" is left child of the "GrandFather" and "Uncle" is the right child.
+- "Father" is the parent of both "You" and "Sibling" which means that "You" \
+    and "Sibling" are the two children of "Father".
+- Same goes for "Cousin1" and "Cousin2" as they are the children of "Uncle"; \
+    and "Uncle" is their parent.
+- "You", "Sibling", "Cousin1" and "Cousin2" have no children.
+
+
+Now, let's try to use the previous tree to explain a few terms:
+
+- **Tree Node**: Each entry in the binary tree data structure is called a tree \
+    node. So, "GrandFather", "Father", "You", ... "Cousin" are all tree nodes. \
+    So, the number of nodes in the previous binary tree is 7.
+- **Root**: The root is the first tree node in the tree and it's the only \
+    treenode that has no *parent*. So, "GrandFather" is the root of the \
+    previuos tree.
+- **Leaf Node**: The leaf node is a tree node that has no children. So, both \
+    "You", "Sibling", "Cousin1" and "Cousin2" are leaf nodes. So, the number \
+    of leaf nodes in the previous tree is 4.
+- **Height**: The tree height is the number of edges between the root and the \
+    furthest leaf node. In this case, the tree height is just 2.
+- **Depth**: The depth of a tree node is the number of edges between this tree \
+    node and the root. So, the depth of the tree's root is always 0.
+- **Balanced Tree**: A binaryTree is said to be balanced if the difference \
+    between the depth of any two leaf nodes is less than or equal one.
+- **Perfect Tree**: A binaryTree is said to be perfect if all its levels are \
+    completely filled.
+- **Strict Tree**: A binaryTree is said to be strict if all its non-leaf nodes \
+    has left and right children.
+- **Traversal**: Traversal is the process to visit all nodes of a binary tree \
+    starting from the root as we cannot randomly access any node in a binary \
+    tree. There are four ways which we use to traverse a binary tree:
+
+    - **Pre-order Traversal**: It's also known as "Depth-first Traversal" \
+        where the **parent** is visited first. Then, the **left subtree** \
+        (if found), then the **right subtree** (if found). So, the pre-order \
+        traversal of the previous binary tree will be: \
+
+            GrandFather ⟶ Father ⟶ Me ⟶ Sibling ⟶ Uncle ⟶ Cousin1 ⟶ Cousin2
+        
+    - **In-order Traversal**: The **left subtree** (if found) is visited first. \
+        Then, the **parent** then the **right subtree** (if found). So, the \
+        in-order traversal of the previous binary tree will be: \
+
+            Me ⟶ Father ⟶ Sibling ⟶ GrandFather ⟶ Cousin1 ⟶ Uncle ⟶ Cousin2
+        
+    - **Post-order Traversal**: The **left subtree** (if found) is visited \
+        first. Then, the **right subtree** (if found) then the **parent**. So, \
+        the post-order traversal of the previous binary tree will be: \
+
+            Me ⟶ Sibling ⟶ Father ⟶ Cousin1 ⟶ Cousin2 ⟶ Uncle ⟶ GrandFather
+        
+    - **Breadth-order Traversal**: It's also known as "Level-order Traversal" \
+        where all nodes is visited by the order of the level they are in. So, \
+        tree nodes in the first level are visited before all tree nodes in the \
+        second level and so on. So, the breadth-first traversal of the previuos \
+        binary tree will be: \
+
+            GrandFather ⟶ Father ⟶ Uncle ⟶ Me ⟶ Sibling ⟶ Cousin1 ⟶ Cousin2
+
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+
++--------------------------+----------------------------------------------------+------------+---------+
+| Method                   | Description                                        | Worst-case | Optimal |
++==========================+====================================================+============+=========+
+| __len__()                | Returns the number of nodes.                       | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __repr__()               | Represents the object.                             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __iter__()               | Iterates over the object.                          | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __contains__()           | Checks the existence of the given item.            | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_height()             | Gets the tree's height.                            | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_depth()              | Gets the tree's depth.                             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_balanced()            | Checks if the binary tree is balanced.             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_perfect()             | Checks if the binary tree is perfect.              | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_strict()              | Checks if the binary tree is strict.               | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| count_leaf_nodes()       | Counts all leaf nodss in the tree.                 | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| traverse()               | Traverses the binary tree based on given method.   | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| preorder_traverse()      | Traverses the binary tree in an pre-order manner.  | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| inorder_traverse()       | Traverses the binary tree in an in-order manner    | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| postorder_traverse()     | Traverses the binary tree in an post-order manner. | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| breadth_first_traverse() | Traverses the binary tree level by level.          | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| depth_first_traverse()   | Traverses the binary tree in an pre-order manner.  | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `BinaryTree()` objects:
+
+"""
 import warnings
 from extra.trees.tree import TreeNode, Tree
 
@@ -194,7 +334,7 @@ class BinaryTree(Tree):
                 f"You are checking the perfection of an empty {self.__name__()}",
                 UserWarning)
             return True
-        for level, nodes in enumerate(self.get_nodes()):
+        for level, nodes in enumerate(self.get_nodes_per_level()):
             if 2**level != len(nodes):
                 return False
         return True
@@ -316,3 +456,18 @@ class BinaryTree(Tree):
                         str(trav_methods))
 
 
+if __name__ == "__main__":
+    root = BinaryTreeNode("GrandFather")
+    root.set_left(BinaryTreeNode("Father"))
+    root.get_left().set_left(BinaryTreeNode("Me"))
+    root.get_left().set_right(BinaryTreeNode("Sibling"))
+    root.set_right(BinaryTreeNode("Uncle"))
+    root.get_right().set_left(BinaryTreeNode("Cousin1"))
+    root.get_right().set_right(BinaryTreeNode("Cousin2"))
+    btree = BinaryTree()
+    btree._root = root
+    print(btree)
+    print(btree.preorder_traverse())
+    print(" ⟶ ".join(btree.inorder_traverse()))
+    print(" ⟶ ".join(btree.postorder_traverse()))
+    print(" ⟶ ".join(btree.breadth_first_traverse()))
