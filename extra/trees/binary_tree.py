@@ -145,11 +145,30 @@ from extra.trees.tree import TreeNode, Tree
 
 
 class BinaryTreeNode(TreeNode):
-    def __name__(self):
-        return "extra.BinaryTreeNode()"
+    """
+    A binary tree node is the basic unit for building binary trees. A binary 
+    tree node must contain a value and this value can't be `None`. Each binary 
+    tree node has either zero, one or two children binary tree nodes.
+    The node that has no children is called a **leaf node**.
+    """
+    __name__ = "extra.BinaryTreeNode()"
     
     
     def __init__(self, value):
+        """
+        Creates a `BinaryTreeNode()` object which is the basic unit for building 
+        BinaryTree() objects!!
+
+        Parameters
+        ----------
+        value: object
+            The value to be saved within the ` BinaryTreeNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item is an `Extra()` object.
+        """
         super().__init__(value)
         self._left = self._right = None
         del self._children
