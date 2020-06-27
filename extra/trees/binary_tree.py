@@ -279,11 +279,43 @@ class BinaryTreeNode(TreeNode):
 
 
     def __repr__(self):
+        """
+        Represents `BinaryTreeNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `BinaryTreeNode()` instance.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(10)
+        >>> x
+        >>> BinaryTreeNode(10)
+        """
         return f"BinaryTreeNode({self._data})"
 
 
     def _represent(self):
-        #represents BinaryTreeNode when being printed within a tree
+        """
+        A helpful function used to represent the `BinaryTreeNode()` instance
+        when printing. It's used with BinaryTree.__repr__() method
+        
+        Returns
+        -------
+        str:
+            A string representing the `BinaryTreeNode()` is a very simple way.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(10)
+        >>> x
+        BinaryTreeNode(10)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+        """
         return str(self._data)
 
 
