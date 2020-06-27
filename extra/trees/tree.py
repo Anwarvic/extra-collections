@@ -981,6 +981,45 @@ class Tree(Extra):
             
     
     def __contains__(self, value):
+        """
+        Searches the `Tree()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        value: object
+            The value to be searched for in the `Tree()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `Tree()` instance and
+            `False` if not.
+        
+        Examples
+        --------
+        >>> t = Tree()
+        >>> root = TreeNode(10)
+        >>> first_child = TreeNode(100)
+        >>> second_child = TreeNode(200)
+        >>> first_child.set_children([TreeNode(1), TreeNode(2), TreeNode(3)])
+        >>> second_child.set_children([TreeNode(4), TreeNode(5)])
+        >>> root.set_children([first_child, second_child])
+        >>> t._root = root
+        >>> t
+        10
+        ├─┬ 100
+        │ ├── 1
+        │ ├── 2
+        │ └── 3
+        └─┬ 200
+          ├── 4
+          └── 5
+        >>> 100 in t
+        True
+        >>> 50 in t
+        False
+        """
         found_node = self._search(value)
         return True if found_node is not None else False
 
