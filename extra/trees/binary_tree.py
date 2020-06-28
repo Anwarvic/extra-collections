@@ -200,7 +200,8 @@ class BinaryTreeNode(TreeNode):
 
     def get_children(self):
         """
-        Returns a list of all the children of the `BinaryTreeNode()` instance.
+        Returns a list of all the children of the current `BinaryTreeNode()`
+        instance.
 
         Returns
         -------
@@ -322,11 +323,27 @@ class BinaryTreeNode(TreeNode):
 
 
 class BinaryTree(Tree):
+    """
+    A binary tree is a non-linear data structure that can be defined recursively
+    using a collection of `BinaryTreeNode()` instances, where each node has 
+    either zero, one or two references to the children `BinaryTreeNode()`
+    instances.
+    """
     _basic_node = BinaryTreeNode
+    __name__ = "extra.BinaryTree()"
 
-
-    def __name__(self):
-        return "extra.BinaryTree()"
+    
+    def __init__(self):
+        """
+        Creates an empty `BinaryTree()` object!!
+        
+        Example
+        -------
+        >>> t = BinaryTree()
+        >>> type(t)
+        <class 'extra.trees.binary_tree.BinaryTree'>
+        """
+        super().__init__()
     
 
     @staticmethod
