@@ -348,6 +348,27 @@ class BinaryTree(Tree):
 
     @staticmethod
     def __create_subtree(lst):
+        """
+        Creates a `BinaryTree()` instance from a nested list where the each 
+        element has a nested list represening a subtree where the first 
+        element in the parent and the second element is the left subtree and the
+        third element is the right subtree.
+
+        Parameters
+        ----------
+        lst: list or tuple
+            A list or tuple object representing the tree in a linear-form.
+        
+        Returns
+        -------
+        BinaryTreeNode():
+            The root of the `BinaryTree()` instance formed from parsing the 
+            given object.
+        
+        Raises
+        ------
+        ValueError: If the given object can't be parsed
+        """
         if type(lst) not in {list, tuple}: lst = [lst]
         if len(lst) == 0 or len(lst) >= 4:
             raise ValueError(f"Given {type(lst)} can not be parsed!!")
@@ -362,6 +383,40 @@ class BinaryTree(Tree):
 
     @staticmethod
     def parse(lst):
+        """
+        A static method that Creates a `BinaryTree()` instance from a nested
+        list where the each element has a nested list represening a subtree 
+        where the first element in the parent and the second element is the
+        left subtree and the third element is the right subtree.
+
+        Parameters
+        ----------
+        lst: list or tuple
+            A list or tuple object representing the tree in a linear-form.
+        
+        Returns
+        -------
+        BinaryTreeNode():
+            The root of the `BinaryTree()` instance formed from parsing the 
+            given object.
+        
+        Raises
+        ------
+        ValueError: If the given object can't be parsed
+        
+        Example
+        -------
+        >>> lst = ["PP", ["ADP", "in"], ["NP", ["PRON", "our"], ["Noun", "home"]]]
+        >>> btree = BinaryTree.parse(lst)
+        >>> btree
+              _PP_________
+             /            \\
+          _ADP           __NP______
+         /              /          \\
+        in           _PRON       __Noun
+                    /           /
+                  our         home
+        """
         if type(lst) not in {list, tuple}:
             raise TypeError("Given object must be a `list` or `tuple`!!")
         bt = BinaryTree()
