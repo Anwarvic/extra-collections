@@ -484,6 +484,24 @@ class BinaryTree(Tree):
 
 
     def _print_empty_tree(self):
+        """
+        Prints the `BinaryTree()` instance when it's empty.
+
+        Returns
+        -------
+        str
+            A string representing an empty `BinaryTree()` instance.
+
+        Raises
+        ------
+        AssertionError: In case the `BinaryTree()` instance isn't empty!!
+
+        Example
+        -------
+        >>> btree = BinaryTree()
+        >>> btree
+        / \\
+        """
         return "/ \\"
 
 
