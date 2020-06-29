@@ -506,6 +506,39 @@ class BinaryTree(Tree):
 
 
     def __repr__(self):
+        """
+        Represents the `BinaryTree()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `BinaryTree()` instance.
+
+        Example
+        -------
+        >>> btree = BinaryTree()
+        >>> btree
+        / \\
+        >>> # the following is a simple family tree
+        >>> root = BinaryTreeNode("GrandFather")
+        >>> left_child = BinaryTreeNode("Father")
+        >>> left_child.set_left(BinaryTreeNode("You"))
+        >>> left_child.set_right(BinaryTreeNode("Sibling"))
+        >>> root.set_left(left_child)
+        >>>
+        >>> right_child = BinaryTreeNode("Uncle")
+        >>> righ_child.set_left(BinaryTreeNode("Cousin1"))
+        >>> righ_child.set_right(BinaryTreeNode("Cousin2"))
+        >>> root.set_right(right_child)
+        >>> btree._root = root
+        >>> btree
+        
+                ___________GrandFather_________
+               /                               \\
+           _Father___                      ___Uncle__
+          /          \\                   /           \\
+        You        Sibling             Cousin1      Cousin2
+        """
         if self.is_empty():
             return self._print_empty_tree()
         lines, _, _, _ = self.__print_subtree(self._root, 0)
