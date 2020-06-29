@@ -637,6 +637,22 @@ class BinaryTree(Tree):
 
     ##############################     STRICT     ##############################
     def __is_subtree_strict(self, start_node):
+        """
+        Checks if the given binary subtree defined by the given `start_node` is
+        strict. A binary tree is strict if all its non-leaf nodes has two 
+        children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `BinaryTree()` instance is perfect and `False` if it
+            is not perfect.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` is not `None` and it's not
+        a `BinaryTreeNode()` object.
+        """
         assert start_node is None or isinstance(start_node, self._basic_node)
 
         left_node = start_node.get_left()
@@ -655,13 +671,37 @@ class BinaryTree(Tree):
 
     def is_strict(self):
         """
-        BinaryTree is strict if all its non-leaf nodes has left and right
-        children.
+        Checks if the `BinaryTreeNode()` instance is perfect. A binary tree is
+        perfect if all its all its non-leaf nodes has two children (left and 
+        right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `BinaryTree()` instance is strict and `False` if it
+            is not strict.
+        
+        Raises
+        ------
+        UserWarning: If the `BinaryTree()` is empty.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\
+        4   5
+        >>> btree.is_strict()
+        True
         """
         if self.is_empty():
-            warnings.warn(\
+            warnings.warn(
                 f"You are checking the strictness of an empty `{self.__name__}`",
-                UserWarning)
+                UserWarning
+            )
             return True
         return self.__is_subtree_strict(self._root)
 
