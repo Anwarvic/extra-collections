@@ -548,13 +548,37 @@ class BinaryTree(Tree):
     ##############################    BALANCED    ##############################
     def is_balanced(self):
         """
-        BinaryTree is balanced if the difference between the depth of any
-        two leaf nodes is less than or equal one.
+        Checks if the `BinaryTreeNode()` instance is balanced. A binary tree is
+        balanced if the difference between the depth of any two leaf nodes is
+        less than or equal to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `BinaryTree()` instance is balanced and `False` if it
+            is not balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `BinaryTree()` is empty.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \
+        4   5
+        >>> btree.is_balanced()
+        True
         """
         if self.is_empty():
-            warnings.warn(\
-                f"You are checking the balance of an empty `{self.__name__}`",
-                UserWarning)
+            warnings.warn(
+                    f"You are checking the balance of an empty `{self.__name__}`",
+                    UserWarning
+                )
             return True
         left_depth = 0 if self._root.get_left() is None \
                         else 1 + super()._get_depth(self._root.get_left()) 
