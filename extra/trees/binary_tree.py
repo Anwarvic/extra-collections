@@ -569,7 +569,7 @@ class BinaryTree(Tree):
             __1__
            /     \\
           2       3
-         / \
+         / \\
         4   5
         >>> btree.is_balanced()
         True
@@ -590,7 +590,39 @@ class BinaryTree(Tree):
     ##############################    PERFECT     ##############################
     def is_perfect(self):
         """
-        BinaryTree is perfect if all its levels are completely filled.
+        Checks if the `BinaryTreeNode()` instance is perfect. A binary tree is
+        perfect if all its levels are completely filled.
+
+        Returns
+        -------
+        bool:
+            `True` if the `BinaryTree()` instance is perfect and `False` if it
+            is not perfect.
+        
+        Raises
+        ------
+        UserWarning: If the `BinaryTree()` is empty.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\
+        4   5
+        >>> btree.is_perfect()
+        False
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.is_perfect()
+        True
         """
         if self.is_empty():
             warnings.warn(\
