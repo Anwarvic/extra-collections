@@ -836,6 +836,28 @@ class BinaryTree(Tree):
 
 
     def inorder_traverse(self):
+        """
+        Traverses the `BinaryTree()` instance in in-order manner. Which means
+        that the **left subtree** (if found) is visited first. Then, the
+        **parent** then the **right subtree** (if found).
+        
+        Returns
+        --------
+        list:
+            A list of all values of the in-order visited nodes.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.inrder_traverse()
+        [4, 2, 5, 1, 6, 3, 7]
+        """
         return self.__inorder_traverse(self._root)
 
 
