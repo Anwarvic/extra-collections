@@ -863,6 +863,27 @@ class BinaryTree(Tree):
 
     ##############################  BREADTH-FIRST ##############################
     def breadth_first_traverse(self):
+        """
+        Traverses the `BinaryTree()` instance in breadth-first manner. Which
+        means that the tree nodes will be visited level by level. 
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.breadth_first_traverse()
+        [1, 2, 3, 4, 5, 6, 7]
+        """
         return super().to_list()
 
 
