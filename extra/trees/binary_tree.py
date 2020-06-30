@@ -796,6 +796,28 @@ class BinaryTree(Tree):
 
 
     def postorder_traverse(self):
+        """
+        Traverses the `BinaryTree()` instance in post-order manner. Which means
+        that the **left subtree** (if found) is visited first. Then, the 
+        **right subtree** (if found) then the **parent**.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.postorder_traverse()
+        [4, 5, 2, 6, 7, 3, 1]
+        """
         return self.__postorder_traverse(self._root)
 
 
