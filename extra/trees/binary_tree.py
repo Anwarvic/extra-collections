@@ -424,6 +424,37 @@ class BinaryTree(Tree):
         return bt
 
 
+##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `BinaryTree()` instance in time-complexity of O(n) 
+        where **n** is the number of nodes in the tree. Length is the number of
+        nodes in the instance.
+        
+        Returns
+        -------
+        int:
+            The length of the `BinaryTree()` instance. Length is the number of
+            tree nodes in the instance.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> len(btree)
+        7
+        """
+        return super().__len__()
+
+
+   
+    
+
     ##############################     PRINT      ##############################
     def __print_subtree(self, root, curr_index):
         """
@@ -1152,3 +1183,28 @@ class BinaryTree(Tree):
         False
         """
         return super().__contains__(value)
+    
+
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `BinaryTree()` instance in constant time.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.clear()
+        >>> btree
+        / \\
+        >>> btree.is_empty()
+        True
+        """
+        super.clear()
+
+
