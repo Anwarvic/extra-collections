@@ -889,11 +889,61 @@ class BinaryTree(Tree):
 
     ##############################    TRAVERSE    ##############################
     def traverse(self, method='inorder'):
+        """
+        Traversal is the process to visit all nodes of a binary tree starting
+        from the root as we cannot randomly access any node in a binary tree.
+        There are four ways which we use to traverse a binary tree:
+
+        1. preorder - depth-first
+        2. inorder
+        3. posteorder
+        4. breadth-first
+
+        Parameters
+        ----------
+        method: str (default="inorder")
+            A lower-cased string describing the type of traversal that will be
+            used. It could be one of these values: ["inorder", "postorder",
+            "preorder", "depth-first", "breadth-first"]
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Raises
+        ------
+        ValueError: If the given method isn't known.
+        TypeError: If the given method isn't a string.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.traverse("preorder")
+        [1, 2, 4, 5, 3, 6, 7]
+        >>> btree.traverse("inorder")
+        [4, 2, 5, 1, 6, 3, 7]
+        >>> btree.traverse("postorder")
+        [4, 5, 2, 6, 7, 3, 1]
+        >>> btree.traverse("breadth-first")
+        [1, 2, 3, 4, 5, 6, 7]
+        >>> btree.traverse("extra")
+        ValueError: Given traverse method has to be one of these:
+        {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
+        """
         trav_methods = {"inorder", "postorder", "preorder", "depth-first",
                         "breadth-first"}
         if type(method) != str:
-            raise TypeError("Given traverse method has to be one of these:\n"+\
-                        str(trav_methods))
+            raise TypeError(
+                "Given traverse method has to be one of these:\n" + 
+                str(trav_methods)
+            )
         # traverse based on given method
         method = method.lower()
         if method == 'inorder':
@@ -905,22 +955,9 @@ class BinaryTree(Tree):
         elif method == "breadth-first":
             return self.breadth_first_traverse()
         else:
-            raise ValueError("Given traverse method has to be one of these:\n"+\
-                        str(trav_methods))
+            raise ValueError(
+                "Given traverse method has to be one of these:\n" +
+                str(trav_methods)
+            )
 
 
-if __name__ == "__main__":
-    root = BinaryTreeNode("GrandFather")
-    root.set_left(BinaryTreeNode("Father"))
-    root.get_left().set_left(BinaryTreeNode("Me"))
-    root.get_left().set_right(BinaryTreeNode("Sibling"))
-    root.set_right(BinaryTreeNode("Uncle"))
-    root.get_right().set_left(BinaryTreeNode("Cousin1"))
-    root.get_right().set_right(BinaryTreeNode("Cousin2"))
-    btree = BinaryTree()
-    btree._root = root
-    print(btree)
-    print(btree.preorder_traverse())
-    print(" ⟶ ".join(btree.inorder_traverse()))
-    print(" ⟶ ".join(btree.postorder_traverse()))
-    print(" ⟶ ".join(btree.breadth_first_traverse()))
