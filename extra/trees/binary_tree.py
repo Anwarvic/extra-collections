@@ -565,7 +565,7 @@ class BinaryTree(Tree):
           2       3
          / \\    / \\     
         4   5    6  7
-        >>> t.get_height()
+        >>> btree.get_height()
         2
         """
         return super().get_height()
@@ -589,11 +589,38 @@ class BinaryTree(Tree):
           2       3
          / \\    / \\     
         4   5    6  7
-        >>> t.get_depth()
+        >>> btree.get_depth()
         0
         """
         return super().get_depth()
     
+
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `BinaryTree()` instance. Leaf
+        nodes are the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `BinaryTree()`.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.count_leaf_nodes()
+        4
+        """
+        return super().count_leaf_nodes()
+
 
     ##############################    BALANCED    ##############################
     def is_balanced(self):
