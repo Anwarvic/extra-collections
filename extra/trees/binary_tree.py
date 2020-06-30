@@ -1120,3 +1120,35 @@ class BinaryTree(Tree):
             )
 
 
+    ##############################     SEARCH     ##############################
+    def __contains__(self, value):
+        """
+        Searches the `Tree()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        value: object
+            The value to be searched for in the `BinaryTree()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `Tree()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> 2 in btree
+        True
+        >>> "hello" in btree
+        False
+        """
+        return super().__contains__(value)
