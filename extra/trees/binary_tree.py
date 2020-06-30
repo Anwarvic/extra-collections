@@ -811,7 +811,31 @@ class BinaryTree(Tree):
         return super().__iter__()
 
 
-   
+    def to_list(self):
+        """
+        Converts the `BinaryTree()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `BinaryTree()`
+            instance.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.to_list()
+        [1, 2, 3, 4, 5, 6, 7]
+        """
+        return super().to_list()
+
 
     ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
