@@ -752,6 +752,32 @@ class BinaryTree(Tree):
 
 
     def depth_first_traverse(self):
+        """
+        Traverses the `BinaryTree()` instance in depth-first manner. Which means
+        that the **parent** is visited first. Then, the **left subtree** (if
+        found), then the **right subtree** (if found). 
+        
+        Note
+        -----
+        It's the same as preorder_traverse() method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.depth_first_traverse()
+        [1, 2, 4, 5, 3, 6, 7]
+        """
         return self.__preorder_traverse(self._root)
 
 
