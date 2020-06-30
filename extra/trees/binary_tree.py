@@ -783,6 +783,36 @@ class BinaryTree(Tree):
         return self.__is_subtree_strict(self._root)
 
 
+
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `BinaryTree()` instance and returns a generator of the 
+        `BinaryTreeNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> for value in btree:
+        ...     print(value, end=',')
+        1,2,3,4,5,6,7,
+        """
+        return super().__iter__()
+
+
+   
+
     ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
         
