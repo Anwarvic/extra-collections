@@ -114,7 +114,7 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_strict()              | Checks if the binary tree is strict.               | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodss in the tree.                 | O(n)       | O(n)    |
+| count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -544,6 +544,32 @@ class BinaryTree(Tree):
         lines, _, _, _ = self.__print_subtree(self._root, 0)
         return '\n'.join((line.rstrip() for line in lines[:-1]))
 
+
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `BinaryTree()` instance. The tree's height is the 
+        number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> t.get_height()
+        2
+        """
+        return super().get_height()
+    
 
     ##############################    BALANCED    ##############################
     def is_balanced(self):
