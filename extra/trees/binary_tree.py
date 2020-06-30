@@ -571,6 +571,30 @@ class BinaryTree(Tree):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `Tree()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> t.get_depth()
+        0
+        """
+        return super().get_depth()
+    
+
     ##############################    BALANCED    ##############################
     def is_balanced(self):
         """
