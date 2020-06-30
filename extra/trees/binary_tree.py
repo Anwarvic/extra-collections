@@ -837,6 +837,34 @@ class BinaryTree(Tree):
         return super().to_list()
 
 
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all treenodes within the `BinaryTree()` instance so that all
+        treenodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\     
+        4   5    6  7
+        >>> btree.get_nodes_per_level()
+        [[1], [2, 3], [4, 5, 6, 7]]
+        """
+        return super().get_nodes_per_level()
+
+
     ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
         
