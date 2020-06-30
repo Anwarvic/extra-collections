@@ -424,7 +424,7 @@ class BinaryTree(Tree):
         return bt
 
 
-##############################     LENGTH     ##############################
+    ##############################     LENGTH     ##############################
     def __len__(self):
         """
         Gets the length of the `BinaryTree()` instance in time-complexity of O(n) 
@@ -833,7 +833,6 @@ class BinaryTree(Tree):
             )
             return True
         return self.__is_subtree_strict(self._root)
-
 
 
     ##############################      ITER      ##############################
