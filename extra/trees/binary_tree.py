@@ -452,7 +452,28 @@ class BinaryTree(Tree):
         return super().__len__()
 
 
-   
+    def is_empty(self):
+        """
+        Checks if the `BinaryTree()` instance is empty or not in time-complexity
+        of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `BinaryTree()` instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> btree = Tree()
+        >>> btree.is_empty()
+        True
+        >>> btree._root = BinaryTreeNode(1)
+        >>> btree.is_empty()
+        False
+        """
+        return super().is_empty()
     
 
     ##############################     PRINT      ##############################
