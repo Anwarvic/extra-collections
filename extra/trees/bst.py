@@ -316,6 +316,15 @@ class BSTNode(BinaryTreeNode):
 
 
     def is_left_child(self):
+        """
+        Check if the current `BSTNode()` is a left child.
+
+        Returns
+        -------
+        bool:
+            `True` if the current `BSTNode()` is a left-child. And `False` if
+            it's not.
+        """
         return self._parent.get_data() > self.get_data()
 
 
