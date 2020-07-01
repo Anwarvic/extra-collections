@@ -1,3 +1,159 @@
+"""
+A binary search tree, or BST for short, is a non-linear data structure that
+stores numbers hierarchical. With the exception of the top element, each element
+in the binary serach tree has a parent element and each node has two children
+elements at most. We typically call the top element of the binary search tree,
+"the root". The root is drawn as the highest element, with the other elements
+being connected below (just the opposite of an actual tree).
+
+In other words, we can consider the binary search tree as a binary tree that 
+stores numbers where the value stored in a certain node is greater than all the 
+numbers found in the node's left subtree and less than those found in the node's
+right subtree.
+
+So, the following is a simple BST:
+
+.. code-block:: text
+
+          __8___
+         /      \\
+      __5       _15
+     /   \\    /
+    2     7   10
+     \\
+      3
+
+
+In the previous binary search tree, we can say the following:
+
+- `8` has no parent.
+- `8` is the parent of both `5` and `15`. `5` is the left child of `8` and \
+    `15` is the right child. 
+- `8` is the grandparnet of `2`, `7` and `10`.
+- `15` is the uncle of `2` and `7`. While `5` is the uncle of just `10`.
+- `15` is the sibling of `5` and vice versa. And `2` is the sibling of `7` and \
+    vice versa.
+
+Now, let's try to use the previous BST to explain a few terms:
+
+- **Tree Node**: Each entry in the BSTis called a tree node. So, `8`, `5`, \
+    `15`, ... `3` are all tree nodes. So, the number of nodes in the previous \
+    BST is 7.
+- **Root**: The root is the first tree node in the BST and it's the only \
+    tree node that has no *parent*. So, `8` is the root of the previuos tree.
+- **Leaf Node**: The leaf node is a tree node that has no children. So, both \
+    `3`, `7`, and `10` are leaf nodes. So, the number of leaf nodes in the \
+    previous tree is 3.
+- **Height**: The tree height is the number of edges between the root and the \
+    furthest leaf node. In this case, the tree height is just 3 as there are \
+    three edges between `8` and `3`.
+- **Depth**: The depth of a tree node is the number of edges between this tree \
+    node and the root. So, the depth of the tree's root is always 0.
+- **Balanced Tree**: A BST is said to be balanced if the difference between \
+    the depth of any two leaf nodes is less than or equal one. So, this BST \
+    is balanced
+- **Perfect Tree**: A BST is said to be perfect if all its levels are \
+    completely filled. So, the pervious BST is NOT perfect.
+- **Strict Tree**: A BST is said to be strict if all its non-leaf nodes has \
+    left and right children. So, the pervious BST is NOT strict.
+- **Traversal**: Traversal is the process to visit all nodes of a BST starting \
+    from the root as we cannot randomly access any node in a BST. There are \
+    four ways which we use to traverse a BST:
+
+    - **Pre-order Traversal**: It's also known as "Depth-first Traversal" \
+        where the **parent** is visited first. Then, the **left subtree** \
+        (if found), then the **right subtree** (if found). So, the pre-order \
+        traversal of the previous BST will be: \
+
+            8 ⟶ 5 ⟶ 2 ⟶ 3 ⟶ 7 ⟶ 15 ⟶ 10
+        
+    - **In-order Traversal**: The **left subtree** (if found) is visited first\
+        . Then, the **parent** then the **right subtree** (if found). So, the \
+        in-order traversal of the previous BST will be: \
+
+            2 ⟶ 3 ⟶ 5 ⟶ 7 ⟶ 8 ⟶ 10 ⟶ 15
+        
+    - **Post-order Traversal**: The **left subtree** (if found) is visited \
+        first. Then, the **right subtree** (if found) then the **parent**. So, \
+        the post-order traversal of the previous BST will be: \
+
+            3 ⟶ 2 ⟶ 7 ⟶ 5 ⟶ 10 ⟶ 15 ⟶ 8
+        
+    - **Breadth-order Traversal**: It's also known as "Level-order Traversal" \
+        where all nodes is visited by the order of the level they are in. So, \
+        tree nodes in the first level are visited before all tree nodes in the \
+        second level and so on. So, the breadth-first traversal of the \
+        previuos BST will be: \
+
+            8 ⟶ 5 ⟶ 15 ⟶ 2 ⟶ 7 ⟶ 10 ⟶ 3
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **h** is the height of the BST which approximatley equals to **log(n)**.
+
++--------------------------+----------------------------------------------------+------------+---------+
+| Method                   | Description                                        | Worst-case | Optimal |
++==========================+====================================================+============+=========+
+| __len__()                | Returns the number of nodes.                       | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __repr__()               | Represents the BST.                                | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __iter__()               | Iterates over the BST.                             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __contains__()           | Checks the existence of the given item.            | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_height()             | Gets the BST's height.                             | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_depth()              | Gets the BST's depth.                              | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_balanced()            | Checks if the BST is balanced.                     | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_perfect()             | Checks if the BST is perfect.                      | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_strict()              | Checks if the BST is strict.                       | O(n)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| traverse()               | Traverses the BST based on given method.           | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| preorder_traverse()      | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| inorder_traverse()       | Traverses the BST in an in-order manner.           | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| postorder_traverse()     | Traverses the BST in an post-order manner.         | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| breadth_first_traverse() | Traverses the BST level by level.                  | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| depth_first_traverse()   | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_min()                | Gets the minimum number in the BST.                | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_max()                | Gets the maximum number in the BST.                | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| insert()                 | Inserts a certain value to the BST.                | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| remove()                 | Removes a certain value from the BST.              | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `BST()` objects:
+
+"""
 import warnings
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
