@@ -191,6 +191,14 @@ class BSTNode(BinaryTreeNode):
 
 
     def get_parent(self):
+        """
+        Returns the parent of the current `BSTNode()` instance.
+
+        Returns
+        -------
+        BSTNode():
+            The parent of the current `BSTNode()`.
+        """
         return self._parent
 
 
