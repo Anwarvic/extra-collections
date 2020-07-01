@@ -247,8 +247,8 @@ class BSTNode(BinaryTreeNode):
         -------
         BSTNode() or None:
             The sibling of the current `BSTNode()` which could be a `BSTNode() 
-            object or `None` in case the current `BSTNode()` is the root of the
-            `BST()`.
+            object or `None` in case the current `BSTNode()` doesn't have a 
+            sibling.
         """
         # return the brother if found
         parent = self._parent
@@ -258,6 +258,18 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_left(self, new_node):
+        """
+        Sets the given `BSTNode()` as a left child for the current `BSTNode()`.
+
+        Parameters
+        ----------
+        child: BSTNode()
+            The `BSTNode()` that will be a left child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `BSTNode()` object.
+        """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a left child!!")
         self._left = new_node
