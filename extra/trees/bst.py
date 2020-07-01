@@ -161,13 +161,31 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
 class BSTNode(BinaryTreeNode):
-    def __name__(self):
-        return "extra.BSTNode()"
+    """
+    A BST node is the basic unit for building BSTs. A BST node must contain a 
+    number. Each BST node has either zero, one or two children BST nodes.
+    The node that has no children is called a **leaf node**.
+    """
+    __name__ = "extra.BSTNode()"
     
 
     def __init__(self, value):
+        """
+        Creates a `BSTNode()` object which is the basic unit for building 
+        BST() objects!!
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be saved within the `BSTNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item isn't a number.
+        """
         if type(value) not in {int, float}:
-            raise TypeError(f"{self.__name__()} contains only numbers!!")
+            raise TypeError(f"`{self.__name__}` contains only numbers!!")
         super().__init__(value)
         self._parent = None
 
@@ -247,7 +265,7 @@ class BST(BinaryTree):
     def _validate_item(self, item):
         super()._validate_item(item)
         if type(item) not in {int, float}:
-            raise TypeError(f"{self.__name__()} accepts only numbers!!")
+            raise TypeError(f"`{self.__name__}` accepts only numbers!!")
     
 
     @classmethod
@@ -281,7 +299,7 @@ class BST(BinaryTree):
     def get_max(self):
         if self.is_empty():
             raise IndexError(\
-                f"Can't get the maximum value of an empty {self.__name__()}")
+                f"Can't get the maximum value of an empty `{self.__name__}`")
         max_node = self._get_max_node(self._root)
         return max_node.get_data()
 
@@ -300,7 +318,7 @@ class BST(BinaryTree):
     def get_min(self):
         if self.is_empty():
             raise IndexError(\
-                f"Can't get the minimum value of an empty {self.__name__()}")
+                f"Can't get the minimum value of an empty `{self.__name__}`")
         min_node = self._get_min_node(self._root)
         return min_node.get_data()
 
@@ -339,7 +357,7 @@ class BST(BinaryTree):
         
         value = inserted_node.get_data()
         if value == start_node.get_data():
-            warnings.warn(f"`{value}` already exists in {self.__name__()}",
+            warnings.warn(f"`{value}` already exists in `{self.__name__}`",
                 UserWarning
             )
             return start_node
@@ -433,7 +451,7 @@ class BST(BinaryTree):
         removed_node = self._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             last_accessed_node = removed_node
@@ -456,10 +474,10 @@ class BST(BinaryTree):
 
     def remove(self, del_value):
         if self.is_empty():
-            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             return 
