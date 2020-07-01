@@ -329,6 +329,20 @@ class BSTNode(BinaryTreeNode):
 
 
     def __repr__(self):
+        """
+        Represents `BSTNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `BSTNode()` instance.
+        
+        Example
+        -------
+        >>> x = BSTNode(10)
+        >>> x
+        >>> BSTNode(10)
+        """
         return f"BSTNode({self._data})"
 
 
