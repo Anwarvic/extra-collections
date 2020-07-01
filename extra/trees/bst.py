@@ -219,6 +219,16 @@ class BSTNode(BinaryTreeNode):
 
 
     def get_uncle(self):
+        """
+        Returns the uncle of the current `BSTNode()` instance. The uncle is the
+        sibling of the parent.
+
+        Returns
+        -------
+        BSTNode() or None:
+            The uncle of the current `BSTNode()` which could be a `BSTNode() 
+            object or `None` in case the current `BSTNode()` has no uncle.
+        """
         parent = self._parent
         if parent is None:
             return None
