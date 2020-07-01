@@ -298,6 +298,18 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_parent(self, new_node):
+        """
+        Sets the given `BSTNode()` as a parent for the current `BSTNode()`.
+
+        Parameters
+        ----------
+        child: BSTNode()
+            The `BSTNode()` that will be a parent for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is neither a `BSTNode()` object nor `None`.
+        """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a child's parent!!")
         self._parent = new_node
