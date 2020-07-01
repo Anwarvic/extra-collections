@@ -196,13 +196,25 @@ class BSTNode(BinaryTreeNode):
 
         Returns
         -------
-        BSTNode():
-            The parent of the current `BSTNode()`.
+        BSTNode() or None:
+            The parent of the current `BSTNode()` which could be a `BSTNode() 
+            object or `None` in case the current `BSTNode()` is the root of the
+            `BST()`.
         """
         return self._parent
 
 
     def get_grand_parent(self):
+        """
+        Returns the grand-parent of the current `BSTNode()` instance.
+
+        Returns
+        -------
+        BSTNode() or None:
+            The grand-parent of the current `BSTNode()` which could be a
+            `BSTNode() object or `None` in case the current `BSTNode()` is the
+            root of the `BST()` or the root's children.
+        """
         return self._parent.get_parent() if self._parent is not None else None
 
 
