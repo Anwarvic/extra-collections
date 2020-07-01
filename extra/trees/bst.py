@@ -240,6 +240,16 @@ class BSTNode(BinaryTreeNode):
 
 
     def get_sibling(self):
+        """
+        Returns the sibling of the current `BSTNode()` instance.
+
+        Returns
+        -------
+        BSTNode() or None:
+            The sibling of the current `BSTNode()` which could be a `BSTNode() 
+            object or `None` in case the current `BSTNode()` is the root of the
+            `BST()`.
+        """
         # return the brother if found
         parent = self._parent
         if parent is None:
