@@ -278,6 +278,18 @@ class BSTNode(BinaryTreeNode):
 
 
     def set_right(self, new_node):
+        """
+        Sets the given `BSTNode()` as a right child for the current `BSTNode()`.
+
+        Parameters
+        ----------
+        child: BSTNode()
+            The `BSTNode()` that will be a right child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `BSTNode()` object.
+        """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a right child!!")
         self._right = new_node
