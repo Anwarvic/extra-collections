@@ -374,6 +374,21 @@ class BST(BinaryTree):
 
 
     def _validate_item(self, item):
+        """
+        Makes sure the input variable type can be processed. The main use for 
+        this method is to make sure we can't create nested objects from the 
+        package.
+        
+        Parameters
+        ----------
+        item: object
+            The input object of any type.
+        
+        Raises
+        -------
+        ValueError: If `item` is `None`
+        TypeError: If `item` is not a numeric value.
+        """
         super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"`{self.__name__}` accepts only numbers!!")
