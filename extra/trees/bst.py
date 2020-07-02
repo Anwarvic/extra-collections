@@ -678,6 +678,37 @@ class BST(BinaryTree):
 
 
     def __contains__(self, find_val):
+        """
+        Searches the `BST()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `BST()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `BST()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> 5 in bst
+        True
+        >> 50 in bst
+        False
+        """
         if self.is_empty() or type(find_val) not in {int, float}:
             return False
         found_node = self._search(find_val, self._root)
