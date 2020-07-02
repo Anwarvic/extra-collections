@@ -487,9 +487,9 @@ class BST(BinaryTree):
     ##############################       MAX      ##############################
     def _get_max_node(self, start_node):
         """
-        Gets the maximum numeric value in the given binary search subtree whose
-        root is the given `start_node`. The maximum value can be found at the
-        right-most leaf node in the right subtree.
+        Gets the `BSTNode()` that holds the maximum numeric value in the given
+        binary search subtree whose root is the given `start_node`. The maximum
+        value can be found at the right-most leaf node in the right subtree.
 
         Parameters
         ----------
@@ -500,6 +500,11 @@ class BST(BinaryTree):
         -------
         BSTNode():
             The `BSTNode()` that holds the maximum numeric value in the subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't an instance of \
+            `BSTNode()`
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -512,7 +517,7 @@ class BST(BinaryTree):
 
     def get_max(self):
         """
-        Gets the maximum numeric value in the `BST()` isntance. The maximum
+        Gets the maximum `BSTNode()` in the `BST()` isntance. The maximum
         value can be found at the right-most leaf node in the `BST()` instance.
 
         Returns
@@ -529,6 +534,27 @@ class BST(BinaryTree):
 
     ##############################    MIN   ##############################
     def _get_min_node(self, start_node):
+        """
+        Gets the `BSTNode()` that holds the minimum numeric value in the given
+        binary search subtree whose root is the given `start_node`. The minimum
+        value can be found at the left-most leaf node in the left subtree.
+
+        Parameters
+        ----------
+        start_node: BSTNode()
+            The root of the subtree from which we want to get the minimum value.
+        
+        Returns
+        -------
+        BSTNode():
+            The `BSTNode()` that holds the minimum numeric value in the subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't an instance of \
+            `BSTNode()`
+        """
+
         assert isinstance(start_node, self._basic_node)
 
         # get the left-most node
