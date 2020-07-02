@@ -462,6 +462,25 @@ class BST(BinaryTree):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
+        """
+        Gets the length of the `BST()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `BST()` instance. Length is the number of tree 
+            nodes in the instance.
+        
+        Example
+        -------
+        >>> bst = BST.from_itearble([2, 1, 3])
+        >>> btree
+            __2__
+           /     \\
+          1       3
+        >>> len(btree)
+        3
+        """
         return self._length
 
 
