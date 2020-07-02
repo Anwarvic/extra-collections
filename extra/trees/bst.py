@@ -489,7 +489,7 @@ class BST(BinaryTree):
         """
         Gets the `BSTNode()` that holds the maximum numeric value in the given
         binary search subtree whose root is the given `start_node`. The maximum
-        value can be found at the right-most leaf node in the right subtree.
+        value can be found at the right-most tree node in the right subtree.
 
         Parameters
         ----------
@@ -518,7 +518,7 @@ class BST(BinaryTree):
     def get_max(self):
         """
         Gets the maximum `BSTNode()` in the `BST()` isntance. The maximum
-        value can be found at the right-most leaf node in the `BST()` instance.
+        value can be found at the right-most tree node in the `BST()` instance.
 
         Returns
         -------
@@ -528,6 +528,20 @@ class BST(BinaryTree):
         Raises
         ------
         IndexError: In case the `BST()` instance is empty.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.get_max()
+        15
         """
         if self.is_empty():
             raise IndexError(\
@@ -541,7 +555,7 @@ class BST(BinaryTree):
         """
         Gets the `BSTNode()` that holds the minimum numeric value in the given
         binary search subtree whose root is the given `start_node`. The minimum
-        value can be found at the left-most leaf node in the left subtree.
+        value can be found at the left-most tree node in the left subtree.
 
         Parameters
         ----------
@@ -571,7 +585,7 @@ class BST(BinaryTree):
     def get_min(self):
         """
         Gets the minimum `BSTNode()` in the `BST()` isntance. The minimum
-        value can be found at the left-most leaf node in the `BST()` instance.
+        value can be found at the left-most tree node in the `BST()` instance.
 
         Returns
         -------
@@ -581,6 +595,20 @@ class BST(BinaryTree):
         Raises
         ------
         IndexError: In case the `BST()` instance is empty.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.get_min()
+        2
         """
         if self.is_empty():
             raise IndexError(\
@@ -591,6 +619,47 @@ class BST(BinaryTree):
 
     ##############################   SEARCH  ##############################
     def _search(self, find_val, start_node):
+        """
+        Searches the `BST()` for a given value (`find_val`) starting from the
+        subtree whose root is the given `start_node` and returns the node
+        containing that value if found. If not found, it returns the last 
+        accessed node.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `BST()` instance.
+        start_node: BSTNode()
+            The root of the subtree where the search will begin.
+        
+        Returns
+        -------
+        BSTNode():
+            If the value is found, this object represents the found node. If the
+            value isn't found, this object will be the last accessed node.
+
+        Raises
+        ------
+        AssertionError: This can be raised in one of the following cases:
+            1. If `find_val` is NOT a numeric value.
+            2. If the given `start_node` isn't an instance of `BSTNode()`.
+
+        Examples
+        --------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst._search(5, bst._root)
+        BSTNode(5)
+        >>> bst._search(5, bst._root._right)
+        BSTNode(10)
+        """
         assert isinstance(start_node, self._basic_node)
         assert type(find_val) in {float, int}
 
