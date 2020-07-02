@@ -396,6 +396,60 @@ class BST(BinaryTree):
 
     @classmethod
     def from_iterable(cls, iterable):
+        """
+        A class method which creates a `BST()` instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: any iterable object.
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        BST()
+            It returns a `BST()` instance with input values being inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> bst = BST.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.BST()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> bst = BST.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `BST()` objects will raise `TypeError` as well
+
+        >>> bst_1 = BST.from_iterable([1])
+        >>> bst_2 = BST.from_iterable([1, bst_1])
+        TypeError: Can't create `extra.BST()` using `extra.BST()`!!
+        """
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
