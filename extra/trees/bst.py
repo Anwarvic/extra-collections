@@ -524,6 +524,10 @@ class BST(BinaryTree):
         -------
         int or float:
             The maximum numeric value in the `BST()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `BST()` instance is empty.
         """
         if self.is_empty():
             raise IndexError(\
@@ -565,6 +569,19 @@ class BST(BinaryTree):
 
 
     def get_min(self):
+        """
+        Gets the minimum `BSTNode()` in the `BST()` isntance. The minimum
+        value can be found at the left-most leaf node in the `BST()` instance.
+
+        Returns
+        -------
+        int or float:
+            The minimum numeric value in the `BST()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `BST()` instance is empty.
+        """
         if self.is_empty():
             raise IndexError(\
                 f"Can't get the minimum value of an empty `{self.__name__}`")
