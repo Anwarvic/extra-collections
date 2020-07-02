@@ -349,14 +349,26 @@ class BSTNode(BinaryTreeNode):
 
 
 class BST(BinaryTree):
+    """
+    A BST is a non-linear data structure that can be defined recursively
+    using a collection of `BSTNode()` instances, where each node contains a 
+    numeric value and it has either zero, one or two references to the children
+    `BSTNode()` instances.
+    """
     _basic_node = BSTNode
-
-
-    def __name__(self):
-        return "extra.BST()"
+    __name__ = "extra.BST()"
 
 
     def __init__(self):
+        """
+        Creates an empty `BST()` object!!
+        
+        Example
+        -------
+        >>> t = BST()
+        >>> type(t)
+        <class 'extra.trees.bst.BST'>
+        """
         super().__init__()
         self._length = 0
 
