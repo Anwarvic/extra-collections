@@ -486,6 +486,21 @@ class BST(BinaryTree):
 
     ##############################       MAX      ##############################
     def _get_max_node(self, start_node):
+        """
+        Returns the maximum numeric value in the given binary search subtree
+        whose root is the given `start_node`. The maximum value can be found
+        at the right-most leaf node in the right subtree.
+
+        Parameters
+        ----------
+        start_node: BSTNode()
+            The root of the subtree from which we want to get the maximum value.
+        
+        Returns
+        -------
+        BSTNode():
+            The `BSTNode()` that holds the maximum numeric value in the subtree.
+        """
         assert isinstance(start_node, self._basic_node)
 
         # get the right-most node
