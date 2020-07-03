@@ -879,6 +879,10 @@ class BST(BinaryTree):
         BSTNode():
             The node that will replace the given `node`.
         
+        Raises
+        ------
+        AssertionError: If the given `node` isn't a `BSTNode()` object.
+        
         Example
         -------
         >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
@@ -910,6 +914,23 @@ class BST(BinaryTree):
     
 
     def _transplant(self, node, replacement):
+        """
+        Exchanges the given `node` with the given `replacement`.
+
+        Parameters
+        ----------
+        node: BSTNode()
+            A reference to the node that will be replaced.
+        replacement: BSTNode()
+            A reference to the replacement node which will replace the `node`.
+        
+        Raises
+        ------
+        AssertionError: This can be raised due to one of the following cases:
+            1. The given `node` isn't a `BSTNode()`.
+            2. The given `replacement` node is neither `BSTNode()` nor `None`.
+        
+        """
         assert isinstance(node, self._basic_node)
         assert replacement is None or isinstance(replacement, self._basic_node)
 
