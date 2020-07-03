@@ -800,8 +800,8 @@ class BST(BinaryTree):
 
     def _insert(self, value):
         """
-        Inserts a numeric value in the `BST` instance according to the rules of
-        binary search trees.
+        Inserts a numeric value in the `BST()` instance according to the rules
+        of binary search trees.
 
         Parameters
         ----------
@@ -816,7 +816,6 @@ class BST(BinaryTree):
         Raises
         ------
         AssertionError: If the given `value` is not a numeric value.
-
         """
         assert type(value) in {int, float} or \
                     isinstance(value, self._basic_node)
@@ -828,6 +827,33 @@ class BST(BinaryTree):
 
 
     def insert(self, value):
+        """
+        Inserts a numeric value in the `BST()` instance according to the rules
+        of binary search trees.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If the given `value` is not a numeric value.
+
+        Example
+        -------
+        >>> bst = BST()
+        >>> bst.insert(10)
+        >>> bst.insert(5)
+        >>> bst.insert(15)
+        >>> bst
+          10
+         /  \\
+        5    15
+        >>> bst.insert("2")
+        TypeError: `extra.BST()` accepts only numbers!!
+        """
         self._validate_item(value)
         if self.is_empty():
             self._root = self._basic_node(value)
