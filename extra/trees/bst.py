@@ -863,15 +863,46 @@ class BST(BinaryTree):
 
 
     ##############################     REMOVE     ##############################
-    def _find_replacement(self, start_node):
-        assert isinstance(start_node, self._basic_node)
+    def _find_replacement(self, node):
+        """
+        Find a replacement to the numeric value of the given `node` as 
+        preparation step before removing `node`. This replacement will be
+        either the in-order predecessor or the in-order successor.
 
-        if start_node.get_right():
+        Parameters
+        ----------
+        node: BSTNode()
+            The node that will be replaced.
+        
+        Returns
+        -------
+        BSTNode():
+            The node that will replace the given `node`.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst._find_replacement(bst._root)
+        BSTNode(10)
+        >>> bst._find_replacement(bst._root._left)
+        BSTNode(7)
+        """
+        assert isinstance(node, self._basic_node)
+
+        if node.get_right():
             # in-order successor
-            replacement_node = self._get_min_node(start_node.get_right())
-        elif start_node.get_left():
+            replacement_node = self._get_min_node(node.get_right())
+        elif node.get_left():
             # in-order predecessor
-            replacement_node = self._get_max_node(start_node.get_left())
+            replacement_node = self._get_max_node(node.get_left())
         else:
             # start_node is leaf
             replacement_node = None
