@@ -929,7 +929,6 @@ class BST(BinaryTree):
         AssertionError: This can be raised due to one of the following cases:
             1. The given `node` isn't a `BSTNode()`.
             2. The given `replacement` node is neither `BSTNode()` nor `None`.
-        
         """
         assert isinstance(node, self._basic_node)
         assert replacement is None or isinstance(replacement, self._basic_node)
@@ -954,6 +953,51 @@ class BST(BinaryTree):
 
 
     def _remove(self, del_value, start_node):
+        """
+        Removes the `del_value` from the subtree whose root is the given
+        `start_node` object. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        start_node: BSTNode()
+            The root of the subtree from which the `del_value` will be removed.
+        
+        Returns
+        -------
+        BSTNode():
+            A refernce to the last accessed node when removing the value from
+            the subtree. This could be either the removed node or its parent.
+        
+        Raises
+        ------
+        AssertionError: This can be raised in these cases:
+            1. If the given `del_value` isn't a numeric value.
+            2. If the given `start_node` isn't a `BSTNode()`.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst._remove(5, bst._root)
+        BSTNode(7)
+        >>> bst
+              8___
+             /    \\
+          __7     _15
+         /       /
+        2       10
+         \\
+          3
+        """
         assert type(del_value) in {int, float}
         assert isinstance(start_node, self._basic_node)
 
