@@ -768,6 +768,29 @@ class BST(BinaryTree):
 
 
     def _insert_value(self, start_node, value):
+        """
+        Inserts a numeric value in the subtree whose root is `start_node`
+        according to the rules of binary search trees.
+
+        Parameters
+        ----------
+        start_node: BSTNode()
+            The root of the subtree where the new node will be inserted.
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Returns
+        -------
+        BSTNode():
+            A reference to the new node after being inserted to the subtree.
+        
+        Raises
+        ------
+        AssertionError: This will be raised in the following cases:
+            1. If `start_node` isn't an instance of `BSTNode()`.
+            2. If the given `value` is not a numeric value.
+
+        """
         assert isinstance(start_node, self._basic_node)
         assert type(value) in {float, int}
 
