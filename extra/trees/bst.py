@@ -1027,11 +1027,47 @@ class BST(BinaryTree):
 
 
     def remove(self, del_value):
+        """
+        Removes the `del_value` from the `BST()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        
+        Raises
+        ------
+        UserWarning: If the `BST()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.remove(5)
+        >>> bst
+              8___
+             /    \\
+          __7     _15
+         /       /
+        2       10
+         \\
+          3
+        >>> bst.remove(50)
+        UserWarning: Couldn't find `50` in `extra.BST()`!!
+        """
         if self.is_empty():
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
             return 
