@@ -1655,3 +1655,32 @@ class BST(BinaryTree):
         """
         return super().depth_first_traverse()
 
+
+    ##############################   Post-Order   ##############################
+    def postorder_traverse(self):
+        """
+        Traverses the `BST()` instance in post-order manner. Which means that
+        the **left subtree** (if found) is visited first. Then, the **right
+        subtree** (if found) then the **parent**.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.postorder_traverse()
+        [3, 2, 7, 5, 10, 15, 8]
+        """
+        return self.__postorder_traverse(self._root)
+
