@@ -1438,3 +1438,53 @@ class BST(BinaryTree):
                         else 1 + super()._get_depth(self._root.get_right()) 
         return abs(left_depth - right_depth) <= 1
 
+
+    ##############################    PERFECT     ##############################
+    def is_perfect(self):
+        """
+        Checks if the `BST()` instance is perfect. A BST is perfect if all its
+        levels are completely filled.
+
+        Returns
+        -------
+        bool:
+            `True` if the `BST()` instance is perfect and `False` if it is not
+            perfect.
+        
+        Raises
+        ------
+        UserWarning: If the `BST()` is empty.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.is_perfect()
+        False
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 20])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /   \\
+        2     7   10    20
+        >>> bst.is_perfect()
+        True
+        """
+        if self.is_empty():
+            warnings.warn(\
+                f"You are checking the perfection of an empty `{self.__name__}`",
+                UserWarning)
+            return True
+        for level, nodes in enumerate(self.get_nodes_per_level()):
+            if 2**level != len(nodes):
+                return False
+        return True
+
