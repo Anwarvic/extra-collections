@@ -1426,17 +1426,7 @@ class BST(BinaryTree):
         >>> bst.is_balanced()
         True
         """
-        if self.is_empty():
-            warnings.warn(
-                    f"You are checking the balance of an empty `{self.__name__}`",
-                    UserWarning
-                )
-            return True
-        left_depth = 0 if self._root.get_left() is None \
-                        else 1 + super()._get_depth(self._root.get_left()) 
-        right_depth = 0 if self._root.get_right() is None \
-                        else 1 + super()._get_depth(self._root.get_right()) 
-        return abs(left_depth - right_depth) <= 1
+        return super().is_balanced()
 
 
     ##############################    PERFECT     ##############################
@@ -1478,13 +1468,40 @@ class BST(BinaryTree):
         >>> bst.is_perfect()
         True
         """
-        if self.is_empty():
-            warnings.warn(\
-                f"You are checking the perfection of an empty `{self.__name__}`",
-                UserWarning)
-            return True
-        for level, nodes in enumerate(self.get_nodes_per_level()):
-            if 2**level != len(nodes):
-                return False
-        return True
+        return super().is_perfect()
 
+
+##############################     STRICT     ##############################
+    def is_strict(self):
+        """
+        Checks if the `BST()` instance is strict. A BST is strict if all its
+        all its non-leaf nodes has two children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `BST()` instance is strict and `False` if it is not
+            strict.
+        
+        Raises
+        ------
+        UserWarning: If the `BST()` is empty.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> btree.is_strict()
+        False
+        """
+        return super().is_strict()
+    
+
+    
