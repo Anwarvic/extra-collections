@@ -1713,3 +1713,31 @@ class BST(BinaryTree):
         """
         return super().inorder_traverse()
 
+
+    #############################  BREADTH-FIRST ##############################
+    def breadth_first_traverse(self):
+        """
+        Traverses the `BST()` instance in breadth-first manner. Which means that
+        the tree nodes will be visited level by level.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> btree.breadth_first_traverse()
+        [8, 5, 15, 2, 7, 10, 3]
+        """
+        return super().breadth_first_traverse()
+
