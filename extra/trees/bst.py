@@ -1395,3 +1395,46 @@ class BST(BinaryTree):
         return super().count_leaf_nodes()
 
 
+    ##############################    BALANCED    ##############################
+    def is_balanced(self):
+        """
+        Checks if the `BST()` instance is balanced. A BST is balanced if the
+        difference between the depth of any two leaf nodes is less than or equal
+        to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `BST()` instance is balanced and `False` if it is not
+            balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `BST()` is empty.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.is_balanced()
+        True
+        """
+        if self.is_empty():
+            warnings.warn(
+                    f"You are checking the balance of an empty `{self.__name__}`",
+                    UserWarning
+                )
+            return True
+        left_depth = 0 if self._root.get_left() is None \
+                        else 1 + super()._get_depth(self._root.get_left()) 
+        right_depth = 0 if self._root.get_right() is None \
+                        else 1 + super()._get_depth(self._root.get_right()) 
+        return abs(left_depth - right_depth) <= 1
+
