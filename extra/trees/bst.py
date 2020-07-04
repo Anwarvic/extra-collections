@@ -1533,3 +1533,30 @@ class BST(BinaryTree):
         return super().__iter__()
 
 
+    def to_list(self):
+        """
+        Converts the `BST()` instance to a `list` where values will be inserted
+        in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `BST()`
+            instance.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> btree.to_list()
+        [8, 5, 15, 2, 7, 10, 3]
+        """
+        return super().to_list()
+
