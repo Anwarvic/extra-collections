@@ -1259,6 +1259,23 @@ class BST(BinaryTree):
 
 
     def _attach(self, parent, child):
+        """
+        A simple method to connect between two nodes where the first is the
+        parent and the other is the child.
+
+        Parameters
+        ----------
+        parent: BSTNode()
+            A reference to the node that will be the parent.
+        child: BSTNode()
+            A reference to the node that will be the child.
+        
+        Raises
+        ------
+        AssertionError: In the following cases:
+            1. If the `parent` is neither `BSTNode()` not `None`.
+            2. If the given `child` is NOT a `BSTNode()`.
+        """
         assert parent is None or isinstance(parent, self._basic_node)
         assert isinstance(child, self._basic_node)
 
