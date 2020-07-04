@@ -1340,3 +1340,29 @@ class BST(BinaryTree):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `BST()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the instance.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.get_depth()
+        0
+        """
+        return super().get_depth()
+    
+
