@@ -1498,7 +1498,7 @@ class BST(BinaryTree):
         2     7   10
          \\
           3
-        >>> btree.is_strict()
+        >>> bst.is_strict()
         False
         """
         return super().is_strict()
@@ -1585,7 +1585,7 @@ class BST(BinaryTree):
         2     7   10
          \\
           3
-        >>> btree.get_nodes_per_level()
+        >>> bst.get_nodes_per_level()
         [[8], [5, 15], [2, 7, 10], [3]]
         """
         return super().get_nodes_per_level()
@@ -1736,8 +1736,64 @@ class BST(BinaryTree):
         2     7   10
          \\
           3
-        >>> btree.breadth_first_traverse()
+        >>> bst.breadth_first_traverse()
         [8, 5, 15, 2, 7, 10, 3]
         """
         return super().breadth_first_traverse()
+
+
+    ##############################    TRAVERSE    ##############################
+    def traverse(self, method='inorder'):
+        """
+        Traversal is the process to visit all nodes of a BST starting from the
+        root as we cannot randomly access any node in a binary tree. There are
+        four ways which we use to traverse a BST:
+
+        1. preorder - depth-first
+        2. inorder
+        3. posteorder
+        4. breadth-first
+
+        Parameters
+        ----------
+        method: str (default="inorder")
+            A lower-cased string describing the type of traversal that will be
+            used. It could be one of these values: ["inorder", "postorder",
+            "preorder", "depth-first", "breadth-first"]
+        
+        Returns
+        --------
+        list:
+            A list of all values of the visited nodes according to the specified
+            traversal method.
+        
+        Raises
+        ------
+        ValueError: If the given method isn't known.
+        TypeError: If the given method isn't a string.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.traverse("preorder")
+        [8, 5, 2, 3, 7, 15, 10]
+        >>> bst.traverse("inorder")
+        [2, 3, 5, 7, 8, 10, 15]
+        >>> bst.traverse("postorder")
+        [3, 2, 7, 5, 10, 15, 8]
+        >>> bst.traverse("breadth-first")
+        [8, 5, 15, 2, 7, 10, 3]
+        >>> bst.traverse("extra")
+        ValueError: Given traverse method has to be one of these:
+        {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
+        """
+        return super().traverse(method)
 
