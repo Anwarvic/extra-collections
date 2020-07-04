@@ -484,6 +484,30 @@ class BST(BinaryTree):
         return self._length
 
 
+    def is_empty(self):
+        """
+        Checks if the `BST()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `BDT()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> bst = BST()
+        >>> bst.is_empty()
+        True
+        >>> bst.insert(10)
+        >>> bst.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+    
     ##############################       MAX      ##############################
     def _get_max_node(self, start_node):
         """
