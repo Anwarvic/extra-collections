@@ -1366,3 +1366,32 @@ class BST(BinaryTree):
         return super().get_depth()
     
 
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `BST()` instance. Leaf nodes are
+        the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `BST()`.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.count_leaf_nodes()
+        3
+        """
+        return super().count_leaf_nodes()
+
+
