@@ -1797,3 +1797,29 @@ class BST(BinaryTree):
         """
         return super().traverse(method)
 
+
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `BST()` instance in constant time.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.clear()
+        >>> bst
+        / \\
+        >>> bst.is_empty()
+        True
+        """
+        super.clear()
+
+
