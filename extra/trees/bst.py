@@ -1167,6 +1167,39 @@ class BST(BinaryTree):
     
 
     def _rotate_left_right(self, start_node):
+        """
+        Double-rotates the given subtree whose root is `start_node` to the left
+        side first, then to the right side.
+
+        Parameters
+        ----------
+        start_node: BSTNode()
+            A reference to the root of the subtree that will be rotated
+        
+        Returns
+        -------
+        BSTNode():
+            A reference to the new root fo the subtree after rotation.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` is not `BSTNode()`.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([3, 1, 2])
+        >>> bst
+          __3
+         /
+        1
+         \\
+          2
+        >>> bst._root = bst._rotate_left_right(bst._root)
+        >>> bst
+          2
+         / \\
+        1   3
+        """
         assert isinstance(start_node, self._basic_node)
 
         # print("Rotating Left-Right")
