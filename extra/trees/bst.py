@@ -1471,7 +1471,7 @@ class BST(BinaryTree):
         return super().is_perfect()
 
 
-##############################     STRICT     ##############################
+    ##############################     STRICT     ##############################
     def is_strict(self):
         """
         Checks if the `BST()` instance is strict. A BST is strict if all its
@@ -1504,4 +1504,32 @@ class BST(BinaryTree):
         return super().is_strict()
     
 
-    
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `BST()` instance and returns a generator of the 
+        `BSTNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> for value in bst:
+        ...     print(value, end=',')
+        8,5,15,2,7,10,3,
+        """
+        return super().__iter__()
+
+
