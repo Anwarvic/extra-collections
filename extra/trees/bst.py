@@ -1555,8 +1555,38 @@ class BST(BinaryTree):
         2     7   10
          \\
           3
-        >>> btree.to_list()
+        >>> bst.to_list()
         [8, 5, 15, 2, 7, 10, 3]
         """
         return super().to_list()
+
+
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all tree nodes within the `BST()` instance so that all
+        tree nodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> btree.get_nodes_per_level()
+        [[8], [5, 15], [2, 7, 10], [3]]
+        """
+        return super().get_nodes_per_level()
 
