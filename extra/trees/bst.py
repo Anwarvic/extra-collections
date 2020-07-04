@@ -1684,3 +1684,32 @@ class BST(BinaryTree):
         """
         return self.__postorder_traverse(self._root)
 
+
+    ##############################    In-Order    ##############################
+    def inorder_traverse(self):
+        """
+        Traverses the `BST()` instance in in-order manner. Which means that the
+        **left subtree** (if found) is visited first. Then, the **parent** then
+        the **right subtree** (if found).
+        
+        Returns
+        --------
+        list:
+            A list of all values of the in-order visited nodes.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.inrder_traverse()
+        [2, 3, 5, 7, 8, 10, 15]
+        """
+        return super().inorder_traverse()
+
