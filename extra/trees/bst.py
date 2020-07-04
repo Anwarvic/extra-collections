@@ -853,9 +853,6 @@ class BST(BinaryTree):
         5    15
         >>> bst.insert("2")
         TypeError: `extra.BST()` accepts only numbers!!
-
-
-        
         """
         self._validate_item(value)
         if self.is_empty():
@@ -1086,7 +1083,6 @@ class BST(BinaryTree):
     def _rotate_left(self, start_node):
         """
         Rotates the given subtree whose root is `start_node` to the left side.
-        The left-rotation looks like so:
 
         Parameters
         ----------
@@ -1128,6 +1124,38 @@ class BST(BinaryTree):
 
 
     def _rotate_right(self, start_node):
+        """
+        Rotates the given subtree whose root is `start_node` to the right side.
+
+        Parameters
+        ----------
+        start_node: BSTNode()
+            A reference to the root of the subtree that will be rotated
+        
+        Returns
+        -------
+        BSTNode():
+            A reference to the new root fo the subtree after rotation.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` is not `BSTNode()`.
+
+        Example
+        -------
+        >>> bst = BST.from_iterable([3, 2, 1])
+        >>> bst
+            3
+           /
+          2
+         /
+        1
+        >>> bst._root = bst._rotate_right(bst._root)
+        >>> bst
+          2
+         / \\
+        1   3
+        """
         assert isinstance(start_node, self._basic_node)
 
         # print("Rotating Right")
