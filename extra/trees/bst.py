@@ -574,7 +574,7 @@ class BST(BinaryTree):
         return max_node.get_data()
 
 
-    ##############################    MIN   ##############################
+    ##############################       MIN      ##############################
     def _get_min_node(self, start_node):
         """
         Gets the `BSTNode()` that holds the minimum numeric value in the given
@@ -641,7 +641,7 @@ class BST(BinaryTree):
         return min_node.get_data()
 
 
-    ##############################   SEARCH  ##############################
+    ##############################      SEARCH    ##############################
     def _search(self, find_val, start_node):
         """
         Searches the `BST()` for a given value (`find_val`) starting from the
@@ -1311,4 +1311,32 @@ class BST(BinaryTree):
             else:
                 parent.set_right(child)
 
+
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `BST()` instance. The BST's height is the number
+        of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.get_height()
+        3
+        """
+        return super().get_height()
+    
 
