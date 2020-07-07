@@ -253,7 +253,59 @@ class SplayTree(BST):
 
     ##############################     SEARCH     ##############################
     def __contains__(self, find_val):
+        """
+        Searches the `SplayTree()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `SplayTree()` instance.
         
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `SplayTree()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> 5 in stree
+        True
+        >>> stree
+            __5
+           /   \\
+          3     6
+         / \\
+        2   4
+        >> 50 in bst
+        False
+        >>> stree
+                6
+               /
+            __5
+           /
+          3
+         / \\
+        2   4
+
+        Note
+        ----
+        As you can see from the previous example, the `SplayTree()` instance
+        changes its structure each time we search for a certain value. If the
+        value if found, the found node will be moved to the root. If the value
+        isn't found, the last accessed node will be moved to the root. And
+        that's what happended when searching for `50`, the last accessed value 
+        which is the greatest value (`6`) in the splay tree is moved to the
+        root.
+        """
         super()._validate_item(find_val)
         node = super()._search(find_val, self._root)
         self._splay(node)
