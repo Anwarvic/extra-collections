@@ -134,6 +134,65 @@ class SplayTree(BST):
         self._length = 0
 
 
+    @classmethod
+    def from_iterable(cls, iterable):
+        """
+        A class method which creates a `SplayTree()` instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        SplayTree()
+            It returns a `SplayTree()` instance with input values being inserted
+            in the same order.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> stree = SplayTree.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.SplayTree()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> stree = SplayTree.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `SplayTree()` objects will raise `TypeError` as well
+
+        >>> stree_1 = SplayTree.from_iterable([1])
+        >>> stree_2 = SplayTree.from_iterable([1, stree_1])
+        TypeError: Can't create `extra.SplayTree()` using `extra.SplayTree()`!!
+        """
+        return super().from_iterable(iterable)
+
+
+
     ##############################    SPLAYING    ##############################
     def __zig_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
