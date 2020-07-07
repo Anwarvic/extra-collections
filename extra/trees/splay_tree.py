@@ -314,6 +314,47 @@ class SplayTree(BST):
 
     ##############################   INSERTION    ##############################
     def insert(self, value):
+        """
+        Inserts a numeric value in the SplayTree()` instance according to the
+        rules of binary search trees.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If the given `value` is not a numeric value.
+
+        Example
+        -------
+        >>> stree = SplayTree()
+        >>> stree.insert(10)
+        >>> stree
+        10
+        >>> stree.insert(5)
+        >>> stree
+        5
+         \\
+          10
+        >>> stree.insert(15)
+            _15
+           /
+          10
+         /
+        5
+        >>> stree.insert(8)
+        >>> stree
+          8___
+         /    \\
+        5     _15
+             /
+            10
+        >>> stree.insert("2")
+        TypeError: `extra.SplayTree()` accepts only numbers!!
+        """
         super()._validate_item(value)
         if self.is_empty():
             self._root = super()._basic_node(value)
