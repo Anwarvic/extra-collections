@@ -120,6 +120,20 @@ class SplayTree(BST):
     __name__ = "extra.SplayTree()"
     
 
+    def __init__(self):
+        """
+        Creates an empty `SplayTree()` object!!
+        
+        Example
+        -------
+        >>> stree = SplayTree()
+        >>> type(stree)
+        <class 'extra.trees.splay_tree.SplayTree'>
+        """
+        super().__init__()
+        self._length = 0
+
+
     ##############################    SPLAYING    ##############################
     def __zig_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
