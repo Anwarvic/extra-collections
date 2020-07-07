@@ -102,6 +102,7 @@ Class Documentation
 ===================
 Here are all of the public methods that can be used with `SplayTree()` objects:
 """
+import warnings
 from extra.trees.bst import BST
 
 
@@ -366,11 +367,51 @@ class SplayTree(BST):
 
     ##############################    REMOVAL     ##############################
     def remove(self, del_value):
-        super()._validate_item(del_value)
-        node = super()._remove(del_value, self._root)
-        self._splay(node)
+        """
+        Removes the `del_value` from the `SplayTree()` instance. 
 
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        
+        Raises
+        ------
+        UserWarning: If the `SplayTree()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.remove(5)
+        >>> stree
+            __6
+           /
+          3
+         / \\
+        2   4
+        >>> stree.remove(50)
+        UserWarning: Couldn't find `50` in `extra.SplayTree()`!!
+        """
+        if self.is_empty():
+            warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
+            return
+        elif type(del_value) not in {int, float}:
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
+                UserWarning
+            )
+            return 
+        # check if splay tree has only one item and it's the one to be deleted
+        elif self._root.is_leaf() and del_value == self._root.get_data():
+            self._root = None
+            self._length -= 1
+        else:
+            node = super()._remove(del_value, self._root)
+            self._splay(node)
 
-if __name__ == "__main__":
-    st = SplayTree.from_iterable([8, 5, 2, 7, 15, 10, 3])
-    print(st)
