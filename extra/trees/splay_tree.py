@@ -238,7 +238,16 @@ class SplayTree(BST):
     
     
     def _splay(self, start_node):
+        """
+        Splays the given subtree whose root is the given `start_node` object.
+        Splaying means "moving the node to the root". And this operation is done
+        after searching, insertion and deletion.
 
+        Parameters
+        ----------
+        start_node: BSTNode()
+            A reference to the root of the subtree.
+        """
         self._root = self.__splaying(start_node)
 
 
