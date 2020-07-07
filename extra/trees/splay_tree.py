@@ -44,7 +44,7 @@ optimal time complexity that I will try to reach in future releases Insha'Allah.
 Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
-- **h** is the height of the BST which approximatley equals to **log(n)**.
+- **h** is the Splay Tre height which approximatley equals to **log(n)**.
 
 +--------------------------+----------------------------------------------------+------------+---------+
 | Method                   | Description                                        | Worst-case | Optimal |
@@ -53,23 +53,23 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the BST.                                | O(n)       | O(n)    |
+| __repr__()               | Represents the Splay Tree.                         | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the BST.                             | O(n)       | O(n)    |
+| __iter__()               | Iterates over the Splay Tree.                      | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | __contains__()           | Checks the existence of the given item.            | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the BST's height.                             | O(n)       | O(1)    |
+| get_height()             | Gets the Splay Tree's height.                      | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the BST's depth.                              | O(n)       | O(1)    |
+| get_depth()              | Gets the Splay Tree's depth.                       | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| is_balanced()            | Checks if the BST is balanced.                     | O(n)       | O(1)    |
+| is_balanced()            | Checks if the Splay Tree is balanced.              | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| is_perfect()             | Checks if the BST is perfect.                      | O(n)       | O(1)    |
+| is_perfect()             | Checks if the Splay Tree is perfect.               | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| is_strict()              | Checks if the BST is strict.                       | O(n)       | O(1)    |
+| is_strict()              | Checks if the Splay Tree is strict.                | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -77,25 +77,25 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| traverse()               | Traverses the BST based on given method.           | O(n)       | O(n)    |
+| traverse()               | Traverses the Splay Tree based on given method.    | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| preorder_traverse()      | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
+| preorder_traverse()      | Traverses the Splay Tree in an pre-order manner.   | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| inorder_traverse()       | Traverses the BST in an in-order manner.           | O(n)       | O(n)    |
+| inorder_traverse()       | Traverses the Splay Tree in an in-order manner.    | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| postorder_traverse()     | Traverses the BST in an post-order manner.         | O(n)       | O(n)    |
+| postorder_traverse()     | Traverses the Splay Tree in an post-order manner.  | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| breadth_first_traverse() | Traverses the BST level by level.                  | O(n)       | O(n)    |
+| breadth_first_traverse() | Traverses the Splay Tree level by level.           | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| depth_first_traverse()   | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
+| depth_first_traverse()   | Traverses the Splay Tree in an pre-order manner.   | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_min()                | Gets the minimum number in the BST.                | O(h)       | O(h)    |
+| get_min()                | Gets the minimum number in the Splay Tree.         | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_max()                | Gets the maximum number in the BST.                | O(h)       | O(h)    |
+| get_max()                | Gets the maximum number in the Splay Tree.         | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| insert()                 | Inserts a certain value to the BST.                | O(h)       | O(h)    |
+| insert()                 | Inserts a certain value to the Splay Tree.         | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| remove()                 | Removes a certain value from the BST.              | O(h)       | O(h)    |
+| remove()                 | Removes a certain value from the Splay Tree.       | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 
 Class Documentation
@@ -190,6 +190,32 @@ class SplayTree(BST):
         TypeError: Can't create `extra.SplayTree()` using `extra.SplayTree()`!!
         """
         return super().from_iterable(iterable)
+
+
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `SplayTree()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `SplayTree()` instance. Length is the number of
+            tree nodes in the instance.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> len(btree)
+        5
+        """
+        return self._length
 
 
 
