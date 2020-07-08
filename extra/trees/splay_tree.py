@@ -212,12 +212,35 @@ class SplayTree(BST):
         2     5
              / \\
             4   6
-        >>> len(btree)
+        >>> len(stree)
         5
         """
-        return self._length
+        return super().__len__()
+    
 
-
+    def is_empty(self):
+        """
+        Checks if the `SplayTree()` instance is empty or not in constant time-
+        complexity.
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `SplayTree()` instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> stree = SplayTree()
+        >>> stree.is_empty()
+        True
+        >>> stree.insert(10)
+        >>> stree.is_empty()
+        False
+        """
+        return super().is_empty()
+    
 
     ##############################    SPLAYING    ##############################
     def __zig_zig(self, start_node):
