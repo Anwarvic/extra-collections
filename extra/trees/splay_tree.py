@@ -624,5 +624,28 @@ class SplayTree(BST):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `SplayTree()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the instance.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.get_depth()
+        0
+        """
+        return super().get_depth()
     
 
+    
