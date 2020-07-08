@@ -242,6 +242,37 @@ class SplayTree(BST):
         return super().is_empty()
     
 
+    ##############################       MAX      ##############################
+    def get_max(self):
+        """
+        Gets the maximum value in the `SplayTree()` isntance. The maximum value
+        can be found at the right-most tree node in the `SplayTree()` instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `SplayTree()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `SplayTree()` instance is empty.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.get_max()
+        6
+        """
+        return super().get_max()
+
+
+
     ##############################    SPLAYING    ##############################
     def __zig_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
