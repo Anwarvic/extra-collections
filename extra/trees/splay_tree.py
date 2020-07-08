@@ -707,4 +707,35 @@ class SplayTree(BST):
         return super().is_balanced()
 
 
+    ##############################    PERFECT     ##############################
+    def is_perfect(self):
+        """
+        Checks if the `SplayTree()` instance is perfect. A SplayTree is perfect
+        if all its levels are completely filled.
+
+        Returns
+        -------
+        bool:
+            `True` if the `SplayTree()` instance is perfect and `False` if it is
+            not perfect.
+        
+        Raises
+        ------
+        UserWarning: If the `SplayTree()` is empty.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.is_perfect()
+        False
+        """
+        return super().is_perfect()
+
+
     
