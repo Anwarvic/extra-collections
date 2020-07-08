@@ -302,7 +302,6 @@ class SplayTree(BST):
         return super().get_min()
 
 
-
     ##############################    SPLAYING    ##############################
     def __zig_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
@@ -597,4 +596,33 @@ class SplayTree(BST):
         else:
             node = super()._remove(del_value, self._root)
             self._splay(node)
+
+
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `SplayTree()` instance. The SplayTree's height
+        is the number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.get_height()
+        2
+        """
+        return super().get_height()
+    
+
+    
 
