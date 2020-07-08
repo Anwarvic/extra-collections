@@ -675,4 +675,36 @@ class SplayTree(BST):
         return super().count_leaf_nodes()
 
 
+    ##############################    BALANCED    ##############################
+    def is_balanced(self):
+        """
+        Checks if the `SplayTree()` instance is balanced. A SplayTree is
+        balanced if the difference between the depth of any two leaf nodes is
+        less than or equal to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `SplayTree()` instance is balanced and `False` if it
+            is not balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `SplayTree()` is empty.
+
+        Example
+        -------
+       >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> bst.is_balanced()
+        True
+        """
+        return super().is_balanced()
+
+
     
