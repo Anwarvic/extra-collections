@@ -648,4 +648,31 @@ class SplayTree(BST):
         return super().get_depth()
     
 
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `SplayTree()` instance. Leaf
+        nodes are the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `SplayTree()`.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.count_leaf_nodes()
+        3
+        """
+        return super().count_leaf_nodes()
+
+
     
