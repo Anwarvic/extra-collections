@@ -270,6 +270,36 @@ class SplayTree(BST):
         6
         """
         return super().get_max()
+    
+
+    ##############################       MIN      ##############################
+    def get_min(self):
+        """
+        Gets the minimum value in the `SplayTree()` isntance. The minimum value
+        can be found at the left-most tree node in the `SplayTree()` instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `SplayTree()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `SplayTree()` instance is empty.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.get_min()
+        2
+        """
+        return super().get_min()
 
 
 
