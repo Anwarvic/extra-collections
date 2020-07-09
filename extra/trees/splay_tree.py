@@ -769,4 +769,31 @@ class SplayTree(BST):
         return super().is_strict()
     
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `SplayTree()` instance and returns a generator of the 
+        `SplayTreeNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> for value in stree:
+        ...     print(value, end=',')
+        3,2,5,4,6,
+        """
+        return super().__iter__()
+
+
     
