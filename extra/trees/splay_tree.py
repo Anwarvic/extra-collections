@@ -738,4 +738,35 @@ class SplayTree(BST):
         return super().is_perfect()
 
 
+    ##############################     STRICT     ##############################
+    def is_strict(self):
+        """
+        Checks if the `SplayTree()` instance is strict. A SplayTree is strict if
+        all its non-leaf nodes have two children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `SplayTree()` instance is strict and `False` if it is
+            not strict.
+        
+        Raises
+        ------
+        UserWarning: If the `SplayTree()` is empty.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> bst.is_strict()
+        True
+        """
+        return super().is_strict()
+    
+
     
