@@ -822,4 +822,32 @@ class SplayTree(BST):
         return super().to_list()
 
 
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all tree nodes within the `SplayTree()` instance so that all
+        tree nodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.get_nodes_per_level()
+        [[3], [2, 5], [4, 6]]
+        """
+        return super().get_nodes_per_level()
+
+
     
