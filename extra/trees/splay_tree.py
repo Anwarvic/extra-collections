@@ -796,4 +796,30 @@ class SplayTree(BST):
         return super().__iter__()
 
 
+    def to_list(self):
+        """
+        Converts the `SplayTree()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `SplayTree()`
+            instance.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.to_list()
+        [3, 2, 5, 4, 6]
+        """
+        return super().to_list()
+
+
     
