@@ -850,4 +850,35 @@ class SplayTree(BST):
         return super().get_nodes_per_level()
 
 
+    ##############################   Pre-Order    ##############################
+    def preorder_traverse(self):
+        """
+        Traverses the `SplayTree()` instance in pre-order manner. Which means
+        that the **parent** is visited first. Then, the **left subtree** (if
+        found), then the **right subtree** (if found).
+        
+        Note
+        -----
+        It's the same as `depth_first_traverse()` method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.preorder_traverse()
+        [3, 2, 5, 4, 6]
+        """
+        return super().preorder_traverse()
+
+
     
