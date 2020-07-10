@@ -965,4 +965,30 @@ class SplayTree(BST):
         return super().inorder_traverse()
 
 
+    #############################  BREADTH-FIRST ##############################
+    def breadth_first_traverse(self):
+        """
+        Traverses the `SplayTree()` instance in breadth-first manner. Which means that
+        the tree nodes will be visited level by level.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.breadth_first_traverse()
+        [3, 2, 5, 4, 6]
+        """
+        return super().breadth_first_traverse()
+
+
     
