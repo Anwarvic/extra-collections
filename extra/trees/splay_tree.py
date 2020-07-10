@@ -1045,4 +1045,26 @@ class SplayTree(BST):
         return super().traverse(method)
 
 
-    
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `SplayTree()` instance in constant time.
+
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.clear()
+        >>> stree
+        / \\
+        >>> stree.is_empty()
+        True
+        """
+        super.clear()
+
+
