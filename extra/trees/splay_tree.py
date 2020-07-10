@@ -938,4 +938,31 @@ class SplayTree(BST):
         return super().postorder_traverse() 
 
 
+    ##############################    In-Order    ##############################
+    def inorder_traverse(self):
+        """
+        Traverses the `SplayTree()` instance in in-order manner. Which means that the
+        **left subtree** (if found) is visited first. Then, the **parent** then
+        the **right subtree** (if found).
+        
+        Returns
+        --------
+        list:
+            A list of all values of the in-order visited nodes.
+        
+        Example
+        -------
+        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.inorder_traverse()
+        [2, 3, 4, 5, 6]
+        """
+        return super().inorder_traverse()
+
+
     
