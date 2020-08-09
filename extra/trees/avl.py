@@ -75,10 +75,26 @@ class AVLNode(BSTNode):
     
 
     def get_height(self):
+        """
+        Returns the height of the `AVLNode()`.
+
+        Returns
+        -------
+        int:
+            The height of the current `AVLNode()`.
+        """
         return self._height
     
 
     def get_left_height(self):
+        """
+        Returns the height of the left `AVLNode()` child.
+
+        Returns
+        -------
+        int:
+            The height of the current `AVLNode()`.
+        """
         return 1 + self.get_left().get_height() \
             if self.get_left() is not None else 0
         
