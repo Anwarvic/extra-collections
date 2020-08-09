@@ -127,6 +127,19 @@ class AVLNode(BSTNode):
     
 
     def set_height(self, new_height):
+        """
+        Sets the height of the current `AVLNode()`.
+
+        Parameters
+        ----------
+        new_height: int
+            The new height that should be assigned to the current `AVLNode()`
+        
+        Raises
+        ------
+        TypeError: If the given `height` isn't an integer.
+        ValueError: If the given `height` is less than zero.
+        """
         if type(new_height) != int:
             raise TypeError("Height has to be an integer number >= 0!!")
         elif new_height < 0:
