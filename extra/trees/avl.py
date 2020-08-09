@@ -1,13 +1,41 @@
+"""
+AVL is a self-balancing binary search tree which is a non-linear data structure
+that stores numbers hierarchical with the assertion that any operation, like
+insertion, searching, and deletion, will be done in **log(n)** time-complexity
+where **n** is the number of elements in the AVL. AVL was named after the
+initials of its inventors: Adel’son-Vel’skii and Landis.
+"""
 from extra.trees.bst import BSTNode, BST
 
 
 
 class AVLNode(BSTNode):
-    def __name__(self):
-        return "extra.AVLNode()"
+    """
+    An AVL node is the basic unit for building AVL trees. A AVL node must
+    contain a  number. Each AVL node has either zero, one or two children AVL
+    nodes. The node that has no children is called a **leaf node**. The only 
+    difference between `AVLNode()` and `BSTNode()` is that the former dedicates
+    a variable for the `height` which makes balancing `AVL()` objects done in 
+    a constant time.
+    """
+    __name__ = "extra.AVLNode()"
     
 
     def __init__(self, value):
+        """
+        Creates a `AVLNode()` object which is the basic unit for building 
+        AVL() objects!!
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be saved within the `AVLNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item isn't a number.
+        """
         super().__init__(value)
         self._height = 0
     
@@ -61,10 +89,7 @@ class AVLNode(BSTNode):
 
 class AVL(BST):
     _basic_node = AVLNode
-
-
-    def __name__(self):
-        return "extra.AVL()"
+    __name__ = "extra.AVL()"
     
 
     ##############################     HEIGHT     ##############################
