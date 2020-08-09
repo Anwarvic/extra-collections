@@ -58,6 +58,18 @@ class AVLNode(BSTNode):
     
 
     def set_right(self, new_node):
+        """
+        Sets the given `AVLNode()` as a right child for the current `AVLNode()`.
+
+        Parameters
+        ----------
+        child: AVLNode()
+            The `AVLNode()` that will be a right child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `AVLNode()` object.
+        """
         super().set_right(new_node)
         self._height = max(self.get_children_heights())
     
