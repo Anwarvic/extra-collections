@@ -41,6 +41,18 @@ class AVLNode(BSTNode):
     
 
     def set_left(self, new_node):
+        """
+        Sets the given `AVLNode()` as a left child for the current `AVLNode()`.
+
+        Parameters
+        ----------
+        child: AVLNode()
+            The `AVLNode()` that will be a left child for the current one.
+
+        Raises
+        ------
+        TypeError: If the given item is not an `AVLNode()` object.
+        """
         super().set_left(new_node)
         self._height = max(self.get_children_heights())
     
