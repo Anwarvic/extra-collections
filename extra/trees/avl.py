@@ -113,6 +113,16 @@ class AVLNode(BSTNode):
     
 
     def get_children_heights(self):
+        """
+        Returns a list of two children heights of the current `AVLNode()`
+        instance where the first value is the height of the left child and the
+        other is the height of the right child.
+
+        Returns
+        -------
+        list:
+            A list of the two children of the `AVLNode()` instance.
+        """
         return [self.get_left_height(), self.get_right_height()]
     
 
