@@ -153,6 +153,20 @@ class AVLNode(BSTNode):
     
 
     def __repr__(self):
+        """
+        Represents `AVLNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `AVLNode()` instance.
+        
+        Example
+        -------
+        >>> x = AVLNode(10)
+        >>> x
+        >>> AVLNode(10)
+        """
         return f"AVLNode({self._data})"
     
 
