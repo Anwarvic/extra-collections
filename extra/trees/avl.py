@@ -336,3 +336,33 @@ class AVL(BST):
         return super().get_max()
     
 
+    ##############################       MIN      ##############################
+    def get_min(self):
+        """
+        Gets the minimum value in the `AVL()` isntance. The minimum value
+        can be found at the left-most tree node in the `AVL()` instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `AVL()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `AVL()` instance is empty.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.get_min()
+        1
+        """
+        return super().get_min()
+
+
