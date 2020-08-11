@@ -256,3 +256,30 @@ class AVL(BST):
         return super().from_iterable(iterable)
 
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `AVL()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `AVL()` instance. Length is the number of
+            tree nodes in the instance.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> len(avl)
+        7
+        """
+        return super().__len__()
+    
+
+    
