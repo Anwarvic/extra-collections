@@ -198,4 +198,61 @@ class AVL(BST):
         super().__init__()
     
 
-    
+    @classmethod
+    def from_iterable(cls, iterable):
+        """
+        A class method which creates an `AVL()` instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        AVL()
+            It returns a `AVL()` instance with input values being inserted
+            in the same order.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> avl = AVL.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.AVL()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> avl = AVL.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `AVL()` objects will raise `TypeError` as well
+
+        >>> avl_1 = AVL.from_iterable([1])
+        >>> avl_2 = AVL.from_iterable([1, avl_1])
+        TypeError: Can't create `extra.AVL()` using `extra.AVL()`!!
+        """
+        return super().from_iterable(iterable)
+
+
