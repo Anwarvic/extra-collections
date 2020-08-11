@@ -306,4 +306,33 @@ class AVL(BST):
         return super().is_empty()
     
 
+    ##############################       MAX      ##############################
+    def get_max(self):
+        """
+        Gets the maximum value in the `AVL()` isntance. The maximum value
+        can be found at the right-most tree node in the `AVL()` instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `AVL()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `AVL()` instance is empty.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.get_max()
+        7
+        """
+        return super().get_max()
     
+
