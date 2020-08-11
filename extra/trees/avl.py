@@ -282,4 +282,28 @@ class AVL(BST):
         return super().__len__()
     
 
+    def is_empty(self):
+        """
+        Checks if the `AVL()` instance is empty or not in constant time-
+        complexity.
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `AVL()` instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> avl = AVL()
+        >>> avl.is_empty()
+        True
+        >>> avl.insert(10)
+        >>> avl.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+
     
