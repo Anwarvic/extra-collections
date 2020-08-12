@@ -440,4 +440,47 @@ class AVL(BST):
         return inserted_node
     
 
+    def insert(self, value):
+        """
+        Inserts a numeric value in the AVL()` instance according to the
+        rules of binary search trees.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If the given `value` is not a numeric value.
+
+        Example
+        -------
+        >>> avl = AVL()
+        >>> avl.insert(10)
+        >>> avl
+        10
+        >>> avl.insert(5)
+        >>> avl
+        5
+         \\
+          10
+        >>> avl.insert(15)
+          10
+         /  \\
+        5    15
+        >>> avl.insert(8)
+        >>> avl
+          __10
+         /    \\
+        5      15
+         \\
+          8
+        >>> avl.insert("2")
+        TypeError: `extra.AVL()` accepts only numbers!!
+        """
+        super().insert(value)
+
+
     
