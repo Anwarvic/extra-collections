@@ -366,3 +366,38 @@ class AVL(BST):
         return super().get_min()
 
 
+    ##############################     SEARCH     ##############################
+    def __contains__(self, find_val):
+        """
+        Searches the `AVL()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `AVL()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `AVL()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> 5 in avl
+        True
+        >> 50 in bst
+        False
+        """
+        return super().__contains__(find_val)
+
+
+    
