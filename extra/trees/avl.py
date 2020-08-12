@@ -483,4 +483,64 @@ class AVL(BST):
         super().insert(value)
 
 
+    ##############################    REMOVAL     ##############################
+    def _remove(self, del_value, start_node):
+        """
+        Removes the `del_value` from the subtree whose root is the given
+        `start_node` object. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        start_node: AVLNode()
+            The root of the subtree from which the `del_value` will be removed.
+        
+        Returns
+        -------
+        AVLNode():
+            A refernce to the last accessed node when removing the value from
+            the subtree. This could be either the removed node or its parent.
+        
+        Raises
+        ------
+        AssertionError: This can be raised in these cases:
+            1. If the given `del_value` isn't a numeric value.
+            2. If the given `start_node` isn't a `BSTNode()`.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl._remove(5, avl._root)
+        AVLNode(6)
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\      \\
+        1   3       7
+        """
+        assert type(del_value) in {int, float}
+        assert isinstance(start_node, self._basic_node)
+
+        length_before = self._length
+        last_accessed_node = super()._remove(del_value, start_node)
+        if self._length != length_before:
+            parent = last_accessed_node
+            while(parent is not None):
+                grand_parent = parent.get_parent()
+                parent.set_height(max(parent.get_children_heights()))
+                if not parent.is_balanced():
+                    parent = self._rebalance(parent)
+                    self._attach(grand_parent, parent)
+                parent = grand_parent
+        return last_accessed_node
+        
+
     
