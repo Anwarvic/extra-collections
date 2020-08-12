@@ -543,4 +543,40 @@ class AVL(BST):
         return last_accessed_node
         
 
+    def remove(self, del_value):
+        """
+        Removes the `del_value` from the `AVL()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        
+        Raises
+        ------
+        UserWarning: If the `AVL()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.remove(6)
+        >>> avl
+            __4__
+           /     \\
+          2       7
+         / \\     /
+        1   3   5
+        >>> avl.remove(50)
+        UserWarning: Couldn't find `50` in `extra.AVL()`!!
+        """
+        super().remove(del_value)
+
+
     
