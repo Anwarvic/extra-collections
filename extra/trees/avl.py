@@ -400,4 +400,44 @@ class AVL(BST):
         return super().__contains__(find_val)
 
 
+    ##############################   INSERTION    ##############################
+    def _insert(self, value):
+        """
+        Inserts a numeric value in the `AVL()` instance according to the rules
+        of binary search trees.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Returns
+        -------
+        AVLNode():
+            A reference to the new node after being inserted to the subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given `value` is not neither a numeric value nor
+        an `AVLNode()`.
+        """
+        assert type(value) in {int, float} or \
+                    isinstance(value, self._basic_node)
+        
+        if isinstance(value, self._basic_node):
+            inserted_node = super()._insert_node(self._root, value)
+        else:
+            inserted_node = super()._insert_value(self._root, value)
+        # update heights & rebalance when needed
+        parent = inserted_node.get_parent()
+        while(parent is not None):
+            grand_parent = parent.get_parent()
+            parent.set_height(max(parent.get_children_heights()))
+            if not parent.is_balanced():
+                parent = self._rebalance(parent)
+                self._attach(grand_parent, parent)
+            parent = grand_parent
+        return inserted_node
+    
+
     
