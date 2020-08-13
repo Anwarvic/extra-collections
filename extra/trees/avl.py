@@ -627,3 +627,27 @@ class AVL(BST):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `AVL()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the instance.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.get_depth()
+        0
+        """
+        return super().get_depth()
+    
+
