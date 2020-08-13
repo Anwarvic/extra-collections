@@ -678,4 +678,34 @@ class AVL(BST):
         return super().count_leaf_nodes()
 
 
+    ##############################     BALANCE    ##############################
+    def _get_unbalanced_node(self, start_node):
+        """
+        Gets the node that is unbalanced in the subtree whose root is the given
+        `start_node`.
+
+        Parameters
+        ----------
+        start_node: AVLNode()
+            A reference to the node where searching for imbalance begins.
+        
+        Returns
+        -------
+        AVLNode():
+            A reference to the first imbalanced node in the given subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given node isn't an `AVLNode()`.
+        """
+        assert isinstance(start_node, self._basic_node)
+
+        child = start_node
+        parent = start_node.get_parent()
+        grand_parent = start_node.get_grand_parent()
+        while(grand_parent is not None and grand_parent.is_balanced()):
+            return self._get_unbalanced_node(parent)
+        return grand_parent, parent, child
+    
+
     
