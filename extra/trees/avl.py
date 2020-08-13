@@ -602,4 +602,28 @@ class AVL(BST):
         return start_node.get_height()
     
 
+    def get_height(self):
+        """
+        Gets the height of the `AVL()` instance. The AVL's height
+        is the number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.get_height()
+        22
+        """
+        return super().get_height()
     
+
