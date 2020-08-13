@@ -579,4 +579,27 @@ class AVL(BST):
         super().remove(del_value)
 
 
+    ##############################  HEIGHT/DEPTH  ##############################
+    def _get_height(self, start_node):
+        """
+        Gets the height of the subtree defined by the given `start_node`
+        parameter. The tree's height is the number of edges between the given
+        `start_node` and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the given
+            `start_node`.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        
+        Example
+        -------
+        """
+        return start_node.get_height()
+    
+
     
