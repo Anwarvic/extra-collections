@@ -681,7 +681,7 @@ class AVL(BST):
     ##############################     BALANCE    ##############################
     def _get_unbalanced_node(self, start_node):
         """
-        Gets the node that is unbalanced in the subtree whose root is the given
+        Gets the first imbalanced node in the subtree whose root is the given
         `start_node`.
 
         Parameters
@@ -706,6 +706,54 @@ class AVL(BST):
         while(grand_parent is not None and grand_parent.is_balanced()):
             return self._get_unbalanced_node(parent)
         return grand_parent, parent, child
+    
+
+    def _rebalance(self, start_node):
+        """
+        Rebalances the given subtree whose root is the given `start_node`.
+
+        Parameters
+        ----------
+        start_node: AVLNode()
+            A reference to the node where we should start re-balancing.
+        
+        Returns
+        -------
+        AVLNode():
+            A reference to the same node after balancing.
+        
+        Raises
+        ------
+        AssertionError: If the given node isn't an `AVLNode()`.
+        """
+        assert isinstance(start_node, self._basic_node)
+
+        # get the heavy parent
+        grand_parent = start_node
+        left_height, right_height = grand_parent.get_children_heights()
+        parent = grand_parent.get_left() \
+            if left_height > right_height else grand_parent.get_right()
+        # get the heavy child
+        left_height, right_height = parent.get_children_heights()
+        node = parent.get_left() \
+            if left_height > right_height else parent.get_right()
+        
+        # determine the direction
+        if parent.is_left_child():
+            if node.is_left_child():
+                # left-left
+                middle = self._rotate_right(grand_parent)
+            else:
+                # left-right
+                middle = self._rotate_left_right(grand_parent)
+        else:
+            if node.is_left_child():
+                # right-left
+                middle = self._rotate_right_left(grand_parent)
+            else:
+                # right-right
+                middle = self._rotate_left(grand_parent)
+        return middle
     
 
     
