@@ -651,3 +651,31 @@ class AVL(BST):
         return super().get_depth()
     
 
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `AVL()` instance. Leaf
+        nodes are the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `AVL()`.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.count_leaf_nodes()
+        4
+        """
+        return super().count_leaf_nodes()
+
+
+    
