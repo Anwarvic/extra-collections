@@ -756,4 +756,37 @@ class AVL(BST):
         return middle
     
 
+    def is_balanced(self):
+        """
+        Checks if the `AVL()` instance is balanced. A AVL is
+        balanced if the difference between the depth of any two leaf nodes is
+        less than or equal to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `AVL()` instance is balanced and `False` if it
+            is not balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `AVL()` is empty.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> bst.is_balanced()
+        True
+        """
+        if self.is_empty():
+            return super().is_balanced()
+        return self._root.is_balanced()
+
+
     
