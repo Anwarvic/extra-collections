@@ -851,4 +851,31 @@ class AVL(BST):
         return super().is_strict()
     
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `AVL()` instance and returns a generator of the 
+        `AVLNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> for value in avl:
+        ...     print(value, end=',')
+        4,2,6,1,3,5,7
+        """
+        return super().__iter__()
+
+
     
