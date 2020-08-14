@@ -878,4 +878,30 @@ class AVL(BST):
         return super().__iter__()
 
 
+    def to_list(self):
+        """
+        Converts the `AVL()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `AVL()`
+            instance.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.to_list()
+        [4, 2, 6, 1, 3, 5, 7]
+        """
+        return super().to_list()
+
+
     
