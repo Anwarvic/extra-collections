@@ -1020,4 +1020,31 @@ class AVL(BST):
         return super().postorder_traverse() 
 
 
+    ##############################    In-Order    ##############################
+    def inorder_traverse(self):
+        """
+        Traverses the `AVL()` instance in in-order manner. Which means that the
+        **left subtree** (if found) is visited first. Then, the **parent** then
+        the **right subtree** (if found).
+        
+        Returns
+        --------
+        list:
+            A list of all values of the in-order visited nodes.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.inorder_traverse()
+        [1, 2, 3, 4, 5, 6, 7]
+        """
+        return super().inorder_traverse()
+
+
     
