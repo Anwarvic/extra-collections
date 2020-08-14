@@ -789,4 +789,35 @@ class AVL(BST):
         return self._root.is_balanced()
 
 
+    ##############################    PERFECT     ##############################
+    def is_perfect(self):
+        """
+        Checks if the `AVL()` instance is perfect. A AVL is perfect
+        if all its levels are completely filled.
+
+        Returns
+        -------
+        bool:
+            `True` if the `AVL()` instance is perfect and `False` if it is
+            not perfect.
+        
+        Raises
+        ------
+        UserWarning: If the `AVL()` is empty.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.is_perfect()
+        True
+        """
+        return super().is_perfect()
+
+
     
