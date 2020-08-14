@@ -904,4 +904,32 @@ class AVL(BST):
         return super().to_list()
 
 
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all tree nodes within the `AVL()` instance so that all
+        tree nodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.get_nodes_per_level()
+        [[4], [2, 6], [1, 3, 5, 7]]
+        """
+        return super().get_nodes_per_level()
+
+
     
