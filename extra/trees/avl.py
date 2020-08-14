@@ -1127,3 +1127,26 @@ class AVL(BST):
         return super().traverse(method)
 
 
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `AVL()` instance in constant time.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.clear()
+        >>> avl
+        / \\
+        >>> avl.is_empty()
+        True
+        """
+        super.clear()
+
+
