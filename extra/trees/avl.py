@@ -932,4 +932,35 @@ class AVL(BST):
         return super().get_nodes_per_level()
 
 
+    ##############################   Pre-Order    ##############################
+    def preorder_traverse(self):
+        """
+        Traverses the `AVL()` instance in pre-order manner. Which means
+        that the **parent** is visited first. Then, the **left subtree** (if
+        found), then the **right subtree** (if found).
+        
+        Note
+        -----
+        It's the same as `depth_first_traverse()` method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.preorder_traverse()
+        [4, 2, 1, 3, 6, 5, 7]
+        """
+        return super().preorder_traverse()
+
+
     
