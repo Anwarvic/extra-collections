@@ -820,4 +820,35 @@ class AVL(BST):
         return super().is_perfect()
 
 
+    ##############################     STRICT     ##############################
+    def is_strict(self):
+        """
+        Checks if the `AVL()` instance is strict. A AVL is strict if
+        all its non-leaf nodes have two children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `AVL()` instance is strict and `False` if it is
+            not strict.
+        
+        Raises
+        ------
+        UserWarning: If the `AVL()` is empty.
+
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> bst.is_strict()
+        True
+        """
+        return super().is_strict()
+    
+
     
