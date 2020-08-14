@@ -993,4 +993,31 @@ class AVL(BST):
         return super().depth_first_traverse()
 
 
+    ##############################   Post-Order   ##############################
+    def postorder_traverse(self):
+        """
+        Traverses the `AVL()` instance in post-order manner. Which means
+        that the **left subtree** (if found) is visited first. Then, the **right
+        subtree** (if found) then the **parent**.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.postorder_traverse()
+        [1, 3, 2, 5, 7, 6, 4]
+        """
+        return super().postorder_traverse() 
+
+
     
