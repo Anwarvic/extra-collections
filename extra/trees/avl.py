@@ -1047,4 +1047,29 @@ class AVL(BST):
         return super().inorder_traverse()
 
 
-    
+    #############################  BREADTH-FIRST ##############################
+    def breadth_first_traverse(self):
+        """
+        Traverses the `AVL()` instance in breadth-first manner. Which means that
+        the tree nodes will be visited level by level.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> avl = AVL.from_iterable([[2, 5, 4, 6, 3])
+        >>> avl
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> avl.breadth_first_traverse()
+        [4, 2, 6, 1, 3, 5, 7]
+        """
+        return super().breadth_first_traverse()
+
+
