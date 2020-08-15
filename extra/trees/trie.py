@@ -57,6 +57,9 @@ class TrieNode(TreeNode):
     a value and this value has to be a `str`. Each trie node has zero or more
     trie nodes as children.
     """
+    __name__ = "extra.TrieNode()"
+
+
     def __init__(self, value):
         """
         Creates a `TrieNode()` object which is the basic unit for building 
@@ -142,6 +145,33 @@ class TrieNode(TreeNode):
 
 
     def set_child(self, ch, new_node):
+        """
+        Sets the given `new_node` as a child for the current `TrieNode()` using
+        the given `ch` as a new key.
+
+        Parameters
+        ----------
+        ch: str
+            The character that will be used as a key for the new node.
+        
+        new_node: TrieNode()
+            The `TrieNode()` that will be a child for the current one.
+
+        Raises
+        ------
+        TypeError: This can be raised due to the following reasons:
+            1. The given key is not a `str`.
+            2. If the given item is not an `TrieNode()` object.
+        """
+        if type(ch) != str:
+            raise TypeError(
+                f"Given key is `{type(ch)}` and it should be a `str`!!"
+            )
+        elif isinstance(new_node, TrieNode):
+            raise TypeError(
+                f"You can't set a child unless it's an `{self.__name__}` " + 
+                "object!!"
+            )
         self._children[ch] = new_node
         new_node._parent = self
 
