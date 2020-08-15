@@ -29,8 +29,7 @@ def test_empty_tree():
     assert t.get_depth() == t.get_height() == 0
     assert t.count_leaf_nodes() == 0
     assert t.to_list() == []
-    assert t.get_nodes() == []
-    with pytest.raises(IndexError): [i for i in t]
+    assert t.get_nodes_per_level() == []
 
 
 def test_tree_with_known_values():
@@ -69,7 +68,7 @@ def test_tree_with_known_values():
         ['TheSimpsons', 'Abraham + Mona', 'Clancy + Jackie', 'Herb', 'Homer',
         'Marge', 'Patty', 'Selma', 'Bart', 'Lisa', 'Maggie', 'Bart', 'Lisa',
         'Maggie', 'Ling']
-    assert t.get_nodes() == \
+    assert t.get_nodes_per_level() == \
         [['TheSimpsons'],
         ['Abraham + Mona', 'Clancy + Jackie'],
         ['Herb', 'Homer', 'Marge', 'Patty', 'Selma'],
@@ -81,24 +80,8 @@ def test_tree_with_known_values():
     assert t.get_depth() == t.get_height() == 0
     assert t.count_leaf_nodes() == 0
     assert t.to_list() == []
-    with pytest.raises(IndexError): [i for i in t]
 
 
 def test_invalid_path():
     val = get_string()
-    t = Tree.from_path(val)
-    assert str(t) == str(val)
-    assert len(t) == 1
-    assert t.get_depth() == t.get_height() == 0
-    assert t.count_leaf_nodes() == 1
-    assert t.to_list() == [val]
-    assert [i for i in t] == [val]
-    assert t.get_nodes() == [[val]]
-    # clear
-    t.clear()
-    assert t.is_empty()
-    assert len(t) == 0
-    assert t.get_depth() == t.get_height() == 0
-    assert t.count_leaf_nodes() == 0
-    assert t.to_list() == []
-    with pytest.raises(IndexError): [i for i in t]
+    with pytest.raises(ValueError): Tree.from_path(val)
