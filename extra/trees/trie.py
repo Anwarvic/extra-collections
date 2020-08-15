@@ -191,6 +191,20 @@ class TrieNode(TreeNode):
 
 
     def __repr__(self):
+        """
+        Represents `TrieNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `TrieNode()` instance.
+        
+        Example
+        -------
+        >>> x = TrieNode("x")
+        >>> x
+        >>> TrieNode("x")
+        """
         return f"TrieNode({self._data})"
 
 
