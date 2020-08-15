@@ -176,7 +176,17 @@ class TrieNode(TreeNode):
         new_node._parent = self
 
 
-    def has_no_children(self):
+    def is_leaf(self):
+        """
+        Checks if the current `TrieNode()` instance is a leaf node. A leaf node
+        is a tree node that has no children.
+
+        Returns
+        -------
+        bool:
+            `True` if the current `TrieNode()` has no children and `False`
+            otherwise.
+        """
         return self._children == {}
 
 
@@ -288,7 +298,7 @@ class Trie(Tree):
         if remaining_word == "": #found the whole word
             curr_node = last_node
             curr_node._is_word = False
-            while(not curr_node._is_word and curr_node.has_no_children()):
+            while(not curr_node._is_word and curr_node.is_leaf()):
                 ch = curr_node.get_data()[0]
                 parent = curr_node.get_parent()
                 del parent._children[ch]
