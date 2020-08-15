@@ -81,6 +81,15 @@ class TrieNode(TreeNode):
 
 
     def get_characters(self):
+        """
+        Returns a list of all the character children following the current 
+        `TrieNode()` instance.
+
+        Returns
+        -------
+        list:
+            A list of all the characters obtained by the children.
+        """
         return self._children.keys()
 
 
