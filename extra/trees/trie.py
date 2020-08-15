@@ -209,6 +209,25 @@ class TrieNode(TreeNode):
 
 
     def __str__(self):
+        """
+        Represents `TrieNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `TrieNode()` instance.
+        
+        Example
+        -------
+        >>> x = TrieNode("x")
+        >>> x
+        x
+
+        Note
+        ----
+        The following character: '✓' is appended to a the `TrieNode()` object if
+        it's the last child in representing a whole word.
+        """
         if self._is_word:
             return self._data + ' ✓'
         else:
