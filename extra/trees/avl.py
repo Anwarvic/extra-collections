@@ -4,6 +4,73 @@ that stores numbers hierarchical with the assertion that any operation, like
 insertion, searching, and deletion, will be done in **log(n)** time-complexity
 where **n** is the number of elements in the AVL. AVL was named after the
 initials of its inventors: Adel’son-Vel’skii and Landis.
+
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **h** is the Splay Tre height which approximatley equals to **log(n)**.
+
++--------------------------+--------------------------------------------------+------------+---------+
+| Method                   | Description                                      | Worst-case | Optimal |
++==========================+==================================================+============+=========+
+| __len__()                | Returns the number of nodes.                     | O(1)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| is_empty()               | Checks if object is empty.                       | O(1)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| __repr__()               | Represents the AVL Tree.                         | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| __iter__()               | Iterates over the AVL Tree.                      | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| __contains__()           | Checks the existence of the given item.          | O(h)       | O(h)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| get_height()             | Gets the AVL Tree's height.                      | O(n)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| get_depth()              | Gets the AVL Tree's depth.                       | O(n)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| get_nodes()              | Returns a list of all nodes per level.           | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| is_balanced()            | Checks if the AVL Tree is balanced.              | O(n)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| is_perfect()             | Checks if the AVL Tree is perfect.               | O(n)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| is_strict()              | Checks if the AVL Tree is strict.                | O(n)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| count_leaf_nodes()       | Counts all leaf nodes in the tree.               | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| clear()                  | Clears the whole tree instance.                  | O(1)       | O(1)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| to_list()                | Converts the bianry tree instance to list.       | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| traverse()               | Traverses the AVL Tree based on given method.    | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| preorder_traverse()      | Traverses the AVL Tree in an pre-order manner.   | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| inorder_traverse()       | Traverses the AVL Tree in an in-order manner.    | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| postorder_traverse()     | Traverses the AVL Tree in an post-order manner.  | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| breadth_first_traverse() | Traverses the AVL Tree level by level.           | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| depth_first_traverse()   | Traverses the AVL Tree in an pre-order manner.   | O(n)       | O(n)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| get_min()                | Gets the minimum number in the AVL Tree.         | O(h)       | O(h)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| get_max()                | Gets the maximum number in the AVL Tree.         | O(h)       | O(h)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| insert()                 | Inserts a certain value to the AVL Tree.         | O(h)       | O(h)    |
++--------------------------+--------------------------------------------------+------------+---------+
+| remove()                 | Removes a certain value from the AVL Tree.       | O(h)       | O(h)    |
++--------------------------+--------------------------------------------------+------------+---------+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `AVL()` objects:
+
 """
 from extra.trees.bst import BSTNode, BST
 
