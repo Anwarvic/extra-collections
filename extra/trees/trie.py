@@ -94,6 +94,15 @@ class TrieNode(TreeNode):
 
 
     def get_children(self):
+        """
+        Returns a list of all the children nodes of the current `TrieNode()`
+        instance.
+
+        Returns
+        -------
+        list:
+            A list of all the children nodes of the current `TrieNode()`.
+        """
         return list(self._children.values())
 
 
