@@ -52,10 +52,28 @@ from extra.trees.tree import TreeNode, Tree
 
 
 class TrieNode(TreeNode):
+    """
+    A trie node is the basic unit for building tries. A tree node must contain
+    a value and this value has to be a `str`. Each trie node has zero or more
+    trie nodes as children.
+    """
     def __init__(self, value):
+        """
+        Creates a `TrieNode()` object which is the basic unit for building 
+        Trie() objects!!
+
+        Parameters
+        ----------
+        value: str
+            The value to be saved within the `TrieNode()` instance
+
+        Raises
+        ------
+        TypeError: If the given item is not a `str` object.
+        """
         if type(value) != str:
             raise TypeError("Trienodes accept characters only!!")
-        # assert len(value) == 1
+        
         self._parent = None
         self._data = value
         self._children = {}
