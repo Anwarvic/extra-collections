@@ -1,3 +1,50 @@
+"""
+A trie, pronounced "try", is a tree-based data structure for storing strings in
+order to support fast pattern matching. Indeed, the name "trie" comes from the
+word "retrieval". The primary query operations that tries support is "prefix
+matching" which involves being given a string and looking for all the sequences
+that contain the given string as a prefix.
+
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+
++--------------------+------------------------------------------+------------+---------+
+| Method             | Description                              | Worst-case | Optimal |
++====================+==========================================+============+=========+
+| __len__()          | Returns the number of nodes.             | O(n)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| is_empty()         | Checks if trie is empty.                 | O(1)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| __repr__()         | Represents the trie.                     | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| __iter__()         | Iterates over the trie.                  | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| __contains__()     | Checks the existence of the given item   | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_height()       | Gets the trie's height                   | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_depth()        | Gets the trie's depth                    | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| get_nodes()        | Returns a list of all nodes per level    | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| count_leaf_nodes() | Counts all leaf nodss in the trie        | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+| clear()            | Clears the whole trie instance           | O(1)       | O(1)    |
++--------------------+------------------------------------------+------------+---------+
+| to_list()          | Converts the trie instance to  list.     | O(n)       | O(n)    |
++--------------------+------------------------------------------+------------+---------+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `Trie()` objects:
+"""
 import warnings
 from extra.trees.tree import TreeNode, Tree
 
