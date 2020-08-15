@@ -128,6 +128,16 @@ class TrieNode(TreeNode):
 
 
     def get_parent(self):
+        """
+        Returns the parent of the current `TrieNode()` instance.
+
+        Returns
+        -------
+        TrieNode() or None:
+            A reference to the parent of the current `TrieNode()` which could be
+            a `TrieNode() object or `None` in case the current `TrieNode()` is
+            the root of the `Trie()` instance.
+        """
         return self._parent
 
 
