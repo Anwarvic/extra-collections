@@ -47,7 +47,7 @@ def test_splay_tree_example1():
     assert not stree.is_strict()
     assert 14 in stree
     # find 8
-    assert stree.find(8)
+    assert 8 in stree
     assert stree._root.get_data() == 8
     assert verify_bst_rules(stree._root)
     assert stree.get_max() == 17
@@ -56,7 +56,7 @@ def test_splay_tree_example1():
     assert not stree.is_perfect()
     assert not stree.is_strict()
     # find 2
-    assert not stree.find(5.5)
+    assert not 5.5 in stree
     assert stree._root.get_data() == 5
     assert verify_bst_rules(stree._root)
     assert stree.get_max() == 17
