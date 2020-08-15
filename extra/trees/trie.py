@@ -107,6 +107,20 @@ class TrieNode(TreeNode):
 
 
     def get_child(self, ch):
+        """
+        Gets the child that has the given character (`ch`) as a key.
+
+        Parameters
+        ----------
+        ch: str
+            A character that represents the child's key.
+        
+        Returns
+        -------
+        TrieNode() or None:
+            If the key belongs to a certain `TrieNode()` child, this child is
+            returned. If the key wasn't found, `None` is returned.
+        """
         try:
             return self._children[ch]
         except KeyError:
