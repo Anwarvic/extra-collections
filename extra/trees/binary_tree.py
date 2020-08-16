@@ -1,16 +1,20 @@
 """
 A binary tree is a non-linear data structure that stores elements hierarchical.
 With the exception of the top element, each element in the binary tree has a
-parent element and zero or one or two children elements. We typically call the
-top element the root of the binary tree, but it is drawn as the highest element, 
-with the other elements being connected below (just the opposite of an actual
-tree). In other words, we can consider the binary tree a tree data structure with the
-only exception that every tree node in the binary tree has at most two children
-while every tree node in the tree can have more than two children.
+parent element and each node has two children elements at most. We typically
+call the top element of the binary tree, "the root". The root is drawn as the
+highest element, with the other elements being connected below (just the
+opposite of an actual tree).
+
+[image]
+
+In other words, we can consider the binary tree a tree data structure
+with the only exception that every tree node in the binary tree has at most two
+children while every tree node in the tree can have more than two children.
 
 So, the following is a simple binary tree that represents a small family:
 
-.. code-block::
+.. code-block:: text
 
               ___________GrandFather_________              <--- level 0
              /                               \\
@@ -29,13 +33,13 @@ In the previous binary tree, we can say the following:
 - "You", "Sibling", "Cousin1" and "Cousin2" have no children.
 
 
-Now, let's try to use the previous tree to explain a few terms:
+Now, let's try to use the previous binary tree to explain a few terms:
 
 - **Tree Node**: Each entry in the binary tree data structure is called a tree \
     node. So, "GrandFather", "Father", "You", ... "Cousin" are all tree nodes. \
     So, the number of nodes in the previous binary tree is 7.
 - **Root**: The root is the first tree node in the tree and it's the only \
-    treenode that has no *parent*. So, "GrandFather" is the root of the \
+    tree node that has no *parent*. So, "GrandFather" is the root of the \
     previuos tree.
 - **Leaf Node**: The leaf node is a tree node that has no children. So, both \
     "You", "Sibling", "Cousin1" and "Cousin2" are leaf nodes. So, the number \
@@ -45,11 +49,12 @@ Now, let's try to use the previous tree to explain a few terms:
 - **Depth**: The depth of a tree node is the number of edges between this tree \
     node and the root. So, the depth of the tree's root is always 0.
 - **Balanced Tree**: A binaryTree is said to be balanced if the difference \
-    between the depth of any two leaf nodes is less than or equal one.
+    between the depth of any two leaf nodes is less than or equal one. So, the \
+    previous binary tree is balanced.
 - **Perfect Tree**: A binaryTree is said to be perfect if all its levels are \
-    completely filled.
+    completely filled. So, the pervious binary tree is perfect.
 - **Strict Tree**: A binaryTree is said to be strict if all its non-leaf nodes \
-    has left and right children.
+    has left and right children. So, the pervious binary tree is strict.
 - **Traversal**: Traversal is the process to visit all nodes of a binary tree \
     starting from the root as we cannot randomly access any node in a binary \
     tree. There are four ways which we use to traverse a binary tree:
@@ -61,8 +66,8 @@ Now, let's try to use the previous tree to explain a few terms:
 
             GrandFather ⟶ Father ⟶ Me ⟶ Sibling ⟶ Uncle ⟶ Cousin1 ⟶ Cousin2
         
-    - **In-order Traversal**: The **left subtree** (if found) is visited first. \
-        Then, the **parent** then the **right subtree** (if found). So, the \
+    - **In-order Traversal**: The **left subtree** (if found) is visited first\
+        . Then, the **parent** then the **right subtree** (if found). So, the \
         in-order traversal of the previous binary tree will be: \
 
             Me ⟶ Father ⟶ Sibling ⟶ GrandFather ⟶ Cousin1 ⟶ Uncle ⟶ Cousin2
@@ -76,8 +81,8 @@ Now, let's try to use the previous tree to explain a few terms:
     - **Breadth-order Traversal**: It's also known as "Level-order Traversal" \
         where all nodes is visited by the order of the level they are in. So, \
         tree nodes in the first level are visited before all tree nodes in the \
-        second level and so on. So, the breadth-first traversal of the previuos \
-        binary tree will be: \
+        second level and so on. So, the breadth-first traversal of the \
+        previuos binary tree will be: \
 
             GrandFather ⟶ Father ⟶ Uncle ⟶ Me ⟶ Sibling ⟶ Cousin1 ⟶ Cousin2
 
@@ -94,17 +99,17 @@ Generally, we are going to use the following indicators in the table:
 +==========================+====================================================+============+=========+
 | __len__()                | Returns the number of nodes.                       | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
+| is_empty()               | Checks if binary tree is empty.                    | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the object.                             | O(n)       | O(n)    |
+| __repr__()               | Represents the binary tree.                        | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the object.                          | O(n)       | O(n)    |
+| __iter__()               | Iterates over the binary tree.                     | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | __contains__()           | Checks the existence of the given item.            | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the tree's height.                            | O(n)       | O(n)    |
+| get_height()             | Gets the binary tree's height.                     | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the tree's depth.                             | O(n)       | O(n)    |
+| get_depth()              | Gets the binary tree's depth.                      | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -162,7 +167,7 @@ class BinaryTreeNode(TreeNode):
         Parameters
         ----------
         value: object
-            The value to be saved within the ` BinaryTreeNode()` instance
+            The value to be saved within the `BinaryTreeNode()` instance
 
         Raises
         ------
@@ -180,8 +185,9 @@ class BinaryTreeNode(TreeNode):
 
         Returns
         -------
-        object:
-            The object stored in the `BinaryTreeNode()`.
+        BinaryTreeNode() or `None`:
+            The left child of the current `BinaryTreeNode()`. And `None` if the
+            current `BinaryTreeNode()` doesn't have a left child.
         """
         return self._left
 
@@ -192,8 +198,9 @@ class BinaryTreeNode(TreeNode):
 
         Returns
         -------
-        object:
-            The object stored in the `BinaryTreeNode()`.
+        BinaryTreeNode():
+            The right child of the current `BinaryTreeNode()`. And `None` if the
+            current `BinaryTreeNode()` doesn't have a right child.
         """
         return self._right
 
@@ -295,29 +302,6 @@ class BinaryTreeNode(TreeNode):
         >>> BinaryTreeNode(10)
         """
         return f"BinaryTreeNode({self._data})"
-
-
-    def _represent(self):
-        """
-        A helpful function used to represent the `BinaryTreeNode()` instance
-        when printing. It's used with BinaryTree.__repr__() method
-        
-        Returns
-        -------
-        str:
-            A string representing the `BinaryTreeNode()` is a very simple way.
-        
-        Example
-        -------
-        >>> x = BinaryTreeNode(10)
-        >>> x
-        BinaryTreeNode(10)
-        >>> x._represent()
-        10
-        >>> type(x._represent())
-        <class 'str'>
-        """
-        return str(self._data)
 
 
 
@@ -625,12 +609,12 @@ class BinaryTree(Tree):
 
     def get_depth(self):
         """
-        Gets the depth of the `Tree()` instance.
+        Gets the depth of the `BinaryTree()` instance.
 
         Returns
         -------
         int:
-            A positive integer representing the height of the instance.
+            A positive integer representing the depth of the instance.
         
         Example
         -------
@@ -677,7 +661,7 @@ class BinaryTree(Tree):
     ##############################    BALANCED    ##############################
     def is_balanced(self):
         """
-        Checks if the `BinaryTreeNode()` instance is balanced. A binary tree is
+        Checks if the `BinaryTree()` instance is balanced. A binary tree is
         balanced if the difference between the depth of any two leaf nodes is
         less than or equal to one.
 
@@ -719,7 +703,7 @@ class BinaryTree(Tree):
     ##############################    PERFECT     ##############################
     def is_perfect(self):
         """
-        Checks if the `BinaryTreeNode()` instance is perfect. A binary tree is
+        Checks if the `BinaryTree()` instance is perfect. A binary tree is
         perfect if all its levels are completely filled.
 
         Returns
@@ -800,8 +784,8 @@ class BinaryTree(Tree):
 
     def is_strict(self):
         """
-        Checks if the `BinaryTreeNode()` instance is perfect. A binary tree is
-        perfect if all its all its non-leaf nodes has two children (left and 
+        Checks if the `BinaryTree()` instance is strict. A binary tree is
+        staict if all its all its non-leaf nodes have two children (left and 
         right).
 
         Returns
@@ -891,8 +875,8 @@ class BinaryTree(Tree):
     ##############################      NODES     ##############################
     def get_nodes_per_level(self):
         """
-        Retrieves all treenodes within the `BinaryTree()` instance so that all
-        treenodes in a certain level will be concatenated into a separate list.
+        Retrieves all tree nodes within the `BinaryTree()` instance so that all
+        tree nodes in a certain level will be concatenated into a separate list.
 
         Returns
         -------
@@ -939,7 +923,7 @@ class BinaryTree(Tree):
         
         Note
         -----
-        It's the same as depth_first_traverse() method.
+        It's the same as `depth_first_traverse()` method.
 
         Returns
         --------
@@ -969,7 +953,7 @@ class BinaryTree(Tree):
         
         Note
         -----
-        It's the same as preorder_traverse() method.
+        It's the same as `preorder_traverse()` method.
 
         Returns
         --------
@@ -1119,7 +1103,8 @@ class BinaryTree(Tree):
         Returns
         --------
         list:
-            A list of all values of the pre-order visited nodes.
+            A list of all values of the visited nodes according to the specified
+            traversal method.
         
         Raises
         ------
@@ -1174,8 +1159,8 @@ class BinaryTree(Tree):
     ##############################     SEARCH     ##############################
     def __contains__(self, value):
         """
-        Searches the `Tree()` for the given value and returns `True` if the 
-        value exists and `False` if not.
+        Searches the `BinaryTree()` for the given value and returns `True` if 
+        the value exists and `False` if not.
 
         Parameters
         ----------
@@ -1185,8 +1170,8 @@ class BinaryTree(Tree):
         Returns
         -------
         bool:
-            Returns `True` if the value exists in the `Tree()` instance and
-            `False` if not.
+            Returns `True` if the value exists in the `BinaryTree()` instance
+            and `False` if not.
         
         Example
         -------
@@ -1225,6 +1210,6 @@ class BinaryTree(Tree):
         >>> btree.is_empty()
         True
         """
-        super.clear()
+        super().clear()
 
 

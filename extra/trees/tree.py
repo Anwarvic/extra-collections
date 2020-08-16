@@ -1,14 +1,14 @@
 """
 A tree is a non-linear data structure that stores elements hierarchically. With
 the exception of the top element, each element in a tree has a parent element
-and zero or more children elements. We typically call the top element the root
-of the tree, but it is drawn as the highest element, with the other elements
-being connected below (just the opposite of an actual tree).
+and zero or more children elements. We typically call the top element of the
+tree, "the root". The root is drawn as the highest element, with the other
+elements being connected below (just the opposite of an actual tree).
 
 The following is a simple tree that represents the family-tree of Homer Simpson
 from The Simpsons show :)
 
-.. code-block::
+.. code-block:: text
 
     TheSimpsons
     └─┬ Abraham
@@ -20,6 +20,7 @@ from The Simpsons show :)
 
 In the previous tree, we can say the following:
 
+- "TheSimpsons" tree node has no parent.
 - "Abraham" is the **only child** of the "TheSimpsons".
 - "Abraham" is the **parent** of both "Herb" and "Homer" which means that \
     "Herb" and "Homer" are the **two children** of "Abraham".
@@ -42,6 +43,8 @@ Now, let's try to use the previous tree to explain a few terms:
     in the previous tree is 3.
 - **Height**: The tree height is the number of edges between the root and the \
     furthest leaf node. In this case, the tree height is 3.
+- **Depth**: The depth of a tree node is the number of edges between this tree \
+    node and the root. So, the depth of the tree's root is always 0.
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -49,18 +52,17 @@ optimal time complexity that I will try to reach in future releases Insha'Allah.
 Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
-- **k** is the value of a parameter.
 
 +--------------------+------------------------------------------+------------+---------+
 | Method             | Description                              | Worst-case | Optimal |
 +====================+==========================================+============+=========+
-| __len__()          | Returns the number of nodes              | O(n)       | O(1)    |
+| __len__()          | Returns the number of nodes.             | O(n)       | O(1)    |
 +--------------------+------------------------------------------+------------+---------+
-| is_empty()         | Checks if object is empty                | O(1)       | O(1)    |
+| is_empty()         | Checks if tree is empty.                 | O(1)       | O(1)    |
 +--------------------+------------------------------------------+------------+---------+
-| __repr__()         | Represents the object                    | O(n)       | O(n)    |
+| __repr__()         | Represents the tree.                     | O(n)       | O(n)    |
 +--------------------+------------------------------------------+------------+---------+
-| __iter__()         | Iterates over the object                 | O(n)       | O(n)    |
+| __iter__()         | Iterates over the tree.                  | O(n)       | O(n)    |
 +--------------------+------------------------------------------+------------+---------+
 | __contains__()     | Checks the existence of the given item   | O(n)       | O(n)    |
 +--------------------+------------------------------------------+------------+---------+
@@ -90,7 +92,7 @@ from extra.interface import Extra
 
 class TreeNode(Extra):
     """
-    A tree node is the basic unit for building Trees. A tree node must contain
+    A tree node is the basic unit for building trees. A tree node must contain
     a value and this value can't be `None`. Each tree node has zero or more
     child tree nodes. The node that has no children is called a **leaf node**.
     """
@@ -133,12 +135,12 @@ class TreeNode(Extra):
 
     def get_children(self):
         """
-        Returns a list of all the children TreeNode() instances.
+        Returns a list of all the children of the `TreeNode()` instance.
 
         Returns
         -------
         list:
-            A list of all the children TreeNode() instances.
+            A list of all the children of the `TreeNode()` instance.
         """
         return self._children
     
@@ -225,6 +227,29 @@ class TreeNode(Extra):
         """
         return f"TreeNode({self._data})"
 
+
+    def _represent(self):
+        """
+        A helpful function used to represent the `TreeNode()` instance when
+        printing. It's used with Tree.__repr__() method
+        
+        Returns
+        -------
+        str:
+            A string representing the `TreeNode()` is a very simple way.
+        
+        Example
+        -------
+        >>> x = TreeNode(10)
+        >>> x
+        TreeNode(10)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+        """
+        return str(self._data)
+    
 
     @staticmethod
     def swap(node1, node2):
@@ -341,7 +366,8 @@ class Tree(Extra):
         
         Raises
         ------
-        TypeError: If the given path was invalid.
+        TypeError: If the given path's type wasn't a string.
+        ValueError: If the given path doesn't exist.
 
         Example
         -------
@@ -355,8 +381,10 @@ class Tree(Extra):
         ├── script2.py
         └── script3.py
         """
-        if type(path) != str or not os.path.exists(path):
+        if type(path) != str:
             raise TypeError("Invalid path was given!!")
+        elif not os.path.exists(path):
+            raise ValueError("Invalid path was given!!")
         t = Tree()
         abs_path = os.path.abspath(path)
         parent, folder = os.path.split(abs_path)
@@ -396,8 +424,8 @@ class Tree(Extra):
  
     def __len__(self):
         """
-        Gets the length of the `Tree()` instance in time-complexity of O(n) 
-        where **n** is the number of nodes in the tree.
+        Gets the length of the `Tree()` instance. Length is the number of nodes
+        in the instance.
         
         Returns
         -------
@@ -499,7 +527,7 @@ class Tree(Extra):
                 line.append('  ') if is_parent_last_child else line.append('│ ')
             line.append('└─') if is_last_child else line.append('├─')
             line.append('┬ ')if start_node.get_children() else line.append('─ ')
-        line.append(str(start_node.get_data()))
+        line.append(start_node._represent())
         lines.append("".join(line))
         # append node status
         my_seq = seq.copy()
@@ -631,8 +659,7 @@ class Tree(Extra):
     def get_height(self):
         """
         Gets the height of the `Tree()` instance. The tree's height is the 
-        number of edges between the given `start_node` and the furthest leaf 
-        node.
+        number of edges between the root and the furthest leaf node.
 
         Returns
         -------
@@ -813,7 +840,7 @@ class Tree(Extra):
         -------
         int:
             A positive integer representing the number of leaf nodes in the 
-            subtree.
+            `Tree()`.
         
         Example
         -------
@@ -895,13 +922,14 @@ class Tree(Extra):
 
     def to_list(self):
         """
-        Converts the Tree() instance to a `list` where values will be inserted 
+        Converts the `Tree()` instance to a `list` where values will be inserted 
         in breadth-first manner.
 
         Returns
         -------
         list:
-            A `list` object containing the same elements as the Tree() instance.
+            A `list` object containing the same elements as the `Tree()`
+            instance.
         
         Example
         -------
