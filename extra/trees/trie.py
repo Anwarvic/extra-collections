@@ -283,6 +283,26 @@ class Trie(Tree):
 
 
     def is_empty(self):
+        """
+        Checks if the `Trie()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `Trie()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> t = Trie()
+        >>> t.is_empty()
+        True
+        >>> t.insert("apple")
+        >>> t.is_empty()
+        False
+        """
         return self._nodes_count == 1
     
 
