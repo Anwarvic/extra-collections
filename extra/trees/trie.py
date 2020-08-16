@@ -167,7 +167,7 @@ class TrieNode(TreeNode):
             raise TypeError(
                 f"Given key is `{type(ch)}` and it should be a `str`!!"
             )
-        elif isinstance(new_node, TrieNode):
+        elif not isinstance(new_node, TrieNode):
             raise TypeError(
                 f"You can't set a child unless it's an `{self.__name__}` " + 
                 "object!!"
@@ -208,21 +208,9 @@ class TrieNode(TreeNode):
         return f"TrieNode({self._data})"
 
 
-    def __str__(self):
+    def _represent(self):
         """
-        Represents `TrieNode()` object as a string.
-
-        Returns
-        -------
-        str:
-            A string representing the `TrieNode()` instance.
         
-        Example
-        -------
-        >>> x = TrieNode("x")
-        >>> x
-        x
-
         Note
         ----
         The following character: '✓' is appended to a the `TrieNode()` object if
@@ -262,6 +250,35 @@ class Trie(Tree):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
+        """
+        Gets the length of the `Trie()` instance. Length is the number of nodes
+        in the instance.
+
+        
+        Returns
+        -------
+        int:
+            The length of the `Tie()` instance. Length is the number of tree
+            nodes in the instance.
+        
+        Examples
+        --------
+        >>> t = Trie()
+        >>> len(t)
+        0
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        └─┬ c
+          └─┬ a
+            ├─┬ r
+            │ └── t
+            └─┬ s
+              └── t
+        >>> len(t)
+        7
+        """
         return self._nodes_count
 
 
@@ -382,3 +399,7 @@ class Trie(Tree):
         return candidates
 
 
+if __name__ == "__main__":
+    t = Trie()
+    t.insert("apple")
+    print(t)
