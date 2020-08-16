@@ -237,11 +237,25 @@ class TrieNode(TreeNode):
 
 
 class Trie(Tree):
-    def __name__(self):
-        return "extra.Trie()"
+    """
+    A trie is a tree-based data structure that can be defined recursively using
+    a collection of `TrieNode()` instances, where each node contains string 
+    value and each node has a list of references to the children `TrieNode()`
+    instances.
+    """
+    __name__ = "extra.Trie()"
     
 
     def __init__(self):
+        """
+        Creates an empty `Trie()` object!!
+        
+        Example
+        -------
+        >>> t = Trie()
+        >>> type(t)
+        <class 'extra.trees.trie.Trie'>
+        """
         self._root = TrieNode("ROOT")
         self._nodes_count = 1
 
@@ -281,10 +295,10 @@ class Trie(Tree):
         super()._validate_item(word)
         if type(word) != str:
             raise TypeError(f"Can't deal with {type(word)} object since " + \
-                f"{self.__name__()} contains only characters!!")
+                f"`{self.__name__}` contains only characters!!")
         if not accept_empty_string and len(word.strip()) == 0:
             raise ValueError(\
-                f"White-spaces can't be used with {self.__name__()}!!")
+                f"White-spaces can't be used with `{self.__name__}`!!")
     
 
     def __contains__(self, word):
@@ -321,7 +335,7 @@ class Trie(Tree):
     ##############################     REMOVE     ##############################
     def remove(self, word):
         if type(word) != str:
-            warnings.warn(f"`{word}` doesn't exist in {self.__name__()}",
+            warnings.warn(f"`{word}` doesn't exist in `{self.__name__}`",
                 UserWarning
             )
             return
