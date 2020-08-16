@@ -323,16 +323,47 @@ class Trie(Tree):
         >>> t
         --
         >>> t.insert("car")
+        >>> t.insert("cart")
         >>> t.insert("cast")
         ROOT
         └─┬ c
           └─┬ a
-            ├── r ✓
+            ├─┬ r ✓
+            │ └── t ✓
             └─┬ s
               └── t ✓
         """
         return super().__repr__()
 
+
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `Tree()` instance. The tree's height is the 
+        number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.get_height()
+        4
+        """
+        return super().get_height()
+    
 
     ##############################      FIND      ##############################
     def _follow_path(self, word):
