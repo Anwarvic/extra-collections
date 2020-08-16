@@ -270,12 +270,13 @@ class Trie(Tree):
         >>> t.insert("cart")
         >>> t.insert("cast")
         >>> t
+        ROOT
         └─┬ c
           └─┬ a
-            ├─┬ r
-            │ └── t
+            ├─┬ r ✓
+            │ └── t ✓
             └─┬ s
-              └── t
+              └── t ✓
         >>> len(t)
         7
         """
@@ -305,6 +306,33 @@ class Trie(Tree):
         """
         return self._nodes_count == 1
     
+
+    ##############################     PRINT      ##############################
+    def __repr__(self):
+        """
+        Represents the `Trie()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `Trie()` instance.
+
+        Example
+        -------
+        >>> t = Tree()
+        >>> t
+        --
+        >>> t.insert("car")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├── r ✓
+            └─┬ s
+              └── t ✓
+        """
+        return super().__repr__()
+
 
     ##############################      FIND      ##############################
     def _follow_path(self, word):
