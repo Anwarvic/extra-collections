@@ -365,6 +365,36 @@ class Trie(Tree):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `Trie()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the given `Trie()`.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.get_depth()
+        0
+        """
+        if self.is_empty():
+            return 0
+        return self._get_depth(self._root)
+    
+    
+
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
