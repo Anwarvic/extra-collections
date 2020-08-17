@@ -496,6 +496,35 @@ class Trie(Tree):
                 current_nodes = next_nodes
 
 
+    def to_list(self):
+        """
+        Converts the `Tree()` instance to a `list` where values will be inserted 
+        in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `Tree()`
+            instance.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.to_list()
+        ['c', 'a', 'r', 's', 't', 't']
+        """
+        return super().to_list()
+
+
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
