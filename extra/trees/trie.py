@@ -358,6 +358,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -385,6 +386,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -412,6 +414,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -444,6 +447,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -475,6 +479,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -512,6 +517,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -553,6 +559,7 @@ class Trie(Tree):
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
+        >>> t
         ROOT
         └─┬ c
           └─┬ a
@@ -583,6 +590,41 @@ class Trie(Tree):
   
 
     def __contains__(self, word):
+        """
+        Searches the `Trie()` for the given `word` and returns `True` if the 
+        whole word exists and `False` if not.
+
+        Parameters
+        ----------
+        word: str
+            The word to be searched for in the `Trie()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `Trie()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> "car" in t
+        True
+        >>> "cas" in t
+        False
+        >>> "care" in t
+        False
+        """
         if type(word) != str:
             return False
         last_node, remaining_word = self._follow_path(word)
@@ -663,7 +705,3 @@ class Trie(Tree):
         return candidates
 
 
-if __name__ == "__main__":
-    t = Trie()
-    t.insert("apple")
-    print(t)
