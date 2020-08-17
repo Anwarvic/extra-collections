@@ -427,6 +427,38 @@ class Trie(Tree):
         return self._get_depth(self._root)
     
     
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `Trie()` instance. Leaf nodes are
+        the trie nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `Trie()`.
+                
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.count_leaf_nodes()
+        2
+        """
+        if self.is_empty():
+            return 0
+        return self._count_leaf_nodes(self._root)
+
+
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
