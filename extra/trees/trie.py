@@ -720,8 +720,43 @@ class Trie(Tree):
 
     ##############################     REMOVE     ##############################
     def remove(self, word):
+        """
+        Removes the given `word` from the `Trie()` instance. 
+
+        Parameters
+        ----------
+        word: str
+            The word to be deleted from the `Trie()`.
+        
+        Raises
+        ------
+        UserWarning: If the `BST()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.remove("cart")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├── r ✓
+            └─┬ s
+              └── t ✓
+        """
         if type(word) != str:
-            warnings.warn(f"`{word}` doesn't exist in `{self.__name__}`",
+            warnings.warn(
+                f"`{word}` doesn't exist in `{self.__name__}`",
                 UserWarning
             )
             return
