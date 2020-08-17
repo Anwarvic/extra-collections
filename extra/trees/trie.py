@@ -459,6 +459,43 @@ class Trie(Tree):
         return self._count_leaf_nodes(self._root)
 
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `Trie()` instance and returns a generator of the 
+        `TrieNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> for value in t:
+        ...     print(value, end=',')
+        c,a,r,s,t,t,
+        """
+        if not self.is_empty():
+            current_nodes = self._root.get_children()
+            while len(current_nodes) > 0:
+                next_nodes = []
+                for node in current_nodes:
+                    yield node.get_data()
+                    next_nodes.extend(node.get_children())
+                current_nodes = next_nodes
+
+
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
