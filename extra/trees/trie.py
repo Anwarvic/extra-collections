@@ -248,6 +248,39 @@ class Trie(Tree):
         self._nodes_count = 1
 
 
+    def _validate_item(self, word, accept_empty_string=True):
+        """
+        Makes sure the input variable type can be processed. The main use for 
+        this method is to make sure we can't create nested objects from the 
+        package.
+        
+        Parameters
+        ----------
+        word: str
+            The input word as a string.
+        accept_empty_string: bool
+            A boolean to enable accepting empty strings as a valid input. `True`
+            to consider an empty string as a valid input and `False` to consider
+            it invalid.
+        
+        Raises
+        -------
+        ValueError: If the given `word` is empty and `accept_empty_string` is \
+            `False`.
+        TypeError: If the type of the given `word` is not `str`.
+        """
+        super()._validate_item(word)
+        if type(word) != str:
+            raise TypeError(
+                f"Can't deal with {type(word)} object since " + 
+                f"`{self.__name__}` contains only characters!!"
+            )
+        if not accept_empty_string and len(word.strip()) == 0:
+            raise ValueError(
+                f"White-spaces can't be used with `{self.__name__}`!!"
+            )
+
+
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
@@ -394,7 +427,6 @@ class Trie(Tree):
         return self._get_depth(self._root)
     
     
-
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
@@ -418,6 +450,23 @@ class Trie(Tree):
         ------
         AssertionError: If the given word isn't a `str`.
         
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> node, remaining = t._follow_path("case")
+        >>> node
+        TrieNode(s)
+        >>> remaining
+        e
         """
         assert type(word) == str
 
@@ -433,17 +482,7 @@ class Trie(Tree):
             else:
                 break
         return curr_node, word
-
-
-    def _validate_item(self, word, accept_empty_string=True):
-        super()._validate_item(word)
-        if type(word) != str:
-            raise TypeError(f"Can't deal with {type(word)} object since " + \
-                f"`{self.__name__}` contains only characters!!")
-        if not accept_empty_string and len(word.strip()) == 0:
-            raise ValueError(\
-                f"White-spaces can't be used with `{self.__name__}`!!")
-    
+  
 
     def __contains__(self, word):
         if type(word) != str:
