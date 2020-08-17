@@ -398,8 +398,26 @@ class Trie(Tree):
     ##############################      FIND      ##############################
     def _follow_path(self, word):
         """
-        This method parses the Trie and returns the last accessed node and
-        the part of the word that can't be parsed.
+        Parses the `Trie()` instance and returns the last accessed node along
+        side with the part of the word that can't be parsed.
+
+        Parameters
+        ----------
+        word: str
+            The string to search for inside the `Trie()` instance.
+        
+        Returns
+        -------
+        TrieNode():
+            A reference to the last accessed node in the `Trie()` instance.
+        str:
+            The part of the given `word` that wasn't found in the `Trie()`
+            instance.
+        
+        Raises
+        ------
+        AssertionError: If the given word isn't a `str`.
+        
         """
         assert type(word) == str
 
