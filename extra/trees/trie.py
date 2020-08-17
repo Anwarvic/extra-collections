@@ -677,8 +677,36 @@ class Trie(Tree):
         return True
 
 
-    ##############################   INSERTION    ##############################
+    ##############################     INSERT     ##############################
     def insert(self, word):
+        """
+        Inserts a `word` in the `Trie()` instance.
+
+        Parameters
+        ----------
+        word: str
+            The new word that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `word` is empty and `accept_empty_string` is \
+            `False`.
+        TypeError: If the type of the given `word` is not `str`.
+
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        """
         self._validate_item(word, accept_empty_string=False)
         last_node, remaining_word = self._follow_path(word)
         curr_node = last_node
