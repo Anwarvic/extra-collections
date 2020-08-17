@@ -632,6 +632,41 @@ class Trie(Tree):
 
 
     def has_prefix(self, prefix):
+        """
+        Searches the `Trie()` for the given `prefix` and returns `True` if the 
+        whole prefix exists and `False` if not.
+
+        Parameters
+        ----------
+        prefix: str
+            The prefix to be searched for in the `Trie()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the prefix exists in the `Trie()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.has_prefix("car")
+        True
+        >>> "cas" in t
+        False
+        >>> t.has_prefix("cas")
+        True
+        """
         if type(prefix) != str:
             return False
         last_node, remaining = self._follow_path(prefix)
