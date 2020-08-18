@@ -776,6 +776,9 @@ class Trie(Tree):
 
     ############################## AUTOCOMPLETION ##############################
     def _get_candidates(self, start_node, prev_prefixes):
+        """
+        A helper method to the auto-complete() method.
+        """
         assert isinstance(start_node, TrieNode)
         assert type(prev_prefixes) == list
 
@@ -790,6 +793,46 @@ class Trie(Tree):
 
 
     def auto_complete(self, prefix=''):
+        """
+        Parses the `Trie()` instance and retrieves all the words that has the
+        given `prefix`. In other words, auto-compeletes a given prefix using all
+        saved words found in the `Trie()` instance.
+
+        Parameters
+        ----------
+        prefix: str (default '')
+            A prefix to auto-complete.
+        
+        Returns
+        -------
+        list:
+            A list of all found words that have the given `prefix`.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.auto_complete("ca")
+        ["car", "cart"]
+        >>> t.auto_complete("cas")
+        ["cast"]
+        >>> t.auto_complete()
+        ['car', 'cart', 'cast']
+        
+        Note
+        ----
+        Using an empty prefix as an input will return all saved words in the 
+        `Trie()` instance.
+        """
         self._validate_item(prefix)
         last_node, remaining = self._follow_path(prefix)
         candidates = []
