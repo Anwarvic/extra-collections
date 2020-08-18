@@ -878,4 +878,30 @@ class Trie(Tree):
         return super().get_nodes_per_level()[1:]
 
 
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `Trie()` instance in constant time.
+
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.clear()
+        >>> t
+        --
+        >>> t.is_empty()
+        True
+        """
+        self.__init__()
+    
 
