@@ -827,7 +827,7 @@ class Trie(Tree):
         ["cast"]
         >>> t.auto_complete()
         ['car', 'cart', 'cast']
-        
+
         Note
         ----
         Using an empty prefix as an input will return all saved words in the 
@@ -844,5 +844,38 @@ class Trie(Tree):
             for child in curr_node.get_children():
                 candidates.extend(self._get_candidates(child, [prefix]))
         return candidates
+
+
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all trie nodes within the `Trie()` instance so that all
+        trie nodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the trie nodes in 
+            the first level, the second inner-list has all the trie nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.get_nodes_per_level()
+        [['c'], ['a'], ['r', 's'], ['t', 't']]
+        """
+        return super().get_nodes_per_level()[1:]
+
 
 
