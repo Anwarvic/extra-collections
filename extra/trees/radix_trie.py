@@ -235,6 +235,32 @@ class RadixTrie(Trie):
         """
         return super().get_height()
     
+
+    def get_depth(self):
+        """
+        Gets the depth of the `RadixTrie()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the given `RadixTrie()`.
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> rt.get_depth()
+        0
+        """
+        return super().get_depth()
     
     
     ##############################   INSERTION    ##############################
