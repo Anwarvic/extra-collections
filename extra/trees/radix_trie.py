@@ -1,3 +1,45 @@
+"""
+A radix trie, or compressed trie, is similar to a standard trie but it ensures
+that each internal node in the trie has at least two children. It enforces this 
+rule by compressing chains of single-child nodes into individual edges. So, the
+following is a simple trie formed by inserting these three words: "car", "cart",
+and "cast".
+
+.. code-block:: text
+
+    ROOT
+    └─┬ c
+      └─┬ a
+        ├─┬ r ✓
+        │ └── t ✓
+        └─┬ s
+          └── t ✓
+
+And the following is a radix trie, or compressed trie, created using the same
+three words:
+
+.. code-block:: text
+
+    ROOT
+    └─┬ ca
+      ├─┬ r ✓
+      │ └── t ✓
+      └── st ✓
+
+The advantage of a radix trie over a standard trie is that the number of nodes
+of the compressed trie is less than the latter. Also, the number of nodes is 
+proportional to the number of strings and not to their total length. This
+additional compression scheme reduces the total space for the trie itself from
+**O(n)** for the standard trie to **O(s)** for the radix trie, where **n** is
+the total length of the strings and **s** is the number of strings.
+
+[image]
+
+Searching in a radix trie is not necessarily faster than in a standard tree,
+since there is still need to compare every character of the desired pattern with
+the potentially multi-character labels while traversing paths in the trie.
+
+"""
 from extra.trees.trie import TrieNode, Trie
 
 
