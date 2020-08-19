@@ -33,12 +33,51 @@ additional compression scheme reduces the total space for the trie itself from
 **O(n)** for the standard trie to **O(s)** for the radix trie, where **n** is
 the total length of the strings and **s** is the number of strings.
 
-[image]
-
 Searching in a radix trie is not necessarily faster than in a standard tree,
 since there is still need to compare every character of the desired pattern with
 the potentially multi-character labels while traversing paths in the trie.
 
+[image]
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+
++-----------------------+----------------------------------------------------------------+------------+---------+
+| Method                | Description                                                    | Worst-case | Optimal |
++=======================+================================================================+============+=========+
+| __len__()             | Returns the number of nodes.                                   | O(n)       | O(1)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| is_empty()            | Checks if radix trie is empty.                                 | O(1)       | O(1)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| __repr__()            | Represents the radix trie.                                     | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| __iter__()            | Iterates over the radix trie.                                  | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| __contains__()        | Checks the existence of the given item in the radix trie.      | O(m)       | O(1)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| get_height()          | Gets the radix trie's height                                   | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| get_depth()           | Gets the radix trie's depth                                    | O(1)       | O(1)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| get_nodes_per_level() | Returns a list of all nodes per level found in the radix trie. | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| count_leaf_nodes()    | Counts all leaf nodss in the radix trie.                       | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| clear()               | Clears the whole radix trie instance.                          | O(1)       | O(1)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| to_list()             | Converts the radix trie instance to list.                      | O(n)       | O(n)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| auto_complete()       | Auto-completes given index from the radix trie.                | O(m)       | O(m)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| insert()              | Inserts a new word to the radix trie.                          | O(m)       | O(m)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
+| remove()              | Removes a word from the radix trie.                            | O(m)       | O(m)    |
++-----------------------+----------------------------------------------------------------+------------+---------+
 """
 from extra.trees.trie import TrieNode, Trie
 
