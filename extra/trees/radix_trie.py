@@ -121,6 +121,41 @@ class RadixTrie(Trie):
         <class 'extra.trees.radix_trie.RadixTrie'>
         """
         super().__init__()
+    
+
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `RadixTrie()` instance. Length is the number of
+        nodes in the instance.
+
+        
+        Returns
+        -------
+        int:
+            The length of the `RadixTrie()` instance. Length is the number of
+            nodes in the instance.
+        
+        Examples
+        --------
+        >>> rt = RadixTrie()
+        >>> len(t)
+        0
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> len(t)
+        5
+        """
+        return super().__len__()
+    
+    
 
     ##############################   INSERTION    ##############################
     def _insert(self, word):
