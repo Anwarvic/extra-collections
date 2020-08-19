@@ -84,8 +84,11 @@ from extra.trees.trie import TrieNode, Trie
 
 
 
-#helper function
 def find_last_common_idx(word1, word2):
+    """
+    A helper function which returns the index of the last common prefix between
+    the given two words
+    """
     idx = 0
     while(idx < len(word1)):
         if idx < len(word2) and word1[idx] == word2[idx]:
@@ -98,9 +101,26 @@ def find_last_common_idx(word1, word2):
 
 
 class RadixTrie(Trie):
-    def __name__(self):
-        return "extra.RadixTrie()"
+    """
+    A radix trie is a compressed trie that ensures that each internal node has
+    at least two children. It enforces this rule by compressing chains of
+    single-child nodes into individual edges. It is defined using a collection
+    of `TrieNode()` instances, where each node contains string value and each
+    node has a list of references to the children `TrieNode()` instances.
+    """
+    __name__ = "extra.RadixTrie()"
     
+    def __init__(self):
+        """
+        Creates an empty `RadixTrie()` object!!
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> type(rt)
+        <class 'extra.trees.radix_trie.RadixTrie'>
+        """
+        super().__init__()
 
     ##############################   INSERTION    ##############################
     def _insert(self, word):
