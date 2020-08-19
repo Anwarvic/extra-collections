@@ -155,6 +155,29 @@ class RadixTrie(Trie):
         """
         return super().__len__()
     
+
+    def is_empty(self):
+        """
+        Checks if the `RadixTrie()` instance is empty or not in time-complexity
+        of O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `RadixTrie()` instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> rt = RadixTrie()
+        >>> rt.is_empty()
+        True
+        >>> rt.insert("apple")
+        >>> rt.is_empty()
+        False
+        """
+        return self._nodes_count == 1
     
 
     ##############################   INSERTION    ##############################
