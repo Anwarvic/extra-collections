@@ -180,6 +180,34 @@ class RadixTrie(Trie):
         return self._nodes_count == 1
     
 
+    ##############################     PRINT      ##############################
+    def __repr__(self):
+        """
+        Represents the `RadixTrie()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `RadixTrie()` instance.
+
+        Example
+        -------
+        >>> rt = RadixTree()
+        >>> rt
+        --
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        """
+        return super().__repr__()
+
+
     ##############################   INSERTION    ##############################
     def _insert(self, word):
         assert type(word) == str and len(word) > 0
