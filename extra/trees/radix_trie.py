@@ -177,7 +177,7 @@ class RadixTrie(Trie):
         >>> rt.is_empty()
         False
         """
-        return self._nodes_count == 1
+        return super().is_empty()
     
 
     ##############################     PRINT      ##############################
@@ -208,6 +208,35 @@ class RadixTrie(Trie):
         return super().__repr__()
 
 
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `RadixTrie()` instance. The trie's height is the 
+        number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> t.get_height()
+        3
+        """
+        return super().get_height()
+    
+    
+    
     ##############################   INSERTION    ##############################
     def _insert(self, word):
         assert type(word) == str and len(word) > 0
