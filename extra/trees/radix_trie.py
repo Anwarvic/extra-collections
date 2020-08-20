@@ -321,6 +321,37 @@ class RadixTrie(Trie):
         ca,r,st,t,
         """
         return super().__iter__()
+    
+
+    def to_list(self):
+        """
+        Converts the `RadixTrie()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `RadixTrie()`
+            instance.
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> t.to_list()
+        ['ca', 'r', 'st', 't']
+        """
+        return super().to_list()
+
+
 
 
     ##############################   INSERTION    ##############################
