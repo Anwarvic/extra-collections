@@ -293,6 +293,36 @@ class RadixTrie(Trie):
         return super().count_leaf_nodes()
 
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `RadixTrie()` instance and returns a generator of the 
+        `TrieNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> for value in t:
+        ...     print(value, end=',')
+        ca,r,st,t,
+        """
+        return super().__iter__()
+
+
     ##############################   INSERTION    ##############################
     def _insert(self, word):
         assert type(word) == str and len(word) > 0
