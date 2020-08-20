@@ -263,6 +263,36 @@ class RadixTrie(Trie):
         return super().get_depth()
     
     
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `Trie()` instance. Leaf nodes are
+        the trie nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `Trie()`.
+                
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> t.count_leaf_nodes()
+        2
+        """
+        return super().count_leaf_nodes()
+
+
     ##############################   INSERTION    ##############################
     def _insert(self, word):
         assert type(word) == str and len(word) > 0
