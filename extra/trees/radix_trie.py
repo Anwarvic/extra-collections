@@ -352,6 +352,47 @@ class RadixTrie(Trie):
         return super().to_list()
 
 
+    ##############################      FIND      ##############################
+    def __contains__(self, word):
+        """
+        Searches the `RadixTrie()` for the given `word` and returns `True` if
+        the whole word exists and `False` if not.
+
+        Parameters
+        ----------
+        word: str
+            The word to be searched for in the `RadixTrie()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `RadixTrie()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> "car" in t
+        True
+        >>> "cas" in t
+        False
+        >>> "care" in t
+        False
+        """
+        return super().__contains__(word)
+
+
 
 
     ##############################   INSERTION    ##############################
