@@ -515,6 +515,41 @@ class RadixTrie(Trie):
         self._insert(word)
 
 
+    ##############################     REMOVE     ##############################
+    def remove(self, word):
+        """
+        Removes the given `word` from the `RadixTrie()` instance. 
+
+        Parameters
+        ----------
+        word: str
+            The word to be deleted from the `RadixTrie()`.
+        
+        Raises
+        ------
+        UserWarning: If the `RadixTrie()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> t = Trie()
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> t.remove("cart")
+        ROOT
+        └─┬ ca
+          ├── r ✓
+          └── st ✓
+        """
+        super().remove(word)
+
     ############################## AUTOCOMPLETION ##############################
     def auto_complete(self, prefix=''):
         super()._validate_item(prefix)
