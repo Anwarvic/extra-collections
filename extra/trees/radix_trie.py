@@ -650,3 +650,32 @@ class RadixTrie(Trie):
         [['ca'], ['r', 'st'], ['t']]
         """
         return super().get_nodes_per_level()[1:]
+
+
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `RadixTrie()` instance in constant time.
+
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> rt.clear()
+        >>> rt
+        --
+        >>> rt.is_empty()
+        True
+        """
+        self.__init__()
+    
+
+    
