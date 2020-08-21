@@ -675,7 +675,7 @@ class RadixTrie(Trie):
         >>> rt.is_empty()
         True
         """
-        self.__init__()
+        super().clear()
     
 
     
