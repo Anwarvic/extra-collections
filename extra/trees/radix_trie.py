@@ -433,7 +433,27 @@ class RadixTrie(Trie):
 
     ##############################     INSERT     ##############################
     def _insert(self, word):
+        """
+        Inserts a word to the `RadixTrie()` instance.
+
+        Parameters
+        ----------
+        word: str
+            The new word to be inserted.
+        
+        Returns
+        -------
+        TrieNode():
+            A reference to the last accessed node after inserting the given
+            `word`.
+            
+        Raises
+        ------
+        AssertionError: If the given `word` is either empty or its type isn't 
+        a `str`.
+        """
         assert type(word) == str and len(word) > 0
+
         last_node, remaining_word = super()._follow_path(word)
         curr_node = last_node
         while(remaining_word):
