@@ -97,8 +97,22 @@ from extra.interface import Extra
 
 class Node(Extra):
     """Basic object for the Node used for linked lists"""
+    __name__ = "extra.Node()"
+
 
     def __init__(self, item):
+        """
+        Creates a `Node()` object used mainly with `LinkedList()` objects!!
+
+        Parameters
+        ----------
+        item: the value to be saved within the `Node()` instance
+
+        Raises
+        ------
+        TypeError: If the given item is an `Extra` object.
+        ValueError: If the given item is `None`.
+        """
         super()._validate_item(item)
         if type(item) == str:
             item = item.replace('\n', '\\n')
@@ -113,10 +127,29 @@ class Node(Extra):
 
 
     def get_data(self):
+        """
+        Returns the node's data
+        
+        Returns
+        -------
+        data: the data saved inside the `Node()` instance
+        """
         return self._data
     
 
     def set_data(self, data):
+        """
+        Sets the data within the Node()'s object
+        
+        Parameters
+        ----------
+        data: any python object except `None`
+
+        Raises
+        ------
+        TypeError: If the input value is an `Extra` object.
+        ValueError: If the input valueis `None`.
+        """
         super()._validate_item(data)
         if type(data) == str:
             data = data.replace('\n', '\\n')
@@ -124,22 +157,40 @@ class Node(Extra):
     
 
     def get_next(self):
+        """
+        Returns the next Node() instance of the current one
+
+        Returns
+        -------
+        node: the `Node()` instance that follows the current `Node()` or `None`.
+        """
         return self._next
     
 
     def set_next(self, next_node):
+        """
+        Sets the next pointer of the current `Node()` to the given node.
+
+        Parameters
+        ----------
+        next_node: the `Node()` that will follow the current `Node()`.
+
+        Raises
+        ------
+        TypeError: If the given item is an `Extra` object.
+        """
         if next_node is None:
             self._next = None
         elif not isinstance(next_node, Node):
             raise TypeError(
-                f"Can't set {type(next_node)} as a {self.__module__}!!")
-        elif next_node.get_data() is None:
-            raise ValueError(f"{self.__module__} data can't be `None`!!")
+                f"Can't set {type(next_node)} as a `{self.__name__}`!!"
+            )
         else:
             self._next = next_node
 
 
     def _represent(self):
+        """A helpful function used to represent the node when printing!!"""
         return str(self._data)
 
 
@@ -148,6 +199,7 @@ class Node(Extra):
 class LinkedList(Extra):
     """Basic object for the linked list"""
     _basic_node = Node
+    __name__ = "extra.LinkedList()"
     
     def __init__(self):
         self._head = None
@@ -178,7 +230,11 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: in case the given object isn't iterable
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the iterable elements is an `Extra` object.
+
+        ValueError: If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -188,21 +244,25 @@ class LinkedList(Extra):
         │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶
         └────┘ └────┘ └───┘ └───┘ 
 
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+        >>> ll = LinkedList.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
+        
+        Using a non-iterable object will raise `TypeError`
         >>> ll = LinkedList.from_iterable(2)
         TypeError: The given object isn't iterable!!
-
-        >>> ll_1 = LinkedList.from_iterable([2, 5])
-        >>> ll_2 = LinkedList.from_iterable(ll_1)
-        >>> ll_2
-        ┌───┐ ┌───┐ 
-        │ 2 │⟶│ 5 │⟶
-        └───┘ └───┘ 
+        
+        Using nested `LinkedList` objects will raise `TypeError` as well
+        >>> ll_1 = LinkedList.from_iterable([1])
+        >>> ll_2 = LinkedList.from_iterable([1, ll_1])
+        TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
 
         Notes
         -----
         Since most of the data structures found in this package are iterables, 
-        then you can use this classmethod to convert from one type to the other
-        like so:
+        then you can use this classmethod to convert from one data structure to
+        `Linked List` just like so:
 
         >>> dll = DoublyLinkedList.from_iterable([2, 5])
         >>> ll = LinkedList.from_iterable(dll)
@@ -336,7 +396,9 @@ class LinkedList(Extra):
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         # check length
         if self._length != other._length:
             return False
@@ -346,7 +408,9 @@ class LinkedList(Extra):
 
     def __ne__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         if self._length != other._length:
             return True
         idx = self._compare(other, operator.eq)
@@ -355,28 +419,36 @@ class LinkedList(Extra):
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         idx = self._compare(other, operator.lt)
         return True if idx == self._length else False
     
 
     def __le__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         idx = self._compare(other, operator.le)
         return True if idx == self._length else False
     
 
     def __gt__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         idx = self._compare(other, operator.le)
         return True if idx is other._length else False
     
 
     def __ge__(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(f"Can't compare {self.__module__} to {type(other)}")
+            raise TypeError(
+                f"Can't compare `{self.__name__}` to `{type(other)}`"
+            )
         idx = self._compare(other, operator.le)
         return True if idx == other._length else False
 
@@ -670,8 +742,9 @@ class LinkedList(Extra):
 
     def join(self, other):
         if not isinstance(other, self.__class__):
-            raise TypeError(\
-            f"Type Mismatch! Can't join {self.__module__} with f{type(other)}.")
+            raise TypeError("Type Mismatch! " + 
+                f"Can't join `{self.__name__}` with `{type(other)}`!!"
+            )
         if other.is_empty():
             pass # do nothing
         elif self.is_empty():
