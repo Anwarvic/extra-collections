@@ -431,7 +431,7 @@ class RadixTrie(Trie):
         return super().has_prefix(prefix)
 
 
-    ##############################   INSERTION    ##############################
+    ##############################     INSERT     ##############################
     def _insert(self, word):
         assert type(word) == str and len(word) > 0
         last_node, remaining_word = super()._follow_path(word)
@@ -465,6 +465,32 @@ class RadixTrie(Trie):
     
 
     def insert(self, word):
+        """
+        Inserts a `word` in the `RadixTrie()` instance.
+
+        Parameters
+        ----------
+        word: str
+            The new word that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `word` is empty.
+        TypeError: If the type of the given `word` is not `str`.
+
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        """
         super()._validate_item(word, accept_empty_string=False)
         self._insert(word)
 
