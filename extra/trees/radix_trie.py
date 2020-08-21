@@ -621,3 +621,32 @@ class RadixTrie(Trie):
         return candidates
 
 
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all trie nodes within the `RadixTrie()` instance so that all
+        trie nodes in a certain level will be concatenated into a separate list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the trie nodes in 
+            the first level, the second inner-list has all the trie nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> t.get_nodes_per_level()
+        [['ca'], ['r', 'st'], ['t']]
+        """
+        return super().get_nodes_per_level()[1:]
