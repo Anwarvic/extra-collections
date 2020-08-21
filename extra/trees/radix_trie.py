@@ -550,8 +550,49 @@ class RadixTrie(Trie):
         """
         super().remove(word)
 
+
     ############################## AUTOCOMPLETION ##############################
     def auto_complete(self, prefix=''):
+        """
+        Parses the `RadixTrie()` instance and retrieves all the words that has
+        the given `prefix`. In other words, auto-compeletes a given prefix using
+        all saved words found in the `RadixTrie()` instance.
+
+        Parameters
+        ----------
+        prefix: str (default '')
+            A prefix to auto-complete.
+        
+        Returns
+        -------
+        list:
+            A list of all found words that have the given `prefix`.
+        
+        Example
+        -------
+        >>> rt = Trie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> rt.auto_complete("ca")
+        ["car", "cart"]
+        >>> rt.auto_complete("cas")
+        ["cast"]
+        >>> rt.auto_complete()
+        ['car', 'cart', 'cast']
+
+        Note
+        ----
+        Using an empty prefix as an input will return all saved words in the 
+        `Trie()` instance.
+        """
+
         super()._validate_item(prefix)
         candidates = []
         last_node, remaining = super()._follow_path(prefix)
