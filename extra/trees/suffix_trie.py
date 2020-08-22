@@ -232,6 +232,39 @@ class SuffixTrie(Extra):
         return self._rt.get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `SuffixTrie()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the given
+            `SuffixTrie()`.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st.get_depth()
+        0
+        """
+        return self._rt.get_depth()
+        
+
+
+
     def has_substr(self, substr):
         return self._rt.has_prefix(substr)
 
