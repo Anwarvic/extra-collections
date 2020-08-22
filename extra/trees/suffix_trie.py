@@ -171,7 +171,32 @@ class SuffixTrie(Extra):
         return len(self._rt)
 
 
+    ##############################     PRINT      ##############################
     def __repr__(self):
+        """
+        Represents the `SuffixTrie()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `SuffixTrie()` instance.
+        
+        Examples
+        --------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        """
         return str(self._rt)
 
 
