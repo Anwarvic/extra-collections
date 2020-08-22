@@ -84,18 +84,41 @@ from extra.trees.trie import TrieNode, Trie
 
 
 
-def find_last_common_idx(word1, word2):
+def get_lcp(word1, word2):
     """
-    A helper function which returns the index of the last common prefix between
-    the given two words
+    Gets the LCP, Longest Common Prefix, between the two given words.
+    
+    Parameters
+    ----------
+    word1: str
+        The first word to consider when getting LCP.
+    word2: str
+        The second word to considerwhen getting LCP.
+    
+    Returns
+    -------
+    str:
+        The longest common prefix between the given two words.
+    
+    Raises
+    ------
+    AssertionError: If either of the two given words isn't a string.
+    
+    Example
+    -------
+    >>> get_lcp("apple", "append")
+    app
+    >>> get_lcp("apple", "abnormal")
+    a
+    >>> get_lcp("apple", "xapple")
+    
     """
-    idx = 0
-    while(idx < len(word1)):
-        if idx < len(word2) and word1[idx] == word2[idx]:
-            idx += 1
-        else:
-            break
-    return idx
+    assert type(word1)==str and type(word2)==str
+
+    for i in range(min(len(word1), len(word2))):
+        if word1[i] != word2[i]:
+            return word1[:i]
+    return word1 if len(word1) < len(word2) else word2
 
 
 
@@ -460,7 +483,7 @@ class RadixTrie(Trie):
             ch = remaining_word[0]
             child = curr_node.get_child(ch)
             child_data = child.get_data() if child else ''
-            idx = find_last_common_idx(child_data, remaining_word)
+            idx = len(get_lcp(child_data, remaining_word))
             # couldn't find the remaining_word
             if idx == 0:
                 new_node = TrieNode(remaining_word)
