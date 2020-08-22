@@ -1,27 +1,52 @@
 """
-Suffix trees store information about a single string and exports a huge amount
-of structural information about that string.
+A suffix trie is a radix trie that stores information about a single string and
+exports a huge amount of structural information about that string. It is able
+to perform these stuctural operations by storing all the possible suffixes of
+the given text, hence the name "Suffix Trie".
+
+[image]
+
+
 """
-from copy import deepcopy
-from abc import abstractmethod
 from extra.interface import Extra
-from extra.trees.radix_trie import TrieNode, RadixTrie
+from extra.trees.radix_trie import get_lcp, RadixTrie
 
 
-
-
-def get_lcp(word1, word2):
-    # NOTE: LCP stands for Longest Common Prefix
-    assert type(word1)==str and type(word2)==str
-
-    for i in range(min(len(word1), len(word2))):
-        if word1[i] != word2[i]:
-            return word1[:i]
-    return word1 if len(word1) < len(word2) else word2
 
 
 def is_palindrome(word):
+    """
+    Checks if the given word is a palindrome or not. A palindrome is  string
+    that reads the same if reversed like "madam" or "anna".
+
+    Parameters
+    ----------
+    word: str
+        The word to be checked if it's a palindrome or not.
+    
+    Returns
+    -------
+    bool:
+        A boolean verifying if the given word is a palindrome. `True` indicates
+        the given word is a palindrome. `False` indicates it's not.
+
+    Raises
+    ------
+    AssertionError: If the given word isn't a `str` object.
+
+    Example
+    -------
+    >>> is_palindrome("madam")
+    True
+    >>> is_palindrome("anna")
+    True
+    >>> is_palindrome("apple")
+    False
+    >>> is_palindrome("")
+    True
+    """
     assert type(word) == str
+
     for i in range(len(word)//2):
         if word[i] != word[len(word)-1-i]:
             return False
@@ -31,18 +56,29 @@ def is_palindrome(word):
 
 
 class SuffixTrie(Extra):
-    def __name__(self):
-        return "extra.SuffixTrie"
+    """
+    A suffix trie is a radix trie that stores information about a single string
+    and exports a huge amount of structural information about that string. It is
+    able to perform these stuctural operations by storing all the possible
+    suffixes of the given text, hence the name "Suffix Trie".
+    """
+    __name__ = "extra.SuffixTrie"
 
     
     def __init__(self, word):
+        """
+
+        """
         # Ukkonen's algorithm
         super()._validate_item(word)
         if type(word) != str:
-            raise TypeError(f"Can't insert {type(word)} into {self.__name__()}")
+            raise TypeError(
+                f"Can't insert {type(word)} into `{self.__name__}`!!"
+            )
         elif len(word) == 0:
-            raise ValueError(\
-                f"An empty string can't be inserted to {self.__name__()}!!")
+            raise ValueError(
+                f"An empty string can't be inserted to `{self.__name__}`!!"
+            )
         
         self._word = word.replace('$', '')
         # dictionary containing suffix-index as key and leaf nodes as values 
@@ -94,8 +130,6 @@ class SuffixTrie(Extra):
 
 
     def _get_ancestors_data(self, node):
-        assert type(node) is TrieNode
-
         ancestors_data = []
         parent = node.get_parent()
         while(parent is not self._rt._root):
@@ -139,9 +173,10 @@ class SuffixTrie(Extra):
     
     
     ##############################   PALINDROME   ##############################
-    def get_longest_palindrome(self):
-        # NOTE A palindrome is a string that reads the same if reversed
-        # like "madam" or "anna".
+    def __get_longest_palindrome(self):
+        """
+        IT'S NOT READY YET!!
+        """
         rev = self._word[::-1]
         longest_palindrome = ''
         for i in range(len(rev)):
@@ -217,7 +252,7 @@ if __name__ == "__main__":
     st = SuffixTrie("1234aba4321")
     st = SuffixTrie("abacdfgdcaba")
     print(st)
-    print(st.get_longest_palindrome())
+    print(st.__get_longest_palindrome())
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
     # print(st.to_suffix_array())
