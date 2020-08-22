@@ -139,12 +139,40 @@ class SuffixTrie(Extra):
             [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
 
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the number of nodes within the `SuffixTrie()` instance.
+        
+        Returns
+        -------
+        int:
+            The length of the `SuffixTrie()` instance. Length is the number of
+            nodes in the instance.
+        
+        Examples
+        --------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> len(t)
+        11
+        """
+        return len(self._rt)
+
+
     def __repr__(self):
         return str(self._rt)
-
-
-    def __len__(self):
-        return len(self._rt)
 
 
     def has_substr(self, substr):
