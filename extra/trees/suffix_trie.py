@@ -200,6 +200,38 @@ class SuffixTrie(Extra):
         return str(self._rt)
 
 
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_height(self):
+        """
+        Gets the height of the `SuffixTrie()` instance. The trie's height is the 
+        number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st.get_height()
+        3
+        """
+        return self._rt.get_height()
+    
+
     def has_substr(self, substr):
         return self._rt.has_prefix(substr)
 
