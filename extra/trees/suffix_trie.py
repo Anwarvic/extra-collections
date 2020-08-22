@@ -67,7 +67,41 @@ class SuffixTrie(Extra):
     
     def __init__(self, word):
         """
+        Creates a `SuffixTrie()` object using the given `word` in quadratic
+        time-complexity!!
 
+        Parameters
+        ----------
+        word: str
+            The string that we want to create our `SuffixTrie()` from its
+            suffixes.
+        
+        Raises
+        ------
+        ValueError: It can be raised due to one of these cases:
+            1. If given `word` is `None`.
+            2. If the given `word` is an empty string.
+        TypeError: It can be raised due to one of these cases:
+            1. If `word` is an `Extra` object.
+            2. If the type of the given `word` isn't a string.
+
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> type(st)
+        <class 'extra.trees.suffix_trie.SuffixTrie'>
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
         """
         # Ukkonen's algorithm
         super()._validate_item(word)
@@ -88,13 +122,16 @@ class SuffixTrie(Extra):
         # suffix_array
         self._suffix_array = []
         for idx in range(len(self._word)):
-            self._leaf_nodes[idx] = \
-                self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
+            node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
+            node._is_word = False
+            self._leaf_nodes[idx] = node
             self._suffix_array.append( (idx, self._word[idx:]) )
         
         # edge case
-        self._leaf_nodes[len(self._word)] = \
-            self._rt._insert("$ ⟶ " + str(len(self._word)))
+        node = self._rt._insert("$ ⟶ " + str(len(self._word)))
+        node._is_word = False
+        self._leaf_nodes[len(self._word)] = node
+            
         self._suffix_array.append((len(self._word), '$'))
 
         # sort suffix array alphabetically
