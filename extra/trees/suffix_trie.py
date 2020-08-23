@@ -296,7 +296,49 @@ class SuffixTrie(Extra):
         return self._rt.count_leaf_nodes()
 
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `SuffixTrie()` instance and returns a generator of the 
+        `TrieNode()` values in breadth-first manner.
 
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> for value in st:
+        ...     print(value, end=',')
+        ca,r,st,t,
+        """
+        return super().__iter__()
+    
+
+
+
+
+
+
+
+
+
+
+    
     def has_substr(self, substr):
         return self._rt.has_prefix(substr)
 
