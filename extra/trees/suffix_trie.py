@@ -361,18 +361,43 @@ class SuffixTrie(Extra):
         return self._rt.to_list()
 
     
-
-
-
-
-
-
-
-
-
-
-    
+    ##############################      FIND      ##############################
     def has_substr(self, substr):
+        """
+        Searches the `SuffixTrie()` for the given substring and returns `True`
+        if the whole substring exists and `False` if not.
+
+        Parameters
+        ----------
+        substr: str
+            The substring to be searched for in the `SuffixTrie()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the substring exists in the `SuffixTrie()`
+            instance and `False` if not.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> t.has_substr("ban")
+        True
+        >>> t.has_substr("ab")
+        False
+        """
         return self._rt.has_prefix(substr)
 
 
