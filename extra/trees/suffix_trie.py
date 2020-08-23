@@ -326,7 +326,40 @@ class SuffixTrie(Extra):
         ...     print(value, end=',')
         ca,r,st,t,
         """
-        return super().__iter__()
+        return self._rt.__iter__()
+    
+
+    def to_list(self):
+        """
+        Converts the `SuffixTrie()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `SuffixTrie()`
+            instance.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st.to_list()
+        ['ca', 'r', 'st', 't']
+        """
+        return self._rt.to_list()
+
     
 
 
