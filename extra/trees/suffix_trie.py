@@ -263,6 +263,38 @@ class SuffixTrie(Extra):
         return self._rt.get_depth()
         
 
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `SuffixTrie()` instance. Leaf
+        nodes are the trie nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `SuffixTrie()`.
+                
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st.count_leaf_nodes()
+        2
+        """
+        return self._rt.count_leaf_nodes()
+
 
 
     def has_substr(self, substr):
