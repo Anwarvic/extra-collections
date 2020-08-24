@@ -9,7 +9,7 @@ the given text, hence the name "Suffix Trie".
 
 """
 from extra.interface import Extra
-from extra.trees.radix_trie import get_lcp, RadixTrie
+from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie
 
 
 
@@ -463,12 +463,58 @@ class SuffixTrie(Extra):
 
 
     def _get_ancestors_data(self, node):
+        """
+        Gets all the data in the ancestors (parent, then grand-parent, then 
+        great grand-parent, ...etc.) of the given `node` inorder where the first
+        value belongs to the shallowest ancestor.
+
+        Parameters
+        ----------
+        node: TrieNode()
+            The `TrieNode()` whose ansestors data should be obtained.
+        
+        Returns
+        -------
+        list:
+            A list of all the data stores at the ancestors of the given `node`
+            in order where the first value belongs to the shallowest ancestor.
+        
+        Raises
+        ------
+        AssertionError: If the given `node` is not a `TrieNode()`.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st._get_ancestors_data(st._root)
+        
+        >>> node = st._rt._root.get_child('a').get_child("n").get_child("n")
+        >>> node
+        TrieNode(na$ ⟶ 1)
+        >>> st._get_ancestors_data(node)
+        ana
+        """
+        assert isinstance(node, TrieNode)
+
         ancestors_data = []
-        parent = node.get_parent()
-        while(parent is not self._rt._root):
-            parent_data = parent.get_data()
-            ancestors_data.append(parent_data)
-            parent = parent.get_parent()
+        if node is not self._rt._root:
+            parent = node.get_parent()
+            while(parent is not self._rt._root):
+                parent_data = parent.get_data()
+                ancestors_data.append(parent_data)
+                parent = parent.get_parent()
         return "".join(ancestors_data[::-1])
 
 
