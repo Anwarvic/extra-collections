@@ -520,7 +520,8 @@ class SuffixTrie(Extra):
 
     def get_longest_common_substring(self):
         """
-        Gets the longest common substring in the `SuffixTrie()`.
+        Gets the longest common substring in the `SuffixTrie()`, or LCS for
+        short. LCS is the longest substring that occurs at least twice.
 
         Returns
         -------
@@ -534,6 +535,13 @@ class SuffixTrie(Extra):
         >>> st = SuffixTrie("abcpqrabpqpq")
         >>> st.get_longest_common_substring()
         ["pq", "ab"]
+
+        Note
+        ----
+        Longest Common Substring is the same as Longest Repeated Substring which
+        means that the following two methods are exactly the same:
+            - `get_longest_common_substring()`.
+            - `get_longest_repeated_substring()`.
         """
         if self._rt.is_empty():
             return []
@@ -548,10 +556,35 @@ class SuffixTrie(Extra):
 
 
     def get_longest_repeated_substring(self):
+        """
+        Gets the longest repeated substring in the `SuffixTrie()`, or LRS for
+        short. LRS is the longest substring that occurs at least twice.
+
+        Returns
+        -------
+        list:
+            A list of longest reapeated substring(s) found in the `SuffixTrie()`
+        
+        Example
+        >>> st = SuffixTrie("banana")
+        >>> st.get_longest_repeated_substring()
+        ['ana']
+        >>> st = SuffixTrie("abcpqrabpqpq")
+        >>> st.get_longest_repeated_substring()
+        ["pq", "ab"]
+
+        Note
+        ----
+        Longest Repeated Substring is the same as Longest Common Substring which
+        means that the following two methods are exactly the same:
+            - `get_longest_common_substring()`.
+            - `get_longest_repeated_substring()`.
+        """
         # LRS is the longest substring that occurs at least twice.
         return self.get_longest_common_substring()
 
 
+    ##############################       LCA      ##############################
     def get_lowest_common_ancestor(self, i, j):
         if type(i) != int or type(j) != int:
             raise TypeError("`i` and `j` should be integer values!!")
