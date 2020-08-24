@@ -586,14 +586,58 @@ class SuffixTrie(Extra):
 
     ##############################       LCA      ##############################
     def get_lowest_common_ancestor(self, i, j):
+        """
+        Gets lowest common ancestor between two given suffixes defined by their
+        indices in the `SuffixTrie()`.
+
+        Parameters
+        ----------
+        i: int
+            The start index of the first suffix.
+        j: int
+            The start index of the second suffix.s
+        
+        Returns
+        -------
+        str:
+            The lowest common ancestor between the two suffixes.
+        
+        Raises
+        -------
+        TypeError: If either one of the given indices were not an integer.
+        ValueError: If the value of the given indices were invalid, like \
+            negative number of more than the length of the base string.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st
+        ROOT
+        ├── banana$ ⟶ 0
+        ├─┬ a
+        │ ├─┬ na
+        │ │ ├── na$ ⟶ 1
+        │ │ └── $ ⟶ 3
+        │ └── $ ⟶ 5
+        ├─┬ na
+        │ ├── na$ ⟶ 2
+        │ └── $ ⟶ 4
+        └── $ ⟶ 6
+        >>> st.get_lowest_common_ancestor(2, 4)
+        na
+        >>> st.get_lowest_common_ancestor(0, 6)
+
+        >>> st.get_lowest_common_ancestor(1, 5)
+        a
+        """
         if type(i) != int or type(j) != int:
             raise TypeError("`i` and `j` should be integer values!!")
         elif i < 0 or j < 0 :
             raise ValueError("`i` and `j` should be postive integer values!!")
-        elif i >= len(self._word) or j >= len(self._word):
-            raise ValueError(\
+        elif i >= len(self._word) or j > len(self._word):
+            raise ValueError(
                 f"`i` and `j` values can't exceed {len(self._word)} " + 
-                f"since it is the length of given word `{self._word}`!!"
+                f"since it is the length of given word: `{self._word}`!!"
             )
         ith_ancestors_data = self._get_ancestors_data(self._leaf_nodes[i])
         jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
@@ -668,14 +712,14 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    st = SuffixTrie("PAPERSFORPAPERS")
-    print(st)
-    print(st.get_longest_common_substring())
+    # st = SuffixTrie("PAPERSFORPAPERS")
+    # print(st)
+    # print(st.get_longest_common_substring())
     # print(st.count_pattern_occurrences('P'))
 
 
 
-    # st = SuffixTrie("banana")
+    st = SuffixTrie("banana")
     # print(st.to_suffix_array())
     # st = SuffixTrie("nonsense")
     # st = SuffixTrie("1234aba4321")
@@ -683,6 +727,6 @@ if __name__ == "__main__":
     # print(st)
     # print(st.__get_longest_palindrome())
     # print(st.get_longest_common_substring())
-    # print(st.get_lowest_common_ancestor(2, 4))
+    print(st.get_lowest_common_ancestor(1, 5))
     # print(st.to_suffix_array())
     # print(st)
