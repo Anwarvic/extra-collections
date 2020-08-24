@@ -672,6 +672,31 @@ class SuffixTrie(Extra):
         
     ##############################    MATCHING    ##############################
     def count_pattern_occurrences(self, pattern):
+        """
+        Counts the number of times a certain sequence of characters appear in
+        the `SuffixTrie()`.
+
+        Parameters
+        ----------
+        pattern: str
+            The pattern or the sequence of characters to find its number of
+            occurrences.
+        
+        Returns
+        -------
+        int:
+            The number of occurrences this pattern appear in the `SuffixTrie()`.
+        
+        Example
+        -------
+        >>> st = SuffixTrie("banana")
+        >>> st.count_pattern_occurrences("ana")
+        2
+        >>> st.count_pattern_occurrences("a")
+        3
+        >>> st.count_pattern_occurrences("bann")
+        0
+        """
         if type(pattern) != str:
             return 0
         last_node, remaining = self._rt._follow_path(pattern)
