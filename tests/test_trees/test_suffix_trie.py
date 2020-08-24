@@ -84,8 +84,6 @@ def test_count_pattern_occurrence():
     assert st.count_pattern_occurrences("bananab") == 0
 
 
-
-
 # def test_get_longest_palindrome():
 #     assert SuffixTrie("banana").get_longest_palindrome() == "anana"
 #     assert SuffixTrie("nonsense").get_longest_palindrome() == "non"
@@ -104,3 +102,8 @@ def test_count_pattern_occurrence():
 #     assert SuffixTrie("xyabacdfgdcaba").get_longest_palindrome() == "aba"
 #     assert SuffixTrie("xababayz").get_longest_palindrome() == "ababa"
 #     assert SuffixTrie("xabax").get_longest_palindrome() == "xabax"
+
+
+def test_suffix_array():
+    st = SuffixTrie("banana")
+    assert st.to_suffix_array() == [6, 5, 3, 1, 0, 4, 2]
