@@ -139,7 +139,6 @@ class SuffixTrie(Extra):
         # `to_suffix_array` method.
 
 
-
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
@@ -435,7 +434,6 @@ class SuffixTrie(Extra):
         >>> # ['$', 'a', 'ana', 'anana', 'banana', 'na', 'nana']
         """
         # sort suffixes alphabetically and obtain only the indices
-        print(sorted(self._suffix_array, key=lambda  x: x[1]))
         return [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
 
 
@@ -712,46 +710,3 @@ class SuffixTrie(Extra):
         return self._rt._count_leaf_nodes(last_node)
 
 
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    # st = SuffixTrie("ATCGATCGA")
-    # print(st)
-    # # print(st.get_longest_repeated_substr())
-    # print("Total Nodes:", len(st))
-
-
-    # st = SuffixTrie("minimize")
-    # print(st)
-    # print("Total Nodes:", len(st))
-    # print(st.has_suffix('ize'))    
-
-    # st = SuffixTrie("nonsense")
-    # print(st)
-    # print("Total Nodes:", len(st))
-    # print(st.get_lcs())
-
-
-    # st = SuffixTrie("PAPERSFORPAPERS")
-    # print(st)
-    # print(st.get_longest_common_substring())
-    # print(st.count_pattern_occurrences('P'))
-
-
-
-    st = SuffixTrie("banana")
-    # print(st.to_suffix_array())
-    # st = SuffixTrie("nonsense")
-    # st = SuffixTrie("1234aba4321")
-    # st = SuffixTrie("abacdfgdcaba")
-    # print(st)
-    # print(st.__get_longest_palindrome())
-    # print(st.get_longest_common_substring())
-    print(st.get_lowest_common_ancestor(1, 5))
-    # print(st.to_suffix_array())
-    # print(st)
