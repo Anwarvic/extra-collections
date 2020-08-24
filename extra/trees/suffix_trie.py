@@ -519,6 +519,22 @@ class SuffixTrie(Extra):
 
 
     def get_longest_common_substring(self):
+        """
+        Gets the longest common substring in the `SuffixTrie()`.
+
+        Returns
+        -------
+        list:
+            A list of longest commong substring(s) found in the `SuffixTrie()`
+        
+        Example
+        >>> st = SuffixTrie("banana")
+        >>> st.get_longest_common_substring()
+        ['ana']
+        >>> st = SuffixTrie("abcpqrabpqpq")
+        >>> st.get_longest_common_substring()
+        ["pq", "ab"]
+        """
         if self._rt.is_empty():
             return []
         lcs_set = set()
@@ -619,15 +635,15 @@ if __name__ == "__main__":
     # print(st.get_lcs())
 
 
-    # st = SuffixTrie("PAPERSFORPAPERS")
-    # print(st)
-    # print(st.get_longest_common_substring())
+    st = SuffixTrie("PAPERSFORPAPERS")
+    print(st)
+    print(st.get_longest_common_substring())
     # print(st.count_pattern_occurrences('P'))
 
 
 
-    st = SuffixTrie("banana")
-    print(st.to_suffix_array())
+    # st = SuffixTrie("banana")
+    # print(st.to_suffix_array())
     # st = SuffixTrie("nonsense")
     # st = SuffixTrie("1234aba4321")
     # st = SuffixTrie("abacdfgdcaba")
