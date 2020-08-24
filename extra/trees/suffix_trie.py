@@ -119,7 +119,7 @@ class SuffixTrie(Extra):
         self._leaf_nodes = {}
         # SuffixTrie is basically a RadixTrie
         self._rt = RadixTrie()
-        # suffix_array
+        # suffix array is a tuple of (index, suffix) entries.
         self._suffix_array = []
         for idx in range(len(self._word)):
             node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
@@ -131,12 +131,13 @@ class SuffixTrie(Extra):
         node = self._rt._insert("$ ⟶ " + str(len(self._word)))
         node._is_word = False
         self._leaf_nodes[len(self._word)] = node
-            
         self._suffix_array.append((len(self._word), '$'))
+        # NOTE
+        # The `self._suffix_array` isn't the actually suffix array. To obtain
+        # the suffix array, you will need to sort the suffixes alphabetically
+        # and obtain the indices only. And that's what happens in
+        # `to_suffix_array` method.
 
-        # sort suffix array alphabetically
-        self._suffix_array = \
-            [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
 
 
     ##############################     LENGTH     ##############################
@@ -324,9 +325,10 @@ class SuffixTrie(Extra):
         └── $ ⟶ 6
         >>> for value in st:
         ...     print(value, end=',')
-        ca,r,st,t,
+        banana$,a,na,$,na,$,na$,$,na$,$,
         """
-        return self._rt.__iter__()
+        for node in self._rt.__iter__():
+            yield node.split(' ⟶ ')[0]
     
 
     def to_list(self):
@@ -356,9 +358,9 @@ class SuffixTrie(Extra):
         │ └── $ ⟶ 4
         └── $ ⟶ 6
         >>> st.to_list()
-        ['ca', 'r', 'st', 't']
+        ['banana$', 'a', 'na', '$', 'na', '$', 'na$', '$', 'na$', '$']
         """
-        return self._rt.to_list()
+        return [node for node in self]
 
     
     ##############################      FIND      ##############################
@@ -403,7 +405,9 @@ class SuffixTrie(Extra):
 
     def to_suffix_array(self):
         """
-        Converts the `SuffixTrie()` to a suffix array.
+        Converts the `SuffixTrie()` to a suffix array. A suffix array is an
+        array that stores the starting indices of all suffix in the given
+        string sorted alphabetically.
 
         Returns
         -------
@@ -426,13 +430,29 @@ class SuffixTrie(Extra):
         │ └── $ ⟶ 4
         └── $ ⟶ 6
         >>> st.to_suffix_array()
-        [6, 5, 3, 1, 0, 4, 2]        
+        [6, 5, 3, 1, 0, 4, 2]
+        >>> # indices associated with the following suffixes:
+        >>> # ['$', 'a', 'ana', 'anana', 'banana', 'na', 'nana']
         """
-        return self._suffix_array
+        # sort suffixes alphabetically and obtain only the indices
+        print(sorted(self._suffix_array, key=lambda  x: x[1]))
+        return [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
 
 
     ##############################     LCS/LRS    ##############################
     def __get_deepest_nodes(self):
+        """
+        Returns a list of the trie nodes found in the deepest one or two levels
+        of the `SuffixTrie()` instance. It returns a list of the deepest two
+        level only if the height of the SuffixTrie exceeds 2. Other than that,
+        it returns a list of the deepest level.
+
+        Returns
+        -------
+        list:
+            A list of the deepest `TrieNode()` objects found in the 
+            `SuffixTrie()` instanece.
+        """
         if self._rt.is_empty():
             return self._rt._root
         level_nodes = \
@@ -561,11 +581,12 @@ if __name__ == "__main__":
 
 
     st = SuffixTrie("banana")
-    st = SuffixTrie("nonsense")
-    st = SuffixTrie("1234aba4321")
-    st = SuffixTrie("abacdfgdcaba")
-    print(st)
-    print(st.__get_longest_palindrome())
+    print(st.to_suffix_array())
+    # st = SuffixTrie("nonsense")
+    # st = SuffixTrie("1234aba4321")
+    # st = SuffixTrie("abacdfgdcaba")
+    # print(st)
+    # print(st.__get_longest_palindrome())
     # print(st.get_longest_common_substring())
     # print(st.get_lowest_common_ancestor(2, 4))
     # print(st.to_suffix_array())
