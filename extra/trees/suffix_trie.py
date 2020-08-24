@@ -6,7 +6,45 @@ the given text, hence the name "Suffix Trie".
 
 [image]
 
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
 
+- **n** is the number of elements currently in the container.
+- **m** is the number of elements in the *other* container.
+
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| Method                           | Description                                                  | Worst-case | Optimal |
++==================================+==============================================================+============+=========+
+| __init__()                       | Initializes suffix trie.                                     | O(n^2)     | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| __len__()                        | Returns the number of nodes.                                 | O(n)       | O(1)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| __repr__()                       | Represents the suffix trie.                                  | O(n)       | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| __iter__()                       | Iterates over the radix trie.                                | O(n)       | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| get_height()                     | Gets the radix trie's height                                 | O(n)       | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| get_depth()                      | Gets the radix trie's depth                                  | O(1)       | O(1)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| count_leaf_nodes()               | Counts all leaf nodss in the radix trie.                     | O(n)       | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| to_list()                        | Converts the radix trie instance to list.                    | O(n)       | O(n)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| has_substring()                  | Searches the suffix trie for a substring.                    | O(m)       | O(m)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| to_suffix_array()                | Converts the suffix trie to suffix array.                    | O(nlog(n)) | O(1)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| get_longest_common_substring()   | Retrieves the longest common substring in the suffix trie.   | O(m)       | O(m)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| get_longest_repeated_substring() | Retrieves the longest repeated substring in the suffix trie. | O(m)       | O(m)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| get_lowest_common_ancestor()     | Retrieves the lowest common ancestor in the suffix trie.     | O(m)       | O(m)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
+| count_pattern_occurrences()      | Counts the occurrences of a pattern in the suffix trie.      | O(m)       | O(m)    |
++----------------------------------+--------------------------------------------------------------+------------+---------+
 """
 from extra.interface import Extra
 from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie
@@ -363,7 +401,7 @@ class SuffixTrie(Extra):
 
     
     ##############################      FIND      ##############################
-    def has_substr(self, substr):
+    def has_substring(self, substr):
         """
         Searches the `SuffixTrie()` for the given substring and returns `True`
         if the whole substring exists and `False` if not.
@@ -394,9 +432,9 @@ class SuffixTrie(Extra):
         │ ├── na$ ⟶ 2
         │ └── $ ⟶ 4
         └── $ ⟶ 6
-        >>> t.has_substr("ban")
+        >>> t.has_substring("ban")
         True
-        >>> t.has_substr("ab")
+        >>> t.has_substring("ab")
         False
         """
         return self._rt.has_prefix(substr)
