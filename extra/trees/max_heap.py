@@ -66,6 +66,11 @@ from extra.trees._heap import Heap
 
 
 class MaxHeap(Heap):
+    """
+    A Max heap is a perfect binary tree that stores a collection of nodes. Each
+    node other than stores a value less than or equal to the value strored at
+    the node's parent.
+    """
     __name__ = "extra.MaxHeap()"
 
 
