@@ -75,6 +75,15 @@ class MaxHeap(Heap):
 
 
     def __init__(self):
+        """
+        Creates an empty `MaxHeap()` object!!
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap()
+        >>> type(max_heap)
+        <class 'extra.trees.max_heap.MaxHeap'>
+        """
         super().__init__()
 
 
