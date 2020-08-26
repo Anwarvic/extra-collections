@@ -15,6 +15,50 @@ informally said to be at the top of the heap. Hence, the name "Min Heap"
 the shape of heap itself. A binary tree is perfect if all its levels are
 completely filled. So, given an **n** inserted items, the height of the heap 
 should be **log(n)** at most.
+
+The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha'Allah.
+Generally, we are going to use the following indicators in the table:
+
+- **n** is the number of elements currently in the container.
+- **h** is the height of the BST which approximatley equals to **log(n)**.
+
++--------------------------+----------------------------------------------------+------------+---------+
+| Method                   | Description                                        | Worst-case | Optimal |
++==========================+====================================================+============+=========+
+| __len__()                | Returns the number of nodes in the min heap.       | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| is_empty()               | Checks if min heap is empty.                       | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __repr__()               | Represents the min heap as a string.               | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __iter__()               | Iterates over the min heap.                        | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __contains__()           | Checks the existence of the given item.            | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| clear()                  | Clears the whole min heap instance.                | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| to_list()                | Converts the min heap instance to list.            | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_min()                | Gets the minimum number in the min heap.           | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| get_max()                | Gets the maximum number in the min heap.           | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| insert()                 | Inserts a certain value to the min heap.           | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| remove()                 | Removes a certain value from the min heap.         | O(h)       | O(h)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| remove_min()             | Removes the minimum value from the min heap.       | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| remove_max()             | Removes a certain value from the min heap.         | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+
+
+
+Class Documentation
+===================
+Here are all of the public methods that can be used with `MinHeap()` objects:
 """
 from extra.trees._heap import Heap
 
