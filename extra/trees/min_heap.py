@@ -353,6 +353,40 @@ class MinHeap(Heap):
         super().remove(del_value, is_min_heap=True)
 
 
+    def remove_min(self):
+        """
+        Removes the minimum value from the `MinHeap()` instance which is the 
+        root.
+
+        Raises
+        ------
+        UserWarning: If the `MinHeap()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> min_heap.remove_min()
+        >>> min_heap
+            __1__
+           /     \\
+          4       2
+         / \\    /
+        7   9   3
+        """
+        self.remove(self.get_min())
+    
+
+    def remove_max(self):
+        self.remove(self.get_max())
+    
+
     ##############################      ITER      ##############################
     def __iter__(self):
         """
@@ -404,6 +438,7 @@ class MinHeap(Heap):
         [0, 4, 1, 7, 9, 3, 2]
         """
         return super().to_list()
+
 
     ##############################      CLEAR     ##############################
     def clear(self):
