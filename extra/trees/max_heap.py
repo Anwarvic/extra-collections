@@ -193,4 +193,27 @@ class MaxHeap(Heap):
         return super().is_empty()
     
     
+    ##############################     PRINT      ##############################
+    def __repr__(self):
+        """
+        Represents the `MaxHeap()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `MaxHeap()` instance.
+
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        """
+        return super().__repr__()
+
+
     
