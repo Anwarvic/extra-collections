@@ -216,4 +216,38 @@ class MaxHeap(Heap):
         return super().__repr__()
 
 
+    ##############################     MIN/MAX    ##############################
+    def get_min(self):
+        """
+        Gets the minimum value in the `MaxHeap()` instance in linear time. The
+        minimum value can be found at the deepest level of the `MaxHeap()`
+        instance.
+
+        Returns
+        -------
+        int or float:
+            The minimum numeric value in the `MaxHeap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `MaxHeap()` instance is empty.
+
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> max_heap.get_min()
+        0
+        """
+        if self.is_empty():
+            raise IndexError("Can't get the minimum out of an empty Heap!!")
+        last_half = self._heap[len(self)//2:]
+        return min(last_half)
+
+
     
