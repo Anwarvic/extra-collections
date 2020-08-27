@@ -143,4 +143,30 @@ class MaxHeap(Heap):
         return super().heapify(iterable)
     
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `MaxHeap()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `MaxHeap()` instance. Length is the number of tree 
+            nodes in the instance.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> len(max_heap)
+        7
+        """
+        return super().__len__()
+
+    
     
