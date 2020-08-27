@@ -89,28 +89,58 @@ class MaxHeap(Heap):
 
     @classmethod
     def heapify(cls, iterable):
+        """
+        A class method which creates a `MaxHeap()` instance using an iterable
+        object in time-complexity of O(n) where **n** is the number of elements
+        inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        MaxHeap()
+            It returns a `MaxHeap()` instance with input values being inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> MaxHeap.heapify([2, None])
+        ValueError: Can't use `None` as an element within `extra.MaxHeap()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> MaxHeap.heapify(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `MaxHeap()` objects will raise `TypeError` as well
+
+        >>> max_heap_1 = MaxHeap.heapify([1])
+        >>> max_heap_2 = MaxHeap.heapify([1, max_heap_1])
+        TypeError: Can't create `extra.MaxHeap()` using `extra.MaxHeap()`!!
+        """
         return super().heapify(iterable)
     
 
-    def get_min(self):
-        if self.is_empty():
-            raise IndexError("Can't get the minimum out of an empty Heap!!")
-        last_half = self._heap[len(self)//2:]
-        return min(last_half)
-
-
-    def get_max(self):
-        if self.is_empty():
-            raise IndexError("Can't get the maximum out of an empty Heap!!")
-        return self._heap[0]
-
-
-    def insert(self, value):
-        super().insert(value, is_min_heap=False)
-
-
-    def remove(self, del_value):
-        super().remove(del_value, is_min_heap=False)
     
-
-
