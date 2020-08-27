@@ -169,4 +169,28 @@ class MaxHeap(Heap):
         return super().__len__()
 
     
+    def is_empty(self):
+        """
+        Checks if the `MaxHeap()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `MaxHeap()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> max_heap = MaxHeap()
+        >>> max_heap.is_empty()
+        True
+        >>> max_heap.insert(10)
+        >>> max_heap.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+    
     
