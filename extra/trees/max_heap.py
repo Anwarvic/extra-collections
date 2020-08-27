@@ -250,4 +250,36 @@ class MaxHeap(Heap):
         return min(last_half)
 
 
+    def get_max(self):
+        """
+        Gets the maximum value in the `MaxHeap()` instance in constant time.
+        The maximum value can be found at the root of the the `MaxHeap()`
+        instance.
+
+        Returns
+        -------
+        int or float:
+            The masximum numeric value in the `MaxHeap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `MaxHeap()` instance is empty.
+
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> max_heap.get_max()
+        9
+        """
+        if self.is_empty():
+            raise IndexError("Can't get the maximum out of an empty Heap!!")
+        return self._heap[0]
+
+
     
