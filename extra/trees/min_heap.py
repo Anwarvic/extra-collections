@@ -219,8 +219,8 @@ class MinHeap(Heap):
     ##############################     MIN/MAX    ##############################
     def get_min(self):
         """
-        Gets the minimum value in the `MinHeap()` instance in a constant time.
-        The minimum value can be at the root of the `MinHeap()` instance.
+        Gets the minimum value in the `MinHeap()` instance in constant time.
+        The minimum value can be found at the root of the `MinHeap()` instance.
 
         Returns
         -------
@@ -250,8 +250,8 @@ class MinHeap(Heap):
 
     def get_max(self):
         """
-        Gets the maximum value in the `MinHeap()` instance in a linear time.
-        The maximum value can be at the deepest level of the `MinHeap()`
+        Gets the maximum value in the `MinHeap()` instance in linear time.
+        The maximum value can be found at the deepest level of the `MinHeap()`
         instance.
 
         Returns
