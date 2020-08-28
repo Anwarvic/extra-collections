@@ -282,4 +282,40 @@ class MaxHeap(Heap):
         return self._heap[0]
 
 
+    ##############################      SEARCH    ##############################
+    def __contains__(self, num):
+        """
+        Searches the `MaxHeap()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `MaxHeap()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `MaxHeap()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> 9 in max_heap
+        True
+        >>> 5 in max_heap
+        False
+        >>> 50 in max_heap
+        False
+        """
+        return super().__contains__(num)
+   
+
     
