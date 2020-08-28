@@ -511,3 +511,26 @@ class MaxHeap(Heap):
         return super().to_list()
 
 
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `MaxHeap()` instance in constant time.
+
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> max_heap.clear()
+        >>> max_heap
+        / \\
+        >>> max_heap.is_empty()
+        True
+        """
+        super().__init__()
+    
+
