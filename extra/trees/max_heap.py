@@ -458,4 +458,31 @@ class MaxHeap(Heap):
         self.remove(self.get_max())
     
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `MaxHeap()` instance and returns a generator of the 
+        heap node values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> for value in max_heap:
+        ...     print(value, end=',')
+        9,7,3,2,4,0,1,
+        """
+        return super().__iter__()
+    
+
     
