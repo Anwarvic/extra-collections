@@ -428,4 +428,34 @@ class MaxHeap(Heap):
         self.remove(self.get_min())
     
 
+    def remove_max(self):
+        """
+        Removes the maximum value from the `MaxHeap()` instance which is one of
+        the nodes at the deepest level of the instance.
+
+        Raises
+        ------
+        UserWarning: If the `MaxHeap()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> max_heap.remove_max()
+        >>> max_heap
+            __7__
+           /     \\
+          4       3
+         / \\    /
+        2   1   0
+        """
+        self.remove(self.get_max())
+    
+
     
