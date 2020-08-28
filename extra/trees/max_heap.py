@@ -485,4 +485,29 @@ class MaxHeap(Heap):
         return super().__iter__()
     
 
-    
+    def to_list(self):
+        """
+        Converts the `MInHeap()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `MaxHeap()`
+            instance.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> max_heap.to_list()
+        [9, 7, 3, 2, 4, 0, 1]
+        """
+        return super().to_list()
+
+
