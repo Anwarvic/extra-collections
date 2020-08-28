@@ -398,4 +398,34 @@ class MaxHeap(Heap):
         super().remove(del_value, is_min_heap=False)
     
 
+    def remove_min(self):
+        """
+        Removes the minimum value from the `MaxHeap()` instance which is the 
+        root.
+
+        Raises
+        ------
+        UserWarning: If the `MaxHeap()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    / \\
+        2   4   0   1
+        >>> max_heap.remove_min()
+        >>> max_heap
+            __9__
+           /     \\
+          7       3
+         / \\    /
+        2   4   1
+        """
+        self.remove(self.get_min())
+    
+
     
