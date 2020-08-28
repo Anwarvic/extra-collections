@@ -361,4 +361,41 @@ class MaxHeap(Heap):
         super().insert(value, is_min_heap=False)
 
 
+    ##############################     REMOVE     ##############################
+    def remove(self, del_value):
+        """
+        Removes the `del_value` from the `MaxHeap()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        
+        Raises
+        ------
+        UserWarning: If the `MaxHeap()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> max_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> max_heap.remove(0)
+        >>> max_heap
+            __1__
+           /     \\
+          4       2
+         / \\    /
+        7   9   3
+        >>> max_heap.remove(50)
+        UserWarning: Couldn't find `50` in `extra.MaxHeap()`!!
+        """
+        super().remove(del_value, is_min_heap=False)
+    
+
     
