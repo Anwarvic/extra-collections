@@ -36,6 +36,20 @@ class HeapNode(BinaryTreeNode):
     
 
     def __repr__(self):
+        """
+        Represents `HeapNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `HeapNode()` instance.
+        
+        Example
+        -------
+        >>> x = HeapNode(10)
+        >>> x
+        >>> HeapNode(10)
+        """
         return f"HeapNode({self._data})"
 
 
