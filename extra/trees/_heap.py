@@ -125,6 +125,15 @@ class Heap(ABC, Extra):
 
     ##############################     LENGTH     ##############################
     def __len__(self):
+        """
+        Gets the length of the `MinHeap()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `MinHeap()` instance. Length is the number of tree 
+            nodes in the instance.
+        """
         return len(self._heap)
 
 
