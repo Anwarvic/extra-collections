@@ -175,6 +175,14 @@ class Heap(ABC, Extra):
     
 
     def __repr__(self):
+        """
+        Represents the heap instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `MinHeap()` instance.
+        """
         if self.is_empty():
             return "/ \\"
         btree = self._transform()
