@@ -7,13 +7,31 @@ from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
 class HeapNode(BinaryTreeNode):
-    def __name__(self):
-        return "extra.HeapNode()"
+    """
+    A heap node is the basic unit for building Heaps with its two types: MinHeap
+    and MaxHeap. A heap node must contain a number. Each heap node has either
+    zero, one or two children heap nodes.
+    """
+    __name__ = "extra.HeapNode()"
     
 
     def __init__(self, value):
+        """
+        Creates a `HeapNode()` object which is the basic unit for building 
+        Heap() objects!!
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be saved within the `BSTNode()` instance
+
+        Raises
+        ------
+        ValueError: If the given item is `None`.
+        TypeError: If the given item isn't a number.
+        """
         if type(value) not in {int, float}:
-            raise TypeError(f"{self.__name__()} contains only numbers!!")
+            raise TypeError(f"`{self.__name__}` contains only numbers!!")
         super().__init__(value)
     
 
@@ -24,18 +42,14 @@ class HeapNode(BinaryTreeNode):
 
 
 class Heap(ABC, Extra):
-    ############################ INIT ############################
     _basic_node = HeapNode
-
-
-    def __name__(self):
-        return "extra.Heap()"
+    __name__ = "extra.Heap()"
     
 
     def _validate_item(self, item):
         super()._validate_item(item)
         if type(item) not in {int, float}:
-            raise TypeError(f"{self.__name__()} accepts only numbers!!")
+            raise TypeError(f"`{self.__name__}` accepts only numbers!!")
         
 
     @abstractmethod
@@ -46,15 +60,14 @@ class Heap(ABC, Extra):
     @classmethod
     def heapify(cls, iterable):
         if not hasattr(iterable, '__iter__'):
-            raise TypeError("Given object isn't iterable!!")
-        # heap = cls._create_instance(cls)
+            raise TypeError("The given object isn't iterable!!")
         heap = cls()
         for item in iterable:
             heap.insert(item)
         return heap
 
 
-    ############################## LENGTH ##############################
+    ##############################     LENGTH     ##############################
     def __len__(self):
         return len(self._heap)
 
@@ -63,7 +76,7 @@ class Heap(ABC, Extra):
         return self._heap == []
 
 
-    ############################## PRINT ##############################
+    ##############################     PRINT      ##############################
     def _transform(self):
         # transform the list-shaped heap to a tree-shaped
         assert not self.is_empty()
@@ -92,25 +105,14 @@ class Heap(ABC, Extra):
         return str( btree )
 
     
-    ############################## ITER ##############################
-    def __iter__(self):
-        btree = self._transform()
-        for node in btree:
-            yield node
-    
-
-    def to_list(self):
-        return self._heap
-    
-    
-    ############################## SEARCH ##############################
+    ##############################     SEARCH     ##############################
     def __contains__(self, num):
         if self.is_empty() or type(num) not in {int, float}:
             return False
         return num in self._heap
 
 
-    ############################## INSERT ##############################
+    ##############################     INSERT     ##############################
     def insert(self, value, is_min_heap=True):
         self._validate_item(value)
         assert type(is_min_heap) == bool
@@ -132,7 +134,7 @@ class Heap(ABC, Extra):
                 break
 
 
-    ############################## REMOVAL ##############################
+    ##############################     REMOVE     ##############################
     def __rebalance(self, parent_idx, is_min_heap):
         assert type(parent_idx) == int and parent_idx >= 0
         assert type(is_min_heap) == bool
@@ -174,10 +176,10 @@ class Heap(ABC, Extra):
         assert type(is_min_heap) == bool
 
         if self.is_empty():
-            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             return
@@ -185,7 +187,7 @@ class Heap(ABC, Extra):
             del_idx = self._heap.index(del_value)
         except ValueError:
             # del_value wasn't found in the heap
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             return
@@ -201,7 +203,20 @@ class Heap(ABC, Extra):
         self._heap.pop()
     
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        btree = self._transform()
+        for node in btree:
+            yield node
+    
+
+    def to_list(self):
+        return self._heap
+    
+
+    ##############################      CLEAR     ##############################
     def clear(self):
         self.__init__()
     
+
 
