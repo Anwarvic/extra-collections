@@ -62,6 +62,9 @@ class Heap(ABC, Extra):
 
     @abstractmethod
     def __init__(self):
+        """
+        An abstract method that initializes the `Heap()` abstract class.
+        """
         self._heap = []
 
 
