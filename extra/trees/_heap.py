@@ -91,6 +91,30 @@ class Heap(ABC, Extra):
 
     @classmethod
     def heapify(cls, iterable):
+        """
+        A class method which converts an iterable object to a heap object in
+        time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        MinHeap() or MaxHeap()
+            It returns a heap instance with input values being inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+        """
         if not hasattr(iterable, '__iter__'):
             raise TypeError("The given object isn't iterable!!")
         heap = cls()
