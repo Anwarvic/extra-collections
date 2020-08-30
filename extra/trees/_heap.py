@@ -154,6 +154,14 @@ class Heap(ABC, Extra):
 
     ##############################     PRINT      ##############################
     def _transform(self):
+        """
+        Converts a list-shaped heap to a binary-tree shaped in linear time.
+
+        Returns
+        -------
+        BinaryTree():
+            The binary-tree shaped of the heap.
+        """
         # transform the list-shaped heap to a tree-shaped
         assert not self.is_empty()
 
