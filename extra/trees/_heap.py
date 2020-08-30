@@ -126,18 +126,29 @@ class Heap(ABC, Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `MinHeap()` instance in time-complexity of O(1).
+        Gets the length of the heap instance in time-complexity of O(1).
         
         Returns
         -------
         int:
-            The length of the `MinHeap()` instance. Length is the number of tree 
+            The length of the heap instance. Length is the number of tree 
             nodes in the instance.
         """
         return len(self._heap)
 
 
     def is_empty(self):
+        """
+        Checks if the heap instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the heap instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        """
         return self._heap == []
 
 
