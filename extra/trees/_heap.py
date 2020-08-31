@@ -376,6 +376,15 @@ class Heap(ABC, Extra):
     
 
     def to_list(self):
+        """
+        Converts the heap instance to a `list` where values will be inserted in
+        breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the heap instance.
+        """
         return self._heap
     
 
