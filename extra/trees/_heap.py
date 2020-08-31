@@ -361,6 +361,15 @@ class Heap(ABC, Extra):
 
     ##############################      ITER      ##############################
     def __iter__(self):
+        """
+        Iterates over the heap instance and returns a generator of the heap node
+        values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+        """
         btree = self._transform()
         for node in btree:
             yield node
