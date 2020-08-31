@@ -221,6 +221,22 @@ class Heap(ABC, Extra):
 
     ##############################     INSERT     ##############################
     def insert(self, value, is_min_heap=True):
+        """
+        Inserts a numeric value to the heap instance.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        is_min_heap: (default: True)
+            A flag to tell if the heap instance is MinHeap or MaxHeap. `True`
+            shows that the instance is `MinHeap()` and `False` for `MaxHeap()`.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If the given `value` is not a numeric value.
+        """
         self._validate_item(value)
         assert type(is_min_heap) == bool
 
