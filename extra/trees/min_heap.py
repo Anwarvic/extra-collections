@@ -327,10 +327,6 @@ class MinHeap(Heap):
         value: int or float
             The new numeric value that will be inserted.
         
-        Parameters
-        ----------
-        value: int or float
-            The new numeric value that will be inserted.
         
         Raises
         ------
@@ -486,7 +482,7 @@ class MinHeap(Heap):
 
     def to_list(self):
         """
-        Converts the `MInHeap()` instance to a `list` where values will be
+        Converts the `MinHeap()` instance to a `list` where values will be
         inserted in breadth-first manner.
 
         Returns

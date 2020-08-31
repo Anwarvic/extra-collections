@@ -328,11 +328,6 @@ class MaxHeap(Heap):
         value: int or float
             The new numeric value that will be inserted.
         
-        Parameters
-        ----------
-        value: int or float
-            The new numeric value that will be inserted.
-        
         Raises
         ------
         ValueError: If the given `value` is `None`.
