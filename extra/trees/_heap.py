@@ -259,6 +259,24 @@ class Heap(ABC, Extra):
 
     ##############################     REMOVE     ##############################
     def __rebalance(self, parent_idx, is_min_heap):
+        """
+        A private method to rebalance the heap instance after removal. Rebalance
+        is essential for keeping the heap-order property intact.
+
+        Parameters
+        ----------
+        parent_idx: int
+            The Index of the node's parent.
+        is_min_heap: bool
+            A flag to tell if the heap instance is MinHeap or MaxHeap. `True`
+            shows that the instance is `MinHeap()` and `False` for `MaxHeap()`.
+
+        Raises
+        ------
+        AssertionError: This can be raised in the following cases:
+            1. If the `parent_index` is an invalid index.
+            2. If the type of the `is_min_heap` flag isn't boolean
+        """
         assert type(parent_idx) == int and parent_idx >= 0
         assert type(is_min_heap) == bool
 
