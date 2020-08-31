@@ -312,8 +312,23 @@ class Heap(ABC, Extra):
 
 
     def remove(self, del_value, is_min_heap=True):
-        """Removes first utterence of given value"""
-        #TODO: try to handle more than just the first utterence
+        """
+        Removes the `del_value` from the heap instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the heap.
+        
+        Raises
+        ------
+        UserWarning: If the heap instance is empty of if the value wasn't \
+            found in the instance.
+        
+        TODOs
+        -----
+        Try to handle more than just the first utterence
+        """
         assert type(is_min_heap) == bool
 
         if self.is_empty():
