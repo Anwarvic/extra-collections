@@ -199,6 +199,21 @@ class Heap(ABC, Extra):
     
     ##############################     SEARCH     ##############################
     def __contains__(self, num):
+        """
+        Searches the heap instance for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the heap instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the heap instance and `False`
+            if not.
+        """
         if self.is_empty() or type(num) not in {int, float}:
             return False
         return num in self._heap
