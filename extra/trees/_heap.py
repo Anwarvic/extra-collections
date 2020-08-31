@@ -390,6 +390,9 @@ class Heap(ABC, Extra):
 
     ##############################      CLEAR     ##############################
     def clear(self):
+        """
+        Removes all nodes within the heap instance in constant time.
+        """
         self.__init__()
     
 
