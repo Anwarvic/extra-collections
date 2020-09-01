@@ -48,13 +48,36 @@ from extra.trees.bst import BSTNode, BST
 
 
 class TreapNode(BSTNode):
+    """
+    A treap node is the basic unit for building Treap instances. A treap node
+    must contain a number. Each treap node has either zero, one or two children
+    treap nodes. The node that has no children is called a **leaf node**.
+    """
     __name__ = "extra.TreapNode()"
     
 
-    def __init__(self, key, priority=None):
+    def __init__(self, data, priority=None):
+        """
+        Creates a `TreapNode()` object which is the basic unit for building 
+        `Treap()` objects!!
+
+        Parameters
+        ----------
+        data: int or float
+            The value to be saved within the `TreapNode()` instance
+        priority: int or float (default: None)
+            A numeric value indicating the priority of the `TreapNode()`.
+        
+        Raises
+        ------
+        ValueError: If the given data is `None`.
+        TypeError: It can be raised in the following two cases:
+            1. If the given data isn't a number.
+            2. If the given priority isn't a number.
+        """
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
-        super().__init__(key)
+        super().__init__(data)
         self._priority = \
             random.randint(0, 100) if priority is None else priority
 
