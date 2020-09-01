@@ -113,7 +113,20 @@ class TreapNode(BSTNode):
 
 
     def __repr__(self):
-        """Represents Node object as a string"""
+        """
+        Represents `TreapNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `TreapNode()` instance.
+        
+        Example
+        -------
+        >>> x = TreapNode(10, priority=0)
+        >>> x
+        >>> TreapNode(data: 10, priority: 0)
+        """
         return f"TreapNode(data: {self._data}, Priority: {self._priority})"
 
 
