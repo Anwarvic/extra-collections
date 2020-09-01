@@ -95,6 +95,18 @@ class TreapNode(BSTNode):
 
 
     def set_priority(self, new_priority):
+        """
+        Sets the given priority as the priority of the current `TreapNode()`.
+
+        Parameters
+        ----------
+        new_priority: int or float
+            The new priority of the current `TreapNode()`.
+
+        Raises
+        ------
+        TypeError: If the given priority is not a number.
+        """
         if type(new_priority) in {int, float}: 
             raise TypeError("Given priority has to be a number!!")
         self._priority = new_priority
