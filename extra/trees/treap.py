@@ -1,11 +1,44 @@
 """
-Treap is a data structure which is a hyprid of (Tree + Heap) where every node
-of it maintains two values.
-    - Key: Follows standard BST ordering (left is smaller and right is greater)
-    - Priority: Randomly assigned value that follows Max-Heap property.
+A treap is a binary tree that stores a collection of nodes. Each node in the
+treap contains two main values:
 
-A treap node is represented like the following 0|P:45 where 0 is the key and 
-45 is the priority. The higher the number is, the more priority it has.
+- **data**: The numeric value inserted to the treap.
+- **priority**: A numeric value that indicates how important this node is. \
+    The bigger this numeric value is, the higher its priority in the treap \
+    becomes.
+
+Each node in the treap must satisfy two additional properties:
+
+1. **BST Property**: It is a relational property defined in terms of the numeric
+value stored at the node. So, for every node, the numeric value stored at the
+is greater than all the numeric values found in the left subtree and less than
+those found in the node's right subtree. In other words, we can consider the 
+treap as a BST (Binary Search Tree) with respect to the values insterted.
+
+2. **Max Heap Property**: It is a relational property defined in terms of the 
+priority of the node. So, for every node, other than the root, the priority of
+the node is less than or equal to the value stored at the node's parent. As a
+consequence of this property, the priority encountered on a path from the root
+to a leaf node are in nonincreasing order. Also, the maximum priority is always
+stored at the root of the treap.
+
+As we can see, we can consider the treap as both "Tree" and "Heap". Hence, the
+name: "Treap".
+
+Note
+----
+The priority values are always hidden. If you want to see the priorty for each
+node in the `Treap()`, you can set the static variable `SHOW_PRIORITY` to
+`True` just like so:
+
+>>> Treap.SHOW_PRIORITY = True
+
+
+[image]
+
+
+
+
 """
 import random
 import warnings
@@ -15,8 +48,7 @@ from extra.trees.bst import BSTNode, BST
 
 
 class TreapNode(BSTNode):
-    def __name__(self):
-        return "extra.TreapNode()"
+    __name__ = "extra.TreapNode()"
     
 
     def __init__(self, key, priority=None):
@@ -32,7 +64,8 @@ class TreapNode(BSTNode):
 
 
     def set_priority(self, new_priority):
-        assert type(new_priority) in {int, float}
+        if type(new_priority) in {int, float}: 
+            raise TypeError("Given priority has to be a number!!")
         self._priority = new_priority
 
 
@@ -51,12 +84,9 @@ class TreapNode(BSTNode):
 
 
 class Treap(BST):
-    SHOW_PRIORITY = True
+    SHOW_PRIORITY = False
     _basic_node = TreapNode
-
-
-    def __name__(self):
-        return "extra.Treap()"
+    __name__ = "extra.Treap()"
     
 
     def __init__(self, seed=None):
@@ -78,7 +108,7 @@ class Treap(BST):
         return treap
 
 
-    ##############################    INSERTION   ##############################
+    ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -111,13 +141,14 @@ class Treap(BST):
                     parent = grandparent
 
 
-    ##############################     REMOVAL    ##############################
+    ##############################     REMOVE     ##############################
     def remove(self, del_value):
         if self.is_empty():
-            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
             return
