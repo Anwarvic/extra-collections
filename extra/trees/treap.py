@@ -83,6 +83,14 @@ class TreapNode(BSTNode):
 
 
     def get_priority(self):
+        """
+        Returns the priority of the current `TreapNode()` instance.
+
+        Returns
+        -------
+        int or float:
+            The priority of the current `TreapNode()`.
+        """
         return self._priority
 
 
