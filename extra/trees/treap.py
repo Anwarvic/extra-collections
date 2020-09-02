@@ -276,8 +276,8 @@ class Treap(BST):
         
         Using nested `Treap()` objects will raise `TypeError` as well
 
-        >>> bst_1 = Treap.from_iterable([1])
-        >>> bst_2 = Treap.from_iterable([1, bst_1])
+        >>> treap_1 = Treap.from_iterable([1])
+        >>> treap_2 = Treap.from_iterable([1, treap_1])
         TypeError: Can't create `extra.Treap()` using `extra.Treap()`!!
         """
         random.seed(seed)
@@ -298,6 +298,55 @@ class Treap(BST):
     
 
     def insert(self, value, priority=None):
+        """
+        Inserts a numeric value in the `Treap()` instance according to the rules
+        of binary search trees and max heap.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        priority: int or float (default: None)
+            The priority of the newly inserted node.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If either the given `value` or the given `priority` is not a
+        numeric value.
+
+        Example
+        -------
+        >>> treap = Treap()
+        >>> treap.insert(10)
+        >>> treap.insert(5)
+        >>> treap.insert(15)
+        >>> treap
+          ___15
+         /
+        5
+         \\
+          10
+
+        If we ran the same code again, we probably will get a different
+        structure because the priority of the nodes are assigned randomly which
+        changes the `Treap()` structure. Let's, now, set the priority of the 
+        inserted node:
+
+        >>> treap.insert(10, priority=10)
+        >>> treap.insert(5, priority=2)
+        >>> treap.insert(15, priority=7)
+        >>> treap
+          10
+         /  \\
+        5    15
+        >>> Treap.SHOW_PRIORITY = True
+            __10|P:10__
+           /           \\
+        5|P:2         15|P:7
+        >>> treap.insert("2")
+        TypeError: `extra.Treap()` accepts only numbers!!
+        """
         # validate inserted value
         super()._validate_item(value)
         self.__validate_priority(priority)
@@ -373,6 +422,3 @@ class Treap(BST):
             self._length -= 1
 
 
-if __name__ == "__main__":
-    treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
-    print(treap)
