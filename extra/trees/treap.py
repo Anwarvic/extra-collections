@@ -152,7 +152,7 @@ class TreapNode(BSTNode):
         And if we set the `SHOW_PRIORITY` static variable to `True`, it will 
         look like this:
         
-        >>> PriorityQueue.SHOW_PRIORITY = True
+        >>> Treap.SHOW_PRIORITY = True
         >>> x._represent()
         10|P:2
         """
@@ -165,13 +165,36 @@ class TreapNode(BSTNode):
 
 
 class Treap(BST):
+    """
+    A Treap is a binary tree that stores a collection of nodes. Each node in the
+    treap contains two main values: "data" and "priority" and must satisfy two
+    additional properties: 
+    
+    1. node's data must follow the rules of binary search tree.
+    2. node's priority must follow the rules of max heap where the node with the
+    heighest priority must always be at the root without breaking the rules of
+    BST.
+    """
     SHOW_PRIORITY = False
     _basic_node = TreapNode
     __name__ = "extra.Treap()"
     
 
     def __init__(self, seed=None):
-        # to keep consistency
+        """
+        Creates an empty `Treap()` object!!
+
+        Parameters
+        ----------
+        seed: int or float (default: None)
+            A seed to generate consistent random numbers.
+        
+        Example
+        -------
+        >>> treap = Treap()
+        >>> type(treap)
+        <class 'extra.trees.treap.Treap'>
+        """
         if seed is not None: random.seed(seed)
         super().__init__()
 
