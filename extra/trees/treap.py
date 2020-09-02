@@ -280,12 +280,11 @@ class Treap(BST):
         >>> treap_2 = Treap.from_iterable([1, treap_1])
         TypeError: Can't create `extra.Treap()` using `extra.Treap()`!!
         """
-        random.seed(seed)
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
             raise ValueError("The given iterable is empty!!")
-        treap = cls()
+        treap = cls(seed)
         for item in iterable:
             treap.insert(item)
         return treap
@@ -375,6 +374,41 @@ class Treap(BST):
 
     ##############################     REMOVE     ##############################
     def remove(self, del_value):
+        """
+        Removes the `del_value` from the `Treap()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the `Treap()`.
+        
+        Raises
+        ------
+        UserWarning: If the `Treap()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.remove(9)
+        >>> treap.remove(0)
+        >>> treap
+            __4
+           /   \\
+          2     7
+         / \\
+        1   3
+        >>> treap.remove(50)
+        UserWarning: Couldn't find `50` in `extra.Treap()`!!
+        """
         if self.is_empty():
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
