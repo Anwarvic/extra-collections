@@ -3,8 +3,8 @@ A treap is a binary tree that stores a collection of nodes. Each node in the
 treap contains two main values:
 
 - **data**: The numeric value inserted to the treap.
-- **priority**: A numeric value that indicates how important this node is. \
-    The bigger this numeric value is, the higher its priority in the treap \
+- **priority**: A numeric value that indicates how important this node is. 
+    The bigger this numeric value is, the higher its priority in the treap
     becomes.
 
 Each node in the treap must satisfy two additional properties:
@@ -195,13 +195,92 @@ class Treap(BST):
         >>> type(treap)
         <class 'extra.trees.treap.Treap'>
         """
-        if seed is not None: random.seed(seed)
+        random.seed(seed)
         super().__init__()
 
     
     @classmethod
     def from_iterable(cls, iterable, seed=None):
-        if seed is not None: random.seed(seed)
+        """
+        A class method which creates a `Treap()` instance using an iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        seed: int or float (default: None)
+            A seed to generate consistent random numbers.
+        
+        Returns
+        -------
+        Treap()
+            It returns a `Treap()` instance with input values being inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in three cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+
+        Without setting the seed, each time we run the code, we will get a
+        different structure.
+
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
+        >>> treap
+            ____4
+           /     \\
+          1__     7
+         /   \\    \\
+        0     3     9
+             /
+            2
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
+        >>> treap
+              ____7
+             /     \\
+            2__     9
+           /   \\
+          1     4
+         /     /
+        0     3
+
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> Treap.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.Treap()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> Treap.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `Treap()` objects will raise `TypeError` as well
+
+        >>> bst_1 = Treap.from_iterable([1])
+        >>> bst_2 = Treap.from_iterable([1, bst_1])
+        TypeError: Can't create `extra.Treap()` using `extra.Treap()`!!
+        """
+        random.seed(seed)
         if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         if len(iterable) == 0:
@@ -223,7 +302,7 @@ class Treap(BST):
         super()._validate_item(value)
         self.__validate_priority(priority)
         if self.is_empty():
-            self._root = self._basic_node(value)
+            self._root = self._basic_node(value, priority)
             self._length += 1
         else:
             # perform standard BST-insert
@@ -294,3 +373,6 @@ class Treap(BST):
             self._length -= 1
 
 
+if __name__ == "__main__":
+    treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
+    print(treap)
