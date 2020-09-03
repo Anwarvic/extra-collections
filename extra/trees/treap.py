@@ -340,8 +340,45 @@ class Treap(BST):
         False
         """
         return super().is_empty()
+    
+    
+    ##############################     MAX/MIN    ##############################
+    def get_max(self):
+        """
+        Gets the maximum value in the `Treap()` isntance. The maximum value can be
+        found at the right-most tree node in the `Treap()` instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `Treap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `Treap()` instance is empty.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.get_max()
+        9
+        """
+        if self.is_empty():
+            raise IndexError(\
+                f"Can't get the maximum value of an empty `{self.__name__}`")
+        max_node = self._get_max_node(self._root)
+        return max_node.get_data()
 
 
+    
     ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
