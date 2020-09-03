@@ -713,4 +713,55 @@ class Treap(BST):
         return super().count_leaf_nodes()
 
 
+    ##############################    BALANCED    ##############################
+    def is_balanced(self):
+        """
+        Checks if the `Treap()` instance is balanced. A Treap is balanced if the
+        difference between the depth of any two leaf nodes is less than or equal
+        to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `Treap()` instance is balanced and `False` if it is
+            not balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `Treap()` is empty.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.is_balanced()
+        True
+
+        Notice that, by changing the seed, you can change the balance of the
+        `Treap()`:
+
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=2)
+        >>> treap
+                __7
+               /   \\
+              3     9
+             / \\
+            2   4
+           /
+          1
+         /
+        0
+        >>> treap.is_balanced()
+        False
+        """
+        return super().is_balanced()
+
+
     
