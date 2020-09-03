@@ -290,6 +290,36 @@ class Treap(BST):
         return treap
 
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `Treap()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `Treap()` instance. Length is the number of tree 
+            nodes in the instance.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> len(treap)
+        7
+        """
+        return self._length
+
+
+    
+
     ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
