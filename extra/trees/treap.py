@@ -378,7 +378,44 @@ class Treap(BST):
         return max_node.get_data()
 
 
+    def get_min(self):
+        """
+        Gets the minimum value in the `Treap()` isntance. The minimum value can be
+        found at the left-most tree node in the `Treap()` instance.
+
+        Returns
+        -------
+        int or float:
+            The minimum numeric value in the `Treap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `Treap()` instance is empty.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.get_min()
+        0
+        """
+        if self.is_empty():
+            raise IndexError(\
+                f"Can't get the minimum value of an empty `{self.__name__}`")
+        min_node = self._get_min_node(self._root)
+        return min_node.get_data()
+
+
     
+
+
     ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
         if new_priority is not None and type(new_priority) not in {int, float}:
