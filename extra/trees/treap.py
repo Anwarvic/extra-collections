@@ -318,7 +318,29 @@ class Treap(BST):
         return self._length
 
 
-    
+    def is_empty(self):
+        """
+        Checks if the `Treap()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `Treap()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> treap = Treap()
+        >>> treap.is_empty()
+        True
+        >>> treap.insert(10)
+        >>> treap.is_empty()
+        False
+        """
+        return super().is_empty()
+
 
     ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
