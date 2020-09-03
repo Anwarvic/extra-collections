@@ -454,6 +454,18 @@ class Treap(BST):
 
     ##############################     INSERT     ##############################
     def __validate_priority(self, new_priority):
+        """
+        Makes sure the priority is a valid value. 
+        
+        Parameters
+        ----------
+        new_priority: int or flaot
+            The priority's new value.
+        
+        Raises
+        -------
+        TypeError: If the given new priority is not a numeric value.
+        """
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
     
