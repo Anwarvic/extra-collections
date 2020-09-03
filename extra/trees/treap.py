@@ -684,4 +684,33 @@ class Treap(BST):
         return super().get_depth()
     
 
+    ##############################   LEAF NODES   ##############################
+    def count_leaf_nodes(self):
+        """
+        Counts the number of leaf nodes in the `Treap()` instance. Leaf nodes
+        are the tree nodes that have no children.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the number of leaf nodes in the 
+            `Treap()`.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.count_leaf_nodes()
+        3
+        """
+        return super().count_leaf_nodes()
+
+
     
