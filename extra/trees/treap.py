@@ -764,4 +764,37 @@ class Treap(BST):
         return super().is_balanced()
 
 
+    ##############################    PERFECT     ##############################
+    def is_perfect(self):
+        """
+        Checks if the `Treap()` instance is perfect. A Treap is perfect if all
+        its levels are completely filled.
+
+        Returns
+        -------
+        bool:
+            `True` if the `Treap()` instance is perfect and `False` if it is not
+            perfect.
+        
+        Raises
+        ------
+        UserWarning: If the `Treap()` is empty.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.is_perfect()
+        False
+        """
+        return super().is_perfect()
+
+
     
