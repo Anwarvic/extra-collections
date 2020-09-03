@@ -797,4 +797,37 @@ class Treap(BST):
         return super().is_perfect()
 
 
+    ##############################     STRICT     ##############################
+    def is_strict(self):
+        """
+        Checks if the `Treap()` instance is strict. A Treap is strict if all its
+        non-leaf nodes have two children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `Treap()` instance is strict and `False` if it is not
+            strict.
+        
+        Raises
+        ------
+        UserWarning: If the `Treap()` is empty.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.is_strict()
+        False
+        """
+        return super().is_strict()
+    
+
     
