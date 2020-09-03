@@ -859,3 +859,32 @@ class Treap(BST):
         return super().__iter__()
 
 
+    def to_list(self):
+        """
+        Converts the `Treap()` instance to a `list` where values will be inserted
+        in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `Treap()`
+            instance.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.to_list()
+        [4, 2, 9, 1, 3, 7, 0]
+        """
+        return super().to_list()
+
+
+    
