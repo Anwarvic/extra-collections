@@ -658,4 +658,30 @@ class Treap(BST):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `Treap()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the instance.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.get_depth()
+        0
+        """
+        return super().get_depth()
+    
+
     
