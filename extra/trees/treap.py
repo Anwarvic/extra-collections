@@ -830,4 +830,32 @@ class Treap(BST):
         return super().is_strict()
     
 
-    
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `Treap()` instance and returns a generator of the 
+        `BSTNode()` values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> for value in treap:
+        ...     print(value, end=',')
+        4,2,9,1,3,7,0,
+        """
+        return super().__iter__()
+
+
