@@ -413,7 +413,43 @@ class Treap(BST):
         return min_node.get_data()
 
 
-    
+    ##############################      SEARCH    ##############################
+    def __contains__(self, find_val):
+        """
+        Searches the `Treap()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `Treap()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `Treap()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> 3 in treap
+        True
+        >> 50 in treap
+        False
+        """
+        if self.is_empty() or type(find_val) not in {int, float}:
+            return False
+        found_node = self._search(find_val, self._root)
+        return found_node.get_data() == find_val
 
 
     ##############################     INSERT     ##############################
