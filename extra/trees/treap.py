@@ -949,3 +949,37 @@ class Treap(BST):
         """
         return super().preorder_traverse()
 
+
+    def depth_first_traverse(self):
+        """
+        Traverses the `Treap()` instance in depth-first manner. Which means that
+        the **parent** is visited first. Then, the **left subtree** (if found),
+        then the **right subtree** (if found). 
+        
+        Note
+        -----
+        It's the same as `preorder_traverse()` method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.depth_first_traverse()
+        [4, 2, 1, 0, 3, 9, 7]
+        """
+        return super().depth_first_traverse()
+
+
+    
