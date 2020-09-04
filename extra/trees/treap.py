@@ -1040,4 +1040,31 @@ class Treap(BST):
         return super().inorder_traverse()
 
 
-    
+    ##############################  BREADTH-FIRST ##############################
+    def breadth_first_traverse(self):
+        """
+        Traverses the `Treap()` instance in breadth-first manner. Which means that
+        the tree nodes will be visited level by level.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.breadth_first_traverse()
+        [4, 2, 9, 1, 3, 7, 0]
+        """
+        return super().breadth_first_traverse()
+
+
