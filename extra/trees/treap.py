@@ -1068,3 +1068,58 @@ class Treap(BST):
         return super().breadth_first_traverse()
 
 
+    ##############################    TRAVERSE    ##############################
+    def traverse(self, method='inorder'):
+        """
+        Traversal is the process to visit all nodes of a Treap starting from the
+        root as we cannot randomly access any node in a binary tree. There are
+        four ways which we use to traverse a Treap:
+
+        1. preorder - depth-first
+        2. inorder
+        3. posteorder
+        4. breadth-first
+
+        Parameters
+        ----------
+        method: str (default="inorder")
+            A lower-cased string describing the type of traversal that will be
+            used. It could be one of these values: ["inorder", "postorder",
+            "preorder", "depth-first", "breadth-first"]
+        
+        Returns
+        --------
+        list:
+            A list of all values of the visited nodes according to the specified
+            traversal method.
+        
+        Raises
+        ------
+        ValueError: If the given method isn't known.
+        TypeError: If the given method isn't a string.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.traverse("preorder")
+        [4, 2, 1, 0, 3, 9, 7]
+        >>> treap.traverse("inorder")
+        [0, 1, 2, 3, 4, 7, 9]
+        >>> treap.traverse("postorder")
+        [0, 1, 3, 2, 7, 9, 4]
+        >>> treap.traverse("breadth-first")
+        [4, 2, 9, 1, 3, 7, 0]
+        >>> treap.traverse("extra")
+        ValueError: Given traverse method has to be one of these:
+        {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
+        """
+        return super().traverse(method)
+
