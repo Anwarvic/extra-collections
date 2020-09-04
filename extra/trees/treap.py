@@ -1123,3 +1123,29 @@ class Treap(BST):
         """
         return super().traverse(method)
 
+
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `Treap()` instance in constant time.
+
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.clear()
+        >>> treap
+        / \\
+        >>> treap.is_empty()
+        True
+        """
+        super().clear()
+
+
