@@ -917,4 +917,35 @@ class Treap(BST):
         return super().get_nodes_per_level()
 
 
-    
+    ##############################   Pre-Order    ##############################
+    def preorder_traverse(self):
+        """
+        Traverses the `Treap()` instance in pre-order manner. Which means that the
+        **parent** is visited first. Then, the **left subtree** (if found), then
+        the **right subtree** (if found).
+        
+        Note
+        -----
+        It's the same as `depth_first_traverse()` method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.preorder_traverse()
+        [4, 2, 1, 0, 3, 9, 7]
+        """
+        return super().preorder_traverse()
+
