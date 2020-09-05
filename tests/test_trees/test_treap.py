@@ -23,8 +23,8 @@ def test_treap_node():
         assert node.get_priority() == priority
         assert node.get_left() == node.get_right() == None
         assert node.get_children() == []
-        with pytest.raises(AssertionError): node.set_priority(get_string())
-        with pytest.raises(AssertionError): node.set_priority(get_list())
+        with pytest.raises(TypeError): node.set_priority(get_string())
+        with pytest.raises(TypeError): node.set_priority(get_list())
 
 
 def test_treap_one_value():
