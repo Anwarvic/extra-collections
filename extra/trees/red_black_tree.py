@@ -116,10 +116,39 @@ class Color(Enum):
 
 
 
-class RedBlackNode(BSTNode):  
-    def __init__(self, value):
+class RedBlackNode(BSTNode):
+    """
+    A red-black node is the basic unit for building Red-Black Trees. A red-black
+    node must contain a number and a color; this color can be either "red" or
+    "black" based on the node's position in the tree. Each red-black tree node
+    has either zero, one or two children red-black nodes. 
+    """
+    __name__ = "extra.RedBlackNode()"
+
+
+    def __init__(self, value, color=Color.RED):
+        """
+        Creates a `RedBlackNode()` object which is the basic unit for building 
+        `RedBlackTree()` objects!!
+
+        Parameters
+        ----------
+        value: int or float
+            The value to be saved within the `BSTNode()` instance
+        color: Enum (default:Color.RED)
+            The color of the node, it can be either `Color.RED` or `Color.BLACK`
+        
+        Raises
+        ------
+        TypeError: If the given `value` isn't a number.
+        ValueError: This can be raised in two cases:
+            1. If the given `value` is `None`.
+            2. If the given color is neither `Color.RED` nor `Color.BLACK`.
+        """
+        if color not in {Color.RED, Color.BLACK}:
+            raise ValueError(f"Invalid color for `{self.__name__}`!!")
         super().__init__(value)
-        self._color = Color.RED
+        self._color = color
 
 
     def get_color(self):
