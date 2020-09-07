@@ -1,38 +1,43 @@
 """
-Red-Black Trees are self-balancing BSTs (Binary Search Trees) which means that
-they have a guaranteed height of O(log(n)) where n is the number of nodes within
-the tree. The color is used only to re-balance trees and has nothing to do with
-any thing else.
+Red-Black Tree is a self-balancing BST (Binary Search Tree) which means that
+it has a guaranteed height of **O(log(n))** where **n** is the number of nodes
+within the tree. Each node in the Red-Black Tree has a color, this color is 
+either "Red" or "Black". Hence, the name "Red-Black Tree". The color of the node
+is used only to re-balance the tree and has nothing to do with anything else.
 
-Red black trees have the following characteristics:
+So, the following is a simple Red-Black Tree:
+
+.. code-block:: text
+
+           ______13|B______
+          /                \\
+   _____8|R_             __17|R______
+  /         \\          /            \\
+1|B_        11|B      15|B         __25|B
+    \\                            /
+    6|R                         22|R
+
+As we can see, the previous Red-Black Tree is a Bineary Search Tree with an
+additional color denoted by either **R** for **r**ed or **B** for **b**lack.
+In additional to the BST characteristics, Red-black trees have these additional
+characteristics:
+
 - A node is either 'red' or 'black'.
 - Root is always 'black'.
 - A node is 'red' if it has two 'black' children.
 - Any child of a red-node is always 'black'.
+- **Black depth**: is the depth of all black nodes.
+- **Shortest path**: It is the path from the root to the nearest leaf-node and 
+it is equal to the black depth.
+- **Longest path**: It is the path from the root to the furthest leaf-node with
+alternating red and black nodes. And it can't be bigger than (2*shortest-path).
 
-Some other properties:
-- "Black depth": is the depth of all black nodes.
-- "Shortest path": (from parent to leaf-node) is equal to the black depth.
-- "Longest path": is the one with alternating red and black nodes.
-- The longest path can't be bigger than (2*shortest-path).
+[image]
 
-Considering the following BST:
-  __B
- /   \
-A     C
- \
-  Z
-We can say that:
-- B is parent of A and C
-- A and C are children for B
-- B is grandparent for Z
-- A is parent of Z
-- C is uncle of Z (important)
+
 """
 import warnings
 from enum import Enum
-from abc import abstractmethod
-
 from extra.trees.bst import BSTNode, BST
 
 
@@ -85,12 +90,8 @@ class RedBlackNode(BSTNode):
 
 
 class RedBlackTree(BST):
-    ############################## INIT ##############################
     _basic_node = RedBlackNode
-
-
-    def __name__(self):
-        return "extra.RedBlackTree()"
+    __name__ = "extra.RedBlackTree()"
     
 
     def __init__(self):
@@ -167,9 +168,11 @@ class RedBlackTree(BST):
     def __recolor(self, start_node):
         """
         Recoloring can be done according to these three cases:
+
         - case I:   parent is 'black'
         - case II:  parent is 'red' and uncle is 'red'
         - case III: parent is 'red' and uncle is 'black'
+
         """
         # get basic info
         uncle = start_node.get_uncle()
@@ -227,9 +230,10 @@ class RedBlackTree(BST):
         """
         NOTE: Here, we're tyring to exploit two characteristics of Red-black
         trees and they are: 
+
             - red-nodes are good replacements.
-            - when removing a red node, there must be at least one red-node as
-              a replacement at least.
+            - when removing a red node, there must be at least one red-node as \
+                a replacement at least.
         """
         assert isinstance(start_node, RedBlackNode)
         if start_node.is_leaf():
@@ -367,10 +371,10 @@ class RedBlackTree(BST):
         """
         # check edge case
         if self.is_empty():
-            warnings.warn(f"{self.__name__()} is empty!!", UserWarning)
+            warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
             return
@@ -383,7 +387,7 @@ class RedBlackTree(BST):
         removed_node = super()._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
-            warnings.warn(f"Couldn't find `{del_value}` in {self.__name__()}",
+            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
             return
