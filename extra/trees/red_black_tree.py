@@ -194,11 +194,11 @@ class RedBlackNode(BSTNode):
         -------
         >>> x = RedBlackNode(10)
         >>> x
-        >>> RedNode(10)
+        RedNode(10)
         >>>
         >>> x = RedBlackNode(10, color=Color.BLACK)
         >>> x
-        >>> BlackNode(data: 10, priority: 0)
+        BlackNode(10)
         """
         if self._color == Color.RED:
             return f"RedNode({self._data})"
@@ -207,6 +207,30 @@ class RedBlackNode(BSTNode):
 
 
     def _represent(self):
+        """
+        A helpful function used to represent the node when printing!!
+        
+        Returns
+        -------
+        str:
+            A string representing the `RedBlackNode()` is a very simple way.
+        
+        Example
+        -------
+        >>> x = RedBlackNode(10)
+        >>> x
+        RedNode(10)
+        >>> x._represent()
+        10
+        >>>
+        >>> x = RedBlackNode(10, color=Color.BLACK)
+        >>> x
+        >>> BlackNode(10)
+        >>> x._represent()
+        10
+        >>> type(x._represent())
+        <class 'str'>
+        """
         if self._color == Color.RED:
             return str(self._data)+'|R'
         elif self._color == Color.BLACK:
