@@ -152,13 +152,21 @@ class RedBlackNode(BSTNode):
 
 
     def get_color(self):
+        """
+        Returns the color of the current `RedBlackNode()` instance.
+
+        Returns
+        -------
+        Enum:
+            The color of the current `RedBlackNode()`.
+        """
         return self._color
 
 
-    def set_color(self, color):
-        if color not in {Color.RED, Color.BLACK}:
-            raise ValueError("Invalid color!!")
-        self._color = color
+    def set_color(self, new_color):
+        if new_color not in {Color.RED, Color.BLACK}:
+            raise ValueError(f"Invalid color for `{self.__name__}`!!")
+        self._color = new_color
     
 
     def __repr__(self):
