@@ -182,6 +182,24 @@ class RedBlackNode(BSTNode):
     
 
     def __repr__(self):
+        """
+        Represents `RedBlackNode()` object as a string.
+
+        Returns
+        -------
+        str:
+            A string representing the `RedBlackNode()` instance.
+        
+        Example
+        -------
+        >>> x = RedBlackNode(10)
+        >>> x
+        >>> RedNode(10)
+        >>>
+        >>> x = RedBlackNode(10, color=Color.BLACK)
+        >>> x
+        >>> BlackNode(data: 10, priority: 0)
+        """
         if self._color == Color.RED:
             return f"RedNode({self._data})"
         elif self._color == Color.BLACK:
