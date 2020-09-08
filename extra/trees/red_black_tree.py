@@ -239,8 +239,37 @@ class RedBlackNode(BSTNode):
 
     @staticmethod
     def swap(node1, node2):
-        #TODO: use super().swap(node1, node2) here
-        node1._data, node2._data = node2._data, node1._data
+        """
+        A static method to swap the data within the given two `RedBlackNode()`
+        instances along with the nodes' color.
+
+        Parameters
+        ----------
+        node1: TreeNode()
+            The first `TreeNode()` instance whose data should be swapped.
+        node2: TreeNode()
+            The second `TreeNode()` instance whose data should be swapped.
+
+        Raises
+        ------
+        TypeError: If one of the given instances isn't a `RedBlackNode()`.
+
+        Example
+        -------
+        >>> x = RedBlackNode(10, color=Color.BLACK)
+        >>> y = RedBlackNode(20)
+        >>>
+        >>> RedBlackNode.swap(x, y)
+        >>> x
+        RedNode(20)
+        >>> y
+        BlackNode(10)
+        >>>
+        >>> TreeNode.swap(x, 10)
+        TypeError: Incompitable objects' type preventing swapping!!
+        """
+        # node1._data, node2._data = node2._data, node1._data
+        super().swap(node1, node2)
         node1._color, node2._color = node2._color, node1._color
 
 
