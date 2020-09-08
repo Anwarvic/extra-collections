@@ -164,6 +164,18 @@ class RedBlackNode(BSTNode):
 
 
     def set_color(self, new_color):
+        """
+        Sets the given color as the color of the current `RedBlackNode()`.
+
+        Parameters
+        ----------
+        new_color: Color
+            The new color of the current `RedBlackNode()`.
+
+        Raises
+        ------
+        Value If the given color is neither `Color.RED` nor `Color.BLACK`.
+        """
         if new_color not in {Color.RED, Color.BLACK}:
             raise ValueError(f"Invalid color for `{self.__name__}`!!")
         self._color = new_color
