@@ -388,6 +388,31 @@ class RedBlackTree(BST):
         return self._length
 
 
+    def is_empty(self):
+        """
+        Checks if the `RedBlackTree()` instance is empty or not in constant time.
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `RedBlackTree()` instance is empty or
+            not. `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> rbtree = RedBlackTree()
+        >>> rbtree.is_empty()
+        True
+        >>> rbtree.insert(10)
+        >>> rbtree.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+    
+    
+
     ##############################     RECOLOR    ##############################
     def __recolor_case3(self, start_node):
         assert isinstance(start_node, self._basic_node)
