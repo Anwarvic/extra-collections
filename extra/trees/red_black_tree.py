@@ -476,6 +476,40 @@ class RedBlackTree(BST):
         return super().get_min()
 
 
+    ##############################      SEARCH    ##############################
+    def __contains__(self, find_val):
+        """
+        Searches the `RedBlackTree()` for the given value and returns `True` if
+        the value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `RedBlackTree()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `RedBlackTree()` instance
+            and False` if not.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> 17 in rbtree
+        True
+        >> 50 in rbtree
+        False
+        """
+        return super().__contains__(find_val)
 
 
     ##############################     RECOLOR    ##############################
