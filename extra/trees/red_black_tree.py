@@ -411,7 +411,40 @@ class RedBlackTree(BST):
         return super().is_empty()
     
     
-    
+    ##############################     MAX/MIN    ##############################
+    def get_max(self):
+        """
+        Gets the maximum value in the `RedBlackTree()` isntance. The maximum
+        value can be found at the right-most tree node in the `RedBlackTree()`
+        instance.
+
+        Returns
+        -------
+        int or float:
+            The maximum numeric value in the `RedBlackTree()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `RedBlackTree()` instance is empty.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.get_max()
+        25
+        """
+        return super().get_max()
+
+
+
 
     ##############################     RECOLOR    ##############################
     def __recolor_case3(self, start_node):
