@@ -276,26 +276,34 @@ class RedBlackNode(BSTNode):
 
 
 class RedBlackTree(BST):
+    """
+    Red-Black Tree is a self-balancing BST (Binary Search Tree) which means that
+    it has a guaranteed height of **O(log(n))** where **n** is the number of
+    nodes within the tree. Each node in the Red-Black Tree has a color, this
+    color is either "Red" or "Black". Hence, the name "Red-Black Tree". The
+    color of the node is used only to re-balance the tree and has nothing to do
+    with anything else.
+    """
     _basic_node = RedBlackNode
     __name__ = "extra.RedBlackTree()"
     
 
     def __init__(self):
+        """
+        Creates an empty `RedBlackTree()` object!!
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree()
+        >>> type(rbtree)
+        <class 'extra.trees.red_black_tree.RedBlackTree'>
+        """
         super().__init__()
 
 
     @classmethod
     def from_iterable(cls, iterable):
-        #TODO: convert this to classmethod like the one with LinkedList
-        # do that after applying clear()
-        if not hasattr(iterable, "__iter__"):
-            raise TypeError("The given object isn't iterable!!")
-        if len(iterable) == 0:
-            raise ValueError("The given iterable is empty!!")
-        rbtree = cls()
-        for item in iterable:
-            rbtree.insert(item)
-        return rbtree
+        return super().from_iterable(iterable)
     
 
     ##############################     HEIGHT     ##############################
