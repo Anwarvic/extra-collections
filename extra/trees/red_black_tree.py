@@ -444,6 +444,38 @@ class RedBlackTree(BST):
         return super().get_max()
 
 
+    def get_min(self):
+        """
+        Gets the minimum value in the `RedBlackTree()` isntance. The minimum
+        value can be found at the left-most tree node in the `RedBlackTree()`
+        instance.
+
+        Returns
+        -------
+        int or float:
+            The minimum numeric value in the `RedBlackTree()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `RedBlackTree()` instance is empty.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.get_min()
+        1
+        """
+        return super().get_min()
+
+
 
 
     ##############################     RECOLOR    ##############################
