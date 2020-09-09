@@ -360,23 +360,35 @@ class RedBlackTree(BST):
         return super().from_iterable(iterable)
     
 
-    ##############################     HEIGHT     ##############################
-    def get_black_height(self):
+    ##############################     LENGTH     ##############################
+    def __len__(self):
         """
-        Number of black nodes from root till to any leaf node, the root node
-        is not counted
+        Gets the length of the `RedBlackTree()` instance in constant time.
+        
+        Returns
+        -------
+        int:
+            The length of the `RedBlackTree()` instance. Length is the number
+            of red-black nodes in the instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> len(rbtree)
+        7
         """
-        black_height = 0
-        start_node = self._root.get_left()
-        while(start_node is not None):
-            if start_node.get_color() == Color.BLACK:
-                black_height += 1
-            start_node = start_node.get_left()
-        # +1 to include NIL node
-        return black_height + 1
+        return self._length
 
 
-    ##############################    INSERTION   ##############################
+    ##############################     RECOLOR    ##############################
     def __recolor_case3(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # get basic info
@@ -458,6 +470,7 @@ class RedBlackTree(BST):
             return self.__recolor(grandparent)
 
 
+    ##############################     INSERT     ##############################
     def insert(self, value):
         super()._validate_item(value)
         if self.is_empty():
@@ -473,7 +486,7 @@ class RedBlackTree(BST):
             self._root.set_color(Color.BLACK)
 
 
-    ##############################     REMOVAL    ##############################
+    ##############################     REMOVE     ##############################
     def _find_replacement(self, start_node):
         """
         NOTE: Here, we're tyring to exploit two characteristics of Red-black
@@ -689,3 +702,17 @@ class RedBlackTree(BST):
         self._length -= 1
         
 
+    ##############################  HEIGHT/DEPTH  ##############################
+    def get_black_height(self):
+        """
+        Number of black nodes from root till to any leaf node, the root node
+        is not counted
+        """
+        black_height = 0
+        start_node = self._root.get_left()
+        while(start_node is not None):
+            if start_node.get_color() == Color.BLACK:
+                black_height += 1
+            start_node = start_node.get_left()
+        # +1 to include NIL node
+        return black_height + 1
