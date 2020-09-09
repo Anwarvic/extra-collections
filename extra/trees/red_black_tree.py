@@ -303,6 +303,60 @@ class RedBlackTree(BST):
 
     @classmethod
     def from_iterable(cls, iterable):
+        """
+        A class method which creates a `RedBlackTree()` instance using an
+        iterable in time-complexity of O(n) where **n** is the number of
+        elements inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        RedBlackTree()
+            It returns a `RedBlackTree()` instance with input values being
+            inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in three cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> RedBlackTree.from_iterable([2, None])
+        ValueError: Can't use `None` as an element within `extra.RedBlackTree()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> RedBlackTree.from_iterable(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `RedBlackTree()` objects will raise `TypeError` as well
+
+        >>> rbtree_1 = RedBlackTree.from_iterable([1])
+        >>> rbtree_2 = RedBlackTree.from_iterable([1, rbtree_1])
+        TypeError: Can't create `extra.RedBlackTree()` using `extra.RedBlackTree()`!!
+        """
         return super().from_iterable(iterable)
     
 
