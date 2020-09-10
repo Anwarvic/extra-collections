@@ -657,7 +657,6 @@ class RedBlackTree(BST):
            _10|B_
           /      \\
         5|R      15|R
-
         >>> rbtree.insert("2")
         TypeError: `extra.RedBlackTree()` accepts only numbers!!
         """
@@ -676,25 +675,61 @@ class RedBlackTree(BST):
 
 
     ##############################     REMOVE     ##############################
-    def _find_replacement(self, start_node):
+    def _find_replacement(self, node):
         """
-        NOTE: Here, we're tyring to exploit two characteristics of Red-black
+        Find a replacement to the numeric value of the given `node` as a
+        preparation step before removing `node`. This replacement will be either
+        the in-order predecessor or the in-order successor.
+
+        Parameters
+        ----------
+        node: RedBlackNode()
+            The node that will be replaced.
+        
+        Returns
+        -------
+        RedBlackNode():
+            The node that will replace the given `node`.
+        
+        Raises
+        ------
+        AssertionError: If the given `node` isn't a `RedBlackNode()` object.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree._find_replacement(rbtree._root)
+        RedNode(15)
+        >>> rbtree._find_replacement(rbtree._root._left)
+        RedNode(6)
+
+        Note
+        ----
+        Here, we're tyring to exploit two characteristics of Red-black
         trees and they are: 
 
-            - red-nodes are good replacements.
-            - when removing a red node, there must be at least one red-node as \
-                a replacement at least.
+            1. Red nodes are good replacements.
+            2. When removing a red node, there must be at least one red-node \
+                as a replacement.
         """
-        assert isinstance(start_node, RedBlackNode)
-        if start_node.is_leaf():
+        assert isinstance(node, RedBlackNode)
+        if node.is_leaf():
             replacement_node = None
         else:
             # in-order successor
-            successor = super()._get_min_node(start_node.get_right()) \
-                if start_node.get_right() else None
+            successor = super()._get_min_node(node.get_right()) \
+                if node.get_right() else None
             # in-order predecessor
-            predecessor = super()._get_max_node(start_node.get_left()) \
-                if start_node.get_left() else None
+            predecessor = super()._get_max_node(node.get_left()) \
+                if node.get_left() else None
             # find the red-node
             if successor and successor.get_color() == Color.RED:
                 replacement_node = successor
@@ -819,7 +854,42 @@ class RedBlackTree(BST):
         Case III: removed_node is 'black', replacement is either 'black' or None
         Case IV : removed_node is 'black', replacement is 'red'
         """
+        """
+        Removes the `del_value` from the `RedBlackTree()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the `RedBlackTree()`.
         
+        Raises
+        ------
+        UserWarning: If the `RedBlackTree()` instance is empty of if the value wasn't \
+            found in the instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> rbtree
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> rbtree.remove(9)
+        >>> rbtree.remove(0)
+        >>> rbtree
+            __4
+           /   \\
+          2     7
+         / \\
+        1   3
+        >>> rbtree.remove(50)
+        UserWarning: Couldn't find `50` in `extra.RedBlackTree()`!!
+        """
+
         # check edge case
         if self.is_empty():
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
