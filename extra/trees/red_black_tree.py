@@ -633,6 +633,34 @@ class RedBlackTree(BST):
 
     ##############################     INSERT     ##############################
     def insert(self, value):
+        """
+        Inserts a numeric value in the `RedBlackTree()` instance according to
+        the rules of binary search trees and the rules red-black trees as well.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If either the given `value` is not a numeric value.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree()
+        >>> rbtree.insert(10)
+        >>> rbtree.insert(5)
+        >>> rbtree.insert(15)
+        >>> rbtree
+           _10|B_
+          /      \\
+        5|R      15|R
+
+        >>> rbtree.insert("2")
+        TypeError: `extra.RedBlackTree()` accepts only numbers!!
+        """
         super()._validate_item(value)
         if self.is_empty():
             self._root = self._basic_node(value)
@@ -791,6 +819,7 @@ class RedBlackTree(BST):
         Case III: removed_node is 'black', replacement is either 'black' or None
         Case IV : removed_node is 'black', replacement is 'red'
         """
+        
         # check edge case
         if self.is_empty():
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
