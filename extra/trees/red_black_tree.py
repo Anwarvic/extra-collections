@@ -871,13 +871,15 @@ class RedBlackTree(BST):
 
     def remove(self, del_value):
         """
-        Case I  : removed_node is 'red', replacement is either 'red' or None
-        Case II : removed_node is 'red', replacement is 'black'
-        Case III: removed_node is 'black', replacement is either 'black' or None
-        Case IV : removed_node is 'black', replacement is 'red'
-        """
-        """
-        Removes the `del_value` from the `RedBlackTree()` instance. 
+        Removes the `del_value` from the `RedBlackTree()` instance which is one
+        of the following cases:
+        
+        - Case I  : The removed node is 'red', and its replacement is either \
+            'red' or None.
+        - Case II : The removed node is 'red', and its replacement is 'black'.
+        - Case III: The removed node is 'black', and its replacement is either \
+            'black' or None.
+        - Case IV : The removed node is 'black', and its replacement is 'red'.
 
         Parameters
         ----------
@@ -886,28 +888,29 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        UserWarning: If the `RedBlackTree()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning: If the `RedBlackTree()` instance is empty of if the value \
+            wasn't found in the instance.
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
-              __4__
-             /     \\
-            2       9
-           / \\    /
-          1   3   7
-         /
-        0
-        >>> rbtree.remove(9)
-        >>> rbtree.remove(0)
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.remove(13)
         >>> rbtree
-            __4
-           /   \\
-          2     7
-         / \\
-        1   3
+                   ______15|B_
+                  /           \\
+           _____8|R_          17|B_
+          /         \\             \\
+        1|B_        11|B           25|R
+            \\
+            6|R
         >>> rbtree.remove(50)
         UserWarning: Couldn't find `50` in `extra.RedBlackTree()`!!
         """
