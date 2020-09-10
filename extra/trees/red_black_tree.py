@@ -514,6 +514,25 @@ class RedBlackTree(BST):
 
     ##############################     RECOLOR    ##############################
     def __recolor_case3(self, start_node):
+        """
+        Recolors the `RedBlackTree()` instance when the parent of the given
+        `start_node` is 'red' and uncle is 'black'.
+
+        Parameters
+        ----------
+        start_node: RedBlackNode()
+            A reference to the root of the subtree at which recoloring begins.
+        
+        Returns
+        -------
+        RedBlackNode()
+            A reference to the same given `start_node` after recoloring the
+            whole subtree.
+        
+        Raises
+        ------
+        AssertionError: If the given `start_node` isn't a `RedBlackNode()`.
+        """
         assert isinstance(start_node, self._basic_node)
 
         # get basic info
