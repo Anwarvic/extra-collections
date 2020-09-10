@@ -742,13 +742,35 @@ class RedBlackTree(BST):
 
     def __handle_double_black(self, parent, double_black_node):
         """
-        When dealing with double black nodes, we have four cases:
-        Case I  : if double_black_node is root
-        Case II : (s) is black and one child of sibling's children is red (r)
-        Case III: (s) is black and the two children of s are black
-        Case IV : (s) is red
+        Recolors a double-black node. A double-black node is a black node that
+        turns to double-black node after removing a red node child which causes
+        this node to be double black in order to keep the red-black tree
+        properties intact. This private methods handles that case and converts
+        it to a black node after some other changes.
+
+        Parameters
+        ----------
+        parent: RedBlackNode()
+            A reference to the parent of the double-black node.
+        double_black_node: RedBlackNode()
+            A reference to the double-black node.
         
-        Note: (s) is the sibling of the double_black_node
+        Raises
+        ------
+        AssertionError: If the given `node` or its parent isn't a \
+            `RedBlackNode()` object.
+        
+        Note
+        ----
+        When dealing with double black nodes, we have four cases:
+        
+        - Case I  : The double_black_node is the root.
+        - Case II : The sibling is black and one child of the sibling's \
+            children is red.
+        - Case III: The sibling is black and the two children of the sibling \
+            are black.
+        - Cae IV : The sibling is red.
+        
         SRC: https://www.programiz.com/dsa/deletion-from-a-red-black-tree
         """
         #TODO: should be refactored
