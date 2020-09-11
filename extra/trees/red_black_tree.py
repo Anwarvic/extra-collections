@@ -1106,4 +1106,38 @@ class RedBlackTree(BST):
         return super().count_leaf_nodes()
 
 
+    ##############################    BALANCED    ##############################
+    def is_balanced(self):
+        """
+        Checks if the `RedBlackTree()` instance is balanced. A RedBlackTree is
+        balanced if the difference between the depth of any two leaf nodes is
+        less than or equal to one.
+
+        Returns
+        -------
+        bool:
+            `True` if the `RedBlackTree()` instance is balanced and `False` if
+            it is not balanced.
+        
+        Raises
+        ------
+        UserWarning: If the `RedBlackTree()` is empty.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.is_balanced()
+        True
+        """
+        return super().is_balanced()
+
+
     
