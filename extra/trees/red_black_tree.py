@@ -990,8 +990,28 @@ class RedBlackTree(BST):
     ##############################  HEIGHT/DEPTH  ##############################
     def get_black_height(self):
         """
-        Number of black nodes from root till to any leaf node, the root node
-        is not counted
+        Gets the black height of the `RedBlackTree()` instance. The black height
+        is the number of black nodes; starting from the root till any leaf node
+        knowing that the root node (which is always black) is not counted.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the black height of the instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> treap.get_black_height()
+        2
         """
         black_height = 0
         start_node = self._root.get_left()
