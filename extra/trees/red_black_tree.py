@@ -27,6 +27,7 @@ characteristics:
 - A node is 'red' if it has two 'black' children.
 - Any child of a red-node is always 'black'.
 - **Black depth**: is the depth of all black nodes.
+- All nodes with zero or one children have the same black depth,
 - **Shortest path**: It is the path from the root to the nearest leaf-node and 
 it is equal to the black depth.
 - **Longest path**: It is the path from the root to the furthest leaf-node with
@@ -1010,7 +1011,7 @@ class RedBlackTree(BST):
         1|B_        11|B      15|R      25|R
             \\
             6|R
-        >>> treap.get_black_height()
+        >>> rbtree.get_black_height()
         2
         """
         black_height = 0
@@ -1021,3 +1022,33 @@ class RedBlackTree(BST):
             start_node = start_node.get_left()
         # +1 to include NIL node
         return black_height + 1
+    
+
+    def get_height(self):
+        """
+        Gets the height of the `RedBlackTree()` instance. The RedBlackTree's height is the
+        number of edges between the root and the furthest leaf node.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the height of the instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.get_height()
+        3
+        """
+        return super().get_height()
+    
+
+    
