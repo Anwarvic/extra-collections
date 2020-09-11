@@ -1143,14 +1143,14 @@ class RedBlackTree(BST):
     ##############################    PERFECT     ##############################
     def is_perfect(self):
         """
-        Checks if the `RedBlackTree()` instance is perfect. A RedBlackTree is perfect if all
-        its levels are completely filled.
+        Checks if the `RedBlackTree()` instance is perfect. A RedBlackTree is
+        perfect if all its levels are completely filled.
 
         Returns
         -------
         bool:
-            `True` if the `RedBlackTree()` instance is perfect and `False` if it is not
-            perfect.
+            `True` if the `RedBlackTree()` instance is perfect and `False` if
+            it is not perfect.
         
         Raises
         ------
@@ -1172,5 +1172,38 @@ class RedBlackTree(BST):
         """
         return super().is_perfect()
 
+
+    ##############################     STRICT     ##############################
+    def is_strict(self):
+        """
+        Checks if the `RedBlackTree()` instance is strict. A RedBlackTree is
+        strict if all its non-leaf nodes have two children (left and right).
+
+        Returns
+        -------
+        bool:
+            `True` if the `RedBlackTree()` instance is strict and `False` if it is not
+            strict.
+        
+        Raises
+        ------
+        UserWarning: If the `RedBlackTree()` is empty.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.is_strict()
+        False
+        """
+        return super().is_strict()
+    
 
     
