@@ -1051,4 +1051,29 @@ class RedBlackTree(BST):
         return super().get_height()
     
 
+    def get_depth(self):
+        """
+        Gets the depth of the `RedBlackTree()` instance.
+
+        Returns
+        -------
+        int:
+            A positive integer representing the depth of the instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.get_depth()
+        0
+        """
+        return super().get_depth()
     
+
