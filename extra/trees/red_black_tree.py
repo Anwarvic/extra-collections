@@ -1263,4 +1263,35 @@ class RedBlackTree(BST):
         return super().to_list()
 
 
+    ##############################      NODES     ##############################
+    def get_nodes_per_level(self):
+        """
+        Retrieves all tree nodes within the `RedBlackTree()` instance so that
+        all tree nodes in a certain level will be concatenated into a separate
+        list.
+
+        Returns
+        -------
+        list:
+            A nested list where the first inner-list has all the tree nodes in 
+            the first level, the second inner-list has all the tree nodes in the 
+            second level, ... so on.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.get_nodes_per_level()
+        [[13], [8, 17], [1, 11, 15, 25], [6]]
+        """
+        return super().get_nodes_per_level()
+
+
     
