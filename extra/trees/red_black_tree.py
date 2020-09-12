@@ -1209,8 +1209,8 @@ class RedBlackTree(BST):
     ##############################      ITER      ##############################
     def __iter__(self):
         """
-        Iterates over the `RedBlackTree()` instance and returns a generator of the 
-        `BSTNode()` values in breadth-first manner.
+        Iterates over the `RedBlackTree()` instance and returns a generator of
+        the `RedBlackNode()` values in breadth-first manner.
 
         Returns
         -------
@@ -1233,6 +1233,34 @@ class RedBlackTree(BST):
         13,8,17,1,11,15,25,6,
         """
         return super().__iter__()
+
+
+    def to_list(self):
+        """
+        Converts the `RedBlackTree()` instance to a `list` where values will
+        be inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `RedBlackTree()`
+            instance.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.to_list()
+        [13, 8, 17, 1, 11, 15, 25, 6]
+        """
+        return super().to_list()
 
 
     
