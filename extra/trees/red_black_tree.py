@@ -1362,9 +1362,9 @@ class RedBlackTree(BST):
     ##############################   Post-Order   ##############################
     def postorder_traverse(self):
         """
-        Traverses the `RedBlackTree()` instance in post-order manner. Which means that
-        the **left subtree** (if found) is visited first. Then, the **right
-        subtree** (if found) then the **parent**.
+        Traverses the `RedBlackTree()` instance in post-order manner. Which
+        means that the **left subtree** (if found) is visited first. Then, the
+        **right subtree** (if found) then the **parent**.
         
         Returns
         --------
@@ -1391,9 +1391,9 @@ class RedBlackTree(BST):
     ##############################    In-Order    ##############################
     def inorder_traverse(self):
         """
-        Traverses the `RedBlackTree()` instance in in-order manner. Which means that the
-        **left subtree** (if found) is visited first. Then, the **parent** then
-        the **right subtree** (if found).
+        Traverses the `RedBlackTree()` instance in in-order manner. Which means
+        that the **left subtree** (if found) is visited first. Then, the
+        **parent** then the **right subtree** (if found).
         
         Returns
         --------
@@ -1420,8 +1420,8 @@ class RedBlackTree(BST):
     ##############################  BREADTH-FIRST ##############################
     def breadth_first_traverse(self):
         """
-        Traverses the `RedBlackTree()` instance in breadth-first manner. Which means that
-        the tree nodes will be visited level by level.
+        Traverses the `RedBlackTree()` instance in breadth-first manner. Which
+        means that the tree nodes will be visited level by level.
         
         Returns
         --------
@@ -1443,6 +1443,62 @@ class RedBlackTree(BST):
         [13, 8, 17, 1, 11, 15, 25, 6]
         """
         return super().breadth_first_traverse()
+
+
+    ##############################    TRAVERSE    ##############################
+    def traverse(self, method='inorder'):
+        """
+        Traversal is the process to visit all nodes of a RedBlackTree starting
+        from the root as we cannot randomly access any node in a binary tree.
+        There are four ways which we use to traverse a RedBlackTree:
+
+        1. preorder - depth-first
+        2. inorder
+        3. posteorder
+        4. breadth-first
+
+        Parameters
+        ----------
+        method: str (default="inorder")
+            A lower-cased string describing the type of traversal that will be
+            used. It could be one of these values: ["inorder", "postorder",
+            "preorder", "depth-first", "breadth-first"]
+        
+        Returns
+        --------
+        list:
+            A list of all values of the visited nodes according to the specified
+            traversal method.
+        
+        Raises
+        ------
+        ValueError: If the given method isn't known.
+        TypeError: If the given method isn't a string.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.traverse("preorder")
+        [13, 8, 1, 6, 11, 17, 15, 25]
+        >>> rbtree.traverse("inorder")
+        [1, 6, 8, 11, 13, 15, 17, 25]
+        >>> rbtree.traverse("postorder")
+        [6, 1, 11, 8, 15, 25, 17, 13]
+        >>> rbtree.traverse("breadth-first")
+        [13, 8, 17, 1, 11, 15, 25, 6]
+        >>> rbtree.traverse("extra")
+        ValueError: Given traverse method has to be one of these:
+        {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
+        """
+        return super().traverse(method)
 
 
     
