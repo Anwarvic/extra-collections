@@ -1417,4 +1417,32 @@ class RedBlackTree(BST):
         return super().inorder_traverse()
 
 
+    ##############################  BREADTH-FIRST ##############################
+    def breadth_first_traverse(self):
+        """
+        Traverses the `RedBlackTree()` instance in breadth-first manner. Which means that
+        the tree nodes will be visited level by level.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.breadth_first_traverse()
+        [13, 8, 17, 1, 11, 15, 25, 6]
+        """
+        return super().breadth_first_traverse()
+
+
     
