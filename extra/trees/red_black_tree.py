@@ -1359,3 +1359,33 @@ class RedBlackTree(BST):
         return super().depth_first_traverse()
 
 
+    ##############################   Post-Order   ##############################
+    def postorder_traverse(self):
+        """
+        Traverses the `RedBlackTree()` instance in post-order manner. Which means that
+        the **left subtree** (if found) is visited first. Then, the **right
+        subtree** (if found) then the **parent**.
+        
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.postorder_traverse()
+        [6, 1, 11, 8, 15, 25, 17, 13]
+        """
+        return super().postorder_traverse()
+
+
+    
