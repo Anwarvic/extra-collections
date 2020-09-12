@@ -56,11 +56,11 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | __contains__()           | Checks the existence of the given item.            | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the red-black tree's height.                  | O(n)       | O(1)    |
+| get_height()             | Gets the red-black tree's height.                  | O(h)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_black_height()       | Gets the red-black tree's black height.            | O(n)       | O(1)    |
+| get_black_height()       | Gets the red-black tree's black height.            | O(h)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the red-black tree's depth.                   | O(n)       | O(1)    |
+| get_depth()              | Gets the red-black tree's depth.                   | O(h)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
