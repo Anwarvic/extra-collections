@@ -1294,4 +1294,37 @@ class RedBlackTree(BST):
         return super().get_nodes_per_level()
 
 
+    ##############################   Pre-Order    ##############################
+    def preorder_traverse(self):
+        """
+        Traverses the `RedBlackTree()` instance in pre-order manner. Which means that the
+        **parent** is visited first. Then, the **left subtree** (if found), then
+        the **right subtree** (if found).
+        
+        Note
+        -----
+        It's the same as `depth_first_traverse()` method.
+
+        Returns
+        --------
+        list:
+            A list of all values of the pre-order visited nodes.
+        
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.preorder_traverse()
+        [13, 8, 1, 6, 11, 17, 15, 25]
+        """
+        return super().preorder_traverse()
+
+
     
