@@ -1501,4 +1501,27 @@ class RedBlackTree(BST):
         return super().traverse(method)
 
 
-    
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `RedBlackTree()` instance in constant time.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.clear()
+        >>> rbtree
+        / \\
+        >>> rbtree.is_empty()
+        True
+        """
+        super().clear()
+
