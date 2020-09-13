@@ -23,28 +23,28 @@ two categories:
 1. List-based Data Structures:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * :ref:`linked_list`
-* Doubly Linked List
-* Circular Linked List
-* Stack
-* Queue
-* PriorityQueue
-* Deque
-* SkipList
+* :ref:`doubly_linked_list`
+* :ref:`circular_linked_list`
+* :ref:`stack`
+* :ref:`queue`
+* :ref:`deque`
+* :ref:`priority_queue`
+* :ref:`skip_list`
 
 2. Tree-based Data Structures:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Tree
-* BinaryTree
-* BST (Binary Search Tree)
-* AVL (Adel'son-Vel'skii and Landis)
-* SplayTree
-* RedBlackTree
-* MinHeap
-* MaxHeap
-* Treap
-* Trie
-* RadixTrie
-* SuffixTrie
+* :ref:`tree`
+* :ref:`binary_tree`
+* :ref:`bst`
+* :ref:`avl`
+* :ref:`splay_tree`
+* :ref:`red_black_tree`
+* :ref:`min_heap`
+* :ref:`max_heap`
+* :ref:`treap`
+* :ref:`trie`
+* :ref:`radix_trie`
+* :ref:`suffix_trie`
 
 
 
@@ -60,21 +60,30 @@ class Extra:
     """Extra is the package interface which means that all objects inherits from
     this class. So, each object in this pacakge is an Extra object in the fisrt
     place."""
-    
+    __name__ = "extra.Extra()"
+
+
     def _validate_item(self, item):
         """
         Makes sure the input variable type can be processed. The main use for 
         this method is to make sure we can't create nested objects from the 
         package.
         
-        :param item: the input object of any type.
+        Parameters
+        ----------
+        item: object
+            The input object of any type.
         
-        :raises [ValueError]: if `item` is `None`
-        :raises [TypeError]: if `item` is an `Extra` object. 
+        Raises
+        -------
+        ValueError: If `item` is `None`
+        TypeError: If `item` is an `Extra` object.
         """
         if item is None:
-            raise ValueError(\
-                f"Can't use `None` as an initial value for {self.__module__}!!")
+            raise ValueError(
+                f"Can't use `None` as an element within `{self.__name__}`!!"
+            )
         elif isinstance(item, Extra):
-            raise TypeError(\
-            f"Can't create {self.__module__} object using {item.__module__}!!")
+            raise TypeError(
+                f"Can't use `{self.__name__}` with `{item.__name__}`!!"
+              )
