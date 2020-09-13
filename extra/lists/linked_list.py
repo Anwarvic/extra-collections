@@ -52,35 +52,35 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| insert()       | Adds the given item at the given index                 | O(k)        | O(k)        |
+| insert()       | Adds the given item at the given index.                | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __setitem__()  | Replaces the value at the given index with given value | O(k)        | O(k)        |
+| __setitem__()  | Replaces the value at the given index with given value.| O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __delitem__()  | Deletes the value at the given index                   | O(n)        | O(n)        |
+| __delitem__()  | Deletes the value at the given index.                  | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
+| remove_front() | Removes the node at the head.                          | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_end()   | Removes the node at the tail                           | O(n)        | O(n)        |
+| remove_end()   | Removes the node at the tail.                          | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove()       | Removes the given value if found                       | O(n)        | O(n)        |
+| remove()       | Removes the given value if found.                      | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
+| clear()        | Clears the whole linked list.                          | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| split()        | Splits the list into two at the given index            | O(n)        | O(n)        |
+| split()        | Splits the list into two at the given index.           | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(k%n)      | O(k%n)      |
+| rotate_left()  | Left-rotates the list by the given value.              | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(k%n)      | O(k%n)      |
+| rotate_right() | Right-rotates the list by the given value.             | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
+| reverse()      | Reverses the linked list.                              | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| to_list()      | Converts the linked list to built-in list              | O(n)        | O(n)        |
+| to_list()      | Converts the linked list to built-in list.             | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| count()        | Counts how many the given value found in the list      | O(n)        | O(n)        |
+| count()        | Counts how many the given value found in the list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| copy()         | Copies the linked list                                 | O(n)        | O(n)        |
+| copy()         | Copies the linked list.                                | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 
 
@@ -95,7 +95,7 @@ from extra.interface import Extra
 
 
 class Node(Extra):
-    """Basic object for the Node used for linked lists"""
+    """A node is the basic unit for building linked lists."""
     __name__ = "extra.Node()"
 
 
@@ -231,23 +231,91 @@ class Node(Extra):
 
 
 class LinkedList(Extra):
-    """Basic object for the linked list"""
+    """
+    A linked list is a simple linear data structure where objects are linked
+    using pointers to their associated location. Unlike arrays whose objects are
+    stored at continuous locations. Each node stores a reference to an object
+    that is an element of the sequence, as well as a reference to the next node
+    of the linked list.
+    """
     _basic_node = Node
     __name__ = "extra.LinkedList()"
     
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """
-        Creates a LinkedList() object!!
+        Initializes a `LinkedList()` object instance using an optional iterable
+        object in time-complexity of O(n) where **n** is the number of elements
+        inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: any iterable object (default: None)
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+               
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the iterable elements is an `Extra` object.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> ll = LinkedList([10, -5, 7, 9])
+        >>> ll
+        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶
+        └────┘ └────┘ └───┘ └───┘ 
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> ll = LinkedList([2, None])
+        ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
         
-        Example
-        -------
-        >>> ll = LinkedList()
-        >>> type(ll)
-        <class 'extra.lists.linked_list.LinkedList'>
+        Using a non-iterable object will raise `TypeError`
+
+        >>> ll = LinkedList(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `LinkedList` objects will raise `TypeError` as well
+
+        >>> ll_1 = LinkedList([1])
+        >>> ll_2 = LinkedList([1, ll_1])
+        TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
+
+        Note
+        -----
+        Since most of the data structures found in this package are iterables, 
+        then you can use this classmethod to convert from one data structure to
+        `Linked List` just like so:
+
+        >>> dll = DoublyLinkedList([2, 5])
+        >>> ll = LinkedList(dll)
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶
+        └───┘ └───┘ 
         """
-        self._head = None
-        self._length = 0
+        if iterable is None:
+            self._head = None
+            self._length = 0
+        elif not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        elif isinstance(iterable, self.__class__):
+            pass  #do nothing if the given iterable is alread a LinkedList()
+        else:
+            self._head = None
+            self._length = 0
+            prev_node = None
+            for item in iterable:
+                self._validate_item(item)
+                if isinstance(item, Node): #Node here is generic
+                    item = item.get_data()
+                prev_node = self._insert_value(prev_node, item)
 
 
     def _create_instance(self):
@@ -260,86 +328,6 @@ class LinkedList(Extra):
             It returns an empty LinkedList() instance.
         """
         return LinkedList()
-
-
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates a LinkedList() instance using an iterable
-        in time-complexity of O(n) where **n** is the number of elements inside
-        the given `iterable`.
-
-        Parameters
-        ----------
-        iterable: any iterable object.
-            An iterable python object that implements the `__iter__` method.
-            For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        LinkedList()
-            It returns a LinkedList() instance with the same values in the same
-            order.
-        
-        Raises
-        ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the iterable elements is an `Extra` object.
-
-        ValueError: If one of the iterable elements is `None`.
-
-        Examples
-        --------
-        >>> ll = LinkedList.from_iterable([10, -5, 7, 9])
-        >>> ll
-        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
-        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶
-        └────┘ └────┘ └───┘ └───┘ 
-
-        Using an iterable object with `None` as one of its elements will raise
-        `ValueError`
-
-        >>> ll = LinkedList.from_iterable([2, None])
-        ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
-        
-        Using a non-iterable object will raise `TypeError`
-
-        >>> ll = LinkedList.from_iterable(2)
-        TypeError: The given object isn't iterable!!
-        
-        Using nested `LinkedList` objects will raise `TypeError` as well
-
-        >>> ll_1 = LinkedList.from_iterable([1])
-        >>> ll_2 = LinkedList.from_iterable([1, ll_1])
-        TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
-
-        Note
-        -----
-        Since most of the data structures found in this package are iterables, 
-        then you can use this classmethod to convert from one data structure to
-        `Linked List` just like so:
-
-        >>> dll = DoublyLinkedList.from_iterable([2, 5])
-        >>> ll = LinkedList.from_iterable(dll)
-        >>> ll
-        ┌───┐ ┌───┐ 
-        │ 2 │⟶│ 5 │⟶
-        └───┘ └───┘ 
-        """
-        if not hasattr(iterable, "__iter__"):
-            raise TypeError("The given object isn't iterable!!")
-        elif isinstance(iterable, cls):
-            return iterable
-        else:
-            ll = cls()  #cls._create_instance(cls)
-            prev_node = None
-            for item in iterable:
-                ll._validate_item(item)
-                if isinstance(item, Node): #Node here is generic
-                    item = item.get_data()
-                prev_node = ll._insert_value(prev_node, item)
-            return ll
 
 
     ##############################     PRINT      ##############################
@@ -481,7 +469,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> ll = LinkedList([20, 77, 10, 6, 2])
         >>> ll
         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶
@@ -510,7 +498,7 @@ class LinkedList(Extra):
         >>> ll = LinkedList()
         >>> len(ll)
         0
-        >>> ll = LinkedList.from_iterable((2, 5, 0))
+        >>> ll = LinkedList((2, 5, 0))
         >>> len(ll)
         3
         """
@@ -555,7 +543,7 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> for item in ll:
         ...     print(item)
         1
@@ -599,8 +587,8 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1._compare(ll_2, operator.eq)
         1
         >>> ll_1.comprare(ll_1, operator.le)
@@ -666,8 +654,8 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1 == ll_2
         False
         >>> ll_1 == ll_1
@@ -715,8 +703,8 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1 != ll_2
         True
         >>> ll_1 != ll_1
@@ -760,28 +748,28 @@ class LinkedList(Extra):
         Examples
         --------
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 2])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3, 2])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 < ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 < ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 < ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([5, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 < ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 2, 3])
         >>> ll_1 < ll_2
         False
         """
@@ -823,28 +811,28 @@ class LinkedList(Extra):
         Examples
         --------
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 2])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3, 2])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 <= ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 <= ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 <= ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([5, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 <= ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 2, 3])
         >>> ll_1 <= ll_2
         True
         """
@@ -884,28 +872,28 @@ class LinkedList(Extra):
         Examples
         --------
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 > ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList([1, 3, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1 > ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 > ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([5, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 > ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 2, 3])
         >>> ll_1 > ll_2
         False
         """
@@ -944,28 +932,28 @@ class LinkedList(Extra):
         Examples
         --------
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 3, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 >= ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 3, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 2])
+        >>> ll_1 = LinkedList([1, 3, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1 >= ll_2
         True
 
-        >>> ll_1 = LinkedList.from_iterable([1, 5])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 >= ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([5, 2, 1])
-        >>> ll_2 = LinkedList.from_iterable([1, 3, 3])
+        >>> ll_1 = LinkedList([5, 2, 1])
+        >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 >= ll_2
         False
 
-        >>> ll_1 = LinkedList.from_iterable([1, 2, 3])
-        >>> ll_2 = LinkedList.from_iterable([1, 2, 3])
+        >>> ll_1 = LinkedList([1, 2, 3])
+        >>> ll_2 = LinkedList([1, 2, 3])
         >>> ll_1 >= ll_2
         True
         """
@@ -1006,7 +994,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll._search(2, ll._head)
         Node(data: 2, next: 3)
         >>> ll._search(0, ll._head)
@@ -1044,7 +1032,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 3, 5])
+        >>> ll = LinkedList([1, 3, 5])
         >>> 1 in ll
         True
         >>> 0 in ll
@@ -1083,7 +1071,7 @@ class LinkedList(Extra):
 
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> prev_node, node = ll._get_node(2)
         >>> prev_node
         (Node(data: 2, next: 3)
@@ -1128,7 +1116,7 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll._validate_index('1')
         TypeError: Given index must be an integer!!
         >>> ll._validate_index(-2)
@@ -1144,8 +1132,9 @@ class LinkedList(Extra):
         """
         if isinstance(idx, slice):
             if not accept_slice:
-                raise IndexError(\
-                    "Slice indexing isn't supported with this functinoality!!")
+                raise IndexError(
+                    "Slice indexing isn't supported with this functinoality!!"
+                )
         elif type(idx) != int:
             raise TypeError("Given index must be an integer!!")
         elif idx <= -1 and not accept_negative:
@@ -1182,7 +1171,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> ll = LinkedList([1, 2, 3, 4, 5])
         >>> ll[0]
         1
         >>> ll[-2]
@@ -1252,7 +1241,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> new_node = Node(10)
         >>> ll._insert_node(ll._head, new_node)
         Node(data: 10, next: 2)
@@ -1300,7 +1289,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll._insert_value(ll._head, 10)
         Node(data: 10, next: 2)
         """
@@ -1336,7 +1325,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll._insert(1, 10)
         Node(data: 10, next: 2)
         """
@@ -1367,7 +1356,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll.add_front(10)
         >>> ll
         ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1395,7 +1384,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll.add_end(10)
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌────┐ 
@@ -1430,7 +1419,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll.insert(1, 10)
         >>> ll
         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
@@ -1465,8 +1454,8 @@ class LinkedList(Extra):
 
         Example
         -------
-        >>> ll_1 = LinkedList.from_iterable([1, 2])
-        >>> ll_2 = LinkedList.from_iterable([3, 4, 5])
+        >>> ll_1 = LinkedList([1, 2])
+        >>> ll_2 = LinkedList([3, 4, 5])
         >>> ll_1.extend(ll_2)
         >>> ll_1
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1542,7 +1531,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll[0] = 10
         >>> ll[2] = 30
         >>> ll
@@ -1581,7 +1570,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
@@ -1626,7 +1615,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
@@ -1666,7 +1655,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> del ll[0]
         >>> ll
         ┌───┐ ┌───┐ 
@@ -1690,7 +1679,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll.remove_front()
         >>> ll
         ┌───┐ ┌───┐ 
@@ -1714,7 +1703,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll.remove_end()
         >>> ll
         ┌───┐ ┌───┐ 
@@ -1750,7 +1739,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> ll = LinkedList([1, 2, 3, 2, 2])
         >>> ll._remove_value(2, False)
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1806,7 +1795,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> ll = LinkedList([1, 2, 3, 2, 2])
         >>> ll.remove(2, False)
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1831,7 +1820,7 @@ class LinkedList(Extra):
 
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └───┘ └───┘ 
@@ -1875,7 +1864,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll
         ┌───┐ ┌───┐ ┌───┐
         │ 1 │⟶│ 2 │⟶│ 3 │
@@ -1943,7 +1932,7 @@ class LinkedList(Extra):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
@@ -2050,7 +2039,7 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll = LinkedList([1, 2, 3, 4])
         >>> ll._rotate(1, "LEFT")
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
@@ -2101,7 +2090,7 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll = LinkedList([1, 2, 3, 4])
         >>> ll.rotate_left(1)
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
@@ -2143,7 +2132,7 @@ class LinkedList(Extra):
         
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll = LinkedList([1, 2, 3, 4])
         >>> ll.rotate_right(1)
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
@@ -2173,7 +2162,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([1, 2, 3, 4])
+        >>> ll = LinkedList([1, 2, 3, 4])
         >>> ll.reverse()
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶
@@ -2234,7 +2223,7 @@ class LinkedList(Extra):
         
         Example
         -------
-        >>> ll = LinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> ll = LinkedList([0, 1, 1, 2, 3, 5])
         >>> ll.count(3)
         1
         >>> ll.count(1)
