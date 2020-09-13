@@ -95,7 +95,7 @@ from extra.lists.linked_list import Node, LinkedList
 
 
 class DoublyNode(Node):
-    """Basic object for the Node used for doubly linked lists"""
+    """A doubly node is the basic unit for building doubly linked lists."""
     __name__ = "extra.DoublyNode()"
 
 
@@ -200,47 +200,25 @@ class DoublyNode(Node):
 
 
 class DoublyLinkedList(LinkedList):
-    """Basic object for the double linked list"""
+    """
+    A doubly linked list is a simple linear data structure where objects are
+    linked using pointers to their associated location. Unlike arrays whose
+    objects are stored at continuous locations. Each node stores two references:
+    the first is a reference to the next element of the sequence. And the second
+    is a reference to the previous element of the sequence."""
     _basic_node = DoublyNode
     __name__ = "extra.DoublyLinkedList()"
    
    
     def __init__(self):
         """
-        Creates a DoublyLinkedList() object!!
-        
-        Example
-        -------
-        >>> ll = DoublyLinkedList()
-        >>> type(ll)
-        <class 'extra.lists.doubly_linked_list.DoublyLinkedList'>
-        """
-        super().__init__()
-        self._tail = None
-    
-
-    def _create_instance(self):
-        """
-        Returns an instance of the class
-
-        Returns
-        -------
-        DoublyLinkedList()
-            It returns an empty DoublyLinkedList() instance.
-        """
-        return DoublyLinkedList()
-
-
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates a DoublyLinkedList() instance using an
-        iterable in time-complexity of O(n) where **n** is the number of
-        elements inside the given `iterable`.
+        Initializes a `DoublyLinkedList()` instance using an optional iterable
+        object in time-complexity of O(n) where **n** is the number of elements
+        inside the given `iterable`.
 
         Parameters
         ----------
-        iterable: iterable object.
+        iterable: iterable object (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
@@ -260,7 +238,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([10, -5, 7, 9])
+        >>> dll = DoublyLinkedList([10, -5, 7, 9])
         >>> dll
          ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         ⟷│ 10 │⟷│ -5 │⟷│ 7 │⟷│ 9 │⟷
@@ -269,18 +247,18 @@ class DoublyLinkedList(LinkedList):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> dll = DoublyLinkedList.from_iterable([2, None])
+        >>> dll = DoublyLinkedList([2, None])
         ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> dll = DoublyLinkedList.from_iterable(2)
+        >>> dll = DoublyLinkedList(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `DoublyLinkedList` objects will raise `TypeError` as well
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, dll_1])
+        >>> dll_1 = DoublyLinkedList([1])
+        >>> dll_2 = DoublyLinkedList([1, dll_1])
         TypeError: Can't create `extra.DoublyLinkedList()` using `extra.DoublyLinkedList()`!!
 
         Note
@@ -289,14 +267,27 @@ class DoublyLinkedList(LinkedList):
         then you can use this classmethod to convert from one data structure to
         `DoublyLinkedList` just like so:
 
-        >>> ll = LinkedList.from_iterable([2, 5])
-        >>> dll = DoublyLinkedList.from_iterable(ll)
+        >>> ll = LinkedList([2, 5])
+        >>> dll = DoublyLinkedList(ll)
         >>> dll
          ┌───┐ ┌───┐ 
         ⟷│ 2 │⟷│ 5 │⟷
          └───┘ └───┘ 
         """
-        return super().from_iterable(iterable)
+        super().__init__()
+        self._tail = None
+    
+
+    def _create_instance(self):
+        """
+        Returns an instance of the class
+
+        Returns
+        -------
+        DoublyLinkedList()
+            It returns an empty DoublyLinkedList() instance.
+        """
+        return DoublyLinkedList()
     
 
     ##############################      PRINT     ##############################
@@ -355,7 +346,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> dll = DoublyLinkedList([20, 77, 10, 6, 2])
         >>> dll
          ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         ⟷│ 20 │⟷│ 77 │⟷│ 10 │⟷│ 6 │⟷│ 2 │⟷
@@ -380,7 +371,7 @@ class DoublyLinkedList(LinkedList):
         >>> dll = DoublyLinkedList()
         >>> len(dll)
         0
-        >>> dll = DoublyLinkedList.from_iterable((2, 5, 0))
+        >>> dll = DoublyLinkedList((2, 5, 0))
         >>> len(dll)
         3
         """
@@ -425,7 +416,7 @@ class DoublyLinkedList(LinkedList):
         
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> for item in dll:
         ...     print(item)
         1
@@ -465,8 +456,8 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 3, 2])
         >>> dll_1 == dll_2
         False
         >>> dll_1 == dll_1
@@ -506,8 +497,8 @@ class DoublyLinkedList(LinkedList):
         
         Examples
         --------
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 3, 2])
         >>> dll_1 != dll_2
         True
         >>> dll_1 != dll_1
@@ -544,28 +535,28 @@ class DoublyLinkedList(LinkedList):
         Examples
         --------
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3, 2])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 < dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 < dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 < dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 < dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 2, 3])
         >>> dll_1 < dll_2
         False
         """
@@ -600,28 +591,28 @@ class DoublyLinkedList(LinkedList):
         Examples
         --------
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3, 2])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 <= dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 <= dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 <= dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 <= dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 2, 3])
         >>> dll_1 <= dll_2
         True
         """
@@ -656,28 +647,28 @@ class DoublyLinkedList(LinkedList):
         Examples
         --------
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 > dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 = DoublyLinkedList([1, 3, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 2])
         >>> dll_1 > dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 > dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 > dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 2, 3])
         >>> dll_1 > dll_2
         False
         """
@@ -712,28 +703,28 @@ class DoublyLinkedList(LinkedList):
         Examples
         --------
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 3, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 >= dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 3, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 2])
+        >>> dll_1 = DoublyLinkedList([1, 3, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 2])
         >>> dll_1 >= dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 5])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 >= dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([5, 2, 1])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 3, 3])
+        >>> dll_1 = DoublyLinkedList([5, 2, 1])
+        >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 >= dll_2
         False
 
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2, 3])
-        >>> dll_2 = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll_1 = DoublyLinkedList([1, 2, 3])
+        >>> dll_2 = DoublyLinkedList([1, 2, 3])
         >>> dll_1 >= dll_2
         True
         """
@@ -760,7 +751,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 3, 5])
+        >>> dll = DoublyLinkedList([1, 3, 5])
         >>> 1 in dll
         True
         >>> 0 in dll
@@ -797,7 +788,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> prev_node, node = dll._get_node(2)
         >>> prev_node
         (DoublyNode(data: 2, prev: 1, next: 3)
@@ -847,7 +838,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> dll = DoublyLinkedList([1, 2, 3, 4, 5])
         >>> dll[0]
         1
         >>> dll[-2]
@@ -892,7 +883,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> new_node = DoublyNode(10)
         >>> dll._insert_node(dll._head, new_node)
         DoublyNode(data: 10, prev: 1, next: 2)
@@ -947,7 +938,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll.add_front(10)
         >>> dll
          ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -974,7 +965,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll.add_end(10)
         >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌────┐ 
@@ -1008,7 +999,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll.insert(1, 10)
         >>> dll
          ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
@@ -1041,8 +1032,8 @@ class DoublyLinkedList(LinkedList):
 
         Example
         -------
-        >>> dll_1 = DoublyLinkedList.from_iterable([1, 2])
-        >>> dll_2 = DoublyLinkedList.from_iterable([3, 4, 5])
+        >>> dll_1 = DoublyLinkedList([1, 2])
+        >>> dll_2 = DoublyLinkedList([3, 4, 5])
         >>> dll_1.extend(dll_2)
         >>> dll_1
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1096,7 +1087,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> ll = LinkedList.from_iterable([1, 2, 3])
+        >>> ll = LinkedList([1, 2, 3])
         >>> ll[0] = 10
         >>> ll[2] = 30
         >>> ll
@@ -1131,7 +1122,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll
          ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
@@ -1192,7 +1183,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> del dll[0]
         >>> dll
          ┌───┐ ┌───┐ 
@@ -1213,7 +1204,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll.remove_front()
         >>> dll
          ┌───┐ ┌───┐ 
@@ -1235,7 +1226,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll.remove_end()
         >>> dll
          ┌───┐ ┌───┐ 
@@ -1271,7 +1262,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> dll = DoublyLinkedList([1, 2, 3, 2, 2])
         >>> dll.remove(2, False)
         >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1294,7 +1285,7 @@ class DoublyLinkedList(LinkedList):
 
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
          ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └───┘ └───┘ 
@@ -1341,7 +1332,7 @@ class DoublyLinkedList(LinkedList):
 
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3])
+        >>> dll = DoublyLinkedList([1, 2, 3])
         >>> dll
          ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
@@ -1383,7 +1374,7 @@ class DoublyLinkedList(LinkedList):
         
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4])
+        >>> dll = DoublyLinkedList([1, 2, 3, 4])
         >>> dll.rotate_left(1)
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 1 │⟷
@@ -1426,7 +1417,7 @@ class DoublyLinkedList(LinkedList):
         
         Examples
         --------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4])
+        >>> dll = DoublyLinkedList([1, 2, 3, 4])
         >>> dll.rotate_right(1)
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 4 │⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
@@ -1459,7 +1450,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([1, 2, 3, 4])
+        >>> dll = DoublyLinkedList([1, 2, 3, 4])
         >>> dll.reverse()
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 4 │⟷│ 3 │⟷│ 2 │⟷│ 1 │⟷
@@ -1513,7 +1504,7 @@ class DoublyLinkedList(LinkedList):
         
         Example
         -------
-        >>> dll = DoublyLinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> dll = DoublyLinkedList([0, 1, 1, 2, 3, 5])
         >>> dll.count(3)
         1
         >>> dll.count(1)
