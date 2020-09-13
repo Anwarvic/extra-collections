@@ -52,8 +52,14 @@ from extra.lists.queue import Queue
 
 
 class Deque(Queue):
-    """Basic object for the Deque data structure"""
+    """
+    A deque, which is usually pronounced "deck", is a queue-like data structure
+    that supports insertion and deletion at both the front and the back of the
+    queue. Deque is a short for "double-ended queue". The deque is more general
+    than both the stack and the queue.
+    """
     __name__ = "extra.Deque()"
+
 
     def __init__(self, max_capacity=float("inf")):
         """
