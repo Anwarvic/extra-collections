@@ -210,7 +210,7 @@ class DoublyLinkedList(LinkedList):
     __name__ = "extra.DoublyLinkedList()"
    
    
-    def __init__(self):
+    def __init__(self, iterable=None):
         """
         Initializes a `DoublyLinkedList()` instance using an optional iterable
         object in time-complexity of O(n) where **n** is the number of elements
@@ -274,8 +274,27 @@ class DoublyLinkedList(LinkedList):
         ⟷│ 2 │⟷│ 5 │⟷
          └───┘ └───┘ 
         """
-        super().__init__()
-        self._tail = None
+        if iterable is None:
+            self._head = None
+            self._tail = None
+            self._length = 0
+        elif not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        elif isinstance(iterable, self.__class__):
+            #in case the given iterable is alread a DoublyLinkedList()
+            self._head = iterable._head
+            self._length = iterable._length
+            self._tail = iterable._tail
+        else:
+            self._head = None
+            self._tail = None
+            self._length = 0
+            prev_node = None
+            for item in iterable:
+                super()._validate_item(item)
+                if isinstance(item, Node): #Node here is generic
+                    item = item.get_data()
+                prev_node = super()._insert_value(prev_node, item)
     
 
     def _create_instance(self):
