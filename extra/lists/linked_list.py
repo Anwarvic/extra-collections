@@ -306,7 +306,9 @@ class LinkedList(Extra):
         elif not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         elif isinstance(iterable, self.__class__):
-            pass  #do nothing if the given iterable is alread a LinkedList()
+            #in case the given iterable is alread a LinkedList()
+            self._head = iterable._head
+            self._length = iterable._length
         else:
             self._head = None
             self._length = 0
