@@ -30,10 +30,10 @@ def test_not_empty_doubly_node():
     node.set_next(DoublyNode(get_string()))
     node.set_prev(DoublyNode(get_string()))
     # Given value: LinkedList()
-    dl = LinkedList.from_iterable(get_list())
+    dl = LinkedList(get_list())
     with pytest.raises(TypeError): DoublyNode(dl)
     # Given value: LinkedList()
-    dl = DoublyLinkedList.from_iterable(get_list())
+    dl = DoublyLinkedList(get_list())
     with pytest.raises(TypeError): DoublyNode(dl)
     
 
@@ -72,18 +72,18 @@ def test_creating_doubly_linked_list_from_constructor():
 def test_creating_doubly_linked_list_from_iterable():
     # Using from_iterable (small length)
     lst = get_list()
-    dl = DoublyLinkedList.from_iterable(lst)
+    dl = DoublyLinkedList(lst)
     assert dl._head.get_data() == lst[0]
     assert dl._tail.get_data() == lst[-1]
     assert len(dl) == dl._length == len(lst)
     assert dl.to_list() == [item for item in dl] == lst
     # Using from_iterable (has None)
-    with pytest.raises(ValueError): DoublyLinkedList.from_iterable([1, 2, None, 3])
+    with pytest.raises(ValueError): DoublyLinkedList([1, 2, None, 3])
     with pytest.raises(TypeError): DoublyLinkedList().add_end(LinkedList())
     with pytest.raises(TypeError): DoublyLinkedList().add_front(DoublyLinkedList())
     # Using from_iterable (big length)
     lst = get_list(length = 10000)
-    dl = DoublyLinkedList.from_iterable(lst)
+    dl = DoublyLinkedList(lst)
     assert dl._head.get_data() == lst[0]
     assert dl._tail.get_data() == lst[-1]
     assert len(dl) == dl._length == len(lst)
@@ -93,8 +93,8 @@ def test_creating_doubly_linked_list_from_iterable():
         assert dl[idx] == lst[idx]
     # Using Linked List
     lst = get_list()
-    tmp_dl = DoublyLinkedList.from_iterable(lst)
-    dl = DoublyLinkedList.from_iterable(tmp_dl)
+    tmp_dl = DoublyLinkedList(lst)
+    dl = DoublyLinkedList(tmp_dl)
     assert dl == tmp_dl
     assert len(dl) == dl._length == len(lst)
     assert dl.to_list() == [item for item in dl] == lst
@@ -120,11 +120,11 @@ def test_empty_doubly_linked_list():
     assert DoublyLinkedList() == DoublyLinkedList()
     assert dl == dl.copy()
     assert dl == dl.reverse()
-    assert DoublyLinkedList() != DoublyLinkedList.from_iterable([get_value()])
-    assert DoublyLinkedList() < DoublyLinkedList.from_iterable([get_value()])
-    assert DoublyLinkedList() <= DoublyLinkedList.from_iterable([get_value()])
-    assert DoublyLinkedList.from_iterable([get_value()]) > DoublyLinkedList()
-    assert DoublyLinkedList.from_iterable([get_value()]) >= DoublyLinkedList()
+    assert DoublyLinkedList() != DoublyLinkedList([get_value()])
+    assert DoublyLinkedList() < DoublyLinkedList([get_value()])
+    assert DoublyLinkedList() <= DoublyLinkedList([get_value()])
+    assert DoublyLinkedList([get_value()]) > DoublyLinkedList()
+    assert DoublyLinkedList([get_value()]) >= DoublyLinkedList()
     #################### test count ####################
     assert dl.count(0) == 0
     assert dl.count(None) == 0
@@ -273,9 +273,9 @@ def test_list_with_known_values():
     dl.insert(1, 200)
     dl.insert(1, 100)
     assert 100 in dl and 200 in dl
-    assert dl == DoublyLinkedList.from_iterable([100, 100, 200])
+    assert dl == DoublyLinkedList([100, 100, 200])
     assert dl.copy().to_list() == [100, 100, 200]
-    assert dl.reverse() == DoublyLinkedList.from_iterable([200, 100, 100])
+    assert dl.reverse() == DoublyLinkedList([200, 100, 100])
     dl.remove(100)
     rev = dl.reverse()
     assert dl == rev
@@ -332,21 +332,21 @@ def test_list_with_random_numbers():
 
 def test_relational_operators():
     # linked lists have just one value
-    assert DoublyLinkedList.from_iterable([3.14]) == DoublyLinkedList.from_iterable([3.14])
-    assert DoublyLinkedList.from_iterable([get_int()]) != DoublyLinkedList.from_iterable([get_float()])
-    assert DoublyLinkedList.from_iterable([get_string()]) != DoublyLinkedList.from_iterable([get_int()])
-    assert DoublyLinkedList.from_iterable([get_float()]) != DoublyLinkedList.from_iterable([get_list()])
-    assert DoublyLinkedList.from_iterable([2.9999]) < DoublyLinkedList.from_iterable([3])
-    assert DoublyLinkedList.from_iterable([3.14]) <= DoublyLinkedList.from_iterable([3.14])
-    assert DoublyLinkedList.from_iterable([1, 2]) > DoublyLinkedList.from_iterable([3])
-    assert DoublyLinkedList.from_iterable(['3.14']) >= DoublyLinkedList.from_iterable(['3.14'])
-    with pytest.raises(TypeError): DoublyLinkedList.from_iterable([get_float()]) < DoublyLinkedList.from_iterable([get_string()])
-    with pytest.raises(TypeError): DoublyLinkedList.from_iterable([get_value()]) <= DoublyLinkedList.from_iterable([get_list()])
-    with pytest.raises(TypeError): DoublyLinkedList.from_iterable([get_string()]) > DoublyLinkedList.from_iterable([get_list()])
-    with pytest.raises(TypeError): DoublyLinkedList.from_iterable([get_list()]) >= DoublyLinkedList.from_iterable([get_float()])
+    assert DoublyLinkedList([3.14]) == DoublyLinkedList([3.14])
+    assert DoublyLinkedList([get_int()]) != DoublyLinkedList([get_float()])
+    assert DoublyLinkedList([get_string()]) != DoublyLinkedList([get_int()])
+    assert DoublyLinkedList([get_float()]) != DoublyLinkedList([get_list()])
+    assert DoublyLinkedList([2.9999]) < DoublyLinkedList([3])
+    assert DoublyLinkedList([3.14]) <= DoublyLinkedList([3.14])
+    assert DoublyLinkedList([1, 2]) > DoublyLinkedList([3])
+    assert DoublyLinkedList(['3.14']) >= DoublyLinkedList(['3.14'])
+    with pytest.raises(TypeError): DoublyLinkedList([get_float()]) < DoublyLinkedList([get_string()])
+    with pytest.raises(TypeError): DoublyLinkedList([get_value()]) <= DoublyLinkedList([get_list()])
+    with pytest.raises(TypeError): DoublyLinkedList([get_string()]) > DoublyLinkedList([get_list()])
+    with pytest.raises(TypeError): DoublyLinkedList([get_list()]) >= DoublyLinkedList([get_float()])
     # linked lists have more than one value
-    dllist1 = DoublyLinkedList.from_iterable([1, '2', 3.14])
-    dllist2 = DoublyLinkedList.from_iterable([1, '2', 5.14])
+    dllist1 = DoublyLinkedList([1, '2', 3.14])
+    dllist2 = DoublyLinkedList([1, '2', 5.14])
     assert dllist1 == dllist1
     assert dllist1 != dllist2
     assert dllist1 < dllist2
@@ -369,7 +369,7 @@ def test_relational_operators():
     with pytest.raises(TypeError): assert dllist2 > actual_list
     with pytest.raises(TypeError): assert dllist2 >= actual_list
     # if the other one is a linked list
-    llist = LinkedList.from_iterable([1, '2', 5.14])
+    llist = LinkedList([1, '2', 5.14])
     with pytest.raises(TypeError): assert dllist1 == llist
     with pytest.raises(TypeError): assert dllist1 != llist
     with pytest.raises(TypeError): assert dllist1 < llist
@@ -380,7 +380,7 @@ def test_relational_operators():
 
 def test_rotate():
     # rotate when inplace = False
-    dl = DoublyLinkedList.from_iterable([1, 2, 3, 4, 5, 6])
+    dl = DoublyLinkedList([1, 2, 3, 4, 5, 6])
     rotated = dl.rotate_right(1, inplace=False)
     assert isinstance(rotated._head, DoublyNode)
     assert isinstance(rotated._tail, DoublyNode)
@@ -428,16 +428,16 @@ def test_extend_method():
     dllist1.extend(DoublyLinkedList())
     assert dllist1 == DoublyLinkedList()
     # one linked list is empty
-    dllist1 = DoublyLinkedList.from_iterable([])
-    dllist2 = DoublyLinkedList.from_iterable(lst)
+    dllist1 = DoublyLinkedList([])
+    dllist2 = DoublyLinkedList(lst)
     dllist1.extend(dllist2)
     assert dllist1 == dllist2
     assert len(dllist1) == len(lst)
     dllist2.extend(dllist1)
     assert len(dllist2) == 2*len(lst)
     # two linked lists are NOT empty
-    dllist1 = DoublyLinkedList.from_iterable(lst)
-    dllist2 = DoublyLinkedList.from_iterable(lst)
+    dllist1 = DoublyLinkedList(lst)
+    dllist2 = DoublyLinkedList(lst)
     dllist2.extend(dllist1)
     assert dllist1.to_list() == lst
     assert dllist2.to_list() == lst+lst
@@ -450,7 +450,7 @@ def test_extend_method():
 
 def test_split():
     lst = get_list(length=100)
-    dl = DoublyLinkedList.from_iterable(lst)
+    dl = DoublyLinkedList(lst)
     for i in range(len(lst)):
         # test left list
         left_list, right_list = dl.split(i)
