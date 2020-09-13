@@ -11,15 +11,17 @@ from extra.lists.priority_queue import PriorityQueue as PriorityQueue
 
 # trees
 from extra.trees.tree import Tree as Tree
+from extra.trees.tree import TreeNode as TreeNode
 from extra.trees.binary_tree import BinaryTree as BinaryTree
+from extra.trees.binary_tree import BinaryTreeNode as BinaryTreeNode
 from extra.trees.bst import BST as BST
 from extra.trees.splay_tree import SplayTree as SplayTree
 from extra.trees.avl import AVL as AVL
 from extra.trees.red_black_tree import RedBlackTree as RedBlackTree
-from extra.trees.heap import MinHeap as MinHeap
-from extra.trees.heap import MaxHeap as MaxHeap
+from extra.trees.min_heap import MinHeap as MinHeap
+from extra.trees.max_heap import MaxHeap as MaxHeap
 from extra.trees.treap import Treap as Treap
 from extra.trees.trie import Trie as Trie
 from extra.trees.radix_trie import RadixTrie as RadixTrie
-from extra.trees.suffix_trie import SuffixTrie as SuffixTries
+from extra.trees.suffix_trie import SuffixTrie as SuffixTrie
 
