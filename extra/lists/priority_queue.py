@@ -20,6 +20,7 @@ item in the PriorityQueue(), you can set the static variable `SHOW_PRIORITY` to
 
 >>> PriorityQueue.SHOW_PRIORITY = True
 
+
 [image]
 
 
@@ -54,7 +55,8 @@ Generally, we are going to use the following indicators in the table:
 
 Class Documentation
 ===================
-Here are all of the public methods that can be used with `PriorityQueue()` objects:
+Here are all of the public methods that can be used with `PriorityQueue()`
+objects:
 """
 import random
 import warnings
@@ -65,7 +67,7 @@ from extra.lists.queue import Queue
 
 
 class PriorityNode(DoublyNode):
-    """Basic object for item inside Priority PriorityQueue"""
+    """A priority node is the basic unit for building priority queues."""
     __name__ = "extra.DoublyNode()"
 
 
@@ -180,20 +182,27 @@ class PriorityNode(DoublyNode):
 
 
 class PriorityQueue(Queue):
-    """Basic object for the Priority PriorityQueue data structure."""
+    """
+    A priority queue is a collection of prioritized elements that allows
+    arbitrary element insertion, and allows the removal of the element that has
+    the highest priority. When an element is added to a priority queue, the user
+    designates its priority by providing an associated priority. The element
+    with the minimum priority will be the next to be removed from the queue.
+    """
     SHOW_PRIORITY = False
     __name__ = "extra.PriorityQueue()"
 
 
-    def __init__(self, max_capacity=float("inf")):
+    def __init__(self, max_capacity=float("inf"), seed=None):
         """
         Creates a PriorityQueue() object!!
         
         Parameters
         ----------
-        max_capacity: int
+        max_capacity: int (default: inf)
             It's a positive integer representing the maximum number of elements
-            a PriorityQueue() should contain (Default: inf).
+            a PriorityQueue() should contain.
+        seed: int, 
         
         Raises
         ------
