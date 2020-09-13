@@ -224,8 +224,8 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        DoublyLinkedList()
-            It returns a DoublyLinkedList() instance with the same values in
+        `DoublyLinkedList()`
+            It returns a `DoublyLinkedList()` instance with the same values in
             the same order.
         
         Raises
@@ -303,8 +303,8 @@ class DoublyLinkedList(LinkedList):
 
         Returns
         -------
-        DoublyLinkedList()
-            It returns an empty DoublyLinkedList() instance.
+        `DoublyLinkedList()`
+            It returns an empty `DoublyLinkedList()` instance.
         """
         return DoublyLinkedList()
     
@@ -312,7 +312,7 @@ class DoublyLinkedList(LinkedList):
     ##############################      PRINT     ##############################
     def _print_node(self, node):
         """
-        Prints the given node of the DoublyLinkedList() instance.
+        Prints the given node of the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -356,7 +356,7 @@ class DoublyLinkedList(LinkedList):
 
     def __repr__(self):
         """
-        Represents the DoublyLinkedList() instance as a string.
+        Represents the `DoublyLinkedList()` instance as a string.
 
         Returns
         -------
@@ -377,12 +377,12 @@ class DoublyLinkedList(LinkedList):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the DoublyLinkedList() in time-complexity of O(1)
+        Gets the length of the `DoublyLinkedList()` in time-complexity of O(1)
         
         Returns
         -------
         int:
-            The length of the DoublyLinkedList() instance. By Length, I mean
+            The length of the `DoublyLinkedList()` instance. By Length, I mean
             the number of nodes of in the instance.
         
         Examples
@@ -399,13 +399,13 @@ class DoublyLinkedList(LinkedList):
 
     def is_empty(self):
         """
-        Checks if DoublyLinkedList() instance is empty or not in time-
+        Checks if `DoublyLinkedList()` instance is empty or not in time-
         complexity of O(1).
         
         Returns
         -------
         bool:
-            A boolean flag showing if the DoublyLinkedList() instance is empty
+            A boolean flag showing if the `DoublyLinkedList()` instance is empty
             or not. `True` shows that this instance is empty and `False` shows
             it's not empty.
         
@@ -424,9 +424,9 @@ class DoublyLinkedList(LinkedList):
     ##############################    OPERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the DoublyLinkedList() instance and returns a generator
+        Iterates over the `DoublyLinkedList()` instance and returns a generator
         in time-complexity of O(n) where **n** is the number of elements in the 
-        DoublyLinkedList() instance.
+        `DoublyLinkedList()` instance.
 
         Returns
         -------
@@ -447,7 +447,7 @@ class DoublyLinkedList(LinkedList):
 
     def __eq__(self, other):
         """
-        Checks if two DoublyLinkedList() instances are equal to each other.
+        Checks if two `DoublyLinkedList()` instances are equal to each other.
         And this happens if, and only if, the following two conditions are met:
         
         1. The two instances are equal in length (have same number of elements).
@@ -458,7 +458,7 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        other: DoublyLinkedList()
+        other: `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -469,7 +469,7 @@ class DoublyLinkedList(LinkedList):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a DoublyLinkedList() instance.
+            1. If the other instance isn't a `DoublyLinkedList()` instance.
             2. In case one element in the first instance doesn't match the \
                 type of the opposing element in the other instance.
 
@@ -487,7 +487,7 @@ class DoublyLinkedList(LinkedList):
 
     def __ne__(self, other):
         """
-        Checks if two DoublyLinkedList() instances are NOT equal to each other.
+        Checks if two `DoublyLinkedList()` instances are NOT equal to each other.
         And this happens if, and only if, either one of the following two
         conditions is satisfied:
         
@@ -499,7 +499,7 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        other: DoublyLinkedList()
+        other: `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -528,14 +528,14 @@ class DoublyLinkedList(LinkedList):
 
     def __lt__(self, other):
         """
-        Checks if the first DoublyLinkedList() instance is less than the other
+        Checks if the first `DoublyLinkedList()` instance is less than the other
         instance. And this happens if all elements in the first instance are
         equal with at least one element less than the opposing element of the
         second instance.
 
         Parameters
         ----------
-        DoublyLinkedList()
+        `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -547,7 +547,7 @@ class DoublyLinkedList(LinkedList):
         Raises
         ------
         TypeError: This happens in two cases
-            1. If the other instance isn't a DoublyLinkedList() instance.
+            1. If the other instance isn't a `DoublyLinkedList()` instance.
             2. In case one element in the first instance doesn't match the \
                 type of the opposing element in the other instance.
 
@@ -584,14 +584,14 @@ class DoublyLinkedList(LinkedList):
 
     def __le__(self, other):
         """
-        Checks if the first DoublyLinkedList() instance is less than or equal to
+        Checks if the first `DoublyLinkedList()` instance is less than or equal to
         the other instance. And this happens if all elements in the first
         instance are equal or less than the opposing elements of the second
         instance.
 
         Parameters
         ----------
-        DoublyLinkedList()
+        `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -640,14 +640,14 @@ class DoublyLinkedList(LinkedList):
     
     def __gt__(self, other):
         """
-        Checks if the first DoublyLinkedList() instance is greater than the
+        Checks if the first `DoublyLinkedList()` instance is greater than the
         other instance. And this happens if all elements in the first instance
         are equal with at least one element greater than the opposing element of
         the second instance.
 
         Parameters
         ----------
-        DoublyLinkedList()
+        `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -696,14 +696,14 @@ class DoublyLinkedList(LinkedList):
 
     def __ge__(self, other):
         """
-        Checks if the first DoublyLinkedList() instance is greater than or equal
+        Checks if the first `DoublyLinkedList()` instance is greater than or equal
         to the other instance. And this happens if all elements in the first
         instance are greater than or equal to the opposing element of the
         second instance.
 
         Parameters
         ----------
-        DoublyLinkedList()
+        `DoublyLinkedList()`
             The other instance that we want to compare with the current one
         
         Returns
@@ -753,19 +753,19 @@ class DoublyLinkedList(LinkedList):
     ##############################     SEARCH     ##############################
     def __contains__(self, value):
         """
-        Checks if the given value exists in the DoublyLinkedList() instance in
+        Checks if the given value exists in the `DoublyLinkedList()` instance in
         time-complexity of O(n) where **n** is the total number of elements in
-        the DoublyLinkedList() instance.
+        the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
         value: Object
-            The value to be searched for in the DoublyLinkedList() instance.
+            The value to be searched for in the `DoublyLinkedList()` instance.
         
         Returns
         -------
         bool
-            `True` if the given value exists in the DoublyLinkedList() instance,
+            `True` if the given value exists in the `DoublyLinkedList()` instance,
             and `False` otherwise.
 
         Examples
@@ -783,9 +783,9 @@ class DoublyLinkedList(LinkedList):
 
     def _get_node(self, idx):
         """
-        Iterates over the DoublyLinkedList() instance and returns the node at
+        Iterates over the `DoublyLinkedList()` instance and returns the node at
         the given index. If the given index is less than half of the
-        DoublyLinkedList() length, it starts iterating from left to right. And
+        `DoublyLinkedList()` length, it starts iterating from left to right. And
         if the index is bigger, it starts iterating from right to left in order
         to make the searching process a little bit faster.
 
@@ -840,19 +840,19 @@ class DoublyLinkedList(LinkedList):
         ----------
         idx: int or slice
             The index (multiple indices) to be used to retrieve values from the
-            DoublyLinkedList() instance.
+            `DoublyLinkedList()` instance.
         
         Returns
         -------
-        object or DoublyLinkedList():
+        object or `DoublyLinkedList()`:
             If the given index is an `int`, then it returns the value at this 
             index. If the given index is a `slice` object, then it returns a 
-            DoublyLinkedList() instance containing the desired values.
+            `DoublyLinkedList()` instance containing the desired values.
         
         Raises
         ------
         TypeError: If the given index isn't `int`.
-        IndexError: If the given index is out of the DoublyLinkedList()
+        IndexError: If the given index is out of the `DoublyLinkedList()`
             boundaries.
 
         Examples
@@ -892,7 +892,7 @@ class DoublyLinkedList(LinkedList):
         -------
         DoublyNode():
             A reference to the new node after being inserted in the
-            DoublyLinkedList().
+            `DoublyLinkedList()`.
             
         Raises
         ------
@@ -942,13 +942,13 @@ class DoublyLinkedList(LinkedList):
 
     def add_front(self, item):
         """
-        Adds the given value at the head of the DoublyLinkedList() instance in
+        Adds the given value at the head of the `DoublyLinkedList()` instance in
         time-complexity of O(1).
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the DoublyLinkedList() head.
+            The value to be inserted at the `DoublyLinkedList()` head.
         
         Raises
         ------
@@ -969,13 +969,13 @@ class DoublyLinkedList(LinkedList):
 
     def add_end(self, item):
         """
-        Adds the given value at the tail of the DoublyLinkedList() instance in
+        Adds the given value at the tail of the `DoublyLinkedList()` instance in
         time-complexity of O(1).
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the DoublyLinkedList() tail.
+            The value to be inserted at the `DoublyLinkedList()` tail.
         
         Raises
         ------
@@ -1009,7 +1009,7 @@ class DoublyLinkedList(LinkedList):
         Raises
         ------
         IndexError: This happens in one of the following cases: 
-            1. If the given index is out of the DoublyLinkedList() boundaries.
+            1. If the given index is out of the `DoublyLinkedList()` boundaries.
             2. If the given index is less than zero (-ve).
         TypeError: This happens in one of the following cases:
             1. If the given index isn't integer.
@@ -1036,18 +1036,18 @@ class DoublyLinkedList(LinkedList):
 
     def extend(self, other):
         """
-        Extends the current DoublyLinkedList() instance by appending the
-        elements of the other DoublyLinkedList() instance in time-complexity of
+        Extends the current `DoublyLinkedList()` instance by appending the
+        elements of the other `DoublyLinkedList()` instance in time-complexity of
         O(1).
 
         Parameters
         ----------
-        other: DoublyLinkedList()
-            The DoublyLinkedList() instance whose elements will be appended.
+        other: `DoublyLinkedList()`
+            The `DoublyLinkedList()` instance whose elements will be appended.
                 
         Raises
         ------
-        TypeError: If the given object isn't a DoublyLinkedList() instance.
+        TypeError: If the given object isn't a `DoublyLinkedList()` instance.
 
         Example
         -------
@@ -1080,7 +1080,7 @@ class DoublyLinkedList(LinkedList):
         """
         Replaces the value at the given index with the given item. It does that
         in time-complexity of O(min(k,n/2)) where **k** is the index value and
-        **n** is the number of elements in the DoublyLinkedList() instance.
+        **n** is the number of elements in the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1124,7 +1124,7 @@ class DoublyLinkedList(LinkedList):
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         """
-        Removes a node from the DoublyLinkedList() instance.
+        Removes a node from the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1182,7 +1182,7 @@ class DoublyLinkedList(LinkedList):
         """
         Deletes the value at the given index. It does that in time-complexity
         of O(min(k,n/2)) where **k** is the index value and **n** is the number
-        of elements in the DoublyLinkedList() instance.
+        of elements in the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1218,7 +1218,7 @@ class DoublyLinkedList(LinkedList):
 
     def remove_front(self):
         """
-        Removes the value at the head of the DoublyLinkedList() instance in time-
+        Removes the value at the head of the `DoublyLinkedList()` instance in time-
         complexity of O(1).
 
         Examples
@@ -1240,7 +1240,7 @@ class DoublyLinkedList(LinkedList):
 
     def remove_end(self):
         """
-        Removes the value at the tail of the DoublyLinkedList() instance in
+        Removes the value at the tail of the `DoublyLinkedList()` instance in
         time-complexity of O(1).
 
         Examples
@@ -1267,7 +1267,7 @@ class DoublyLinkedList(LinkedList):
         Parameters
         ----------
         value: object
-            The value to be removed from the DoublyLinkedList() instance.
+            The value to be removed from the `DoublyLinkedList()` instance.
         all: bool
             A flag (default: `True`); if `True`, all occurrences of the given
             value are remove. If `False`, only the first occurrence is removed.
@@ -1299,7 +1299,7 @@ class DoublyLinkedList(LinkedList):
 
     def clear(self):
         """
-        Removes all nodes within the DoublyLinkedList() in time-complexity of
+        Removes all nodes within the `DoublyLinkedList()` in time-complexity of
         O(1).
 
         Example
@@ -1322,32 +1322,32 @@ class DoublyLinkedList(LinkedList):
     ##############################      SPLIT     ##############################
     def split(self, idx):
         """
-        Splits the DoublyLinkedList() instance into two instances based on the
+        Splits the `DoublyLinkedList()` instance into two instances based on the
         given index in time-complexity of O(min(k,n/2)) where **k** is the index
         and **n** is the number of elements in the original instance. We can
-        consider `idx` as the start index of the second DoublyLinkedList() after
-        splitting. If `idx=0`, then the first returned DoublyLinkedList() will
-        be empty while the second returned DoublyLinkedList() will be the same
+        consider `idx` as the start index of the second `DoublyLinkedList()` after
+        splitting. If `idx=0`, then the first returned `DoublyLinkedList()` will
+        be empty while the second returned `DoublyLinkedList()` will be the same
         length as the original.
 
         Parameters
         ----------
         idx: int
             A positive integer pointing to the index at which the 
-            DoublyLinkedList() instance should be split.
+            `DoublyLinkedList()` instance should be split.
         
         Returns
         -------
-        DoublyLinkedList(): 
-            The left DoublyLinkedList() instance returned after split.
-        DoublyLinkedList(): 
-            The right DoublyLinkedList() instance returned after split
+        `DoublyLinkedList()`: 
+            The left `DoublyLinkedList()` instance returned after split.
+        `DoublyLinkedList()`: 
+            The right `DoublyLinkedList()` instance returned after split
         
         Raises
         ------
         TypeError: If the given index isn't `int`.
         IndexError: If the given index is either negative or out of the
-            DoublyLinkedList() boundaries.
+            `DoublyLinkedList()` boundaries.
 
         Examples
         --------
@@ -1372,11 +1372,11 @@ class DoublyLinkedList(LinkedList):
     ##############################    ROTATION    ##############################
     def rotate_left(self, distance, inplace=True):
         """
-        Rotates the DoublyLinkedList() instance to the left by a certain given
+        Rotates the `DoublyLinkedList()` instance to the left by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
         of O(min(k,n/2)) where **k** is the index and  **n** is the number of
-        elements in the DoublyLinkedList() instance.
+        elements in the `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1388,7 +1388,7 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        DoublyLinkedList():
+        `DoublyLinkedList()`:
             The rotated instance if `inplace=True`
         
         Examples
@@ -1407,7 +1407,7 @@ class DoublyLinkedList(LinkedList):
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
         super()._validate_distance(distance)
-        rotated = self._rotate(distance, "LEFT")
+        rotated = super()._rotate(distance, "LEFT")
         if not inplace: return rotated
         self._head = rotated._head
         self._tail = rotated._tail
@@ -1415,7 +1415,7 @@ class DoublyLinkedList(LinkedList):
     
     def rotate_right(self, distance, inplace=True):
         """
-        Rotates the DoublyLinkedList() instance to the right by a certain given
+        Rotates the `DoublyLinkedList()` instance to the right by a certain given
         `distance`. If `inplace=True`, it does the rotation in-place. If not, 
         it returns the rotated instance. The time-compelxity of this method is
         O(min(k,n/2)) where **k** is the index and **n** is the number of
@@ -1431,7 +1431,7 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        DoublyLinkedList():
+        `DoublyLinkedList()`:
             The rotated instance if `inplace=True`
         
         Examples
@@ -1450,7 +1450,7 @@ class DoublyLinkedList(LinkedList):
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
         super()._validate_distance(distance)
-        rotated = self._rotate(distance, "RIGHT")
+        rotated = super()._rotate(distance, "RIGHT")
         if not inplace: return rotated
         self._head = rotated._head
         self._tail = rotated._tail
@@ -1459,13 +1459,13 @@ class DoublyLinkedList(LinkedList):
     ##############################      MISC      ##############################
     def reverse(self):
         """
-        Reverses the whole DoublyLinkedList() instance in time-complexity of
-        O(n) where **n** is the number of elements in the DoublyLinkedList().
+        Reverses the whole `DoublyLinkedList()` instance in time-complexity of
+        O(n) where **n** is the number of elements in the `DoublyLinkedList()`.
 
         Returns
         -------
-        DoublyLinkedList():
-            The reversed DoublyLinkedList() instance.
+        `DoublyLinkedList()`:
+            The reversed `DoublyLinkedList()` instance.
         
         Example
         -------
@@ -1480,14 +1480,14 @@ class DoublyLinkedList(LinkedList):
 
     def to_list(self):
         """
-        Converts the DoublyLinkedList() instance to a `list` in time-complexity
+        Converts the `DoublyLinkedList()` instance to a `list` in time-complexity
         of O(n) where **n** is the number of elements in the instance.
 
         Returns
         -------
         list:
             A `list` object containing the same elements as the
-            DoublyLinkedList() instance.
+            `DoublyLinkedList()` instance.
         
         Example
         -------
@@ -1508,7 +1508,7 @@ class DoublyLinkedList(LinkedList):
     def count(self, value):
         """
         Counts the number of occurrence the given value is in our
-        DoublyLinkedList() instance.
+        `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1519,7 +1519,7 @@ class DoublyLinkedList(LinkedList):
         -------
         int:
             The number of times the given value is found in the
-            DoublyLinkedList() instance. And 0 if it wasn't found.
+            `DoublyLinkedList()` instance. And 0 if it wasn't found.
         
         Example
         -------
@@ -1536,11 +1536,11 @@ class DoublyLinkedList(LinkedList):
 
     def copy(self):
         """
-        Copies the DoublyLinkedList() instance in a shallow-manner.
+        Copies the `DoublyLinkedList()` instance in a shallow-manner.
 
         Returns
         -------
-        DoublyLinkedList():
+        `DoublyLinkedList()`:
             The shallow copy of the original instance.
         
         Example
