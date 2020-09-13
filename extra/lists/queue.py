@@ -1,5 +1,5 @@
 """
-A queue is a close cousin of the queue, as a queue is a collection of objects
+A queue is a close cousin of the stack, as a queue is a collection of objects
 that are inserted and removed according to the first-in, first-out (FIFO)
 principle. That is, elements can be inserted at any time,
 but only the element that has been in the queue the longest can be next removed.
@@ -49,7 +49,14 @@ from extra.lists.doubly_linked_list import DoublyLinkedList
 
 
 class Queue(Extra):
-    """Basic object for the Queue data structure"""
+    """
+    A queue is a close cousin of the stack, as a queue is a collection of
+    objects that are inserted and removed according to the first-in, first-out
+    (FIFO) principle. That is, elements can be inserted at any time, but only
+    the element that has been in the queue the longest can be next removed. We
+    usually say that elements enter a queue at the back and are removed from the
+    front.
+    """
     __name__ = "extra.Queue()"
     
     
