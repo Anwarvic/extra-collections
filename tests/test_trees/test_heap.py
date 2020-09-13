@@ -1,7 +1,8 @@
 import pytest
 from tests import *
 from extra.trees._heap import Heap, HeapNode
-from extra.trees.heap import MinHeap, MaxHeap
+from extra.trees.min_heap import MinHeap
+from extra.trees.max_heap import MaxHeap
 
 
 
