@@ -104,7 +104,7 @@ def verify_treap_priority(start_node):
 
 
 def verify_skiplist(skiplist):
-    for level in range(skiplist.num_levels):
+    for level in range(skiplist.get_height()):
         curr_node = skiplist._level_lists[level]._head
         if curr_node.get_data() != float("-inf"):
             return False
