@@ -11,6 +11,8 @@ to the the former, like insertion, deletion, or even a search, should be
 followed by a move-to-root operation called "splaying" that changes the
 structure of the tree. 
 
+[image]
+
 To understand the splaying operation even more, let's look at the the following
 SplayTree which is a BST in a first place.
 
@@ -63,7 +65,7 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_depth()              | Gets the Splay Tree's depth.                       | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
+| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_balanced()            | Checks if the Splay Tree is balanced.              | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -120,30 +122,15 @@ class SplayTree(BST):
     __name__ = "extra.SplayTree()"
     
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """
-        Creates an empty `SplayTree()` object!!
-        
-        Example
-        -------
-        >>> stree = SplayTree()
-        >>> type(stree)
-        <class 'extra.trees.splay_tree.SplayTree'>
-        """
-        super().__init__()
-        self._length = 0
-
-
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates a `SplayTree()` instance using an iterable
+        Initializes a `SplayTree()` instance using an optional iterable object
         in time-complexity of O(n) where **n** is the number of elements inside
         the given `iterable`.
 
         Parameters
         ----------
-        iterable: iterable
+        iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
@@ -164,7 +151,7 @@ class SplayTree(BST):
 
         Examples
         --------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -175,21 +162,21 @@ class SplayTree(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> stree = SplayTree.from_iterable([2, None])
+        >>> stree = SplayTree([2, None])
         ValueError: Can't use `None` as an element within `extra.SplayTree()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> stree = SplayTree.from_iterable(2)
+        >>> stree = SplayTree(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `SplayTree()` objects will raise `TypeError` as well
 
-        >>> stree_1 = SplayTree.from_iterable([1])
-        >>> stree_2 = SplayTree.from_iterable([1, stree_1])
+        >>> stree_1 = SplayTree([1])
+        >>> stree_2 = SplayTree([1, stree_1])
         TypeError: Can't create `extra.SplayTree()` using `extra.SplayTree()`!!
         """
-        return super().from_iterable(iterable)
+        super().__init__(iterable)
 
 
     ##############################     LENGTH     ##############################
@@ -205,7 +192,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -259,7 +246,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -289,7 +276,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -453,7 +440,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -564,7 +551,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -611,7 +598,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -635,7 +622,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -662,7 +649,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -694,7 +681,7 @@ class SplayTree(BST):
 
         Example
         -------
-       >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -725,7 +712,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -756,7 +743,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -782,7 +769,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -809,7 +796,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -837,7 +824,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -868,7 +855,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -898,7 +885,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -925,7 +912,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -952,7 +939,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -978,7 +965,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -1023,7 +1010,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -1052,7 +1039,7 @@ class SplayTree(BST):
 
         Example
         -------
-        >>> stree = SplayTree.from_iterable([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
