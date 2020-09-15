@@ -106,7 +106,7 @@ def test_splay_tree_example3():
     stree = SplayTree()
     stree._root = BSTNode(50)
     lst = []
-    for i, item in enumerate([50, 20, 70, 30, 60, 80, 2, 28, 35]):
+    for _, item in enumerate([50, 20, 70, 30, 60, 80, 2, 28, 35]):
         stree.insert(item)
         lst.append(item)
         assert stree._root.get_data() == item
