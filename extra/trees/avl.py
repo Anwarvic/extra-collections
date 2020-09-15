@@ -32,7 +32,7 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+--------------------------------------------------+------------+---------+
 | get_depth()              | Gets the AVL Tree's depth.                       | O(n)       | O(1)    |
 +--------------------------+--------------------------------------------------+------------+---------+
-| get_nodes()              | Returns a list of all nodes per level.           | O(n)       | O(n)    |
+| get_nodes_per_level()    | Returns a list of all nodes per level.           | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
 | is_balanced()            | Checks if the AVL Tree is balanced.              | O(n)       | O(1)    |
 +--------------------------+--------------------------------------------------+------------+---------+
@@ -232,7 +232,7 @@ class AVLNode(BSTNode):
         -------
         >>> x = AVLNode(10)
         >>> x
-        >>> AVLNode(10)
+        AVLNode(10)
         """
         return f"AVLNode({self._data})"
     
@@ -252,29 +252,15 @@ class AVL(BST):
     __name__ = "extra.AVL()"
     
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """
-        Creates an empty `AVL()` object!!
-        
-        Example
-        -------
-        >>> avl = AVL()
-        >>> type(avl)
-        <class 'extra.trees.avl.AVL'>
-        """
-        super().__init__()
-    
-
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates an `AVL()` instance using an iterable
-        in time-complexity of O(n) where **n** is the number of elements inside
+        Initializes an `AVL()` instance using an optional iterable object in
+        time-complexity of O(n) where **n** is the number of elements inside
         the given `iterable`.
 
         Parameters
         ----------
-        iterable: iterable
+        iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
@@ -295,7 +281,7 @@ class AVL(BST):
 
         Examples
         --------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -306,22 +292,22 @@ class AVL(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> avl = AVL.from_iterable([2, None])
+        >>> avl = AVL([2, None])
         ValueError: Can't use `None` as an element within `extra.AVL()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> avl = AVL.from_iterable(2)
+        >>> avl = AVL(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `AVL()` objects will raise `TypeError` as well
 
-        >>> avl_1 = AVL.from_iterable([1])
-        >>> avl_2 = AVL.from_iterable([1, avl_1])
+        >>> avl_1 = AVL([1])
+        >>> avl_2 = AVL([1, avl_1])
         TypeError: Can't create `extra.AVL()` using `extra.AVL()`!!
         """
-        return super().from_iterable(iterable)
-
+        super().__init__(iterable)
+    
 
     ##############################     LENGTH     ##############################
     def __len__(self):
@@ -336,7 +322,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -390,7 +376,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -420,7 +406,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -452,7 +438,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -577,7 +563,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -626,7 +612,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -681,7 +667,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -705,7 +691,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -732,7 +718,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -841,7 +827,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -874,7 +860,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -905,7 +891,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -931,7 +917,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -958,7 +944,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -986,7 +972,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1017,7 +1003,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1047,7 +1033,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1074,7 +1060,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1101,7 +1087,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1127,7 +1113,7 @@ class AVL(BST):
         
         Example
         -------
-        >>> avl = AVL.from_iterable([[2, 5, 4, 6, 3])
+        >>> avl = AVL([[2, 5, 4, 6, 3])
         >>> avl
           3__
          /   \\
@@ -1172,7 +1158,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1201,7 +1187,7 @@ class AVL(BST):
 
         Example
         -------
-        >>> avl = AVL.from_iterable([1, 2, 3, 4, 5, 6, 7])
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
         >>> avl
             __4__
            /     \\
@@ -1214,6 +1200,6 @@ class AVL(BST):
         >>> avl.is_empty()
         True
         """
-        super.clear()
+        super().clear()
 
 
