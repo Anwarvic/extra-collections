@@ -6,6 +6,8 @@ elements at most. We typically call the top element of the binary search tree,
 "the root". The root is drawn as the highest element, with the other elements
 being connected below (just the opposite of an actual tree).
 
+[image]
+
 In other words, we can consider the binary search tree as a binary tree that 
 stores numbers where the value stored in a certain node is greater than all the 
 numbers found in the node's left subtree and less than those found in the node's
@@ -93,7 +95,8 @@ optimal time complexity that I will try to reach in future releases Insha'Allah.
 Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
-- **h** is the height of the BST which approximatley equals to **log(n)**.
+- **h** is the height of the BST which approximatley equals to **log(n)** \
+    when the tree is balanced.
 
 +--------------------------+----------------------------------------------------+------------+---------+
 | Method                   | Description                                        | Worst-case | Optimal |
@@ -112,7 +115,7 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_depth()              | Gets the BST's depth.                              | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
+| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_balanced()            | Checks if the BST is balanced.                     | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -172,7 +175,7 @@ class BSTNode(BinaryTreeNode):
     def __init__(self, value):
         """
         Creates a `BSTNode()` object which is the basic unit for building 
-        BST() objects!!
+        `BST()` objects!!
 
         Parameters
         ----------
@@ -197,9 +200,9 @@ class BSTNode(BinaryTreeNode):
         Returns
         -------
         BSTNode() or None:
-            The parent of the current `BSTNode()` which could be a `BSTNode() 
-            object or `None` in case the current `BSTNode()` is the root of the
-            `BST()`.
+            A reference to the parent of the current `BSTNode()` which could be
+            a `BSTNode() object or `None` in case the current `BSTNode()` is the
+            root of the `BST()`.
         """
         return self._parent
 
@@ -341,7 +344,7 @@ class BSTNode(BinaryTreeNode):
         -------
         >>> x = BSTNode(10)
         >>> x
-        >>> BSTNode(10)
+        BSTNode(10)
         """
         return f"BSTNode({self._data})"
 
@@ -353,24 +356,74 @@ class BST(BinaryTree):
     A BST is a non-linear data structure that can be defined recursively
     using a collection of `BSTNode()` instances, where each node contains a 
     numeric value and it has either zero, one or two references to the children
-    `BSTNode()` instances.
+    `BSTNode()` instances. And the value holding by the node must be greater
+    than all values being hold by the left subtree and smaller that all the
+    values being hold by the right subtree.
     """
     _basic_node = BSTNode
     __name__ = "extra.BST()"
 
 
-    def __init__(self):
-        """
-        Creates an empty `BST()` object!!
+    def __init__(self, iterable=None):
+        """      
+        Initializes a `BST()` instance using an optiona iterable object in time-
+        complexity of O(n) where **n** is the number of elements inside the
+        given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable (default: None)
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
         
-        Example
-        -------
-        >>> t = BST()
-        >>> type(t)
-        <class 'extra.trees.bst.BST'>
+        Raises
+        ------
+        TypeError: It can be raised in three cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is an `Extra` object.
+            3. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> BST([2, None])
+        ValueError: Can't use `None` as an element within `extra.BST()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> BST(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `BST()` objects will raise `TypeError` as well
+
+        >>> bst_1 = BST([1])
+        >>> bst_2 = BST([1, bst_1])
+        TypeError: Can't create `extra.BST()` using `extra.BST()`!!
         """
-        super().__init__()
-        self._length = 0
+        if iterable is None:
+            super().__init__()
+            self._length = 0
+        elif not hasattr(iterable, "__iter__"):
+            raise TypeError("The given object isn't iterable!!")
+        else:
+            super().__init__()
+            self._length = 0
+            for item in iterable:
+                self.insert(item)
 
 
     def _validate_item(self, item):
@@ -394,72 +447,6 @@ class BST(BinaryTree):
             raise TypeError(f"`{self.__name__}` accepts only numbers!!")
     
 
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates a `BST()` instance using an iterable
-        in time-complexity of O(n) where **n** is the number of elements inside
-        the given `iterable`.
-
-        Parameters
-        ----------
-        iterable: any iterable object.
-            An iterable python object that implements the `__iter__` method.
-            For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        BST()
-            It returns a `BST()` instance with input values being inserted.
-        
-        Raises
-        ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
-
-        ValueError: If one of the iterable elements is `None`.
-
-        Examples
-        --------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
-        >>> bst
-              __8___
-             /      \\
-          __5       _15
-         /   \\    /
-        2     7   10
-         \\
-          3
-
-        Using an iterable object with `None` as one of its elements will raise
-        `ValueError`
-
-        >>> bst = BST.from_iterable([2, None])
-        ValueError: Can't use `None` as an element within `extra.BST()`!!
-        
-        Using a non-iterable object will raise `TypeError`
-
-        >>> bst = BST.from_iterable(2)
-        TypeError: The given object isn't iterable!!
-        
-        Using nested `BST()` objects will raise `TypeError` as well
-
-        >>> bst_1 = BST.from_iterable([1])
-        >>> bst_2 = BST.from_iterable([1, bst_1])
-        TypeError: Can't create `extra.BST()` using `extra.BST()`!!
-        """
-        if not hasattr(iterable, "__iter__"):
-            raise TypeError("The given object isn't iterable!!")
-        if len(iterable) == 0:
-            raise ValueError("The given iterable is empty!!")
-        bst = cls()
-        for item in iterable:
-            bst.insert(item)
-        return bst
-
-
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
@@ -474,11 +461,11 @@ class BST(BinaryTree):
         Example
         -------
         >>> bst = BST.from_itearble([2, 1, 3])
-        >>> btree
+        >>> bst
             __2__
            /     \\
           1       3
-        >>> len(btree)
+        >>> len(bst)
         3
         """
         return self._length
@@ -492,7 +479,7 @@ class BST(BinaryTree):
         Returns
         -------
         bool:
-            A boolean flag showing if the `BDT()` instance is empty or not.
+            A boolean flag showing if the `BST()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's
             not empty.
         
@@ -541,8 +528,8 @@ class BST(BinaryTree):
 
     def get_max(self):
         """
-        Gets the maximum `BSTNode()` in the `BST()` isntance. The maximum
-        value can be found at the right-most tree node in the `BST()` instance.
+        Gets the maximum value in the `BST()` isntance. The maximum value can be
+        found at the right-most tree node in the `BST()` instance.
 
         Returns
         -------
@@ -555,7 +542,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -608,8 +595,8 @@ class BST(BinaryTree):
 
     def get_min(self):
         """
-        Gets the minimum `BSTNode()` in the `BST()` isntance. The minimum
-        value can be found at the left-most tree node in the `BST()` instance.
+        Gets the minimum value in the `BST()` isntance. The minimum value can be
+        found at the left-most tree node in the `BST()` instance.
 
         Returns
         -------
@@ -622,7 +609,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -670,7 +657,7 @@ class BST(BinaryTree):
 
         Examples
         --------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -719,7 +706,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -909,7 +896,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1002,7 +989,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1066,7 +1053,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1124,7 +1111,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([1, 2, 3])
+        >>> bst = BST([1, 2, 3])
         >>> bst
         1
          \\
@@ -1167,7 +1154,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([3, 2, 1])
+        >>> bst = BST([3, 2, 1])
         >>> bst
             3
            /
@@ -1211,7 +1198,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([3, 1, 2])
+        >>> bst = BST([3, 1, 2])
         >>> bst
           __3
          /
@@ -1257,7 +1244,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([1, 3, 2])
+        >>> bst = BST([1, 3, 2])
         >>> bst
         1__
            \\
@@ -1325,7 +1312,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1351,7 +1338,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1380,7 +1367,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1414,7 +1401,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1447,7 +1434,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1458,7 +1445,7 @@ class BST(BinaryTree):
           3
         >>> bst.is_perfect()
         False
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 20])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 20])
         >>> bst
               __8___
              /      \\
@@ -1475,7 +1462,7 @@ class BST(BinaryTree):
     def is_strict(self):
         """
         Checks if the `BST()` instance is strict. A BST is strict if all its
-        all its non-leaf nodes has two children (left and right).
+        non-leaf nodes have two children (left and right).
 
         Returns
         -------
@@ -1489,7 +1476,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1517,7 +1504,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1546,7 +1533,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1576,7 +1563,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1609,7 +1596,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1641,7 +1628,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1670,7 +1657,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1682,7 +1669,7 @@ class BST(BinaryTree):
         >>> bst.postorder_traverse()
         [3, 2, 7, 5, 10, 15, 8]
         """
-        return self.__postorder_traverse(self._root)
+        return super().postorder_traverse()
 
 
     ##############################    In-Order    ##############################
@@ -1699,7 +1686,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1714,7 +1701,7 @@ class BST(BinaryTree):
         return super().inorder_traverse()
 
 
-    #############################  BREADTH-FIRST ##############################
+    ##############################  BREADTH-FIRST ##############################
     def breadth_first_traverse(self):
         """
         Traverses the `BST()` instance in breadth-first manner. Which means that
@@ -1727,7 +1714,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1774,7 +1761,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1805,7 +1792,7 @@ class BST(BinaryTree):
 
         Example
         -------
-        >>> bst = BST.from_iterable([8, 5, 2, 7, 15, 10, 3])
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
         >>> bst
               __8___
              /      \\
@@ -1820,6 +1807,6 @@ class BST(BinaryTree):
         >>> bst.is_empty()
         True
         """
-        super.clear()
+        super().clear()
 
 
