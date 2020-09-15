@@ -412,7 +412,7 @@ def test_right_left_rotation():
 
 def test_remove_avl():
     # src: Data Structures and Algorithms in Python Book (page: 508)
-    avl = AVL.from_iterable([44, 62, 17, 32, 50, 78, 48, 54, 88])
+    avl = AVL([44, 62, 17, 32, 50, 78, 48, 54, 88])
     avl.remove(17)
     avl.remove(50)
     avl.remove(62)
