@@ -27,7 +27,7 @@ def test_red_black_node():
 
 
 def test_red_black_tree_from_iterable():
-    rbtree = RedBlackTree.from_iterable([7, 3, 0])
+    rbtree = RedBlackTree([7, 3, 0])
     # test tree characteristics
     assert verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
