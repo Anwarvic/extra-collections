@@ -3,8 +3,8 @@ A treap is a binary tree that stores a collection of nodes. Each node in the
 treap contains two main values:
 
 - **data**: The numeric value inserted to the treap.
-- **priority**: A numeric value that indicates how important this node is. 
-    The bigger this numeric value is, the higher its priority in the treap
+- **priority**: A numeric value that indicates how important this node is. \
+    The bigger this numeric value is, the higher its priority in the treap \
     becomes.
 
 Each node in the treap must satisfy two additional properties:
@@ -190,7 +190,7 @@ class TreapNode(BSTNode):
         -------
         >>> x = TreapNode(10, priority=0)
         >>> x
-        >>> TreapNode(data: 10, priority: 0)
+        TreapNode(data: 10, priority: 0)
         """
         return f"TreapNode(data: {self._data}, Priority: {self._priority})"
 
@@ -236,53 +236,28 @@ class Treap(BST):
     additional properties: 
     
     1. node's data must follow the rules of binary search tree.
-    2. node's priority must follow the rules of max heap where the node with the
-    heighest priority must always be at the root without breaking the rules of
-    BST.
+    2. node's priority must follow the rules of max heap where the node with \
+        the heighest priority must always be at the root without breaking the \
+            rules ofBST.
     """
     SHOW_PRIORITY = False
     _basic_node = TreapNode
     __name__ = "extra.Treap()"
     
 
-    def __init__(self, seed=None):
+    def __init__(self, iterable=None, seed=None):
         """
-        Creates an empty `Treap()` object!!
-
-        Parameters
-        ----------
-        seed: int or float (default: None)
-            A seed to generate consistent random numbers.
-        
-        Example
-        -------
-        >>> treap = Treap()
-        >>> type(treap)
-        <class 'extra.trees.treap.Treap'>
-        """
-        random.seed(seed)
-        super().__init__()
-
-    
-    @classmethod
-    def from_iterable(cls, iterable, seed=None):
-        """
-        A class method which creates a `Treap()` instance using an iterable
-        in time-complexity of O(n) where **n** is the number of elements inside
+        Initializes a `Treap()` instance using an optional iterable object in
+        time-complexity of O(n) where **n** is the number of elements inside
         the given `iterable`.
 
         Parameters
         ----------
-        iterable: iterable
+        iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         seed: int or float (default: None)
             A seed to generate consistent random numbers.
-        
-        Returns
-        -------
-        Treap()
-            It returns a `Treap()` instance with input values being inserted.
         
         Raises
         ------
@@ -290,12 +265,11 @@ class Treap(BST):
             1. In case the given object isn't iterable.
             2. If one of the elements in the iterable is an `Extra` object.
             3. If one of the elements in the iterable is NOT a number.
-
         ValueError: If one of the iterable elements is `None`.
 
         Examples
         --------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -308,7 +282,7 @@ class Treap(BST):
         Without setting the seed, each time we run the code, we will get a
         different structure.
 
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3])
         >>> treap
             ____4
            /     \\
@@ -317,7 +291,7 @@ class Treap(BST):
         0     3     9
              /
             2
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3])
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3])
         >>> treap
               ____7
              /     \\
@@ -331,28 +305,22 @@ class Treap(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> Treap.from_iterable([2, None])
+        >>> Treap([2, None])
         ValueError: Can't use `None` as an element within `extra.Treap()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> Treap.from_iterable(2)
+        >>> Treap(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `Treap()` objects will raise `TypeError` as well
 
-        >>> treap_1 = Treap.from_iterable([1])
-        >>> treap_2 = Treap.from_iterable([1, treap_1])
+        >>> treap_1 = Treap([1])
+        >>> treap_2 = Treap([1, treap_1])
         TypeError: Can't create `extra.Treap()` using `extra.Treap()`!!
         """
-        if not hasattr(iterable, "__iter__"):
-            raise TypeError("The given object isn't iterable!!")
-        if len(iterable) == 0:
-            raise ValueError("The given iterable is empty!!")
-        treap = cls(seed)
-        for item in iterable:
-            treap.insert(item)
-        return treap
+        random.seed(seed)
+        super().__init__(iterable)
 
 
     ##############################     LENGTH     ##############################
@@ -368,7 +336,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -424,7 +392,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -455,7 +423,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -489,7 +457,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -617,7 +585,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -697,7 +665,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -723,7 +691,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -752,7 +720,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -786,7 +754,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -801,7 +769,7 @@ class Treap(BST):
         Notice that, by changing the seed, you can change the balance of the
         `Treap()`:
 
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=2)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=2)
         >>> treap
                 __7
                /   \\
@@ -836,7 +804,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -869,7 +837,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -897,7 +865,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -926,7 +894,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -956,7 +924,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -989,7 +957,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1021,7 +989,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1050,7 +1018,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1079,7 +1047,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1107,7 +1075,7 @@ class Treap(BST):
         
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1154,7 +1122,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
@@ -1185,7 +1153,7 @@ class Treap(BST):
 
         Example
         -------
-        >>> treap = Treap.from_iterable([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
         >>> treap
               __4__
              /     \\
