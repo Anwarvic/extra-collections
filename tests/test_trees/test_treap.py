@@ -111,7 +111,7 @@ def test_treap_simple():
 
 def test_treap_from_iterable():
     lst = [50, 30, 70, 20, 40, 80, 0]
-    treap = Treap.from_iterable(lst, seed="extra")
+    treap = Treap(lst, seed="extra")
     # test structure
     assert verify_bst_rules(treap._root)
     assert verify_treap_priority(treap._root)
@@ -167,7 +167,7 @@ def test_treap_from_iterable():
 def test_treap_with_random_numbers():
     length = get_pos_int()
     lst = [get_float() for _ in range(length)]
-    treap = Treap.from_iterable(lst)
+    treap = Treap(lst)
     assert verify_bst_rules(treap._root)
     assert verify_treap_priority(treap._root)
     assert len(treap) == len(lst)
