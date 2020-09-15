@@ -9,29 +9,31 @@ So, the following is a simple Red-Black Tree:
 
 .. code-block:: text
 
-           ______13|B______
-          /                \\
-   _____8|R_             __17|R______
-  /         \\          /            \\
-1|B_        11|B      15|B         __25|B
-    \\                            /
-    6|R                         22|R
+               ______13|B______
+              /                \\
+       _____8|R_             __17|R______
+      /         \\          /             \\
+    1|B_        11|B      15|B         __25|B
+        \\                            /
+        6|R                         22|R
+
 
 As we can see, the previous Red-Black Tree is a Bineary Search Tree with an
-additional color denoted by either **R** for **r**ed or **B** for **b**lack.
-In additional to the BST characteristics, Red-black trees have these additional
+additional color denoted by either **R** for "red" or **B** for "black". In
+addition to the BST characteristics, Red-black trees have these additional
 characteristics:
 
 - A node is either 'red' or 'black'.
 - Root is always 'black'.
 - A node is 'red' if it has two 'black' children.
 - Any child of a red-node is always 'black'.
-- **Black depth**: is the depth of all black nodes.
-- All nodes with zero or one children have the same black depth,
-- **Shortest path**: It is the path from the root to the nearest leaf-node and 
-it is equal to the black depth.
-- **Longest path**: It is the path from the root to the furthest leaf-node with
-alternating red and black nodes. And it can't be bigger than (2*shortest-path).
+- **Black depth**: is the depth of all black nodes.All nodes with zero or one \
+    children have the same black depth.
+- **Shortest path**: It is the path from the root to the nearest leaf-node and \
+    it is equal to the black depth.
+- **Longest path**: It is the path from the root to the furthest leaf-node \
+    with alternating red and black nodes. And it can't be bigger than \
+    (2*shortest-path).
 
 [image]
 
@@ -289,21 +291,7 @@ class RedBlackTree(BST):
     __name__ = "extra.RedBlackTree()"
     
 
-    def __init__(self):
-        """
-        Creates an empty `RedBlackTree()` object!!
-        
-        Example
-        -------
-        >>> rbtree = RedBlackTree()
-        >>> type(rbtree)
-        <class 'extra.trees.red_black_tree.RedBlackTree'>
-        """
-        super().__init__()
-
-
-    @classmethod
-    def from_iterable(cls, iterable):
+    def __init__(self, iterable=None):
         """
         A class method which creates a `RedBlackTree()` instance using an
         iterable in time-complexity of O(n) where **n** is the number of
@@ -311,15 +299,9 @@ class RedBlackTree(BST):
 
         Parameters
         ----------
-        iterable: iterable
+        iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        RedBlackTree()
-            It returns a `RedBlackTree()` instance with input values being
-            inserted.
         
         Raises
         ------
@@ -331,7 +313,7 @@ class RedBlackTree(BST):
 
         Examples
         --------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -344,21 +326,21 @@ class RedBlackTree(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> RedBlackTree.from_iterable([2, None])
+        >>> RedBlackTree([2, None])
         ValueError: Can't use `None` as an element within `extra.RedBlackTree()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> RedBlackTree.from_iterable(2)
+        >>> RedBlackTree(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `RedBlackTree()` objects will raise `TypeError` as well
 
-        >>> rbtree_1 = RedBlackTree.from_iterable([1])
-        >>> rbtree_2 = RedBlackTree.from_iterable([1, rbtree_1])
+        >>> rbtree_1 = RedBlackTree([1])
+        >>> rbtree_2 = RedBlackTree([1, rbtree_1])
         TypeError: Can't create `extra.RedBlackTree()` using `extra.RedBlackTree()`!!
         """
-        return super().from_iterable(iterable)
+        super().__init__(iterable)
     
 
     ##############################     LENGTH     ##############################
@@ -374,7 +356,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -430,7 +412,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -462,7 +444,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -496,7 +478,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -698,7 +680,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -894,7 +876,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1002,7 +984,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1036,7 +1018,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1062,7 +1044,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1091,7 +1073,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1125,7 +1107,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1158,7 +1140,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1191,7 +1173,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1219,7 +1201,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1248,7 +1230,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1279,7 +1261,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1312,7 +1294,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1344,7 +1326,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1373,7 +1355,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1402,7 +1384,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1430,7 +1412,7 @@ class RedBlackTree(BST):
         
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1477,7 +1459,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
@@ -1508,7 +1490,7 @@ class RedBlackTree(BST):
 
         Example
         -------
-        >>> rbtree = RedBlackTree.from_iterable([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
         >>> rbtree
                    ______13|B______
                   /                \\
