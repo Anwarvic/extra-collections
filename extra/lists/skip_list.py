@@ -280,15 +280,9 @@ class SkipList(Extra):
 
         Parameters
         ----------
-        iterable: any iterable object.
+        iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        SkipList()
-            It returns a SkipList() instance with the same values in the same
-            order.
         
         Raises
         ------

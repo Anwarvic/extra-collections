@@ -1132,7 +1132,7 @@ class CircularLinkedList(LinkedList):
         >>> cll.remove_end()
         >>> cll
         ┌───┐ 
-        │ 1 │⟶ ┐
+        │ 1 │⟶ ┐clear
         └───┘  │
           ↑    │
           └────┘
@@ -1202,6 +1202,7 @@ class CircularLinkedList(LinkedList):
         │
         └─
         """
+        super().clear()
 
 
     ##############################      SPLIT     ##############################
