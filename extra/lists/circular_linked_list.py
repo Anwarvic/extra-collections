@@ -94,21 +94,79 @@ from extra.lists.linked_list import LinkedList
 
 
 class CircularLinkedList(LinkedList):
-    """Basic object for the Circular Linked List"""
+    """
+    A circular linked list is a simple linear data structure where objects are
+    linked using pointers to their associated location. Unlike arrays whose
+    objects are stored at continuous locations. Each node stores a reference to
+    an object that is an element of the sequence, as well as a reference to the
+    next node of the circular linked list.
+    """
     __name__ = "extra.CircularLinkedList()"
 
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """
-        Creates a CircularLinkedList() object!!
+        Initializes a `CircularLinkedList()` instance using an optional iterable
+        in time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable (default: None)
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
         
-        Example
-        -------
-        >>> ll = CircularLinkedList()
-        >>> type(ll)
-        <class 'extra.lists.circular_linked_list.CircularLinkedList'>
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the iterable elements is an `Extra` object.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> cll = CircularLinkedList([10, -5, 7, 9])
+        >>> cll
+        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
+        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶ ┐
+        └────┘ └────┘ └───┘ └───┘  │
+           ↑                       │
+           └───────────────────────┘
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> cll = CircularLinkedList([2, None])
+        ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> cll = CircularLinkedList(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `CircularLinkedList` objects will raise `TypeError` as well
+
+        >>> cll_1 = CircularLinkedList([1])
+        >>> cll_2 = CircularLinkedList([1, cll_1])
+        TypeError: Can't create `extra.CircularLinkedList()` using `extra.CircularLinkedList()`!!
+
+        Note
+        -----
+        Since most of the data structures found in this package are iterables, 
+        then you can use this classmethod to convert from one data structure to
+        `CircularLinkedList` just like so:
+
+        >>> ll = LinkedList([2, 5])
+        >>> cll = CircularLinkedList(ll)
+        >>> cll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
         """
-        super().__init__()
+        super().__init__(iterable)
 
 
     def _create_instance(self):
@@ -123,78 +181,6 @@ class CircularLinkedList(LinkedList):
         return CircularLinkedList()
     
 
-    @classmethod
-    def from_iterable(cls, iterable):
-        """
-        A class method which creates a CircularLinkedList() instance using an
-        iterable in time-complexity of O(n) where **n** is the number of
-        elements inside the given `iterable`.
-
-        Parameters
-        ----------
-        iterable: iterable object.
-            An iterable python object that implements the `__iter__` method.
-            For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        CircularLinkedList()
-            It returns a CircularLinkedList() instance with the same values in
-            the same order.
-        
-        Raises
-        ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the iterable elements is an `Extra` object.
-
-        ValueError: If one of the iterable elements is `None`.
-
-        Examples
-        --------
-        >>> cll = CircularLinkedList.from_iterable([10, -5, 7, 9])
-        >>> cll
-        ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
-        │ 10 │⟶│ -5 │⟶│ 7 │⟶│ 9 │⟶ ┐
-        └────┘ └────┘ └───┘ └───┘  │
-           ↑                       │
-           └───────────────────────┘
-
-        Using an iterable object with `None` as one of its elements will raise
-        `ValueError`
-
-        >>> cll = CircularLinkedList.from_iterable([2, None])
-        ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
-        
-        Using a non-iterable object will raise `TypeError`
-
-        >>> cll = CircularLinkedList.from_iterable(2)
-        TypeError: The given object isn't iterable!!
-        
-        Using nested `CircularLinkedList` objects will raise `TypeError` as well
-
-        >>> cll_1 = CircularLinkedList.from_iterable([1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, cll_1])
-        TypeError: Can't create `extra.CircularLinkedList()` using `extra.CircularLinkedList()`!!
-
-        Note
-        -----
-        Since most of the data structures found in this package are iterables, 
-        then you can use this classmethod to convert from one data structure to
-        `CircularLinkedList` just like so:
-
-        >>> ll = LinkedList.from_iterable([2, 5])
-        >>> cll = CircularLinkedList.from_iterable(ll)
-        >>> cll
-        ┌───┐ ┌───┐ 
-        │ 2 │⟶│ 5 │⟶ ┐
-        └───┘ └───┘  │
-          ↑          │
-          └──────────┘
-        """
-        return super().from_iterable(iterable)
-    
-
     ##############################      PRINT     ##############################
     def __repr__(self):
         """
@@ -207,7 +193,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([20, 77, 10, 6, 2])
+        >>> cll = CircularLinkedList([20, 77, 10, 6, 2])
         >>> cll
         ┌────┐ ┌────┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 20 │⟶│ 77 │⟶│ 10 │⟶│ 6 │⟶│ 2 │⟶ ┐
@@ -253,7 +239,7 @@ class CircularLinkedList(LinkedList):
         >>> cll = CircularLinkedList()
         >>> len(cll)
         0
-        >>> cll = CircularLinkedList.from_iterable((2, 5, 0))
+        >>> cll = CircularLinkedList((2, 5, 0))
         >>> len(cll)
         3
         """
@@ -298,7 +284,7 @@ class CircularLinkedList(LinkedList):
         
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> for item in cll:
         ...     print(item)
         1
@@ -338,8 +324,8 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 3, 2])
         >>> cll_1 == cll_2
         False
         >>> cll_1 == cll_1
@@ -379,8 +365,8 @@ class CircularLinkedList(LinkedList):
         
         Examples
         --------
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 3, 2])
         >>> cll_1 != cll_2
         True
         >>> cll_1 != cll_1
@@ -417,28 +403,28 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 2])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3, 2])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 < cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 < cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 < cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([5, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([5, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 < cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 2, 3])
         >>> cll_1 < cll_2
         False
         """
@@ -473,28 +459,28 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 2])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3, 2])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 <= cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 <= cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 <= cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([5, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([5, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 <= cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 2, 3])
         >>> cll_1 <= cll_2
         True
         """
@@ -529,28 +515,28 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 > cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 = CircularLinkedList([1, 3, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 2])
         >>> cll_1 > cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 > cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([5, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([5, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 > cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 2, 3])
         >>> cll_1 > cll_2
         False
         """
@@ -585,28 +571,28 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 3, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 >= cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 3, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 2])
+        >>> cll_1 = CircularLinkedList([1, 3, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 2])
         >>> cll_1 >= cll_2
         True
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 5])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 >= cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([5, 2, 1])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 3, 3])
+        >>> cll_1 = CircularLinkedList([5, 2, 1])
+        >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 >= cll_2
         False
 
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2, 3])
-        >>> cll_2 = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll_1 = CircularLinkedList([1, 2, 3])
+        >>> cll_2 = CircularLinkedList([1, 2, 3])
         >>> cll_1 >= cll_2
         True
         """
@@ -633,7 +619,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 3, 5])
+        >>> cll = CircularLinkedList([1, 3, 5])
         >>> 1 in cll
         True
         >>> 0 in cll
@@ -669,7 +655,7 @@ class CircularLinkedList(LinkedList):
         
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll._validate_index('1')
         TypeError: Given index must be an integer!!
         >>> cll._validate_index(-2)
@@ -720,7 +706,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4, 5])
+        >>> cll = CircularLinkedList([1, 2, 3, 4, 5])
         >>> cll[0]
         1
         >>> cll[-2]
@@ -771,7 +757,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> new_node = Node(10)
         >>> cll._insert_node(cll._head, new_node)
         Node(data: 10, next: 2)
@@ -813,7 +799,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll.add_front(10)
         >>> cll
         ┌────┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -843,7 +829,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll.add_end(10)
         >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌────┐ 
@@ -877,7 +863,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll.insert(1, 10)
         >>> cll
         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
@@ -920,8 +906,8 @@ class CircularLinkedList(LinkedList):
 
         Example
         -------
-        >>> cll_1 = CircularLinkedList.from_iterable([1, 2])
-        >>> cll_2 = CircularLinkedList.from_iterable([3, 4, 5])
+        >>> cll_1 = CircularLinkedList([1, 2])
+        >>> cll_2 = CircularLinkedList([3, 4, 5])
         >>> cll_1.extend(cll_2)
         >>> cll_1
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -979,7 +965,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll[0] = 10
         >>> cll[2] = 30
         >>> cll
@@ -1023,7 +1009,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
@@ -1078,7 +1064,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> del cll[0]
         >>> cll
         ┌───┐ ┌───┐ 
@@ -1108,7 +1094,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll.remove_front()
         >>> cll
         ┌───┐ ┌───┐ 
@@ -1135,7 +1121,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll.remove_end()
         >>> cll
         ┌───┐ ┌───┐ 
@@ -1175,7 +1161,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 2, 2])
+        >>> cll = CircularLinkedList([1, 2, 3, 2, 2])
         >>> cll.remove(2, False)
         >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
@@ -1202,7 +1188,7 @@ class CircularLinkedList(LinkedList):
 
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └───┘ └───┘  │
@@ -1250,7 +1236,7 @@ class CircularLinkedList(LinkedList):
 
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3])
+        >>> cll = CircularLinkedList([1, 2, 3])
         >>> cll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
@@ -1300,7 +1286,7 @@ class CircularLinkedList(LinkedList):
         
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll = CircularLinkedList([1, 2, 3, 4])
         >>> cll.rotate_left(1)
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶ ┐
@@ -1341,7 +1327,7 @@ class CircularLinkedList(LinkedList):
         
         Examples
         --------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll = CircularLinkedList([1, 2, 3, 4])
         >>> cll.rotate_right(1)
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
@@ -1372,7 +1358,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([1, 2, 3, 4])
+        >>> cll = CircularLinkedList([1, 2, 3, 4])
         >>> cll.reverse()
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶ ┐
@@ -1430,7 +1416,7 @@ class CircularLinkedList(LinkedList):
         
         Example
         -------
-        >>> cll = CircularLinkedList.from_iterable([0, 1, 1, 2, 3, 5])
+        >>> cll = CircularLinkedList([0, 1, 1, 2, 3, 5])
         >>> cll.count(3)
         1
         >>> cll.count(1)
