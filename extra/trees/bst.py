@@ -382,7 +382,6 @@ class BST(BinaryTree):
             1. In case the given object isn't iterable.
             2. If one of the elements in the iterable is an `Extra` object.
             3. If one of the elements in the iterable is NOT a number.
-
         ValueError: If one of the iterable elements is `None`.
 
         Examples
@@ -414,14 +413,14 @@ class BST(BinaryTree):
         >>> bst_2 = BST([1, bst_1])
         TypeError: Can't create `extra.BST()` using `extra.BST()`!!
         """
+        super().__init__()
+        self._length = 0
+
         if iterable is None:
-            super().__init__()
-            self._length = 0
+            return
         elif not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         else:
-            super().__init__()
-            self._length = 0
             for item in iterable:
                 self.insert(item)
 
@@ -986,6 +985,7 @@ class BST(BinaryTree):
         AssertionError: This can be raised in these cases:
             1. If the given `del_value` isn't a numeric value.
             2. If the given `start_node` isn't a `BSTNode()`.
+        UserWarning: If the given `del_value` wasn't found in the `BST()`.
         
         Example
         -------
@@ -1088,6 +1088,30 @@ class BST(BinaryTree):
             self._length -= 1
         else:
             self._remove(del_value, self._root)
+    
+
+    def clear(self):
+        """
+        Removes all nodes within the `BST()` instance in constant time.
+
+        Example
+        -------
+        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
+        >>> bst
+              __8___
+             /      \\
+          __5       _15
+         /   \\    /
+        2     7   10
+         \\
+          3
+        >>> bst.clear()
+        >>> bst
+        / \\
+        >>> bst.is_empty()
+        True
+        """
+        super().clear()
 
 
     ##############################     ROTATE     ##############################
@@ -1783,30 +1807,5 @@ class BST(BinaryTree):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `BST()` instance in constant time.
-
-        Example
-        -------
-        >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
-        >>> bst
-              __8___
-             /      \\
-          __5       _15
-         /   \\    /
-        2     7   10
-         \\
-          3
-        >>> bst.clear()
-        >>> bst
-        / \\
-        >>> bst.is_empty()
-        True
-        """
-        super().clear()
 
 
