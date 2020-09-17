@@ -623,6 +623,10 @@ class Treap(BST):
             removed_node = super()._search(del_value, self._root)
             # couldn't find the node
             if removed_node.get_data() != del_value:
+                warnings.warn(
+                    f"Couldn't find `{del_value}` in `{self.__name__}`",
+                    UserWarning
+                )
                 return
             # rotate till removed_node is leaf
             parent = removed_node.get_parent()
@@ -650,6 +654,30 @@ class Treap(BST):
                 parent.set_right(None)
             # decrement treap length
             self._length -= 1
+    
+
+    def clear(self):
+        """
+        Removes all nodes within the `Treap()` instance in constant time.
+
+        Example
+        -------
+        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
+        >>> treap
+              __4__
+             /     \\
+            2       9
+           / \\    /
+          1   3   7
+         /
+        0
+        >>> treap.clear()
+        >>> treap
+        / \\
+        >>> treap.is_empty()
+        True
+        """
+        super().clear()
 
 
     ##############################  HEIGHT/DEPTH  ##############################
@@ -1144,30 +1172,5 @@ class Treap(BST):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `Treap()` instance in constant time.
-
-        Example
-        -------
-        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3], seed=123)
-        >>> treap
-              __4__
-             /     \\
-            2       9
-           / \\    /
-          1   3   7
-         /
-        0
-        >>> treap.clear()
-        >>> treap
-        / \\
-        >>> treap.is_empty()
-        True
-        """
-        super().clear()
 
 
