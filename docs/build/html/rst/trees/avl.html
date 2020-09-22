@@ -1,0 +1,1182 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVL Tree &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Red-Black Tree" href="red_black_tree.html" />
+    <link rel="prev" title="Splay Tree" href="splay_tree.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-extra.trees.avl">
+<span id="avl-tree"></span><span id="avl"></span><h1>AVL Tree<a class="headerlink" href="#module-extra.trees.avl" title="Permalink to this headline">¶</a></h1>
+<p>AVL is a self-balancing binary search tree which is a non-linear data structure
+that stores numbers hierarchical with the assertion that any operation, like
+insertion, searching, and deletion, will be done in <strong>log(n)</strong> time-complexity
+where <strong>n</strong> is the number of elements in the AVL. AVL was named after the
+initials of its inventors: Adel’son-Vel’skii and Landis.</p>
+<p>[image]</p>
+<p>The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha’Allah.
+Generally, we are going to use the following indicators in the table:</p>
+<ul class="simple">
+<li><p><strong>n</strong> is the number of elements currently in the container.</p></li>
+<li><p><strong>h</strong> is the Splay Tre height which approximatley equals to <strong>log(n)</strong>.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 52%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Worst-case</p></th>
+<th class="head"><p>Optimal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>__len__()</p></td>
+<td><p>Returns the number of nodes.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_empty()</p></td>
+<td><p>Checks if object is empty.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>__repr__()</p></td>
+<td><p>Represents the AVL Tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__iter__()</p></td>
+<td><p>Iterates over the AVL Tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>__contains__()</p></td>
+<td><p>Checks the existence of the given item.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_height()</p></td>
+<td><p>Gets the AVL Tree’s height.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_depth()</p></td>
+<td><p>Gets the AVL Tree’s depth.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_nodes_per_level()</p></td>
+<td><p>Returns a list of all nodes per level.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>is_balanced()</p></td>
+<td><p>Checks if the AVL Tree is balanced.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_perfect()</p></td>
+<td><p>Checks if the AVL Tree is perfect.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>is_strict()</p></td>
+<td><p>Checks if the AVL Tree is strict.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>count_leaf_nodes()</p></td>
+<td><p>Counts all leaf nodes in the tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>clear()</p></td>
+<td><p>Clears the whole tree instance.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_list()</p></td>
+<td><p>Converts the bianry tree instance to list.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>traverse()</p></td>
+<td><p>Traverses the AVL Tree based on given method.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>preorder_traverse()</p></td>
+<td><p>Traverses the AVL Tree in an pre-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>inorder_traverse()</p></td>
+<td><p>Traverses the AVL Tree in an in-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>postorder_traverse()</p></td>
+<td><p>Traverses the AVL Tree in an post-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>breadth_first_traverse()</p></td>
+<td><p>Traverses the AVL Tree level by level.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>depth_first_traverse()</p></td>
+<td><p>Traverses the AVL Tree in an pre-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_min()</p></td>
+<td><p>Gets the minimum number in the AVL Tree.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_max()</p></td>
+<td><p>Gets the maximum number in the AVL Tree.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-even"><td><p>insert()</p></td>
+<td><p>Inserts a certain value to the AVL Tree.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>remove()</p></td>
+<td><p>Removes a certain value from the AVL Tree.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Here are all of the public methods that can be used with <cite>AVL()</cite> objects:</p>
+<dl class="py class">
+<dt id="extra.trees.avl.AVLNode">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.avl.</code><code class="sig-name descname">AVLNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AVL node is the basic unit for building AVL trees. A AVL node must
+contain a  number. Each AVL node has either zero, one or two children AVL
+nodes. The node that has no children is called a <strong>leaf node</strong>. The only
+difference between <cite>AVLNode()</cite> and <cite>BSTNode()</cite> is that the former dedicates
+a variable for the <cite>height</cite> which makes balancing <cite>AVL()</cite> objects done in
+a constant time.</p>
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>AVLNode()</cite> object which is the basic unit for building
+AVL() objects!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be saved within the <cite>AVLNode()</cite> instance</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given item is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – If the given item isn’t a number.:</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.set_left">
+<code class="sig-name descname">set_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.set_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the given <cite>AVLNode()</cite> as a left child for the current <cite>AVLNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>child</strong> (<a class="reference internal" href="#extra.trees.avl.AVLNode" title="extra.trees.avl.AVLNode"><em>AVLNode</em></a><em>(</em><em>)</em>) – The <cite>AVLNode()</cite> that will be a left child for the current one.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given item is not an <cite>AVLNode()</cite> object.:</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.set_right">
+<code class="sig-name descname">set_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.set_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the given <cite>AVLNode()</cite> as a right child for the current <cite>AVLNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>child</strong> (<a class="reference internal" href="#extra.trees.avl.AVLNode" title="extra.trees.avl.AVLNode"><em>AVLNode</em></a><em>(</em><em>)</em>) – The <cite>AVLNode()</cite> that will be a right child for the current one.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given item is not an <cite>AVLNode()</cite> object.:</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the height of the <cite>AVLNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The height of the current <cite>AVLNode()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.get_left_height">
+<code class="sig-name descname">get_left_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.get_left_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the height of the left <cite>AVLNode()</cite> child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The height of the left <cite>AVLNode()</cite> child.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.get_right_height">
+<code class="sig-name descname">get_right_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.get_right_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the height of the right <cite>AVLNode()</cite> child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The height of the right <cite>AVLNode()</cite> child.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.get_children_heights">
+<code class="sig-name descname">get_children_heights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.get_children_heights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of two children heights of the current <cite>AVLNode()</cite>
+instance where the first value is the height of the left child and the
+other is the height of the right child.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of the two children of the <cite>AVLNode()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVLNode.set_height">
+<code class="sig-name descname">set_height</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVLNode.set_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the height of the current <cite>AVLNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_height</strong> (<em>int</em>) – The new height that should be assigned to the current <cite>AVLNode()</cite></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If the given <cite>height</cite> isn’t an integer.:</p></li>
+<li><p><strong>ValueError</strong> – If the given <cite>height</cite> is less than zero.:</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.trees.avl.AVL">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.avl.</code><code class="sig-name descname">AVL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL" title="Permalink to this definition">¶</a></dt>
+<dd><p>AVL is self-balancing (BST), Binary Search Tree  which is a non-linear data
+structure that can be defined recursively using a collection of <cite>AVLNode()</cite>
+instances, where each node contains a numeric value and it has either zero,
+one or two references to the children <cite>BSTNode()</cite> instances. And the value
+holding by the node must be greater than all values being hold by the left
+subtree and smaller that all the values being hold by the right subtree.</p>
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes an <cite>AVL()</cite> instance using an optional iterable object in
+time-complexity of O(n) where <strong>n</strong> is the number of elements inside
+the given <cite>iterable</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<em>iterable</em><em> (</em><em>default: None</em><em>)</em>) – An iterable python object that implements the <cite>__iter__</cite> method.
+For example, <cite>list</cite> and <cite>tuple</cite> are both iterables.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – It can be raised in two cases: 1. In case the given object isn’t iterable.
+    2. If one of the elements in the iterable is an <cite>Extra</cite> object.
+    3. If one of the elements in the iterable is NOT a number.</p></li>
+<li><p><strong>ValueError</strong> – If one of the iterable elements is <cite>None</cite>.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+</pre></div>
+</div>
+<p>Using an iterable object with <cite>None</cite> as one of its elements will raise
+<cite>ValueError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="go">ValueError: Can&#39;t use `None` as an element within `extra.AVL()`!!</span>
+</pre></div>
+</div>
+<p>Using a non-iterable object will raise <cite>TypeError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">TypeError: The given object isn&#39;t iterable!!</span>
+</pre></div>
+</div>
+<p>Using nested <cite>AVL()</cite> objects will raise <cite>TypeError</cite> as well</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl_1</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl_2</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">avl_1</span><span class="p">])</span>
+<span class="go">TypeError: Can&#39;t create `extra.AVL()` using `extra.AVL()`!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the length of the <cite>AVL()</cite> instance in time-complexity of O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the <cite>AVL()</cite> instance. Length is the number of
+tree nodes in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>AVL()</cite> instance is empty or not in constant time-
+complexity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean flag showing if the <cite>AVL()</cite> instance is empty or
+not. <cite>True</cite> shows that this instance is empty and <cite>False</cite> shows it’s
+not empty.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.get_max">
+<code class="sig-name descname">get_max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.get_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the maximum value in the <cite>AVL()</cite> isntance. The maximum value
+can be found at the right-most tree node in the <cite>AVL()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum numeric value in the <cite>AVL()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int or float</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – In case the <cite>AVL()</cite> instance is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.get_min">
+<code class="sig-name descname">get_min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.get_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the minimum value in the <cite>AVL()</cite> isntance. The minimum value
+can be found at the left-most tree node in the <cite>AVL()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum numeric value in the <cite>AVL()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int or float</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – In case the <cite>AVL()</cite> instance is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">find_val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the <cite>AVL()</cite> for the given value and returns <cite>True</cite> if the
+value exists and <cite>False</cite> if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>find_val</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be searched for in the <cite>AVL()</cite> instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns <cite>True</cite> if the value exists in the <cite>AVL()</cite> instance and
+<cite>False</cite> if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">5</span> <span class="ow">in</span> <span class="n">avl</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt; 50 in bst</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a numeric value in the AVL()` instance according to the
+rules of binary search trees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The new numeric value that will be inserted.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given <cite>value</cite> is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – If the given <cite>value</cite> is not a numeric value.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">5</span>
+<span class="go"> \</span>
+<span class="go">  10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="go">  10</span>
+<span class="go"> /  \</span>
+<span class="go">5    15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">  __10</span>
+<span class="go"> /    \</span>
+<span class="go">5      15</span>
+<span class="go"> \</span>
+<span class="go">  8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="go">TypeError: `extra.AVL()` accepts only numbers!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">del_value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the <cite>del_value</cite> from the <cite>AVL()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>del_value</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be deleted from the subtree.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>UserWarning</strong> – If the <cite>AVL()</cite> instance is empty of if the value wasn’t             found in the instance.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       7</span>
+<span class="go"> / \     /</span>
+<span class="go">1   3   5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="go">UserWarning: Couldn&#39;t find `50` in `extra.AVL()`!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes within the <cite>AVL()</cite> instance in constant time.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">/ \</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the height of the <cite>AVL()</cite> instance. The AVL’s height
+is the number of edges between the root and the furthest leaf node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the height of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">22</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.get_depth">
+<code class="sig-name descname">get_depth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.get_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the depth of the <cite>AVL()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the depth of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">get_depth</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.count_leaf_nodes">
+<code class="sig-name descname">count_leaf_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.count_leaf_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of leaf nodes in the <cite>AVL()</cite> instance. Leaf
+nodes are the tree nodes that have no children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the number of leaf nodes in the
+<cite>AVL()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">count_leaf_nodes</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.is_balanced">
+<code class="sig-name descname">is_balanced</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.is_balanced" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>AVL()</cite> instance is balanced. A AVL is
+balanced if the difference between the depth of any two leaf nodes is
+less than or equal to one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>AVL()</cite> instance is balanced and <cite>False</cite> if it
+is not balanced.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>AVL()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bst</span><span class="o">.</span><span class="n">is_balanced</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.is_perfect">
+<code class="sig-name descname">is_perfect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.is_perfect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>AVL()</cite> instance is perfect. A AVL is perfect
+if all its levels are completely filled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>AVL()</cite> instance is perfect and <cite>False</cite> if it is
+not perfect.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>AVL()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">is_perfect</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.is_strict">
+<code class="sig-name descname">is_strict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.is_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>AVL()</cite> instance is strict. A AVL is strict if
+all its non-leaf nodes have two children (left and right).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>AVL()</cite> instance is strict and <cite>False</cite> if it is
+not strict.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>AVL()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bst</span><span class="o">.</span><span class="n">is_strict</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the <cite>AVL()</cite> instance and returns a generator of the
+<cite>AVLNode()</cite> values in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of each node in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>generator</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">avl</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="go">4,2,6,1,3,5,7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the <cite>AVL()</cite> instance to a <cite>list</cite> where values will be
+inserted in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <cite>list</cite> object containing the same elements as the <cite>AVL()</cite>
+instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[4, 2, 6, 1, 3, 5, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.get_nodes_per_level">
+<code class="sig-name descname">get_nodes_per_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.get_nodes_per_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all tree nodes within the <cite>AVL()</cite> instance so that all
+tree nodes in a certain level will be concatenated into a separate list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A nested list where the first inner-list has all the tree nodes in
+the first level, the second inner-list has all the tree nodes in the
+second level, … so on.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">get_nodes_per_level</span><span class="p">()</span>
+<span class="go">[[4], [2, 6], [1, 3, 5, 7]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.preorder_traverse">
+<code class="sig-name descname">preorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.preorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>AVL()</cite> instance in pre-order manner. Which means
+that the <strong>parent</strong> is visited first. Then, the <strong>left subtree</strong> (if
+found), then the <strong>right subtree</strong> (if found).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s the same as <cite>depth_first_traverse()</cite> method.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">preorder_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 1, 3, 6, 5, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.depth_first_traverse">
+<code class="sig-name descname">depth_first_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.depth_first_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>AVL()</cite> instance in depth-first manner. Which means
+that the <strong>parent</strong> is visited first. Then, the <strong>left subtree</strong> (if
+found), then the <strong>right subtree</strong> (if found).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s the same as <cite>preorder_traverse()</cite> method.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">depth_first_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 1, 3, 6, 5, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.postorder_traverse">
+<code class="sig-name descname">postorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.postorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>AVL()</cite> instance in post-order manner. Which means
+that the <strong>left subtree</strong> (if found) is visited first. Then, the <strong>right
+subtree</strong> (if found) then the <strong>parent</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">postorder_traverse</span><span class="p">()</span>
+<span class="go">[1, 3, 2, 5, 7, 6, 4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.inorder_traverse">
+<code class="sig-name descname">inorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.inorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>AVL()</cite> instance in in-order manner. Which means that the
+<strong>left subtree</strong> (if found) is visited first. Then, the <strong>parent</strong> then
+the <strong>right subtree</strong> (if found).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the in-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">inorder_traverse</span><span class="p">()</span>
+<span class="go">[1, 2, 3, 4, 5, 6, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.breadth_first_traverse">
+<code class="sig-name descname">breadth_first_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.breadth_first_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>AVL()</cite> instance in breadth-first manner. Which means that
+the tree nodes will be visited level by level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">  3__</span>
+<span class="go"> /   \</span>
+<span class="go">2     5</span>
+<span class="go">     / \</span>
+<span class="go">    4   6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">breadth_first_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 6, 1, 3, 5, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.avl.AVL.traverse">
+<code class="sig-name descname">traverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'inorder'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.avl.AVL.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traversal is the process to visit all nodes of a AVL starting from the
+root as we cannot randomly access any node in a binary tree. There are
+four ways which we use to traverse a AVL:</p>
+<ol class="arabic simple">
+<li><p>preorder - depth-first</p></li>
+<li><p>inorder</p></li>
+<li><p>posteorder</p></li>
+<li><p>breadth-first</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<em>str</em><em> (</em><em>default=&quot;inorder&quot;</em><em>)</em>) – A lower-cased string describing the type of traversal that will be
+used. It could be one of these values: [“inorder”, “postorder”,
+“preorder”, “depth-first”, “breadth-first”]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of all values of the visited nodes according to the specified
+traversal method.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given method isn’t known.:</p></li>
+<li><p><strong>TypeError</strong> – If the given method isn’t a string.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span> <span class="o">=</span> <span class="n">AVL</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span>
+<span class="go">    __4__</span>
+<span class="go">   /     \</span>
+<span class="go">  2       6</span>
+<span class="go"> / \    / \</span>
+<span class="go">1   3   5   7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;preorder&quot;</span><span class="p">)</span>
+<span class="go">[4, 2, 1, 3, 6, 5, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;inorder&quot;</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4, 5, 6, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;postorder&quot;</span><span class="p">)</span>
+<span class="go">[1, 3, 2, 5, 7, 6, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;breadth-first&quot;</span><span class="p">)</span>
+<span class="go">[4, 2, 6, 1, 3, 5, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avl</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="go">ValueError: Given traverse method has to be one of these:</span>
+<span class="go">{&#39;breadth-first&#39;, &#39;postorder&#39;, &#39;inorder&#39;, &#39;depth-first&#39;, &#39;preorder&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lists/linked_list.html">Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/doubly_linked_list.html">Doubly Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/circular_linked_list.html">Circular Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/queue.html">Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/deque.html">Deque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/priority_queue.html">Priority Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/skip_list.html">Skip List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binary_tree.html">Binary Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst.html">Binary Search Tree (BST)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="splay_tree.html">Splay Tree</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AVL Tree</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="red_black_tree.html">Red-Black Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_heap.html">Min Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max_heap.html">Max Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="treap.html">Treap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trie.html">Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radix_trie.html">Radix Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suffix_trie.html">Suffix Trie</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="splay_tree.html" title="previous chapter">Splay Tree</a></li>
+      <li>Next: <a href="red_black_tree.html" title="next chapter">Red-Black Tree</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rst/trees/avl.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

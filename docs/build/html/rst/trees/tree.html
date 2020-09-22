@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Binary Tree" href="binary_tree.html" />
+    <link rel="prev" title="Skip List" href="../lists/skip_list.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tree">
+<span id="id1"></span><h1>Tree<a class="headerlink" href="#tree" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-extra.trees.tree"></span><p>A tree is a non-linear data structure that stores elements hierarchically. With
+the exception of the top element, each element in a tree has a parent element
+and zero or more children elements. We typically call the top element of the
+tree, “the root”. The root is drawn as the highest element, with the other
+elements being connected below (just the opposite of an actual tree).</p>
+<p>The following is a simple tree that represents the family-tree of Homer Simpson
+from The Simpsons show :)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TheSimpsons
+└─┬ Abraham
+  ├── Herb
+  └─┬ Homer
+    ├── Bart
+    ├── Lisa
+    └── Maggie
+</pre></div>
+</div>
+<p>In the previous tree, we can say the following:</p>
+<ul class="simple">
+<li><p>“TheSimpsons” tree node has no parent.</p></li>
+<li><p>“Abraham” is the <strong>only child</strong> of the “TheSimpsons”.</p></li>
+<li><p>“Abraham” is the <strong>parent</strong> of both “Herb” and “Homer” which means that     “Herb” and “Homer” are the <strong>two children</strong> of “Abraham”.</p></li>
+<li><p>Same goes for “Bart”, “Lisa” and “Maggie” as they are the <strong>three children</strong>     of “Homer”; and “Homer” is their parent.</p></li>
+<li><p>“Bart”, “Lisa” and “Maggie” have <strong>no children</strong>.</p></li>
+<li><p>As we can see, each entry in the tree can have <em>zero</em>, <em>one</em>, <em>two</em>, <em>three</em>     or even more children for each parent.</p></li>
+</ul>
+<p>Now, let’s try to use the previous tree to explain a few terms:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Tree Node</strong>: Each entry in the tree data structure is called a tree node.     So, “TheSimpsons”, “Abraham”, “Herb”, … “Maggie” are all tree nodes. So,</dt><dd><p>the number of nodes in the previous tree is 7.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>Root</strong>: The root is the first tree node in the tree and it’s the only     treenode that has no <em>parent</em>. So, “TheSimpsons” is the root of the     previuos tree.</p></li>
+<li><p><strong>Leaf Node</strong>: The leaf node is a tree node that has no children. So, both     “Bart”, “Lisa” and “Maggie” are leaf nodes. So, the number of leaf nodes     in the previous tree is 3.</p></li>
+<li><p><strong>Height</strong>: The tree height is the number of edges between the root and the     furthest leaf node. In this case, the tree height is 3.</p></li>
+<li><p><strong>Depth</strong>: The depth of a tree node is the number of edges between this tree     node and the root. So, the depth of the tree’s root is always 0.</p></li>
+</ul>
+<p>The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha’Allah.
+Generally, we are going to use the following indicators in the table:</p>
+<ul class="simple">
+<li><p><strong>n</strong> is the number of elements currently in the container.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 49%" />
+<col style="width: 14%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Worst-case</p></th>
+<th class="head"><p>Optimal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>__len__()</p></td>
+<td><p>Returns the number of nodes in the tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_empty()</p></td>
+<td><p>Checks if tree is empty.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>__repr__()</p></td>
+<td><p>Represents the tree as a string.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__iter__()</p></td>
+<td><p>Iterates over the tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>__contains__()</p></td>
+<td><p>Checks the existence of the given item.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_height()</p></td>
+<td><p>Gets the tree’s height.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_depth()</p></td>
+<td><p>Gets the tree’s depth.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_nodes_per_level()</p></td>
+<td><p>Returns a list of all nodes per level.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>count_leaf_nodes()</p></td>
+<td><p>Counts all leaf nodes in the tree.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>clear()</p></td>
+<td><p>Clears the whole tree instance.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>to_list()</p></td>
+<td><p>Converts the tree instance to  list.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Here are all of the public methods that can be used with <cite>Tree()</cite> objects:</p>
+<dl class="py class">
+<dt id="extra.trees.tree.TreeNode">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.tree.</code><code class="sig-name descname">TreeNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tree node is the basic unit for building trees. A tree node must contain
+a value and this value can’t be <cite>None</cite>. Each tree node has zero or more
+child tree nodes. The node that has no children is called a <strong>leaf node</strong>.</p>
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>TreeNode()</cite> object which is the basic unit for building
+Tree() objects!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>object</em>) – The value to be saved within the <cite>TreeNode()</cite> instance</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given item is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – If the given item is an <cite>Extra()</cite> object.:</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the data stored in the <cite>TreeNode()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The object stored in the <cite>TreeNode()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.get_children">
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.get_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all the children of the <cite>TreeNode()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all the children of the <cite>TreeNode()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.set_child">
+<code class="sig-name descname">set_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.set_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the given <cite>TreeNode()</cite> as a child for the current <cite>TreeNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>child</strong> (<a class="reference internal" href="#extra.trees.tree.TreeNode" title="extra.trees.tree.TreeNode"><em>TreeNode</em></a><em>(</em><em>)</em>) – The <cite>TreeNode()</cite> that will be a child for the current one.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given item is not an <cite>TreeNode()</cite> object.:</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.set_children">
+<code class="sig-name descname">set_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lst</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.set_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets multiple <cite>TreeNode()</cite> instances as children for the current one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lst</strong> (<em>iterable</em><em> (</em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>..</em><em>)</em>) – A list of the <cite>TreeNode()</cite> instances that will be set as children to
+the current <cite>TreeNode()</cite>.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – This can be raised in either of these two cases:: 1. If the given object isn’t iterable.
+    2. If the given object has an element which isn’t a <cite>TreeNode()</cite>                 instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.is_leaf">
+<code class="sig-name descname">is_leaf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.is_leaf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the current <cite>TreeNode()</cite> instance is a leaf node. A leaf node
+is a tree node that has no children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the current <cite>TreeNode()</cite> has no children and <cite>False</cite>
+otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.TreeNode.swap">
+<em class="property">static </em><code class="sig-name descname">swap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node1</span></em>, <em class="sig-param"><span class="n">node2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.TreeNode.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>A static method to swap the data within the given two <cite>TreeNode()</cite>
+instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node1</strong> (<a class="reference internal" href="#extra.trees.tree.TreeNode" title="extra.trees.tree.TreeNode"><em>TreeNode</em></a><em>(</em><em>)</em>) – The first <cite>TreeNode()</cite> instance whose data should be swapped.</p></li>
+<li><p><strong>node2</strong> (<a class="reference internal" href="#extra.trees.tree.TreeNode" title="extra.trees.tree.TreeNode"><em>TreeNode</em></a><em>(</em><em>)</em>) – The second <cite>TreeNode()</cite> instance whose data should be swapped.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If one of the given instances isn’t a <cite>TreeNode()</cite> object.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TreeNode</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">TreeNode(20)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
+<span class="go">TreeNode(10)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TreeNode</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">TypeError: Incompitable objects&#39; type preventing swapping!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.trees.tree.Tree">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.tree.</code><code class="sig-name descname">Tree</code><a class="headerlink" href="#extra.trees.tree.Tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tree is a non-linear data structure that can be defined recursively using
+a collection of <cite>TreeNode()</cite> instances, where each node has a list of
+references to the children TreeNode() instances.</p>
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an empty <cite>Tree()</cite> object!!</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">&lt;class &#39;extra.trees.tree.Tree&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.from_path">
+<em class="property">static </em><code class="sig-name descname">from_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>Tree()</cite> instance of the hierarchy of a given directory/path.
+Each file in each sub-directory will be represented as a <cite>TreeNode()</cite>
+instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path which will be the root of the returned <cite>Tree()</cite> object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The <cite>Tree()</cite> object representing the hierarchy of the given path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#extra.trees.tree.Tree" title="extra.trees.tree.Tree">Tree</a>()</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If the given path’s type wasn’t a string.:</p></li>
+<li><p><strong>ValueError</strong> – If the given path doesn’t exist.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Tree</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+<span class="go">trees</span>
+<span class="go">├── script.py</span>
+<span class="go">├─┬ folder</span>
+<span class="go">│ ├── file.txt</span>
+<span class="go">│ ├── file2.txt</span>
+<span class="go">│ └── file3.txt</span>
+<span class="go">├── script2.py</span>
+<span class="go">└── script3.py</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the length of the <cite>Tree()</cite> instance. Length is the number of nodes
+in the instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the <cite>Tree()</cite> instance. Length is the number of tree
+nodes in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2021</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">&quot;world&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">2021</span>
+<span class="go">├── hello</span>
+<span class="go">└── world</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>Tree()</cite> instance is empty or not in time-complexity of
+O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean flag showing if the <cite>Tree()</cite> instance is empty or not.
+<cite>True</cite> shows that this instance is empty and <cite>False</cite> shows it’s
+not empty.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the height of the <cite>Tree()</cite> instance. The tree’s height is the
+number of edges between the root and the furthest leaf node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the height of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.get_depth">
+<code class="sig-name descname">get_depth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.get_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the depth of the <cite>Tree()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the depth of the given <cite>Tree()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">get_depth</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.count_leaf_nodes">
+<code class="sig-name descname">count_leaf_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.count_leaf_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of leaf nodes in the <cite>Tree()</cite> instance. Leaf nodes are
+the tree nodes that have no children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the number of leaf nodes in the
+<cite>Tree()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">count_leaf_nodes</span><span class="p">()</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the <cite>Tree()</cite> instance and returns a generator of the
+<cite>TreeNode()</cite> values in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of each node in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>generator</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="go">100</span>
+<span class="go">200</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the <cite>Tree()</cite> instance to a <cite>list</cite> where values will be inserted
+in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <cite>list</cite> object containing the same elements as the <cite>Tree()</cite>
+instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[10, 100, 200, 1, 2, 3, 4, 5]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the <cite>Tree()</cite> for the given value and returns <cite>True</cite> if the
+value exists and <cite>False</cite> if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>object</em>) – The value to be searched for in the <cite>Tree()</cite> instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns <cite>True</cite> if the value exists in the <cite>Tree()</cite> instance and
+<cite>False</cite> if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">100</span> <span class="ow">in</span> <span class="n">t</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">50</span> <span class="ow">in</span> <span class="n">t</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.get_nodes_per_level">
+<code class="sig-name descname">get_nodes_per_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.get_nodes_per_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retreeves all treenodes within the <cite>Tree()</cite> instance so that all
+treenodes in a certain level will be concatenated into a separate list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A nested list where the first inner-list has all the tree nodes in
+the first level, the second inner-list has all the tree nodes in the
+second level, … so on.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">get_nodes_per_level</span><span class="p">()</span>
+<span class="go">[[10], [100, 200], [1, 2, 3, 4, 5]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.tree.Tree.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.tree.Tree.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes within the <cite>Tree()</cite> instance in constant time.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">second_child</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">TreeNode</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">set_children</span><span class="p">([</span><span class="n">first_child</span><span class="p">,</span> <span class="n">second_child</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">_root</span> <span class="o">=</span> <span class="n">root</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">10</span>
+<span class="go">├─┬ 100</span>
+<span class="go">│ ├── 1</span>
+<span class="go">│ ├── 2</span>
+<span class="go">│ └── 3</span>
+<span class="go">└─┬ 200</span>
+<span class="go">  ├── 4</span>
+<span class="go">  └── 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">--</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lists/linked_list.html">Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/doubly_linked_list.html">Doubly Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/circular_linked_list.html">Circular Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/queue.html">Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/deque.html">Deque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/priority_queue.html">Priority Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/skip_list.html">Skip List</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tree</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="binary_tree.html">Binary Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst.html">Binary Search Tree (BST)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="splay_tree.html">Splay Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avl.html">AVL Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="red_black_tree.html">Red-Black Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_heap.html">Min Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max_heap.html">Max Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="treap.html">Treap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trie.html">Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radix_trie.html">Radix Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suffix_trie.html">Suffix Trie</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../lists/skip_list.html" title="previous chapter">Skip List</a></li>
+      <li>Next: <a href="binary_tree.html" title="next chapter">Binary Tree</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rst/trees/tree.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

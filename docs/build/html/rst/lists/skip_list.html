@@ -1,0 +1,782 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skip List &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tree" href="../trees/tree.html" />
+    <link rel="prev" title="Priority Queue" href="priority_queue.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-extra.lists.skip_list">
+<span id="id1"></span><span id="skip-list"></span><h1>Skip List<a class="headerlink" href="#module-extra.lists.skip_list" title="Permalink to this headline">¶</a></h1>
+<p>A skip list is an awesome linear data structures which consists of a series of
+<strong>Linked List</strong> objects, each linked list stores a subset of items sorted by
+increasing values plus one setntinel value denoted by -∞ which is smaller than
+every possible value that can be inserted. The really interesting part about
+skip list is that it supports searching for values in time-complexity of
+<strong>O(log(n))</strong> which is considered faster than most linear data structures.</p>
+<p>The following is a simple skip list containing the first seven number from the
+Fibbonacci series which are: [0, 1, 1, 2, 3, 5, 8]</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌────┐ ┌───┐                         ┌───┐
+| -∞ │⟶| 0 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 8 │⟶
+├────┤ ├───┤ ┌───┐                   ├───┤
+| -∞ │⟶| 0 │⟶| 1 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 8 │⟶
+├────┤ ├───┤ ├───┤ ┌───┐ ┌───┐ ┌───┐ ├───┤
+| -∞ │⟶| 0 │⟶| 1 │⟶| 2 │⟶| 3 │⟶| 5 │⟶| 8 │⟶
+└────┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘
+</pre></div>
+</div>
+<p>In the above skip list, you can see the following properties:</p>
+<ul class="simple">
+<li><p>The skip list consists of multiple levels or Linked List objects. The number     of levels is called “<strong>height</strong>”. So, the height of this skip list is <cite>3</cite>.</p></li>
+<li><p>The first number in the skip list is our -∞ setntinel value.</p></li>
+<li><p>All values are numbers and they are sorted in ascending-manner.</p></li>
+<li><p>There are no repeated values.</p></li>
+<li><p>There are some numbers that are stored once and there are some numbers that     are stored multiple time.</p></li>
+</ul>
+<p>Intuitively, the lists are set up so that the lower linked lists contain more
+items of the higher ones. Inserting an item in more than one linked list is
+chosen randomly with probability 1/2. That is, like, we “<strong>flip a coin</strong>”
+for each item in the skip list. Thus, we expect the lowest linked list, at
+<cite>height=0</cite> to have <strong>n</strong> items. And the linked list at <cite>height=2</cite> to have about
+<strong>n/2</strong> items, and the one above it to have about <strong>n/4</strong> items. In other words,
+we expect the height of the skip list to be about <strong>log(n)</strong>.</p>
+<p>The -∞ setntinel value is put in the SkipList() as a convention. So, it doesn’t
+count as an element in the SkipList(). In other words, the zeroths element in
+the above skip list is <cite>0</cite> not <cite>-∞</cite>.</p>
+<p>The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha’Allah.
+Generally, we are going to use the following indicators in the table:</p>
+<ul class="simple">
+<li><p><strong>n</strong> is the number of elements currently in the container.</p></li>
+<li><p><strong>k</strong> is the value of a parameter.</p></li>
+<li><p><strong>h</strong> is the height of the skip list.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 52%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Worst-case</p></th>
+<th class="head"><p>Optimal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>__len__()</p></td>
+<td><p>Returns the number of nodes</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_empty()</p></td>
+<td><p>Checks if object is empty</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>__repr__()</p></td>
+<td><p>Represents the object</p></td>
+<td><p>O(n*h)</p></td>
+<td><p>O(n*h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__iter__()</p></td>
+<td><p>Iterates over the object</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>__contains__()</p></td>
+<td><p>Checks the existence of the given item</p></td>
+<td><p>O(log(n))</p></td>
+<td><p>O(log(n))</p></td>
+</tr>
+<tr class="row-odd"><td><p>__getitem__()</p></td>
+<td><p>Returns the element at a certain index.</p></td>
+<td><p>O(k)</p></td>
+<td><p>O(k)</p></td>
+</tr>
+<tr class="row-even"><td><p>__delitem__()</p></td>
+<td><p>Deletes the value at the given index</p></td>
+<td><p>O(k)</p></td>
+<td><p>O(k)</p></td>
+</tr>
+<tr class="row-odd"><td><p>insert()</p></td>
+<td><p>Adds the given item to the instance</p></td>
+<td><p>O(k)</p></td>
+<td><p>O(k)</p></td>
+</tr>
+<tr class="row-even"><td><p>remove()</p></td>
+<td><p>Removes the given value if found</p></td>
+<td><p>O(log(n))</p></td>
+<td><p>O(log(n))</p></td>
+</tr>
+<tr class="row-odd"><td><p>clear()</p></td>
+<td><p>Clears the whole skip list</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>to_list()</p></td>
+<td><p>Converts the skip list to built-in list.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Here are all of the public methods that can be used with <cite>SkipList()</cite> objects:</p>
+<dl class="py function">
+<dt id="extra.lists.skip_list.flip_coin">
+<code class="sig-prename descclassname">extra.lists.skip_list.</code><code class="sig-name descname">flip_coin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.flip_coin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function to mimic the action of flipping a coin. The result is
+totally random,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Either “head” or “tail”.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flip_coin</span><span class="p">()</span>
+<span class="go">&#39;tail&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flip_coin</span><span class="p">()</span>
+<span class="go">&#39;head&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flip_coin</span><span class="p">()</span>
+<span class="go">&#39;head&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="extra.lists.skip_list.search_sorted">
+<code class="sig-prename descclassname">extra.lists.skip_list.</code><code class="sig-name descname">search_sorted</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prev_node</span></em>, <em class="sig-param"><span class="n">start_node</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.search_sorted" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function to search the SkipList() instance starting from a certain
+node and searching for a certain value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prev_node</strong> (<a class="reference internal" href="#extra.lists.skip_list.SkipNode" title="extra.lists.skip_list.SkipNode"><em>SkipNode</em></a><em>(</em><em>)</em>) – A reference to the node that is previous to the <cite>start_node</cite>.</p></li>
+<li><p><strong>start_node</strong> (<a class="reference internal" href="#extra.lists.skip_list.SkipNode" title="extra.lists.skip_list.SkipNode"><em>SkipNode</em></a><em>(</em><em>)</em>) – A reference to the node at which the searching starts.</p></li>
+<li><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The number for which we started searching.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>SkipNode()</em> – A reference to the node previus to the node containing the value if the
+value was found. If the value wasn’t found, then this will be either
+<cite>None</cite> or the second last node in the skiplist.</p></li>
+<li><p><em>SkipNode()</em> – A reference to the node containg the value if the value was found. If
+the value wasn’t found, then this will be the last node in the skiplist.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.lists.skip_list.SkipNode">
+<em class="property">class </em><code class="sig-prename descclassname">extra.lists.skip_list.</code><code class="sig-name descname">SkipNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A skip node is the basic unit for building skip lists.</p>
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipNode.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipNode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>SkipNode()</cite> object used mainly with SkipList() objects!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>object</em>) – The value to be saved within the <cite>SkipNode()</cite> instance</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given item is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – If the given item isn’t a number.:</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipNode.get_down">
+<code class="sig-name descname">get_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipNode.get_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the down <cite>SkipNode()</cite> instance of the current one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <cite>SkipNode()</cite> instance that is below the current <cite>SkipNode()</cite>
+or <cite>None</cite> if there weren’t any.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Node()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipNode.set_down">
+<code class="sig-name descname">set_down</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other_node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipNode.set_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the down pointer of the current <cite>SkipNode()</cite> to the given node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other_node</strong> (<a class="reference internal" href="#extra.lists.skip_list.SkipNode" title="extra.lists.skip_list.SkipNode"><em>SkipNode</em></a><em>(</em><em>)</em>) – The <cite>SkipNode()</cite> that will follow the current <cite>SkipNode()</cite>.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given item is not an <cite>SkipNode()</cite> object.:</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.lists.skip_list.SkipList">
+<em class="property">class </em><code class="sig-prename descclassname">extra.lists.skip_list.</code><code class="sig-name descname">SkipList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList" title="Permalink to this definition">¶</a></dt>
+<dd><p>A skip list is an awesome linear data structures which consists of a series
+of <strong>Linked List</strong> objects, each linked list stores a subset of items sorted
+by increasing values plus one setntinel value denoted by -∞ which is smaller
+than every possible value that can be inserted. The really interesting part
+about skip list is that it supports searching for values in time-complexity
+of <strong>O(log(n))</strong> which is considered faster than most linear data
+structures.</p>
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a <cite>SkipList()</cite> instance using an optional iterable object
+in time-complexity of O(n) where <strong>n</strong> is the number of elements inside
+the given <cite>iterable</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<em>iterable</em><em> (</em><em>default: None</em><em>)</em>) – An iterable python object that implements the <cite>__iter__</cite> method.
+For example, <cite>list</cite> and <cite>tuple</cite> are both iterables.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – It can be raised in three cases: 1. In case the given object isn’t iterable.
+    2. If one of the elements in the iterable is an <cite>Extra</cite> object.
+    3. If one of the elements in the iterable is NOT a number.</p></li>
+<li><p><strong>ValueError</strong> – If one of the iterable elements is <cite>None</cite>.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐                    ┌────┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶</span>
+<span class="go">├────┤ ┌────┐             ├────┤</span>
+<span class="go">| -∞ │⟶| -5 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶</span>
+<span class="go">├────┤ ├────┤ ┌───┐ ┌───┐ ├────┤</span>
+<span class="go">| -∞ │⟶| -5 │⟶| 7 │⟶| 9 │⟶| 10 │⟶</span>
+<span class="go">└────┘ └────┘ └───┘ └───┘ └────┘</span>
+</pre></div>
+</div>
+<p>Using an iterable object with <cite>None</cite> as one of its elements will raise
+<cite>ValueError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="go">ValueError: Can&#39;t use `None` as an element within `extra.SkipList()`!!</span>
+</pre></div>
+</div>
+<p>Using a non-iterable object will raise <cite>TypeError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">TypeError: The given object isn&#39;t iterable!!</span>
+</pre></div>
+</div>
+<p>Using nested <cite>SkipList</cite> objects will raise <cite>TypeError</cite> as well</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl_1</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl_2</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">sl_1</span><span class="p">])</span>
+<span class="go">TypeError: Can&#39;t create `extra.SkipList()` using `extra.SkipList()`!!</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inserting values into different levels in the skip list is completely
+random. So, running the previous example will return different values
+each time you run it. So, in order to obtain the same result as before
+you need to set <cite>random.seed(1)</cite> before running any of the previous
+example.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the length of the SkipList() in time-complexity of O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the SkipList() instance. By Length, I mean the
+number of nodes of in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the SkipList() instance is empty or not in time-complexity of
+O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean flag showing if the SkipList() instance is empty or
+not. <cite>True</cite> shows that this instance is empty and <cite>False</cite> shows
+it’s not empty.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the height of the SkipNode() instance. SkipNode() height is the
+number of levels where each level is a LinkedList() object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the height of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the SkipList() instance and returns a generator in
+time-complexity of O(n) where <strong>n</strong> is the number of elements in the
+SkipList() instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of each node in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>generator</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sl</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the given value exists in the SkipList() instance in time-
+complexity of O(log(n)) where <strong>n</strong> is the total number of elements in
+the SkipList() instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Object</em>) – The value to be searched for in the SkipList() instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if the given value exists in the SkipList() instance, and
+<cite>False</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the given item is <cite>None</cite>.:</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">in</span> <span class="n">sl</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="ow">in</span> <span class="n">sl</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;hello&quot;</span> <span class="ow">in</span> <span class="n">sl</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the element at the given index in time-complexity of O(k)
+where <strong>k</strong> is the given index. The given index is a zero-based <cite>int</cite>.
+This method doesn’t support negative indexing and doesn’t support
+<cite>slice</cite> objects either.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – The index (multiple indices) to be used to retrieve values from the
+LinkedList() instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value at this index inside the SkipList() instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int or float</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If the given index isn’t <cite>int</cite>.:</p></li>
+<li><p><strong>IndexError</strong> – This happens in one of the following cases:: 1. If the given index is negative.
+    2. if the given index is a <cite>slice</cite> object.
+    3. If the given index is out of the SkipList() boundaries.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">IndexError: Can&#39;t find any element at the given index!!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">IndexError: Negative indexing isn&#39;t supported with this functinoality!!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">IndexError: Slice indexing isn&#39;t supported with this functinoality!!</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The -∞ setntinel value is put in the SkipList() as a convention. So, it
+doesn’t count as an element in the SkipList(). In other words, the
+zeroths element in the above skip list is <cite>0</cite> not <cite>-∞</cite>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insertd a value to the SkipList() instance in time-complexity of
+O(log(n)) where <strong>n</strong> is the number of elements in the SkipList().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The number to be inserted in the SkipList() instance.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given <cite>value</cite> isn’t a number.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐                   ┌───┐       ┌────┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶</span>
+<span class="go">├────┤             ┌───┐ ├───┤       ├────┤</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶</span>
+<span class="go">├────┤ ┌───┐ ┌───┐ ├───┤ ├───┤ ┌───┐ ├────┤</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 2 │⟶| 3 │⟶| 4 │⟶| 5 │⟶| 10 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘ └───┘ └───┘ └────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="go">TypeError: `extra.SkipList()` supports only numbers!!</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inserting values into different levels in the skip list is completely
+random. So, running the previous example will return different values
+each time you run it. So, in order to obtain the same result as before
+you need to set <cite>random.seed(1)</cite> before running any of the previous
+example.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes node whose value equal to the given value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be removed from the SkipList() instance.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐             ┌───┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤       ┌───┐ ├───┤</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘ └───┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#does nothing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐       ┌───┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌───┐ ├───┤ ┌───┐</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 3 │⟶| 5 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the previuos example, the top level was deleted when we removed <cite>4</cite>
+since it was empty after removal.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.__delitem__">
+<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes node at a given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – An integer pointing to the index where the node that should be
+removed.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If the given index isn’t <cite>int</cite>.:</p></li>
+<li><p><strong>IndexError</strong> – This happens in one of the following cases:: 1. If the given index is negative.
+    2. If the given index is out of the SkipList() boundaries.
+    3. if the given index is a <cite>slice</cite> object.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐             ┌───┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤       ┌───┐ ├───┤</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘ └───┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">sl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐       ┌───┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌───┐ ├───┤ ┌───┐</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 3 │⟶| 5 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">sl</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">IndexError: Can&#39;t find any element at the given index!!</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the previuos example, the top level was deleted when we removed <cite>4</cite>
+since it was empty after removal.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes within the SkipList() in time-complexity of O(1).</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="go">┌────┐             ┌───┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤       ┌───┐ ├───┤</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌───┐ ├───┤ ├───┤ ┌───┐</span>
+<span class="go">| -∞ │⟶| 1 │⟶| 3 │⟶| 4 │⟶| 5 │⟶</span>
+<span class="go">└────┘ └───┘ └───┘ └───┘ └───┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐</span>
+<span class="go">| -∞ │⟶</span>
+<span class="go">└────┘</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.lists.skip_list.SkipList.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.lists.skip_list.SkipList.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the SkipList() instance to a <cite>list</cite> in time-complexity of O(n)
+where <strong>n</strong> is the number of elements in the instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <cite>list</cite> object containing the same elements as the SkipList()
+instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span> <span class="o">=</span> <span class="n">SkipList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sl</span>
+<span class="go">┌────┐        ┌────┐</span>
+<span class="go">| -∞ │⟶⟶⟶⟶⟶⟶⟶⟶| 20 │⟶⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ┌────┐ ├────┤</span>
+<span class="go">| -∞ │⟶| 10 │⟶| 20 │⟶⟶⟶⟶⟶⟶⟶⟶</span>
+<span class="go">├────┤ ├────┤ ├────┤ ┌────┐</span>
+<span class="go">| -∞ │⟶| 10 │⟶| 20 │⟶| 30 │⟶</span>
+<span class="go">└────┘ └────┘ └────┘ └────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ll</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[10, 20, 30]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="linked_list.html">Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doubly_linked_list.html">Doubly Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="circular_linked_list.html">Circular Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queue.html">Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deque.html">Deque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="priority_queue.html">Priority Queue</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Skip List</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/tree.html">Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/binary_tree.html">Binary Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/bst.html">Binary Search Tree (BST)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/splay_tree.html">Splay Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/avl.html">AVL Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/red_black_tree.html">Red-Black Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/min_heap.html">Min Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/max_heap.html">Max Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/treap.html">Treap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/trie.html">Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/radix_trie.html">Radix Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trees/suffix_trie.html">Suffix Trie</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="priority_queue.html" title="previous chapter">Priority Queue</a></li>
+      <li>Next: <a href="../trees/tree.html" title="next chapter">Tree</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rst/lists/skip_list.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

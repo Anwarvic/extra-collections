@@ -1,0 +1,1231 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treap &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Trie" href="trie.html" />
+    <link rel="prev" title="Max Heap" href="max_heap.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="treap">
+<span id="id1"></span><h1>Treap<a class="headerlink" href="#treap" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-extra.trees.treap"></span><p>A treap is a binary tree that stores a collection of nodes. Each node in the
+treap contains two main values:</p>
+<ul class="simple">
+<li><p><strong>data</strong>: The numeric value inserted to the treap.</p></li>
+<li><p><strong>priority</strong>: A numeric value that indicates how important this node is.     The bigger this numeric value is, the higher its priority in the treap     becomes.</p></li>
+</ul>
+<p>Each node in the treap must satisfy two additional properties:</p>
+<p>1. <strong>BST Property</strong>: It is a relational property defined in terms of the numeric
+value stored at the node. So, for every node, the numeric value stored at the
+is greater than all the numeric values found in the left subtree and less than
+those found in the node’s right subtree. In other words, we can consider the
+treap as a BST (Binary Search Tree) with respect to the values insterted.</p>
+<p>2. <strong>Max Heap Property</strong>: It is a relational property defined in terms of the
+priority of the node. So, for every node, other than the root, the priority of
+the node is less than or equal to the value stored at the node’s parent. As a
+consequence of this property, the priority encountered on a path from the root
+to a leaf node are in nonincreasing order. Also, the maximum priority is always
+stored at the root of the treap.</p>
+<p>As we can see, we can consider the treap as both “Tree” and “Heap”. Hence, the
+name: “Treap”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The priority values are always hidden. If you want to see the priorty for each
+node in the <cite>Treap()</cite>, you can set the static variable <cite>SHOW_PRIORITY</cite> to
+<cite>True</cite> just like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Treap</span><span class="o">.</span><span class="n">SHOW_PRIORITY</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<p>[image]</p>
+<p>The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha’Allah.
+Generally, we are going to use the following indicators in the table:</p>
+<ul class="simple">
+<li><p><strong>n</strong> is the number of elements currently in the container.</p></li>
+<li><p><strong>h</strong> is the height of the BST which approximatley equals to <strong>log(n)</strong>     when the tree is balanced.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 53%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Worst-case</p></th>
+<th class="head"><p>Optimal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>__len__()</p></td>
+<td><p>Returns the number of nodes in the treap.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_empty()</p></td>
+<td><p>Checks if the treap is empty.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>__repr__()</p></td>
+<td><p>Represents the treap as a string.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__iter__()</p></td>
+<td><p>Iterates over the treap.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>__contains__()</p></td>
+<td><p>Checks the existence of a given item in the treap.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_height()</p></td>
+<td><p>Gets the treap’s height.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_depth()</p></td>
+<td><p>Gets the treap’s depth.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_nodes_per_level()</p></td>
+<td><p>Returns a list of all nodes per level.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>is_balanced()</p></td>
+<td><p>Checks if the treap is balanced.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_perfect()</p></td>
+<td><p>Checks if the treap is perfect.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>is_strict()</p></td>
+<td><p>Checks if the treap is strict.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>count_leaf_nodes()</p></td>
+<td><p>Counts all leaf nodes in the treap.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>clear()</p></td>
+<td><p>Clears the whole treap.</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_list()</p></td>
+<td><p>Converts the treap instance to list.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>traverse()</p></td>
+<td><p>Traverses the treap based on given method.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>preorder_traverse()</p></td>
+<td><p>Traverses the treap in an pre-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>inorder_traverse()</p></td>
+<td><p>Traverses the treap in an in-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>postorder_traverse()</p></td>
+<td><p>Traverses the treap in an post-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>breadth_first_traverse()</p></td>
+<td><p>Traverses the treap level by level.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>depth_first_traverse()</p></td>
+<td><p>Traverses the treap in an pre-order manner.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_min()</p></td>
+<td><p>Gets the minimum number in the treap.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_max()</p></td>
+<td><p>Gets the maximum number in the treap.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-even"><td><p>insert()</p></td>
+<td><p>Inserts a certain value to the treap.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+<tr class="row-odd"><td><p>remove()</p></td>
+<td><p>Removes a certain value from the treap.</p></td>
+<td><p>O(h)</p></td>
+<td><p>O(h)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Here are all of the public methods that can be used with <cite>Treap()</cite> objects:</p>
+<dl class="py class">
+<dt id="extra.trees.treap.TreapNode">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.treap.</code><code class="sig-name descname">TreapNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.TreapNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>A treap node is the basic unit for building Treap instances. A treap node
+must contain a number. Each treap node has either zero, one or two children
+treap nodes. The node that has no children is called a <strong>leaf node</strong>.</p>
+<dl class="py method">
+<dt id="extra.trees.treap.TreapNode.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.TreapNode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>TreapNode()</cite> object which is the basic unit for building
+<cite>Treap()</cite> objects!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be saved within the <cite>TreapNode()</cite> instance</p></li>
+<li><p><strong>priority</strong> (<em>int</em><em> or </em><em>float</em><em> (</em><em>default: None</em><em>)</em>) – A numeric value indicating the priority of the <cite>TreapNode()</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given data is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – It can be raised in the following two cases:: 1. If the given data isn’t a number.
+    2. If the given priority isn’t a number.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.TreapNode.get_priority">
+<code class="sig-name descname">get_priority</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.TreapNode.get_priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the priority of the current <cite>TreapNode()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The priority of the current <cite>TreapNode()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int or float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.TreapNode.set_priority">
+<code class="sig-name descname">set_priority</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_priority</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.TreapNode.set_priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the given priority as the priority of the current <cite>TreapNode()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_priority</strong> (<em>int</em><em> or </em><em>float</em>) – The new priority of the current <cite>TreapNode()</cite>.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If the given priority is not a number.:</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.trees.treap.Treap">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.treap.</code><code class="sig-name descname">Treap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Treap is a binary tree that stores a collection of nodes. Each node in the
+treap contains two main values: “data” and “priority” and must satisfy two
+additional properties:</p>
+<ol class="arabic simple">
+<li><p>node’s data must follow the rules of binary search tree.</p></li>
+<li><p>node’s priority must follow the rules of max heap where the node with         the heighest priority must always be at the root without breaking the             rules ofBST.</p></li>
+</ol>
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a <cite>Treap()</cite> instance using an optional iterable object in
+time-complexity of O(n) where <strong>n</strong> is the number of elements inside
+the given <cite>iterable</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iterable</strong> (<em>iterable</em><em> (</em><em>default: None</em><em>)</em>) – An iterable python object that implements the <cite>__iter__</cite> method.
+For example, <cite>list</cite> and <cite>tuple</cite> are both iterables.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>float</em><em> (</em><em>default: None</em><em>)</em>) – A seed to generate consistent random numbers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – It can be raised in three cases: 1. In case the given object isn’t iterable.
+    2. If one of the elements in the iterable is an <cite>Extra</cite> object.
+    3. If one of the elements in the iterable is NOT a number.</p></li>
+<li><p><strong>ValueError</strong> – If one of the iterable elements is <cite>None</cite>.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>Without setting the seed, each time we run the code, we will get a
+different structure.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">    ____4</span>
+<span class="go">   /     \</span>
+<span class="go">  1__     7</span>
+<span class="go"> /   \    \</span>
+<span class="go">0     3     9</span>
+<span class="go">     /</span>
+<span class="go">    2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      ____7</span>
+<span class="go">     /     \</span>
+<span class="go">    2__     9</span>
+<span class="go">   /   \</span>
+<span class="go">  1     4</span>
+<span class="go"> /     /</span>
+<span class="go">0     3</span>
+</pre></div>
+</div>
+<p>Using an iterable object with <cite>None</cite> as one of its elements will raise
+<cite>ValueError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Treap</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="go">ValueError: Can&#39;t use `None` as an element within `extra.Treap()`!!</span>
+</pre></div>
+</div>
+<p>Using a non-iterable object will raise <cite>TypeError</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Treap</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">TypeError: The given object isn&#39;t iterable!!</span>
+</pre></div>
+</div>
+<p>Using nested <cite>Treap()</cite> objects will raise <cite>TypeError</cite> as well</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap_1</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap_2</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">treap_1</span><span class="p">])</span>
+<span class="go">TypeError: Can&#39;t create `extra.Treap()` using `extra.Treap()`!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the length of the <cite>Treap()</cite> instance in time-complexity of O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the <cite>Treap()</cite> instance. Length is the number of tree
+nodes in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">treap</span><span class="p">)</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>Treap()</cite> instance is empty or not in time-complexity of
+O(1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean flag showing if the <cite>Treap()</cite> instance is empty or not.
+<cite>True</cite> shows that this instance is empty and <cite>False</cite> shows it’s
+not empty.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.get_max">
+<code class="sig-name descname">get_max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.get_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the maximum value in the <cite>Treap()</cite> isntance. The maximum value can be
+found at the right-most tree node in the <cite>Treap()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maximum numeric value in the <cite>Treap()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int or float</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – In case the <cite>Treap()</cite> instance is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
+<span class="go">9</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.get_min">
+<code class="sig-name descname">get_min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.get_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the minimum value in the <cite>Treap()</cite> isntance. The minimum value can be
+found at the left-most tree node in the <cite>Treap()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The minimum numeric value in the <cite>Treap()</cite> instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int or float</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – In case the <cite>Treap()</cite> instance is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">find_val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the <cite>Treap()</cite> for the given value and returns <cite>True</cite> if the
+value exists and <cite>False</cite> if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>find_val</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be searched for in the <cite>Treap()</cite> instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns <cite>True</cite> if the value exists in the <cite>Treap()</cite> instance and
+<cite>False</cite> if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="ow">in</span> <span class="n">treap</span>
+<span class="go">True</span>
+<span class="go">&gt;&gt; 50 in treap</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a numeric value in the <cite>Treap()</cite> instance according to the rules
+of binary search trees and max heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>int</em><em> or </em><em>float</em>) – The new numeric value that will be inserted.</p></li>
+<li><p><strong>priority</strong> (<em>int</em><em> or </em><em>float</em><em> (</em><em>default: None</em><em>)</em>) – The priority of the newly inserted node.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given <cite>value</cite> is <cite>None</cite>.:</p></li>
+<li><p><strong>TypeError</strong> – If either the given <cite>value</cite> or the given <cite>priority</cite> is not a:</p></li>
+<li><p><strong>numeric value.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">  ___15</span>
+<span class="go"> /</span>
+<span class="go">5</span>
+<span class="go"> \</span>
+<span class="go">  10</span>
+</pre></div>
+</div>
+<p>If we ran the same code again, we probably will get a different
+structure because the priority of the nodes are assigned randomly which
+changes the <cite>Treap()</cite> structure. Let’s, now, set the priority of the
+inserted node:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">  10</span>
+<span class="go"> /  \</span>
+<span class="go">5    15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Treap</span><span class="o">.</span><span class="n">SHOW_PRIORITY</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="go">    __10|P:10__</span>
+<span class="go">   /           \</span>
+<span class="go">5|P:2         15|P:7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="go">TypeError: `extra.Treap()` accepts only numbers!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">del_value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the <cite>del_value</cite> from the <cite>Treap()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>del_value</strong> (<em>int</em><em> or </em><em>float</em>) – The value to be deleted from the <cite>Treap()</cite>.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>UserWarning</strong> – If the <cite>Treap()</cite> instance is empty of if the value wasn’t             found in the instance.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">    __4</span>
+<span class="go">   /   \</span>
+<span class="go">  2     7</span>
+<span class="go"> / \</span>
+<span class="go">1   3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="go">UserWarning: Couldn&#39;t find `50` in `extra.Treap()`!!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all nodes within the <cite>Treap()</cite> instance in constant time.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">/ \</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the height of the <cite>Treap()</cite> instance. The Treap’s height is the
+number of edges between the root and the furthest leaf node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the height of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.get_depth">
+<code class="sig-name descname">get_depth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.get_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the depth of the <cite>Treap()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the depth of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">get_depth</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.count_leaf_nodes">
+<code class="sig-name descname">count_leaf_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.count_leaf_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of leaf nodes in the <cite>Treap()</cite> instance. Leaf nodes
+are the tree nodes that have no children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the number of leaf nodes in the
+<cite>Treap()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">count_leaf_nodes</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.is_balanced">
+<code class="sig-name descname">is_balanced</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.is_balanced" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>Treap()</cite> instance is balanced. A Treap is balanced if the
+difference between the depth of any two leaf nodes is less than or equal
+to one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>Treap()</cite> instance is balanced and <cite>False</cite> if it is
+not balanced.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>Treap()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_balanced</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Notice that, by changing the seed, you can change the balance of the
+<cite>Treap()</cite>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">        __7</span>
+<span class="go">       /   \</span>
+<span class="go">      3     9</span>
+<span class="go">     / \</span>
+<span class="go">    2   4</span>
+<span class="go">   /</span>
+<span class="go">  1</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_balanced</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.is_perfect">
+<code class="sig-name descname">is_perfect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.is_perfect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>Treap()</cite> instance is perfect. A Treap is perfect if all
+its levels are completely filled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>Treap()</cite> instance is perfect and <cite>False</cite> if it is not
+perfect.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>Treap()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_perfect</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.is_strict">
+<code class="sig-name descname">is_strict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.is_strict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the <cite>Treap()</cite> instance is strict. A Treap is strict if all its
+non-leaf nodes have two children (left and right).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if the <cite>Treap()</cite> instance is strict and <cite>False</cite> if it is not
+strict.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>UserWarning</strong> – If the <cite>Treap()</cite> is empty.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">is_strict</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the <cite>Treap()</cite> instance and returns a generator of the
+<cite>BSTNode()</cite> values in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of each node in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>generator</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">treap</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="go">4,2,9,1,3,7,0,</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the <cite>Treap()</cite> instance to a <cite>list</cite> where values will be inserted
+in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <cite>list</cite> object containing the same elements as the <cite>Treap()</cite>
+instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[4, 2, 9, 1, 3, 7, 0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.get_nodes_per_level">
+<code class="sig-name descname">get_nodes_per_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.get_nodes_per_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all tree nodes within the <cite>Treap()</cite> instance so that all
+tree nodes in a certain level will be concatenated into a separate list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A nested list where the first inner-list has all the tree nodes in
+the first level, the second inner-list has all the tree nodes in the
+second level, … so on.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">get_nodes_per_level</span><span class="p">()</span>
+<span class="go">[[4], [2, 9], [1, 3, 7], [0]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.preorder_traverse">
+<code class="sig-name descname">preorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.preorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>Treap()</cite> instance in pre-order manner. Which means that the
+<strong>parent</strong> is visited first. Then, the <strong>left subtree</strong> (if found), then
+the <strong>right subtree</strong> (if found).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s the same as <cite>depth_first_traverse()</cite> method.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">preorder_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 1, 0, 3, 9, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.depth_first_traverse">
+<code class="sig-name descname">depth_first_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.depth_first_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>Treap()</cite> instance in depth-first manner. Which means that
+the <strong>parent</strong> is visited first. Then, the <strong>left subtree</strong> (if found),
+then the <strong>right subtree</strong> (if found).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s the same as <cite>preorder_traverse()</cite> method.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">depth_first_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 1, 0, 3, 9, 7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.postorder_traverse">
+<code class="sig-name descname">postorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.postorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>Treap()</cite> instance in post-order manner. Which means that
+the <strong>left subtree</strong> (if found) is visited first. Then, the <strong>right
+subtree</strong> (if found) then the <strong>parent</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">postorder_traverse</span><span class="p">()</span>
+<span class="go">[0, 1, 3, 2, 7, 9, 4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.inorder_traverse">
+<code class="sig-name descname">inorder_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.inorder_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>Treap()</cite> instance in in-order manner. Which means that the
+<strong>left subtree</strong> (if found) is visited first. Then, the <strong>parent</strong> then
+the <strong>right subtree</strong> (if found).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the in-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">inrder_traverse</span><span class="p">()</span>
+<span class="go">[0, 1, 2, 3, 4, 7, 9]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.breadth_first_traverse">
+<code class="sig-name descname">breadth_first_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.breadth_first_traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverses the <cite>Treap()</cite> instance in breadth-first manner. Which means that
+the tree nodes will be visited level by level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of all values of the pre-order visited nodes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">breadth_first_traverse</span><span class="p">()</span>
+<span class="go">[4, 2, 9, 1, 3, 7, 0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.treap.Treap.traverse">
+<code class="sig-name descname">traverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'inorder'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.treap.Treap.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traversal is the process to visit all nodes of a Treap starting from the
+root as we cannot randomly access any node in a binary tree. There are
+four ways which we use to traverse a Treap:</p>
+<ol class="arabic simple">
+<li><p>preorder - depth-first</p></li>
+<li><p>inorder</p></li>
+<li><p>posteorder</p></li>
+<li><p>breadth-first</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>method</strong> (<em>str</em><em> (</em><em>default=&quot;inorder&quot;</em><em>)</em>) – A lower-cased string describing the type of traversal that will be
+used. It could be one of these values: [“inorder”, “postorder”,
+“preorder”, “depth-first”, “breadth-first”]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of all values of the visited nodes according to the specified
+traversal method.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the given method isn’t known.:</p></li>
+<li><p><strong>TypeError</strong> – If the given method isn’t a string.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span> <span class="o">=</span> <span class="n">Treap</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span>
+<span class="go">      __4__</span>
+<span class="go">     /     \</span>
+<span class="go">    2       9</span>
+<span class="go">   / \    /</span>
+<span class="go">  1   3   7</span>
+<span class="go"> /</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;preorder&quot;</span><span class="p">)</span>
+<span class="go">[4, 2, 1, 0, 3, 9, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;inorder&quot;</span><span class="p">)</span>
+<span class="go">[0, 1, 2, 3, 4, 7, 9]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;postorder&quot;</span><span class="p">)</span>
+<span class="go">[0, 1, 3, 2, 7, 9, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;breadth-first&quot;</span><span class="p">)</span>
+<span class="go">[4, 2, 9, 1, 3, 7, 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treap</span><span class="o">.</span><span class="n">traverse</span><span class="p">(</span><span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="go">ValueError: Given traverse method has to be one of these:</span>
+<span class="go">{&#39;breadth-first&#39;, &#39;postorder&#39;, &#39;inorder&#39;, &#39;depth-first&#39;, &#39;preorder&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lists/linked_list.html">Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/doubly_linked_list.html">Doubly Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/circular_linked_list.html">Circular Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/queue.html">Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/deque.html">Deque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/priority_queue.html">Priority Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/skip_list.html">Skip List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binary_tree.html">Binary Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst.html">Binary Search Tree (BST)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="splay_tree.html">Splay Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avl.html">AVL Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="red_black_tree.html">Red-Black Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_heap.html">Min Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max_heap.html">Max Heap</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Treap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-documentation">Class Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trie.html">Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radix_trie.html">Radix Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suffix_trie.html">Suffix Trie</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="max_heap.html" title="previous chapter">Max Heap</a></li>
+      <li>Next: <a href="trie.html" title="next chapter">Trie</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rst/trees/treap.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

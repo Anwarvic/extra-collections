@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suffix Trie &#8212; extra-collections 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Radix Trie" href="radix_trie.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-extra.trees.suffix_trie">
+<span id="id1"></span><span id="suffix-trie"></span><h1>Suffix Trie<a class="headerlink" href="#module-extra.trees.suffix_trie" title="Permalink to this headline">¶</a></h1>
+<p>A suffix trie is a radix trie that stores information about a single string and
+exports a huge amount of structural information about that string. It is able
+to perform these stuctural operations by storing all the possible suffixes of
+the given text, hence the name “Suffix Trie”.</p>
+<p>[image]</p>
+<p>The following table sums up all the different public functionality in this
+class and also provides the worst-case time complexity along side with the
+optimal time complexity that I will try to reach in future releases Insha’Allah.
+Generally, we are going to use the following indicators in the table:</p>
+<ul class="simple">
+<li><p><strong>n</strong> is the number of elements currently in the container.</p></li>
+<li><p><strong>m</strong> is the number of elements in the <em>other</em> container.</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 53%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Worst-case</p></th>
+<th class="head"><p>Optimal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>__init__()</p></td>
+<td><p>Initializes suffix trie.</p></td>
+<td><p>O(n^2)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__len__()</p></td>
+<td><p>Returns the number of nodes.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>__repr__()</p></td>
+<td><p>Represents the suffix trie.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>__iter__()</p></td>
+<td><p>Iterates over the radix trie.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_height()</p></td>
+<td><p>Gets the radix trie’s height</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_depth()</p></td>
+<td><p>Gets the radix trie’s depth</p></td>
+<td><p>O(1)</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>count_leaf_nodes()</p></td>
+<td><p>Counts all leaf nodss in the radix trie.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_list()</p></td>
+<td><p>Converts the radix trie instance to list.</p></td>
+<td><p>O(n)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>has_substring()</p></td>
+<td><p>Searches the suffix trie for a substring.</p></td>
+<td><p>O(m)</p></td>
+<td><p>O(m)</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_suffix_array()</p></td>
+<td><p>Converts the suffix trie to suffix array.</p></td>
+<td><p>O(nlog(n))</p></td>
+<td><p>O(1)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_longest_common_substring()</p></td>
+<td><p>Retrieves the longest common substring in the suffix trie.</p></td>
+<td><p>O(m)</p></td>
+<td><p>O(m)</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_longest_repeated_substring()</p></td>
+<td><p>Retrieves the longest repeated substring in the suffix trie.</p></td>
+<td><p>O(m)</p></td>
+<td><p>O(m)</p></td>
+</tr>
+<tr class="row-even"><td><p>get_lowest_common_ancestor()</p></td>
+<td><p>Retrieves the lowest common ancestor in the suffix trie.</p></td>
+<td><p>O(m)</p></td>
+<td><p>O(m)</p></td>
+</tr>
+<tr class="row-odd"><td><p>count_pattern_occurrences()</p></td>
+<td><p>Counts the occurrences of a pattern in the suffix trie.</p></td>
+<td><p>O(m)</p></td>
+<td><p>O(m)</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="extra.trees.suffix_trie.is_palindrome">
+<code class="sig-prename descclassname">extra.trees.suffix_trie.</code><code class="sig-name descname">is_palindrome</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.is_palindrome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the given word is a palindrome or not. A palindrome is  string
+that reads the same if reversed like “madam” or “anna”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word</strong> (<em>str</em>) – The word to be checked if it’s a palindrome or not.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean verifying if the given word is a palindrome. <cite>True</cite> indicates
+the given word is a palindrome. <cite>False</cite> indicates it’s not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – If the given word isn’t a <cite>str</cite> object.:</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">&quot;madam&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">&quot;anna&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="extra.trees.suffix_trie.SuffixTrie">
+<em class="property">class </em><code class="sig-prename descclassname">extra.trees.suffix_trie.</code><code class="sig-name descname">SuffixTrie</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie" title="Permalink to this definition">¶</a></dt>
+<dd><p>A suffix trie is a radix trie that stores information about a single string
+and exports a huge amount of structural information about that string. It is
+able to perform these stuctural operations by storing all the possible
+suffixes of the given text, hence the name “Suffix Trie”.</p>
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">word</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <cite>SuffixTrie()</cite> object using the given <cite>word</cite> in quadratic
+time-complexity!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>word</strong> (<em>str</em>) – The string that we want to create our <cite>SuffixTrie()</cite> from its
+suffixes.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – It can be raised due to one of these cases:: 1. If given <cite>word</cite> is <cite>None</cite>.
+    2. If the given <cite>word</cite> is an empty string.</p></li>
+<li><p><strong>TypeError</strong> – It can be raised due to one of these cases:: 1. If <cite>word</cite> is an <cite>Extra</cite> object.
+    2. If the type of the given <cite>word</cite> isn’t a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">&lt;class &#39;extra.trees.suffix_trie.SuffixTrie&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of nodes within the <cite>SuffixTrie()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the <cite>SuffixTrie()</cite> instance. Length is the number of
+nodes in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">11</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.get_height">
+<code class="sig-name descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the height of the <cite>SuffixTrie()</cite> instance. The trie’s height is the
+number of edges between the root and the furthest leaf node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the height of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.get_depth">
+<code class="sig-name descname">get_depth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.get_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the depth of the <cite>SuffixTrie()</cite> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the depth of the given
+<cite>SuffixTrie()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">get_depth</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.count_leaf_nodes">
+<code class="sig-name descname">count_leaf_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.count_leaf_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of leaf nodes in the <cite>SuffixTrie()</cite> instance. Leaf
+nodes are the trie nodes that have no children.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A positive integer representing the number of leaf nodes in the
+<cite>SuffixTrie()</cite>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">count_leaf_nodes</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the <cite>SuffixTrie()</cite> instance and returns a generator of the
+<cite>TrieNode()</cite> values in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of each node in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>generator</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">st</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="go">banana$,a,na,$,na,$,na$,$,na$,$,</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the <cite>SuffixTrie()</cite> instance to a <cite>list</cite> where values will be
+inserted in breadth-first manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <cite>list</cite> object containing the same elements as the <cite>SuffixTrie()</cite>
+instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="go">[&#39;banana$&#39;, &#39;a&#39;, &#39;na&#39;, &#39;$&#39;, &#39;na&#39;, &#39;$&#39;, &#39;na$&#39;, &#39;$&#39;, &#39;na$&#39;, &#39;$&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.has_substring">
+<code class="sig-name descname">has_substring</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">substr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.has_substring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the <cite>SuffixTrie()</cite> for the given substring and returns <cite>True</cite>
+if the whole substring exists and <cite>False</cite> if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>substr</strong> (<em>str</em>) – The substring to be searched for in the <cite>SuffixTrie()</cite> instance.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns <cite>True</cite> if the substring exists in the <cite>SuffixTrie()</cite>
+instance and <cite>False</cite> if not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">has_substring</span><span class="p">(</span><span class="s2">&quot;ban&quot;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">has_substring</span><span class="p">(</span><span class="s2">&quot;ab&quot;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.to_suffix_array">
+<code class="sig-name descname">to_suffix_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.to_suffix_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the <cite>SuffixTrie()</cite> to a suffix array. A suffix array is an
+array that stores the starting indices of all suffix in the given
+string sorted alphabetically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The suffix array.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">to_suffix_array</span><span class="p">()</span>
+<span class="go">[6, 5, 3, 1, 0, 4, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># indices associated with the following suffixes:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># [&#39;$&#39;, &#39;a&#39;, &#39;ana&#39;, &#39;anana&#39;, &#39;banana&#39;, &#39;na&#39;, &#39;nana&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.get_longest_common_substring">
+<code class="sig-name descname">get_longest_common_substring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.get_longest_common_substring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the longest common substring in the <cite>SuffixTrie()</cite>, or LCS for
+short. LCS is the longest substring that occurs at least twice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>list</em> – A list of longest commong substring(s) found in the <cite>SuffixTrie()</cite></p></li>
+<li><p><em>Example</em></p></li>
+<li><p><em>&gt;&gt;&gt; st = SuffixTrie(“banana”)</em></p></li>
+<li><p><em>&gt;&gt;&gt; st.get_longest_common_substring()</em></p></li>
+<li><p><em>[‘ana’]</em></p></li>
+<li><p><em>&gt;&gt;&gt; st = SuffixTrie(“abcpqrabpqpq”)</em></p></li>
+<li><p><em>&gt;&gt;&gt; st.get_longest_common_substring()</em></p></li>
+<li><p><em>[“pq”, “ab”]</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Longest Common Substring is the same as Longest Repeated Substring which
+means that the following two methods are exactly the same:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>get_longest_common_substring()</cite>.</p></li>
+<li><p><cite>get_longest_repeated_substring()</cite>.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.get_longest_repeated_substring">
+<code class="sig-name descname">get_longest_repeated_substring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.get_longest_repeated_substring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the longest repeated substring in the <cite>SuffixTrie()</cite>, or LRS for
+short. LRS is the longest substring that occurs at least twice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>list</em> – A list of longest reapeated substring(s) found in the <cite>SuffixTrie()</cite></p></li>
+<li><p><em>Example</em></p></li>
+<li><p><em>&gt;&gt;&gt; st = SuffixTrie(“banana”)</em></p></li>
+<li><p><em>&gt;&gt;&gt; st.get_longest_repeated_substring()</em></p></li>
+<li><p><em>[‘ana’]</em></p></li>
+<li><p><em>&gt;&gt;&gt; st = SuffixTrie(“abcpqrabpqpq”)</em></p></li>
+<li><p><em>&gt;&gt;&gt; st.get_longest_repeated_substring()</em></p></li>
+<li><p><em>[“pq”, “ab”]</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Longest Repeated Substring is the same as Longest Common Substring which
+means that the following two methods are exactly the same:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>get_longest_common_substring()</cite>.</p></li>
+<li><p><cite>get_longest_repeated_substring()</cite>.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.get_lowest_common_ancestor">
+<code class="sig-name descname">get_lowest_common_ancestor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.get_lowest_common_ancestor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets lowest common ancestor between two given suffixes defined by their
+indices in the <cite>SuffixTrie()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>int</em>) – The start index of the first suffix.</p></li>
+<li><p><strong>j</strong> (<em>int</em>) – The start index of the second suffix.s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The lowest common ancestor between the two suffixes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If either one of the given indices were not an integer.:</p></li>
+<li><p><strong>ValueError</strong> – If the value of the given indices were invalid, like             negative number of more than the length of the base string.:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>
+<span class="go">ROOT</span>
+<span class="go">├── banana$ ⟶ 0</span>
+<span class="go">├─┬ a</span>
+<span class="go">│ ├─┬ na</span>
+<span class="go">│ │ ├── na$ ⟶ 1</span>
+<span class="go">│ │ └── $ ⟶ 3</span>
+<span class="go">│ └── $ ⟶ 5</span>
+<span class="go">├─┬ na</span>
+<span class="go">│ ├── na$ ⟶ 2</span>
+<span class="go">│ └── $ ⟶ 4</span>
+<span class="go">└── $ ⟶ 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">get_lowest_common_ancestor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">na</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">get_lowest_common_ancestor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">get_lowest_common_ancestor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="go">a</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="extra.trees.suffix_trie.SuffixTrie.count_pattern_occurrences">
+<code class="sig-name descname">count_pattern_occurrences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pattern</span></em><span class="sig-paren">)</span><a class="headerlink" href="#extra.trees.suffix_trie.SuffixTrie.count_pattern_occurrences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of times a certain sequence of characters appear in
+the <cite>SuffixTrie()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pattern</strong> (<em>str</em>) – The pattern or the sequence of characters to find its number of
+occurrences.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of occurrences this pattern appear in the <cite>SuffixTrie()</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">SuffixTrie</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">count_pattern_occurrences</span><span class="p">(</span><span class="s2">&quot;ana&quot;</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">count_pattern_occurrences</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">count_pattern_occurrences</span><span class="p">(</span><span class="s2">&quot;bann&quot;</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">extra-collections</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lists/linked_list.html">Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/doubly_linked_list.html">Doubly Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/circular_linked_list.html">Circular Linked List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/stack.html">Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/queue.html">Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/deque.html">Deque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/priority_queue.html">Priority Queue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../lists/skip_list.html">Skip List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binary_tree.html">Binary Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst.html">Binary Search Tree (BST)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="splay_tree.html">Splay Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avl.html">AVL Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="red_black_tree.html">Red-Black Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_heap.html">Min Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max_heap.html">Max Heap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="treap.html">Treap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trie.html">Trie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radix_trie.html">Radix Trie</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Suffix Trie</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="radix_trie.html" title="previous chapter">Radix Trie</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, anwarvic.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/rst/trees/suffix_trie.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
