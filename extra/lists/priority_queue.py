@@ -21,7 +21,7 @@ item in the PriorityQueue(), you can set the static variable `SHOW_PRIORITY` to
 >>> PriorityQueue.SHOW_PRIORITY = True
 
 
-[image]
+.. image:: ../../img/lists/priority_queue.gif
 
 
 The following table sums up all the different public functionality in this
