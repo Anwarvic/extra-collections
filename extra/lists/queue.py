@@ -6,7 +6,7 @@ but only the element that has been in the queue the longest can be next removed.
 We usually say that elements enter a queue at the back and are removed from
 the front.
 
-[image]
+.. image:: ../../img/lists/queue.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
