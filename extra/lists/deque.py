@@ -4,7 +4,7 @@ supports insertion and deletion at both the front and the back of the queue.
 Deque is a short for "double-ended queue". The deque is more general than both
 the stack and the queue.
 
-[image]
+.. image:: ../../img/lists/deque.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
