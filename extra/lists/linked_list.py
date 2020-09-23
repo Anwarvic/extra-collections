@@ -10,7 +10,8 @@ By starting at the linked list's head and moving to the latter nodes using each
 node's next reference, we can reach the end of the list. This process is
 commonly known as *traversing* the linked list. 
  
-[image]
+.. image:: ../../img/lists/linked_list.gif
+
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
