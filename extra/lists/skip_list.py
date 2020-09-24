@@ -41,6 +41,8 @@ The -∞ setntinel value is put in the SkipList() as a convention. So, it doesn'
 count as an element in the SkipList(). In other words, the zeroths element in 
 the above skip list is `0` not `-∞`.
 
+.. image:: ../../img/lists/skip_list.gif
+
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
