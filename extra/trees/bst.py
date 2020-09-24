@@ -89,6 +89,8 @@ Now, let's try to use the previous BST to explain a few terms:
 
             8 ⟶ 5 ⟶ 15 ⟶ 2 ⟶ 7 ⟶ 10 ⟶ 3
 
+.. image:: ../../img/trees/bst.gif
+
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
