@@ -86,6 +86,7 @@ Now, let's try to use the previous binary tree to explain a few terms:
 
             GrandFather ⟶ Father ⟶ Uncle ⟶ Me ⟶ Sibling ⟶ Cousin1 ⟶ Cousin2
 
+.. image:: ../../img/trees/binary_tree.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -111,7 +112,7 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | get_depth()              | Gets the binary tree's depth.                      | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes()              | Returns a list of all nodes per level.             | O(n)       | O(n)    |
+| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_balanced()            | Checks if the binary tree is balanced.             | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
