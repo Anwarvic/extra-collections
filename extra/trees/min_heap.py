@@ -99,7 +99,33 @@ class MinHeap(Heap):
         return super().heapify(iterable)
     
 
+    ##############################     MIN/MAX    ##############################
     def get_min(self):
+        """
+        Gets the minimum value in the `MinHeap()` isntance in a constant time.
+        The minimum value can be at the root of the `MinHeap()` instance.
+
+        Returns
+        -------
+        int or float:
+            The minimum numeric value in the `MinHeap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `MinHeap()` instance is empty.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+
+        >>> min_heap.get_min()
+        0
+        """
         if self.is_empty():
             raise IndexError("Can't get the minimum out of an empty Heap!!")
         return self._heap[0]
@@ -112,6 +138,7 @@ class MinHeap(Heap):
         return max(last_half)
 
 
+    ##############################     INSERT     ##############################
     def insert(self, value):
         super().insert(value, is_min_heap=True)
 
