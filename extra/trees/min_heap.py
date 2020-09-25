@@ -22,10 +22,24 @@ from extra.trees._heap import Heap
 
 
 class MinHeap(Heap):
+    """
+    A Min heap is a perfect binary tree that stores a collection of nodes. Each
+    node other than stores a value greater than or equal to the value strored at
+    the node's parent.
+    """
     __name__ = "extra.MinHeap()"
     
 
     def __init__(self):
+        """
+        Creates an empty `MinHeap()` object!!
+        
+        Example
+        -------
+        >>> min_heap = MinHeap()
+        >>> type(min_heap)
+        <class 'extra.trees.min_heap.MinHeap'>
+        """
         super().__init__()
     
 
