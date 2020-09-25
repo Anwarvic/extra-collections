@@ -102,7 +102,7 @@ class MinHeap(Heap):
     ##############################     MIN/MAX    ##############################
     def get_min(self):
         """
-        Gets the minimum value in the `MinHeap()` isntance in a constant time.
+        Gets the minimum value in the `MinHeap()` instance in a constant time.
         The minimum value can be at the root of the `MinHeap()` instance.
 
         Returns
@@ -132,6 +132,32 @@ class MinHeap(Heap):
 
 
     def get_max(self):
+        """
+        Gets the maximum value in the `MinHeap()` instance in a linear time.
+        The maximum value can be at the deepest level of the `MinHeap()`
+        instance.
+
+        Returns
+        -------
+        int or float:
+            The masximum numeric value in the `MinHeap()` instance.
+        
+        Raises
+        ------
+        IndexError: In case the `MinHeap()` instance is empty.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+
+        >>> min_heap.get_max()
+        9
+        """
         if self.is_empty():
             raise IndexError("Can't get the maximum out of an empty Heap!!")
         last_half = self._heap[len(self)//2:]
