@@ -14,7 +14,7 @@ informally said to be at the top of the heap. Hence, the name "Min Heap"
 2. Perfect Binary Tree Property: It is a structural property defined in terms of
 the shape of heap itself. A binary tree is perfect if all its levels are
 completely filled. So, given an **n** inserted items, the height of the heap 
-should be **log(n)**.
+should be **log(n)** at most.
 """
 from extra.trees._heap import Heap
 
