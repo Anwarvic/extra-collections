@@ -45,6 +45,57 @@ class MinHeap(Heap):
 
     @classmethod
     def heapify(cls, iterable):
+        """
+        A class method which creates a `MinHeap()` instance using an iterable
+        object in time-complexity of O(n) where **n** is the number of elements
+        inside the given `iterable`.
+
+        Parameters
+        ----------
+        iterable: iterable
+            An iterable python object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.
+        
+        Returns
+        -------
+        MinHeap()
+            It returns a `MinHeap()` instance with input values being inserted.
+        
+        Raises
+        ------
+        TypeError: It can be raised in two cases
+            1. In case the given object isn't iterable.
+            2. If one of the elements in the iterable is NOT a number.
+
+        ValueError: If one of the iterable elements is `None`.
+
+        Examples
+        --------
+        >>> MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+
+
+        Using an iterable object with `None` as one of its elements will raise
+        `ValueError`
+
+        >>> MinHeap.heapify([2, None])
+        ValueError: Can't use `None` as an element within `extra.MinHeap()`!!
+        
+        Using a non-iterable object will raise `TypeError`
+
+        >>> MinHeap.heapify(2)
+        TypeError: The given object isn't iterable!!
+        
+        Using nested `MinHeap()` objects will raise `TypeError` as well
+
+        >>> min_heap_1 = MinHeap.heapify([1])
+        >>> min_heap_2 = MinHeap.heapify([1, min_heap_1])
+        TypeError: Can't create `extra.MinHeap()` using `extra.MinHeap()`!!
+        """
         return super().heapify(iterable)
     
 
