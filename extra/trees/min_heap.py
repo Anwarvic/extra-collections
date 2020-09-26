@@ -275,9 +275,48 @@ class MinHeap(Heap):
 
     ##############################     INSERT     ##############################
     def insert(self, value):
+        """
+        Inserts a numeric value in the `MinHeap()` instance.
+
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Parameters
+        ----------
+        value: int or float
+            The new numeric value that will be inserted.
+        
+        Raises
+        ------
+        ValueError: If the given `value` is `None`.
+        TypeError: If the given `value` is not a numeric value.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> min_heap.insert(15)
+        >>> min_heap.insert(-1)
+        >>> min_heap
+                 __-1__
+                /      \\
+             __0        1
+            /   \\     / \\
+          _4     9    3   2
+         /  \\
+        15   7
+        """
         super().insert(value, is_min_heap=True)
 
 
+    ##############################     REMOVE     ##############################
     def remove(self, del_value):
         super().remove(del_value, is_min_heap=True)
 
