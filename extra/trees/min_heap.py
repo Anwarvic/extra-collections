@@ -353,3 +353,26 @@ class MinHeap(Heap):
         super().remove(del_value, is_min_heap=True)
 
 
+    ##############################      CLEAR     ##############################
+    def clear(self):
+        """
+        Removes all nodes within the `MinHeap()` instance in constant time.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> min_heap.clear()
+        >>> min_heap
+        / \\
+        >>> min_heap.is_empty()
+        True
+        """
+        super().__init__()
+    
+
