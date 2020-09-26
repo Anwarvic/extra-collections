@@ -190,6 +190,30 @@ class MinHeap(Heap):
         return max(last_half)
 
 
+    def is_empty(self):
+        """
+        Checks if the `MinHeap()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `MinHeap()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> min_heap = MinHeap()
+        >>> min_heap.is_empty()
+        True
+        >>> min_heap.insert(10)
+        >>> min_heap.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+    
     ##############################     INSERT     ##############################
     def insert(self, value):
         super().insert(value, is_min_heap=True)
