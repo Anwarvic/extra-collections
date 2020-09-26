@@ -99,6 +99,32 @@ class MinHeap(Heap):
         return super().heapify(iterable)
     
 
+    ##############################     LENGTH     ##############################
+    def __len__(self):
+        """
+        Gets the length of the `MinHeap()` instance in time-complexity of O(1).
+        
+        Returns
+        -------
+        int:
+            The length of the `MinHeap()` instance. Length is the number of tree 
+            nodes in the instance.
+        
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> len(min_heap)
+        7
+        """
+        return super().__len__()
+
+
     ##############################     MIN/MAX    ##############################
     def get_min(self):
         """
@@ -117,12 +143,12 @@ class MinHeap(Heap):
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
             __0__
            /     \\
           4       1
          / \\     / \\
         7   9    3   2
-
         >>> min_heap.get_min()
         0
         """
@@ -149,12 +175,12 @@ class MinHeap(Heap):
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
             __0__
            /     \\
           4       1
          / \\     / \\
         7   9    3   2
-
         >>> min_heap.get_max()
         9
         """
