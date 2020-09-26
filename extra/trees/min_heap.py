@@ -239,9 +239,40 @@ class MinHeap(Heap):
 
     ##############################      SEARCH    ##############################
     def __contains__(self, num):
+        """
+        Searches the `BST()` for the given value and returns `True` if the 
+        value exists and `False` if not.
+
+        Parameters
+        ----------
+        find_val: int or float
+            The value to be searched for in the `BST()` instance.
+        
+        Returns
+        -------
+        bool:
+            Returns `True` if the value exists in the `BST()` instance and
+            `False` if not.
+        
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> 9 in min_heap
+        True
+        >>> 5 in min_heap
+        False
+        >>> 50 in min_heap
+        False
+        """
         return super().__contains__(num)
    
-   
+
     ##############################     INSERT     ##############################
     def insert(self, value):
         super().insert(value, is_min_heap=True)
