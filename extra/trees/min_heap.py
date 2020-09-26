@@ -124,6 +124,53 @@ class MinHeap(Heap):
         """
         return super().__len__()
 
+    
+    def is_empty(self):
+        """
+        Checks if the `MinHeap()` instance is empty or not in time-complexity of
+        O(1).
+        
+        Returns
+        -------
+        bool:
+            A boolean flag showing if the `MinHeap()` instance is empty or not.
+            `True` shows that this instance is empty and `False` shows it's
+            not empty.
+        
+        Example
+        --------
+        >>> min_heap = MinHeap()
+        >>> min_heap.is_empty()
+        True
+        >>> min_heap.insert(10)
+        >>> min_heap.is_empty()
+        False
+        """
+        return super().is_empty()
+    
+    
+    ##############################     PRINT      ##############################
+    def __repr__(self):
+        """
+        Represents the `MinHeap()` instance as a string.
+        
+        Returns
+        -------
+        str:
+            The string-representation of the `MinHeap()` instance.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+
+        """
+        return super().__repr__()
 
     ##############################     MIN/MAX    ##############################
     def get_min(self):
@@ -189,31 +236,7 @@ class MinHeap(Heap):
         last_half = self._heap[len(self)//2:]
         return max(last_half)
 
-
-    def is_empty(self):
-        """
-        Checks if the `MinHeap()` instance is empty or not in time-complexity of
-        O(1).
-        
-        Returns
-        -------
-        bool:
-            A boolean flag showing if the `MinHeap()` instance is empty or not.
-            `True` shows that this instance is empty and `False` shows it's
-            not empty.
-        
-        Example
-        --------
-        >>> min_heap = MinHeap()
-        >>> min_heap.is_empty()
-        True
-        >>> min_heap.insert(10)
-        >>> min_heap.is_empty()
-        False
-        """
-        return super().is_empty()
-    
-    
+   
     ##############################     INSERT     ##############################
     def insert(self, value):
         super().insert(value, is_min_heap=True)
