@@ -381,6 +381,28 @@ class MinHeap(Heap):
     
 
     def to_list(self):
+        """
+        Converts the `MInHeap()` instance to a `list` where values will be
+        inserted in breadth-first manner.
+
+        Returns
+        -------
+        list:
+            A `list` object containing the same elements as the `MinHeap()`
+            instance.
+        
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> min_heap.to_list()
+        [0, 4, 1, 7, 9, 3, 2]
+        """
         return super().to_list()
 
     ##############################      CLEAR     ##############################
