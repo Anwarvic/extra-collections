@@ -353,6 +353,36 @@ class MinHeap(Heap):
         super().remove(del_value, is_min_heap=True)
 
 
+    ##############################      ITER      ##############################
+    def __iter__(self):
+        """
+        Iterates over the `MinHeap()` instance and returns a generator of the 
+        heap node values in breadth-first manner.
+
+        Returns
+        -------
+        generator:
+            The value of each node in the instance.
+
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> for value in min_heap:
+        ...     print(value, end=',')
+        0,4,1,7,9,3,2,
+        """
+        return super().__iter__()
+    
+
+    def to_list(self):
+        return super().to_list()
+
     ##############################      CLEAR     ##############################
     def clear(self):
         """
