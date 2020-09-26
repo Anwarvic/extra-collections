@@ -168,9 +168,9 @@ class MinHeap(Heap):
           4       1
          / \\     / \\
         7   9    3   2
-
         """
         return super().__repr__()
+
 
     ##############################     MIN/MAX    ##############################
     def get_min(self):
@@ -236,6 +236,11 @@ class MinHeap(Heap):
         last_half = self._heap[len(self)//2:]
         return max(last_half)
 
+
+    ##############################      SEARCH    ##############################
+    def __contains__(self, num):
+        return super().__contains__(num)
+   
    
     ##############################     INSERT     ##############################
     def insert(self, value):
