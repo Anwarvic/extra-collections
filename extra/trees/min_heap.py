@@ -240,18 +240,18 @@ class MinHeap(Heap):
     ##############################      SEARCH    ##############################
     def __contains__(self, num):
         """
-        Searches the `BST()` for the given value and returns `True` if the 
+        Searches the `MinHeap()` for the given value and returns `True` if the 
         value exists and `False` if not.
 
         Parameters
         ----------
         find_val: int or float
-            The value to be searched for in the `BST()` instance.
+            The value to be searched for in the `MinHeap()` instance.
         
         Returns
         -------
         bool:
-            Returns `True` if the value exists in the `BST()` instance and
+            Returns `True` if the value exists in the `MinHeap()` instance and
             `False` if not.
         
         Example
@@ -318,6 +318,38 @@ class MinHeap(Heap):
 
     ##############################     REMOVE     ##############################
     def remove(self, del_value):
+        """
+        Removes the `del_value` from the `MinHeap()` instance. 
+
+        Parameters
+        ----------
+        del_value: int or float
+            The value to be deleted from the subtree.
+        
+        Raises
+        ------
+        UserWarning: If the `MinHeap()` instance is empty of if the value \
+            wasn't found in the instance.
+        
+        Example
+        -------
+        >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
+        >>> min_heap
+            __0__
+           /     \\
+          4       1
+         / \\     / \\
+        7   9    3   2
+        >>> min_heap.remove(0)
+        >>> min_heap
+            __1__
+           /     \\
+          4       2
+         / \\    /
+        7   9   3
+        >>> min_heap.remove(50)
+        UserWarning: Couldn't find `50` in `extra.MinHeap()`!!
+        """
         super().remove(del_value, is_min_heap=True)
 
 
