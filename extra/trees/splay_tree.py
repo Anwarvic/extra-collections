@@ -134,12 +134,6 @@ class SplayTree(BST):
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
-        Returns
-        -------
-        SplayTree()
-            It returns a `SplayTree()` instance with input values being inserted
-            in the same order.
-        
         Raises
         ------
         TypeError: It can be raised in two cases
@@ -151,7 +145,7 @@ class SplayTree(BST):
 
         Examples
         --------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -583,6 +577,28 @@ class SplayTree(BST):
         else:
             node = super()._remove(del_value, self._root)
             self._splay(node)
+
+
+    def clear(self):
+        """
+        Removes all nodes within the `SplayTree()` instance in constant time.
+
+        Example
+        -------
+        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree
+          3__
+         /   \\
+        2     5
+             / \\
+            4   6
+        >>> stree.clear()
+        >>> stree
+        / \\
+        >>> stree.is_empty()
+        True
+        """
+        super().clear()
 
 
     ##############################  HEIGHT/DEPTH  ##############################
@@ -1030,28 +1046,5 @@ class SplayTree(BST):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `SplayTree()` instance in constant time.
-
-        Example
-        -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
-        >>> stree
-          3__
-         /   \\
-        2     5
-             / \\
-            4   6
-        >>> stree.clear()
-        >>> stree
-        / \\
-        >>> stree.is_empty()
-        True
-        """
-        super.clear()
 
 
