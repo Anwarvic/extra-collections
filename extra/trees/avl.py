@@ -5,7 +5,7 @@ insertion, searching, and deletion, will be done in **log(n)** time-complexity
 where **n** is the number of elements in the AVL. AVL was named after the
 initials of its inventors: Adel’son-Vel’skii and Landis.
 
-[image]
+.. image:: ../../img/trees/avl.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -263,12 +263,6 @@ class AVL(BST):
         iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
-        Returns
-        -------
-        AVL()
-            It returns a `AVL()` instance with input values being inserted
-            in the same order.
         
         Raises
         ------
@@ -631,6 +625,28 @@ class AVL(BST):
         """
         super().remove(del_value)
 
+
+    def clear(self):
+        """
+        Removes all nodes within the `AVL()` instance in constant time.
+
+        Example
+        -------
+        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
+        >>> avl
+            __4__
+           /     \\
+          2       6
+         / \\    / \\
+        1   3   5   7
+        >>> avl.clear()
+        >>> avl
+        / \\
+        >>> avl.is_empty()
+        True
+        """
+        super().clear()
+    
 
     ##############################  HEIGHT/DEPTH  ##############################
     def _get_height(self, start_node):
@@ -1178,28 +1194,5 @@ class AVL(BST):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `AVL()` instance in constant time.
-
-        Example
-        -------
-        >>> avl = AVL([1, 2, 3, 4, 5, 6, 7])
-        >>> avl
-            __4__
-           /     \\
-          2       6
-         / \\    / \\
-        1   3   5   7
-        >>> avl.clear()
-        >>> avl
-        / \\
-        >>> avl.is_empty()
-        True
-        """
-        super().clear()
 
 
