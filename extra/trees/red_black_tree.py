@@ -35,7 +35,7 @@ characteristics:
     with alternating red and black nodes. And it can't be bigger than \
     (2*shortest-path).
 
-[image]
+.. image:: ../../img/trees/red_black_tree.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -970,6 +970,30 @@ class RedBlackTree(BST):
         self._length -= 1
         
 
+    def clear(self):
+        """
+        Removes all nodes within the `RedBlackTree()` instance in constant time.
+
+        Example
+        -------
+        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
+        >>> rbtree
+                   ______13|B______
+                  /                \\
+           _____8|R_             __17|B_
+          /         \\          /       \\
+        1|B_        11|B      15|R      25|R
+            \\
+            6|R
+        >>> rbtree.clear()
+        >>> rbtree
+        / \\
+        >>> rbtree.is_empty()
+        True
+        """
+        super().clear()
+
+
     ##############################  HEIGHT/DEPTH  ##############################
     def get_black_height(self):
         """
@@ -1482,28 +1506,4 @@ class RedBlackTree(BST):
         """
         return super().traverse(method)
 
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `RedBlackTree()` instance in constant time.
-
-        Example
-        -------
-        >>> rbtree = RedBlackTree([13, 8, 17, 1, 11, 15, 25, 6])
-        >>> rbtree
-                   ______13|B______
-                  /                \\
-           _____8|R_             __17|B_
-          /         \\          /       \\
-        1|B_        11|B      15|R      25|R
-            \\
-            6|R
-        >>> rbtree.clear()
-        >>> rbtree
-        / \\
-        >>> rbtree.is_empty()
-        True
-        """
-        super().clear()
 
