@@ -2,19 +2,21 @@
 A heap is a binary tree that stores a collection of nodes. Each node must
 satisfy two additional properties:
 
-1. Heap-Order Property: It is a relational property defined in terms of the 
-value stored at the node. So, for every node other than the root, the value
+1. **Heap-Order Property**: It is a relational property defined in terms of the 
+value stored at the node. So, for every node, other than the root, the value
 stored at the node is less than or equal to the value stored at the node's
 parent. As a consequence of the heap-order property, the value encountered on a
 path from the root to a leaf node are in nonincreasing order. Also, the maximum
 value is always stored at the root of the `MaxHeap()`. This makes it easy to
 locate such a node when `get_max()` or `remove_max()` is called, as it is
-informally said to be at the top of the heap. Hence, the name "Max Heap"
+informally said to be at the top of the heap. Hence, the name "Max Heap".
 
-2. Perfect Binary Tree Property: It is a structural property defined in terms of
-the shape of heap itself. A binary tree is perfect if all its levels are
-completely filled. So, given an **n** inserted items, the height of the heap 
+2. **Perfect Binary Tree Property**: It is a structural property defined in 
+terms of the shape of heap itself. A binary tree is perfect if all its levels
+are completely filled. So, given an **n** inserted items, the height of the heap 
 should be **log(n)** at most.
+
+.. image:: ../../img/trees/max_heap.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -68,8 +70,8 @@ from extra.trees._heap import Heap
 class MaxHeap(Heap):
     """
     A Max heap is a perfect binary tree that stores a collection of nodes. Each
-    node other than stores a value less than or equal to the value strored at
-    the node's parent.
+    node stores a value less than or equal to the value strored at the node's
+    parent.
     """
     __name__ = "extra.MaxHeap()"
 
