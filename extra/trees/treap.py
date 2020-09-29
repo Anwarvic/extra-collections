@@ -34,7 +34,7 @@ node in the `Treap()`, you can set the static variable `SHOW_PRIORITY` to
 >>> Treap.SHOW_PRIORITY = True
 
 
-[image]
+.. image:: ../../img/trees/treap.gif
 
 
 The following table sums up all the different public functionality in this
