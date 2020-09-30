@@ -149,7 +149,7 @@ class BST(BinaryTree):
                 return inserted_node
         else:
             if start_node.get_right():
-                return self._insert(value, start_node.get_right())
+                return self._insert(inserted_node, start_node.get_right())
             else:
                 start_node.set_right( inserted_node )
                 return inserted_node
