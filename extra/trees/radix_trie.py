@@ -37,7 +37,7 @@ Searching in a radix trie is not necessarily faster than in a standard tree,
 since there is still need to compare every character of the desired pattern with
 the potentially multi-character labels while traversing paths in the trie.
 
-[image]
+.. image:: ../../img/trees/radix_trie.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -244,6 +244,7 @@ class RadixTrie(Trie):
         
         Example
         -------
+        >>> rt = RadixTrie()
         >>> rt.insert("car")
         >>> rt.insert("cart")
         >>> rt.insert("cast")
@@ -253,7 +254,7 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.get_height()
+        >>> rt.get_height()
         3
         """
         return super().get_height()
@@ -289,14 +290,14 @@ class RadixTrie(Trie):
     ##############################   LEAF NODES   ##############################
     def count_leaf_nodes(self):
         """
-        Counts the number of leaf nodes in the `Trie()` instance. Leaf nodes are
-        the trie nodes that have no children.
+        Counts the number of leaf nodes in the `RadixTrie()` instance. Leaf
+        nodes are the trie nodes that have no children.
 
         Returns
         -------
         int:
             A positive integer representing the number of leaf nodes in the 
-            `Trie()`.
+            `RadixTrie()`.
                 
         Example
         -------
@@ -310,7 +311,7 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.count_leaf_nodes()
+        >>> rt.count_leaf_nodes()
         2
         """
         return super().count_leaf_nodes()
@@ -339,7 +340,7 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> for value in t:
+        >>> for value in rt:
         ...     print(value, end=',')
         ca,r,st,t,
         """
@@ -369,7 +370,7 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.to_list()
+        >>> rt.to_list()
         ['ca', 'r', 'st', 't']
         """
         return super().to_list()
@@ -574,6 +575,31 @@ class RadixTrie(Trie):
         super().remove(word)
 
 
+    def clear(self):
+        """
+        Removes all nodes within the `RadixTrie()` instance in constant time.
+
+        Example
+        -------
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
+        ROOT
+        └─┬ ca
+          ├─┬ r ✓
+          │ └── t ✓
+          └── st ✓
+        >>> rt.clear()
+        >>> rt
+        --
+        >>> rt.is_empty()
+        True
+        """
+        super().clear()
+
+
     ############################## AUTOCOMPLETION ##############################
     def auto_complete(self, prefix=''):
         """
@@ -673,32 +699,6 @@ class RadixTrie(Trie):
         [['ca'], ['r', 'st'], ['t']]
         """
         return super().get_nodes_per_level()[1:]
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `RadixTrie()` instance in constant time.
-
-        Example
-        -------
-        >>> rt = RadixTrie()
-        >>> rt.insert("car")
-        >>> rt.insert("cart")
-        >>> rt.insert("cast")
-        >>> rt
-        ROOT
-        └─┬ ca
-          ├─┬ r ✓
-          │ └── t ✓
-          └── st ✓
-        >>> rt.clear()
-        >>> rt
-        --
-        >>> rt.is_empty()
-        True
-        """
-        super().clear()
     
 
     
