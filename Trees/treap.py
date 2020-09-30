@@ -1,8 +1,11 @@
+from random import randint
 from bst import TreeNode, BST
 
 
 class TreeNode(TreeNode):
-	pass
+	def __init__(self, key):
+        super().__init__(key)
+        self.priority = randint(-1000, 1000)
 
 
 
