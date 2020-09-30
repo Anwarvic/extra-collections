@@ -11,7 +11,7 @@ to the the former, like insertion, deletion, or even a search, should be
 followed by a move-to-root operation called "splaying" that changes the
 structure of the tree. 
 
-[image]
+.. image:: ../../img/trees/splay_tree.gif
 
 To understand the splaying operation even more, let's look at the the following
 SplayTree which is a BST in a first place.
