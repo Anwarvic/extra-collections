@@ -4,7 +4,7 @@ exports a huge amount of structural information about that string. It is able
 to perform these stuctural operations by storing all the possible suffixes of
 the given text, hence the name "Suffix Trie".
 
-[image]
+.. image:: ../../img/trees/suffix_trie.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -576,6 +576,7 @@ class SuffixTrie(Extra):
         ----
         Longest Common Substring is the same as Longest Repeated Substring which
         means that the following two methods are exactly the same:
+
             - `get_longest_common_substring()`.
             - `get_longest_repeated_substring()`.
         """
@@ -613,6 +614,7 @@ class SuffixTrie(Extra):
         ----
         Longest Repeated Substring is the same as Longest Common Substring which
         means that the following two methods are exactly the same:
+        
             - `get_longest_common_substring()`.
             - `get_longest_repeated_substring()`.
         """
