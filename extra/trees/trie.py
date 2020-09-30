@@ -5,7 +5,7 @@ word "retrieval". The primary query operations that tries support is "prefix
 matching" which involves being given a string and looking for all the sequences
 that contain the given string as a prefix.
 
-[image]
+.. image:: ../../img/trees/trie.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -19,7 +19,7 @@ Generally, we are going to use the following indicators in the table:
 | Method                | Description                              | Worst-case | Optimal |
 +=======================+==========================================+============+=========+
 | __len__()             | Returns the number of nodes.             | O(n)       | O(1)    |
-+------------------------+------------------------------------------+------------+---------+
++-----------------------+------------------------------------------+------------+---------+
 | is_empty()            | Checks if trie is empty.                 | O(1)       | O(1)    |
 +-----------------------+------------------------------------------+------------+---------+
 | __repr__()            | Represents the trie.                     | O(n)       | O(n)    |
@@ -298,8 +298,8 @@ class Trie(Tree):
         Returns
         -------
         int:
-            The length of the `Tie()` instance. Length is the number of tree
-            nodes in the instance.
+            The length of the `Trie()` instance. Length is the number of nodes
+            in the instance.
         
         Examples
         --------
@@ -359,7 +359,7 @@ class Trie(Tree):
 
         Example
         -------
-        >>> t = Tree()
+        >>> t = Trie()
         >>> t
         --
         >>> t.insert("car")
@@ -380,7 +380,7 @@ class Trie(Tree):
     ##############################  HEIGHT/DEPTH  ##############################
     def get_height(self):
         """
-        Gets the height of the `Tree()` instance. The tree's height is the 
+        Gets the height of the `Trie()` instance. The trie's height is the 
         number of edges between the root and the furthest leaf node.
 
         Returns
@@ -390,6 +390,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -418,6 +419,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -451,6 +453,7 @@ class Trie(Tree):
                 
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -483,6 +486,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -510,17 +514,18 @@ class Trie(Tree):
 
     def to_list(self):
         """
-        Converts the `Tree()` instance to a `list` where values will be inserted 
+        Converts the `Trie()` instance to a `list` where values will be inserted 
         in breadth-first manner.
 
         Returns
         -------
         list:
-            A `list` object containing the same elements as the `Tree()`
+            A `list` object containing the same elements as the `Trie()`
             instance.
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -563,6 +568,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -614,6 +620,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -656,6 +663,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -696,12 +704,12 @@ class Trie(Tree):
         
         Raises
         ------
-        ValueError: If the given `word` is empty and `accept_empty_string` is \
-            `False`.
+        ValueError: If the given `word` is empty.
         TypeError: If the type of the given `word` is not `str`.
 
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -737,11 +745,12 @@ class Trie(Tree):
         
         Raises
         ------
-        UserWarning: If the `BST()` instance is empty of if the value wasn't \
+        UserWarning: If the `Trie()` instance is empty of if the value wasn't \
             found in the instance.
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -781,6 +790,33 @@ class Trie(Tree):
                 curr_node = parent
 
 
+    def clear(self):
+        """
+        Removes all nodes within the `Trie()` instance in constant time.
+
+        Example
+        -------
+        >>> t = Trie()
+        >>> t.insert("car")
+        >>> t.insert("cart")
+        >>> t.insert("cast")
+        >>> t
+        ROOT
+        └─┬ c
+          └─┬ a
+            ├─┬ r ✓
+            │ └── t ✓
+            └─┬ s
+              └── t ✓
+        >>> t.clear()
+        >>> t
+        --
+        >>> t.is_empty()
+        True
+        """
+        super().clear()
+
+
     ############################## AUTOCOMPLETION ##############################
     def _get_candidates(self, start_node, prev_prefixes):
         """
@@ -817,6 +853,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -868,6 +905,7 @@ class Trie(Tree):
         
         Example
         -------
+        >>> t = Trie()
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -883,32 +921,4 @@ class Trie(Tree):
         [['c'], ['a'], ['r', 's'], ['t', 't']]
         """
         return super().get_nodes_per_level()[1:]
-
-
-    ##############################      CLEAR     ##############################
-    def clear(self):
-        """
-        Removes all nodes within the `Trie()` instance in constant time.
-
-        Example
-        -------
-        >>> t.insert("car")
-        >>> t.insert("cart")
-        >>> t.insert("cast")
-        >>> t
-        ROOT
-        └─┬ c
-          └─┬ a
-            ├─┬ r ✓
-            │ └── t ✓
-            └─┬ s
-              └── t ✓
-        >>> t.clear()
-        >>> t
-        --
-        >>> t.is_empty()
-        True
-        """
-        self.__init__()
-    
 
