@@ -52,8 +52,7 @@ class TreeNode(TreeNode):
 
 
     def is_left_child(self):
-        parent = self.parent
-        return parent.data > self.data
+        return self.parent.data > self.data
 
 
 
