@@ -24,14 +24,28 @@ those data structures on any given task. At the same time, I did my best to
 make these python modules as consistent as they could be. So dealing with the 
 most complicated data structrue will as easy as the easiest one.
 
-Fun fact:
-"""""""""
+**Fun fact:**
+
 🤤 extra-collection was originally developed as a way to teach myself how to
 code and there were no intentions to release it at all. But after spending more
 than 18 months playing with different data structres, I've found out that I've
 implemented 16 different data-structures. Just then, I decided to push it to 20
 data structures and release it. Why 20 you ask? Because it is a nice round
 number 😁.
+
+
+Installation
+-------------
+To install the current release (Ubuntu, Windows):
+
+.. code-block:: shell
+
+   pip install extra-collections
+
+To update extra-collections to the latest version, add --upgrade flag to the
+above commands.
+
+
 
 
 Available Data Structures
@@ -64,18 +78,6 @@ Non-linear Data Structures:
 * :ref:`trie`
 * :ref:`radix_trie`
 * :ref:`suffix_trie`
-
-
-Installation
--------------
-To install the current release (Ubuntu, Windows):
-
-.. code-block:: shell
-
-   pip install extra-collections
-
-To update extra-collections to the latest version, add --upgrade flag to the
-above commands.
 
 
 Quick tour
