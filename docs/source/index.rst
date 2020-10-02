@@ -78,12 +78,49 @@ To update extra-collections to the latest version, add --upgrade flag to the
 above commands.
 
 
+Quick tour
+----------
+First, you need to enable the python shell:
 
-How to use the documentation
-----------------------------
-Documentation is available in two forms: docstrings provided
-with the code, and a loose standing reference guide, available from
-`the NumPy homepage <https://www.scipy.org>`_.
+.. code-block:: shell
+
+   $ python
+
+To immediately use a data strucutre, you can import it directly from the package
+and start using it right-away. The following code uses a :ref:`bst`:
+
+.. code-block:: python
+
+   >>> from extra import BST
+   >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
+   >>> bst
+         __8___
+        /      \\
+     __5       _15
+    /   \\    /
+   2     7   10
+    \\
+     3
+   >>> bst.insert(30)
+   >>> bst
+         __8___
+        /      \\
+     __5       _15
+    /   \\    /   \
+   2     7   10    30
+    \\
+     3
+   >>> bst.remove(3)
+   >>> bst
+         __8___
+        /      \\
+     __5       _15
+    /   \\    /   \
+   2     7   10    30
+   >>> len(bst)
+   7
+
+
 
 .. toctree::
    :hidden:
