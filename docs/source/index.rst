@@ -66,6 +66,17 @@ Non-linear Data Structures:
 * :ref:`suffix_trie`
 
 
+Installation
+-------------
+To install the current release (Ubuntu, Windows):
+
+.. code-block:: shell
+
+   pip install extra-collections
+
+To update extra-collections to the latest version, add --upgrade flag to the
+above commands.
+
 
 
 How to use the documentation
