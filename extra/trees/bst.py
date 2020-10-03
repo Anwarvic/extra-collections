@@ -6,7 +6,7 @@ elements at most. We typically call the top element of the binary search tree,
 "the root". The root is drawn as the highest element, with the other elements
 being connected below (just the opposite of an actual tree).
 
-[image]
+.. image:: ../../img/trees/bst.gif
 
 In other words, we can consider the binary search tree as a binary tree that 
 stores numbers where the value stored in a certain node is greater than all the 
