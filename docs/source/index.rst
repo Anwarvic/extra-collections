@@ -1,6 +1,10 @@
 Extra Collections
 ==================
 
+.. image:: ./img/light-logo.png
+   :height: 200
+   :align: center
+
 👋 "extra-collections" (or "extra" for short) is a python3 pacakge that provides
 an **intuitive**, **pythonic**, **easy** implementation of the most common data
 structures used in software projects. Some of these data structures are simple
@@ -34,7 +38,7 @@ data structures and release it. Why 20 you ask? Because it is a nice round
 number 😁.
 
 
-Installation
+👨🏻‍💻 Installation
 -------------
 To install the current release (Ubuntu, Windows):
 
@@ -46,42 +50,40 @@ To update extra-collections to the latest version, add --upgrade flag to the
 above commands.
 
 
-
-
-Available Data Structures
+🦾 Available Data Structures
 -------------------------
 In this release, you can find +20 data structures that can be categorized into
 two categories:
 
-Linear Data Structures:
-~~~~~~~~~~~~~~~~~~~~~~~
-* :ref:`linked_list`
-* :ref:`doubly_linked_list`
-* :ref:`circular_linked_list`
-* :ref:`stack`
-* :ref:`queue`
-* :ref:`deque`
-* :ref:`priority_queue`
-* :ref:`skip_list`
+⚡️ Linear Data Structures:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+* 1️⃣ :ref:`linked_list`
+* 2️⃣ :ref:`doubly_linked_list`
+* 3️⃣ :ref:`circular_linked_list`
+* 4️⃣ :ref:`stack`
+* 5️⃣ :ref:`queue`
+* 6️⃣ :ref:`deque`
+* 7️⃣ :ref:`priority_queue`
+* 8️⃣ :ref:`skip_list`
 
-Non-linear Data Structures:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* :ref:`tree`
-* :ref:`binary_tree`
-* :ref:`bst`
-* :ref:`avl`
-* :ref:`splay_tree`
-* :ref:`red_black_tree`
-* :ref:`min_heap`
-* :ref:`max_heap`
-* :ref:`treap`
-* :ref:`trie`
-* :ref:`radix_trie`
-* :ref:`suffix_trie`
+🔥 Non-linear Data Structures:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* 9️⃣   :ref:`tree`
+* 1️⃣0️⃣ :ref:`binary_tree`
+* 1️⃣1️⃣ :ref:`bst`
+* 1️⃣2️⃣ :ref:`avl`
+* 1️⃣3️⃣ :ref:`splay_tree`
+* 1️⃣4️⃣ :ref:`red_black_tree`
+* 1️⃣5️⃣ :ref:`min_heap`
+* 1️⃣6️⃣ :ref:`max_heap`
+* 1️⃣7️⃣ :ref:`treap`
+* 1️⃣8️⃣ :ref:`trie`
+* 1️⃣9️⃣ :ref:`radix_trie`
+* 2️⃣0️⃣:ref:`suffix_trie`
 
 
-Quick tour
-----------
+🚀 Quick tour
+--------------
 First, you need to enable the python shell:
 
 .. code-block:: shell
