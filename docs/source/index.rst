@@ -79,7 +79,7 @@ two categories:
 * 1️⃣7️⃣ :ref:`treap`
 * 1️⃣8️⃣ :ref:`trie`
 * 1️⃣9️⃣ :ref:`radix_trie`
-* 2️⃣0️⃣:ref:`suffix_trie`
+* 2️⃣0️⃣ :ref:`suffix_trie`
 
 
 🚀 Quick tour
@@ -124,6 +124,18 @@ and start using it right-away. The following code uses a :ref:`bst`:
    >>> len(bst)
    7
 
+🤝 Contribution guidelines
+---------------------------
+If you want to contribute to extra-collections, be sure to review the 
+:ref:`contribution`. By participating, you are expected to uphold this code.
+
+This project uses GitHub issues for tracking requests and bugs, questions and
+even discussion. Please, if you have any question, direct it to Stack Overflow
+under **extra-collections** tag.
+
+.. image:: ./img/stackoverflow-tag.png
+   :align: center
+   :target: https://stackoverflow.com
 
 
 .. toctree::
