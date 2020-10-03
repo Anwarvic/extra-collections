@@ -1,8 +1,8 @@
 Extra Collections
-==================
+=================
 
 .. image:: ./img/light-logo.png
-   :height: 200
+   :height: 300
    :align: center
 
 👋 "extra-collections" (or "extra" for short) is a python3 pacakge that provides
@@ -39,24 +39,24 @@ number 😁.
 
 
 👨🏻‍💻 Installation
--------------
-To install the current release (Ubuntu, Windows):
+--------------------
+To install the current release (Ubuntu, Windows, Mac):
 
 .. code-block:: shell
 
    pip install extra-collections
 
-To update extra-collections to the latest version, add --upgrade flag to the
+To update extra-collections to the latest version, add -\-upgrade flag to the
 above commands.
 
 
 🦾 Available Data Structures
--------------------------
+----------------------------
 In this release, you can find +20 data structures that can be categorized into
 two categories:
 
 ⚡️ Linear Data Structures:
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * 1️⃣ :ref:`linked_list`
 * 2️⃣ :ref:`doubly_linked_list`
 * 3️⃣ :ref:`circular_linked_list`
@@ -127,7 +127,7 @@ and start using it right-away. The following code uses a :ref:`bst`:
 🤝 Contribution guidelines
 ---------------------------
 If you want to contribute to extra-collections, be sure to review the 
-:ref:`contribution`. By participating, you are expected to uphold this code.
+:ref:`contribution_guidelines`. By participating, you are expected to uphold this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
