@@ -5,6 +5,8 @@ and zero or more children elements. We typically call the top element of the
 tree, "the root". The root is drawn as the highest element, with the other
 elements being connected below (just the opposite of an actual tree).
 
+.. image:: ../../img/trees/tree.gif
+
 The following is a simple tree that represents the family-tree of Homer Simpson
 from The Simpsons show :)
 
@@ -46,8 +48,9 @@ Now, let's try to use the previous tree to explain a few terms:
 - **Depth**: The depth of a tree node is the number of edges between this tree \
     node and the root. So, the depth of the tree's root is always 0.
 
-.. image:: ../../img/trees/tree.gif
 
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -82,8 +85,8 @@ Generally, we are going to use the following indicators in the table:
 +-----------------------+------------------------------------------+------------+---------+
 
 
-Class Documentation
-===================
+☕️ API
+-------
 Here are all of the public methods that can be used with `Tree()` objects:
 """
 import os
