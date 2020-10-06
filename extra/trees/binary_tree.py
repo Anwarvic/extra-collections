@@ -6,9 +6,9 @@ call the top element of the binary tree, "the root". The root is drawn as the
 highest element, with the other elements being connected below (just the
 opposite of an actual tree).
 
-[image]
+.. image:: ../../img/trees/binary_tree.gif
 
-In other words, we can consider the binary tree a tree data structure
+In other words, we can consider this data structure as tree data structure
 with the only exception that every tree node in the binary tree has at most two
 children while every tree node in the tree can have more than two children.
 
@@ -86,8 +86,9 @@ Now, let's try to use the previous binary tree to explain a few terms:
 
             GrandFather ⟶ Father ⟶ Uncle ⟶ Me ⟶ Sibling ⟶ Cousin1 ⟶ Cousin2
 
-.. image:: ../../img/trees/binary_tree.gif
 
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -139,8 +140,9 @@ Generally, we are going to use the following indicators in the table:
 | depth_first_traverse()   | Traverses the binary tree in an pre-order manner.  | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 
-Class Documentation
-===================
+
+☕️ API
+-------
 Here are all of the public methods that can be used with `BinaryTree()` objects:
 
 """
