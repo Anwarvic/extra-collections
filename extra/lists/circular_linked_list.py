@@ -9,7 +9,7 @@ The first node of a circular linked list is known as the **head** of the linked
 list. And the last node is known as the **tail**. The **tail** of a circular
 linked list always points to the **head**. 
  
-[image]
+.. image:: ../../img/lists/circular_linked_list.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
