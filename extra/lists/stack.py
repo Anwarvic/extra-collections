@@ -4,7 +4,7 @@ and removed according to the last-in, first-out (LIFO) principle. A user may
 insert objects into a stack at any time, but may only access or remove the most
 recently inserted object that remains at, the so-called, **top** of the stack.
 
-[image]
+.. image:: ../../img/lists/stack.gif
 
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
@@ -159,7 +159,7 @@ class Stack(Extra):
         >>> s = Stack()
         >>> len(s)
         0
-        >>> s.puah(1)
+        >>> s.push(1)
         >>> s.push(2)
         >>> s.push(3)
         >>> len(s)
@@ -231,8 +231,8 @@ class Stack(Extra):
         
         Raises
         ------
-        OverflowError: If the Stack() instance was full!! By "full", I mean \
-            the number of items in the Stack() equals to the assigned maximum
+        OverflowError: If the `Stack()` instance was full!! By "full", I mean \
+            the number of items in the `Stack()` equals to the assigned maximum
             capacity.
         ValueError: If the given `item` is `None`.
         TypeError: If the given `item` is an `Extra` object.
