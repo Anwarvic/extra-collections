@@ -5,6 +5,8 @@ within the tree. Each node in the Red-Black Tree has a color, this color is
 either "Red" or "Black". Hence, the name "Red-Black Tree". The color of the node
 is used only to re-balance the tree and has nothing to do with anything else.
 
+.. image:: ../../img/trees/red_black_tree.gif
+
 So, the following is a simple Red-Black Tree:
 
 .. code-block:: text
@@ -35,8 +37,9 @@ characteristics:
     with alternating red and black nodes. And it can't be bigger than \
     (2*shortest-path).
 
-.. image:: ../../img/trees/red_black_tree.gif
 
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -99,8 +102,9 @@ Generally, we are going to use the following indicators in the table:
 | remove()                 | Removes a certain value from the red-black tree.   | O(h)       | O(h)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 
-Class Documentation
-===================
+
+☕️ API
+-------
 Here are all of the public methods that can be used with `RedBlackTree()`
 objects:
 
