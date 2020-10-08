@@ -7,6 +7,8 @@ treap contains two main values:
     The bigger this numeric value is, the higher its priority in the treap \
     becomes.
 
+.. image:: ../../img/trees/treap.gif
+
 Each node in the treap must satisfy two additional properties:
 
 1. **BST Property**: It is a relational property defined in terms of the numeric
@@ -34,9 +36,8 @@ node in the `Treap()`, you can set the static variable `SHOW_PRIORITY` to
 >>> Treap.SHOW_PRIORITY = True
 
 
-.. image:: ../../img/trees/treap.gif
-
-
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -99,9 +100,8 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 
 
-
-Class Documentation
-===================
+☕️ API
+-------
 Here are all of the public methods that can be used with `Treap()` objects:
 
 """
