@@ -39,6 +39,9 @@ the potentially multi-character labels while traversing paths in the trie.
 
 .. image:: ../../img/trees/radix_trie.gif
 
+
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -78,6 +81,11 @@ Generally, we are going to use the following indicators in the table:
 +-----------------------+----------------------------------------------------------------+------------+---------+
 | remove()              | Removes a word from the radix trie.                            | O(m)       | O(m)    |
 +-----------------------+----------------------------------------------------------------+------------+---------+
+
+
+☕️ API
+-------
+Here are all of the public methods that can be used with `RadixTrie()` objects:
 """
 from extra.trees.trie import TrieNode, Trie
 
