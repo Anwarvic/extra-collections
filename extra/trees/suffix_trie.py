@@ -6,6 +6,9 @@ the given text, hence the name "Suffix Trie".
 
 .. image:: ../../img/trees/suffix_trie.gif
 
+
+⏱ Time-Complexity
+-------------------
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -45,6 +48,11 @@ Generally, we are going to use the following indicators in the table:
 +----------------------------------+--------------------------------------------------------------+------------+---------+
 | count_pattern_occurrences()      | Counts the occurrences of a pattern in the suffix trie.      | O(m)       | O(m)    |
 +----------------------------------+--------------------------------------------------------------+------------+---------+
+
+
+☕️ API
+-------
+Here are all of the public methods that can be used with `SuffixTrie()` objects:
 """
 from extra.interface import Extra
 from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie
