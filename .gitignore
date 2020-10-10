@@ -1,3 +1,6 @@
+# Source files
+extra/lists/copy_skip_list.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
