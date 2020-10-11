@@ -40,11 +40,11 @@ number 😁.
 ## 👨🏻‍💻 Installation
 To install the current release (Ubuntu, Windows, Mac):
 
-.. code-block:: shell
+```bash
+pip install extra-collections
+```
 
-   pip install extra-collections
-
-To update extra-collections to the latest version, add -\-upgrade flag to the
+To update extra-collections to the latest version, add `--upgrade` flag to the
 above commands.
 
 
@@ -120,10 +120,32 @@ and start using it right-away. The following code uses a :ref:`bst`:
 
 ## 🤝 Contribution guidelines
 If you want to contribute to extra-collections, be sure to review the 
-:ref:`contribution_guidelines`. By participating, you are expected to uphold this code.
+:ref:`contribution_guidelines`. By participating, you are expected to uphold
+this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
-under <a href="https://stackoverflow.com"> <img src="./docs/source/img/stackoverflow-tag.png" height="15"></a>
+under <a href="https://stackoverflow.com">
+<img src="./docs/source/img/stackoverflow-tag.png" height="20">
+</a>
 
+
+## 🚧 Design Principles
+
+Here, I will walk you through some of the design principles that I followed
+while creating this package:
+
+- Can't create nested modules.
+- Handle `'\n'` if given as an input value.
+- `None` can't be used as an input value. (Could be changes in future releases).
+- Class constructors can be used for initialization as well as declaration.
+- Methods with no `_` are for public use. The other are not; unless you know
+what you're doing. 
+- All public methods must raise appropriate errors when needed. The Other
+methods must raise only `AssertionError` when needed.
+- Search/remove methods shouldn't raise any errors.
+- Insert/delete/get_index/delete_index/set_index methods must raise errors when
+needed.
+- All methods should return the data not the used objects.
+- Any module can be emptied except the `SuffixTrie`.
 
