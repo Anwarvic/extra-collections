@@ -30,6 +30,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# pytest
+.pytest_cache
+
 # Sphinx documentation
 docs/source/_build/
 
@@ -37,3 +40,7 @@ docs/source/_build/
 .vscode
 
 # Environments
+py35
+py36
+py37
+py38
