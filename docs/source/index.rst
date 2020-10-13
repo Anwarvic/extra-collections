@@ -46,13 +46,13 @@ To install the current release (Ubuntu, Windows, Mac):
 
    pip install extra-collections
 
-To update extra-collections to the latest version, add -\-upgrade flag to the
-above commands.
+To update extra-collections to the latest version, add :code:`--upgrade` flag to
+the above commands.
 
 
 🦾 Available Data Structures
 ----------------------------
-In this release, you can find +20 data structures that can be categorized into
+In this release, you can find 2️⃣0️⃣ data structures that can be categorized into
 two categories:
 
 ⚡️ Linear Data Structures:
@@ -99,27 +99,27 @@ and start using it right-away. The following code uses a :ref:`bst`:
    >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
    >>> bst
          __8___
-        /      \\
+        /      \
      __5       _15
-    /   \\    /
+    /   \     /
    2     7   10
-    \\
+    \
      3
    >>> bst.insert(30)
    >>> bst
          __8___
-        /      \\
+        /      \
      __5       _15
-    /   \\    /   \
+    /   \     /   \
    2     7   10    30
-    \\
+    \
      3
    >>> bst.remove(3)
    >>> bst
          __8___
-        /      \\
+        /      \
      __5       _15
-    /   \\    /   \
+    /   \     /   \
    2     7   10    30
    >>> len(bst)
    7
@@ -131,11 +131,11 @@ If you want to contribute to extra-collections, be sure to review the
 
 This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
-under **extra-collections** tag.
+under :code:`extra-collections` tag.
 
 .. image:: ./img/stackoverflow-tag.png
    :align: center
-   :target: https://stackoverflow.com
+   :target: https://stackoverflow.com/questions/tagged/extra-collections
 
 
 .. toctree::
