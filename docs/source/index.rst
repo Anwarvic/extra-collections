@@ -138,6 +138,18 @@ under :code:`extra-collections` tag.
    :target: https://stackoverflow.com/questions/tagged/extra-collections
 
 
+🙏 Resources
+------------
+The following are the main resources that helped me while working on this
+awesome project
+
+- `Introduction to Algorithms Course (MIT 6.046J/18.410J) <https://www.youtube.com/playlist?list=PLDC836E1A1076378E>`_.
+- "Data Structures and Algorithms in Python" book.
+- `GeeksforGeeks <https://www.geeksforgeeks.org/>`_ Forum.
+
+
+
+
 .. toctree::
    :hidden:
 
