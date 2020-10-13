@@ -1,10 +1,10 @@
 <h1 align="center">
-<p>Extra-Collections</p>
+<!-- <p>Extra-Collections</p> -->
 <img src="./docs/source/img/dark-logo.png" height=200 alt="logo">
 </h1>
 
-
-👋 "extra-collections" (or "extra" for short) is a python3 pacakge that provides
+# Extra-Collections
+👋 `extra-collections` (or `extra` for short) is a python3 pacakge that provides
 an **intuitive**, **pythonic**, **easy** implementation of the most common data
 structures used in software projects. Some of these data structures are simple
 such as :ref:`stack` or :ref:`queue`; and some are much complicated such as
@@ -49,7 +49,7 @@ above commands.
 
 
 ## 🦾 Available Data Structures
-In this release, you can find +20 data structures that can be categorized into
+In this release, you can find 2️⃣0️⃣ data structures that can be categorized into
 two categories:
 
 ### ⚡️ Linear Data Structures:
@@ -125,7 +125,7 @@ this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
-under <a href="https://stackoverflow.com">
+under <a href="https://stackoverflow.com/questions/tagged/extra-collections">
 <img src="./docs/source/img/stackoverflow-tag.png" height="20">
 </a>
 
