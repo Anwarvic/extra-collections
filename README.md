@@ -149,3 +149,11 @@ needed.
 - All methods should return the data not the used objects.
 - Any module can be emptied except the `SuffixTrie`.
 
+## 📕 Resources
+
+The following are the main resources that helped me while working on this
+awesome project
+
+- [Introduction to Algorithms Course (MIT 6.046J/18.410J)](https://www.youtube.com/playlist?list=PLDC836E1A1076378E>).
+- "Data Structures and Algorithms in Python" book.
+- [GeeksforGeeks](https://www.geeksforgeeks.org/) Forum.
