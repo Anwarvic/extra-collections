@@ -1172,8 +1172,8 @@ class LinkedList(Extra):
         """
         Retrieves the element at the given index. The given index could be a 
         zero-based `int` or a `slice` object. This method supports negative
-        indexing. This method does that in time-complexity of O(k) where **k**
-        is the given index.
+        indexing as well. This method does that in time-complexity of O(k) where
+        **k** is the given index.
 
         Parameters
         ----------
@@ -1183,15 +1183,17 @@ class LinkedList(Extra):
         
         Returns
         -------
-        object or `LinkedList()`:
-            If the given index is an `int`, then it returns the value at this 
+        object or LinkedList():
+            If the given index is an `int`, then it returns the value at that 
             index. If the given index is a `slice` object, then it returns a 
             `LinkedList()` instance containing the desired values.
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If the given index is out of the `LinkedList()` boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If the given index is out of the `LinkedList()` boundaries.
 
         Examples
         --------
@@ -1242,7 +1244,8 @@ class LinkedList(Extra):
     ##############################     INSERT     ##############################
     def _insert_node(self, prev_node, new_node):
         """
-        Inserts a `new_node` at a position defined by the given `prev_node`.
+        Inserts a `new_node` to the `LinkedList()` instance at a position
+        defined by the given `prev_node`.
 
         Parameters
         ----------
@@ -1259,9 +1262,10 @@ class LinkedList(Extra):
             
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object
-            2. The `new_node` isn't a `Node()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `Node()` object
+                2. The `new_node` isn't a `Node()` object
         
         Example
         -------
@@ -1290,7 +1294,8 @@ class LinkedList(Extra):
 
     def _insert_value(self, prev_node, value):
         """
-        Insertd a value at a position defined by the given `prev_node`.
+        Insertd a value to the `LinkedList()` instance at a position defined by
+        the given `prev_node`.
 
         Parameters
         ----------
@@ -1307,9 +1312,10 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object.
-            2. The `value` is `None` or an instance of `Node()`.
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `Node()` object.
+                2. The `value` is `None` or an instance of `Node()`.
         
         Example
         -------
@@ -1326,7 +1332,8 @@ class LinkedList(Extra):
 
     def _insert(self, idx, item):
         """
-        Insertd a value at a position defined by the given index.
+        Insertd an item to the `LinkedList()` instance at a position defined by
+        the given index.
 
         Parameters
         ----------
@@ -1344,8 +1351,8 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: If the given index is out of the LinkedList()
-            boundaries.
+        AssertionError:
+            If the given index is out of the `LinkedList()` boundaries.
         
         Example
         -------
@@ -1365,18 +1372,20 @@ class LinkedList(Extra):
 
     def add_front(self, item):
         """
-        Adds the given value at the head of the `LinkedList()` instance in
-        time-complexity of O(1).
+        Adds the given item at the head of the `LinkedList()` instance in
+        contant time.
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the `LinkedList()` head.
+            The value to be inserted at the head of the `LinkedList()`.
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -1394,7 +1403,7 @@ class LinkedList(Extra):
     def add_end(self, item):
         """
         Adds the given value at the tail of the `LinkedList()` instance in
-        time-complexity of O(n).
+        linear time.
 
         Parameters
         ----------
@@ -1403,8 +1412,10 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -1421,7 +1432,8 @@ class LinkedList(Extra):
     
     def insert(self, idx, item):
         """
-        Insertd a value at a position defined by the given index.
+        Insertd a value to the `LinkedList()` instance at a position defined by
+        the given index.
 
         Parameters
         ----------
@@ -1433,27 +1445,30 @@ class LinkedList(Extra):
         
         Raises
         ------
-        IndexError: This happens in one of the following cases: 
-            1. If the given index is out of the `LinkedList()` boundaries.
-            2. If the given index is less than zero (-ve).
-        TypeError: This happens in one of the following cases:
-            1. If the given index isn't integer.
-            2. If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. If the given index is out of the `LinkedList()` boundaries.
+                2. If the given index is less than zero (-ve).
+        TypeError:
+            This happens in one of the following cases:
+                1. If the given index isn't integer.
+                2. If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
         
         Example
         -------
         >>> ll = LinkedList([1, 2, 3])
-        >>> ll.insert(1, 10)
+        >>> ll.insert(1, item=10)
         >>> ll
         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └────┘ └───┘ └───┘ 
-        >>> ll.insert(5, 8)
+        >>> ll.insert(5, item=8)
         IndexError: Given index is out of the boundaries!!
-        >>> ll.insert(1, None)
+        >>> ll.insert(1, item=None)
         ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
-        >>> ll.insert(-1, 100)
+        >>> ll.insert(-1, item=100)
         IndexError: Negative indexing isn't supported with this functinoality!!
         """
         self._validate_index(idx)
@@ -1469,22 +1484,29 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The `LinkedList()` instance whose elements will be appended.
                 
         Raises
         ------
-        TypeError: If the given object isn't a `LinkedList()` instance.
+        TypeError:
+            If the given object isn't a `LinkedList()` instance.
 
         Example
         -------
         >>> ll_1 = LinkedList([1, 2])
         >>> ll_2 = LinkedList([3, 4, 5])
+        >>> ll_1
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶
+        └───┘ └───┘ 
         >>> ll_1.extend(ll_2)
         >>> ll_1
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶│ 5 │⟶
         └───┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> ll_1.extend([6, 7])
+        TypeError: Type Mismatch! Can't extend `extra.LinkedList()` with `<class 'list'>`!!
         """
         if not isinstance(other, self.__class__):
             raise TypeError("Type Mismatch! " + 
@@ -1504,7 +1526,8 @@ class LinkedList(Extra):
     ##############################       SET      ##############################
     def _replace_value(self, idx, new_value):
         """
-        Replaces the value of the node at the given index with the `new_value`.
+        Replaces the value of the node at the given index inside the
+        `LinkedList()` instance with the `new_value`.
 
         Parameters
         ----------
@@ -1515,9 +1538,10 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: This can be raised in the following cases:
-            1. if the given index is out of the boundaries.
-            2. If the `new_value` is not `None`.
+        AssertionError:
+            This can be raised in the following cases:
+                1. if the given index is out of the boundaries.
+                2. If the `new_value` is not `None`.
         """
         assert 0 <= idx or idx <= self._length
         assert new_value is not None
@@ -1528,8 +1552,9 @@ class LinkedList(Extra):
 
     def __setitem__(self, idx, item):
         """
-        Replaces the value at the given index with the given item. It does that
-        in time-complexity of O(k) where **k** is the index value.
+        Replaces the value at the given index in the `LinkedList()` instance
+        with the given item. It does that in time-complexity of O(k) where **k**
+        is the index value.
 
         Parameters
         ----------
@@ -1541,15 +1566,17 @@ class LinkedList(Extra):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
-        ValueError: If the given object is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the given index type is not `int`.
-            2. If the given object is an instance of `Extra`.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
+        ValueError:
+            If the given object is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the given index type is not `int`.
+                2. If the given object is an instance of `Extra`.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
