@@ -22,38 +22,38 @@ Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
 - **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
+- **k** is the value of a given index.
 
 +----------------+--------------------------------------------------------+-------------+-------------+
 | Method         | Description                                            | Worst-case  | Optimal     |
 +================+========================================================+=============+=============+
-| __len__()      | Returns the number of nodes                            | O(1)        | O(1)        |
+| __len__()      | Returns the number of nodes in the linked list.        | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| is_empty()     | Checks if object is empty                              | O(1)        | O(1)        |
+| is_empty()     | Checks if the linked list is empty.                    | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __repr__()     | Represents the object                                  | O(n)        | O(n)        |
+| __repr__()     | Represents the linked list as a string.                | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
+| __iters__()    | Iterates over the linked list instance.                | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __eq__()       | Checks if two linked lists are equal                   | O(min(n,m)) | O(min(n,m)) |
+| __eq__()       | Checks the items equality of the two linked lists.     | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __ne__()       | Checks if two linked lists are not equal               | O(min(n,m)) | O(min(n,m)) |
+| __ne__()       | Checks the items inequality of the two linked lists.   | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __lt__()       | Checks if the linked list is less than the other       | O(min(n,m)) | O(min(n,m)) |
+| __lt__()       | Checks if the linked list is less than the other.      | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __le__()       | Checks if the list is less than or equal the other     | O(min(n,m)) | O(min(n,m)) |
+| __le__()       | Checks if the list is less than or equal the other.    | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the linked list is greater than the other.   | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __gt__()       | Checks if the list is greater than or equal the other. | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
+| __contains__() | Checks the existence of the given item in the list.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __getitem__()  | Returns the element at a certain index.                | O(k)        | O(k)        |
+| __getitem__()  | Returns the element at the given index.                | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
+| add_front()    | Adds the given item at the head of the linked list.    | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
+| add_end()      | Adds the given item at the tail of the linked list.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | insert()       | Adds the given item at the given index.                | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -61,29 +61,29 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __delitem__()  | Deletes the value at the given index.                  | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_front() | Removes the node at the head.                          | O(1)        | O(1)        |
+| remove_front() | Removes the node at the head  of the linked list.      | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_end()   | Removes the node at the tail.                          | O(n)        | O(n)        |
+| remove_end()   | Removes the node at the tail of the linked list.       | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove()       | Removes the given value if found.                      | O(n)        | O(n)        |
+| remove()       | Removes the given value from the linked list if found. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | clear()        | Clears the whole linked list.                          | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| split()        | Splits the list into two at the given index.           | O(n)        | O(n)        |
+| split()        | Splits the linked list into two at the given index.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | extend()       | Extends the linked list using another linked list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value.              | O(k%n)      | O(k%n)      |
+| rotate_left()  | Left-rotates the linked list a given number of times.  | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value.             | O(k%n)      | O(k%n)      |
+| rotate_right() | Right-rotates the linked list a given number of times. | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | reverse()      | Reverses the linked list.                              | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| to_list()      | Converts the linked list to built-in list.             | O(n)        | O(n)        |
+| to_list()      | Converts the linked list to a normal list.             | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| count()        | Counts how many the given value found in the list.     | O(n)        | O(n)        |
+| count()        | Counts the occurrences of the given value in the list. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| copy()         | Copies the linked list.                                | O(n)        | O(n)        |
+| copy()         | Shallow-copies the linked list.                        | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 
 
@@ -144,7 +144,7 @@ class Node(Extra):
 
     def get_data(self):
         """
-        Returns the node's data
+        Returns the node's data.
         
         Returns
         -------
@@ -156,7 +156,7 @@ class Node(Extra):
 
     def set_data(self, data):
         """
-        Sets the data within the Node()'s object
+        Sets the data within the `Node()`'s object
         
         Parameters
         ----------
@@ -166,7 +166,7 @@ class Node(Extra):
         Raises
         ------
         TypeError: If the input value is an `Extra` object.
-        ValueError: If the input valueis `None`.
+        ValueError: If the input value is `None`.
         """
         super()._validate_item(data)
         if type(data) == str:
@@ -253,17 +253,18 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        iterable: any iterable object (default: None)
-            An iterable python object that implements the `__iter__` method.
-            For example, `list` and `tuple` are both iterables.
-               
+        iterable: any iterable object, optional.
+            An iterable object that implements the `__iter__` method.
+            For example, `list` and `tuple` are both iterables.       
+        
         Raises
-        ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the iterable elements is an `Extra` object.
-
-        ValueError: If one of the iterable elements is `None`.
+        -------
+        TypeError
+            It can be raised in two cases:
+                1. In case the given object isn't iterable.
+                2. If one of the iterable elements is an `Extra` object.
+        ValueError
+            If one of the iterable elements has `None` as a value.
 
         Examples
         --------
@@ -276,19 +277,19 @@ class LinkedList(Extra):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> ll = LinkedList([2, None])
+        >>> LinkedList([2, None])
         ValueError: Can't use `None` as an element within `extra.LinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> ll = LinkedList(2)
+        >>> LinkedList(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `LinkedList` objects will raise `TypeError` as well
 
         >>> ll_1 = LinkedList([1])
         >>> ll_2 = LinkedList([1, ll_1])
-        TypeError: Can't create `extra.LinkedList()` using `extra.LinkedList()`!!
+        TypeError: Can't use `extra.LinkedList()` with `extra.LinkedList()`!!
 
         Note
         -----
@@ -297,6 +298,10 @@ class LinkedList(Extra):
         `Linked List` just like so:
 
         >>> dll = DoublyLinkedList([2, 5])
+        >>>  dll
+         ┌───┐ ┌───┐ 
+        ⟷│ 2 │⟷│ 5 │⟷
+         └───┘ └───┘ 
         >>> ll = LinkedList(dll)
         >>> ll
         ┌───┐ ┌───┐ 
@@ -325,7 +330,7 @@ class LinkedList(Extra):
 
     def _create_instance(self):
         """
-        Returns an instance of the class
+        Returns a `LinkedList()` instance.
 
         Returns
         -------
@@ -338,16 +343,16 @@ class LinkedList(Extra):
     ##############################     PRINT      ##############################
     def _print_node(self, node):
         """
-        Prints the given node of the LinkedList() instance.
+        Prints the given node of the `LinkedList()` instance.
 
         Parameters
         ----------
-        node: `Node()`
+        node: Node()
             The `Node()` object that we want to print.
 
         Returns
         -------
-        tuple
+        tuple:
             It returns a tuple of three strings representing the given node
             when printed.
         
@@ -360,7 +365,7 @@ class LinkedList(Extra):
         >>> ll = LinkedList()
         >>> ll.add_front(10)
         >>> lines = ["".join(x) for x in ll._print_node(ll._head)]
-        >>> "\n".join(lines)
+        >>> print("\n".join(lines))
         ┌────┐ 
         │ 10 │⟶
         └────┘
@@ -384,12 +389,13 @@ class LinkedList(Extra):
 
         Returns
         -------
-        str
+        str:
             A string representing an empty `LinkedList()` instance
 
         Raises
         ------
-        AssertionError: In case the `LinkedList()` instance isn't empty!!
+        AssertionError
+            In case the `LinkedList()` instance isn't empty!!
 
         Example
         -------
@@ -420,7 +426,8 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        node: a `Node()` object that we want to print
+        node: Node().
+            The `Node()` object that we want to print.
 
         Returns
         -------
@@ -432,14 +439,15 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: In case the given object isn't `Node()`
+        AssertionError:
+            In case the given object isn't `Node()`.
 
         Example
         -------
         >>> ll = LinkedList()
         >>> ll.add_front(10)
-        >>> lines = ["".join(x) for x in ll._print_node(ll._head)]
-        >>> "\n".join(lines)
+        >>> lines = ["".join(x) for x in ll._print_linked_list(ll._head)]
+        >>> print("\n".join(lines))
         ┌────┐ 
         │ 10 │⟶
         └────┘
@@ -465,7 +473,7 @@ class LinkedList(Extra):
     
     def __repr__(self):
         """
-        Represents the linked list as a string.
+        Represents the `LinkedList()` instance as a string.
 
         Returns
         -------
@@ -490,7 +498,7 @@ class LinkedList(Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `LinkedList()` in time-complexity of O(1)
+        Gets the length of the `LinkedList()` in constant time.
         
         Returns
         -------
@@ -512,8 +520,7 @@ class LinkedList(Extra):
 
     def is_empty(self):
         """
-        Checks if `LinkedList()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if `LinkedList()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -541,10 +548,10 @@ class LinkedList(Extra):
         time-complexity of O(n) where **n** is the number of elements in the 
         `LinkedList()` instance.
 
-        Returns
+        Yields
         -------
-        generator:
-            The value of each node in the instance.
+        object:
+            The value stored inside each node in the instance.
         
         Examples
         --------
@@ -580,26 +587,27 @@ class LinkedList(Extra):
         -------
         int
             The index at which the given operator wasn't satisfied
-        
         bool
             `True` if all elements in both instances are exactly the same.
             `False` other wise
         
         Raises
         ------
-        TypeError: In case one element in the first instance doesn't match the
-            type of the opposing element in the other instance.
+        TypeError:
+            In case one element in the first instance doesn't match the type of
+            the opposing element in the other instance.
         
         Examples
         --------
+        >>> import operator
         >>> ll_1 = LinkedList([1, 2, 3])
         >>> ll_2 = LinkedList([1, 3, 2])
         >>> ll_1._compare(ll_2, operator.eq)
-        1
-        >>> ll_1.comprare(ll_1, operator.le)
-        2
+        (1, False)
+        >>> ll_1._compare(ll_1, operator.le)
+        (3, True)
         >>> ll_1._compare(LinkedList(), operator.eq)
-        0
+        (0, True)
         """
         assert isinstance(other, self.__class__)
         assert op.__name__ in dir(operator)
@@ -652,10 +660,10 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+            TypeError: This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
