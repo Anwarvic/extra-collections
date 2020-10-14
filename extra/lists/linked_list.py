@@ -650,7 +650,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -660,7 +660,8 @@ class LinkedList(Extra):
         
         Raises
         ------
-            TypeError: This happens in two cases
+        TypeError:
+            This happens in two cases
                 1. If the other instance isn't a `LinkedList()` instance.
                 2. In case one element in the first instance doesn't match the \
                     type of the opposing element in the other instance.
@@ -699,7 +700,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        other: `LinkedList()`
+        other: LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -709,10 +710,11 @@ class LinkedList(Extra):
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
         
         Examples
         --------
@@ -742,7 +744,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        `LinkedList()`
+        LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -753,14 +755,14 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the type of \
-                the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the type of \
+                    the opposing element in the other instance.
 
         Examples
         --------
-
         >>> ll_1 = LinkedList([1, 3, 2])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 < ll_2
@@ -805,7 +807,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        `LinkedList()`
+        LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -816,14 +818,14 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> ll_1 = LinkedList([1, 3, 2])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 <= ll_2
@@ -861,12 +863,12 @@ class LinkedList(Extra):
         """
         Checks if the first `LinkedList()` instance is greater than the other
         instance. And this happens if all elements in the first instance are
-        equal with at least one element greater than the opposing element of the
-        second instance.
+        equal with at least one element greater than the opposing element of
+        the second instance.
 
         Parameters
         ----------
-        `LinkedList()`
+        LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -877,14 +879,14 @@ class LinkedList(Extra):
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
         
         Examples
         --------
-
         >>> ll_1 = LinkedList([1, 3, 5])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 > ll_2
@@ -895,7 +897,7 @@ class LinkedList(Extra):
         >>> ll_1 > ll_2
         True
 
-        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_1 = LinkedList([1, 2])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 > ll_2
         False
@@ -926,7 +928,7 @@ class LinkedList(Extra):
 
         Parameters
         ----------
-        `LinkedList()`
+        LinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -937,14 +939,14 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `LinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `LinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> ll_1 = LinkedList([1, 3, 5])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 >= ll_2
@@ -955,7 +957,7 @@ class LinkedList(Extra):
         >>> ll_1 >= ll_2
         True
 
-        >>> ll_1 = LinkedList([1, 5])
+        >>> ll_1 = LinkedList([1, 2])
         >>> ll_2 = LinkedList([1, 3, 3])
         >>> ll_1 >= ll_2
         False
