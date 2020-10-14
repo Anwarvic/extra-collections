@@ -22,68 +22,68 @@ Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
 - **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
+- **k** is the value of a given index.
 
 +----------------+--------------------------------------------------------+-------------+-------------+
 | Method         | Description                                            | Worst-case  | Optimal     |
 +================+========================================================+=============+=============+
-| __len__()      | Returns the number of nodes                            | O(1)        | O(1)        |
+| is_empty()     | Checks if doubly linked list is empty.                 | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| is_empty()     | Checks if object is empty                              | O(1)        | O(1)        |
+| __len__()      | Returns the number of nodes in the doubly linked list. | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __repr__()     | Represents the object                                  | O(n)        | O(n)        |
+| __repr__()     | Represents the doubly linked list as a string.         | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
+| __iters__()    | Iterates over the doubly linked list instance.         | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __eq__()       | Checks if two linked lists are equal                   | O(min(n,m)) | O(min(n,m)) |
+| __eq__()       | Checks if two doubly linked lists are equal.           | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __ne__()       | Checks if two linked lists are not equal               | O(min(n,m)) | O(min(n,m)) |
+| __ne__()       | Checks if two doubly linked lists are not equal.       | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __lt__()       | Checks if the linked list is less than the other       | O(min(n,m)) | O(min(n,m)) |
+| __lt__()       | Checks if the doubly linked list is < the other.       | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __le__()       | Checks if the list is less than or equal the other     | O(min(n,m)) | O(min(n,m)) |
+| __le__()       | Checks if the doubly linked list is <= the other.      | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the doubly linked list is > the other.       | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the list is greater than or equal the other  | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the doubly linked list is >= the other.      | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
+| __contains__() | Checks the existence of the given item in the list.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __getitem__()  | Returns the element at a certain index.                |O(min(k,n/2))|O(min(k,n/2))|
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
+| add_front()    | Adds the given item at the head of the doubly list.    | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_end()      | Adds the given item at the tail                        | O(1)        | O(1)        |
+| add_end()      | Adds the given item at the tail of the doubly list.    | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| insert()       | Adds the given item at the given index                 |O(min(k,n/2))|O(min(k,n/2))|
+| insert()       | Adds the given item at the given index.                |O(min(k,n/2))|O(min(k,n/2))|
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __setitem__()  | Replaces the value at the given index with given value |O(min(k,n/2))|O(min(k,n/2))|
+| __setitem__()  | Replaces the value at the given index with given value.|O(min(k,n/2))|O(min(k,n/2))|
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __delitem__()  | Deletes the value at the given index                   |O(min(k,n/2))|O(min(k,n/2))|
+| __delitem__()  | Deletes the value at the given index.                  |O(min(k,n/2))|O(min(k,n/2))|
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
+| remove_front() | Removes the node at the head of the doubly linked list.| O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_end()   | Removes the node at the tail                           | O(1)        | O(1)        |
+| remove_end()   | Removes the node at the tail of the doubly linked list.| O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove()       | Removes the given value if found                       | O(n)        | O(n)        |
+| remove()       | Removes the given value if found from the doubly list. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
+| clear()        | Clears the whole doubly linked list.                   | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| split()        | Splits the list into two at the given index            |O(min(k,n/2))|O(min(k,n/2))|
+| split()        | Splits the doubly list into two at the given index.    |O(min(k,n/2))|O(min(k,n/2))|
 +----------------+--------------------------------------------------------+-------------+-------------+
-| extend()       | Extends the linked list using another linked list.     | O(1)        | O(1)        |
+| extend()       | Extends the doubly list with another doubly list.      | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(k)        | O(k)        |
+| rotate_left()  | Left-rotates the doubly list by the given value.       | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(k)        | O(k)        |
+| rotate_right() | Right-rotates the doubly list by the given value.      | O(k)        | O(k)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
+| reverse()      | Reverses the doubly linked list.                       | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| to_list()      | Converts the linked list to built-in list              | O(n)        | O(n)        |
+| to_list()      | Converts the doubly linked list to normal list.        | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| count()        | Counts how many the given value found in the list      | O(n)        | O(n)        |
+| count()        | Counts the occurrences of the given value in the list. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| copy()         | Copies the linked list                                 | O(n)        | O(n)        |
+| copy()         | Shallow-copies the doubly linked list.                 | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 
 
@@ -114,8 +114,10 @@ class DoublyNode(Node):
 
         Raises
         ------
-        TypeError: If the given item is an `Extra` object.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an `Extra` object.
+        ValueError:
+            If the given item is `None`.
         """
         super().__init__(item)
         self._prev = None
@@ -165,7 +167,8 @@ class DoublyNode(Node):
 
         Raises
         ------
-        TypeError: If the given item is an `Extra` object.
+        TypeError:
+            If the given item is an `Extra` object.
         """
         if prev_node is None:
             self._prev = None
@@ -188,7 +191,8 @@ class DoublyNode(Node):
 
         Raises
         ------
-        TypeError: If the given item is an `Extra` object.
+        TypeError:
+            If the given item is an `Extra` object.
         """
         if next_node is None:
             self._next = None
@@ -207,7 +211,7 @@ class DoublyLinkedList(LinkedList):
     A doubly linked list is a simple linear data structure where objects are
     linked using pointers to their associated location. Unlike arrays whose
     objects are stored at continuous locations. Each node stores two references:
-    the first is a reference to the next element of the sequence. And the second
+    the first is a reference to the next element of the sequence. And the other
     is a reference to the previous element of the sequence."""
     _basic_node = DoublyNode
     __name__ = "extra.DoublyLinkedList()"
@@ -221,23 +225,24 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        iterable: iterable object (default: None)
+        iterable: iterable object, optional
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
         Returns
         -------
-        `DoublyLinkedList()`
+        DoublyLinkedList()
             It returns a `DoublyLinkedList()` instance with the same values in
             the same order.
         
         Raises
         ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the iterable elements is an `Extra` object.
-
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in two cases
+                1. In case the given object isn't iterable.
+                2. If one of the iterable elements is an `Extra` object.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -250,12 +255,12 @@ class DoublyLinkedList(LinkedList):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> dll = DoublyLinkedList([2, None])
+        >>> DoublyLinkedList([2, None])
         ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> dll = DoublyLinkedList(2)
+        >>> DoublyLinkedList(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `DoublyLinkedList` objects will raise `TypeError` as well
@@ -271,6 +276,10 @@ class DoublyLinkedList(LinkedList):
         `DoublyLinkedList` just like so:
 
         >>> ll = LinkedList([2, 5])
+        >>> ll
+        ┌───┐ ┌───┐ 
+        │ 2 │⟶│ 5 │⟶
+        └───┘ └───┘ 
         >>> dll = DoublyLinkedList(ll)
         >>> dll
          ┌───┐ ┌───┐ 
@@ -302,11 +311,11 @@ class DoublyLinkedList(LinkedList):
 
     def _create_instance(self):
         """
-        Returns an instance of the class
+        Returns an `DoublyLinkedList()` instance.
 
         Returns
         -------
-        `DoublyLinkedList()`
+        DoublyLinkedList()
             It returns an empty `DoublyLinkedList()` instance.
         """
         return DoublyLinkedList()
@@ -319,7 +328,7 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        node: `DoublyNode()`
+        node: DoublyNode()
             The `DoublyNode()` object that we want to print.
 
         Returns
@@ -330,14 +339,15 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        AssertionError: In case the given object isn't `DoublyNode()`
+        AssertionError:
+            In case the given object isn't `DoublyNode()`
 
         Example
         -------
         >>> dll = DoublyLinkedList()
         >>> dll.add_front(10)
         >>> lines = ["".join(x) for x in dll._print_node(dll._head)]
-        >>> "\n".join(lines)
+        >>> print("\n".join(lines))
          ┌────┐
         ⟷│ 10 │⟷
          └────┘
@@ -380,7 +390,7 @@ class DoublyLinkedList(LinkedList):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `DoublyLinkedList()` in time-complexity of O(1)
+        Gets the length of the `DoublyLinkedList()` in constant time.
         
         Returns
         -------
@@ -402,8 +412,8 @@ class DoublyLinkedList(LinkedList):
 
     def is_empty(self):
         """
-        Checks if `DoublyLinkedList()` instance is empty or not in time-
-        complexity of O(1).
+        Checks if `DoublyLinkedList()` instance is an empty instance or not in
+        constant time.
         
         Returns
         -------
@@ -431,10 +441,10 @@ class DoublyLinkedList(LinkedList):
         in time-complexity of O(n) where **n** is the number of elements in the 
         `DoublyLinkedList()` instance.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        pbect:
+            The value stored inside each node in the instance.
         
         Examples
         --------
@@ -461,7 +471,7 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        other: `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -471,10 +481,11 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `DoublyLinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
@@ -502,7 +513,7 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        other: `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
@@ -512,10 +523,11 @@ class DoublyLinkedList(LinkedList):
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of  the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of  the opposing element in the other instance.
         
         Examples
         --------
@@ -538,25 +550,25 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is less than the second, and `False`
             otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a `DoublyLinkedList()` instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> dll_1 = DoublyLinkedList([1, 3, 2])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 < dll_2
@@ -594,25 +606,25 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is less than or equal to the second
             instance, and `False` otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> dll_1 = DoublyLinkedList([1, 3, 2])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 <= dll_2
@@ -650,25 +662,25 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is greater than the second, and `False`
             otherwise.
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
         
         Examples
         --------
-
         >>> dll_1 = DoublyLinkedList([1, 3, 5])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 > dll_2
@@ -679,7 +691,7 @@ class DoublyLinkedList(LinkedList):
         >>> dll_1 > dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_1 = DoublyLinkedList([1, 2])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 > dll_2
         False
@@ -706,25 +718,25 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is greater than or equal to the second,
             and `False` otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't a `DoublyLinkedList()` instance.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> dll_1 = DoublyLinkedList([1, 3, 5])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 >= dll_2
@@ -735,7 +747,7 @@ class DoublyLinkedList(LinkedList):
         >>> dll_1 >= dll_2
         True
 
-        >>> dll_1 = DoublyLinkedList([1, 5])
+        >>> dll_1 = DoublyLinkedList([1, 2])
         >>> dll_2 = DoublyLinkedList([1, 3, 3])
         >>> dll_1 >= dll_2
         False
@@ -767,7 +779,7 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        bool
+        bool:
             `True` if the given value exists in the `DoublyLinkedList()` instance,
             and `False` otherwise.
 
@@ -806,7 +818,8 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        AssertionError: If the given index is bigger than the LinkedList length.
+        AssertionError:
+            If the given index is bigger than the LinkedList length.
         
         Example
         -------
@@ -847,16 +860,17 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        object or `DoublyLinkedList()`:
+        object or DoublyLinkedList():
             If the given index is an `int`, then it returns the value at this 
             index. If the given index is a `slice` object, then it returns a 
             `DoublyLinkedList()` instance containing the desired values.
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If the given index is out of the `DoublyLinkedList()`
-            boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If the given index is out of the `DoublyLinkedList()` boundaries.
 
         Examples
         --------
@@ -899,9 +913,10 @@ class DoublyLinkedList(LinkedList):
             
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `DoublyNode()` object
-            2. The `new_node` isn't a `DoublyNode()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `DoublyNode()` object
+                2. The `new_node` isn't a `DoublyNode()` object
         
         Example
         -------
@@ -946,7 +961,7 @@ class DoublyLinkedList(LinkedList):
     def add_front(self, item):
         """
         Adds the given value at the head of the `DoublyLinkedList()` instance in
-        time-complexity of O(1).
+        constant time.
 
         Parameters
         ----------
@@ -955,8 +970,10 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -973,7 +990,7 @@ class DoublyLinkedList(LinkedList):
     def add_end(self, item):
         """
         Adds the given value at the tail of the `DoublyLinkedList()` instance in
-        time-complexity of O(1).
+        constant time.
 
         Parameters
         ----------
@@ -982,8 +999,10 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -999,7 +1018,8 @@ class DoublyLinkedList(LinkedList):
 
     def insert(self, idx, item):
         """
-        Insertd a value at a position defined by the given index.
+        Insertd a value at a position defined by the given index to the
+        `DoublyLinkedList()` instance.
 
         Parameters
         ----------
@@ -1011,13 +1031,17 @@ class DoublyLinkedList(LinkedList):
               
         Raises
         ------
-        IndexError: This happens in one of the following cases: 
-            1. If the given index is out of the `DoublyLinkedList()` boundaries.
-            2. If the given index is less than zero (-ve).
-        TypeError: This happens in one of the following cases:
-            1. If the given index isn't integer.
-            2. If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. If the given index is out of the `DoublyLinkedList()` \
+                boundaries.
+                2. If the given index is less than zero (-ve).
+        TypeError:
+            This happens in one of the following cases:
+                1. If the given index isn't integer.
+                2. If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
         
         Example
         -------
@@ -1027,11 +1051,11 @@ class DoublyLinkedList(LinkedList):
          ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 10 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └────┘ └───┘ └───┘ 
-        >>> dll.insert(5, 8)
+        >>> dll.insert(5, item=8)
         IndexError: Given index is out of the boundaries!!
-        >>> dll.insert(1, None)
+        >>> dll.insert(1, item=None)
         ValueError: Can't use `None` as an element within `extra.DoublyLinkedList()`!!
-        >>> dll.insert(-1, 100)
+        >>> dll.insert(-1, item=100)
         IndexError: Negative indexing isn't supported with this functinoality!!
         """
         super().insert(idx, item)
@@ -1045,12 +1069,13 @@ class DoublyLinkedList(LinkedList):
 
         Parameters
         ----------
-        other: `DoublyLinkedList()`
+        other: DoublyLinkedList()
             The `DoublyLinkedList()` instance whose elements will be appended.
                 
         Raises
         ------
-        TypeError: If the given object isn't a `DoublyLinkedList()` instance.
+        TypeError:
+            If the given object isn't a `DoublyLinkedList()` instance.
 
         Example
         -------
@@ -1061,6 +1086,8 @@ class DoublyLinkedList(LinkedList):
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 5 │⟷
          └───┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> dll_1.extend([6, 7])
+        TypeError: Type Mismatch! Can't extend `extra.DoublyLinkedList()` with `<class 'list'>`!!
         """
         if not isinstance(other, self.__class__):
             raise TypeError("Type Mismatch! " + 
@@ -1095,30 +1122,36 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
-        ValueError: If the given object is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the given index type is not `int`.
-            2. If the given object is an instance of `Extra`.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
+        ValueError:
+            If the given object is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the given index type is not `int`.
+                2. If the given object is an instance of `Extra`.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
         Examples
         --------
-        >>> ll = LinkedList([1, 2, 3])
-        >>> ll[0] = 10
-        >>> ll[2] = 30
-        >>> ll
-        ┌────┐ ┌───┐ ┌────┐ 
-        │ 10 │⟷│ 2 │⟷│ 30 │⟷
-        └────┘ └───┘ └────┘ 
-        >>> ll[-1] = 0
+        >>> dll = DoublyLinkedList([1, 2, 3])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ 
+        >>> dll[0] = 10
+        >>> dll[2] = 30
+        >>> dll
+         ┌────┐ ┌───┐ ┌────┐ 
+        ⟷│ 10 │⟷│ 2 │⟷│ 30 │⟷
+         └────┘ └───┘ └────┘ 
+        >>> dll[-1] = 0
         IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> ll[3] = 40
+        >>> dll[3] = 40
         IndexError: Given index is out of the boundaries!!
         """
         super().__setitem__(idx, item)
@@ -1127,7 +1160,8 @@ class DoublyLinkedList(LinkedList):
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         """
-        Removes a node from the `DoublyLinkedList()` instance.
+        Removes a node from the `DoublyLinkedList()` instance. The position of
+        this node is defined by the given `prev_node` object.
 
         Parameters
         ----------
@@ -1138,9 +1172,10 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `DoublyNode()` object or `None.
-            2. The `node_to_be_removed` isn't a `DoublyNode()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `DoublyNode()` object or `None.
+                2. The `node_to_be_removed` isn't a `DoublyNode()` object
         
         Example
         -------
@@ -1195,17 +1230,21 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
         Examples
         --------
         >>> dll = DoublyLinkedList([1, 2, 3])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
+         └───┘ └───┘ └───┘ 
         >>> del dll[0]
         >>> dll
          ┌───┐ ┌───┐ 
@@ -1221,8 +1260,8 @@ class DoublyLinkedList(LinkedList):
 
     def remove_front(self):
         """
-        Removes the value at the head of the `DoublyLinkedList()` instance in time-
-        complexity of O(1).
+        Removes the value at the head of the `DoublyLinkedList()` instance in
+        constant time.
 
         Examples
         --------
@@ -1244,7 +1283,7 @@ class DoublyLinkedList(LinkedList):
     def remove_end(self):
         """
         Removes the value at the tail of the `DoublyLinkedList()` instance in
-        time-complexity of O(1).
+        constant time.
 
         Examples
         --------
@@ -1265,7 +1304,9 @@ class DoublyLinkedList(LinkedList):
 
     def remove(self, value, all=True):
         """
-        Removes node(s) whose value equal to the given value.
+        Removes a single node or multiple nodes (in case of `all` being `True`)
+        whose value equal to the given value from the `DoublyLinkedList()`
+        instance.
 
         Parameters
         ----------
@@ -1277,15 +1318,21 @@ class DoublyLinkedList(LinkedList):
         
         Raises
         ------
-        ValueError: If The given value is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the type of the `all` flag isn't boolean.
-            2. If the given value is an instance of `Extra` class.
+        ValueError:
+            If The given value is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the type of the `all` flag isn't boolean.
+                2. If the given value is an instance of `Extra` class.
         
         Example
         -------
         >>> dll = DoublyLinkedList([1, 2, 3, 2, 2])
-        >>> dll.remove(2, False)
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 2 │⟷│ 2 │⟷
+         └───┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> dll.remove(2, all=False)
         >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 3 │⟷│ 2 │⟷│ 2 │⟷
@@ -1302,12 +1349,12 @@ class DoublyLinkedList(LinkedList):
 
     def clear(self):
         """
-        Removes all nodes within the `DoublyLinkedList()` in time-complexity of
-        O(1).
+        Removes all nodes within the `DoublyLinkedList()` in constant time.
 
         Example
         -------
         >>> dll = DoublyLinkedList([1, 2, 3])
+        >>> dll
          ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └───┘ └───┘ 
@@ -1341,16 +1388,18 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        `DoublyLinkedList()`: 
+        DoublyLinkedList(): 
             The left `DoublyLinkedList()` instance returned after split.
-        `DoublyLinkedList()`: 
+        DoublyLinkedList(): 
             The right `DoublyLinkedList()` instance returned after split
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If the given index is either negative or out of the
-            `DoublyLinkedList()` boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If the given index is either negative or out of the boundaries of
+            the `DoublyLinkedList()` instance.
 
         Examples
         --------
@@ -1391,26 +1440,34 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        `DoublyLinkedList()`:
-            The rotated instance if `inplace=True`
+        DoublyLinkedList():
+            The rotated instance if `inplace=True` and `None` if
+            `inplace=False`.
         
         Examples
         --------
         >>> dll = DoublyLinkedList([1, 2, 3, 4])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
         >>> dll.rotate_left(1)
+        >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 1 │⟷
          └───┘ └───┘ └───┘ └───┘ 
-        >>> # it works fine when the distance is bigger than the instance length
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the doubly linked list instance
         >>> dll.rotate_left(10)
+        >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
-        ⟷│ 3 │⟷│ 4 │⟷│ 1 │⟷│ 2 │⟷
+        ⟷│ 4 │⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └───┘ └───┘ └───┘ 
         """
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
-        super()._validate_distance(distance)
-        rotated = super()._rotate(distance, "LEFT")
+        super()._validate_rotation_distance(distance)
+        rotated = self._rotate(distance, "LEFT")
         if not inplace: return rotated
         self._head = rotated._head
         self._tail = rotated._tail
@@ -1434,26 +1491,33 @@ class DoublyLinkedList(LinkedList):
         
         Returns
         -------
-        `DoublyLinkedList()`:
+        DoublyLinkedList():
             The rotated instance if `inplace=True`
         
         Examples
         --------
         >>> dll = DoublyLinkedList([1, 2, 3, 4])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
         >>> dll.rotate_right(1)
+        >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 4 │⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷
          └───┘ └───┘ └───┘ └───┘ 
-        >>> # it works fine when the distance is bigger than the instance length
-        >>> dll.rotate_right(15)
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the doubly linked list instance
+        >>> dll.rotate_right(14)
+        >>> dll
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷│ 1 │⟷
          └───┘ └───┘ └───┘ └───┘ 
         """
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
-        super()._validate_distance(distance)
-        rotated = super()._rotate(distance, "RIGHT")
+        super()._validate_rotation_distance(distance)
+        rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
         self._head = rotated._head
         self._tail = rotated._tail
@@ -1467,12 +1531,16 @@ class DoublyLinkedList(LinkedList):
 
         Returns
         -------
-        `DoublyLinkedList()`:
+        DoublyLinkedList():
             The reversed `DoublyLinkedList()` instance.
         
         Example
         -------
         >>> dll = DoublyLinkedList([1, 2, 3, 4])
+        >>> dll
+         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        ⟷│ 1 │⟷│ 2 │⟷│ 3 │⟷│ 4 │⟷
+         └───┘ └───┘ └───┘ └───┘ 
         >>> dll.reverse()
          ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         ⟷│ 4 │⟷│ 3 │⟷│ 2 │⟷│ 1 │⟷
@@ -1483,8 +1551,9 @@ class DoublyLinkedList(LinkedList):
 
     def to_list(self):
         """
-        Converts the `DoublyLinkedList()` instance to a `list` in time-complexity
-        of O(n) where **n** is the number of elements in the instance.
+        Converts the `DoublyLinkedList()` instance to a `list` in time-
+        complexity of O(n) where **n** is the number of elements in the
+        instance.
 
         Returns
         -------
@@ -1510,7 +1579,7 @@ class DoublyLinkedList(LinkedList):
 
     def count(self, value):
         """
-        Counts the number of occurrence the given value is in our
+        Counts the number of occurrence the given value is in the
         `DoublyLinkedList()` instance.
 
         Parameters
@@ -1543,7 +1612,7 @@ class DoublyLinkedList(LinkedList):
 
         Returns
         -------
-        `DoublyLinkedList()`:
+        DoublyLinkedList():
             The shallow copy of the original instance.
         
         Example
@@ -1551,6 +1620,10 @@ class DoublyLinkedList(LinkedList):
         >>> dll = DoublyLinkedList()
         >>> dll.add_end(10)
         >>> dll.add_end(20)
+        >>> dll
+         ┌────┐ ┌────┐ 
+        ⟷│ 10 │⟷│ 20 │⟷
+         └────┘ └────┘ 
         >>> dll.copy()
          ┌────┐ ┌────┐ 
         ⟷│ 10 │⟷│ 20 │⟷
