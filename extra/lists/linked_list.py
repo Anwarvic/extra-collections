@@ -916,7 +916,11 @@ class LinkedList(Extra):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        return not (self <= other)
+        idx, all_equal = self._compare(other, operator.gt)
+        if all_equal:
+            return True if self._length > other._length else False
+        else:
+            return True if idx == self._length else False
     
 
     def __ge__(self, other):
@@ -976,7 +980,8 @@ class LinkedList(Extra):
             raise TypeError(
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
-        return not (self < other)
+        idx, _ = self._compare(other, operator.ge)
+        return True if idx == self._length else False
 
 
     ##############################     SEARCH     ##############################
