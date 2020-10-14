@@ -1604,7 +1604,8 @@ class LinkedList(Extra):
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         """
-        Removes a node from the `LinkedList()` instance.
+        Removes a node from the `LinkedList()` instance. The position of this
+        node is defined by the given `prev_node` object.
 
         Parameters
         ----------
@@ -1615,9 +1616,10 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object or `None.
-            2. The `node_to_be_removed` isn't a `Node()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `Node()` object or `None.
+                2. The `node_to_be_removed` isn't a `Node()` object
         
         Example
         -------
@@ -1651,7 +1653,8 @@ class LinkedList(Extra):
 
     def _remove_idx(self, idx):
         """
-        Removes a node from the `LinkedList()` at the given index.
+        Removes a node from the `LinkedList()` whose position is at the given
+        index.
 
         Parameters
         ----------
@@ -1661,8 +1664,9 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: If The given index is either negative or bigger than or
-            equal the length of the `LinkedList()` instance.
+        AssertionError:
+            If The given index is either negative or bigger than or equal the
+            length of the `LinkedList()` instance.
         
         Example
         -------
@@ -1685,8 +1689,8 @@ class LinkedList(Extra):
 
     def __delitem__(self, idx):
         """
-        Deletes the value at the given index. It does that in time-complexity
-        of O(k) where **k** is the index value.
+        Deletes the value at the given index in the `LinkedList()` instance. It
+        does that in time-complexity of O(k) where **k** is the index value.
 
         Parameters
         ----------
@@ -1696,11 +1700,11 @@ class LinkedList(Extra):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
@@ -1725,8 +1729,8 @@ class LinkedList(Extra):
 
     def remove_front(self):
         """
-        Removes the value at the head of the `LinkedList()` instance in time-
-        complexity of O(1).
+        Removes the value at the head of the `LinkedList()` instance in constant
+        time.
 
         Examples
         --------
@@ -1772,21 +1776,23 @@ class LinkedList(Extra):
 
     def _remove_value(self, value, all):
         """
-        Removes node(s) whose value equal to the given value.
+        Removes a single node or multiple nodes (in case of `all` being `True`)
+        whose value equal to the given value.
 
         Parameters
         ----------
         value: object
             The value to be removed from the `LinkedList()` instance.
         all: bool
-            A flag; if `True`, all occurrences of the given value are remove. If
-            `False`, only the first occurrence is removed.
+            A flag; if `True`, all occurrences of the given value are remove.
+            If `False`, only the first occurrence is removed.
         
         Raises
         ------
-        AssertionError: This get raised in one of the following cases:
-            1. If The given value is `None` or and instance of `Extra` class.
-            2. If `all` flag isn't boolean.
+        AssertionError:
+            This get raised in one of the following cases:
+                1. If The given value is `None` or and instance of `Extra` class.
+                2. If `all` flag isn't boolean.
         
         Example
         -------
@@ -1827,7 +1833,8 @@ class LinkedList(Extra):
     
     def remove(self, value, all=True):
         """
-        Removes node(s) whose value equal to the given value.
+        Removes a single node or multiple nodes (in case of `all` being `True`)
+        whose value equal to the given value.
 
         Parameters
         ----------
@@ -1839,10 +1846,12 @@ class LinkedList(Extra):
         
         Raises
         ------
-        ValueError: If The given value is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the type of the `all` flag isn't boolean.
-            2. If the given value is an instance of `Extra` class.
+        ValueError:
+            If The given value is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the type of the `all` flag isn't boolean.
+                2. If the given value is an instance of `Extra` class.
         
         Example
         -------
@@ -1867,11 +1876,12 @@ class LinkedList(Extra):
 
     def clear(self):
         """
-        Removes all nodes within the `LinkedList()` in time-complexity of O(1).
+        Removes all nodes within the `LinkedList()` instance in constant time.
 
         Example
         -------
         >>> ll = LinkedList([1, 2, 3])
+        >>> ll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └───┘ └───┘ 
@@ -1911,7 +1921,8 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: If the index's type is not integer.
+        AssertionError:
+            If the index's type is not integer.
 
         Examples
         --------
@@ -1970,16 +1981,18 @@ class LinkedList(Extra):
         
         Returns
         -------
-        `LinkedList()`: 
+        LinkedList(): 
             The left `LinkedList()` instance returned after split.
-        `LinkedList()`: 
+        LinkedList():
             The right `LinkedList()` instance returned after split
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If the given index is either negative or out of the
-            `LinkedList()` boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If the given index is either negative or out of the `LinkedList()`
+            boundaries.
 
         Examples
         --------
@@ -2003,9 +2016,9 @@ class LinkedList(Extra):
         
 
     ##############################    ROTATION    ##############################
-    def _validate_distance(self, distance):
+    def _validate_rotation_distance(self, distance):
         """
-        Checks the validity of the given distance value. It raises the
+        Checks the validity of the given rotation distance value. It raises the
         appropriate error when the distance isn't valid and it returns nothing
         if the distance is valid.
 
@@ -2016,19 +2029,21 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: If the given distance isn't `int`.
-        ValueError: If the given distance is negative.
+        TypeError:
+            If the given distance isn't `int`.
+        ValueError:
+            If the given distance is negative.
         
         Examples
         --------
-        >>> ll = `LinkedList()`
-        >>> ll._validate_distance(1)
-        >>> ll._validate_distance('1')
+        >>> ll = LinkedList()
+        >>> ll._validate_rotation_distance(1)
+        >>> ll._validate_rotation_distance('1')
         TypeError: Rotation distance has to be an `int`!!
-        >>> ll._validate_distance(-2)
-        IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> ll._validate_index(slice(0, 2))
+        >>> ll._validate_rotation_distance(-2)
         ValueError: Rotation distance has to be >= zero!!
+        >>> ll._validate_rotation_distance(slice(0, 2))
+        TypeError: Rotation distance has to be an `int`!!
         """
         if type(distance) != int:
             raise TypeError("Rotation distance has to be an `int`!!")
@@ -2036,10 +2051,10 @@ class LinkedList(Extra):
             raise ValueError("Rotation distance has to be >= zero!!")
     
     
-    def __calibrate_distance(self, distance, direction):
+    def __calibrate_rotation_distance(self, distance, direction):
         """
-        Converts invalid distance value into a valid one paying attentionthe
-        given rotation direction.
+        Converts invalid rotation distance value into a valid one paying
+        attention to the given rotation direction.
 
         Parameters
         ----------
@@ -2051,13 +2066,15 @@ class LinkedList(Extra):
         
         Returns
         -------
-        int: The clibrated distance value.
+        int:
+            The clibrated distance value.
 
         Raises
         ------
-        AssertionError: It can be raised due to one of the following cases:
-            1. The type of given `distance` isn't `int`.
-            2. The direction value is not "RIGHT" or "LEFT".
+        AssertionError:
+            It can be raised due to one of the following cases:
+                1. The type of given `distance` isn't `int`.
+                2. The direction value is not "RIGHT" or "LEFT".
         """
         assert type(distance) == int
         assert direction in {"RIGHT", "LEFT"}
@@ -2070,9 +2087,9 @@ class LinkedList(Extra):
 
     def _rotate(self, distance, direction):
         """
-        Rotates the `LinkedList()` instance to the given `direction` by a
-        certain given `distance` and returns the rotated instance. It does all
-        of that in time-complexity of O(n) where **n** is the number of elements
+        Rotates the `LinkedList()` instance to the given `direction` by a number
+        of times defined by the given `distance`. And it returns the rotated
+        instance in time-complexity of O(n) where **n** is the number of items
         in the `LinkedList()` instance.
 
         Parameters
@@ -2085,12 +2102,16 @@ class LinkedList(Extra):
         
         Returns
         -------
-        `LinkedList()`:
+        LinkedList():
             The rotated instance.
         
         Examples
         --------
         >>> ll = LinkedList([1, 2, 3, 4])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
         >>> ll._rotate(1, "LEFT")
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
@@ -2109,7 +2130,7 @@ class LinkedList(Extra):
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
         └───┘ └───┘ └───┘ └───┘ 
         """
-        distance = self.__calibrate_distance(distance, direction)
+        distance = self.__calibrate_rotation_distance(distance, direction)
         # split based on distance
         left_list, right_list = self.split(distance)
         # join them to mimic rotation effect
@@ -2120,11 +2141,11 @@ class LinkedList(Extra):
 
     def rotate_left(self, distance, inplace=True):
         """
-        Rotates the `LinkedList()` instance to the left by a certain given
-        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
-        it returns the rotated instance. The time-compelxity of this method is
-        O(n) where **n** is the number of elements in the `LinkedList()`
-        instance.
+        Rotates the `LinkedList()` instance to the left by a number of times 
+        defined by the given `distance`. If `inplace=True`, it does the rotation
+        in-place. If not, it returns the rotated instance. The time-compelxity
+        of this method is O(n) where **n** is the number of elements in the
+        original `LinkedList()` instance.
 
         Parameters
         ----------
@@ -2136,25 +2157,32 @@ class LinkedList(Extra):
         
         Returns
         -------
-        `LinkedList()`:
+        LinkedList():
             The rotated instance if `inplace=True`
         
         Examples
         --------
         >>> ll = LinkedList([1, 2, 3, 4])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
         >>> ll.rotate_left(1)
+        >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
         └───┘ └───┘ └───┘ └───┘ 
-        >>> # it works fine when the distance is bigger than the instance length
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the linked list instance
         >>> ll.rotate_left(10)
+        >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶
         └───┘ └───┘ └───┘ └───┘ 
         """
         if type(inplace) != bool:
             raise TypeError("`inplace` is a boolean flag (True by default)!!")
-        self._validate_distance(distance)
+        self._validate_rotation_distance(distance)
         rotated = self._rotate(distance, "LEFT")
         if not inplace: return rotated
         self._head = rotated._head
@@ -2162,11 +2190,11 @@ class LinkedList(Extra):
     
     def rotate_right(self, distance, inplace=True):
         """
-        Rotates the `LinkedList()` instance to the right by a certain given
-        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
-        it returns the rotated instance. The time-compelxity of this method is
-        O(n) where **n** is the number of elements in the `LinkedList()`
-        instance.
+        Rotates the `LinkedList()` instance to the right by a number of times
+        defined by the given `distance`. If `inplace=True`, it does the rotation
+        in-place. If not, it returns the rotated instance. The time-compelxity
+        of this method is O(n) where **n** is the number of elements in the
+        original `LinkedList()` instance.
 
         Parameters
         ----------
@@ -2178,23 +2206,30 @@ class LinkedList(Extra):
         
         Returns
         -------
-        `LinkedList()`:
+        LinkedList():
             The rotated instance if `inplace=True`
         
         Examples
         --------
         >>> ll = LinkedList([1, 2, 3, 4])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
         >>> ll.rotate_right(1)
+        >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └───┘ └───┘ └───┘ 
-        >>> # it works fine when the distance is bigger than the instance length
-        >>> ll.rotate_right(15)
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the linked list instance
+        >>> ll.rotate_right(14)
+        >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶
         └───┘ └───┘ └───┘ └───┘ 
         """
-        self._validate_distance(distance)
+        self._validate_rotation_distance(distance)
         rotated = self._rotate(distance, "RIGHT")
         if not inplace: return rotated
         self._head = rotated._head
@@ -2203,17 +2238,21 @@ class LinkedList(Extra):
     ##############################      MISC      ##############################
     def reverse(self):
         """
-        Reverses the whole `LinkedList()` instance in time-complexity of O(n)
-        where **n** is the number of elements in the `LinkedList()`.
+        Reverses the whole `LinkedList()` instance in-place in time-complexity
+        of O(n) where **n** is the number of elements in the `LinkedList()`.
 
         Returns
         -------
-        `LinkedList()`:
+        LinkedList():
             The reversed `LinkedList()` instance.
         
         Example
         -------
         >>> ll = LinkedList([1, 2, 3, 4])
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶
+        └───┘ └───┘ └───┘ └───┘ 
         >>> ll.reverse()
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶
@@ -2258,7 +2297,7 @@ class LinkedList(Extra):
 
     def count(self, value):
         """
-        Counts the number of occurrence the given value is in our `LinkedList()`
+        Counts the number of occurrences of the given value in the `LinkedList()`
         instance.
 
         Parameters
@@ -2297,7 +2336,7 @@ class LinkedList(Extra):
 
         Returns
         -------
-        `LinkedList()`:
+        LinkedList():
             The shallow copy of the original instance.
         
         Example
@@ -2305,6 +2344,10 @@ class LinkedList(Extra):
         >>> ll = LinkedList()
         >>> ll.add_end(10)
         >>> ll.add_end(20)
+        >>> ll
+        ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶
+        └────┘ └────┘ 
         >>> ll.copy()
         ┌────┐ ┌────┐ 
         │ 10 │⟶│ 20 │⟶
