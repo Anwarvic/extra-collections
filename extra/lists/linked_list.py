@@ -987,9 +987,9 @@ class LinkedList(Extra):
     ##############################     SEARCH     ##############################
     def _search(self, value, start_node):
         """
-        Searches the Linked List for a given value and returns the first node
+        Searches the `LinkedList()` for a given value and returns the first node
         containing that value if found. If not found, it returns the last node
-        in the Linked List.
+        in the `LinkedList()` instance.
 
         Parameters
         ----------
@@ -1008,9 +1008,10 @@ class LinkedList(Extra):
         
         Raises:
         -------
-        AssertionError: This happens in two cases
-            1. If `value` is an instance of `Node()`.
-            2. If the `start_node` isn't an instance of `Node()`.
+        AssertionError:
+            This happens in two cases
+                1. If `value` is an instance of `Node()`.
+                2. If the `start_node` isn't an instance of `Node()`.
 
         Examples
         --------
@@ -1018,9 +1019,9 @@ class LinkedList(Extra):
         >>> ll._search(2, ll._head)
         Node(data: 2, next: 3)
         >>> ll._search(0, ll._head)
-        Node(data: 2, next: None)
+        Node(data: 2, next: 3)
         >>> ll._search(1, ll._head._next)
-        Node(data: 2, next: None)
+        Node(data: 3, next: None)
         """
         assert not isinstance(value, Node) #Node here is generic
         assert isinstance(start_node, self._basic_node)
@@ -1070,8 +1071,8 @@ class LinkedList(Extra):
 
     def _get_node(self, idx):
         """
-        Retrieves the `Node()` at the given index of the `LinkedList()`
-        instance.
+        Retrieves the `Node()` at the given index of the `LinkedList()` instance
+        knowing that the start index is zero.
 
         Parameters
         ----------
@@ -1087,7 +1088,8 @@ class LinkedList(Extra):
         
         Raises
         ------
-        AssertionError: If the given index is bigger than the LinkedList length.
+        AssertionError:
+            If the given index is bigger than the LinkedList length.
 
         Example
         -------
@@ -1112,7 +1114,7 @@ class LinkedList(Extra):
 
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         """
-        Checks the validity of the given index.It raises the appropriate error
+        Checks the validity of the given index. It raises the appropriate error
         when the index isn't valid and it returns nothing if the index is valid.
 
         Parameters
@@ -1126,13 +1128,15 @@ class LinkedList(Extra):
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. if the given index is a `slice` object while `accept_slice` \
-                flag is `False`.
-            2. If the given index is out of the `LinkedList()` boundaries.
-            3. If the given index is negative while `accept_negative` flag is \
-                `False`.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. if the given index is a `slice` object while `accept_slice`\
+                    flag is `False`.
+                2. If the given index is out of the `LinkedList()` boundaries.
+                3. If the given index is negative while `accept_negative` flag \
+                    is `False`.
         
         Examples
         --------
