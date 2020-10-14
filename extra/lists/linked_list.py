@@ -981,7 +981,7 @@ class LinkedList(Extra):
                 f"Can't compare `{self.__name__}` to `{type(other)}`"
             )
         idx, _ = self._compare(other, operator.ge)
-        return True if idx == self._length else False
+        return True if idx == other._length else False
 
 
     ##############################     SEARCH     ##############################
