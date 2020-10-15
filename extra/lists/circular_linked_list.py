@@ -26,63 +26,63 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | Method         | Description                                            | Worst-case  | Optimal     |
 +================+========================================================+=============+=============+
-| __len__()      | Returns the number of nodes                            | O(1)        | O(1)        |
+| is_empty()     | Checks if the circular linked list is empty.           | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| is_empty()     | Checks if object is empty                              | O(1)        | O(1)        |
+| __len__()      | Returns the nodes count in the circular linked list.   | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __repr__()     | Represents the object                                  | O(n)        | O(n)        |
+| __repr__()     | Represents the circular linked list as a string.       | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __iters__()    | Iterates over the object                               | O(n)        | O(n)        |
+| __iters__()    | Iterates over the circular linked list.                | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __eq__()       | Checks if two linked lists are equal                   | O(min(n,m)) | O(min(n,m)) |
+| __eq__()       | Checks the items equality of two circular linked lists.| O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __ne__()       | Checks if two linked lists are not equal               | O(min(n,m)) | O(min(n,m)) |
+| __ne__()       | Checks the items inequality of two circular lists.     | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __lt__()       | Checks if the linked list is less than the other       | O(min(n,m)) | O(min(n,m)) |
+| __lt__()       | Checks if the circular linked list is < the other.     | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __le__()       | Checks if the list is less than or equal the other     | O(min(n,m)) | O(min(n,m)) |
+| __le__()       | Checks if the circular linked list is <= the other.    | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the linked list is greater than the other    | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the circular linked list is > the other.     | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __gt__()       | Checks if the list is greater than or equal the other  | O(min(n,m)) | O(min(n,m)) |
+| __gt__()       | Checks if the circular linked list is >= the other.    | O(min(n,m)) | O(min(n,m)) |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __contains__() | Checks the existence of the given item                 | O(n)        | O(n)        |
+| __contains__() | Checks the existence of the given item in the list.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __getitem__()  | Returns the element at a certain index.                | O(k%n)      | O(k%n)      |
+| __getitem__()  | Returns the element at the given index.                | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_front()    | Adds the given item at the head                        | O(1)        | O(1)        |
+| add_front()    | Adds the given item at the head of the circular list.  | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| add_end()      | Adds the given item at the tail                        | O(n)        | O(n)        |
+| add_end()      | Adds the given item at the tail of the circular list.  | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| insert()       | Adds the given item at the given index                 | O(k%n)      | O(k%n)      |
+| insert()       | Adds the given item at the given index.                | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __setitem__()  | Replaces the value at the given index with given value | O(k%n)      | O(k%n)      |
+| __setitem__()  | Replaces the value at the given index with given value.| O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| __delitem__()  | Deletes the value at the given index                   | O(k%n)      | O(k%n)      |
+| __delitem__()  | Deletes the value at the given index.                  | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_front() | Removes the node at the head                           | O(1)        | O(1)        |
+| remove_front() | Removes the node at the head of the circular list.     | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_end()   | Removes the node at the tail                           | O(n)        | O(n)        |
+| remove_end()   | Removes the node at the tail of the circular list.     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove()       | Removes the given value if found                       | O(n)        | O(n)        |
+| remove()       | Removes a given value from the circular list if found. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| clear()        | Clears the whole linked list                           | O(1)        | O(1)        |
+| clear()        | Clears the whole circular linked list.                 | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| split()        | Splits the list into two at the given index            | O(k%n)      | O(k%n)      |
+| split()        | Splits the circular list into two at the given index.  | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| extend()       | Extends the linked list using another linked list.     | O(n+m)      | O(n+m)      |
+| extend()       | Extends the circular linked list using another one.    | O(n+m)      | O(n+m)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_left()  | Left-rotates the list by the given value               | O(k%n)      | O(k%n)      |
+| rotate_left()  | Left-rotates the circular list by the given value.     | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| rotate_right() | Right-rotates the list by the given value              | O(k%n)      | O(k%n)      |
+| rotate_right() | Right-rotates the circular list by the given value.    | O(k%n)      | O(k%n)      |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| reverse()      | Reverses the linked list                               | O(n)        | O(n)        |
+| reverse()      | Reverses the circular linked list.                     | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| to_list()      | Converts the linked list to built-in list              | O(n)        | O(n)        |
+| to_list()      | Converts the circular linked list to a normal list.    | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| count()        | Counts how many the given value found in the list      | O(n)        | O(n)        |
+| count()        | Counts the occurrences of the given value in the list. | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| copy()         | Copies the linked list                                 | O(n)        | O(n)        |
+| copy()         | Shallow-copies the circular linked list.               | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 
 
@@ -115,17 +115,18 @@ class CircularLinkedList(LinkedList):
 
         Parameters
         ----------
-        iterable: iterable (default: None)
+        iterable: iterable, optional
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
         Raises
         ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the iterable elements is an `Extra` object.
-
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in two cases
+                1. In case the given object isn't iterable.
+                2. If one of the iterable elements is an `Extra` object.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -140,12 +141,12 @@ class CircularLinkedList(LinkedList):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> cll = CircularLinkedList([2, None])
+        >>> CircularLinkedList([2, None])
         ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> cll = CircularLinkedList(2)
+        >>> CircularLinkedList(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `CircularLinkedList` objects will raise `TypeError` as well
@@ -174,11 +175,11 @@ class CircularLinkedList(LinkedList):
 
     def _create_instance(self):
         """
-        Returns an instance of the class
+        Returns an instance of the class.
 
         Returns
         -------
-        CircularLinkedList()
+        CircularLinkedList():
             It returns an empty CircularLinkedList() instance.
         """
         return CircularLinkedList()
@@ -187,7 +188,7 @@ class CircularLinkedList(LinkedList):
     ##############################      PRINT     ##############################
     def __repr__(self):
         """
-        Represents the CircularLinkedList instance as a string.
+        Represents the `CircularLinkedList()` instance as a string.
 
         Returns
         -------
@@ -229,12 +230,12 @@ class CircularLinkedList(LinkedList):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the CircularLinkedList() in time-complexity of O(1)
+        Gets the length of the `CircularLinkedList()` in constant time.
         
         Returns
         -------
         int:
-            The length of the CircularLinkedList() instance. By Length, I mean
+            The length of the `CircularLinkedList()` instance. By Length, I mean
             the number of nodes of in the instance.
         
         Examples
@@ -251,8 +252,8 @@ class CircularLinkedList(LinkedList):
 
     def is_empty(self):
         """
-        Checks if CircularLinkedList() instance is empty or not in time-
-        complexity of O(1).
+        Checks if `CircularLinkedList()` instance is empty or not in constant
+        time.
         
         Returns
         -------
@@ -276,12 +277,12 @@ class CircularLinkedList(LinkedList):
     ##############################    OPERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the CircularLinkedList() instance and returns a generator
-        in time-complexity of O(n) where **n** is the number of elements in the 
-        CircularLinkedList() instance.
+        Iterates over the `CircularLinkedList()` instance and returns a
+        generator in time-complexity of O(n) where **n** is the number of
+        elements in the `CircularLinkedList()` instance.
 
-        Returns
-        -------
+        Yields
+        ------
         generator:
             The value of each node in the instance.
         
@@ -299,7 +300,7 @@ class CircularLinkedList(LinkedList):
 
     def __eq__(self, other):
         """
-        Checks if two CircularLinkedList() instances are equal to each other.
+        Checks if two `CircularLinkedList()` instances are equal to each other.
         And this happens if, and only if, the following two conditions are met:
         
         1. The two instances are equal in length (have same number of elements).
@@ -315,15 +316,17 @@ class CircularLinkedList(LinkedList):
         
         Returns
         -------
-        bool
+        bool:
             `True` if both instances are equal, and `False` otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a CircularLinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
@@ -339,8 +342,8 @@ class CircularLinkedList(LinkedList):
 
     def __ne__(self, other):
         """
-        Checks if two CircularLinkedList() instances are NOT equal to each other.
-        And this happens if, and only if, either one of the following two
+        Checks if two `CircularLinkedList()` instances are NOT equal to each
+        other. And this happens if, and only if, either one of the following two
         conditions is satisfied:
         
         1. The two instances are NOT equal in length (number of elements).
@@ -356,15 +359,17 @@ class CircularLinkedList(LinkedList):
         
         Returns
         -------
-        bool
+        bool:
             `True` if both instances are NOT equal, and `False` otherwise.
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of  the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of  the opposing element in the other instance.
         
         Examples
         --------
@@ -380,32 +385,33 @@ class CircularLinkedList(LinkedList):
 
     def __lt__(self, other):
         """
-        Checks if the first CircularLinkedList() instance is less than the other
-        instance. And this happens if all elements in the first instance are
-        equal with at least one element less than the opposing element of the
-        second instance.
+        Checks if the first `CircularLinkedList()` instance is less than the
+        other instance. And this happens if all elements in the first instance
+        are equal with at least one element less than the opposing element of
+        the second instance.
 
         Parameters
         ----------
-        CircularLinkedList()
+        other: CircularLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is less than the second, and `False`
             otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a CircularLinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> cll_1 = CircularLinkedList([1, 3, 2])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 < cll_2
@@ -436,32 +442,33 @@ class CircularLinkedList(LinkedList):
 
     def __le__(self, other):
         """
-        Checks if the first CircularLinkedList() instance is less than or equal to
-        the other instance. And this happens if all elements in the first
-        instance are equal or less than the opposing elements of the second
-        instance.
+        Checks if the first `CircularLinkedList()` instance is less than or
+        equal to the other instance. And this happens if all elements in the
+        first instance are equal or less than the opposing elements of the
+        second instance.
 
         Parameters
         ----------
-        CircularLinkedList()
+        other: CircularLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is less than or equal to the second
             instance, and `False` otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> cll_1 = CircularLinkedList([1, 3, 2])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 <= cll_2
@@ -492,32 +499,33 @@ class CircularLinkedList(LinkedList):
     
     def __gt__(self, other):
         """
-        Checks if the first CircularLinkedList() instance is greater than the
+        Checks if the first `CircularLinkedList()` instance is greater than the
         other instance. And this happens if all elements in the first instance
         are equal with at least one element greater than the opposing element of
         the second instance.
 
         Parameters
         ----------
-        CircularLinkedList()
+        other: CircularLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is greater than the second, and `False`
             otherwise.
 
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
         
         Examples
         --------
-
         >>> cll_1 = CircularLinkedList([1, 3, 5])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 > cll_2
@@ -528,7 +536,7 @@ class CircularLinkedList(LinkedList):
         >>> cll_1 > cll_2
         True
 
-        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_1 = CircularLinkedList([1, 2])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 > cll_2
         False
@@ -548,32 +556,33 @@ class CircularLinkedList(LinkedList):
 
     def __ge__(self, other):
         """
-        Checks if the first CircularLinkedList() instance is greater than or equal
-        to the other instance. And this happens if all elements in the first
-        instance are greater than or equal to the opposing element of the
+        Checks if the first `CircularLinkedList()` instance is greater than or
+        equal to the other instance. And this happens if all elements in the
+        first instance are greater than or equal to the opposing element of the
         second instance.
 
         Parameters
         ----------
-        CircularLinkedList()
+        other: CircularLinkedList()
             The other instance that we want to compare with the current one
         
         Returns
         -------
-        bool
+        bool:
             `True` if the first instance is greater than or equal to the second,
             and `False` otherwise.
         
         Raises
         ------
-        TypeError: This happens in two cases
-            1. If the other instance isn't a LinkedList() instance.
-            2. In case one element in the first instance doesn't match the \
-                type of the opposing element in the other instance.
+        TypeError:
+            This happens in two cases
+                1. If the other instance isn't an instance of \
+                    `CircularLinkedList()`.
+                2. In case one element in the first instance doesn't match the \
+                    type of the opposing element in the other instance.
 
         Examples
         --------
-
         >>> cll_1 = CircularLinkedList([1, 3, 5])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 >= cll_2
@@ -584,7 +593,7 @@ class CircularLinkedList(LinkedList):
         >>> cll_1 >= cll_2
         True
 
-        >>> cll_1 = CircularLinkedList([1, 5])
+        >>> cll_1 = CircularLinkedList([1, 2])
         >>> cll_2 = CircularLinkedList([1, 3, 3])
         >>> cll_1 >= cll_2
         False
