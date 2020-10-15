@@ -1423,8 +1423,8 @@ class CircularLinkedList(LinkedList):
     ##############################      MISC      ##############################
     def reverse(self):
         """
-        Reverses the whole CircularLinkedList() instance in time-complexity of
-        O(n) where **n** is the number of elements in the CircularLinkedList().
+        Reverses the whole `CircularLinkedList()` instance in time-complexity
+        of O(n) where **n** is the number of elements in the instance.
 
         Returns
         -------
@@ -1434,6 +1434,12 @@ class CircularLinkedList(LinkedList):
         Example
         -------
         >>> cll = CircularLinkedList([1, 2, 3, 4])
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
         >>> cll.reverse()
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 3 │⟶│ 2 │⟶│ 1 │⟶ ┐
@@ -1446,14 +1452,15 @@ class CircularLinkedList(LinkedList):
 
     def to_list(self):
         """
-        Converts the CircularLinkedList() instance to a `list` in time-complexity
-        of O(n) where **n** is the number of elements in the instance.
+        Converts the `CircularLinkedList()` instance to a `list` in time-
+        complexity of O(n) where **n** is the number of elements in the
+        `CircularLinkedList()` instance.
 
         Returns
         -------
         list:
             A `list` object containing the same elements as the
-            CircularLinkedList() instance.
+            `CircularLinkedList()` instance.
         
         Example
         -------
@@ -1475,8 +1482,8 @@ class CircularLinkedList(LinkedList):
 
     def count(self, value):
         """
-        Counts the number of occurrence the given value is in our
-        CircularLinkedList() instance.
+        Counts the number of occurrence the given value is in the
+        `CircularLinkedList()` instance.
 
         Parameters
         ----------
@@ -1487,7 +1494,7 @@ class CircularLinkedList(LinkedList):
         -------
         int:
             The number of times the given value is found in the
-            CircularLinkedList() instance. And 0 if it wasn't found.
+            `CircularLinkedList()` instance. And 0 if it wasn't found.
         
         Example
         -------
@@ -1504,7 +1511,7 @@ class CircularLinkedList(LinkedList):
 
     def copy(self):
         """
-        Copies the CircularLinkedList() instance in a shallow-manner.
+        Copies the ``CircularLinkedList()`` instance in a shallow-manner.
 
         Returns
         -------
@@ -1516,6 +1523,12 @@ class CircularLinkedList(LinkedList):
         >>> cll = CircularLinkedList()
         >>> cll.add_end(10)
         >>> cll.add_end(20)
+        >>> cll
+        ┌────┐ ┌────┐ 
+        │ 10 │⟶│ 20 │⟶ ┐
+        └────┘ └────┘  │
+           ↑           │
+           └───────────┘
         >>> cll.copy()
         ┌────┐ ┌────┐ 
         │ 10 │⟶│ 20 │⟶ ┐
