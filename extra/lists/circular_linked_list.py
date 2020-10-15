@@ -1133,8 +1133,8 @@ class CircularLinkedList(LinkedList):
 
     def remove_front(self):
         """
-        Removes the value at the head of the CircularLinkedList() instance in time-
-        complexity of O(1).
+        Removes the value at the head of the `CircularLinkedList()` instance in
+        constant time.
 
         Examples
         --------
@@ -1159,9 +1159,9 @@ class CircularLinkedList(LinkedList):
     
     def remove_end(self):
         """
-        Removes the value at the tail of the CircularLinkedList() instance in
+        Removes the value at the tail of the `CircularLinkedList()` instance in
         time-complexity of O(k%n) where **k** is the index value and **n** is
-        the number of elements in the CircularLinkedList() instance.
+        the number of elements in the `CircularLinkedList()` instance.
 
         Examples
         --------
@@ -1176,7 +1176,7 @@ class CircularLinkedList(LinkedList):
         >>> cll.remove_end()
         >>> cll
         ┌───┐ 
-        │ 1 │⟶ ┐clear
+        │ 1 │⟶ ┐
         └───┘  │
           ↑    │
           └────┘
@@ -1186,27 +1186,37 @@ class CircularLinkedList(LinkedList):
     
     def remove(self, value, all=True):
         """
-        Removes node(s) whose value equal to the given value.
+        Removes a single node or multiple nodes (in case of `all` being `True`)
+        whose value equal to the given value from the `CircuarLinkedList()`
+        instance.
 
         Parameters
         ----------
         value: object
-            The value to be removed from the CircularLinkedList() instance.
+            The value to be removed from the `CircularLinkedList()` instance.
         all: bool
             A flag (default: `True`); if `True`, all occurrences of the given
             value are remove. If `False`, only the first occurrence is removed.
         
         Raises
         ------
-        ValueError: If The given value is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the type of the `all` flag isn't boolean.
-            2. If the given value is an instance of `Extra` class.
+        ValueError:
+            If The given value is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the type of the `all` flag isn't boolean.
+                2. If the given value is an instance of `Extra` class.
         
         Example
         -------
         >>> cll = CircularLinkedList([1, 2, 3, 2, 2])
-        >>> cll.remove(2, False)
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘ └───┘  │
+          ↑                            │
+          └────────────────────────────┘
+        >>> cll.remove(2, all=False)
         >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶ ┐
@@ -1227,12 +1237,12 @@ class CircularLinkedList(LinkedList):
 
     def clear(self):
         """
-        Removes all nodes within the CircularLinkedList() in time-complexity of
-        O(1).
+        Removes all nodes within the `CircularLinkedList()` in constant time.
 
         Example
         -------
         >>> cll = CircularLinkedList([1, 2, 3])
+        >>> cll
         ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └───┘ └───┘  │
@@ -1252,32 +1262,34 @@ class CircularLinkedList(LinkedList):
     ##############################      SPLIT     ##############################
     def split(self, idx):
         """
-        Splits the CircularLinkedList() instance into two instances based on the
-        given index in time-complexity of O(min(k,n/2)) where **k** is the index
-        and **n** is the number of elements in the original instance. We can
-        consider `idx` as the start index of the second CircularLinkedList()
-        after splitting. If `idx=0`, the first returned CircularLinkedList()
-        will be empty while the second returned CircularLinkedList() will be the
-        same length as the original.
+        Splits the `CircularLinkedList()` instance into two instances based on
+        the given index in time-complexity of O(min(k,n/2)) where **k** is the
+        index and **n** is the number of elements in the original instance. We
+        can consider `idx` as the start index of the second 
+        `CircularLinkedList()` after splitting. If `idx=0`, the first returned
+        `CircularLinkedList()` will be empty while the second returned
+        `CircularLinkedList()` will be the same length as the original.
 
         Parameters
         ----------
         idx: int
             A positive integer pointing to the index at which the 
-            CircularLinkedList() instance should be split.
+            `CircularLinkedList()` instance should be split.
         
         Returns
         -------
-        CircularLinkedList(): 
+        CircularLinkedList():
             The left CircularLinkedList() instance returned after split.
-        CircularLinkedList(): 
+        CircularLinkedList():
             The right CircularLinkedList() instance returned after split
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If the given index is either negative or out of the
-            CircularLinkedList() boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If the given index is either negative or out of the
+            `CircularLinkedList()` boundaries.
 
         Examples
         --------
@@ -1310,11 +1322,11 @@ class CircularLinkedList(LinkedList):
     ##############################    ROTATION    ##############################
     def rotate_left(self, distance, inplace=True):
         """
-        Rotates the CircularLinkedList() instance to the left by a certain given
-        `distance`. If `inplace=True`, it does the rotation in-place. If not, 
-        it returns the rotated instance. The time-compelxity of this method is
-        of O(k%n) where **k** is the index and **n** is the number of elements
-        in the CircularLinkedList() instance.
+        Rotates the `CircularLinkedList()` instance to the left by a number of
+        times defined by the `distance`. If `inplace=True`, it does the rotation
+        in-place. If not, it returns the rotated instance. The time-compelxity
+        of this method is of O(k%n) where **k** is the index and **n** is the
+        number of elements in the `CircularLinkedList()` instance.
 
         Parameters
         ----------
@@ -1332,16 +1344,25 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
         >>> cll = CircularLinkedList([1, 2, 3, 4])
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
         >>> cll.rotate_left(1)
+        >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶ ┐
         └───┘ └───┘ └───┘ └───┘  │
           ↑                      │
           └──────────────────────┘
-        >>> # it works fine when the distance is bigger than the instance length
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the circular linked list instance
         >>> cll.rotate_left(10)
+        >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
-        │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶ ┐
+        │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └───┘ └───┘ └───┘  │
           ↑                      │
           └──────────────────────┘
@@ -1351,11 +1372,11 @@ class CircularLinkedList(LinkedList):
 
     def rotate_right(self, distance, inplace=True):
         """
-        Rotates the CircularLinkedList() instance to the right by a certain
-        given `distance`. If `inplace=True`, it does the rotation in-place. If
-        not, it returns the rotated instance. The time-compelxity of this method
-        is O(k%n) where **k** is the index and **n** is the number of elements
-        in the CircularLinkedList() instance.
+        Rotates the `CircularLinkedList()` instance to the right by a number of
+        times defined by the given `distance`. If `inplace=True`, it does the
+        rotation in-place. If not, it returns the rotated instance. The time-
+        compelxity of this method is O(k%n) where **k** is the index and **n**
+        is the number of elements in the `CircularLinkedList()` instance.
 
         Parameters
         ----------
@@ -1373,14 +1394,23 @@ class CircularLinkedList(LinkedList):
         Examples
         --------
         >>> cll = CircularLinkedList([1, 2, 3, 4])
+        >>> cll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 4 │⟶ ┐
+        └───┘ └───┘ └───┘ └───┘  │
+          ↑                      │
+          └──────────────────────┘
         >>> cll.rotate_right(1)
+        >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └───┘ └───┘ └───┘  │
           ↑                      │
           └──────────────────────┘
-        >>> # it works fine when the distance is bigger than the instance length
-        >>> dll.rotate_right(15)
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the circular linked list instance
+        >>> cll.rotate_right(14)
+        >>> cll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 2 │⟶│ 3 │⟶│ 4 │⟶│ 1 │⟶ ┐
         └───┘ └───┘ └───┘ └───┘  │
