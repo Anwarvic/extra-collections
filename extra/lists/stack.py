@@ -12,11 +12,6 @@ recently inserted object that remains at, the so-called, **top** of the stack.
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
 
 +------------+--------------------------------------------+-------------+-------------+
 | Method     | Description                                | Worst-case  | Optimal     |
@@ -35,7 +30,6 @@ Generally, we are going to use the following indicators in the table:
 +------------+--------------------------------------------+-------------+-------------+
 | is_full()  | Checks if the stack is full.               | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
-
 
 
 ☕️ API
@@ -60,18 +54,20 @@ class Stack(Extra):
     
     def __init__(self, max_capacity=float("inf")):
         """
-        Creates a Stack() object!!
+        Creates a `Stack()` object!!
         
         Parameters
         ----------
         max_capacity: int
             It's a positive integer representing the maximum number of elements
-            a Stack() should contain (Default: inf).
+            a `Stack()` should contain (Default: inf).
         
         Raises
         ------
-        TypeError: If the type of `max_capacity` isn't `int` or `float`.
-        ValueError: If the given value of `max_capacity` is less than zero.
+        TypeError:
+            If the type of `max_capacity` isn't `int` or `float`.
+        ValueError:
+            If the given value of `max_capacity` is less than zero.
 
         Example
         -------
@@ -113,7 +109,7 @@ class Stack(Extra):
     ##############################     PRINT      ##############################
     def __repr__(self):
         """
-        Represents the Stack() instance as a string.
+        Represents the `Stack()` instance as a string.
 
         Returns
         -------
@@ -149,13 +145,13 @@ class Stack(Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the Stack() instance in time-complexity of O(1).
+        Gets the length of the `Stack()` instance in constant time.
 
         Returns
         -------
         int:
-            The length of the Stack() instance. By Length, I mean the
-            number of nodes of in the instance.
+            The length of the `Stack()` instance. By Length, I mean the
+            number of elements of in the instance.
         
         Examples
         --------
@@ -173,12 +169,12 @@ class Stack(Extra):
 
     def is_empty(self):
         """
-        Checks if Stack() instance is empty or not in time-complexity of O(1).
+        Checks if `Stack()` instance is empty or not in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Stack() instance is empty or not.
+            A boolean flag showing if the `Stack()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's not
             empty.
         
@@ -196,13 +192,12 @@ class Stack(Extra):
 
     def is_full(self):
         """
-        Checks if Stack() instance is at full-capacity in time-complexity of
-        O(1).
+        Checks if `Stack()` instance is at full-capacity in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Stack() instance is full or not.
+            A boolean flag showing if the `Stack()` instance is full or not.
             `True` shows that this instance is full and `False` shows it's not
             full.
         
@@ -224,25 +219,27 @@ class Stack(Extra):
     ##############################      PUSH      ##############################
     def push(self, item):
         """
-        Pushs the given `item` to the Stack() in time-complexity of O(1). This
-        item will be at the top of the Stack() instance.
+        Pushs the given `item` to the `Stack()` in constant time. This
+        item will be at the top of the `Stack()`.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the Stack().
+            The python object to be pushed to the `Stack()`.
         
         Raises
         ------
-        OverflowError: If the `Stack()` instance was full!! By "full", I mean \
-            the number of items in the `Stack()` equals to the assigned maximum
-            capacity.
-        ValueError: If the given `item` is `None`.
-        TypeError: If the given `item` is an `Extra` object.
+        OverflowError:
+            If the `Stack()` instance was full!! By "full", I mean the number \
+            of items in the `Stack()` equals to the assigned maximum capacity.
+        ValueError:
+            If the given `item` is `None`.
+        TypeError:
+            If the given `item` is an `Extra` object.
 
         Example
         -------
-        >>> s = Stack(max_capactity=2)
+        >>> s = Stack(max_capacity=2)
         >>> s
         ┌─
         │ 
@@ -269,17 +266,18 @@ class Stack(Extra):
     ##############################      PEEK      ##############################
     def peek(self):
         """
-        Returns the top item from the Stack() instance in time-complexity of
-        O(1).
+        Returns the top item of the `Stack()` instance in constant time.
 
         Returns
         -------
         object:
-            The Stack() instance's top item.
+            The `Stack()` instance's top item which is the last item to be
+            pushed to the instance.
         
         Raises
         ------
-        IndexError: If the Stack() instance is empty!!
+        IndexError:
+            If the `Stack()` instance is empty!!
 
         Example
         -------
@@ -303,16 +301,18 @@ class Stack(Extra):
     ##############################     REMOVE     ##############################
     def pop(self):
         """
-        Pops the top item from the Stack() in time-complexity of O(1).
+        Pops the top item from the `Stack()` in constant time.
         
         Returns
         -------
         object:
-            The Stack() instance's top item.
+            The `Stack()` instance's top item which is the last item to be
+            pushed to the instance.
         
         Raises
         ------
-        UserWarning: If the Stack() instance is empty!!
+        UserWarning:
+            If the `Stack()` instance is empty!!
 
         Example
         -------
@@ -344,8 +344,7 @@ class Stack(Extra):
 
     def clear(self):
         """
-        Removes all objects within the Stack() instance in time-complexity of
-        O(1).
+        Removes all objects within the `Stack()` instance in constant time.
 
         Example
         -------
@@ -353,6 +352,7 @@ class Stack(Extra):
         >>> s.push(1)
         >>> s.push(2)
         >>> s.push(3)
+        >>> s
         ┌───┬───┬───┬─
         │ 1 │ 2 │ 3 │ 
         └───┴───┴───┴─
@@ -368,8 +368,8 @@ class Stack(Extra):
         
         Note
         ----
-        When you clear the Stack() instance, the max capacity remains the same
-        as before.
+        When you clear the `Stack()` instance, the `max_capacity` of the cleared
+        instance remains the same as the one before.
         """
         self.__init__(max_capacity=self._max_capacity)
 
