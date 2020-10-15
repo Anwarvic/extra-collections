@@ -640,7 +640,7 @@ class CircularLinkedList(LinkedList):
         False
         """
         for item in self:
-            if item.get_data() == value:
+            if item == value:
                 return True
         return False
     
