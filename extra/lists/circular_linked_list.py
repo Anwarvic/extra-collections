@@ -920,23 +920,30 @@ class CircularLinkedList(LinkedList):
 
     def extend(self, other):
         """
-        Extends the current CircularLinkedList() instance by appending the
-        elements of the other CircularLinkedList() instance in time-complexity
+        Extends the current `CircularLinkedList()` instance by appending the
+        elements of the other `CircularLinkedList()` instance in time-complexity
         of O(n+m) where **n** is the number of elements in the original instance
         and **m** is the number of elements in the other instance.
 
         Parameters
         ----------
         other: CircularLinkedList()
-            The CircularLinkedList() instance whose elements will be appended.
+            The `CircularLinkedList()` instance whose elements will be appended.
                 
         Raises
         ------
-        TypeError: If the given object isn't a CircularLinkedList() instance.
+        TypeError:
+            If the given object isn't a `CircularLinkedList()` instance.
 
         Example
         -------
         >>> cll_1 = CircularLinkedList([1, 2])
+        >>> cll_1
+        ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶ ┐
+        └───┘ └───┘  │
+          ↑          │
+          └──────────┘
         >>> cll_2 = CircularLinkedList([3, 4, 5])
         >>> cll_1.extend(cll_2)
         >>> cll_1
@@ -945,6 +952,8 @@ class CircularLinkedList(LinkedList):
         └───┘ └───┘ └───┘ └───┘ └───┘  │
           ↑                            │
           └────────────────────────────┘
+        >>> cll_1.extend([6, 7])
+        TypeError: Type Mismatch! Can't extend `extra.CircularLinkedList()` with `<class 'list'>`!!
         """
         if not isinstance(other, self.__class__):
             raise TypeError("Type Mismatch! " + 
@@ -969,7 +978,7 @@ class CircularLinkedList(LinkedList):
         """
         Replaces the value at the given index with the given item. It does that
         in time-complexity of O(k%n) where **k** is the index value and **n**
-        is the number of elements in the CircularLinkedList() instance.
+        is the number of elements in the `CircularLinkedList()` instance.
 
         Parameters
         ----------
@@ -981,15 +990,17 @@ class CircularLinkedList(LinkedList):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
-        ValueError: If the given object is `None`.
-        TypeError: This get raised in one of the following cases:
-            1. If the given index type is not `int`.
-            2. If the given object is an instance of `Extra`.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
+        ValueError:
+            If the given object is `None`.
+        TypeError:
+            This get raised in one of the following cases:
+                1. If the given index type is not `int`.
+                2. If the given object is an instance of `Extra`.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
@@ -1006,7 +1017,7 @@ class CircularLinkedList(LinkedList):
            └─────────────────┘
         >>> cll[-1] = 0
         IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> cll[31] = 20 #index is out of boundaries
+        >>> cll[31] = 20 #index is bigger than the instance length
         >>> cll
         ┌────┐ ┌────┐ ┌────┐ 
         │ 10 │⟶│ 20 │⟶│ 30 │⟶ ┐
@@ -1022,7 +1033,8 @@ class CircularLinkedList(LinkedList):
     ##############################     REMOVE     ##############################
     def _remove_node(self, prev_node, node_to_be_removed):
         """
-        Removes a node from the CircularLinkedList() instance.
+        Removes a node from the `CircularLinkedList()` instance defined by the
+        `prev_node` object.
 
         Parameters
         ----------
@@ -1033,9 +1045,10 @@ class CircularLinkedList(LinkedList):
         
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object or `None.
-            2. The `node_to_be_removed` isn't a `Node()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `Node()` object or `None.
+                2. The `node_to_be_removed` isn't a `Node()` object
         
         Example
         -------
@@ -1074,7 +1087,7 @@ class CircularLinkedList(LinkedList):
         """
         Deletes the value at the given index. It does that in time-complexity
         of O(k%n) where **k** is the index value and **n** is the number of
-        elements in the CircularLinkedList() instance.
+        elements in the `CircularLinkedList()` instance.
 
         Parameters
         ----------
@@ -1084,11 +1097,11 @@ class CircularLinkedList(LinkedList):
         
         Raises
         ------
-        IndexError: If the given index is either negative or out of the
-            boundaries.
+        IndexError:
+            If the given index is either negative or out of the boundaries.
         
-        TODOs
-        -----
+        TODO
+        ----
         1. Handle negative indexing
         2. Handle slice objects
 
@@ -1104,7 +1117,8 @@ class CircularLinkedList(LinkedList):
           └──────────┘
         >>> del cll[-1]
         IndexError: Negative indexing isn't supported with this functinoality!!
-        >>> del cll[31]  #index, here, is out of boundaries
+        >>> del cll[31]  #index is bigger than the instance length
+        >>> cll
         ┌───┐ 
         │ 2 │⟶ ┐
         └───┘  │
