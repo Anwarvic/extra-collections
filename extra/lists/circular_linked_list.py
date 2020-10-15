@@ -647,7 +647,7 @@ class CircularLinkedList(LinkedList):
 
     def _validate_index(self, idx, accept_negative=False, accept_slice=False):
         """
-        Checks the validity of the given index.It raises the appropriate error
+        Checks the validity of the given index. It raises the appropriate error
         when the index isn't valid and it returns nothing if the index is valid.
 
         Parameters
@@ -661,12 +661,14 @@ class CircularLinkedList(LinkedList):
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. if the given index is a `slice` object while `accept_slice` \
-                flag is `False`.
-            2. If the given index is negative while `accept_negative` flag is \
-                `False`.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. if the given index is a `slice` object while `accept_slice` \
+                    flag is `False`.
+                2. If the given index is negative while `accept_negative` flag \
+                    is `False`.
         
         Examples
         --------
@@ -701,23 +703,25 @@ class CircularLinkedList(LinkedList):
         zero-based `int`. This method doesn't support neither negative indexing
         nor `slice` objects. This method does that in time-complexity of O(k%n) 
         where **k** is the given index and **n** is the number of elements found
-        in the CircularLinkedList() instance.
+        in the `CircularLinkedList()` instance.
 
         Parameters
         ----------
         idx: int
-            The index to be used to retrieve value from the CircularLinkedList()
+            The index to be used to retrieve value from `CircularLinkedList()`
             instance.
         
         Returns
         -------
-        object
-            It returns the value at this the given index.
+        object:
+            It returns the value stored at this the given index.
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: If CircularLinkedList() is empty.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            If `CircularLinkedList()` instance is empty.
 
         Examples
         --------
@@ -732,12 +736,11 @@ class CircularLinkedList(LinkedList):
         Note
         ----
         Notice that the only case this method raises an `IndexError` is when the
-        CircularLinkedList() instance is empty. Other than that, the method will
-        keep iterating over the CircularLinkedList() instance till it reaches
-        the given index. That's why eventhough the previous CircularLinkedList()
-        instance is 5 element long, the method doesn't raise and `IndexError`
-        when trying to retrieve the 10th element (`cll[10]`).
-
+        `CircularLinkedList()` instance is empty. Other than that, the method
+        will keep iterating over the `CircularLinkedList()` instance till it
+        reaches the given index. That's why even though the previous
+        `CircularLinkedList()` instance is five-elements long, the method
+        doesn't raise and `IndexError` when trying to retrieve the 10th element.
         """
         self._validate_index(idx)
         if self.is_empty():
@@ -762,13 +765,14 @@ class CircularLinkedList(LinkedList):
         -------
         Node():
             A reference to the new node after being inserted in the
-            CircularLinkedList().
+            `CircularLinkedList()` instance.
             
         Raises
         ------
-        AssertionError: This happens in one of the following cases:
-            1. The `prev_node` isn't a `Node()` object or `None`.
-            2. The `new_node` isn't a `Node()` object
+        AssertionError:
+            This happens in one of the following cases:
+                1. The `prev_node` isn't a `Node()` object or `None`.
+                2. The `new_node` isn't a `Node()` object
         
         Example
         -------
@@ -799,18 +803,20 @@ class CircularLinkedList(LinkedList):
 
     def add_front(self, item):
         """
-        Adds the given value at the head of the CircularLinkedList() instance in
-        time-complexity of O(1).
+        Adds the given value at the head of the `CircularLinkedList()` instance
+        in constant time.
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the CircularLinkedList() head.
+            The value to be inserted at the `CircularLinkedList()` head.
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -828,19 +834,21 @@ class CircularLinkedList(LinkedList):
 
     def add_end(self, item):
         """
-        Adds the given value at the tail of the CircularLinkedList() instance in
-        time-complexity of O(n) where **n** is the number of elements in the 
+        Adds the given value at the tail of the `CircularLinkedList()` instance
+        in time-complexity of O(n) where **n** is the number of elements in the 
         instance.
 
         Parameters
         ----------
         item: object
-            The value to be inserted at the CircularLinkedList() tail.
+            The value to be inserted at the `CircularLinkedList()` tail.
         
         Raises
         ------
-        TypeError: If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        TypeError:
+            If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
 
         Examples
         --------
@@ -858,7 +866,8 @@ class CircularLinkedList(LinkedList):
 
     def insert(self, idx, item):
         """
-        Insertd a value at a position defined by the given index.
+        Insertd a value to the `CircularLinkedList()` instance at a position
+        defined by the given index.
 
         Parameters
         ----------
@@ -870,31 +879,37 @@ class CircularLinkedList(LinkedList):
               
         Raises
         ------
-        IndexError: This happens only if the index is less than zero (-ve).
-        TypeError: This happens in one of the following cases:
-            1. If the given index isn't integer.
-            2. If the given item is an instance of `Extra`.
-        ValueError: If the given item is `None`.
+        IndexError:
+            This happens only if the index is less than zero (-ve).
+        TypeError:
+            This happens in one of the following cases:
+                1. If the given index isn't integer.
+                2. If the given item is an instance of `Extra`.
+        ValueError:
+            If the given item is `None`.
         
         Example
         -------
         >>> cll = CircularLinkedList([1, 2, 3])
-        >>> cll.insert(1, 10)
+        >>> cll.insert(1, item=10)
         >>> cll
         ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └────┘ └───┘ └───┘  │
           ↑                       │
           └───────────────────────┘
-        >>> cll.insert(15, 8)  #index is bigger than instance length
+        >>> cll.insert(15, item=8)  #index is bigger than instance length
+        >>> cll
         ┌───┐ ┌───┐ ┌────┐ ┌───┐ ┌───┐ 
         │ 8 │⟶│ 1 │⟶│ 10 │⟶│ 2 │⟶│ 3 │⟶ ┐
         └───┘ └───┘ └────┘ └───┘ └───┘  │
           ↑                             │
           └─────────────────────────────┘
-        >>> cll.insert(1, None)
+        >>> cll.insert(1, item=None)
+        >>> cll
         ValueError: Can't use `None` as an element within `extra.CircularLinkedList()`!!
-        >>> cll.insert(-1, 100)
+        >>> cll.insert(-1, item=100)
+        >>> cll
         IndexError: Negative indexing isn't supported with this functinoality!!
         """
         self._validate_index((idx))
@@ -1467,6 +1482,3 @@ class CircularLinkedList(LinkedList):
         return super().copy()
 
 
-if __name__ == "__main__":
-    cll = CircularLinkedList([1, 3, 5])
-    print(0 in cll)
