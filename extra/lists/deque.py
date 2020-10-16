@@ -12,11 +12,6 @@ the stack and the queue.
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
 
 +----------------+---------------------------------------------------+-------------+-------------+
 | Method         | Description                                       | Worst-case  | Optimal     |
@@ -43,7 +38,6 @@ Generally, we are going to use the following indicators in the table:
 +----------------+---------------------------------------------------+-------------+-------------+
 
 
-
 ☕️ API
 -------
 Here are all of the public methods that can be used with `Deque()` objects:
@@ -66,18 +60,20 @@ class Deque(Queue):
 
     def __init__(self, max_capacity=float("inf")):
         """
-        Creates a Deque() object!!
+        Creates a `Deque()` object!!
         
         Parameters
         ----------
         max_capacity: int
             It'dq a positive integer representing the maximum number of elements
-            a Deque() should contain (Default: inf).
+            a `Deque()` should contain (Default: inf).
         
         Raises
         ------
-        TypeError: If the type of `max_capacity` isn't `int` or `float`.
-        ValueError: If the given value of `max_capacity` is less than zero.
+        TypeError:
+            If the type of `max_capacity` isn't `int` or `float`.
+        ValueError:
+            If the given value of `max_capacity` is less than zero.
 
         Example
         -------
@@ -108,7 +104,7 @@ class Deque(Queue):
     ##############################      PRINT     ##############################
     def __repr__(self):
         """
-        Represents the Deque() instance as a string.
+        Represents the `Deque()` instance as a string.
 
         Returns
         -------
@@ -131,13 +127,13 @@ class Deque(Queue):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the Deque() instance in time-complexity of O(1).
+        Gets the length of the `Deque()` instance in constant time.
 
         Returns
         -------
         int:
-            The length of the Deque() instance. By Length, I mean the
-            number of nodes of in the instance.
+            The length of the `Deque()` instance. By Length, I mean the number
+            of nodes of in the instance.
         
         Examples
         --------
@@ -155,12 +151,12 @@ class Deque(Queue):
 
     def is_empty(self):
         """
-        Checks if Deque() instance is empty or not in time-complexity of O(1).
+        Checks if `Deque()` instance is empty or not in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Deque() instance is empty or not.
+            A boolean flag showing if the `Deque()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's not
             empty.
         
@@ -178,14 +174,13 @@ class Deque(Queue):
 
     def is_full(self):
         """
-        Checks if Deque() instance is at full-capacity in time-complexity of
-        O(1).
+        Checks if `Deque()` instance is at full-capacity in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Deque() instance is full or not.
-            `True` shows that this instance is full and `False` shows it'dq not
+            A boolean flag showing if the `Deque()` instance is full or not.
+            `True` shows that this instance is full and `False` shows it's not
             full.
         
         Example
@@ -206,21 +201,23 @@ class Deque(Queue):
     ##############################     APPEND     ##############################
     def append_left(self, item):
         """
-        Inserts the given `item` to left-side of the Deque(), it does that in
-        time-complexity of O(1). 
+        Inserts the given `item` to left-side of the `Deque()`, it does that in
+        constant time.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the Deque().
+            The python object to be pushed to the `Deque()`.
         
         Raises
         ------
-        UserWarning: If the Deque() instance was full!! By "full", I mean \
-            the number of items in the Deque() equals to the assigned maximum
-            capacity.
-        ValueError: If the given `item` is `None`.
-        TypeError: If the given `item` is an instance of `Extra`.
+        UserWarning:
+            If the `Deque()` instance was full!! By "full", I mean the number
+            of items in the `Deque()` equals to the assigned maximum capacity.
+        ValueError:
+            If the given `item` is `None`.
+        TypeError:
+            If the given `item` is an instance of `Extra`.
 
         Example
         -------
