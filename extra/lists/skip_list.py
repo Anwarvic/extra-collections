@@ -687,11 +687,12 @@ class SkipList(Extra):
                 raise IndexError(
                     "Slice indexing isn't supported with this functinoality!!"
                 )
-        if type(idx) != int:
-            raise TypeError("Given index must be an integer!")
-        elif idx <= -1 and accept_negative==False:
-            raise IndexError(\
-                "Negative indexing isn't supported with this functinoality!!")
+        elif type(idx) != int:
+            raise TypeError("Given index must be an integer!!")
+        elif idx <= -1 and not accept_negative:
+            raise IndexError(
+                "Negative indexing isn't supported with this functinoality!!"
+            )
         elif idx < - len(self) or idx >= len(self):
             raise IndexError("Can't find any element at the given index!!")
 
