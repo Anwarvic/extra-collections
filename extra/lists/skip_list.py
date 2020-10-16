@@ -305,13 +305,14 @@ class SkipList(Extra):
         Note
         -----
         Inserting values into different levels in the skip list is completely
-        random. So, running the previous example will return different values
+        random. So, running the following example will return different values
         each time you run it. So, in order to obtain the same result as before
         you need to set `random.seed(1)` before running any of the previous 
         example.
 
         Examples
         --------
+        >>> import random; random.seed(1)
         >>> sl = SkipList([10, -5, 7, 9])
         >>> sl
         ┌────┐                    ┌────┐ 
@@ -506,7 +507,7 @@ class SkipList(Extra):
 
         Example
         -------
-        >>> random.seed(1)
+        >>> import random; random.seed(1)
         >>> sl = SkipList([20, 77, 10, 6, 2])
         >>> sl
         ┌────┐                    ┌────┐        
@@ -584,7 +585,7 @@ class SkipList(Extra):
         
         Example
         -------
-        >>> random.seed(1)
+        >>> import random; random.seed(1)
         >>> sl = SkipList([20, 77, 10, 6, 2])
         >>> sl.get_height()
         3
@@ -699,7 +700,7 @@ class SkipList(Extra):
 
     def _search(self, value):
         """
-        Searches the SkipList() for a given value and returns the first node
+        Searches the `SkipList()` for a given value and returns the first node
         containing that value if found and some other necessary info. If not
         found, it returns the node whose value is less that the given value and
         yet bigger than other values.
@@ -707,7 +708,7 @@ class SkipList(Extra):
         Parameters
         ----------
         value: int or float
-            The value to be searched for in the SkipList() instance.
+            The value to be searched for in the `SkipList()` instance.
         
         Returns
         -------
@@ -719,15 +720,17 @@ class SkipList(Extra):
             If the value is found, this object is the found node. If the value
             is not found, this object is the last accessed node.
         list:
-            A list of all accessed SkipNode() objects sorted in descending
+            A list of all accessed `SkipNode()` objects sorted in descending
             manner.
         
         Raises:
         -------
-        AssertionError: If the given value isn't a number
+        AssertionError:
+            If the given value isn't a number
 
         Examples
         --------
+        >>> import random; random.seed(1)
         >>> sl = SkipList([10, -2, 3])
         >>> sl
         ┌────┐              ┌────┐ 
@@ -741,7 +744,7 @@ class SkipList(Extra):
         >>> prev_node
         SkipNode(data: -2, next: 3)
         >>> node
-        Node(data: 2, next: None)
+        Node(data: 3, next: 10)
         >>> last_accessed_nodes
         [SkipNode(data: -2, next: 10), SkipNode(data: -∞, next: 10)]
         """
@@ -766,24 +769,25 @@ class SkipList(Extra):
 
     def __contains__(self, value):
         """
-        Checks if the given value exists in the SkipList() instance in time-
+        Checks if the given value exists in the `SkipList()` instance in time-
         complexity of O(log(n)) where **n** is the total number of elements in
-        the SkipList() instance.
+        the `SkipList()` instance.
 
         Parameters
         ----------
         value: Object
-            The value to be searched for in the SkipList() instance.
+            The value to be searched for in the `SkipList()` instance.
         
         Returns
         -------
         bool
-            `True` if the given value exists in the SkipList() instance, and
+            `True` if the given value exists in the `SkipList()` instance, and
             `False` otherwise.
 
         Raises
         ------
-        ValueError: If the given item is `None`.
+        ValueError:
+            If the given item is `None`.
         
         Examples
         --------
@@ -812,21 +816,23 @@ class SkipList(Extra):
         Parameters
         ----------
         idx: int
-            The index (multiple indices) to be used to retrieve values from the
-            LinkedList() instance.
+            The index to be used to retrieve the stored value from the
+            `SkipList()` instance.
         
         Returns
         -------
         int or float:
-            The value at this index inside the SkipList() instance.
+            The value at this index inside the `SkipList()` instance.
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. If the given index is negative.
-            2. if the given index is a `slice` object.
-            3. If the given index is out of the SkipList() boundaries.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. If the given index is negative.
+                2. if the given index is a `slice` object.
+                3. If the given index is out of the `SkipList()` boundaries.
 
         Examples
         --------
@@ -844,8 +850,8 @@ class SkipList(Extra):
 
         Note
         ----
-        The -∞ setntinel value is put in the SkipList() as a convention. So, it
-        doesn't count as an element in the SkipList(). In other words, the
+        The -∞ setntinel value is put in the `SkipList()` as a convention. So,
+        it doesn't count as an element of the `SkipList()`. In other words, the
         zeroths element in the above skip list is `0` not `-∞`.
         """
         self._validate_index(idx)
@@ -857,14 +863,14 @@ class SkipList(Extra):
     ##############################     INSERT     ##############################
     def _add_extra_level(self):
         """
-        Creates a new level at the top of the SkipList(), a new level is a new
-        LinkedList() instance attached to the SkipList().
+        Creates a new level at the top of the `SkipList()`, a new level is a
+        new `LinkedList()` instance attached to the `SkipList()`.
 
         Returns
         -------
         LinkedList():
-            The newly-created LinkedList() instance after being attached to the
-            other LinkedList() object in the lower level.
+            The newly-created `LinkedList()` instance after being attached to
+            the other `LinkedList()` object in the lower level.
         """
         top_list = self._level_lists[self._num_levels-1]
         new_llist = LinkedList()
@@ -880,12 +886,12 @@ class SkipList(Extra):
     def _promote(self, upper_prev_node, curr_node, curr_level):
         """
         Promotes a node to the higher level. Promoting is done by copying the
-        node from (x)th level to the (x+1)th level.
+        node from (i)th level to the (i+1)th level.
 
         Parameters
         ----------
         upper_prev_node: SkipNode()
-            The tail of the LinkedList() object in the above level.
+            The tail of the `LinkedList()` object in the above level.
         curr_node: SkipNode()
             The node to be promoted.
         curr_level: int
@@ -894,7 +900,7 @@ class SkipList(Extra):
         Returns
         -------
         SkipNode():
-            The SkipNode() object after being promoted in the higher level.
+            The `SkipNode()` object after being promoted in the higher level.
         """
         assert isinstance(upper_prev_node, self._basic_node)
         assert isinstance(curr_node, self._basic_node)
@@ -912,13 +918,13 @@ class SkipList(Extra):
 
     def insert(self, value):
         """
-        Insertd a value to the SkipList() instance in time-complexity of
-        O(log(n)) where **n** is the number of elements in the SkipList().
+        Insertd a value to the `SkipList()` instance in time-complexity of
+        O(log(n)) where **n** is the number of elements in the `SkipList()`.
 
         Parameters
         ----------
         value: int or float
-            The number to be inserted in the SkipList() instance.
+            The number to be inserted in the `SkipList()` instance.
         
         Raises
         ------
@@ -926,18 +932,18 @@ class SkipList(Extra):
 
         Example
         -------
-        >>> random.seed(1)
-        >>> sl = SkipList([2, 1, 3])
+        >>> import random; random.seed(1)
+        >>> sl = SkipList([2, 1, 3, 4, 5])
         >>> sl.insert(10)
         >>> sl
-        ┌────┐                   ┌───┐       ┌────┐ 
-        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
-        ├────┤             ┌───┐ ├───┤       ├────┤ 
-        | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 3 │⟶| 4 │⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
-        ├────┤ ┌───┐ ┌───┐ ├───┤ ├───┤ ┌───┐ ├────┤ 
+        ┌────┐       ┌───┐                   ┌────┐ 
+        | -∞ │⟶⟶⟶⟶⟶⟶⟶| 2 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ┌───┐ ├───┤                   ├────┤ 
+        | -∞ │⟶| 1 │⟶| 2 │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 10 │⟶
+        ├────┤ ├───┤ ├───┤ ┌───┐ ┌───┐ ┌───┐ ├────┤ 
         | -∞ │⟶| 1 │⟶| 2 │⟶| 3 │⟶| 4 │⟶| 5 │⟶| 10 │⟶
         └────┘ └───┘ └───┘ └───┘ └───┘ └───┘ └────┘ 
-        >>> ll.insert("10")
+        >>> sl.insert("hi")
         TypeError: `extra.SkipList()` supports only numbers!!
 
         Note
@@ -975,8 +981,8 @@ class SkipList(Extra):
     ##############################     REMOVE     ##############################
     def _remove_level(self, level):
         """
-        Removes a level from the SkipList() instance. We need to do so when 
-        deleting a value from the SkipList() instance which results in a a
+        Removes a level from the `SkipList()` instance. We need to do so when 
+        deleting a value from the `SkipList()` instance which results in a a
         whole level being empty, so we will need to get rid of this level.
 
         Parameters
@@ -986,10 +992,11 @@ class SkipList(Extra):
         
         Raises
         ------
-        AssertionError: This can happen in two cases:
-            1. If the type of the given `level` isn't `int`.
-            2. If the level is less than 1 and greater than the total number \
-                of levels.
+        AssertionError:
+            This can happen in two cases:
+                1. If the type of the given `level` isn't `int`.
+                2. If the level is less than 1 and greater than the total \
+                    number of levels.
         """
         assert type(level) == int and 1 <= level < self._num_levels
         
@@ -1004,11 +1011,11 @@ class SkipList(Extra):
         Parameters
         ----------
         value: int or float
-            The value to be removed from the SkipList() instance.
+            The value to be removed from the `SkipList()` instance.
                
         Example
         -------
-        >>> random.seed(1)
+        >>> import random; random.seed(1)
         >>> sl = SkipList([4, 3, 1, 5])
         >>> sl
         ┌────┐             ┌───┐       
@@ -1059,7 +1066,7 @@ class SkipList(Extra):
 
     def __delitem__(self, idx):
         """
-        Removes node at a given index.
+        Removes node at a given index at the `SkipList()` instance.
 
         Parameters
         ----------
@@ -1069,15 +1076,17 @@ class SkipList(Extra):
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. If the given index is negative.
-            2. If the given index is out of the SkipList() boundaries.
-            3. if the given index is a `slice` object.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. If the given index is negative.
+                2. If the given index is out of the `SkipList()` boundaries.
+                3. if the given index is a `slice` object.
         
         Example
         -------
-        >>> random.seed(1)
+        >>> import random; random.seed(1)
         >>> sl = SkipList([4, 3, 1, 5])
         >>> sl
         ┌────┐             ┌───┐       
@@ -1110,11 +1119,13 @@ class SkipList(Extra):
 
     def clear(self):
         """
-        Removes all nodes within the SkipList() in time-complexity of O(1).
+        Removes all nodes within the `SkipList()` in constant time.
 
         Example
         -------
+        >>> import random; random.seed(1)
         >>> sl = SkipList([4, 3, 1, 5])
+        >>> sl
         ┌────┐             ┌───┐       
         | -∞ │⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶⟶| 4 │⟶⟶⟶⟶⟶⟶⟶
         ├────┤       ┌───┐ ├───┤       
@@ -1136,17 +1147,18 @@ class SkipList(Extra):
     ##############################      MISC      ##############################
     def to_list(self):
         """
-        Converts the SkipList() instance to a `list` in time-complexity of O(n)
-        where **n** is the number of elements in the instance.
+        Converts the `SkipList()` instance to a `list` in time-complexity of
+        O(n) where **n** is the number of elements in the instance.
 
         Returns
         -------
         list:
-            A `list` object containing the same elements as the SkipList()
+            A `list` object containing the same elements as the `SkipList()`
             instance.
         
         Example
         -------
+        >>> import random; random.seed(1)
         >>> sl = SkipList()
         >>> sl.insert(20)
         >>> sl.insert(10)
@@ -1159,7 +1171,7 @@ class SkipList(Extra):
         ├────┤ ├────┤ ├────┤ ┌────┐ 
         | -∞ │⟶| 10 │⟶| 20 │⟶| 30 │⟶
         └────┘ └────┘ └────┘ └────┘ 
-        >>> ll.to_list()
+        >>> sl.to_list()
         [10, 20, 30]
         """
         return [item for item in self]
