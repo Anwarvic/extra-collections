@@ -6,6 +6,8 @@ every possible value that can be inserted. The really interesting part about
 skip list is that it supports searching for values in time-complexity of
 **O(log(n))** which is considered faster than most linear data structures.
 
+.. image:: ../../img/lists/skip_list.gif
+
 The following is a simple skip list containing the first seven number from the 
 Fibbonacci series which are: [0, 1, 1, 2, 3, 5, 8]
 
@@ -41,8 +43,6 @@ The -∞ setntinel value is put in the SkipList() as a convention. So, it doesn'
 count as an element in the SkipList(). In other words, the zeroths element in 
 the above skip list is `0` not `-∞`.
 
-.. image:: ../../img/lists/skip_list.gif
-
 
 ⏱ Time-Complexity
 -------------------
@@ -58,27 +58,27 @@ Generally, we are going to use the following indicators in the table:
 +----------------+------------------------------------------+------------+-----------+
 | Method         | Description                              | Worst-case | Optimal   |
 +================+==========================================+============+===========+
-| __len__()      | Returns the number of nodes              | O(1)       | O(1)      |
+| __len__()      | Returns the number of skip nodes.        | O(1)       | O(1)      |
 +----------------+------------------------------------------+------------+-----------+
-| is_empty()     | Checks if object is empty                | O(1)       | O(1)      |
+| is_empty()     | Checks if the skip list is empty.        | O(1)       | O(1)      |
 +----------------+------------------------------------------+------------+-----------+
-| __repr__()     | Represents the object                    | O(n*h)     | O(n*h)    |
+| __repr__()     | Represents the skip list as a string.    | O(n*h)     | O(n*h)    |
 +----------------+------------------------------------------+------------+-----------+
-| __iter__()     | Iterates over the object                 | O(n)       | O(n)      |
+| __iter__()     | Iterates over the skip list.             | O(n)       | O(n)      |
 +----------------+------------------------------------------+------------+-----------+
-| __contains__() | Checks the existence of the given item   | O(log(n))  | O(log(n)) |
+| __contains__() | Checks the existence of the given item.  | O(log(n))  | O(log(n)) |
 +----------------+------------------------------------------+------------+-----------+
 | __getitem__()  | Returns the element at a certain index.  | O(k)       | O(k)      |
 +----------------+------------------------------------------+------------+-----------+
-| __delitem__()  | Deletes the value at the given index     | O(k)       | O(k)      |
+| __delitem__()  | Deletes the value at the given index.    | O(k)       | O(k)      |
 +----------------+------------------------------------------+------------+-----------+
-| insert()       | Adds the given item to the instance      | O(k)       | O(k)      |
+| insert()       | Adds the given item to the instance.     | O(k)       | O(k)      |
 +----------------+------------------------------------------+------------+-----------+
-| remove()       | Removes the given value if found         | O(log(n))  | O(log(n)) |
+| remove()       | Removes the given value if found.        | O(log(n))  | O(log(n)) |
 +----------------+------------------------------------------+------------+-----------+
-| clear()        | Clears the whole skip list               | O(1)       | O(1)      |
+| clear()        | Clears the whole skip list.              | O(1)       | O(1)      |
 +----------------+------------------------------------------+------------+-----------+
-| to_list()      | Converts the skip list to built-in list. | O(n)       | O(n)      |
+| to_list()      | Converts the skip list to a normal list. | O(n)       | O(n)      |
 +----------------+------------------------------------------+------------+-----------+
 
 
@@ -119,8 +119,8 @@ def flip_coin():
 
 def search_sorted(prev_node, start_node, value):
     """
-    A helper function to search the SkipList() instance starting from a certain
-    node and searching for a certain value.
+    A helper function to search the `SkipList()` instance starting from a
+    given node declared as `start_node` and searching for the given `value`.
 
     Parameters
     ----------
@@ -169,8 +169,10 @@ class SkipNode(Node):
 
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item isn't a number.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item isn't a number.
         """
         super()._validate_item(item)
         if type(item) not in {int, float}:
@@ -203,7 +205,8 @@ class SkipNode(Node):
 
         Raises
         ------
-        TypeError: If the given item is not an `SkipNode()` object.
+        TypeError:
+            If the given item is not an `SkipNode()` object.
         """
         if not isinstance(other_node, SkipNode):
             raise TypeError(f"Given object has to be `{self.__name__}`!!")
@@ -223,7 +226,7 @@ class SkipNode(Node):
         -------
         >>> x = SkipNode(10)
         >>> x
-        >>> SkipNode(data: 10, next:None)
+        SkipNode(data: 10, next:None)
         """
         if self._data == float("-inf"):
             data = "-∞"
@@ -237,12 +240,12 @@ class SkipNode(Node):
 
     def _represent(self):
         """
-        A helpful function used to represent the SkipNode() when printing!!
+        A helpful function used to represent the `SkipNode()` when printing!!
         
         Returns
         -------
         str:
-            A string representing the SkipNode() is a very simple way.
+            A string representing the `SkipNode()` is a very simple way.
         
         Example
         -------
@@ -285,18 +288,27 @@ class SkipList(Extra):
 
         Parameters
         ----------
-        iterable: iterable (default: None)
+        iterable: iterable, optional
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
         Raises
         ------
-        TypeError: It can be raised in three cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
+        TypeError:
+            It can be raised in three cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
-        ValueError: If one of the iterable elements is `None`.
+        Note
+        -----
+        Inserting values into different levels in the skip list is completely
+        random. So, running the previous example will return different values
+        each time you run it. So, in order to obtain the same result as before
+        you need to set `random.seed(1)` before running any of the previous 
+        example.
 
         Examples
         --------
@@ -326,14 +338,6 @@ class SkipList(Extra):
         >>> sl_1 = SkipList([1])
         >>> sl_2 = SkipList([1, sl_1])
         TypeError: Can't create `extra.SkipList()` using `extra.SkipList()`!!
-
-        Note
-        -----
-        Inserting values into different levels in the skip list is completely
-        random. So, running the previous example will return different values
-        each time you run it. So, in order to obtain the same result as before
-        you need to set `random.seed(1)` before running any of the previous 
-        example.
         """
         #NOTE: `_level_lists` is an array of LinkedList() objects
         if iterable is None:
@@ -358,7 +362,7 @@ class SkipList(Extra):
     ##############################     PRINT      ##############################
     def __print_node(self, node, zeroth_node, lower_node):
         """
-        Prints the given node of the SkipList() instance.
+        Prints the given node of the `SkipList()` instance.
 
         Parameters
         ----------
@@ -379,12 +383,14 @@ class SkipList(Extra):
         
         Raises
         ------
-        AssertionError: This can be raised in the following cases:
-            1. The `node` is not neither `None` nor an instance of SkipNode()
-            2. The `zeroth_node` is not neither `None` nor an instance of \
-                SkipNode()
-            3. The `lower_node` is not neither `None` nor an instance of \
-                SkipNode()
+        AssertionError:
+            This can be raised in the following cases:
+                1. The `node` is not neither `None` nor an instance of \
+                    `SkipNode()`.
+                2. The `zeroth_node` is not neither `None` nor an instance of \
+                    `SkipNode()`.
+                3. The `lower_node` is not neither `None` nor an instance of \
+                    `SkipNode()`.
         """
         assert node is None or isinstance(node, self._basic_node)
         assert zeroth_node is None or isinstance(zeroth_node, self._basic_node)
@@ -410,26 +416,27 @@ class SkipList(Extra):
 
     def __print_level(self, level):
         """
-        Prints each level in the SkipList() instance.
+        Prints each level in the `SkipList()` instance.
         
         Parameters
         ----------
         level: int
             A positive zero-indexed integer representing the level rank. The
-            lowest level of the SkipList() is zero.
+            lowest level of the `SkipList()` is zero.
         
         Returns
         -------
         str: 
-            A string representing a whole level in the SkipList() knowing that 
+            A string representing a whole level in the `SkipList()` knowing that 
             each level should be printed in three lines. This method returns the
             lower & middle line.
         
         Raises
         ------
-        AssertionError: In the following cases:
-            1. If the type of the given level isn't a level.
-            2. If the level index is bigger than the SkipList() height.
+        AssertionError:
+            In the following cases:
+                1. If the type of the given level isn't a level.
+                2. If the level index is bigger than the `SkipList()` height.
         """
         assert type(level) == int
         assert level < self._num_levels
@@ -460,11 +467,11 @@ class SkipList(Extra):
 
     def __print_top_border(self):
         """
-        Prints out the top border of the Skip List.
+        Prints out the top border of the `SkipList()` instance.
 
         Returns:
         str:
-            A one-line string representing the top-border of the SkipList()
+            A one-line string representing the top-border of the `SkipList()`
         """
         lower_list = self._level_lists[0]
         top_list = self._level_lists[self._num_levels-1]
@@ -489,8 +496,8 @@ class SkipList(Extra):
     def __repr__(self):
         """
         Represents the linked list as a string. The time-complexity of this
-        method is O(n*h) where **n** is the number of nodes in the SkipList()
-        and **h** is the height of the SkipList().
+        method is O(n*h) where **n** is the number of nodes in the `SkipList()`
+        and **h** is the height of the `SkipList()`.
         
         Returns
         -------
@@ -519,12 +526,12 @@ class SkipList(Extra):
     ##############################     LENGTH     ##############################    
     def __len__(self):
         """
-        Gets the length of the SkipList() in time-complexity of O(1).
+        Gets the length of the `SkipList()` in time-complexity of O(1).
         
         Returns
         -------
         int:
-            The length of the SkipList() instance. By Length, I mean the
+            The length of the `SkipList()` instance. By Length, I mean the
             number of nodes of in the instance.
         
         Examples
@@ -542,23 +549,22 @@ class SkipList(Extra):
 
     def is_empty(self):
         """
-        Checks if the SkipList() instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `SkipList()` instance is empty or not in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the SkipList() instance is empty or
+            A boolean flag showing if the `SkipList()` instance is empty or
             not. `True` shows that this instance is empty and `False` shows
             it's not empty.
         
         Example
         --------
-        >>> ll = SkipList()
-        >>> ll.is_empty()
+        >>> sl = SkipList()
+        >>> sl.is_empty()
         True
-        >>> ll.insert(5)
-        >>> ll.is_empty()
+        >>> sl.insert(5)
+        >>> sl.is_empty()
         False
         """
         return len(self) == 0
@@ -567,8 +573,9 @@ class SkipList(Extra):
     ##############################     HEIGHT     ##############################
     def get_height(self):
         """
-        Gets the height of the SkipNode() instance. SkipNode() height is the 
-        number of levels where each level is a LinkedList() object.
+        Gets the height of the `SkipNode()` instance. `SkipNode()` height is
+        the number of levels where each level is a standalone `LinkedList()`
+        object.
 
         Returns
         -------
@@ -588,9 +595,9 @@ class SkipList(Extra):
     ##############################    ITERATOR    ##############################
     def __iter__(self):
         """
-        Iterates over the SkipList() instance and returns a generator in 
+        Iterates over the `SkipList()` instance and returns a generator in 
         time-complexity of O(n) where **n** is the number of elements in the 
-        SkipList() instance.
+        `SkipList()` instance.
 
         Returns
         -------
@@ -619,11 +626,14 @@ class SkipList(Extra):
         Parameters
         ----------
         item: object
+            The object that should be verified.
         
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item is not a number.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item is not a number.
         """
         super()._validate_item(item)
         if type(item) not in {int, float}:
@@ -646,13 +656,15 @@ class SkipList(Extra):
         
         Raises
         ------
-        TypeError: If the given index isn't `int`.
-        IndexError: This happens in one of the following cases: 
-            1. if the given index is a `slice` object while `accept_slice` \
-                flag is `False`.
-            2. If the given index is out of the SkipList() boundaries.
-            3. If the given index is negative while `accept_negative` flag is \
-                `False`.
+        TypeError:
+            If the given index isn't `int`.
+        IndexError:
+            This happens in one of the following cases: 
+                1. if the given index is a `slice` object while `accept_slice` \
+                    flag is `False`.
+                2. If the given index is out of the `SkipList()` boundaries.
+                3. If the given index is negative while `accept_negative` flag \
+                    is `False`.
         
         Examples
         --------
