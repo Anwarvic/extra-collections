@@ -221,7 +221,7 @@ class Deque(Queue):
 
         Example
         -------
-        >>> dq = Deque(max_capactity=2)
+        >>> dq = Deque(max_capacity=2)
         >>> dq
         ─┬
         ⟷│
@@ -248,25 +248,27 @@ class Deque(Queue):
 
     def append_right(self, item):
         """
-        Inserts the given `item` to right-side of the Deque(), it does that in
-        time-complexity of O(1). 
+        Inserts the given `item` to right-side of the `Deque()`, it does that in
+        constant time.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the Deque().
+            The python object to be pushed to the `Deque()`.
         
         Raises
         ------
-        UserWarning: If the Deque() instance was full!! By "full", I mean \
-            the number of items in the Deque() equals to the assigned maximum
-            capacity.
-        ValueError: If the given `item` is `None`.
-        TypeError: If the given `item` is an instance of `Extra`.
+        UserWarning:
+            If the `Deque()` instance was full!! By "full", I mean the number
+            of items in the `Deque()` equals to the assigned maximum capacity.
+        ValueError:
+            If the given `item` is `None`.
+        TypeError:
+            If the given `item` is an instance of `Extra`.
 
         Example
         -------
-        >>> dq = Deque(max_capactity=2)
+        >>> dq = Deque(max_capacity=2)
         >>> dq
         ─┬
         ⟷│
@@ -299,17 +301,17 @@ class Deque(Queue):
     #############################       GET       ##############################
     def get_left(self):
         """
-        Returns the left-most item inserted to the Deque() instance in time-
-        complexity of O(1).
+        Returns the left-most item of the `Deque()` instance in constant time.
 
         Returns
         -------
         object:
-            The Deque() instance's left-most inserted item.
+            The `Deque()` instance's left-most item.
         
         Raises
         ------
-        IndexError: If the Deque() instance is empty!!
+        IndexError:
+            If the `Deque()` instance is empty!!
 
         Example
         -------
@@ -334,17 +336,17 @@ class Deque(Queue):
 
     def get_right(self):
         """
-        Returns the right-most item inserted to the Deque() instance in time-
-        complexity of O(1).
+        Returns the right-most item of the `Deque()` instance in consant time.
 
         Returns
         -------
         object:
-            The Deque() instance's right-most inserted item.
+            The `Deque()` instance's right-most item.
         
         Raises
         ------
-        IndexError: If the Deque() instance is empty!!
+        IndexError:
+            If the `Deque()` instance is empty!!
 
         Example
         -------
@@ -366,17 +368,17 @@ class Deque(Queue):
     ##############################       POP      ##############################
     def pop_left(self):
         """
-        Pops the left-most inserted item from the Deque() in time-complexity of
-        O(1).
+        Pops the left-most item from the `Deque()` in constant time.
         
         Returns
         -------
         object:
-            The Deque() instance's left-most item.
+            The `Deque()` instance's left-most item.
         
         Raises
         ------
-        UserWarning: If the Deque() instance is empty!!
+        UserWarning:
+            If the `Deque()` instance is empty!!
 
         Example
         -------
@@ -407,17 +409,17 @@ class Deque(Queue):
 
     def pop_right(self):
         """
-        Pops the right-most inserted item from the Deque() in time-complexity of
-        O(1).
+        Pops the right-most item from the `Deque()` in constant time.
         
         Returns
         -------
         object:
-            The Deque() instance's right-most item.
+            The `Deque()` instance's right-most item.
         
         Raises
         ------
-        UserWarning: If the Deque() instance is empty!!
+        UserWarning:
+            If the `Deque()` instance is empty!!
 
         Example
         -------
@@ -442,8 +444,7 @@ class Deque(Queue):
 
     def clear(self):
         """
-        Removes all objects within the Deque() instance in time-complexity of
-        O(1).
+        Removes all objects within the `Deque()` instance in constant time.
 
         Example
         -------
@@ -451,6 +452,7 @@ class Deque(Queue):
         >>> dq.append_right(1)
         >>> dq.append_left(2)
         >>> dq.append_right(3)
+        >>> dq
         ─┬───┬───┬───┬─
         ⟷│ 2 │ 1 │ 3 │⟷
         ─┴───┴───┴───┴─
@@ -466,8 +468,8 @@ class Deque(Queue):
 
         Note
         ----
-        When you clear the Deque() instance, the max capacity remains the same
-        as before.
+        When you clear the `Deque()` instance, the `max_capacity` of the cleared
+        instance remains the same as the one before.
         """
         super().clear()
 
