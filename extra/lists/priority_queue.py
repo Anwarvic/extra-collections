@@ -32,8 +32,6 @@ optimal time complexity that I will try to reach in future releases Insha'Allah.
 Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
 
 +------------+--------------------------------------------+-------------+-------------+
 | Method     | Description                                | Worst-case  | Optimal     |
@@ -46,13 +44,12 @@ Generally, we are going to use the following indicators in the table:
 +------------+--------------------------------------------+-------------+-------------+
 | top()      | Returns the value at the top of the queue. | O(n)        | O(n)        |
 +------------+--------------------------------------------+-------------+-------------+
-| clear()    | Clears the queue.                          | O(1)        | O(1)        |
+| clear()    | Clears the priority queue.                 | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
-| is_empty() | Checks if the queue is empty.              | O(1)        | O(1)        |
+| is_empty() | Checks if the priority queue is empty.     | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
-| is_full()  | Checks if the queue is full.               | O(1)        | O(1)        |
+| is_full()  | Checks if the priority queue is full.      | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
-
 
 
 ☕️ API
@@ -197,19 +194,21 @@ class PriorityQueue(Queue):
 
     def __init__(self, max_capacity=float("inf"), seed=None):
         """
-        Creates a PriorityQueue() object!!
+        Creates a `PriorityQueue()` object!!
         
         Parameters
         ----------
-        max_capacity: int (default: inf)
+        max_capacity: int 
             It's a positive integer representing the maximum number of elements
-            a PriorityQueue() should contain.
-        seed: int, 
+            a `PriorityQueue()` should contain. (default: inf)
+        seed: int, optional
         
         Raises
         ------
-        TypeError: If the type of `max_capacity` isn't `int` or `float`.
-        ValueError: If the given value of `max_capacity` is less than zero.
+        TypeError:
+            If the type of `max_capacity` isn't `int` or `float`.
+        ValueError:
+            If the given value of `max_capacity` is less than zero.
 
         Example
         -------
@@ -242,7 +241,7 @@ class PriorityQueue(Queue):
     ##############################      PRINT     ##############################
     def __repr__(self):
         """
-        Represents the PriorityQueue() instance as a string.
+        Represents the `PriorityQueue()` instance as a string.
 
         Returns
         -------
@@ -259,7 +258,7 @@ class PriorityQueue(Queue):
         ⟶│ 20 │ 10 │⟶
         ─┴────┴────┴─
 
-        You can show the priority of these items by enabling `SHOW_PRIOIRYT`
+        You can show the priority of these items by enabling `SHOW_PRIOIRTY`
         static variable:
 
         >>> PriorityQueue.SHOW_PRIORITY = True
@@ -274,13 +273,12 @@ class PriorityQueue(Queue):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the PriorityQueue() instance in time-complexity of
-        O(1).
+        Gets the length of the `PriorityQueue()` instance in constant time.
 
         Returns
         -------
         int:
-            The length of the PriorityQueue() instance. By Length, I mean the
+            The length of the `PriorityQueue()` instance. By Length, I mean the
             number of elements of in the instance.
         
         Examples
@@ -299,13 +297,12 @@ class PriorityQueue(Queue):
 
     def is_empty(self):
         """
-        Checks if PriorityQueue() instance is empty or not in time-complexity of
-        O(1).
+        Checks if `PriorityQueue()` instance is empty or not in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the PriorityQueue() instance is empty or
+            A boolean flag showing if the `PriorityQueue()` instance is empty or
             not. `True` shows that this instance is empty and `False` shows it's
             not empty.
         
@@ -323,13 +320,13 @@ class PriorityQueue(Queue):
 
     def is_full(self):
         """
-        Checks if PriorityQueue() instance is at full-capacity in time-
-        complexity of O(1).
+        Checks if `PriorityQueue()` instance is at full-capacity in constant
+        time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the PriorityQueue() instance is full or
+            A boolean flag showing if the `PriorityQueue()` instance is full or
             not. `True` shows that this instance is full and `False` shows it's
             not full.
         
@@ -362,19 +359,8 @@ class PriorityQueue(Queue):
         
         Raises
         ------
-        TypeError: If the given priority value isn't a number.
-        
-        Examples
-        --------
-        >>> pq = PriorityQueue()
-        >>> pq.__validate_priority("10")
-        TypeError: Given priority has to be a number!!
-        
-        And it would return nothing if the given index if valid:
-
-        >>> pq.__validate_priority(10)
-        >>> pq.__validate_priority(-2)
-        >>> pq.__validate_priority(2.3)
+        TypeError:
+            If the given priority value isn't a number.
         """
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -382,13 +368,13 @@ class PriorityQueue(Queue):
 
     def enqueue(self, item, priority=None):
         """
-        Inserts the given `item` to the end of the PriorityQueue(), it does that
-        in time-complexity of O(1). 
+        Inserts the given `item` to the end of the `PriorityQueue()`, it does
+        that in constant time.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the PriorityQueue().
+            The python object to be pushed to the `PriorityQueue()`.
         priority: int or float
             The priority is a numeric value that indicates how important this
             object is. The bigger this numeric value is, the higher its priority
@@ -397,17 +383,20 @@ class PriorityQueue(Queue):
         
         Raises
         ------
-        UserWarning: If the PriorityQueue() instance was full!! By "full", I \
-            mean the number of items in the PriorityQueue() equals to the \
-            assigned maximum capacity.
-        ValueError: If the given `item` is `None`.
-        TypeError: It can be raised due to one of the following reasons:
-            1. If the given `item` is an instance of `Extra`.
-            2. If the given `priority` isn't a number.
+        UserWarning:
+            If the PriorityQueue() instance was full!! By "full", I mean the
+            number of items in the PriorityQueue() equals to the assigned
+            maximum capacity.
+        ValueError:
+            If the given `item` is `None`.
+        TypeError:
+            It can be raised due to one of the following reasons:
+                1. If the given `item` is an instance of `Extra`.
+                2. If the given `priority` isn't a number.
 
         Example
         -------
-        >>> pq = PriorityQueue(max_capactity=2)
+        >>> pq = PriorityQueue(max_capacity=2)
         >>> pq
         ─┬
         ⟶│
@@ -436,17 +425,18 @@ class PriorityQueue(Queue):
     ##############################      TOP     ################################
     def top(self):
         """
-        Returns the first item inserted to the PriorityQueue() instance in time-
-        complexity of O(1).
+        Returns the first item inserted to the `PriorityQueue()` instance in
+        constant time.
 
         Returns
         -------
         object:
-            The PriorityQueue() instance's first inserted item.
+            The `PriorityQueue()` instance's first inserted item.
         
         Raises
         ------
-        IndexError: If the PriorityQueue() instance is empty!!
+        IndexError:
+            If the `PriorityQueue()` instance is empty!!
 
         Example
         -------
@@ -469,9 +459,9 @@ class PriorityQueue(Queue):
     def _update_min_priority(self):
         """
         Updates the value of `_min_priority` member variable by iterating over
-        the PriorityQueue() instance and assigns it to the lowest priority. If
-        the PriorityQueue() is empty, then the value of `_min_priority` will be
-        `inf`.
+        the `PriorityQueue()` instance and assigns it to the lowest priority.
+        If the `PriorityQueue()` is empty, then the value of `_min_priority`
+        will be `inf`.
         """
         self._min_priority = float("inf")
         if not self.is_empty():
@@ -485,9 +475,9 @@ class PriorityQueue(Queue):
     def _update_max_priority(self):
         """
         Updates the value of `_max_priority` member variable by iterating over
-        the PriorityQueue() instance and assigns it to the highest priority. If
-        the PriorityQueue() is empty, then the value of `_max_priority` will be
-        `-inf`.
+        the `PriorityQueue()` instance and assigns it to the highest priority.
+        If the `PriorityQueue()` is empty, then the value of `_max_priority`
+        will be `-inf`.
         """
         self._max_priority = float("-inf")
         if not self.is_empty():
@@ -500,26 +490,27 @@ class PriorityQueue(Queue):
 
     def dequeue(self, lowest_priority=False):
         """
-        Pops the item that has the highest priority from the PriorityQueue()
-        instance in time-complexity of O(1).
+        Pops the item that has the highest priority from the `PriorityQueue()`
+        instance in constant time.
         
         Returns
         -------
         object:
-            The item that has the highest priority in the PriorityQueue().
+            The item that has the highest priority in the `PriorityQueue()`.
         
         Raises
         ------
-        UserWarning: If the PriorityQueue() instance is empty!!
+        UserWarning:
+            If the `PriorityQueue()` instance is empty!!
 
         Example
         -------
         >>> pq = PriorityQueue()
-        >>> PriorityQueue.SHOW_PRIORITY = True
         >>> pq.dequeue()
         UserWarning: Dequeuing from empty `extra.PriorityQueue()`!!
         >>> pq.enqueue(10, priority=0)
-        >>> pq.enqueue(20, prioirty=2)
+        >>> pq.enqueue(20, priority=2)
+        >>> PriorityQueue.SHOW_PRIORITY = True
         >>> pq
         ─┬────────┬────────┬─
         ⟶│ 20|P:2 │ 10|P:0 │⟶
@@ -560,8 +551,8 @@ class PriorityQueue(Queue):
 
     def clear(self):
         """
-        Removes all objects within the PriorityQueue() instance in time-
-        complexity of O(1).
+        Removes all objects within the `PriorityQueue()` instance in constant
+        time.
 
         Example
         -------
@@ -569,6 +560,7 @@ class PriorityQueue(Queue):
         >>> pq.enqueue(1)
         >>> pq.enqueue(2)
         >>> pq.enqueue(3)
+        >>> pq
         ─┬───┬───┬───┬─
         ⟶│ 3 │ 2 │ 1 │⟶
         ─┴───┴───┴───┴─
@@ -584,8 +576,8 @@ class PriorityQueue(Queue):
 
         Note
         ----
-        When you clear the PriorityQueue() instance, the max capacity remains
-        the same as before.
+        When you clear the `PriorityQueue()` instance, the `max_capacity` of
+        the cleared instance remains the same as the one before.
         """
         super().clear()
 
