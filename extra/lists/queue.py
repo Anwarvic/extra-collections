@@ -14,11 +14,6 @@ the front.
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-- **k** is the value of a parameter.
 
 +------------+--------------------------------------------+-------------+-------------+
 | Method     | Description                                | Worst-case  | Optimal     |
@@ -37,7 +32,6 @@ Generally, we are going to use the following indicators in the table:
 +------------+--------------------------------------------+-------------+-------------+
 | is_full()  | Checks if the queue is full.               | O(1)        | O(1)        |
 +------------+--------------------------------------------+-------------+-------------+
-
 
 
 ☕️ API
@@ -65,13 +59,13 @@ class Queue(Extra):
     
     def __init__(self, max_capacity=float("inf")):
         """
-        Creates a Queue() object!!
+        Creates a `Queue()` object!!
         
         Parameters
         ----------
         max_capacity: int
             It's a positive integer representing the maximum number of elements
-            a Queue() should contain (Default: inf).
+            a `Queue()` should contain (Default: inf).
         
         Raises
         ------
@@ -118,7 +112,7 @@ class Queue(Extra):
     ##############################      PRINT     ##############################
     def _print_queue(self, direction_char=' '):
         """
-        Represents the Queue() instance as a string.
+        Represents the `Queue()` instance as a string.
 
         Parameters
         ----------
@@ -129,21 +123,21 @@ class Queue(Extra):
         Returns
         -------
         str:
-            A string representing the content of the Queue() instance.
+            A string representing the content of the `Queue()` instance.
         
         Example
         -------
         >>> q = Queue()
         >>> q.enqueue(10)
-        >>> q._print_queue()
+        >>> print(q._print_queue())
         ─┬────┬─
          │ 10 │ 
         ─┴────┴─
-        >>> q._print_queue('x')
+        >>> print(q._print_queue('x'))
         ─┬────┬─
         x│ 10 │x
         ─┴────┴─
-        >>> q._print_queue('⟶')
+        >>> print(q._print_queue('⟶'))
         ─┬────┬─
         ⟶│ 10 │⟶
         ─┴────┴─
@@ -169,7 +163,7 @@ class Queue(Extra):
 
     def __repr__(self):
         """
-        Represents the Queue() instance as a string.
+        Represents the `Queue()` instance as a string.
 
         Returns
         -------
@@ -192,13 +186,13 @@ class Queue(Extra):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the Queue() instance in time-complexity of O(1).
+        Gets the length of the `Queue()` instance in constant time.
 
         Returns
         -------
         int:
-            The length of the Queue() instance. By Length, I mean the
-            number of nodes of in the instance.
+            The length of the `Queue()` instance. By Length, I mean the number
+            of nodes of in the instance.
         
         Examples
         --------
@@ -216,12 +210,12 @@ class Queue(Extra):
 
     def is_empty(self):
         """
-        Checks if Queue() instance is empty or not in time-complexity of O(1).
+        Checks if `Queue()` instance is empty or not in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Queue() instance is empty or not.
+            A boolean flag showing if the `Queue()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's not
             empty.
         
@@ -239,13 +233,12 @@ class Queue(Extra):
 
     def is_full(self):
         """
-        Checks if Queue() instance is at full-capacity in time-complexity of
-        O(1).
+        Checks if `Queue()` instance is at full-capacity in constant time.
         
         Returns
         -------
         bool:
-            A boolean flag showing if the Queue() instance is full or not.
+            A boolean flag showing if the `Queue()` instance is full or not.
             `True` shows that this instance is full and `False` shows it's not
             full.
         
@@ -267,24 +260,25 @@ class Queue(Extra):
     ##############################     ENQUEUE    ##############################
     def _enqueue(self, item):
         """
-        Inserts the given `item` to end of the Queue(), it does that in time-
-        complexity of O(1). 
+        Inserts the given `item` to end of the `Queue()`, it does that in
+        constant time.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the Queue().
+            The python object to be pushed to the `Queue()`.
         
         Raises
         ------
-        UserWarning: If the Queue() instance was full!! By "full", I mean \
-            the number of items in the Queue() equals to the assigned maximum
-            capacity.
-        AssertionError: If the given `item` is `None`
+        UserWarning:
+            If the `Queue()` instance was full!! By "full", I mean the number of
+            items in the `Queue()` equals to the assigned maximum capacity.
+        AssertionError:
+            If the given `item` is `None`
 
         Example
         -------
-        >>> q = Queue(max_capactity=2)
+        >>> q = Queue(max_capacity=2)
         >>> q
         ─┬
         ⟶│
@@ -316,25 +310,27 @@ class Queue(Extra):
 
     def enqueue(self, item):
         """
-        Inserts the given `item` to end of the Queue(), it does that in time-
-        complexity of O(1). 
+        Inserts the given `item` to end of the `Queue()`, it does that in
+        constant time.
 
         Parameters
         ----------
         item: object
-            The python object to be pushed to the Queue().
+            The python object to be pushed to the `Queue()`.
         
         Raises
         ------
-        UserWarning: If the Queue() instance was full!! By "full", I mean \
-            the number of items in the Queue() equals to the assigned maximum
-            capacity.
-        ValueError: If the given `item` is `None`.
-        TypeError: If the given `item` is an instance of `Extra`.
+        UserWarning:
+            If the Queue() instance was full!! By "full", I mean the number of
+            items in the Queue() equals to the assigned maximum capacity.
+        ValueError:
+            If the given `item` is `None`.
+        TypeError:
+            If the given `item` is an instance of `Extra`.
 
         Example
         -------
-        >>> q = Queue(max_capactity=2)
+        >>> q = Queue(max_capacity=2)
         >>> q
         ─┬
         ⟶│
@@ -359,17 +355,18 @@ class Queue(Extra):
     ##############################      TOP     ################################
     def top(self):
         """
-        Returns the first item inserted to the Queue() instance in time-
-        complexity of O(1).
+        Returns the first item inserted to the `Queue()` instance in constant
+        time.
 
         Returns
         -------
         object:
-            The Queue() instance's first inserted item.
+            The `Queue()` instance's first inserted item.
         
         Raises
         ------
-        IndexError: If the Queue() instance is empty!!
+        IndexError:
+            If the `Queue()` instance is empty!!
 
         Example
         -------
@@ -395,17 +392,17 @@ class Queue(Extra):
     ##############################    DEQUEUE     ##############################
     def dequeue(self):
         """
-        Pops the first inserted item from the Queue() in time-complexity of
-        O(1).
+        Pops the first inserted item from the `Queue()` in constant time.
         
         Returns
         -------
         object:
-            The Queue() instance's first item.
+            The `Queue()` instance's first item.
         
         Raises
         ------
-        UserWarning: If the Queue() instance is empty!!
+        UserWarning:
+            If the `Queue()` instance is empty!!
 
         Example
         -------
@@ -439,8 +436,7 @@ class Queue(Extra):
 
     def clear(self):
         """
-        Removes all objects within the Queue() instance in time-complexity of
-        O(1).
+        Removes all objects within the `Queue()` instance in constant time.
 
         Example
         -------
@@ -448,6 +444,7 @@ class Queue(Extra):
         >>> q.enqueue(1)
         >>> q.enqueue(2)
         >>> q.enqueue(3)
+        >>> q
         ─┬───┬───┬───┬─
         ⟶│ 3 │ 2 │ 1 │⟶
         ─┴───┴───┴───┴─
@@ -463,8 +460,8 @@ class Queue(Extra):
         
         Note
         ----
-        When you clear the Queue() instance, the max capacity remains the same
-        as before.
+        When you clear the `Queue()` instance, the `max_capacity` of the cleared
+        instance remains the same as the one before.
         """
         self.__init__(max_capacity=self._max_capacity)
 
