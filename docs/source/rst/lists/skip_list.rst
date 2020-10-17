@@ -6,5 +6,5 @@ Skip List
 .. automodule:: extra.lists.skip_list
     :members:
     :special-members:
-    :exclude-members: __str__,__repr__,
+    :exclude-members: flip_coin, search_sorted, SkipNode
 
