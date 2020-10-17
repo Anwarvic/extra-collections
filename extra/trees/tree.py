@@ -83,11 +83,6 @@ Generally, we are going to use the following indicators in the table:
 +-----------------------+------------------------------------------+------------+---------+
 | to_list()             | Converts the tree instance to  list.     | O(n)       | O(n)    |
 +-----------------------+------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `Tree()` objects:
 """
 import os
 from extra.interface import Extra
@@ -107,7 +102,7 @@ class TreeNode(Extra):
     def __init__(self, value):
         """
         Creates a `TreeNode()` object which is the basic unit for building 
-        Tree() objects!!
+        `Tree()` objects!!
 
         Parameters
         ----------
@@ -116,8 +111,23 @@ class TreeNode(Extra):
 
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item is an `Extra()` object.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item is an `Extra()` object.
+        
+        Examples
+        --------
+        >>> x = TreeNode(10)
+        >>> x
+        TreeNode(10)
+        >>> type(x)
+        <class 'extra.trees.tree.TreeNode'>
+
+        You can't initialize a TreeNode() using a `None`
+
+        >>> TreeNode(None)
+        ValueError: Can't use `None` as an element within `extra.TreeNode()`!!
         """
         super()._validate_item(value)
         if type(value) == str:
@@ -134,6 +144,12 @@ class TreeNode(Extra):
         -------
         object:
             The object stored in the `TreeNode()`.
+        
+        Example
+        -------
+        >>> x = TreeNode(10)
+        >>> x.get_data()
+        10
         """
         return self._data
 
@@ -146,6 +162,16 @@ class TreeNode(Extra):
         -------
         list:
             A list of all the children of the `TreeNode()` instance.
+        
+        Example
+        -------
+        >>> x = TreeNode(2021)
+        >>> y = TreeNode("hello")
+        >>> z = TreeNode("world")
+        >>> x.set_child(y)
+        >>> x.set_child(z)
+        >>> x.get_children()
+        [TreeNode(hello), TreeNode(world)]
         """
         return self._children
     
@@ -161,7 +187,19 @@ class TreeNode(Extra):
 
         Raises
         ------
-        TypeError: If the given item is not an `TreeNode()` object.
+        TypeError:
+            If the given item is not an `TreeNode()` object.
+        
+        Example
+        -------
+        >>> x = TreeNode("hello")
+        >>> x.set_child(TreeNode("world"))
+        >>> x.set_child(TreeNode(2021))
+        
+        A child has to be a `TreeNode()` object:
+
+        >>> x.set_child(20)
+        TypeError: You can't set a child unless it's an `extra.TreeNode()` object!!
         """
         if not isinstance(child, TreeNode):
             raise TypeError(
@@ -183,10 +221,21 @@ class TreeNode(Extra):
 
         Raises
         ------
-        TypeError: This can be raised in either of these two cases:
-            1. If the given object isn't iterable.
-            2. If the given object has an element which isn't a `TreeNode()` \
-                instance.
+        TypeError:
+            This can be raised in either of these two cases:
+                1. If the given object isn't iterable.
+                2. If the given object has an element which isn't a \
+                    `TreeNode()` instance.
+        
+        Example
+        -------
+        >>> x = TreeNode("hello")
+        >>> x.set_children([TreeNode("world"), TreeNode(2021)])
+        
+        A child has to be a `TreeNode()` object:
+
+        >>> x.set_children([TreeNode("world"), 2021])
+        TypeError: You can't set a child unless it's an `extra.TreeNode()` object!!
         """
         if not hasattr(lst, "__iter__"):
             raise TypeError("Given object isn't iterable!!")
@@ -211,6 +260,15 @@ class TreeNode(Extra):
         bool:
             `True` if the current `TreeNode()` has no children and `False`
             otherwise.
+        
+        Example
+        --------
+        >>> x = TreeNode("hello")
+        >>> x.is_leaf()
+        True
+        >>> x.set_child(TreeNode("world"))
+        >>> x.is_leaf()
+        False
         """
         return self.get_children() == []
         
@@ -228,7 +286,7 @@ class TreeNode(Extra):
         -------
         >>> x = TreeNode(10)
         >>> x
-        >>> TreeNode(10)
+        TreeNode(10)
         """
         return f"TreeNode({self._data})"
 
@@ -271,7 +329,8 @@ class TreeNode(Extra):
 
         Raises
         ------
-        TypeError: If one of the given instances isn't a `TreeNode()` object.
+        TypeError:
+            If one of the given instances isn't a `TreeNode()` object.
 
         Example
         -------
