@@ -621,7 +621,8 @@ class Tree(Extra):
 
         Raises
         ------
-        AssertionError: In case the `Tree()` instance isn't empty!!
+        AssertionError:
+            In case the `Tree()` instance isn't empty!!
 
         Example
         -------
@@ -692,7 +693,8 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        AssertionError:
+            If the given `start_node` isn't a `TreeNode()`
         
         Example
         -------
@@ -774,7 +776,8 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        AssertionError:
+            If the given `start_node` isn't a `TreeNode()`
         
         Example
         -------
@@ -861,7 +864,8 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        AssertionError:
+            If the given `start_node` isn't a `TreeNode()`
 
         Example
         -------
@@ -943,10 +947,10 @@ class Tree(Extra):
         Iterates over the `Tree()` instance and returns a generator of the 
         `TreeNode()` values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        object:
+            The value stored at each node in the `Tree()` instance.
         
         Examples
         --------
