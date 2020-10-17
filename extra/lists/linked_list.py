@@ -27,9 +27,9 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | Method         | Description                                            | Worst-case  | Optimal     |
 +================+========================================================+=============+=============+
-| __len__()      | Returns the number of nodes in the linked list.        | O(1)        | O(1)        |
-+----------------+--------------------------------------------------------+-------------+-------------+
 | is_empty()     | Checks if the linked list is empty.                    | O(1)        | O(1)        |
++----------------+--------------------------------------------------------+-------------+-------------+
+| __len__()      | Returns the number of nodes in the linked list.        | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __repr__()     | Represents the linked list as a string.                | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -61,7 +61,7 @@ Generally, we are going to use the following indicators in the table:
 +----------------+--------------------------------------------------------+-------------+-------------+
 | __delitem__()  | Deletes the value at the given index.                  | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
-| remove_front() | Removes the node at the head  of the linked list.      | O(1)        | O(1)        |
+| remove_front() | Removes the node at the head of the linked list.       | O(1)        | O(1)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
 | remove_end()   | Removes the node at the tail of the linked list.       | O(n)        | O(n)        |
 +----------------+--------------------------------------------------------+-------------+-------------+
@@ -1162,8 +1162,9 @@ class LinkedList(Extra):
         elif type(idx) != int:
             raise TypeError("Given index must be an integer!!")
         elif idx <= -1 and not accept_negative:
-            raise IndexError(\
-                "Negative indexing isn't supported with this functinoality!!")
+            raise IndexError(
+                "Negative indexing isn't supported with this functinoality!!"
+            )
         elif idx < -self._length or idx > self._length:
             raise IndexError("Given index is out of the boundaries!!")
 
@@ -1834,7 +1835,7 @@ class LinkedList(Extra):
     def remove(self, value, all=True):
         """
         Removes a single node or multiple nodes (in case of `all` being `True`)
-        whose value equal to the given value.
+        whose value equal to the given value from the `LinkedList()` instance.
 
         Parameters
         ----------
@@ -1856,7 +1857,11 @@ class LinkedList(Extra):
         Example
         -------
         >>> ll = LinkedList([1, 2, 3, 2, 2])
-        >>> ll.remove(2, False)
+        >>> ll
+        ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
+        │ 1 │⟶│ 2 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶
+        └───┘ └───┘ └───┘ └───┘ └───┘ 
+        >>> ll.remove(2, all=False)
         >>> ll
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 1 │⟶│ 3 │⟶│ 2 │⟶│ 2 │⟶
@@ -2120,7 +2125,8 @@ class LinkedList(Extra):
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 4 │⟶│ 1 │⟶│ 2 │⟶│ 3 │⟶
         └───┘ └───┘ └───┘ └───┘ 
-        >>> # it works fine when the distance is bigger than the instance length
+        >>> # it works just fine when the distance is bigger than the 
+        >>> # length of the linked list instance
         >>> ll._rotate(10, "LEFT")
         ┌───┐ ┌───┐ ┌───┐ ┌───┐ 
         │ 3 │⟶│ 4 │⟶│ 1 │⟶│ 2 │⟶
