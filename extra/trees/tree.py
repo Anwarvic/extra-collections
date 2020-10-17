@@ -397,8 +397,8 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: This can be raised if either of the two parameters
-        weren't string.
+        AssertionError:
+            This can be raised if either of the two parameters weren't string.
         """
         assert type(parent_abs_path) == str
         assert type(curr_folder) == str
@@ -430,11 +430,14 @@ class Tree(Extra):
         
         Raises
         ------
-        TypeError: If the given path's type wasn't a string.
-        ValueError: If the given path doesn't exist.
+        TypeError:
+            If the given path's type wasn't a string.
+        ValueError:
+            If the given path doesn't exist.
 
         Example
         -------
+        >>> # this can't be reproduced and it's for the sake of explanation.
         >>> Tree.from_path("example")
         trees
         ├── script.py
@@ -476,7 +479,8 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't an `TreeNode()` object.
+        AssertionError: 
+            If the given `start_node` isn't an `TreeNode()` object.
         """
         assert isinstance(start_node, TreeNode)
 
@@ -521,8 +525,7 @@ class Tree(Extra):
 
     def is_empty(self):
         """
-        Checks if the `Tree()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `Tree()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -570,14 +573,15 @@ class Tree(Extra):
         
         Raises
         ------
-        AssertionError: This can be raised in the following cases:
-            1. The `start_node` isn't an instance of `TreeNode()`.
-            2. The type of `lines` is not `list`.
-            3. The `is_last_child` is not a boolean value.
-            4. The type of `seq` variable isn't a `list`.
+        AssertionError:
+            This can be raised in the following cases:
+                1. The `start_node` isn't an instance of `TreeNode()`.
+                2. The type of `lines` is not `list`.
+                3. The `is_last_child` is not a boolean value.
+                4. The type of `seq` variable isn't a `list`.
         
-        TODOs
-        -----
+        TODO
+        ----
         Refactor this method... it requires a lot redundant information.
         """
         assert isinstance(start_node, TreeNode)
