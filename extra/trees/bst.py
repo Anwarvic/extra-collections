@@ -1555,8 +1555,8 @@ class BST(BinaryTree):
 
         Yields
         -------
-        Object:
-            The value of each node in the instance.
+        int of float:
+            The number stored at each node in the instance.
 
         Example
         -------
