@@ -99,13 +99,13 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | Method                   | Description                                        | Worst-case | Optimal |
 +==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes.                       | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
 | is_empty()               | Checks if binary tree is empty.                    | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the binary tree.                        | O(n)       | O(n)    |
+| __len__()                | Returns the number of nodes of the binary tree.    | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the binary tree.                     | O(n)       | O(n)    |
+| __repr__()               | Represents the binary tree as a string.            | O(n)       | O(n)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __iter__()               | Iterates over the binary tree instance.            | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | __contains__()           | Checks the existence of the given item.            | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -121,11 +121,11 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_strict()              | Checks if the binary tree is strict.               | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
+| count_leaf_nodes()       | Counts all leaf nodes in the binary tree.          | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
+| clear()                  | Clears the whole binary tree instance.             | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
+| to_list()                | Converts the bianry tree instance to a normal list.| O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | traverse()               | Traverses the binary tree based on given method.   | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
