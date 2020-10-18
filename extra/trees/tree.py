@@ -61,9 +61,9 @@ Generally, we are going to use the following indicators in the table:
 +-----------------------+------------------------------------------+------------+---------+
 | Method                | Description                              | Worst-case | Optimal |
 +=======================+==========================================+============+=========+
-| __len__()             | Returns the number of nodes in the tree. | O(n)       | O(1)    |
+| is_empty()            | Checks if the tree is empty.             | O(1)       | O(1)    |
 +-----------------------+------------------------------------------+------------+---------+
-| is_empty()            | Checks if tree is empty.                 | O(1)       | O(1)    |
+| __len__()             | Returns the number of nodes in the tree. | O(n)       | O(1)    |
 +-----------------------+------------------------------------------+------------+---------+
 | __repr__()            | Represents the tree as a string.         | O(n)       | O(n)    |
 +-----------------------+------------------------------------------+------------+---------+
@@ -124,7 +124,7 @@ class TreeNode(Extra):
         >>> type(x)
         <class 'extra.trees.tree.TreeNode'>
 
-        You can't initialize a TreeNode() using a `None`
+        You can't initialize a `TreeNode()` using a `None`
 
         >>> TreeNode(None)
         ValueError: Can't use `None` as an element within `extra.TreeNode()`!!
