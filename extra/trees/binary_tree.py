@@ -140,11 +140,6 @@ Generally, we are going to use the following indicators in the table:
 | depth_first_traverse()   | Traverses the binary tree in an pre-order manner.  | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 
-
-☕️ API
--------
-Here are all of the public methods that can be used with `BinaryTree()` objects:
-
 """
 import warnings
 from extra.trees.tree import TreeNode, Tree
@@ -174,12 +169,45 @@ class BinaryTreeNode(TreeNode):
 
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item is an `Extra()` object.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item is an `Extra()` object.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(10)
+        >>> x
+        BinaryTreeNode(10)
+        >>> type(x)
+        <class 'extra.trees.binary_tree.BinaryTreeNode'>
+
+        You can't initialize a `BinaryTreeNode()` using a `None`
+
+        >>> BinaryTreeNode(None)
+        ValueError: Can't use `None` as an element within `extra.BinaryTreeNode()`!!
         """
         super().__init__(value)
         self._left = self._right = None
         del self._children
+
+
+    def get_data(self):
+        """
+        Returns the data stored in the `BinaryTreeNode()` instance.
+
+        Returns
+        -------
+        object:
+            The object stored in the `BinaryTreeNode()`.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(10)
+        >>> x.get_data()
+        10
+        """
+        return super().get_data()
 
 
     def get_left(self):
@@ -191,6 +219,14 @@ class BinaryTreeNode(TreeNode):
         BinaryTreeNode() or `None`:
             The left child of the current `BinaryTreeNode()`. And `None` if the
             current `BinaryTreeNode()` doesn't have a left child.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.set_left(BinaryTreeNode("Hello"))
+        >>> x.set_right(BinaryTreeNode("World"))
+        >>> x.get_left()
+        BinaryTreeNode(Hello)
         """
         return self._left
 
@@ -204,6 +240,14 @@ class BinaryTreeNode(TreeNode):
         BinaryTreeNode():
             The right child of the current `BinaryTreeNode()`. And `None` if the
             current `BinaryTreeNode()` doesn't have a right child.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.set_left(BinaryTreeNode("Hello"))
+        >>> x.set_right(BinaryTreeNode("World"))
+        >>> x.get_right()
+        BinaryTreeNode(World)
         """
         return self._right
 
@@ -217,6 +261,14 @@ class BinaryTreeNode(TreeNode):
         -------
         list:
             A list of all the children of the `BinaryTreeNode()` instance.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.set_left(BinaryTreeNode("Hello"))
+        >>> x.set_right(BinaryTreeNode("World"))
+        >>> x.get_children()
+        [BinaryTreeNode(Hello), BinaryTreeNode(World)]
         """
         children = []
         if self._left is not None: children.append(self._left)
@@ -242,7 +294,20 @@ class BinaryTreeNode(TreeNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `BinaryTreeNode()` object.
+        TypeError:
+            If the given item is not an `BinaryTreeNode()` object.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.set_left(BinaryTreeNode("Hello"))
+        >>> x.get_left()
+        BinaryTreeNode("Hello")
+
+        A child has to be a `BinaryTreeNode()` object:
+
+        >>> x.set_left(2)
+        TypeError: You can't set a child unless it's an `extra.BinaryTreeNode()` object!!
         """
         if not isinstance(new_node, BinaryTreeNode):
             raise TypeError(
@@ -264,7 +329,20 @@ class BinaryTreeNode(TreeNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `BinaryTreeNode()` object.
+        TypeError:
+            If the given item is not an `BinaryTreeNode()` object.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.set_right(BinaryTreeNode("World"))
+        >>> x.get_right()
+        BinaryTreeNode("World")
+
+        A child has to be a `BinaryTreeNode()` object:
+
+        >>> x.set_right(2)
+        TypeError: You can't set a child unless it's an `extra.BinaryTreeNode()` object!!
         """
         if not isinstance(new_node, BinaryTreeNode):
             raise TypeError(
@@ -273,6 +351,29 @@ class BinaryTreeNode(TreeNode):
             )
         self._right = new_node
         
+
+    def is_leaf(self):
+        """
+        Checks if the current `BinaryTreeNode()` instance is a leaf node. A
+        leaf node is a tree node that has no children.
+
+        Returns
+        -------
+        bool:
+            `True` if the current `BinaryTreeNode()` has no children and `False`
+            otherwise.
+        
+        Example
+        --------
+        >>> x = BinaryTreeNode("hello")
+        >>> x.is_leaf()
+        True
+        >>> x.set_right(BinaryTreeNode("world"))
+        >>> x.is_leaf()
+        False
+        """
+        return self.get_children() == []
+
 
     def has_one_child(self):
         """
@@ -284,6 +385,18 @@ class BinaryTreeNode(TreeNode):
         bool:
             `True` if the current `BinaryTreeNode()` has only one child. `False`
             if it has either zero or two children.
+        
+        Example
+        -------
+        >>> x = BinaryTreeNode(2021)
+        >>> x.has_one_child()
+        False
+        >>> x.set_left(BinaryTreeNode("Hello"))
+        >>> x.has_one_child()
+        True
+        >>> x.set_right(BinaryTreeNode("World"))
+        >>> x.has_one_child()
+        False
         """
         return not super().is_leaf() \
                 and (self._left is None or self._right is None)
@@ -302,7 +415,7 @@ class BinaryTreeNode(TreeNode):
         -------
         >>> x = BinaryTreeNode(10)
         >>> x
-        >>> BinaryTreeNode(10)
+        BinaryTreeNode(10)
         """
         return f"BinaryTreeNode({self._data})"
 
@@ -354,7 +467,8 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        ValueError: If the given object can't be parsed
+        ValueError:
+            If the given object can't be parsed
         """
         if type(lst) not in {list, tuple}: lst = [lst]
         if len(lst) == 0 or len(lst) >= 4:
@@ -389,7 +503,8 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        ValueError: If the given object can't be parsed
+        ValueError:
+            If the given object can't be parsed
         
         Example
         -------
@@ -441,8 +556,7 @@ class BinaryTree(Tree):
 
     def is_empty(self):
         """
-        Checks if the `BinaryTree()` instance is empty or not in time-complexity
-        of O(1).
+        Checks if the `BinaryTree()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -533,7 +647,8 @@ class BinaryTree(Tree):
 
         Raises
         ------
-        AssertionError: In case the `BinaryTree()` instance isn't empty!!
+        AssertionError:
+            In case the `BinaryTree()` instance isn't empty!!
 
         Example
         -------
@@ -566,8 +681,8 @@ class BinaryTree(Tree):
         >>> root.set_left(left_child)
         >>>
         >>> right_child = BinaryTreeNode("Uncle")
-        >>> righ_child.set_left(BinaryTreeNode("Cousin1"))
-        >>> righ_child.set_right(BinaryTreeNode("Cousin2"))
+        >>> right_child.set_left(BinaryTreeNode("Cousin1"))
+        >>> right_child.set_right(BinaryTreeNode("Cousin2"))
         >>> root.set_right(right_child)
         >>> btree._root = root
         >>> btree
@@ -676,7 +791,8 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        UserWarning: If the `BinaryTree()` is empty.
+        UserWarning:
+            If the `BinaryTree()` is empty.
 
         Example
         -------
@@ -717,7 +833,8 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        UserWarning: If the `BinaryTree()` is empty.
+        UserWarning:
+            If the `BinaryTree()` is empty.
 
         Example
         -------
@@ -766,8 +883,9 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` is not `None` and it's not
-        a `BinaryTreeNode()` object.
+        AssertionError:
+            If the given `start_node` is not `None` and it's not an instance of
+            `BinaryTreeNode()` either.
         """
         assert start_node is None or isinstance(start_node, self._basic_node)
 
@@ -799,7 +917,8 @@ class BinaryTree(Tree):
         
         Raises
         ------
-        UserWarning: If the `BinaryTree()` is empty.
+        UserWarning:
+            If the `BinaryTree()` is empty.
 
         Example
         -------
@@ -828,10 +947,10 @@ class BinaryTree(Tree):
         Iterates over the `BinaryTree()` instance and returns a generator of the 
         `BinaryTreeNode()` values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        Object:
+            The value stored inside each node in the instance.
 
         Example
         -------
@@ -905,7 +1024,8 @@ class BinaryTree(Tree):
 
     ##############################   Pre-Order    ##############################
     def __preorder_traverse(self, start_node):
-        
+        """
+        """
         assert start_node is None or isinstance(start_node, self._basic_node)
 
         nodes = []
@@ -980,6 +1100,8 @@ class BinaryTree(Tree):
 
     ##############################   Post-Order   ##############################
     def __postorder_traverse(self, start_node):
+        """
+        """
         assert start_node is None or isinstance(start_node, self._basic_node)
 
         nodes = []
@@ -1020,6 +1142,8 @@ class BinaryTree(Tree):
 
     ##############################    In-Order    ##############################
     def __inorder_traverse(self, start_node):
+        """
+        """
         assert start_node is None or isinstance(start_node, self._basic_node)
         
         nodes = []
@@ -1052,7 +1176,7 @@ class BinaryTree(Tree):
           2       3
          / \\    / \\     
         4   5    6  7
-        >>> btree.inrder_traverse()
+        >>> btree.inorder_traverse()
         [4, 2, 5, 1, 6, 3, 7]
         """
         return self.__inorder_traverse(self._root)
