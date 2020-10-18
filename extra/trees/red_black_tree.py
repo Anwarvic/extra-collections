@@ -51,9 +51,9 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | Method                   | Description                                        | Worst-case | Optimal |
 +==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes in the red-black tree. | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
 | is_empty()               | Checks if the red-black tree is empty.             | O(1)       | O(1)    |
++--------------------------+----------------------------------------------------+------------+---------+
+| __len__()                | Returns the number of nodes in the red-black tree. | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | __repr__()               | Represents the red-black tree.                     | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -147,10 +147,12 @@ class RedBlackNode(BSTNode):
         
         Raises
         ------
-        TypeError: If the given `value` isn't a number.
-        ValueError: This can be raised in two cases:
-            1. If the given `value` is `None`.
-            2. If the given color is neither `Color.RED` nor `Color.BLACK`.
+        TypeError:
+            If the given `value` isn't a number.
+        ValueError:
+            This can be raised in two cases:
+                1. If the given `value` is `None`.
+                2. If the given color is neither `Color.RED` nor `Color.BLACK`.
         """
         if color not in {Color.RED, Color.BLACK}:
             raise ValueError(f"Invalid color for `{self.__name__}`!!")
@@ -181,7 +183,8 @@ class RedBlackNode(BSTNode):
 
         Raises
         ------
-        Value If the given color is neither `Color.RED` nor `Color.BLACK`.
+        ValueError:
+            If the given color is neither `Color.RED` nor `Color.BLACK`.
         """
         if new_color not in {Color.RED, Color.BLACK}:
             raise ValueError(f"Invalid color for `{self.__name__}`!!")
@@ -259,7 +262,8 @@ class RedBlackNode(BSTNode):
 
         Raises
         ------
-        TypeError: If one of the given instances isn't a `RedBlackNode()`.
+        TypeError:
+            If one of the given instances isn't a `RedBlackNode()`.
 
         Example
         -------
@@ -309,11 +313,13 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        TypeError: It can be raised in three cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in three cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -412,7 +418,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        IndexError: In case the `RedBlackTree()` instance is empty.
+        IndexError:
+            In case the `RedBlackTree()` instance is empty.
 
         Example
         -------
@@ -512,13 +519,14 @@ class RedBlackTree(BST):
         
         Returns
         -------
-        RedBlackNode()
+        RedBlackNode():
             A reference to the same given `start_node` after recoloring the
             whole subtree.
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `RedBlackNode()`.
+        AssertionError:
+            If the given `start_node` isn't a `RedBlackNode()`.
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -572,13 +580,14 @@ class RedBlackTree(BST):
         
         Returns
         -------
-        RedBlackNode()
+        RedBlackNode():
             A reference to the same given `start_node` after recoloring the
             whole subtree.
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `RedBlackNode()`.
+        AssertionError:
+            If the given `start_node` isn't a `RedBlackNode()`.
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -631,8 +640,10 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If either the given `value` is not a numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If either the given `value` is not a numeric value.
 
         Example
         -------
@@ -680,7 +691,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        AssertionError: If the given `node` isn't a `RedBlackNode()` object.
+        AssertionError:
+            If the given `node` isn't a `RedBlackNode()` object.
         
         Example
         -------
@@ -744,8 +756,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        AssertionError: If the given `node` or its parent isn't a \
-            `RedBlackNode()` object.
+        AssertionError:
+            If the given `node` or its parent isn't a `RedBlackNode()` object.
         
         Note
         ----
@@ -875,8 +887,9 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        UserWarning: If the `RedBlackTree()` instance is empty of if the value \
-            wasn't found in the instance.
+        UserWarning:
+            If the `RedBlackTree()` instance is empty of if the value wasn't
+            found in the instance.
         
         Example
         -------
@@ -1131,7 +1144,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        UserWarning: If the `RedBlackTree()` is empty.
+        UserWarning:
+            If the `RedBlackTree()` is empty.
 
         Example
         -------
@@ -1164,7 +1178,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        UserWarning: If the `RedBlackTree()` is empty.
+        UserWarning:
+            If the `RedBlackTree()` is empty.
 
         Example
         -------
@@ -1197,7 +1212,8 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        UserWarning: If the `RedBlackTree()` is empty.
+        UserWarning:
+            If the `RedBlackTree()` is empty.
 
         Example
         -------
@@ -1222,10 +1238,10 @@ class RedBlackTree(BST):
         Iterates over the `RedBlackTree()` instance and returns a generator of
         the `RedBlackNode()` values in breadth-first manner.
 
-        Returns
+        Yields
         -------
-        generator:
-            The value of each node in the instance.
+        int or float:
+            The number stored at each node in the instance.
 
         Example
         -------
@@ -1482,8 +1498,10 @@ class RedBlackTree(BST):
         
         Raises
         ------
-        ValueError: If the given method isn't known.
-        TypeError: If the given method isn't a string.
+        ValueError:
+            If the given method isn't known.
+        TypeError:
+            If the given method isn't a string.
 
         Example
         -------
