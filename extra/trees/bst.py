@@ -104,9 +104,9 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | Method                   | Description                                        | Worst-case | Optimal |
 +==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes.                       | O(1)       | O(1)    |
+| is_empty()               | Checks if the BST is empty.                        | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
+| __len__()                | Returns the number of nodes inside the BST.        | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | __repr__()               | Represents the BST.                                | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -126,11 +126,11 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+----------------------------------------------------+------------+---------+
 | is_strict()              | Checks if the BST is strict.                       | O(n)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
+| count_leaf_nodes()       | Counts all leaf nodes in the BST.                  | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
+| clear()                  | Clears the whole BST instance.                     | O(1)       | O(1)    |
 +--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
+| to_list()                | Converts the BST instance to a normal list.        | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
 | traverse()               | Traverses the BST based on given method.           | O(n)       | O(n)    |
 +--------------------------+----------------------------------------------------+------------+---------+
@@ -186,8 +186,10 @@ class BSTNode(BinaryTreeNode):
 
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item isn't a number.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item isn't a number.
         """
         if type(value) not in {int, float}:
             raise TypeError(f"`{self.__name__}` contains only numbers!!")
@@ -273,7 +275,8 @@ class BSTNode(BinaryTreeNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `BSTNode()` object.
+        TypeError:
+            If the given item is not an `BSTNode()` object.
         """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a left child!!")
@@ -293,7 +296,8 @@ class BSTNode(BinaryTreeNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `BSTNode()` object.
+        TypeError:
+            If the given item is not an `BSTNode()` object.
         """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a right child!!")
@@ -313,7 +317,8 @@ class BSTNode(BinaryTreeNode):
 
         Raises
         ------
-        TypeError: If the given item is neither a `BSTNode()` object nor `None`.
+        TypeError:
+            If the given item is neither a `BSTNode()` object nor `None`.
         """
         if not (new_node is None or isinstance(new_node, BSTNode)):
             raise TypeError(f"Can't set {type(new_node)} as a child's parent!!")
@@ -380,11 +385,13 @@ class BST(BinaryTree):
         
         Raises
         ------
-        TypeError: It can be raised in three cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in three cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -440,8 +447,10 @@ class BST(BinaryTree):
         
         Raises
         -------
-        ValueError: If `item` is `None`
-        TypeError: If `item` is not a numeric value.
+        ValueError:
+            If `item` is `None`
+        TypeError:
+            If `item` is not a numeric value.
         """
         super()._validate_item(item)
         if type(item) not in {int, float}:
@@ -451,7 +460,7 @@ class BST(BinaryTree):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `BST()` instance in time-complexity of O(1).
+        Gets the length of the `BST()` instance in constant time.
         
         Returns
         -------
@@ -461,7 +470,7 @@ class BST(BinaryTree):
         
         Example
         -------
-        >>> bst = BST.from_itearble([2, 1, 3])
+        >>> bst = BST([2, 1, 3])
         >>> bst
             __2__
            /     \\
@@ -474,8 +483,7 @@ class BST(BinaryTree):
 
     def is_empty(self):
         """
-        Checks if the `BST()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `BST()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -515,8 +523,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't an instance of \
-            `BSTNode()`
+        AssertionError:
+            If the given `start_node` isn't an instance of `BSTNode()`
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -539,7 +547,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        IndexError: In case the `BST()` instance is empty.
+        IndexError:
+            In case the `BST()` instance is empty.
 
         Example
         -------
@@ -581,8 +590,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't an instance of \
-            `BSTNode()`
+        AssertionError:
+            If the given `start_node` isn't an instance of `BSTNode()`
         """
 
         assert isinstance(start_node, self._basic_node)
@@ -606,7 +615,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        IndexError: In case the `BST()` instance is empty.
+        IndexError:
+            In case the `BST()` instance is empty.
 
         Example
         -------
@@ -652,9 +662,10 @@ class BST(BinaryTree):
 
         Raises
         ------
-        AssertionError: This can be raised in one of the following cases:
-            1. If `find_val` is NOT a numeric value.
-            2. If the given `start_node` isn't an instance of `BSTNode()`.
+        AssertionError:
+            This can be raised in one of the following cases:
+                1. If `find_val` is NOT a numeric value.
+                2. If the given `start_node` isn't an instance of `BSTNode()`.
 
         Examples
         --------
@@ -747,10 +758,11 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: This will be raised in the following cases:
-            1. If `start_node` isn't an instance of `BSTNode()`.
-            2. If the `inserted_node` is not either `None` nor an instance of \
-                `BSTNode()`.
+        AssertionError:
+            This will be raised in the following cases:
+                1. If `start_node` isn't an instance of `BSTNode()`.
+                2. If the `inserted_node` is not either `None` nor an instance \
+                    of `BSTNode()`.
 
         """
         assert isinstance(start_node, self._basic_node)
@@ -798,9 +810,10 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: This will be raised in the following cases:
-            1. If `start_node` isn't an instance of `BSTNode()`.
-            2. If the given `value` is not a numeric value.
+        AssertionError:
+            This will be raised in the following cases:
+                1. If `start_node` isn't an instance of `BSTNode()`.
+                2. If the given `value` is not a numeric value.
 
         """
         assert isinstance(start_node, self._basic_node)
@@ -827,7 +840,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `value` is not a numeric value.
+        AssertionError:
+            If the given `value` is not a numeric value.
         """
         assert type(value) in {int, float} or \
                     isinstance(value, self._basic_node)
@@ -850,8 +864,10 @@ class BST(BinaryTree):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If the given `value` is not a numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If the given `value` is not a numeric value.
 
         Example
         -------
@@ -893,7 +909,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `node` isn't a `BSTNode()` object.
+        AssertionError:
+            If the given `node` isn't a `BSTNode()` object.
         
         Example
         -------
@@ -938,9 +955,11 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: This can be raised due to one of the following cases:
-            1. The given `node` isn't a `BSTNode()`.
-            2. The given `replacement` node is neither `BSTNode()` nor `None`.
+        AssertionError:
+            This can be raised due to one of the following cases:
+                1. The given `node` isn't a `BSTNode()`.
+                2. The given `replacement` node is neither `BSTNode()` nor \
+                    `None`.
         """
         assert isinstance(node, self._basic_node)
         assert replacement is None or isinstance(replacement, self._basic_node)
@@ -984,10 +1003,12 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: This can be raised in these cases:
-            1. If the given `del_value` isn't a numeric value.
-            2. If the given `start_node` isn't a `BSTNode()`.
-        UserWarning: If the given `del_value` wasn't found in the `BST()`.
+        AssertionError:
+            This can be raised in these cases:
+                1. If the given `del_value` isn't a numeric value.
+                2. If the given `start_node` isn't a `BSTNode()`.
+        UserWarning:
+            If the given `del_value` wasn't found in the `BST()`.
         
         Example
         -------
@@ -1050,8 +1071,9 @@ class BST(BinaryTree):
         
         Raises
         ------
-        UserWarning: If the `BST()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning:
+            If the `BST()` instance is empty of if the value wasn't found in 
+            the instance.
         
         Example
         -------
@@ -1133,7 +1155,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` is not `BSTNode()`.
+        AssertionError:
+            If the given `start_node` is not `BSTNode()`.
 
         Example
         -------
@@ -1176,7 +1199,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` is not `BSTNode()`.
+        AssertionError:
+            If the given `start_node` is not `BSTNode()`.
 
         Example
         -------
@@ -1220,7 +1244,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` is not `BSTNode()`.
+        AssertionError:
+            If the given `start_node` is not `BSTNode()`.
 
         Example
         -------
@@ -1266,7 +1291,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: If the given `start_node` is not `BSTNode()`.
+        AssertionError:
+            If the given `start_node` is not `BSTNode()`.
 
         Example
         -------
@@ -1309,9 +1335,10 @@ class BST(BinaryTree):
         
         Raises
         ------
-        AssertionError: In the following cases:
-            1. If the `parent` is neither `BSTNode()` not `None`.
-            2. If the given `child` is NOT a `BSTNode()`.
+        AssertionError:
+            In the following cases:
+                1. If the `parent` is neither `BSTNode()` not `None`.
+                2. If the given `child` is NOT a `BSTNode()`.
         """
         assert parent is None or isinstance(parent, self._basic_node)
         assert isinstance(child, self._basic_node)
@@ -1423,7 +1450,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        UserWarning: If the `BST()` is empty.
+        UserWarning:
+            If the `BST()` is empty.
 
         Example
         -------
@@ -1456,7 +1484,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        UserWarning: If the `BST()` is empty.
+        UserWarning:
+            If the `BST()` is empty.
 
         Example
         -------
@@ -1498,7 +1527,8 @@ class BST(BinaryTree):
         
         Raises
         ------
-        UserWarning: If the `BST()` is empty.
+        UserWarning:
+            If the `BST()` is empty.
 
         Example
         -------
@@ -1523,9 +1553,9 @@ class BST(BinaryTree):
         Iterates over the `BST()` instance and returns a generator of the 
         `BSTNode()` values in breadth-first manner.
 
-        Returns
+        Yields
         -------
-        generator:
+        Object:
             The value of each node in the instance.
 
         Example
@@ -1782,8 +1812,10 @@ class BST(BinaryTree):
         
         Raises
         ------
-        ValueError: If the given method isn't known.
-        TypeError: If the given method isn't a string.
+        ValueError:
+            If the given method isn't known.
+        TypeError:
+            If the given method isn't a string.
 
         Example
         -------
