@@ -21,11 +21,11 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+--------------------------------------------------+------------+---------+
 | Method                   | Description                                      | Worst-case | Optimal |
 +==========================+==================================================+============+=========+
-| __len__()                | Returns the number of nodes.                     | O(1)       | O(1)    |
+| is_empty()               | Checks if the AVL tree is empty.                 | O(1)       | O(1)    |
 +--------------------------+--------------------------------------------------+------------+---------+
-| is_empty()               | Checks if object is empty.                       | O(1)       | O(1)    |
+| __len__()                | Returns the number of the nodes of the AVL Tree. | O(1)       | O(1)    |
 +--------------------------+--------------------------------------------------+------------+---------+
-| __repr__()               | Represents the AVL Tree.                         | O(n)       | O(n)    |
+| __repr__()               | Represents the AVL Tree as a string.             | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
 | __iter__()               | Iterates over the AVL Tree.                      | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
@@ -45,9 +45,9 @@ Generally, we are going to use the following indicators in the table:
 +--------------------------+--------------------------------------------------+------------+---------+
 | count_leaf_nodes()       | Counts all leaf nodes in the tree.               | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole tree instance.                  | O(1)       | O(1)    |
+| clear()                  | Clears the whole AVL tree instance.              | O(1)       | O(1)    |
 +--------------------------+--------------------------------------------------+------------+---------+
-| to_list()                | Converts the bianry tree instance to list.       | O(n)       | O(n)    |
+| to_list()                | Converts the AVL tree instance to a normal list. | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
 | traverse()               | Traverses the AVL Tree based on given method.    | O(n)       | O(n)    |
 +--------------------------+--------------------------------------------------+------------+---------+
@@ -104,8 +104,10 @@ class AVLNode(BSTNode):
 
         Raises
         ------
-        ValueError: If the given item is `None`.
-        TypeError: If the given item isn't a number.
+        ValueError:
+            If the given item is `None`.
+        TypeError:
+            If the given item isn't a number.
         """
         super().__init__(value)
         self._height = 0
@@ -122,7 +124,8 @@ class AVLNode(BSTNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `AVLNode()` object.
+        TypeError:
+            If the given item is not an `AVLNode()` object.
         """
         super().set_left(new_node)
         self._height = max(self.get_children_heights())
@@ -139,7 +142,8 @@ class AVLNode(BSTNode):
 
         Raises
         ------
-        TypeError: If the given item is not an `AVLNode()` object.
+        TypeError:
+            If the given item is not an `AVLNode()` object.
         """
         super().set_right(new_node)
         self._height = max(self.get_children_heights())
@@ -208,8 +212,10 @@ class AVLNode(BSTNode):
         
         Raises
         ------
-        TypeError: If the given `height` isn't an integer.
-        ValueError: If the given `height` is less than zero.
+        TypeError:
+            If the given `height` isn't an integer.
+        ValueError:
+            If the given `height` is less than zero.
         """
         if type(new_height) != int:
             raise TypeError("Height has to be an integer number >= 0!!")
@@ -219,6 +225,18 @@ class AVLNode(BSTNode):
     
 
     def is_balanced(self):
+        """
+        Checks the balance of the `AVLNode()`. An `AVLNode()` is balanced when
+        the absolute difference between the height of the left child and the
+        right child is less than or equal one.
+
+        Returns
+        -------
+        bool:
+            A boolean value representing the balance of the `AVLNode()`. `True`
+            means the node is balanced and `False` means it's not.
+
+        """
         left_height, right_height = self.get_children_heights()
         return abs(right_height - left_height) <= 1
     
@@ -270,10 +288,11 @@ class AVL(BST):
         
         Raises
         ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
+        TypeError:
+            It can be raised in two cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
 
         ValueError: If one of the iterable elements is `None`.
 
@@ -290,12 +309,12 @@ class AVL(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> avl = AVL([2, None])
+        >>> AVL([2, None])
         ValueError: Can't use `None` as an element within `extra.AVL()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> avl = AVL(2)
+        >>> AVL(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `AVL()` objects will raise `TypeError` as well
@@ -310,7 +329,7 @@ class AVL(BST):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `AVL()` instance in time-complexity of O(1).
+        Gets the length of the `AVL()` instance in constant time.
         
         Returns
         -------
@@ -335,8 +354,7 @@ class AVL(BST):
 
     def is_empty(self):
         """
-        Checks if the `AVL()` instance is empty or not in constant time-
-        complexity.
+        Checks if the `AVL()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -370,7 +388,8 @@ class AVL(BST):
         
         Raises
         ------
-        IndexError: In case the `AVL()` instance is empty.
+        IndexError:
+            In case the `AVL()` instance is empty.
 
         Example
         -------
@@ -400,7 +419,8 @@ class AVL(BST):
         
         Raises
         ------
-        IndexError: In case the `AVL()` instance is empty.
+        IndexError:
+            In case the `AVL()` instance is empty.
 
         Example
         -------
@@ -469,8 +489,9 @@ class AVL(BST):
         
         Raises
         ------
-        AssertionError: If the given `value` is not neither a numeric value nor
-        an `AVLNode()`.
+        AssertionError:
+            If the given `value` is not neither a numeric value nor an
+            `AVLNode()`.
         """
         assert type(value) in {int, float} or \
                     isinstance(value, self._basic_node)
@@ -503,8 +524,10 @@ class AVL(BST):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If the given `value` is not a numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If the given `value` is not a numeric value.
 
         Example
         -------
@@ -555,9 +578,10 @@ class AVL(BST):
         
         Raises
         ------
-        AssertionError: This can be raised in these cases:
-            1. If the given `del_value` isn't a numeric value.
-            2. If the given `start_node` isn't a `BSTNode()`.
+        AssertionError:
+            This can be raised in these cases:
+                1. If the given `del_value` isn't a numeric value.
+                2. If the given `start_node` isn't a `BSTNode()`.
         
         Example
         -------
@@ -605,8 +629,9 @@ class AVL(BST):
         
         Raises
         ------
-        UserWarning: If the `AVL()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning:
+            If the `AVL()` instance is empty of if the value wasn't found in
+            the instance.
         
         Example
         -------
@@ -667,7 +692,8 @@ class AVL(BST):
         
         Raises
         ------
-        AssertionError: If the given `start_node` isn't a `TreeNode()`
+        AssertionError:
+            If the given `start_node` isn't a `TreeNode()`
         
         Example
         -------
@@ -769,7 +795,8 @@ class AVL(BST):
         
         Raises
         ------
-        AssertionError: If the given node isn't an `AVLNode()`.
+        AssertionError:
+            If the given node isn't an `AVLNode()`.
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -797,7 +824,8 @@ class AVL(BST):
         
         Raises
         ------
-        AssertionError: If the given node isn't an `AVLNode()`.
+        AssertionError:
+            If the given node isn't an `AVLNode()`.
         """
         assert isinstance(start_node, self._basic_node)
 
@@ -843,7 +871,8 @@ class AVL(BST):
         
         Raises
         ------
-        UserWarning: If the `AVL()` is empty.
+        UserWarning:
+            If the `AVL()` is empty.
 
         Example
         -------
@@ -876,7 +905,8 @@ class AVL(BST):
         
         Raises
         ------
-        UserWarning: If the `AVL()` is empty.
+        UserWarning:
+            If the `AVL()` is empty.
 
         Example
         -------
@@ -907,7 +937,8 @@ class AVL(BST):
         
         Raises
         ------
-        UserWarning: If the `AVL()` is empty.
+        UserWarning:
+            If the `AVL()` is empty.
 
         Example
         -------
