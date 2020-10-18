@@ -961,10 +961,10 @@ class AVL(BST):
         Iterates over the `AVL()` instance and returns a generator of the 
         `AVLNode()` values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        int or float:
+            The number stored at each node in the instance.
 
         Example
         -------
