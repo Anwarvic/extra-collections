@@ -1,0 +1,8 @@
+﻿Method,Description,Worst-case,Optimal
+__len__(),Returns the number of values in the stack.,O(1),O(1)
+push(),Adds new value to the top of the stack.,O(1),O(1)
+pop(),Adds the value from the top of the stack.,O(1),O(1)
+peek(),Returns the value at the top of the stack.,O(1),O(1)
+clear(),Clears the stack.,O(1),O(1)
+is_empty(),Checks if the stack is empty.,O(1),O(1)
+is_full(),Checks if the stack is full.,O(1),O(1)
