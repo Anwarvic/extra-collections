@@ -338,7 +338,7 @@ def test_relational_operators():
     assert DoublyLinkedList([get_float()]) != DoublyLinkedList([get_list()])
     assert DoublyLinkedList([2.9999]) < DoublyLinkedList([3])
     assert DoublyLinkedList([3.14]) <= DoublyLinkedList([3.14])
-    assert DoublyLinkedList([1, 2]) > DoublyLinkedList([3])
+    assert DoublyLinkedList([3, 2]) > DoublyLinkedList([3])
     assert DoublyLinkedList(['3.14']) >= DoublyLinkedList(['3.14'])
     with pytest.raises(TypeError): DoublyLinkedList([get_float()]) < DoublyLinkedList([get_string()])
     with pytest.raises(TypeError): DoublyLinkedList([get_value()]) <= DoublyLinkedList([get_list()])

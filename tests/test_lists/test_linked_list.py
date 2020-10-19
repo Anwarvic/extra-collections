@@ -302,7 +302,7 @@ def test_relational_operators():
     assert LinkedList([get_float()]) != LinkedList([get_list()])
     assert LinkedList([2.9999]) < LinkedList([3])
     assert LinkedList([3.14]) <= LinkedList([3.14])
-    assert LinkedList([1, 2]) > LinkedList([3])
+    assert LinkedList([3, 2]) > LinkedList([3])
     assert LinkedList(['3.14']) >= LinkedList(['3.14'])
     with pytest.raises(TypeError): LinkedList([get_float()]) < LinkedList([get_string()])
     with pytest.raises(TypeError): LinkedList([get_value()]) <= LinkedList([get_list()])
@@ -313,24 +313,24 @@ def test_relational_operators():
     llist2 = LinkedList([1, '2', 5.14])
     assert llist1 == llist1
     assert llist1 != llist2
-    assert llist1 < llist2
+    assert llist1 <  llist2
     assert llist1 <= llist2
-    assert llist2 > llist1
+    assert llist2 >  llist1
     assert llist2 >= llist2
     # slicing lists
     assert llist1[:-1] == llist2[:-1]
     assert llist1[-1:] != llist2[-1:]
     assert llist1[:1] < llist2
     assert llist1[:2] <= llist2
-    with pytest.raises(TypeError): assert llist1[1:] < llist2
+    with pytest.raises(TypeError): assert llist1[1:] <  llist2
     with pytest.raises(TypeError): assert llist1[1:] <= llist2
     # if the other one isn't a linked list
     actual_list = [1, '2', 5.14]
     with pytest.raises(TypeError): assert llist1 == actual_list
     with pytest.raises(TypeError): assert llist1 != actual_list
-    with pytest.raises(TypeError): assert llist1 < actual_list
+    with pytest.raises(TypeError): assert llist1 <  actual_list
     with pytest.raises(TypeError): assert llist1 <= actual_list
-    with pytest.raises(TypeError): assert llist2 > actual_list
+    with pytest.raises(TypeError): assert llist2 >  actual_list
     with pytest.raises(TypeError): assert llist2 >= actual_list
 
 

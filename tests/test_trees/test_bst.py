@@ -137,7 +137,7 @@ def test_bst_simple():
 
 def test_bst_from_iterable():
     lst = [19,7,10,12,22,30,11,25,9,20,14,12,30,22]
-    bst = BST.from_iterable(lst)
+    bst = BST(lst)
     # test structure
     assert verify_bst_rules(bst._root)
     assert bst._root.get_data() == 19
