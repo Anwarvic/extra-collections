@@ -136,8 +136,8 @@ Here, I will walk you through some of the design principles that I followed
 while creating this package:
 
 - Can't create nested modules.
-- Handle `'\n'` if given as an input value.
-- `None` can't be used as an input value. (Could be changes in future releases).
+- Replace `'\n'` with `'\\n'` when seen as an input value.
+- `None` can't be used as an input value. (Could be changed in future releases).
 - Class constructors can be used for initialization as well as declaration.
 - Methods with no `_` are for public use. The other are not; unless you know
 what you're doing. 
@@ -146,13 +146,14 @@ methods must raise only `AssertionError` when needed.
 - Search/remove methods shouldn't raise any errors.
 - Insert/delete/get_index/delete_index/set_index methods must raise errors when
 needed.
-- All methods should return the data not the used objects.
-- Any module can be emptied except the `SuffixTrie`.
+- All methods should return the data stored not the used objects.
+- Any module can be emptied except for the `SuffixTrie`.
+
 
 ## 📕 Resources
 
 The following are the main resources that helped me while working on this
-awesome project
+awesome project:
 
 - [Introduction to Algorithms Course (MIT 6.046J/18.410J)](https://www.youtube.com/playlist?list=PLDC836E1A1076378E>).
 - "Data Structures and Algorithms in Python" book.
