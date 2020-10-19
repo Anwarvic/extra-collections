@@ -38,54 +38,6 @@ since there is still need to compare every character of the desired pattern with
 the potentially multi-character labels while traversing paths in the trie.
 
 .. image:: ../../img/trees/radix_trie.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| Method                | Description                                                    | Worst-case | Optimal |
-+=======================+================================================================+============+=========+
-| __len__()             | Returns the number of nodes.                                   | O(n)       | O(1)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| is_empty()            | Checks if radix trie is empty.                                 | O(1)       | O(1)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| __repr__()            | Represents the radix trie.                                     | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| __iter__()            | Iterates over the radix trie.                                  | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| __contains__()        | Checks the existence of the given item in the radix trie.      | O(m)       | O(1)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| get_height()          | Gets the radix trie's height                                   | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| get_depth()           | Gets the radix trie's depth                                    | O(1)       | O(1)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| get_nodes_per_level() | Returns a list of all nodes per level found in the radix trie. | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| count_leaf_nodes()    | Counts all leaf nodss in the radix trie.                       | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| clear()               | Clears the whole radix trie instance.                          | O(1)       | O(1)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| to_list()             | Converts the radix trie instance to list.                      | O(n)       | O(n)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| auto_complete()       | Auto-completes given index from the radix trie.                | O(m)       | O(m)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| insert()              | Inserts a new word to the radix trie.                          | O(m)       | O(m)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-| remove()              | Removes a word from the radix trie.                            | O(m)       | O(m)    |
-+-----------------------+----------------------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `RadixTrie()` objects:
 """
 from extra.trees.trie import TrieNode, Trie
 
@@ -110,7 +62,8 @@ def get_lcp(word1, word2):
     
     Raises
     ------
-    AssertionError: If either of the two given words isn't a string.
+    AssertionError:
+        If either of the two given words isn't a string.
     
     Example
     -------
@@ -136,11 +89,12 @@ class RadixTrie(Trie):
     A radix trie is a compressed trie that ensures that each internal node has
     at least two children. It enforces this rule by compressing chains of
     single-child nodes into individual edges. It is defined using a collection
-    of `TrieNode()` instances, where each node contains string value and each
-    node has a list of references to the children `TrieNode()` instances.
+    of tree nodes, where each node contains string value and each node has a
+    list of references to the children tree nodes in a tree-form structure.
     """
     __name__ = "extra.RadixTrie()"
     
+
     def __init__(self):
         """
         Creates an empty `RadixTrie()` object!!
@@ -150,6 +104,8 @@ class RadixTrie(Trie):
         >>> rt = RadixTrie()
         >>> type(rt)
         <class 'extra.trees.radix_trie.RadixTrie'>
+        >>> rt
+        --
         """
         super().__init__()
     
@@ -160,7 +116,6 @@ class RadixTrie(Trie):
         Gets the length of the `RadixTrie()` instance. Length is the number of
         nodes in the instance.
 
-        
         Returns
         -------
         int:
@@ -170,18 +125,18 @@ class RadixTrie(Trie):
         Examples
         --------
         >>> rt = RadixTrie()
-        >>> len(t)
+        >>> len(rt)
         0
-        >>> t.insert("car")
-        >>> t.insert("cart")
-        >>> t.insert("cast")
-        >>> t
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
         ROOT
         └─┬ ca
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> len(t)
+        >>> len(rt)
         5
         """
         return super().__len__()
@@ -189,8 +144,7 @@ class RadixTrie(Trie):
 
     def is_empty(self):
         """
-        Checks if the `RadixTrie()` instance is empty or not in time-complexity
-        of O(1).
+        Checks if the `RadixTrie()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -329,12 +283,12 @@ class RadixTrie(Trie):
     def __iter__(self):
         """
         Iterates over the `RadixTrie()` instance and returns a generator of the 
-        `TrieNode()` values in breadth-first manner.
+        string values stored at the different nodes in breadth-first manner.
 
-        Returns
+        Yields
         -------
-        generator:
-            The value of each node in the instance.
+        str:
+            The string stored at each node in the instance.
         
         Example
         -------
@@ -404,10 +358,10 @@ class RadixTrie(Trie):
         Example
         -------
         >>> rt = RadixTrie()
-        >>> t.insert("car")
-        >>> t.insert("cart")
-        >>> t.insert("cast")
-        >>> t
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
         ROOT
         └─┬ c
           └─┬ a
@@ -415,11 +369,11 @@ class RadixTrie(Trie):
             │ └── t ✓
             └─┬ s
               └── t ✓
-        >>> "car" in t
+        >>> "car" in rt
         True
-        >>> "cas" in t
+        >>> "cas" in rt
         False
-        >>> "care" in t
+        >>> "care" in rt
         False
         """
         return super().__contains__(word)
@@ -453,12 +407,12 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.has_prefix("car")
+        >>> rt.has_prefix("car")
         True
-        >>> "cas" in t
+        >>> rt.has_prefix("cas")
+        True
+        >>> "cas" in rt
         False
-        >>> t.has_prefix("cas")
-        True
         """
         return super().has_prefix(prefix)
 
@@ -481,8 +435,8 @@ class RadixTrie(Trie):
             
         Raises
         ------
-        AssertionError: If the given `word` is either empty or its type isn't 
-        a `str`.
+        AssertionError:
+            If the given `word` is either empty or its type isn't a `str`.
         """
         assert type(word) == str and len(word) > 0
 
@@ -527,8 +481,10 @@ class RadixTrie(Trie):
         
         Raises
         ------
-        ValueError: If the given `word` is empty.
-        TypeError: If the type of the given `word` is not `str`.
+        ValueError:
+            If the given `word` is empty.
+        TypeError:
+            If the type of the given `word` is not `str`.
 
         Example
         -------
@@ -564,17 +520,18 @@ class RadixTrie(Trie):
         
         Example
         -------
-        >>> t = Trie()
-        >>> t.insert("car")
-        >>> t.insert("cart")
-        >>> t.insert("cast")
-        >>> t
+        >>> rt = RadixTrie()
+        >>> rt.insert("car")
+        >>> rt.insert("cart")
+        >>> rt.insert("cast")
+        >>> rt
         ROOT
         └─┬ ca
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.remove("cart")
+        >>> rt.remove("cart")
+        >>> rt
         ROOT
         └─┬ ca
           ├── r ✓
@@ -627,7 +584,7 @@ class RadixTrie(Trie):
         
         Example
         -------
-        >>> rt = Trie()
+        >>> rt = RadixTrie()
         >>> rt.insert("car")
         >>> rt.insert("cart")
         >>> rt.insert("cast")
@@ -637,7 +594,7 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> rt.auto_complete("ca")
+        >>> rt.auto_complete("car")
         ["car", "cart"]
         >>> rt.auto_complete("cas")
         ["cast"]
@@ -647,7 +604,7 @@ class RadixTrie(Trie):
         Note
         ----
         Using an empty prefix as an input will return all saved words in the 
-        `Trie()` instance.
+        `RadixTrie()` instance.
         """
 
         super()._validate_item(prefix)
@@ -703,10 +660,9 @@ class RadixTrie(Trie):
           ├─┬ r ✓
           │ └── t ✓
           └── st ✓
-        >>> t.get_nodes_per_level()
+        >>> rt.get_nodes_per_level()
         [['ca'], ['r', 'st'], ['t']]
         """
-        return super().get_nodes_per_level()[1:]
+        return super().get_nodes_per_level()
     
 
-    

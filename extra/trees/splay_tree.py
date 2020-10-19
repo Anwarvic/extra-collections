@@ -38,74 +38,6 @@ following:
 As we can see, the newly-inserted node has been moved to the root which makes it
 faster to be accessed for later usage. This happens with all searching,
 insertion and deletion.
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **h** is the Splay Tre height which approximatley equals to **log(n)**.
-
-+--------------------------+----------------------------------------------------+------------+---------+
-| Method                   | Description                                        | Worst-case | Optimal |
-+==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes.                       | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_empty()               | Checks if object is empty.                         | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the Splay Tree.                         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the Splay Tree.                      | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __contains__()           | Checks the existence of the given item.            | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the Splay Tree's height.                      | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the Splay Tree's depth.                       | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_balanced()            | Checks if the Splay Tree is balanced.              | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_perfect()             | Checks if the Splay Tree is perfect.               | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_strict()              | Checks if the Splay Tree is strict.                | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodes in the tree.                 | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole tree instance.                    | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the bianry tree instance to list.         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| traverse()               | Traverses the Splay Tree based on given method.    | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| preorder_traverse()      | Traverses the Splay Tree in an pre-order manner.   | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| inorder_traverse()       | Traverses the Splay Tree in an in-order manner.    | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| postorder_traverse()     | Traverses the Splay Tree in an post-order manner.  | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| breadth_first_traverse() | Traverses the Splay Tree level by level.           | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| depth_first_traverse()   | Traverses the Splay Tree in an pre-order manner.   | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_min()                | Gets the minimum number in the Splay Tree.         | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_max()                | Gets the maximum number in the Splay Tree.         | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| insert()                 | Inserts a certain value to the Splay Tree.         | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove()                 | Removes a certain value from the Splay Tree.       | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `SplayTree()` objects:
 """
 import warnings
 from extra.trees.bst import BST
@@ -116,11 +48,11 @@ from extra.trees.bst import BST
 class SplayTree(BST):
     """
     A Splay Tree is a non-linear data structure that can be defined recursively
-    using a collection of `BSTNode()` instances, where each node contains a 
-    numeric value and it has either zero, one or two references to the children
-    `BSTNode()` instances. Any node that has been accessed is moved to the root
-    directly to make it faster to be accessed again. This operation is called
-    "splaying". Hence the name of this data structure.
+    using a collection of binary tree nodes, where each node contains a  numeric
+    value and it has either zero, one or two references to the children binary
+    tree nodes. Any node that has been accessed is moved to the root directly to
+    make it faster to be accessed again. This operation is called "splaying".
+    Hence the name of this data structure... Splay Tree.
     """
     __name__ = "extra.SplayTree()"
     
@@ -133,18 +65,19 @@ class SplayTree(BST):
 
         Parameters
         ----------
-        iterable: iterable (default: None)
+        iterable: iterable, optional
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
         
         Raises
         ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
-
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in two cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -159,12 +92,12 @@ class SplayTree(BST):
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
 
-        >>> stree = SplayTree([2, None])
+        >>> SplayTree([2, None])
         ValueError: Can't use `None` as an element within `extra.SplayTree()`!!
         
         Using a non-iterable object will raise `TypeError`
 
-        >>> stree = SplayTree(2)
+        >>> SplayTree(2)
         TypeError: The given object isn't iterable!!
         
         Using nested `SplayTree()` objects will raise `TypeError` as well
@@ -179,7 +112,7 @@ class SplayTree(BST):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `SplayTree()` instance in time-complexity of O(1).
+        Gets the length of the `SplayTree()` instance in constant time.
         
         Returns
         -------
@@ -204,8 +137,7 @@ class SplayTree(BST):
 
     def is_empty(self):
         """
-        Checks if the `SplayTree()` instance is empty or not in constant time-
-        complexity.
+        Checks if the `SplayTree()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -239,7 +171,8 @@ class SplayTree(BST):
         
         Raises
         ------
-        IndexError: In case the `SplayTree()` instance is empty.
+        IndexError:
+            In case the `SplayTree()` instance is empty.
 
         Example
         -------
@@ -269,7 +202,8 @@ class SplayTree(BST):
         
         Raises
         ------
-        IndexError: In case the `SplayTree()` instance is empty.
+        IndexError:
+            In case the `SplayTree()` instance is empty.
 
         Example
         -------
@@ -452,7 +386,7 @@ class SplayTree(BST):
           3     6
          / \\
         2   4
-        >> 50 in bst
+        >> 50 in stree
         False
         >>> stree
                 6
@@ -492,8 +426,10 @@ class SplayTree(BST):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If the given `value` is not a numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If the given `value` is not a numeric value.
 
         Example
         -------
@@ -507,6 +443,7 @@ class SplayTree(BST):
          \\
           10
         >>> stree.insert(15)
+        >>> stree
             _15
            /
           10
@@ -543,12 +480,13 @@ class SplayTree(BST):
         
         Raises
         ------
-        UserWarning: If the `SplayTree()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning:
+            If the `SplayTree()` instance is empty of if the value wasn't found
+            in the instance.
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -617,7 +555,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -626,6 +564,16 @@ class SplayTree(BST):
             4   6
         >>> stree.get_height()
         2
+        >>> 6 in stree
+        True
+        >>> stree.get_height()
+        3
+
+        Note
+        ----
+        The height of the `SplayTree()` instance is changed after any operation
+        such as insertion, removal or even searching as we saw in the previous
+        example.
         """
         return super().get_height()
     
@@ -668,7 +616,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -677,6 +625,16 @@ class SplayTree(BST):
             4   6
         >>> stree.count_leaf_nodes()
         3
+        >>> 4 in stree
+        True
+        >>> stree.count_leaf_nodes()
+        2
+
+        Note
+        ----
+        The number of leaf nodes inside the `SplayTree()` instance is changed
+        after any operation such as insertion, removal or even searching as we
+        saw in the previous example.
         """
         return super().count_leaf_nodes()
 
@@ -684,9 +642,9 @@ class SplayTree(BST):
     ##############################    BALANCED    ##############################
     def is_balanced(self):
         """
-        Checks if the `SplayTree()` instance is balanced. A SplayTree is
-        balanced if the difference between the depth of any two leaf nodes is
-        less than or equal to one.
+        Checks if the `SplayTree()` instance is balanced. A `SplayTree()`
+        instance is balanced if the difference between the depth of any two
+        leaf nodes is less than or equal to one.
 
         Returns
         -------
@@ -696,19 +654,30 @@ class SplayTree(BST):
         
         Raises
         ------
-        UserWarning: If the `SplayTree()` is empty.
+        UserWarning:
+            If the `SplayTree()` is empty.
 
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
         2     5
              / \\
             4   6
-        >>> bst.is_balanced()
+        >>> stree.is_balanced()
         True
+        >>> 2 in stree
+        True
+        >>> stree.is_balanced()
+        False
+
+        Note
+        ----
+        The balance of the `SplayTree()` instance is changed after any operation
+        such as insertion, removal or even searching as we saw in the previous
+        example
         """
         return super().is_balanced()
 
@@ -716,8 +685,8 @@ class SplayTree(BST):
     ##############################    PERFECT     ##############################
     def is_perfect(self):
         """
-        Checks if the `SplayTree()` instance is perfect. A SplayTree is perfect
-        if all its levels are completely filled.
+        Checks if the `SplayTree()` instance is perfect. A `SplayTree()`
+        instance is perfect if all its levels are completely filled.
 
         Returns
         -------
@@ -727,11 +696,12 @@ class SplayTree(BST):
         
         Raises
         ------
-        UserWarning: If the `SplayTree()` is empty.
+        UserWarning:
+            If the `SplayTree()` is empty.
 
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -740,6 +710,11 @@ class SplayTree(BST):
             4   6
         >>> stree.is_perfect()
         False
+
+        Note
+        ----
+        The perfectness of the `SplayTree()` instance is changed after any
+        operation such as insertion, removal or even searching.
         """
         return super().is_perfect()
 
@@ -747,8 +722,8 @@ class SplayTree(BST):
     ##############################     STRICT     ##############################
     def is_strict(self):
         """
-        Checks if the `SplayTree()` instance is strict. A SplayTree is strict if
-        all its non-leaf nodes have two children (left and right).
+        Checks if the `SplayTree()` instance is strict. A `SplayTree()` instance
+        is strict if all its non-leaf nodes have two children (left and right).
 
         Returns
         -------
@@ -758,19 +733,30 @@ class SplayTree(BST):
         
         Raises
         ------
-        UserWarning: If the `SplayTree()` is empty.
+        UserWarning:
+            If the `SplayTree()` is empty.
 
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
         2     5
              / \\
             4   6
-        >>> bst.is_strict()
+        >>> stree.is_strict()
         True
+        >>> 2 in stree
+        True
+        >>> stree.is_strict()
+        False
+
+        Note
+        ----
+        The strictness of the `SplayTree()` instance is changed after any
+        operation such as insertion, removal or even searching as we saw in the
+        previous example
         """
         return super().is_strict()
     
@@ -781,14 +767,14 @@ class SplayTree(BST):
         Iterates over the `SplayTree()` instance and returns a generator of the 
         `SplayTreeNode()` values in breadth-first manner.
 
-        Returns
+        Yields
         -------
-        generator:
-            The value of each node in the instance.
+        int or float:
+            The number stored at each node in the instance.
 
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -815,7 +801,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -843,7 +829,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -874,7 +860,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -904,7 +890,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -931,7 +917,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -947,9 +933,9 @@ class SplayTree(BST):
     ##############################    In-Order    ##############################
     def inorder_traverse(self):
         """
-        Traverses the `SplayTree()` instance in in-order manner. Which means that the
-        **left subtree** (if found) is visited first. Then, the **parent** then
-        the **right subtree** (if found).
+        Traverses the `SplayTree()` instance in in-order manner. Which means
+        that the **left subtree** (if found) is visited first. Then, the
+        **parent** then the **right subtree** (if found).
         
         Returns
         --------
@@ -958,7 +944,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -974,8 +960,8 @@ class SplayTree(BST):
     #############################  BREADTH-FIRST ##############################
     def breadth_first_traverse(self):
         """
-        Traverses the `SplayTree()` instance in breadth-first manner. Which means that
-        the tree nodes will be visited level by level.
+        Traverses the `SplayTree()` instance in breadth-first manner. Which
+        means that the tree nodes will be visited level by level.
         
         Returns
         --------
@@ -984,7 +970,7 @@ class SplayTree(BST):
         
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\
@@ -1000,9 +986,9 @@ class SplayTree(BST):
     ##############################    TRAVERSE    ##############################
     def traverse(self, method='inorder'):
         """
-        Traversal is the process to visit all nodes of a SplayTree starting from the
-        root as we cannot randomly access any node in a binary tree. There are
-        four ways which we use to traverse a SplayTree:
+        Traversal is the process to visit all nodes of a SplayTree starting from
+        the root as we cannot randomly access any node in a binary tree. There
+        are four ways which we use to traverse a SplayTree:
 
         1. preorder - depth-first
         2. inorder
@@ -1024,12 +1010,14 @@ class SplayTree(BST):
         
         Raises
         ------
-        ValueError: If the given method isn't known.
-        TypeError: If the given method isn't a string.
+        ValueError:
+            If the given method isn't known.
+        TypeError:
+            If the given method isn't a string.
 
         Example
         -------
-        >>> stree = SplayTree([[2, 5, 4, 6, 3])
+        >>> stree = SplayTree([2, 5, 4, 6, 3])
         >>> stree
           3__
          /   \\

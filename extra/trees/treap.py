@@ -34,76 +34,6 @@ node in the `Treap()`, you can set the static variable `SHOW_PRIORITY` to
 `True` just like so:
 
 >>> Treap.SHOW_PRIORITY = True
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **h** is the height of the BST which approximatley equals to **log(n)** \
-    when the tree is balanced.
-
-+--------------------------+----------------------------------------------------+------------+---------+
-| Method                   | Description                                        | Worst-case | Optimal |
-+==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes in the treap.          | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_empty()               | Checks if the treap is empty.                      | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the treap as a string.                  | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the treap.                           | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __contains__()           | Checks the existence of a given item in the treap. | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the treap's height.                           | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the treap's depth.                            | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_balanced()            | Checks if the treap is balanced.                   | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_perfect()             | Checks if the treap is perfect.                    | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_strict()              | Checks if the treap is strict.                     | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodes in the treap.                | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole treap.                            | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the treap instance to list.               | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| traverse()               | Traverses the treap based on given method.         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| preorder_traverse()      | Traverses the treap in an pre-order manner.        | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| inorder_traverse()       | Traverses the treap in an in-order manner.         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| postorder_traverse()     | Traverses the treap in an post-order manner.       | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| breadth_first_traverse() | Traverses the treap level by level.                | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| depth_first_traverse()   | Traverses the treap in an pre-order manner.        | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_min()                | Gets the minimum number in the treap.              | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_max()                | Gets the maximum number in the treap.              | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| insert()                 | Inserts a certain value to the treap.              | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove()                 | Removes a certain value from the treap.            | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `Treap()` objects:
-
 """
 import random
 import warnings
@@ -135,10 +65,12 @@ class TreapNode(BSTNode):
         
         Raises
         ------
-        ValueError: If the given data is `None`.
-        TypeError: It can be raised in the following two cases:
-            1. If the given data isn't a number.
-            2. If the given priority isn't a number.
+        ValueError:
+            If the given data is `None`.
+        TypeError:
+            It can be raised in the following two cases:
+                1. If the given data isn't a number.
+                2. If the given priority isn't a number.
         """
         if priority is not None and type(priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -170,7 +102,8 @@ class TreapNode(BSTNode):
 
         Raises
         ------
-        TypeError: If the given priority is not a number.
+        TypeError:
+            If the given priority is not a number.
         """
         if type(new_priority) not in {int, float}: 
             raise TypeError("Given priority has to be a number!!")
@@ -238,7 +171,7 @@ class Treap(BST):
     1. node's data must follow the rules of binary search tree.
     2. node's priority must follow the rules of max heap where the node with \
         the heighest priority must always be at the root without breaking the \
-            rules ofBST.
+        rules of BST.
     """
     SHOW_PRIORITY = False
     _basic_node = TreapNode
@@ -261,11 +194,13 @@ class Treap(BST):
         
         Raises
         ------
-        TypeError: It can be raised in three cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is an `Extra` object.
-            3. If one of the elements in the iterable is NOT a number.
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in three cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is an `Extra` object.
+                3. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -282,8 +217,7 @@ class Treap(BST):
         Without setting the seed, each time we run the code, we will get a
         different structure.
 
-        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3])
-        >>> treap
+        >>> Treap([0, 2, 1, 4, 9, 7, 3])
             ____4
            /     \\
           1__     7
@@ -291,8 +225,7 @@ class Treap(BST):
         0     3     9
              /
             2
-        >>> treap = Treap([0, 2, 1, 4, 9, 7, 3])
-        >>> treap
+        >>> Treap([0, 2, 1, 4, 9, 7, 3])
               ____7
              /     \\
             2__     9
@@ -300,7 +233,6 @@ class Treap(BST):
           1     4
          /     /
         0     3
-
 
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
@@ -353,8 +285,7 @@ class Treap(BST):
 
     def is_empty(self):
         """
-        Checks if the `Treap()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `Treap()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -388,7 +319,8 @@ class Treap(BST):
         
         Raises
         ------
-        IndexError: In case the `Treap()` instance is empty.
+        IndexError:
+            In case the `Treap()` instance is empty.
 
         Example
         -------
@@ -419,7 +351,8 @@ class Treap(BST):
         
         Raises
         ------
-        IndexError: In case the `Treap()` instance is empty.
+        IndexError:
+            In case the `Treap()` instance is empty.
 
         Example
         -------
@@ -486,7 +419,8 @@ class Treap(BST):
         
         Raises
         -------
-        TypeError: If the given new priority is not a numeric value.
+        TypeError:
+            If the given new priority is not a numeric value.
         """
         if new_priority is not None and type(new_priority) not in {int, float}:
             raise TypeError("Given priority has to be a number!!")
@@ -506,9 +440,11 @@ class Treap(BST):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If either the given `value` or the given `priority` is not a
-        numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If either the given `value` or the given `priority` is not a
+            numeric value.
 
         Example
         -------
@@ -528,6 +464,7 @@ class Treap(BST):
         changes the `Treap()` structure. Let's, now, set the priority of the 
         inserted node:
 
+        >>> treap = Treap()
         >>> treap.insert(10, priority=10)
         >>> treap.insert(5, priority=2)
         >>> treap.insert(15, priority=7)
@@ -580,8 +517,9 @@ class Treap(BST):
         
         Raises
         ------
-        UserWarning: If the `Treap()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning:
+            If the `Treap()` instance is empty of if the value wasn't found in
+            the instance.
         
         Example
         -------
@@ -778,7 +716,8 @@ class Treap(BST):
         
         Raises
         ------
-        UserWarning: If the `Treap()` is empty.
+        UserWarning:
+            If the `Treap()` is empty.
 
         Example
         -------
@@ -843,6 +782,10 @@ class Treap(BST):
         0
         >>> treap.is_perfect()
         False
+
+        Note
+        ----
+        By changing the seed, you can change the perfectness of the`Treap()`,
         """
         return super().is_perfect()
 
@@ -876,6 +819,10 @@ class Treap(BST):
         0
         >>> treap.is_strict()
         False
+
+        Note
+        ----
+        By changing the seed, you can change the strictness of the`Treap()`,
         """
         return super().is_strict()
     
@@ -886,10 +833,10 @@ class Treap(BST):
         Iterates over the `Treap()` instance and returns a generator of the 
         `BSTNode()` values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        int or float:
+            The number stored ateach node in the instance.
 
         Example
         -------
@@ -1145,8 +1092,10 @@ class Treap(BST):
         
         Raises
         ------
-        ValueError: If the given method isn't known.
-        TypeError: If the given method isn't a string.
+        ValueError:
+            If the given method isn't known.
+        TypeError:
+            If the given method isn't a string.
 
         Example
         -------

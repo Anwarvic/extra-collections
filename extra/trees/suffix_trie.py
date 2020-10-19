@@ -5,54 +5,6 @@ to perform these stuctural operations by storing all the possible suffixes of
 the given text, hence the name "Suffix Trie".
 
 .. image:: ../../img/trees/suffix_trie.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| Method                           | Description                                                  | Worst-case | Optimal |
-+==================================+==============================================================+============+=========+
-| __init__()                       | Initializes suffix trie.                                     | O(n^2)     | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| __len__()                        | Returns the number of nodes.                                 | O(n)       | O(1)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| __repr__()                       | Represents the suffix trie.                                  | O(n)       | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| __iter__()                       | Iterates over the radix trie.                                | O(n)       | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| get_height()                     | Gets the radix trie's height                                 | O(n)       | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| get_depth()                      | Gets the radix trie's depth                                  | O(1)       | O(1)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| count_leaf_nodes()               | Counts all leaf nodss in the radix trie.                     | O(n)       | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| to_list()                        | Converts the radix trie instance to list.                    | O(n)       | O(n)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| has_substring()                  | Searches the suffix trie for a substring.                    | O(m)       | O(m)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| to_suffix_array()                | Converts the suffix trie to suffix array.                    | O(nlog(n)) | O(1)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| get_longest_common_substring()   | Retrieves the longest common substring in the suffix trie.   | O(m)       | O(m)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| get_longest_repeated_substring() | Retrieves the longest repeated substring in the suffix trie. | O(m)       | O(m)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| get_lowest_common_ancestor()     | Retrieves the lowest common ancestor in the suffix trie.     | O(m)       | O(m)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-| count_pattern_occurrences()      | Counts the occurrences of a pattern in the suffix trie.      | O(m)       | O(m)    |
-+----------------------------------+--------------------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `SuffixTrie()` objects:
 """
 from extra.interface import Extra
 from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie
@@ -78,7 +30,8 @@ def is_palindrome(word):
 
     Raises
     ------
-    AssertionError: If the given word isn't a `str` object.
+    AssertionError:
+        If the given word isn't a `str` object.
 
     Example
     -------
@@ -211,7 +164,7 @@ class SuffixTrie(Extra):
         │ ├── na$ ⟶ 2
         │ └── $ ⟶ 4
         └── $ ⟶ 6
-        >>> len(t)
+        >>> len(st)
         11
         """
         return len(self._rt)
@@ -337,7 +290,7 @@ class SuffixTrie(Extra):
         │ └── $ ⟶ 4
         └── $ ⟶ 6
         >>> st.count_leaf_nodes()
-        2
+        7
         """
         return self._rt.count_leaf_nodes()
 
@@ -346,12 +299,12 @@ class SuffixTrie(Extra):
     def __iter__(self):
         """
         Iterates over the `SuffixTrie()` instance and returns a generator of the 
-        `TrieNode()` values in breadth-first manner.
+        string values stored at the different nodes in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        str:
+            The string value stored at each node in the instance.
         
         Example
         -------
@@ -440,9 +393,9 @@ class SuffixTrie(Extra):
         │ ├── na$ ⟶ 2
         │ └── $ ⟶ 4
         └── $ ⟶ 6
-        >>> t.has_substring("ban")
+        >>> st.has_substring("ban")
         True
-        >>> t.has_substring("ab")
+        >>> st.has_substring("ab")
         False
         """
         return self._rt.has_prefix(substr)
@@ -525,7 +478,8 @@ class SuffixTrie(Extra):
         
         Raises
         ------
-        AssertionError: If the given `node` is not a `TrieNode()`.
+        AssertionError:
+            If the given `node` is not a `TrieNode()`.
         
         Example
         -------
@@ -543,7 +497,7 @@ class SuffixTrie(Extra):
         │ └── $ ⟶ 4
         └── $ ⟶ 6
         >>> st._get_ancestors_data(st._root)
-        
+        >>>
         >>> node = st._rt._root.get_child('a').get_child("n").get_child("n")
         >>> node
         TrieNode(na$ ⟶ 1)
@@ -573,9 +527,11 @@ class SuffixTrie(Extra):
             A list of longest commong substring(s) found in the `SuffixTrie()`
         
         Example
+        -------
         >>> st = SuffixTrie("banana")
         >>> st.get_longest_common_substring()
         ['ana']
+        >>>
         >>> st = SuffixTrie("abcpqrabpqpq")
         >>> st.get_longest_common_substring()
         ["pq", "ab"]
@@ -611,9 +567,11 @@ class SuffixTrie(Extra):
             A list of longest reapeated substring(s) found in the `SuffixTrie()`
         
         Example
+        -------
         >>> st = SuffixTrie("banana")
         >>> st.get_longest_repeated_substring()
         ['ana']
+        >>>
         >>> st = SuffixTrie("abcpqrabpqpq")
         >>> st.get_longest_repeated_substring()
         ["pq", "ab"]
@@ -650,9 +608,11 @@ class SuffixTrie(Extra):
         
         Raises
         -------
-        TypeError: If either one of the given indices were not an integer.
-        ValueError: If the value of the given indices were invalid, like \
-            negative number of more than the length of the base string.
+        TypeError:
+            If either one of the given indices were not an integer.
+        ValueError:
+            If the value of the given indices were invalid, like negative number
+            of more than the length of the base string.
         
         Example
         -------
@@ -670,11 +630,11 @@ class SuffixTrie(Extra):
         │ └── $ ⟶ 4
         └── $ ⟶ 6
         >>> st.get_lowest_common_ancestor(2, 4)
-        na
+        'na'
         >>> st.get_lowest_common_ancestor(0, 6)
-
+        ''
         >>> st.get_lowest_common_ancestor(1, 5)
-        a
+        'a'
         """
         if type(i) != int or type(j) != int:
             raise TypeError("`i` and `j` should be integer values!!")

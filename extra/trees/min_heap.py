@@ -17,52 +17,6 @@ are completely filled. So, given an **n** inserted items, the height of the
 heap should be **log(n)** at most.
 
 .. image:: ../../img/trees/min_heap.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **h** is the height of the BST which approximatley equals to **log(n)**.
-
-+--------------------------+----------------------------------------------------+------------+---------+
-| Method                   | Description                                        | Worst-case | Optimal |
-+==========================+====================================================+============+=========+
-| __len__()                | Returns the number of nodes in the min heap.       | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_empty()               | Checks if min heap is empty.                       | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the min heap as a string.               | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the min heap.                        | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __contains__()           | Checks the existence of the given item.            | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole min heap instance.                | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the min heap instance to list.            | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_min()                | Gets the minimum number in the min heap.           | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_max()                | Gets the maximum number in the min heap.           | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| insert()                 | Inserts a certain value to the min heap.           | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove()                 | Removes a certain value from the min heap.         | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove_min()             | Removes the minimum value from the min heap.       | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove_max()             | Removes a certain value from the min heap.         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `MinHeap()` objects:
 """
 from extra.trees._heap import Heap
 
@@ -87,6 +41,8 @@ class MinHeap(Heap):
         >>> min_heap = MinHeap()
         >>> type(min_heap)
         <class 'extra.trees.min_heap.MinHeap'>
+        >>> min_heap
+        / \\
         """
         super().__init__()
     
@@ -111,11 +67,12 @@ class MinHeap(Heap):
         
         Raises
         ------
-        TypeError: It can be raised in two cases
-            1. In case the given object isn't iterable.
-            2. If one of the elements in the iterable is NOT a number.
-
-        ValueError: If one of the iterable elements is `None`.
+        TypeError:
+            It can be raised in two cases
+                1. In case the given object isn't iterable.
+                2. If one of the elements in the iterable is NOT a number.
+        ValueError:
+            If one of the iterable elements is `None`.
 
         Examples
         --------
@@ -125,7 +82,6 @@ class MinHeap(Heap):
           4       1
          / \\     / \\
         7   9    3   2
-
 
         Using an iterable object with `None` as one of its elements will raise
         `ValueError`
@@ -150,7 +106,7 @@ class MinHeap(Heap):
     ##############################     LENGTH     ##############################
     def __len__(self):
         """
-        Gets the length of the `MinHeap()` instance in time-complexity of O(1).
+        Gets the length of the `MinHeap()` instance in constant time.
         
         Returns
         -------
@@ -175,8 +131,7 @@ class MinHeap(Heap):
     
     def is_empty(self):
         """
-        Checks if the `MinHeap()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `MinHeap()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -233,7 +188,8 @@ class MinHeap(Heap):
         
         Raises
         ------
-        IndexError: In case the `MinHeap()` instance is empty.
+        IndexError:
+            In case the `MinHeap()` instance is empty.
 
         Example
         -------
@@ -265,7 +221,8 @@ class MinHeap(Heap):
         
         Raises
         ------
-        IndexError: In case the `MinHeap()` instance is empty.
+        IndexError:
+            In case the `MinHeap()` instance is empty.
 
         Example
         -------
@@ -289,7 +246,7 @@ class MinHeap(Heap):
     def __contains__(self, num):
         """
         Searches the `MinHeap()` for the given value and returns `True` if the 
-        value exists and `False` if not.
+        value exists and `False` if not in linear time.
 
         Parameters
         ----------
@@ -334,8 +291,10 @@ class MinHeap(Heap):
         
         Raises
         ------
-        ValueError: If the given `value` is `None`.
-        TypeError: If the given `value` is not a numeric value.
+        ValueError:
+            If the given `value` is `None`.
+        TypeError:
+            If the given `value` is not a numeric value.
 
         Example
         -------
@@ -372,8 +331,9 @@ class MinHeap(Heap):
         
         Raises
         ------
-        UserWarning: If the `MinHeap()` instance is empty of if the value \
-            wasn't found in the instance.
+        UserWarning:
+            If the `MinHeap()` instance is empty of if the value wasn't found
+            in the instance.
         
         Example
         -------
@@ -404,8 +364,9 @@ class MinHeap(Heap):
 
         Raises
         ------
-        UserWarning: If the `MinHeap()` instance is empty of if the value \
-            wasn't found in the instance.
+        UserWarning:
+            If the `MinHeap()` instance is empty of if the value wasn't found
+            in the instance.
         
         Example
         -------
@@ -434,8 +395,9 @@ class MinHeap(Heap):
 
         Raises
         ------
-        UserWarning: If the `MinHeap()` instance is empty of if the value \
-            wasn't found in the instance.
+        UserWarning:
+            If the `MinHeap()` instance is empty of if the value wasn't found
+            in the instance.
         
         Example
         -------
@@ -463,10 +425,10 @@ class MinHeap(Heap):
         Iterates over the `MinHeap()` instance and returns a generator of the 
         heap node values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        int or float:
+            The number stored at each node in the instance.
 
         Example
         -------

@@ -6,54 +6,6 @@ matching" which involves being given a string and looking for all the sequences
 that contain the given string as a prefix.
 
 .. image:: ../../img/trees/trie.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **m** is the number of elements in the *other* container.
-
-+-----------------------+------------------------------------------+------------+---------+
-| Method                | Description                              | Worst-case | Optimal |
-+=======================+==========================================+============+=========+
-| __len__()             | Returns the number of nodes.             | O(n)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| is_empty()            | Checks if trie is empty.                 | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __repr__()            | Represents the trie.                     | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __iter__()            | Iterates over the trie.                  | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __contains__()        | Checks the existence of the given item   | O(m)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_height()          | Gets the trie's height                   | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_depth()           | Gets the trie's depth                    | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_nodes_per_level() | Returns a list of all nodes per level    | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| count_leaf_nodes()    | Counts all leaf nodss in the trie        | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| clear()               | Clears the whole trie instance           | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| to_list()             | Converts the trie instance to  list.     | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| auto_complete()       | Auto-completes given index from the trie | O(m)       | O(m)    |
-+-----------------------+------------------------------------------+------------+---------+
-| insert()              | Inserts a new word to the trie.          | O(m)       | O(m)    |
-+-----------------------+------------------------------------------+------------+---------+
-| remove()              | Removes a word from the trie.            | O(m)       | O(m)    |
-+-----------------------+------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `Trie()` objects:
 """
 import warnings
 from extra.trees.tree import TreeNode, Tree
@@ -82,7 +34,8 @@ class TrieNode(TreeNode):
 
         Raises
         ------
-        TypeError: If the given item is not a `str` object.
+        TypeError:
+            If the given item is not a `str` object.
         """
         if type(value) != str:
             raise TypeError("Trienodes accept characters only!!")
@@ -169,9 +122,10 @@ class TrieNode(TreeNode):
 
         Raises
         ------
-        TypeError: This can be raised due to the following reasons:
-            1. The given key is not a `str`.
-            2. If the given item is not an `TrieNode()` object.
+        TypeError:
+            This can be raised due to the following reasons:
+                1. The given key is not a `str`.
+                2. If the given item is not an `TrieNode()` object.
         """
         if type(ch) != str:
             raise TypeError(
@@ -213,14 +167,16 @@ class TrieNode(TreeNode):
         -------
         >>> x = TrieNode("x")
         >>> x
-        >>> TrieNode("x")
+        TrieNode("x")
         """
         return f"TrieNode({self._data})"
 
 
     def _represent(self):
         """
-        
+        A helpful function used to represent the `TrieNode()` instance when
+        printing. It's used with Tree.__repr__() method
+
         Note
         ----
         The following character: '✓' is appended to a the `TrieNode()` object if
@@ -237,9 +193,9 @@ class TrieNode(TreeNode):
 class Trie(Tree):
     """
     A trie is a tree-based data structure that can be defined recursively using
-    a collection of `TrieNode()` instances, where each node contains string 
-    value and each node has a list of references to the children `TrieNode()`
-    instances.
+    a collection of tree nodes, where each node contains a string  value and
+    each node has a list of references to the children tree nodes in a tree-form
+    structure.
     """
     __name__ = "extra.Trie()"
     
@@ -253,6 +209,8 @@ class Trie(Tree):
         >>> t = Trie()
         >>> type(t)
         <class 'extra.trees.trie.Trie'>
+        >>> t
+        --
         """
         self._root = TrieNode("ROOT")
         self._nodes_count = 1
@@ -275,9 +233,10 @@ class Trie(Tree):
         
         Raises
         -------
-        ValueError: If the given `word` is empty and `accept_empty_string` is \
-            `False`.
-        TypeError: If the type of the given `word` is not `str`.
+        ValueError:
+            If the given `word` is empty and `accept_empty_string` is `False`.
+        TypeError:
+            If the type of the given `word` is not `str`.
         """
         super()._validate_item(word)
         if type(word) != str:
@@ -308,7 +267,7 @@ class Trie(Tree):
         --------
         >>> t = Trie()
         >>> len(t)
-        0
+        1
         >>> t.insert("car")
         >>> t.insert("cart")
         >>> t.insert("cast")
@@ -328,8 +287,7 @@ class Trie(Tree):
 
     def is_empty(self):
         """
-        Checks if the `Trie()` instance is empty or not in time-complexity of
-        O(1).
+        Checks if the `Trie()` instance is empty or not in constant time.
         
         Returns
         -------
@@ -480,12 +438,12 @@ class Trie(Tree):
     def __iter__(self):
         """
         Iterates over the `Trie()` instance and returns a generator of the 
-        `TrieNode()` values in breadth-first manner.
+        nodes values in breadth-first manner.
 
-        Returns
-        -------
-        generator:
-            The value of each node in the instance.
+        Yields
+        ------
+        str:
+            The string stored at each node in the instance.
         
         Example
         -------
@@ -567,7 +525,8 @@ class Trie(Tree):
         
         Raises
         ------
-        AssertionError: If the given word isn't a `str`.
+        AssertionError:
+            If the given word isn't a `str`.
         
         Example
         -------
@@ -587,7 +546,7 @@ class Trie(Tree):
         >>> node
         TrieNode(s)
         >>> remaining
-        e
+        'e'
         """
         assert type(word) == str
 
@@ -680,10 +639,10 @@ class Trie(Tree):
               └── t ✓
         >>> t.has_prefix("car")
         True
-        >>> "cas" in t
-        False
         >>> t.has_prefix("cas")
         True
+        >>> "cas" in t
+        False
         """
         if type(prefix) != str:
             return False
@@ -707,8 +666,10 @@ class Trie(Tree):
         
         Raises
         ------
-        ValueError: If the given `word` is empty.
-        TypeError: If the type of the given `word` is not `str`.
+        ValueError:
+            If the given `word` is empty.
+        TypeError:
+            If the type of the given `word` is not `str`.
 
         Example
         -------
@@ -748,8 +709,9 @@ class Trie(Tree):
         
         Raises
         ------
-        UserWarning: If the `Trie()` instance is empty of if the value wasn't \
-            found in the instance.
+        UserWarning:
+            If the `Trie()` instance is empty of if the value wasn't found in
+            the instance.
         
         Example
         -------
@@ -868,7 +830,7 @@ class Trie(Tree):
             │ └── t ✓
             └─┬ s
               └── t ✓
-        >>> t.auto_complete("ca")
+        >>> t.auto_complete("car")
         ["car", "cart"]
         >>> t.auto_complete("cas")
         ["cast"]
@@ -924,4 +886,5 @@ class Trie(Tree):
         [['c'], ['a'], ['r', 's'], ['t', 't']]
         """
         return super().get_nodes_per_level()[1:]
+
 

@@ -47,42 +47,6 @@ Now, let's try to use the previous tree to explain a few terms:
     furthest leaf node. In this case, the tree height is 3.
 - **Depth**: The depth of a tree node is the number of edges between this tree \
     node and the root. So, the depth of the tree's root is always 0.
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-
-+-----------------------+------------------------------------------+------------+---------+
-| Method                | Description                              | Worst-case | Optimal |
-+=======================+==========================================+============+=========+
-| is_empty()            | Checks if the tree is empty.             | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __len__()             | Returns the number of nodes in the tree. | O(n)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __repr__()            | Represents the tree as a string.         | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __iter__()            | Iterates over the tree.                  | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| __contains__()        | Checks the existence of the given item.  | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_height()          | Gets the tree's height.                  | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_depth()           | Gets the tree's depth.                   | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| get_nodes_per_level() | Returns a list of all nodes per level.   | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| count_leaf_nodes()    | Counts all leaf nodes in the tree.       | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
-| clear()               | Clears the whole tree instance.          | O(1)       | O(1)    |
-+-----------------------+------------------------------------------+------------+---------+
-| to_list()             | Converts the tree instance to  list.     | O(n)       | O(n)    |
-+-----------------------+------------------------------------------+------------+---------+
 """
 import os
 from extra.interface import Extra

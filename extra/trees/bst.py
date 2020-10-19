@@ -88,76 +88,6 @@ Now, let's try to use the previous BST to explain a few terms:
         previuos BST will be: \
 
             8 ⟶ 5 ⟶ 15 ⟶ 2 ⟶ 7 ⟶ 10 ⟶ 3
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **h** is the height of the BST which approximatley equals to **log(n)** \
-    when the tree is balanced.
-
-+--------------------------+----------------------------------------------------+------------+---------+
-| Method                   | Description                                        | Worst-case | Optimal |
-+==========================+====================================================+============+=========+
-| is_empty()               | Checks if the BST is empty.                        | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __len__()                | Returns the number of nodes inside the BST.        | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __repr__()               | Represents the BST.                                | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __iter__()               | Iterates over the BST.                             | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| __contains__()           | Checks the existence of the given item.            | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_height()             | Gets the BST's height.                             | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_depth()              | Gets the BST's depth.                              | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_nodes_per_level()    | Returns a list of all nodes per level.             | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_balanced()            | Checks if the BST is balanced.                     | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_perfect()             | Checks if the BST is perfect.                      | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| is_strict()              | Checks if the BST is strict.                       | O(n)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| count_leaf_nodes()       | Counts all leaf nodes in the BST.                  | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| clear()                  | Clears the whole BST instance.                     | O(1)       | O(1)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| to_list()                | Converts the BST instance to a normal list.        | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| traverse()               | Traverses the BST based on given method.           | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| preorder_traverse()      | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| inorder_traverse()       | Traverses the BST in an in-order manner.           | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| postorder_traverse()     | Traverses the BST in an post-order manner.         | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| breadth_first_traverse() | Traverses the BST level by level.                  | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| depth_first_traverse()   | Traverses the BST in an pre-order manner.          | O(n)       | O(n)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_min()                | Gets the minimum number in the BST.                | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| get_max()                | Gets the maximum number in the BST.                | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| insert()                 | Inserts a certain value to the BST.                | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-| remove()                 | Removes a certain value from the BST.              | O(h)       | O(h)    |
-+--------------------------+----------------------------------------------------+------------+---------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `BST()` objects:
-
 """
 import warnings
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
@@ -361,11 +291,11 @@ class BSTNode(BinaryTreeNode):
 class BST(BinaryTree):
     """
     A BST is a non-linear data structure that can be defined recursively
-    using a collection of `BSTNode()` instances, where each node contains a 
-    numeric value and it has either zero, one or two references to the children
-    `BSTNode()` instances. And the value holding by the node must be greater
-    than all values being hold by the left subtree and smaller that all the
-    values being hold by the right subtree.
+    using a collection of binary tree nodes, where each node contains a numeric
+    value and it has either zero, one or two references to the children binary
+    tree nodes. And the value holding by the node must be greater than all
+    values being hold by the left subtree and smaller that all the values being
+    hold by the right subtree.
     """
     _basic_node = BSTNode
     __name__ = "extra.BST()"

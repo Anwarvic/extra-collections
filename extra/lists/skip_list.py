@@ -42,49 +42,6 @@ we expect the height of the skip list to be about **log(n)**.
 The -∞ setntinel value is put in the SkipList() as a convention. So, it doesn't
 count as an element in the SkipList(). In other words, the zeroths element in 
 the above skip list is `0` not `-∞`.
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-- **k** is the value of a parameter.
-- **h** is the height of the skip list.
-
-+----------------+------------------------------------------+------------+-----------+
-| Method         | Description                              | Worst-case | Optimal   |
-+================+==========================================+============+===========+
-| __len__()      | Returns the number of skip nodes.        | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| is_empty()     | Checks if the skip list is empty.        | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| __repr__()     | Represents the skip list as a string.    | O(n*h)     | O(n*h)    |
-+----------------+------------------------------------------+------------+-----------+
-| __iter__()     | Iterates over the skip list.             | O(n)       | O(n)      |
-+----------------+------------------------------------------+------------+-----------+
-| __contains__() | Checks the existence of the given item.  | O(log(n))  | O(log(n)) |
-+----------------+------------------------------------------+------------+-----------+
-| __getitem__()  | Returns the element at a certain index.  | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| __delitem__()  | Deletes the value at the given index.    | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| insert()       | Adds the given item to the instance.     | O(k)       | O(k)      |
-+----------------+------------------------------------------+------------+-----------+
-| remove()       | Removes the given value if found.        | O(log(n))  | O(log(n)) |
-+----------------+------------------------------------------+------------+-----------+
-| clear()        | Clears the whole skip list.              | O(1)       | O(1)      |
-+----------------+------------------------------------------+------------+-----------+
-| to_list()      | Converts the skip list to a normal list. | O(n)       | O(n)      |
-+----------------+------------------------------------------+------------+-----------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `SkipList()` objects:
 """
 import random
 from extra.interface import Extra

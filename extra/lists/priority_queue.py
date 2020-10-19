@@ -22,40 +22,6 @@ item in the PriorityQueue(), you can set the static variable `SHOW_PRIORITY` to
 
 
 .. image:: ../../img/lists/priority_queue.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-Generally, we are going to use the following indicators in the table:
-
-- **n** is the number of elements currently in the container.
-
-+------------+--------------------------------------------+-------------+-------------+
-| Method     | Description                                | Worst-case  | Optimal     |
-+============+============================================+=============+=============+
-| __len__()  | Returns the number of values in the queue. | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| enqueue()  | Adds new value to the top of the queue.    | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| dequeue()  | Adds the value from the top of the queue.  | O(n)        | O(n)        |
-+------------+--------------------------------------------+-------------+-------------+
-| top()      | Returns the value at the top of the queue. | O(n)        | O(n)        |
-+------------+--------------------------------------------+-------------+-------------+
-| clear()    | Clears the priority queue.                 | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| is_empty() | Checks if the priority queue is empty.     | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| is_full()  | Checks if the priority queue is full.      | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `PriorityQueue()`
-objects:
 """
 import random
 import warnings

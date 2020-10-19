@@ -5,36 +5,6 @@ insert objects into a stack at any time, but may only access or remove the most
 recently inserted object that remains at, the so-called, **top** of the stack.
 
 .. image:: ../../img/lists/stack.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-
-+------------+--------------------------------------------+-------------+-------------+
-| Method     | Description                                | Worst-case  | Optimal     |
-+============+============================================+=============+=============+
-| __len__()  | Returns the number of values in the stack. | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| push()     | Adds new value to the top of the stack.    | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| pop()      | Adds the value from the top of the stack.  | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| peek()     | Returns the value at the top of the stack. | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| clear()    | Clears the stack.                          | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| is_empty() | Checks if the stack is empty.              | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-| is_full()  | Checks if the stack is full.               | O(1)        | O(1)        |
-+------------+--------------------------------------------+-------------+-------------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `Stack()` objects:
 """
 import warnings
 from extra.interface import Extra

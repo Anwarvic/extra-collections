@@ -5,42 +5,6 @@ Deque is a short for "double-ended queue". The deque is more general than both
 the stack and the queue.
 
 .. image:: ../../img/lists/deque.gif
-
-
-⏱ Time-Complexity
--------------------
-The following table sums up all the different public functionality in this
-class and also provides the worst-case time complexity along side with the
-optimal time complexity that I will try to reach in future releases Insha'Allah.
-
-+----------------+---------------------------------------------------+-------------+-------------+
-| Method         | Description                                       | Worst-case  | Optimal     |
-+================+===================================================+=============+=============+
-| __len__()      | Returns the number of values in the deque.        | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| append_left()  | Adds new value to the left-side of the deque.     | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| append_right() | Adds new value to the right-side of the deque.    | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| pop_left()     | Removes value from the left-side of the deque.    | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| pop_right()    | Removes value from the right-side of the deque.   | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| get_left()     | Returns the value at the left-side of the deque.  | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| get_right()    | Returns the value at the right-side of the deque. | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| clear()        | Clears the deque.                                 | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| is_empty()     | Checks if the deque is empty.                     | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-| is_full()      | Checks if the deque is full.                      | O(1)        | O(1)        |
-+----------------+---------------------------------------------------+-------------+-------------+
-
-
-☕️ API
--------
-Here are all of the public methods that can be used with `Deque()` objects:
 """
 import warnings
 from extra.lists.queue import Queue
