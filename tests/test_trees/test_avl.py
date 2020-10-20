@@ -1,26 +1,42 @@
 import pytest
-from tests import *
+import random
+from tests import (
+    get_string,
+    get_list,
+    get_float,
+    get_int,
+    get_neg_int,
+    verify_bst_rules,
+)
 from extra.trees.avl import AVLNode, AVL
 
 
 def test_avl_node():
-    with pytest.raises(TypeError): AVLNode(None)
-    with pytest.raises(TypeError): AVLNode('  ')
-    with pytest.raises(TypeError): AVLNode(AVL())
-    with pytest.raises(TypeError): AVLNode(get_string())
-    with pytest.raises(TypeError): AVLNode(get_list())
+    with pytest.raises(TypeError):
+        AVLNode(None)
+    with pytest.raises(TypeError):
+        AVLNode("  ")
+    with pytest.raises(TypeError):
+        AVLNode(AVL())
+    with pytest.raises(TypeError):
+        AVLNode(get_string())
+    with pytest.raises(TypeError):
+        AVLNode(get_list())
     # these shouldn't raise any erros
     for val in [get_int(), get_float()]:
         node = AVLNode(val)
         assert node.get_data() == val
-        assert node.get_left() == node.get_right() == None
+        assert node.get_left() == node.get_right() is None
         assert node.get_children() == []
         assert node._height == 0
         assert node.get_children_heights() == [0, 0]
         assert node.is_balanced()
-        with pytest.raises(TypeError): node.set_height(get_string())
-        with pytest.raises(TypeError): node.set_height(get_float())
-        with pytest.raises(ValueError): node.set_height(get_neg_int())
+        with pytest.raises(TypeError):
+            node.set_height(get_string())
+        with pytest.raises(TypeError):
+            node.set_height(get_float())
+        with pytest.raises(ValueError):
+            node.set_height(get_neg_int())
 
 
 def test_empty_avl(avl=AVL()):
@@ -29,16 +45,21 @@ def test_empty_avl(avl=AVL()):
     assert avl.get_height() == 0
     assert avl.to_list() == []
     assert avl.count_leaf_nodes() == 0
-    with pytest.warns(UserWarning): avl.is_balanced()
-    with pytest.warns(UserWarning): avl.is_perfect()
-    with pytest.warns(UserWarning): avl.is_strict()
+    with pytest.warns(UserWarning):
+        avl.is_balanced()
+    with pytest.warns(UserWarning):
+        avl.is_perfect()
+    with pytest.warns(UserWarning):
+        avl.is_strict()
     assert avl.preorder_traverse() == []
     assert avl.postorder_traverse() == []
     assert avl.inorder_traverse() == []
     assert avl.breadth_first_traverse() == []
     assert avl.traverse() == []
-    with pytest.raises(IndexError): avl.get_max()
-    with pytest.raises(IndexError): avl.get_min()
+    with pytest.raises(IndexError):
+        avl.get_max()
+    with pytest.raises(IndexError):
+        avl.get_min()
 
 
 def test_avl_one_value():
@@ -66,8 +87,9 @@ def test_avl_one_value():
     assert avl.depth_first_traverse() == [val]
     assert avl.postorder_traverse() == [val]
     assert avl.inorder_traverse() == [val]
-    #test remove
-    with pytest.warns(UserWarning): avl.remove(9)
+    # test remove
+    with pytest.warns(UserWarning):
+        avl.remove(9)
     avl.remove(val)
     # test empty avl
     test_empty_avl(avl)
@@ -99,7 +121,7 @@ def test_simple_avl_tree():
     assert not avl.is_perfect()
     assert not avl.is_strict()
     assert avl.to_list() == [44, 17, 62, 32, 50, 78, 48, 54, 88]
-    
+
     assert avl.preorder_traverse() == [44, 17, 32, 62, 50, 48, 54, 78, 88]
     assert avl.postorder_traverse() == [32, 17, 48, 54, 50, 88, 78, 62, 44]
     assert avl.inorder_traverse() == [17, 32, 44, 48, 50, 54, 62, 78, 88]
@@ -168,11 +190,15 @@ def test_avl_big_example():
     assert not avl.is_perfect()
     assert not avl.is_strict()
     assert avl.to_list() == [22, 18, 50, 8, 21, 43, 62, 6, 9, 20, 51, 63]
-    
-    assert avl.preorder_traverse() == [22, 18, 8, 6, 9, 21, 20, 50, 43, 62, 51, 63]
-    assert avl.postorder_traverse() == [6, 9, 8, 20, 21, 18, 43, 51, 63, 62, 50, 22]
-    assert avl.inorder_traverse() == [6, 8, 9, 18, 20, 21, 22, 43, 50, 51, 62, 63]
-    assert avl.breadth_first_traverse() == [22, 18, 50, 8, 21, 43, 62, 6, 9, 20, 51, 63]
+
+    assert avl.preorder_traverse() == \
+        [22, 18, 8, 6, 9, 21, 20, 50, 43, 62, 51, 63]
+    assert avl.postorder_traverse() == \
+        [6, 9, 8, 20, 21, 18, 43, 51, 63, 62, 50, 22]
+    assert avl.inorder_traverse() == \
+        [6, 8, 9, 18, 20, 21, 22, 43, 50, 51, 62, 63]
+    assert avl.breadth_first_traverse() == \
+        [22, 18, 50, 8, 21, 43, 62, 6, 9, 20, 51, 63]
     assert avl.traverse() == [6, 8, 9, 18, 20, 21, 22, 43, 50, 51, 62, 63]
     assert avl.get_max() == 63
     assert avl.get_min() == 6
@@ -225,13 +251,19 @@ def test_search_insert_remove_input(avl=AVL()):
     assert None not in avl
     assert get_string() not in avl
     assert get_list() not in avl
-    with pytest.raises(ValueError): avl.insert(None)
-    with pytest.raises(TypeError): avl.insert(get_string())
-    with pytest.raises(TypeError): avl.insert(get_list())
-    
-    with pytest.warns(UserWarning): avl.remove(None)
-    with pytest.warns(UserWarning): avl.remove(get_string())
-    with pytest.warns(UserWarning): avl.remove(get_list())
+    with pytest.raises(ValueError):
+        avl.insert(None)
+    with pytest.raises(TypeError):
+        avl.insert(get_string())
+    with pytest.raises(TypeError):
+        avl.insert(get_list())
+
+    with pytest.warns(UserWarning):
+        avl.remove(None)
+    with pytest.warns(UserWarning):
+        avl.remove(get_string())
+    with pytest.warns(UserWarning):
+        avl.remove(get_list())
 
 
 def test_left_rotation():
@@ -251,7 +283,7 @@ def test_left_rotation():
     assert avl.is_perfect()
     assert avl.is_strict()
     assert avl.to_list() == [5, 0, 10]
-    
+
     assert avl.preorder_traverse() == [5, 0, 10]
     assert avl.postorder_traverse() == [0, 10, 5]
     assert avl.inorder_traverse() == [0, 5, 10]
@@ -295,7 +327,7 @@ def test_right_rotation():
     assert avl.is_perfect()
     assert avl.is_strict()
     assert avl.to_list() == [5, 0, 10]
-    
+
     assert avl.preorder_traverse() == [5, 0, 10]
     assert avl.postorder_traverse() == [0, 10, 5]
     assert avl.inorder_traverse() == [0, 5, 10]
@@ -339,7 +371,7 @@ def test_left_right_rotation():
     assert avl.is_perfect()
     assert avl.is_strict()
     assert avl.to_list() == [7, 5, 10]
-    
+
     assert avl.preorder_traverse() == [7, 5, 10]
     assert avl.postorder_traverse() == [5, 10, 7]
     assert avl.inorder_traverse() == [5, 7, 10]
@@ -360,7 +392,7 @@ def test_left_right_rotation():
     assert root.get_right().get_height() == 0
     assert root.get_right().get_left() is None
     assert root.get_right().get_right() is None
-    
+
     # clear
     avl.clear()
     test_empty_avl(avl)
@@ -383,7 +415,7 @@ def test_right_left_rotation():
     assert avl.is_perfect()
     assert avl.is_strict()
     assert avl.to_list() == [5, 2, 10]
-    
+
     assert avl.preorder_traverse() == [5, 2, 10]
     assert avl.postorder_traverse() == [2, 10, 5]
     assert avl.inorder_traverse() == [2, 5, 10]
@@ -428,7 +460,7 @@ def test_remove_avl():
     assert not avl.is_perfect()
     assert not avl.is_strict()
     assert avl.to_list() == [54, 44, 78, 32, 48, 88]
-    
+
     assert avl.preorder_traverse() == [54, 44, 32, 48, 78, 88]
     assert avl.postorder_traverse() == [32, 48, 44, 88, 78, 54]
     assert avl.inorder_traverse() == [32, 44, 48, 54, 78, 88]

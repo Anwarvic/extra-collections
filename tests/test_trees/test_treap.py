@@ -1,30 +1,46 @@
 import pytest
-from tests import *
+from tests import (
+    get_string,
+    get_list,
+    get_pos_int,
+    get_float,
+    get_int,
+    verify_bst_rules,
+    verify_treap_priority
+)
 from extra.trees.treap import TreapNode, Treap
 
 
-
-
 def test_treap_node():
-    with pytest.raises(TypeError): TreapNode(None)
-    with pytest.raises(TypeError): TreapNode('  ')
-    with pytest.raises(TypeError): TreapNode(Treap(get_int()))
-    with pytest.raises(TypeError): TreapNode(TreapNode(get_int()))
-    with pytest.raises(TypeError): TreapNode(get_string())
-    with pytest.raises(TypeError): TreapNode(get_list())
+    with pytest.raises(TypeError):
+        TreapNode(None)
+    with pytest.raises(TypeError):
+        TreapNode("  ")
+    with pytest.raises(TypeError):
+        TreapNode(Treap(get_int()))
+    with pytest.raises(TypeError):
+        TreapNode(TreapNode(get_int()))
+    with pytest.raises(TypeError):
+        TreapNode(get_string())
+    with pytest.raises(TypeError):
+        TreapNode(get_list())
     # check priority
-    with pytest.raises(TypeError): TreapNode(get_int(), get_string())
-    with pytest.raises(TypeError): TreapNode(get_int(), get_list())
+    with pytest.raises(TypeError):
+        TreapNode(get_int(), get_string())
+    with pytest.raises(TypeError):
+        TreapNode(get_int(), get_list())
     # these shouldn't raise any erros
     for val in [get_int(), get_float()]:
         priority = get_int()
         node = TreapNode(val, priority)
         assert node.get_data() == val
         assert node.get_priority() == priority
-        assert node.get_left() == node.get_right() == None
+        assert node.get_left() == node.get_right() is None
         assert node.get_children() == []
-        with pytest.raises(TypeError): node.set_priority(get_string())
-        with pytest.raises(TypeError): node.set_priority(get_list())
+        with pytest.raises(TypeError):
+            node.set_priority(get_string())
+        with pytest.raises(TypeError):
+            node.set_priority(get_list())
 
 
 def test_treap_one_value():
@@ -52,21 +68,29 @@ def test_treap_one_value():
     assert treap.depth_first_traverse() == [val]
     assert treap.postorder_traverse() == [val]
     assert treap.inorder_traverse() == [val]
-    #test remove
-    treap.remove(9) #do nothing
+    # test remove
+    treap.remove(9)  # do nothing
     treap.remove(val)
     # validate
     assert None not in treap
     assert get_string() not in treap
     assert get_list() not in treap
-    with pytest.raises(ValueError): treap.insert(None)
-    with pytest.raises(TypeError): treap.insert(get_string())
-    with pytest.raises(TypeError): treap.insert(get_list())
-    with pytest.raises(TypeError): treap.insert(get_int(), get_string())
-    with pytest.raises(TypeError): treap.insert(get_int(), get_list())
-    with pytest.warns(UserWarning): treap.remove(None)
-    with pytest.warns(UserWarning): treap.remove(get_string())
-    with pytest.warns(UserWarning): treap.remove(get_list())
+    with pytest.raises(ValueError):
+        treap.insert(None)
+    with pytest.raises(TypeError):
+        treap.insert(get_string())
+    with pytest.raises(TypeError):
+        treap.insert(get_list())
+    with pytest.raises(TypeError):
+        treap.insert(get_int(), get_string())
+    with pytest.raises(TypeError):
+        treap.insert(get_int(), get_list())
+    with pytest.warns(UserWarning):
+        treap.remove(None)
+    with pytest.warns(UserWarning):
+        treap.remove(get_string())
+    with pytest.warns(UserWarning):
+        treap.remove(get_list())
 
 
 def test_treap_simple():
@@ -88,8 +112,8 @@ def test_treap_simple():
     assert 100 not in treap
     assert 1.1 not in treap
     # test __iter__ / traverse
-    #test remove
-    treap.remove(9) #do nothing
+    # test remove
+    treap.remove(9)  # do nothing
     treap.remove(4)
     assert len(treap) == 4
     assert 4 not in treap
@@ -99,14 +123,22 @@ def test_treap_simple():
     assert None not in treap
     assert get_string() not in treap
     assert get_list() not in treap
-    with pytest.raises(ValueError): treap.insert(None)
-    with pytest.raises(TypeError): treap.insert(get_string())
-    with pytest.raises(TypeError): treap.insert(get_list())
-    with pytest.raises(TypeError): treap.insert(get_int(), get_string())
-    with pytest.raises(TypeError): treap.insert(get_int(), get_list())
-    with pytest.warns(UserWarning): treap.remove(None)
-    with pytest.warns(UserWarning): treap.remove(get_string())
-    with pytest.warns(UserWarning): treap.remove(get_list())
+    with pytest.raises(ValueError):
+        treap.insert(None)
+    with pytest.raises(TypeError):
+        treap.insert(get_string())
+    with pytest.raises(TypeError):
+        treap.insert(get_list())
+    with pytest.raises(TypeError):
+        treap.insert(get_int(), get_string())
+    with pytest.raises(TypeError):
+        treap.insert(get_int(), get_list())
+    with pytest.warns(UserWarning):
+        treap.remove(None)
+    with pytest.warns(UserWarning):
+        treap.remove(get_string())
+    with pytest.warns(UserWarning):
+        treap.remove(get_list())
 
 
 def test_treap_from_iterable():
@@ -122,7 +154,7 @@ def test_treap_from_iterable():
     assert treap._root.get_left().get_left().get_data() == 0
     assert treap._root.get_left().get_left().get_priority() == 5
     assert treap._root.get_left().get_right() is None
-    
+
     assert treap._root.get_right().get_data() == 70
     assert treap._root.get_right().get_priority() == 57
     assert treap._root.get_right().get_left().get_data() == 50
@@ -151,12 +183,11 @@ def test_treap_from_iterable():
     # test __iter__ / traverse
     assert treap.to_list() == [30, 20, 70, 0, 50, 80, 40]
     assert treap.preorder_traverse() == [30, 20, 0, 70, 50, 40, 80]
-    assert treap.depth_first_traverse() == \
-        [30, 20, 0, 70, 50, 40, 80]
-    assert treap.postorder_traverse()== [0, 20, 40, 50, 80, 70, 30]
+    assert treap.depth_first_traverse() == [30, 20, 0, 70, 50, 40, 80]
+    assert treap.postorder_traverse() == [0, 20, 40, 50, 80, 70, 30]
     assert treap.inorder_traverse() == [0, 20, 30, 40, 50, 70, 80]
-    #test remove
-    treap.remove(500) #do nothing
+    # test remove
+    treap.remove(500)  # do nothing
     treap.remove(30)
     assert len(treap) == 6
     assert 30 not in treap

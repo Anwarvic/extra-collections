@@ -1,20 +1,25 @@
 import pytest
-from tests import *
+from tests import (
+    get_string,
+    get_list,
+    get_float,
+    get_int,
+)
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
-
-
 def test_binary_treenode():
-    with pytest.raises(ValueError): BinaryTreeNode(None)
-    with pytest.raises(TypeError): BinaryTreeNode(BinaryTreeNode(get_int()))
+    with pytest.raises(ValueError):
+        BinaryTreeNode(None)
+    with pytest.raises(TypeError):
+        BinaryTreeNode(BinaryTreeNode(get_int()))
     # make sure white-spaces are normalized
-    assert BinaryTreeNode('\nap\nple\n').get_data() == "\\nap\\nple\\n"
+    assert BinaryTreeNode("\nap\nple\n").get_data() == "\\nap\\nple\\n"
     # the following shouldn't raise anything
     for val in [get_int(), get_float(), get_string(), get_list()]:
         node = BinaryTreeNode(val)
         assert node.get_data() == val
-        assert node.get_left() == node.get_right() == None
+        assert node.get_left() == node.get_right() is None
         assert node.get_children() == []
 
 
@@ -24,9 +29,12 @@ def test_empty_binary_tree(btree=BinaryTree()):
     assert btree.get_height() == 0
     assert btree.to_list() == []
     assert btree.count_leaf_nodes() == 0
-    with pytest.warns(UserWarning): btree.is_balanced()
-    with pytest.warns(UserWarning): btree.is_perfect()
-    with pytest.warns(UserWarning): btree.is_strict()
+    with pytest.warns(UserWarning):
+        btree.is_balanced()
+    with pytest.warns(UserWarning):
+        btree.is_perfect()
+    with pytest.warns(UserWarning):
+        btree.is_strict()
     assert btree.preorder_traverse() == []
     assert btree.postorder_traverse() == []
     assert btree.inorder_traverse() == []
@@ -45,7 +53,7 @@ def test_binary_tree():
     root.get_right().set_right(BinaryTreeNode("Cousin"))
     btree = BinaryTree()
     btree._root = root
-    #test tree structure
+    # test tree structure
     assert btree._root.get_data() == "GrandFather"
     assert btree._root.get_left().get_data() == "Father"
     assert btree._root.get_left().get_left().get_data() == "Me"
@@ -70,20 +78,53 @@ def test_binary_tree():
     assert btree.is_strict()
     assert len(btree) == 7
     assert btree.count_leaf_nodes() == 4
-    assert [item for item in btree] == btree.to_list() == \
-        ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
-    assert btree.preorder_traverse() == btree.depth_first_traverse() == \
-        ["GrandFather", "Father", "Me", "Sibling", "Uncle", "Cousin", "Cousin"]
-    assert btree.postorder_traverse() == \
-        ["Me", "Sibling", "Father", "Cousin", "Cousin", "Uncle", "GrandFather"]
-    assert btree.inorder_traverse() == \
-        ["Me", "Father", "Sibling", "GrandFather", "Cousin", "Uncle", "Cousin"]
-    assert btree.breadth_first_traverse() == \
-        ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin", "Cousin"]
-    with pytest.raises(ValueError): btree.traverse(get_string())
-    with pytest.raises(TypeError): btree.traverse(get_list())
-    with pytest.raises(TypeError): btree.traverse(get_int())
-    with pytest.raises(TypeError): btree.traverse(get_float())
+    assert (
+        [item for item in btree]
+        == btree.to_list()
+        == ["GrandFather", "Father", "Uncle", "Me", "Sibling", "Cousin",
+            "Cousin"]
+    )
+    assert (
+        btree.preorder_traverse()
+        == btree.depth_first_traverse()
+        == ["GrandFather", "Father", "Me", "Sibling", "Uncle", "Cousin",
+            "Cousin"]
+    )
+    assert btree.postorder_traverse() == [
+        "Me",
+        "Sibling",
+        "Father",
+        "Cousin",
+        "Cousin",
+        "Uncle",
+        "GrandFather",
+    ]
+    assert btree.inorder_traverse() == [
+        "Me",
+        "Father",
+        "Sibling",
+        "GrandFather",
+        "Cousin",
+        "Uncle",
+        "Cousin",
+    ]
+    assert btree.breadth_first_traverse() == [
+        "GrandFather",
+        "Father",
+        "Uncle",
+        "Me",
+        "Sibling",
+        "Cousin",
+        "Cousin",
+    ]
+    with pytest.raises(ValueError):
+        btree.traverse(get_string())
+    with pytest.raises(TypeError):
+        btree.traverse(get_list())
+    with pytest.raises(TypeError):
+        btree.traverse(get_int())
+    with pytest.raises(TypeError):
+        btree.traverse(get_float())
     # clear this binary tree
     btree.clear()
     test_empty_binary_tree(btree)
@@ -119,10 +160,26 @@ def test_binary_tree_with_numbers():
 
 
 def test_parse():
-    lst = ["S", ["NP", ["DET", "There"]], ["S", ["VP", ["VERB", "is"],
-        ["VP", ["NP", ["DET", "no"], ["NOUN", "asbestos"]],
-        ["VP", ["PP", ["ADP","in"], ["NP", ["PRON", "our"]]],
-        ["ADVP", ["ADV","now"]]]]]]]
+    lst = [
+        "S",
+        ["NP", ["DET", "There"]],
+        [
+            "S",
+            [
+                "VP",
+                ["VERB", "is"],
+                [
+                    "VP",
+                    ["NP", ["DET", "no"], ["NOUN", "asbestos"]],
+                    [
+                        "VP",
+                        ["PP", ["ADP", "in"], ["NP", ["PRON", "our"]]],
+                        ["ADVP", ["ADV", "now"]],
+                    ],
+                ],
+            ],
+        ],
+    ]
     btree = BinaryTree.parse(lst)
     assert not btree.is_empty()
     assert len(btree) == 24
@@ -135,4 +192,3 @@ def test_parse():
     # clear this binary tree
     btree.clear()
     test_empty_binary_tree(btree)
-

@@ -1,9 +1,7 @@
-import pytest
+# import pytest
 from tests import verify_bst_rules
 from extra.trees.bst import BSTNode
 from extra.trees.splay_tree import SplayTree
-
-
 
 
 def test_splay_tree_example1():
@@ -19,8 +17,10 @@ def test_splay_tree_example1():
     stree._root.get_right().set_right(BSTNode(11))
     stree._root.get_right().get_right().set_right(BSTNode(12))
     stree._root.get_right().get_right().get_right().set_right(BSTNode(16))
-    stree._root.get_right().get_right().get_right().get_right().set_left(BSTNode(13))
-    stree._root.get_right().get_right().get_right().get_right().set_right(BSTNode(17))
+    stree._root.get_right().get_right().get_right().get_right()\
+        .set_left(BSTNode(13))
+    stree._root.get_right().get_right().get_right().get_right()\
+        .set_right(BSTNode(17))
     # let's test it
     assert verify_bst_rules(stree._root)
     assert stree.is_balanced()
@@ -56,7 +56,7 @@ def test_splay_tree_example1():
     assert not stree.is_perfect()
     assert not stree.is_strict()
     # find 2
-    assert not 5.5 in stree
+    assert 5.5 not in stree
     assert stree._root.get_data() == 5
     assert verify_bst_rules(stree._root)
     assert stree.get_max() == 17

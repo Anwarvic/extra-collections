@@ -1,7 +1,7 @@
 import pytest
-from tests import *
+from tests import get_string, get_value, get_list, get_pos_int, get_float, \
+    get_int, get_neg_int, get_neg_float
 from extra.lists.stack import Stack
-
 
 
 def test_creating_stack():
@@ -11,10 +11,12 @@ def test_creating_stack():
     assert s._container == []
     assert len(s) == 0
     assert s.is_empty()
-    assert s.is_full() == False
-    with pytest.warns(UserWarning): assert s.pop() == None
-    with pytest.raises(IndexError): s.peek()
-    s.clear() #not to through any errors
+    assert s.is_full() is False
+    with pytest.warns(UserWarning):
+        assert s.pop() is None
+    with pytest.raises(IndexError):
+        s.peek()
+    s.clear()  # not to through any errors
     assert s._max_capacity == float("inf")
     # empty stack with max_capacity == 0
     s = Stack(max_capacity=0)
@@ -23,17 +25,20 @@ def test_creating_stack():
     assert len(s) == 0
     assert s.is_empty()
     assert s.is_full()
-    with pytest.warns(UserWarning): assert s.pop() == None
-    with pytest.raises(IndexError): s.peek()
-    with pytest.raises(OverflowError): s.push(get_value() )
-    s.clear() #not to through any errors
+    with pytest.warns(UserWarning):
+        assert s.pop() is None
+    with pytest.raises(IndexError):
+        s.peek()
+    with pytest.raises(OverflowError):
+        s.push(get_value())
+    s.clear()  # not to through any errors
     assert s._max_capacity == 0
 
 
 def test_stack_with_max_capacity():
     cap = get_pos_int()
     lst = get_list(length=cap)
-    s = Stack(max_capacity= cap)
+    s = Stack(max_capacity=cap)
     assert s._max_capacity == cap
     for i in lst:
         s.push(i)
@@ -41,13 +46,14 @@ def test_stack_with_max_capacity():
     assert len(s) == cap
     assert not s.is_empty()
     assert s.is_full()
-    with pytest.raises(OverflowError): s.push(get_value())
+    with pytest.raises(OverflowError):
+        s.push(get_value())
     for _ in range(cap):
         assert s.peek() == lst[-1]
         assert s.pop() == lst.pop()
     assert len(s) == 0
     assert s.is_empty()
-    assert s.is_full() == False
+    assert s.is_full() is False
     s.push(get_value())
     # test max capacity after clear
     s.clear()
@@ -55,10 +61,14 @@ def test_stack_with_max_capacity():
 
 
 def test_stack_with_invalid_max_capacity():
-    with pytest.raises(TypeError): Stack(max_capacity=get_list())
-    with pytest.raises(TypeError): Stack(max_capacity=get_string())
-    with pytest.raises(ValueError): Stack(max_capacity=get_neg_int())
-    with pytest.raises(ValueError): Stack(max_capacity=get_neg_float())
+    with pytest.raises(TypeError):
+        Stack(max_capacity=get_list())
+    with pytest.raises(TypeError):
+        Stack(max_capacity=get_string())
+    with pytest.raises(ValueError):
+        Stack(max_capacity=get_neg_int())
+    with pytest.raises(ValueError):
+        Stack(max_capacity=get_neg_float())
 
 
 def test_creating_stack_with_random_numbers():
@@ -77,8 +87,9 @@ def test_creating_stack_with_random_numbers():
         assert s.pop() == lst.pop()
     assert len(s) == 0
     assert s.is_empty()
-    with pytest.warns(UserWarning): assert s.pop() == None
-    assert s.is_full() == False
+    with pytest.warns(UserWarning):
+        assert s.pop() is None
+    assert s.is_full() is False
 
 
 def test_stack_with_known_values():
@@ -88,7 +99,8 @@ def test_stack_with_known_values():
     s.push(800)
     assert len(s) == 3
     assert s._container == [2, 40, 800]
-    with pytest.raises(OverflowError): s.push(16000)
+    with pytest.raises(OverflowError):
+        s.push(16000)
     assert s.peek() == 800
     assert s.pop() == 800
     assert s._container == [2, 40]
@@ -97,16 +109,16 @@ def test_stack_with_known_values():
     s.clear()
     assert s.is_empty()
     assert s._max_capacity == 3
-    assert s.is_full() == False
+    assert s.is_full() is False
 
 
 def test_push_method():
     s = Stack()
-    with pytest.raises(ValueError): s.push(None)
-    s.push('')
+    with pytest.raises(ValueError):
+        s.push(None)
+    s.push("")
     s.push(get_value())
     s.push(get_int())
     s.push(get_string())
     s.push(get_float())
     s.push(get_list())
-

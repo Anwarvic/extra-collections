@@ -1,28 +1,40 @@
 import pytest
-from tests import *
+from tests import (
+    get_string,
+    get_list,
+    get_pos_int,
+    get_float,
+    get_int,
+    verify_min_heap,
+    verify_max_heap,
+)
 from extra.trees._heap import Heap, HeapNode
 from extra.trees.min_heap import MinHeap
 from extra.trees.max_heap import MaxHeap
 
 
-
 def test_heap_node():
-    with pytest.raises(TypeError): HeapNode(None)
-    with pytest.raises(TypeError): HeapNode(get_string())
-    with pytest.raises(TypeError): HeapNode(get_list())
+    with pytest.raises(TypeError):
+        HeapNode(None)
+    with pytest.raises(TypeError):
+        HeapNode(get_string())
+    with pytest.raises(TypeError):
+        HeapNode(get_list())
     val = get_float()
     node = HeapNode(val)
     assert node.get_data() == val
-    assert node.get_left() == node.get_right() == None
+    assert node.get_left() == node.get_right() is None
     assert node.get_children() == []
 
 
 def test_creating_heap():
-    with pytest.raises(TypeError): Heap()
-    with pytest.raises(TypeError): Heap.heapify(get_list())
+    with pytest.raises(TypeError):
+        Heap()
+    with pytest.raises(TypeError):
+        Heap.heapify(get_list())
 
 
-def test_empty_heap(heap = MinHeap()):
+def test_empty_heap(heap=MinHeap()):
     # create it from constructor
     assert len(heap) == 0
     assert heap.is_empty()
@@ -32,21 +44,30 @@ def test_empty_heap(heap = MinHeap()):
     assert get_int() not in heap
     get_list() in heap
     get_string() in heap
-    with pytest.raises(IndexError): heap.get_min()
-    with pytest.raises(IndexError): heap.get_max()
-    with pytest.raises(ValueError): heap.insert(None)
-    with pytest.raises(TypeError): heap.insert(get_string())
-    with pytest.raises(TypeError): heap.insert(get_list())
-    #should raise warnings
-    with pytest.warns(UserWarning): heap.remove(get_int())
-    with pytest.warns(UserWarning): heap.remove(get_float())
-    with pytest.warns(UserWarning): heap.remove(get_string())
-    with pytest.warns(UserWarning): heap.remove(get_list())
+    with pytest.raises(IndexError):
+        heap.get_min()
+    with pytest.raises(IndexError):
+        heap.get_max()
+    with pytest.raises(ValueError):
+        heap.insert(None)
+    with pytest.raises(TypeError):
+        heap.insert(get_string())
+    with pytest.raises(TypeError):
+        heap.insert(get_list())
+    # should raise warnings
+    with pytest.warns(UserWarning):
+        heap.remove(get_int())
+    with pytest.warns(UserWarning):
+        heap.remove(get_float())
+    with pytest.warns(UserWarning):
+        heap.remove(get_string())
+    with pytest.warns(UserWarning):
+        heap.remove(get_list())
 
 
-def test_empty_max_heap(heap = MaxHeap()):
+def test_empty_max_heap(heap=MaxHeap()):
     test_empty_heap(heap)
-    
+
 
 def test_empty_heap_using_heapify():
     # test MinHeap
@@ -71,14 +92,14 @@ def test_empty_heap_after_clearing():
 
 
 def test_heap_with_same_value():
-    for Heap in [MinHeap, MaxHeap]:
+    for HeapClass in [MinHeap, MaxHeap]:
         val = get_float()
         length = get_pos_int()
-        lst = [val]*length
-        heap = Heap.heapify(lst)
-        if Heap == MinHeap:
+        lst = [val] * length
+        heap = HeapClass.heapify(lst)
+        if HeapClass == MinHeap:
             assert verify_min_heap(heap._transform()._root)
-        elif Heap == MaxHeap:
+        elif HeapClass == MaxHeap:
             assert verify_max_heap(heap._transform()._root)
         assert not heap.is_empty()
         assert heap.to_list() == lst
@@ -140,7 +161,8 @@ def test_insert_remove_min_heap():
     assert heap.get_min() == 10
     assert heap.get_max() == 44
     assert verify_min_heap(heap._transform()._root)
-    with pytest.warns(UserWarning): heap.remove(0)
+    with pytest.warns(UserWarning):
+        heap.remove(0)
     assert len(heap) == 10
     heap.remove(10)
     assert len(heap) == 9
@@ -162,7 +184,7 @@ def test_heapify_of_max_heap_small_example():
     assert len(heap) == len(lst)
     assert heap.get_max() == max(lst)
     assert heap.get_min() == min(lst)
-    for node, value in zip(heap,[7, 2, 6, 1]):
+    for node, value in zip(heap, [7, 2, 6, 1]):
         assert node == value
     for num in lst:
         assert num in heap
@@ -179,7 +201,9 @@ def test_heapify_of_max_heap_big_example():
     assert len(heap) == len(lst)
     assert heap.get_max() == max(lst)
     assert heap.get_min() == min(lst)
-    for node, value in zip(heap, [190, 15, 102, 8, 13, 17, 100, 1, 5, 4, 9, 3, 10, 6, 90]):
+    for node, value in zip(
+        heap, [190, 15, 102, 8, 13, 17, 100, 1, 5, 4, 9, 3, 10, 6, 90]
+    ):
         assert node == value
     for num in lst:
         assert num in heap
@@ -204,7 +228,8 @@ def test_insert_remove_max_heap():
     assert not heap.is_empty()
     assert heap.get_min() == 10
     assert heap.get_max() == 44
-    with pytest.warns(UserWarning): heap.remove(0)
+    with pytest.warns(UserWarning):
+        heap.remove(0)
     assert len(heap) == 10
     heap.remove(10)
     assert len(heap) == 9
@@ -216,5 +241,3 @@ def test_insert_remove_max_heap():
     assert heap.get_min() == 14
     assert heap.get_max() == 42
     assert verify_max_heap(heap._transform()._root)
-
-
