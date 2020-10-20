@@ -2,7 +2,7 @@
 A heap is a binary tree that stores a collection of nodes. Each node must
 satisfy two additional properties:
 
-1. **Heap-Order Property**: It is a relational property defined in terms of the 
+1. **Heap-Order Property**: It is a relational property defined in terms of the
 value stored at the node. So, for every node, other than the root, the value
 stored at the node is less than or equal to the value stored at the node's
 parent. As a consequence of the heap-order property, the value encountered on a
@@ -11,16 +11,14 @@ value is always stored at the root of the `MaxHeap()`. This makes it easy to
 locate such a node when `get_max()` or `remove_max()` is called, as it is
 informally said to be at the top of the heap. Hence, the name "Max Heap".
 
-2. **Perfect Binary Tree Property**: It is a structural property defined in 
+2. **Perfect Binary Tree Property**: It is a structural property defined in
 terms of the shape of heap itself. A binary tree is perfect if all its levels
-are completely filled. So, given an **n** inserted items, the height of the heap 
-should be **log(n)** at most.
+are completely filled. So, given an **n** inserted items, the height of the
+heap should be **log(n)** at most.
 
 .. image:: ../../img/trees/max_heap.gif
 """
 from extra.trees._heap import Heap
-
-
 
 
 class MaxHeap(Heap):
@@ -29,13 +27,13 @@ class MaxHeap(Heap):
     node stores a value less than or equal to the value strored at the node's
     parent.
     """
-    __name__ = "extra.MaxHeap()"
 
+    __name__ = "extra.MaxHeap()"
 
     def __init__(self):
         """
         Creates an empty `MaxHeap()` object!!
-        
+
         Example
         -------
         >>> max_heap = MaxHeap()
@@ -45,7 +43,6 @@ class MaxHeap(Heap):
         / \\
         """
         super().__init__()
-
 
     @classmethod
     def heapify(cls, iterable):
@@ -59,12 +56,12 @@ class MaxHeap(Heap):
         iterable: iterable
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
+
         Returns
         -------
         MaxHeap()
             It returns a `MaxHeap()` instance with input values being inserted.
-        
+
         Raises
         ------
         TypeError:
@@ -89,12 +86,12 @@ class MaxHeap(Heap):
 
         >>> MaxHeap.heapify([2, None])
         ValueError: Can't use `None` as an element within `extra.MaxHeap()`!!
-        
+
         Using a non-iterable object will raise `TypeError`
 
         >>> MaxHeap.heapify(2)
         TypeError: The given object isn't iterable!!
-        
+
         Using nested `MaxHeap()` objects will raise `TypeError` as well
 
         >>> max_heap_1 = MaxHeap.heapify([1])
@@ -102,19 +99,18 @@ class MaxHeap(Heap):
         TypeError: Can't create `extra.MaxHeap()` using `extra.MaxHeap()`!!
         """
         return super().heapify(iterable)
-    
 
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `MaxHeap()` instance in time-complexity of O(1).
-        
+
         Returns
         -------
         int:
-            The length of the `MaxHeap()` instance. Length is the number of tree 
-            nodes in the instance.
-        
+            The length of the `MaxHeap()` instance. Length is the number of
+            tree nodes in the instance.
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -129,18 +125,17 @@ class MaxHeap(Heap):
         """
         return super().__len__()
 
-    
     def is_empty(self):
         """
         Checks if the `MaxHeap()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `MaxHeap()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's
             not empty.
-        
+
         Example
         --------
         >>> max_heap = MaxHeap()
@@ -151,13 +146,12 @@ class MaxHeap(Heap):
         False
         """
         return super().is_empty()
-    
-    
-    ##############################     PRINT      ##############################
+
+    # =============================     PRINT    ==============================
     def __repr__(self):
         """
         Represents the `MaxHeap()` instance as a string.
-        
+
         Returns
         -------
         str:
@@ -175,8 +169,7 @@ class MaxHeap(Heap):
         """
         return super().__repr__()
 
-
-    ##############################     MIN/MAX    ##############################
+    # =============================    MIN/MAX   ==============================
     def get_min(self):
         """
         Gets the minimum value in the `MaxHeap()` instance in linear time. The
@@ -187,7 +180,7 @@ class MaxHeap(Heap):
         -------
         int or float:
             The minimum numeric value in the `MaxHeap()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -207,9 +200,8 @@ class MaxHeap(Heap):
         """
         if self.is_empty():
             raise IndexError("Can't get the minimum out of an empty Heap!!")
-        last_half = self._heap[len(self)//2:]
+        last_half = self._heap[len(self) // 2:]
         return min(last_half)
-
 
     def get_max(self):
         """
@@ -221,7 +213,7 @@ class MaxHeap(Heap):
         -------
         int or float:
             The masximum numeric value in the `MaxHeap()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -243,24 +235,23 @@ class MaxHeap(Heap):
             raise IndexError("Can't get the maximum out of an empty Heap!!")
         return self._heap[0]
 
-
-    ##############################      SEARCH    ##############################
+    # =============================    SEARCH    ==============================
     def __contains__(self, num):
         """
-        Searches the `MaxHeap()` for the given value and returns `True` if the 
+        Searches the `MaxHeap()` for the given value and returns `True` if the
         value exists and `False` if not.
 
         Parameters
         ----------
         find_val: int or float
             The value to be searched for in the `MaxHeap()` instance.
-        
+
         Returns
         -------
         bool:
             Returns `True` if the value exists in the `MaxHeap()` instance and
             `False` if not.
-        
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -278,9 +269,8 @@ class MaxHeap(Heap):
         False
         """
         return super().__contains__(num)
-   
 
-    ##############################     INSERT     ##############################
+    # =============================    INSERT    ==============================
     def insert(self, value):
         """
         Inserts a numeric value in the `MaxHeap()` instance.
@@ -289,7 +279,7 @@ class MaxHeap(Heap):
         ----------
         value: int or float
             The new numeric value that will be inserted.
-        
+
         Raises
         ------
         ValueError:
@@ -319,23 +309,22 @@ class MaxHeap(Heap):
         """
         super().insert(value, is_min_heap=False)
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def remove(self, del_value):
         """
-        Removes the `del_value` from the `MaxHeap()` instance. 
+        Removes the `del_value` from the `MaxHeap()` instance.
 
         Parameters
         ----------
         del_value: int or float
             The value to be deleted from the subtree.
-        
+
         Raises
         ------
         UserWarning:
             If the `MaxHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -351,16 +340,15 @@ class MaxHeap(Heap):
            /     \\
           7       3
          / \\    /
-        2   4   1 
+        2   4   1
         >>> max_heap.remove(50)
         UserWarning: Couldn't find `50` in `extra.MaxHeap()`!!
         """
         super().remove(del_value, is_min_heap=False)
-    
 
     def remove_min(self):
         """
-        Removes the minimum value from the `MaxHeap()` instance which is the 
+        Removes the minimum value from the `MaxHeap()` instance which is the
         root.
 
         Raises
@@ -368,7 +356,7 @@ class MaxHeap(Heap):
         UserWarning:
             If the `MaxHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -387,7 +375,6 @@ class MaxHeap(Heap):
         2   4   1
         """
         self.remove(self.get_min())
-    
 
     def remove_max(self):
         """
@@ -399,7 +386,7 @@ class MaxHeap(Heap):
         UserWarning:
             If the `MaxHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -418,12 +405,11 @@ class MaxHeap(Heap):
         2   1   0
         """
         self.remove(self.get_max())
-    
 
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `MaxHeap()` instance and returns a generator of the 
+        Iterates over the `MaxHeap()` instance and returns a generator of the
         heap node values in breadth-first manner.
 
         Yields
@@ -445,7 +431,6 @@ class MaxHeap(Heap):
         9,7,3,2,4,0,1,
         """
         return super().__iter__()
-    
 
     def to_list(self):
         """
@@ -457,7 +442,7 @@ class MaxHeap(Heap):
         list:
             A `list` object containing the same elements as the `MaxHeap()`
             instance.
-        
+
         Example
         -------
         >>> max_heap = MaxHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -472,8 +457,7 @@ class MaxHeap(Heap):
         """
         return super().to_list()
 
-
-    ##############################      CLEAR     ##############################
+    # =============================     CLEAR    ==============================
     def clear(self):
         """
         Removes all nodes within the `MaxHeap()` instance in constant time.
@@ -494,5 +478,3 @@ class MaxHeap(Heap):
         True
         """
         super().__init__()
-    
-

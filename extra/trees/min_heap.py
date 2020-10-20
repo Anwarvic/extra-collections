@@ -2,7 +2,7 @@
 A heap is a binary tree that stores a collection of nodes. Each node must
 satisfy two additional properties:
 
-1. **Heap-Order Property**: It is a relational property defined in terms of the 
+1. **Heap-Order Property**: It is a relational property defined in terms of the
 value stored at the node. So, for every node, other than the root, the value
 stored at the node is greater than or equal to the value stored at the node's
 parent. As a consequence of the heap-order property, the value encountered on a
@@ -21,21 +21,19 @@ heap should be **log(n)** at most.
 from extra.trees._heap import Heap
 
 
-
-
 class MinHeap(Heap):
     """
     A Min heap is a perfect binary tree that stores a collection of nodes. Each
-    node stores a value greater than or equal to the value strored at the node's
-    parent.
+    node stores a value greater than or equal to the value strored at the
+    node's parent.
     """
+
     __name__ = "extra.MinHeap()"
-    
 
     def __init__(self):
         """
         Creates an empty `MinHeap()` object!!
-        
+
         Example
         -------
         >>> min_heap = MinHeap()
@@ -45,7 +43,6 @@ class MinHeap(Heap):
         / \\
         """
         super().__init__()
-    
 
     @classmethod
     def heapify(cls, iterable):
@@ -59,12 +56,12 @@ class MinHeap(Heap):
         iterable: iterable
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
+
         Returns
         -------
         MinHeap()
             It returns a `MinHeap()` instance with input values being inserted.
-        
+
         Raises
         ------
         TypeError:
@@ -88,12 +85,12 @@ class MinHeap(Heap):
 
         >>> MinHeap.heapify([2, None])
         ValueError: Can't use `None` as an element within `extra.MinHeap()`!!
-        
+
         Using a non-iterable object will raise `TypeError`
 
         >>> MinHeap.heapify(2)
         TypeError: The given object isn't iterable!!
-        
+
         Using nested `MinHeap()` objects will raise `TypeError` as well
 
         >>> min_heap_1 = MinHeap.heapify([1])
@@ -101,19 +98,18 @@ class MinHeap(Heap):
         TypeError: Can't create `extra.MinHeap()` using `extra.MinHeap()`!!
         """
         return super().heapify(iterable)
-    
 
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `MinHeap()` instance in constant time.
-        
+
         Returns
         -------
         int:
-            The length of the `MinHeap()` instance. Length is the number of tree 
-            nodes in the instance.
-        
+            The length of the `MinHeap()` instance. Length is the number of
+            tree nodes in the instance.
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -128,18 +124,17 @@ class MinHeap(Heap):
         """
         return super().__len__()
 
-    
     def is_empty(self):
         """
         Checks if the `MinHeap()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `MinHeap()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's
             not empty.
-        
+
         Example
         --------
         >>> min_heap = MinHeap()
@@ -150,13 +145,12 @@ class MinHeap(Heap):
         False
         """
         return super().is_empty()
-    
-    
-    ##############################     PRINT      ##############################
+
+    # =============================     PRINT    ==============================
     def __repr__(self):
         """
         Represents the `MinHeap()` instance as a string.
-        
+
         Returns
         -------
         str:
@@ -174,8 +168,7 @@ class MinHeap(Heap):
         """
         return super().__repr__()
 
-
-    ##############################     MIN/MAX    ##############################
+    # =============================    MIN/MAX   ==============================
     def get_min(self):
         """
         Gets the minimum value in the `MinHeap()` instance in constant time.
@@ -185,7 +178,7 @@ class MinHeap(Heap):
         -------
         int or float:
             The minimum numeric value in the `MinHeap()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -207,7 +200,6 @@ class MinHeap(Heap):
             raise IndexError("Can't get the minimum out of an empty Heap!!")
         return self._heap[0]
 
-
     def get_max(self):
         """
         Gets the maximum value in the `MinHeap()` instance in linear time.
@@ -218,7 +210,7 @@ class MinHeap(Heap):
         -------
         int or float:
             The masximum numeric value in the `MinHeap()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -238,27 +230,26 @@ class MinHeap(Heap):
         """
         if self.is_empty():
             raise IndexError("Can't get the maximum out of an empty Heap!!")
-        last_half = self._heap[len(self)//2:]
+        last_half = self._heap[len(self) // 2:]
         return max(last_half)
 
-
-    ##############################      SEARCH    ##############################
+    # =============================    SEARCH    ==============================
     def __contains__(self, num):
         """
-        Searches the `MinHeap()` for the given value and returns `True` if the 
+        Searches the `MinHeap()` for the given value and returns `True` if the
         value exists and `False` if not in linear time.
 
         Parameters
         ----------
         find_val: int or float
             The value to be searched for in the `MinHeap()` instance.
-        
+
         Returns
         -------
         bool:
             Returns `True` if the value exists in the `MinHeap()` instance and
             `False` if not.
-        
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -276,9 +267,8 @@ class MinHeap(Heap):
         False
         """
         return super().__contains__(num)
-   
 
-    ##############################     INSERT     ##############################
+    # =============================    INSERT    ==============================
     def insert(self, value):
         """
         Inserts a numeric value in the `MinHeap()` instance.
@@ -287,8 +277,7 @@ class MinHeap(Heap):
         ----------
         value: int or float
             The new numeric value that will be inserted.
-        
-        
+
         Raises
         ------
         ValueError:
@@ -318,23 +307,22 @@ class MinHeap(Heap):
         """
         super().insert(value, is_min_heap=True)
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def remove(self, del_value):
         """
-        Removes the `del_value` from the `MinHeap()` instance. 
+        Removes the `del_value` from the `MinHeap()` instance.
 
         Parameters
         ----------
         del_value: int or float
             The value to be deleted from the subtree.
-        
+
         Raises
         ------
         UserWarning:
             If the `MinHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -356,10 +344,9 @@ class MinHeap(Heap):
         """
         super().remove(del_value, is_min_heap=True)
 
-
     def remove_min(self):
         """
-        Removes the minimum value from the `MinHeap()` instance which is the 
+        Removes the minimum value from the `MinHeap()` instance which is the
         root.
 
         Raises
@@ -367,7 +354,7 @@ class MinHeap(Heap):
         UserWarning:
             If the `MinHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -386,7 +373,6 @@ class MinHeap(Heap):
         7   9   3
         """
         self.remove(self.get_min())
-    
 
     def remove_max(self):
         """
@@ -398,7 +384,7 @@ class MinHeap(Heap):
         UserWarning:
             If the `MinHeap()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -417,12 +403,11 @@ class MinHeap(Heap):
         7       3   2
         """
         self.remove(self.get_max())
-    
 
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `MinHeap()` instance and returns a generator of the 
+        Iterates over the `MinHeap()` instance and returns a generator of the
         heap node values in breadth-first manner.
 
         Yields
@@ -444,7 +429,6 @@ class MinHeap(Heap):
         0,4,1,7,9,3,2,
         """
         return super().__iter__()
-    
 
     def to_list(self):
         """
@@ -456,7 +440,7 @@ class MinHeap(Heap):
         list:
             A `list` object containing the same elements as the `MinHeap()`
             instance.
-        
+
         Example
         -------
         >>> min_heap = MinHeap.heapify([2, 4, 3, 7, 9, 0, 1])
@@ -471,8 +455,7 @@ class MinHeap(Heap):
         """
         return super().to_list()
 
-
-    ##############################      CLEAR     ##############################
+    # =============================     CLEAR    ==============================
     def clear(self):
         """
         Removes all nodes within the `MinHeap()` instance in constant time.
@@ -493,5 +476,3 @@ class MinHeap(Heap):
         True
         """
         super().__init__()
-    
-

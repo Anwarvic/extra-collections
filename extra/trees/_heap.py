@@ -4,20 +4,18 @@ from extra.interface import Extra
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
-
-
 class HeapNode(BinaryTreeNode):
     """
-    A heap node is the basic unit for building Heaps with its two types: MinHeap
-    and MaxHeap. A heap node must contain a number. Each heap node has either
-    zero, one or two children heap nodes.
+    A heap node is the basic unit for building Heaps with its two types:
+    `MinHeap()` and `MaxHeap()`. A heap node must contain a number. Each heap
+    node has either zero, one or two children heap nodes.
     """
+
     __name__ = "extra.HeapNode()"
-    
 
     def __init__(self, value):
         """
-        Creates a `HeapNode()` object which is the basic unit for building 
+        Creates a `HeapNode()` object which is the basic unit for building
         Heap() objects!!
 
         Parameters
@@ -33,7 +31,6 @@ class HeapNode(BinaryTreeNode):
         if type(value) not in {int, float}:
             raise TypeError(f"`{self.__name__}` contains only numbers!!")
         super().__init__(value)
-    
 
     def __repr__(self):
         """
@@ -43,7 +40,7 @@ class HeapNode(BinaryTreeNode):
         -------
         str:
             A string representing the `HeapNode()` instance.
-        
+
         Example
         -------
         >>> x = HeapNode(10)
@@ -53,12 +50,9 @@ class HeapNode(BinaryTreeNode):
         return f"HeapNode({self._data})"
 
 
-
-
 class Heap(ABC, Extra):
     _basic_node = HeapNode
     __name__ = "extra.Heap()"
-    
 
     @abstractmethod
     def __init__(self):
@@ -67,18 +61,17 @@ class Heap(ABC, Extra):
         """
         self._heap = []
 
-
     def _validate_item(self, item):
         """
-        Makes sure the input variable type can be processed. The main use for 
-        this method is to make sure we can't create nested objects from the 
+        Makes sure the input variable type can be processed. The main use for
+        this method is to make sure we can't create nested objects from the
         package.
-        
+
         Parameters
         ----------
         item: object
             The input object of any type.
-        
+
         Raises
         -------
         ValueError: If `item` is `None`
@@ -87,7 +80,6 @@ class Heap(ABC, Extra):
         super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"`{self.__name__}` accepts only numbers!!")
-        
 
     @classmethod
     def heapify(cls, iterable):
@@ -101,12 +93,12 @@ class Heap(ABC, Extra):
         iterable: iterable
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
+
         Returns
         -------
         MinHeap() or MaxHeap()
             It returns a heap instance with input values being inserted.
-        
+
         Raises
         ------
         TypeError: It can be raised in two cases
@@ -115,33 +107,31 @@ class Heap(ABC, Extra):
 
         ValueError: If one of the iterable elements is `None`.
         """
-        if not hasattr(iterable, '__iter__'):
+        if not hasattr(iterable, "__iter__"):
             raise TypeError("The given object isn't iterable!!")
         heap = cls()
         for item in iterable:
             heap.insert(item)
         return heap
 
-
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the heap instance in time-complexity of O(1).
-        
+
         Returns
         -------
         int:
-            The length of the heap instance. Length is the number of tree 
+            The length of the heap instance. Length is the number of tree
             nodes in the instance.
         """
         return len(self._heap)
-
 
     def is_empty(self):
         """
         Checks if the heap instance is empty or not in time-complexity of
         O(1).
-        
+
         Returns
         -------
         bool:
@@ -151,8 +141,7 @@ class Heap(ABC, Extra):
         """
         return self._heap == []
 
-
-    ##############################     PRINT      ##############################
+    # =============================     PRINT    ==============================
     def _transform(self):
         """
         Converts a list-shaped heap to a binary-tree shaped in linear time.
@@ -168,24 +157,23 @@ class Heap(ABC, Extra):
         root = self._basic_node(self._heap[0])
         q = [root]
         idx = 1
-        while (idx < len(self)):
+        while idx < len(self):
             parent_node = q.pop(0)
-            parent_node.set_left( self._basic_node(self._heap[idx]) )
+            parent_node.set_left(self._basic_node(self._heap[idx]))
             q.append(parent_node.get_left())
             idx += 1
             if idx < len(self):
-                parent_node.set_right( self._basic_node(self._heap[idx]) )
+                parent_node.set_right(self._basic_node(self._heap[idx]))
                 q.append(parent_node.get_right())
                 idx += 1
         btree = BinaryTree()
         btree._root = root
         return btree
-    
 
     def __repr__(self):
         """
         Represents the heap instance as a string.
-        
+
         Returns
         -------
         str:
@@ -194,20 +182,19 @@ class Heap(ABC, Extra):
         if self.is_empty():
             return "/ \\"
         btree = self._transform()
-        return str( btree )
+        return str(btree)
 
-    
-    ##############################     SEARCH     ##############################
+    # =============================    SEARCH    ==============================
     def __contains__(self, num):
         """
-        Searches the heap instance for the given value and returns `True` if the 
-        value exists and `False` if not.
+        Searches the heap instance for the given value and returns `True` if
+        the value exists and `False` if not.
 
         Parameters
         ----------
         find_val: int or float
             The value to be searched for in the heap instance.
-        
+
         Returns
         -------
         bool:
@@ -218,8 +205,7 @@ class Heap(ABC, Extra):
             return False
         return num in self._heap
 
-
-    ##############################     INSERT     ##############################
+    # =============================    INSERT    ==============================
     def insert(self, value, is_min_heap=True):
         """
         Inserts a numeric value to the heap instance.
@@ -231,7 +217,7 @@ class Heap(ABC, Extra):
         is_min_heap: (default: True)
             A flag to tell if the heap instance is MinHeap or MaxHeap. `True`
             shows that the instance is `MinHeap()` and `False` for `MaxHeap()`.
-        
+
         Raises
         ------
         ValueError: If the given `value` is `None`.
@@ -243,25 +229,27 @@ class Heap(ABC, Extra):
         # add the new value
         self._heap.append(value)
         # swap between parents when needed
-        idx = len(self._heap)-1
-        while(idx != 0):
-            parent_idx = (idx-1)//2
+        idx = len(self._heap) - 1
+        while idx != 0:
+            parent_idx = (idx - 1) // 2
             current = self._heap[idx]
             parent = self._heap[parent_idx]
-            if (is_min_heap and parent>current) or \
-                                    (not is_min_heap and parent<current):
-                self._heap[parent_idx], self._heap[idx] = \
-                                        self._heap[idx], self._heap[parent_idx]
+            if (is_min_heap and parent > current) or (
+                not is_min_heap and parent < current
+            ):
+                self._heap[parent_idx], self._heap[idx] = (
+                    self._heap[idx],
+                    self._heap[parent_idx],
+                )
                 idx = parent_idx
             else:
                 break
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def __rebalance(self, parent_idx, is_min_heap):
         """
-        A private method to rebalance the heap instance after removal. Rebalance
-        is essential for keeping the heap-order property intact.
+        A private method to rebalance the heap instance after removal.
+        Rebalancing is essential for keeping the heap-order property intact.
 
         Parameters
         ----------
@@ -280,53 +268,56 @@ class Heap(ABC, Extra):
         assert type(parent_idx) == int and parent_idx >= 0
         assert type(is_min_heap) == bool
 
-        last_idx = len(self._heap)-1
-        while(parent_idx < last_idx):
+        last_idx = len(self._heap) - 1
+        while parent_idx < last_idx:
             parent = self._heap[parent_idx]
-            left_child_idx, right_child_idx = (parent_idx*2)+1, (parent_idx*2)+2
+            l_child_idx, r_child_idx = (
+                (parent_idx * 2) + 1, (parent_idx * 2) + 2
+            )
             # get which child is smaller
-            if right_child_idx >= last_idx:
-                if left_child_idx >= last_idx:
+            if r_child_idx >= last_idx:
+                if l_child_idx >= last_idx:
                     break
                 else:
-                    child_idx = left_child_idx
+                    child_idx = l_child_idx
             else:
                 if is_min_heap:
-                    if self._heap[left_child_idx] < self._heap[right_child_idx]:
-                        child_idx = left_child_idx
+                    if self._heap[l_child_idx] < self._heap[r_child_idx]:
+                        child_idx = l_child_idx
                     else:
-                        child_idx = right_child_idx
+                        child_idx = r_child_idx
                 else:
-                    if self._heap[left_child_idx] > self._heap[right_child_idx]:
-                        child_idx = left_child_idx
+                    if self._heap[l_child_idx] > self._heap[r_child_idx]:
+                        child_idx = l_child_idx
                     else:
-                        child_idx = right_child_idx
+                        child_idx = r_child_idx
             child = self._heap[child_idx]
-            if (is_min_heap and parent>child) or \
-                                        (not is_min_heap and parent<child):
-                self._heap[parent_idx], self._heap[child_idx] = \
-                                self._heap[child_idx], self._heap[parent_idx]
+            if ((is_min_heap and parent > child) or
+                    (not is_min_heap and parent < child)):
+                self._heap[parent_idx], self._heap[child_idx] = (
+                    self._heap[child_idx],
+                    self._heap[parent_idx],
+                )
                 parent_idx = child_idx
             else:
                 break
 
-
     def remove(self, del_value, is_min_heap=True):
         """
-        Removes the `del_value` from the heap instance. 
+        Removes the `del_value` from the heap instance.
 
         Parameters
         ----------
         del_value: int or float
             The value to be deleted from the heap.
-        
+
         Raises
         ------
         UserWarning: If the heap instance is empty of if the value wasn't \
             found in the instance.
-        
-        TODOs
-        -----
+
+        TODO
+        ----
         Try to handle more than just the first utterence
         """
         assert type(is_min_heap) == bool
@@ -335,7 +326,8 @@ class Heap(ABC, Extra):
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             return
@@ -343,27 +335,29 @@ class Heap(ABC, Extra):
             del_idx = self._heap.index(del_value)
         except ValueError:
             # del_value wasn't found in the heap
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             return
         last_idx = len(self._heap) - 1
         # swap between removed item and last item
-        self._heap[last_idx], self._heap[del_idx] = \
-                                self._heap[del_idx], self._heap[last_idx]
+        self._heap[last_idx], self._heap[del_idx] = (
+            self._heap[del_idx],
+            self._heap[last_idx],
+        )
         # set last item to -inf or inf based on heap type
-        self._heap[last_idx]=float('-inf') if is_min_heap else float('inf')
+        self._heap[last_idx] = float("-inf") if is_min_heap else float("inf")
         # start swapping when needed
         self.__rebalance(del_idx, is_min_heap)
         # remove the (+/-)inf
         self._heap.pop()
-    
 
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the heap instance and returns a generator of the heap node
-        values in breadth-first manner.
+        Iterates over the heap instance and returns a generator of the heap
+        node values in breadth-first manner.
 
         Returns
         -------
@@ -373,7 +367,6 @@ class Heap(ABC, Extra):
         btree = self._transform()
         for node in btree:
             yield node
-    
 
     def to_list(self):
         """
@@ -386,13 +379,10 @@ class Heap(ABC, Extra):
             A `list` object containing the same elements as the heap instance.
         """
         return self._heap
-    
 
-    ##############################      CLEAR     ##############################
+    # =============================    CLEAR     ==============================
     def clear(self):
         """
         Removes all nodes within the heap instance in constant time.
         """
         self.__init__()
-    
-
