@@ -18,8 +18,7 @@ optimal time complexity that I will try to reach in future releases Insha'Allah.
 Generally, we are going to use the following indicators in the table:
 
 - **n** is the number of nodes currently in the BST.
-- **h** is the height of the BST which approximatley equals to **log(n)** when
-the tree is balanced.
+- **h** is the BST height which is **log(n)** when the tree is balanced.
 
 .. csv-table::
    :file: ../../_files/trees/bst.csv
