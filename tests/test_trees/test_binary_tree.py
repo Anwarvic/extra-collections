@@ -1,29 +1,30 @@
 import pytest
-from tests import (
-    get_string,
-    get_list,
-    get_float,
-    get_int,
-)
+
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
-def test_binary_treenode():
+def test_binary_treenode(helper):
     with pytest.raises(ValueError):
         BinaryTreeNode(None)
     with pytest.raises(TypeError):
-        BinaryTreeNode(BinaryTreeNode(get_int()))
+        BinaryTreeNode(BinaryTreeNode(helper.get_int()))
     # make sure white-spaces are normalized
     assert BinaryTreeNode("\nap\nple\n").get_data() == "\\nap\\nple\\n"
     # the following shouldn't raise anything
-    for val in [get_int(), get_float(), get_string(), get_list()]:
+    values = [
+        helper.get_int(),
+        helper.get_float(),
+        helper.get_string(),
+        helper.get_list()
+    ]
+    for val in values:
         node = BinaryTreeNode(val)
         assert node.get_data() == val
         assert node.get_left() == node.get_right() is None
         assert node.get_children() == []
 
 
-def test_empty_binary_tree(btree=BinaryTree()):
+def test_empty_binary_tree(helper, btree=BinaryTree()):
     assert len(btree) == 0
     assert btree.is_empty()
     assert btree.get_height() == 0
@@ -42,7 +43,7 @@ def test_empty_binary_tree(btree=BinaryTree()):
     assert btree.traverse() == []
 
 
-def test_binary_tree():
+def test_binary_tree(helper):
     # create tree using BinaryTreeNode
     root = BinaryTreeNode("GrandFather")
     root.set_left(BinaryTreeNode("Father"))
@@ -118,19 +119,19 @@ def test_binary_tree():
         "Cousin",
     ]
     with pytest.raises(ValueError):
-        btree.traverse(get_string())
+        btree.traverse(helper.get_string())
     with pytest.raises(TypeError):
-        btree.traverse(get_list())
+        btree.traverse(helper.get_list())
     with pytest.raises(TypeError):
-        btree.traverse(get_int())
+        btree.traverse(helper.get_int())
     with pytest.raises(TypeError):
-        btree.traverse(get_float())
+        btree.traverse(helper.get_float())
     # clear this binary tree
     btree.clear()
-    test_empty_binary_tree(btree)
+    test_empty_binary_tree(helper, btree)
 
 
-def test_binary_tree_with_numbers():
+def test_binary_tree_with_numbers(helper):
     btree = BinaryTree()
     btree._root = BinaryTreeNode(1)
     btree._root.set_left(BinaryTreeNode(2))
@@ -156,10 +157,10 @@ def test_binary_tree_with_numbers():
     assert btree.traverse() == [4, 2, 5, 1, 6, 3, 7]
     # clear this binary tree
     btree.clear()
-    test_empty_binary_tree(btree)
+    test_empty_binary_tree(helper, btree)
 
 
-def test_parse():
+def test_parse(helper):
     lst = [
         "S",
         ["NP", ["DET", "There"]],
@@ -191,4 +192,4 @@ def test_parse():
     assert btree.get_height() == 8
     # clear this binary tree
     btree.clear()
-    test_empty_binary_tree(btree)
+    test_empty_binary_tree(helper, btree)

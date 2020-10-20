@@ -1,44 +1,39 @@
 import pytest
-from tests import (
-    get_string,
-    get_list,
-    get_float,
-    get_int,
-)
+
 from extra.trees.radix_trie import TrieNode, RadixTrie
 
 
-def test_empty_radix_trie():
+def test_empty_radix_trie(helper):
     rt = RadixTrie()
     rt.clear()
     assert len(rt) == 1
     assert isinstance(rt._root, TrieNode)
     assert rt._root.get_data() == "ROOT"
     assert "" not in rt
-    assert get_string() not in rt
+    assert helper.get_string() not in rt
     assert rt.has_prefix("")
     assert (
         rt.auto_complete()
         == rt.auto_complete("")
-        == rt.auto_complete(get_string())
+        == rt.auto_complete(helper.get_string())
         == []
     )
     with pytest.raises(ValueError):
         rt.insert(None)
     with pytest.raises(TypeError):
-        rt.insert(get_int())
+        rt.insert(helper.get_int())
     with pytest.warns(UserWarning):
         rt.remove(None)
     with pytest.warns(UserWarning):
-        rt.remove(get_list())
-    assert get_float() not in rt
+        rt.remove(helper.get_list())
+    assert helper.get_float() not in rt
     assert None not in rt
     assert not rt.has_prefix(None)
-    assert not rt.has_prefix(get_int())
+    assert not rt.has_prefix(helper.get_int())
     with pytest.raises(ValueError):
         rt.auto_complete(None)
     with pytest.raises(TypeError):
-        rt.auto_complete(get_list())
+        rt.auto_complete(helper.get_list())
     with pytest.raises(ValueError):
         rt.insert("")
     with pytest.raises(ValueError):
@@ -47,7 +42,7 @@ def test_empty_radix_trie():
     rt.remove(" \n\t  ")  # do nothing
 
 
-def test_radix_trie_with_simple_example():
+def test_radix_trie_with_simple_example(helper):
     rt = RadixTrie()
     rt.insert("shear")
     rt.insert("she")
@@ -74,10 +69,10 @@ def test_radix_trie_with_simple_example():
     assert rt.auto_complete("shep") == ["shepard"]
     assert rt.auto_complete("sheaa") == []
     assert rt.auto_complete("shearr") == []
-    assert rt.auto_complete(get_string()) == []
+    assert rt.auto_complete(helper.get_string()) == []
 
 
-def test_radix_trie_with_wiki_example():
+def test_radix_trie_with_wiki_example(helper):
     # src: https://en.wikipedia.org/wiki/Radix_tree?oldformat=true
     rt = RadixTrie()
     rt.insert("romane")
@@ -108,7 +103,7 @@ def test_radix_trie_with_wiki_example():
         rt.auto_complete("ru") == ["rubens", "ruber", "rubicon", "rubicundus"]
     )
     assert rt.auto_complete("romu") == ["romulus"]
-    assert rt.auto_complete(get_string()) == []
+    assert rt.auto_complete(helper.get_string()) == []
 
 
 def test_radix_with_multi_words():

@@ -1,36 +1,27 @@
 import pytest
 import random
-from tests import (
-    get_string,
-    get_value,
-    get_list,
-    get_pos_int,
-    get_float,
-    get_int,
-    verify_skiplist,
-)
 from extra.lists.skip_list import SkipNode, SkipList
 
 
-def test_skip_node():
+def test_skip_node(helper):
     # can't be empty
     with pytest.raises(ValueError):
         SkipNode(None)
     with pytest.raises(TypeError):
         SkipNode(SkipNode(10))
     with pytest.raises(TypeError):
-        SkipNode(get_string())
+        SkipNode(helper.get_string())
     with pytest.raises(TypeError):
-        SkipNode(get_list())
+        SkipNode(helper.get_list())
     # test SkipNode
-    val = get_float()
+    val = helper.get_float()
     node = SkipNode(val)
     assert node.get_data() == node._data == val
     assert node.get_next() == node._next is None
     assert node.get_down() == node._down is None
 
 
-def test_empty_skiplist():
+def test_empty_skiplist(helper):
     sl = SkipList()
     assert sl.is_empty()
     assert sl.to_list() == [_ for _ in sl] == []
@@ -38,26 +29,26 @@ def test_empty_skiplist():
     assert len(sl._level_lists[0]) == 1
     assert isinstance(sl._level_lists[0]._head, SkipNode)
     assert sl._level_lists[0]._head.get_data() == float("-inf")
-    assert get_value() not in sl
-    assert get_string() not in sl
-    assert get_list() not in sl
-    assert get_float() not in sl
-    assert get_int() not in sl
+    assert helper.get_value() not in sl
+    assert helper.get_string() not in sl
+    assert helper.get_list() not in sl
+    assert helper.get_float() not in sl
+    assert helper.get_int() not in sl
     with pytest.raises(IndexError):
-        sl[get_int()]
+        sl[helper.get_int()]
     with pytest.raises(IndexError):
         sl[:]
     # doesn't raise error
-    sl.remove(get_value())
-    sl.remove(get_int())
-    sl.remove(get_float())
-    sl.remove(get_string())
-    sl.remove(get_list())
+    sl.remove(helper.get_value())
+    sl.remove(helper.get_int())
+    sl.remove(helper.get_float())
+    sl.remove(helper.get_string())
+    sl.remove(helper.get_list())
     sl.clear()
 
 
-def test_skiplist_with_one_element():
-    val = get_float()
+def test_skiplist_with_one_element(helper):
+    val = helper.get_float()
     sl = SkipList()
     sl.insert(val)
     assert len(sl) == 1
@@ -74,11 +65,11 @@ def test_skiplist_with_one_element():
     assert len(sl._level_lists[0]) == 1
 
 
-def test_skiplist_with_same_value():
-    val = get_float()
+def test_skiplist_with_same_value(helper):
+    val = helper.get_float()
     # ========== using insert() ==========
     sl = SkipList()
-    for _ in range(get_pos_int()):
+    for _ in range(helper.get_pos_int()):
         sl.insert(val)
     assert len(sl) == 1
     assert not sl.is_empty()
@@ -93,8 +84,8 @@ def test_skiplist_with_same_value():
     assert sl.get_height() == len(sl._level_lists) == 1
     assert len(sl._level_lists[0]) == 1
     # ========== using from_iterable ==========
-    val = get_float()
-    sl = SkipList([val for _ in range(get_pos_int())])
+    val = helper.get_float()
+    sl = SkipList([val for _ in range(helper.get_pos_int())])
     assert len(sl) == 1
     assert not sl.is_empty()
     assert sl.get_height() >= 1
@@ -109,7 +100,7 @@ def test_skiplist_with_same_value():
     assert len(sl._level_lists[0]) == 1
 
 
-def test_skiplist_with_known_values():
+def test_skiplist_with_known_values(helper):
     random.seed(1)
     sl = SkipList()
     sl.insert(2)
@@ -132,7 +123,7 @@ def test_skiplist_with_known_values():
     assert len(sl._level_lists[0]) == 6
     assert len(sl._level_lists[1]) == 3
     assert len(sl._level_lists[2]) == 2
-    assert verify_skiplist(sl)
+    assert helper.verify_skiplist(sl)
     # remove an item
     sl.remove(2)
     assert not sl.is_empty()
@@ -147,7 +138,7 @@ def test_skiplist_with_known_values():
     # check the structure
     assert len(sl._level_lists[0]) == 5
     assert len(sl._level_lists[1]) == 2
-    assert verify_skiplist(sl)
+    assert helper.verify_skiplist(sl)
     # clear
     sl.clear()
     assert len(sl) == 0
@@ -155,8 +146,8 @@ def test_skiplist_with_known_values():
     assert sl.is_empty()
 
 
-def test_skiplist_with_random_numbers():
-    length = get_pos_int()
+def test_skiplist_with_random_numbers(helper):
+    length = helper.get_pos_int()
     sl = SkipList()
     # ========== insert at the end & remove by value ==========
     # insert at the end
@@ -198,8 +189,8 @@ def test_skiplist_with_random_numbers():
     assert sl.to_list() == []
 
 
-def test_skiplist_with_from_iterable():
-    _set = {get_float() for i in range(get_pos_int())}
+def test_skiplist_with_from_iterable(helper):
+    _set = {helper.get_float() for i in range(helper.get_pos_int())}
     sl = SkipList(_set)
     assert len(sl) == len(_set)
     assert not sl.is_empty()

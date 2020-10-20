@@ -1,40 +1,33 @@
 import pytest
-from tests import (
-    get_string,
-    get_value,
-    get_list,
-    get_float,
-    get_int,
-    verify_bst_rules,
-)
+
 from extra.trees.red_black_tree import Color, RedBlackNode, RedBlackTree
 
 
-def test_red_black_node():
+def test_red_black_node(helper):
     with pytest.raises(TypeError):
         RedBlackNode(None)
         RedBlackNode("  ")
         RedBlackNode(RedBlackTree())
-        RedBlackNode(get_string())
-        RedBlackNode(get_value())
-        RedBlackNode(get_list())
+        RedBlackNode(helper.get_string())
+        RedBlackNode(helper.get_value())
+        RedBlackNode(helper.get_list())
         RedBlackNode(Color.RED)
     # these should raise any erros
-    RedBlackNode(get_float())
-    assert RedBlackNode(get_float()).get_color() == Color.RED
-    RedBlackNode(get_int())
-    assert RedBlackNode(get_float()).get_color() == Color.RED
+    RedBlackNode(helper.get_float())
+    assert RedBlackNode(helper.get_float()).get_color() == Color.RED
+    RedBlackNode(helper.get_int())
+    assert RedBlackNode(helper.get_float()).get_color() == Color.RED
     with pytest.raises(ValueError):
-        node = RedBlackNode(get_int())
+        node = RedBlackNode(helper.get_int())
         node.set_color(0)
         node.set_color(1)
-        node.set_color(get_value())
+        node.set_color(helper.get_value())
 
 
-def test_red_black_tree_from_iterable():
+def test_red_black_tree_from_iterable(helper):
     rbtree = RedBlackTree([7, 3, 0])
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
     assert rbtree.count_leaf_nodes() == 2
@@ -58,13 +51,13 @@ def test_red_black_tree_from_iterable():
     assert rbtree._root.get_right().get_right() is None
 
 
-def test_red_black_special_case():
+def test_red_black_special_case(helper):
     rbtree = RedBlackTree()
     rbtree.insert(15)
     rbtree.insert(5)
     rbtree.insert(1)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
     assert rbtree.count_leaf_nodes() == 2
@@ -88,7 +81,7 @@ def test_red_black_special_case():
     assert rbtree._root.get_right().get_right() is None
 
 
-def test_red_black_tree_insert_example1():
+def test_red_black_tree_insert_example1(helper):
     # src: https://www.geeksforgeeks.org/red-black-tree-set-2-insert/
     rbtree = RedBlackTree()
     rbtree.insert(10)
@@ -96,7 +89,7 @@ def test_red_black_tree_insert_example1():
     rbtree.insert(30)
     rbtree.insert(15)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 4
     assert rbtree.count_leaf_nodes() == 2
@@ -123,7 +116,7 @@ def test_red_black_tree_insert_example1():
     assert rbtree._root.get_right().get_right() is None
 
 
-def test_red_black_tree_insert_example2():
+def test_red_black_tree_insert_example2(helper):
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree()
     rbtree.insert(8)
@@ -136,7 +129,7 @@ def test_red_black_tree_insert_example2():
     rbtree.insert(23)
     rbtree.insert(10)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 9
     assert rbtree.count_leaf_nodes() == 4
@@ -185,7 +178,7 @@ def test_red_black_tree_insert_example2():
     assert rbtree._root.get_right().get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_example3():
+def test_red_black_tree_insert_example3(helper):
     # src: http://www.btechsmartclass.com/data_structures/red-black-trees.html
     rbtree = RedBlackTree()
     rbtree.insert(8)
@@ -197,7 +190,7 @@ def test_red_black_tree_insert_example3():
     rbtree.insert(40)
     rbtree.insert(80)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 8
     assert rbtree.count_leaf_nodes() == 4
@@ -239,7 +232,7 @@ def test_red_black_tree_insert_example3():
     assert rbtree._root.get_right().get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_example4():
+def test_red_black_tree_insert_example4(helper):
     # src: Data Structures and Algorithms in Python Book (Page: 539)
     rbtree = RedBlackTree()
     rbtree.insert(4)
@@ -253,7 +246,7 @@ def test_red_black_tree_insert_example4():
     rbtree.insert(16)
     rbtree.insert(17)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 10
     assert rbtree.count_leaf_nodes() == 5
@@ -305,7 +298,7 @@ def test_red_black_tree_insert_example4():
     assert rbtree._root.get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_remove_example1():
+def test_red_black_tree_insert_remove_example1(helper):
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree()
     rbtree.insert(5)
@@ -317,7 +310,7 @@ def test_red_black_tree_insert_remove_example1():
     rbtree.insert(9)
     rbtree.remove(2)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 6
     assert rbtree.count_leaf_nodes() == 3
@@ -350,7 +343,7 @@ def test_red_black_tree_insert_remove_example1():
     assert rbtree._root.get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_remove_example2():
+def test_red_black_tree_insert_remove_example2(helper):
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree()
     rbtree.insert(7)
@@ -363,7 +356,7 @@ def test_red_black_tree_insert_remove_example2():
     rbtree.insert(26)
     rbtree.remove(3)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 7
     assert rbtree.count_leaf_nodes() == 3
@@ -397,7 +390,7 @@ def test_red_black_tree_insert_remove_example2():
     assert rbtree._root.get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_remove_example3():
+def test_red_black_tree_insert_remove_example3(helper):
     # src: https://www.youtube.com/watch?v=eO3GzpCCUSg
     rbtree = RedBlackTree()
     rbtree.insert(13)
@@ -413,7 +406,7 @@ def test_red_black_tree_insert_remove_example3():
     rbtree.insert(27)
     rbtree.remove(11)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 9
     assert rbtree.count_leaf_nodes() == 5
@@ -461,22 +454,22 @@ def test_red_black_tree_insert_remove_example3():
     assert rbtree._root.get_right().get_right().get_right().get_right() is None
 
 
-def test_red_black_tree_insert_remove_invalid_examples():
+def test_red_black_tree_insert_remove_invalid_examples(helper):
     rbtree = RedBlackTree()
     rbtree.insert(10)
     with pytest.warns(UserWarning):
-        rbtree.remove(get_int())
+        rbtree.remove(helper.get_int())
     with pytest.warns(UserWarning):
-        rbtree.remove(get_string())
+        rbtree.remove(helper.get_string())
     with pytest.warns(UserWarning):
-        rbtree.remove(get_list())
+        rbtree.remove(helper.get_list())
     with pytest.warns(UserWarning):
         rbtree.remove(RedBlackNode(10))
     with pytest.warns(UserWarning):
         rbtree.remove(RedBlackTree())
 
 
-def test_double_black_left_left_case():
+def test_double_black_left_left_case(helper):
     # test case (left-left)
     rbtree = RedBlackTree()
     rbtree.insert(40)
@@ -486,7 +479,7 @@ def test_double_black_left_left_case():
     rbtree.insert(35)
     rbtree.remove(50)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 4
     assert rbtree.count_leaf_nodes() == 2
@@ -513,7 +506,7 @@ def test_double_black_left_left_case():
     assert rbtree._root.get_right().get_right() is None
 
 
-def test_double_black_left_right_case():
+def test_double_black_left_right_case(helper):
     # test case (left-right)
     rbtree = RedBlackTree()
     rbtree.insert(40)
@@ -522,7 +515,7 @@ def test_double_black_left_right_case():
     rbtree.insert(35)
     rbtree.remove(50)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
     assert rbtree.count_leaf_nodes() == 2
@@ -546,7 +539,7 @@ def test_double_black_left_right_case():
     assert rbtree._root.get_right().get_left() is None
 
 
-def test_double_black_right_left_case():
+def test_double_black_right_left_case(helper):
     # test case (right-left)
     rbtree = RedBlackTree()
     rbtree.insert(30)
@@ -555,7 +548,7 @@ def test_double_black_right_left_case():
     rbtree.insert(35)
     rbtree.remove(20)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
     assert rbtree.count_leaf_nodes() == 2
@@ -579,7 +572,7 @@ def test_double_black_right_left_case():
     assert rbtree._root.get_right().get_left() is None
 
 
-def test_double_black_right_right_case():
+def test_double_black_right_right_case(helper):
     rbtree = RedBlackTree()
     rbtree.insert(30)
     rbtree.insert(20)
@@ -587,7 +580,7 @@ def test_double_black_right_right_case():
     rbtree.insert(50)
     rbtree.remove(20)
     # test tree characteristics
-    assert verify_bst_rules(rbtree._root)
+    assert helper.verify_bst_rules(rbtree._root)
     assert rbtree.is_balanced()
     assert len(rbtree) == 3
     assert rbtree.count_leaf_nodes() == 2

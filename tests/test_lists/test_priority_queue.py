@@ -1,10 +1,9 @@
 import pytest
-from tests import get_string, get_value, get_list, get_pos_int, get_neg_int, \
-    get_neg_float
+
 from extra.lists.priority_queue import PriorityQueue
 
 
-def test_creating_empty_priority_queue():
+def test_creating_empty_priority_queue(helper):
     # empty priority queue
     q = PriorityQueue()
     assert q._max_capacity == float("inf")
@@ -31,15 +30,15 @@ def test_creating_empty_priority_queue():
     with pytest.raises(IndexError):
         q.top()
     with pytest.warns(UserWarning):
-        q.enqueue(get_value())
+        q.enqueue(helper.get_value())
     q.clear()  # not to through any errors
     assert q._max_capacity == 0
     assert q.is_full()
 
 
-def test_queue_with_max_capacity():
-    cap = get_pos_int()
-    lst = get_list(length=cap)
+def test_queue_with_max_capacity(helper):
+    cap = helper.get_pos_int()
+    lst = helper.get_list(length=cap)
     q = PriorityQueue(max_capacity=cap)
     assert q._max_capacity == cap
     for i in lst:
@@ -52,26 +51,26 @@ def test_queue_with_max_capacity():
     assert len(q) == 0
     assert q.is_empty()
     assert q.is_full() is False
-    q.enqueue(get_value())
+    q.enqueue(helper.get_value())
     # test max capacity after clear
     q.clear()
     assert q._max_capacity == cap
 
 
-def test_queue_with_invalid_max_capacity():
+def test_queue_with_invalid_max_capacity(helper):
     with pytest.raises(TypeError):
-        PriorityQueue(max_capacity=get_list())
+        PriorityQueue(max_capacity=helper.get_list())
     with pytest.raises(TypeError):
-        PriorityQueue(max_capacity=get_string())
+        PriorityQueue(max_capacity=helper.get_string())
     with pytest.raises(ValueError):
-        PriorityQueue(max_capacity=get_neg_int())
+        PriorityQueue(max_capacity=helper.get_neg_int())
     with pytest.raises(ValueError):
-        PriorityQueue(max_capacity=get_neg_float())
+        PriorityQueue(max_capacity=helper.get_neg_float())
 
 
-def test_creating_queue_with_random_values_given_priority():
+def test_creating_queue_with_random_values_given_priority(helper):
     # queue with random values with ascending priority
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     q = PriorityQueue()
     for i, item in enumerate(lst):
         q.enqueue(item, priority=i)
@@ -88,7 +87,7 @@ def test_creating_queue_with_random_values_given_priority():
     assert q.is_full() is False
 
     # queue with random values with descending priority
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     q = PriorityQueue()
     for i, item in enumerate(lst):
         q.enqueue(item, priority=len(lst) - i)
@@ -105,9 +104,9 @@ def test_creating_queue_with_random_values_given_priority():
     assert q.is_full() is False
 
 
-def test_creating_queue_with_random_values_random_priority():
+def test_creating_queue_with_random_values_random_priority(helper):
     # queue with random values with ascending priority
-    lst = get_list(length=1000)
+    lst = helper.get_list(length=1000)
     q = PriorityQueue()
     for item in lst:
         q.enqueue(item)

@@ -1,17 +1,10 @@
 import pytest
 import random
-from tests import (
-    get_string,
-    get_list,
-    get_float,
-    get_int,
-    get_neg_int,
-    verify_bst_rules,
-)
+
 from extra.trees.avl import AVLNode, AVL
 
 
-def test_avl_node():
+def test_avl_node(helper):
     with pytest.raises(TypeError):
         AVLNode(None)
     with pytest.raises(TypeError):
@@ -19,11 +12,11 @@ def test_avl_node():
     with pytest.raises(TypeError):
         AVLNode(AVL())
     with pytest.raises(TypeError):
-        AVLNode(get_string())
+        AVLNode(helper.get_string())
     with pytest.raises(TypeError):
-        AVLNode(get_list())
+        AVLNode(helper.get_list())
     # these shouldn't raise any erros
-    for val in [get_int(), get_float()]:
+    for val in [helper.get_int(), helper.get_float()]:
         node = AVLNode(val)
         assert node.get_data() == val
         assert node.get_left() == node.get_right() is None
@@ -32,11 +25,11 @@ def test_avl_node():
         assert node.get_children_heights() == [0, 0]
         assert node.is_balanced()
         with pytest.raises(TypeError):
-            node.set_height(get_string())
+            node.set_height(helper.get_string())
         with pytest.raises(TypeError):
-            node.set_height(get_float())
+            node.set_height(helper.get_float())
         with pytest.raises(ValueError):
-            node.set_height(get_neg_int())
+            node.set_height(helper.get_neg_int())
 
 
 def test_empty_avl(avl=AVL()):
@@ -62,12 +55,12 @@ def test_empty_avl(avl=AVL()):
         avl.get_min()
 
 
-def test_avl_one_value():
+def test_avl_one_value(helper):
     avl = AVL()
-    val = get_int()
+    val = helper.get_int()
     avl.insert(val)
     # test structure
-    assert verify_bst_rules(avl._root)
+    assert helper.verify_bst_rules(avl._root)
     assert avl._root.get_data() == val
     # test various methods
     assert avl.count_leaf_nodes() == 1
@@ -94,10 +87,10 @@ def test_avl_one_value():
     # test empty avl
     test_empty_avl(avl)
     # validate
-    test_search_insert_remove_input(avl)
+    test_search_insert_remove_input(helper, avl)
 
 
-def test_simple_avl_tree():
+def test_simple_avl_tree(helper):
     # src: Data Structures and Algorithms in Python Book (page: 506)
     avl = AVL()
     avl.insert(44)
@@ -110,7 +103,7 @@ def test_simple_avl_tree():
     avl.insert(62)
     avl.insert(54)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -163,7 +156,7 @@ def test_simple_avl_tree():
     test_empty_avl(avl)
 
 
-def test_avl_big_example():
+def test_avl_big_example(helper):
     # src: https://www.youtube.com/watch?v=7m94k2Qhg68
     avl = AVL()
     avl.insert(43)
@@ -179,7 +172,7 @@ def test_avl_big_example():
     avl.insert(62)
     avl.insert(51)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -247,32 +240,32 @@ def test_avl_big_example():
     test_empty_avl(avl)
 
 
-def test_search_insert_remove_input(avl=AVL()):
+def test_search_insert_remove_input(helper, avl=AVL()):
     assert None not in avl
-    assert get_string() not in avl
-    assert get_list() not in avl
+    assert helper.get_string() not in avl
+    assert helper.get_list() not in avl
     with pytest.raises(ValueError):
         avl.insert(None)
     with pytest.raises(TypeError):
-        avl.insert(get_string())
+        avl.insert(helper.get_string())
     with pytest.raises(TypeError):
-        avl.insert(get_list())
+        avl.insert(helper.get_list())
 
     with pytest.warns(UserWarning):
         avl.remove(None)
     with pytest.warns(UserWarning):
-        avl.remove(get_string())
+        avl.remove(helper.get_string())
     with pytest.warns(UserWarning):
-        avl.remove(get_list())
+        avl.remove(helper.get_list())
 
 
-def test_left_rotation():
+def test_left_rotation(helper):
     avl = AVL()
     avl.insert(0)
     avl.insert(5)
     avl.insert(10)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -310,13 +303,13 @@ def test_left_rotation():
     test_empty_avl(avl)
 
 
-def test_right_rotation():
+def test_right_rotation(helper):
     avl = AVL()
     avl.insert(10)
     avl.insert(5)
     avl.insert(0)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -354,13 +347,13 @@ def test_right_rotation():
     test_empty_avl(avl)
 
 
-def test_left_right_rotation():
+def test_left_right_rotation(helper):
     avl = AVL()
     avl.insert(10)
     avl.insert(5)
     avl.insert(7)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -398,13 +391,13 @@ def test_left_right_rotation():
     test_empty_avl(avl)
 
 
-def test_right_left_rotation():
+def test_right_left_rotation(helper):
     avl = AVL()
     avl.insert(2)
     avl.insert(10)
     avl.insert(5)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -442,14 +435,14 @@ def test_right_left_rotation():
     test_empty_avl(avl)
 
 
-def test_remove_avl():
+def test_remove_avl(helper):
     # src: Data Structures and Algorithms in Python Book (page: 508)
     avl = AVL([44, 62, 17, 32, 50, 78, 48, 54, 88])
     avl.remove(17)
     avl.remove(50)
     avl.remove(62)
 
-    verify_bst_rules(avl._root)
+    helper.verify_bst_rules(avl._root)
 
     # test main methods
     assert not avl.is_empty()
@@ -497,11 +490,11 @@ def test_remove_avl():
     test_empty_avl(avl)
 
 
-def test_random_avl():
+def test_random_avl(helper):
     length = 100
     avl = AVL()
     for _ in range(length):
-        avl.insert(get_int())
+        avl.insert(helper.get_int())
         assert avl.is_balanced()
     lst = avl.to_list()
     random.shuffle(lst)

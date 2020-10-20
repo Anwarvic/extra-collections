@@ -1,14 +1,9 @@
 import pytest
-from tests import (
-    get_string,
-    get_list,
-    get_float,
-    get_int,
-)
+
 from extra.trees.trie import TrieNode, Trie
 
 
-def test_trienode():
+def test_trienode(helper):
     node = TrieNode("a")
     assert node.get_data() == "a"
     assert node.get_parent() is None
@@ -17,47 +12,47 @@ def test_trienode():
     with pytest.raises(TypeError):
         TrieNode(None)
     with pytest.raises(TypeError):
-        TrieNode(get_int())
+        TrieNode(helper.get_int())
     with pytest.raises(TypeError):
-        TrieNode(get_float())
+        TrieNode(helper.get_float())
     with pytest.raises(TypeError):
-        TrieNode(get_list())
+        TrieNode(helper.get_list())
     # with pytest.raises(AssertionError):
     #     TrieNode("apple")
-    #     TrieNode(get_string())
+    #     TrieNode(helper.get_string())
 
 
-def test_empty_trie():
+def test_empty_trie(helper):
     t = Trie()
     t.clear()
     assert len(t) == 1
     assert isinstance(t._root, TrieNode)
     assert t._root.get_data() == "ROOT"
     assert "" not in t
-    assert get_string() not in t
+    assert helper.get_string() not in t
     assert t.has_prefix("")
     assert (
         t.auto_complete()
         == t.auto_complete("")
-        == t.auto_complete(get_string())
+        == t.auto_complete(helper.get_string())
         == []
     )
     with pytest.raises(ValueError):
         t.insert(None)
     with pytest.raises(TypeError):
-        t.insert(get_int())
+        t.insert(helper.get_int())
     with pytest.warns(UserWarning):
         t.remove(None)
     with pytest.warns(UserWarning):
-        t.remove(get_list())
-    assert get_float() not in t
+        t.remove(helper.get_list())
+    assert helper.get_float() not in t
     assert None not in t
     assert not t.has_prefix(None)
-    assert not t.has_prefix(get_int())
+    assert not t.has_prefix(helper.get_int())
     with pytest.raises(ValueError):
         t.auto_complete(None)
     with pytest.raises(TypeError):
-        t.auto_complete(get_list())
+        t.auto_complete(helper.get_list())
     with pytest.raises(ValueError):
         t.insert("")
     with pytest.raises(ValueError):

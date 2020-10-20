@@ -1,15 +1,13 @@
 import pytest
 
-from tests import get_string, get_value, get_list, get_pos_int, get_float, \
-    get_int, get_neg_int
 from extra.lists.linked_list import Node, LinkedList
 from extra.lists.circular_linked_list import CircularLinkedList
 from extra.lists.doubly_linked_list import DoublyNode, DoublyLinkedList
 
 
-def test_creating_circular_linked_list_from_constructor():
+def test_creating_circular_linked_list_from_constructor(helper):
     # Using constructor
-    val = get_value()
+    val = helper.get_value()
     cll = CircularLinkedList()
     cll.add_front(val)
     assert isinstance(cll._head, Node)
@@ -20,8 +18,8 @@ def test_creating_circular_linked_list_from_constructor():
     # Using Node
     cll = CircularLinkedList()
     with pytest.raises(TypeError):
-        cll.add_front(DoublyNode(get_value()))
-    val = get_value()
+        cll.add_front(DoublyNode(helper.get_value()))
+    val = helper.get_value()
     cll = CircularLinkedList()
     cll.add_end(val)
     assert isinstance(cll._head, Node)
@@ -31,9 +29,9 @@ def test_creating_circular_linked_list_from_constructor():
     assert cll.to_list() == [item for item in cll] == [val]
 
 
-def test_creating_circular_linked_list_from_iterable():
+def test_creating_circular_linked_list_from_iterable(helper):
     # Using from_iterable (small length)
-    lst = get_list()
+    lst = helper.get_list()
     cll = CircularLinkedList(lst)
     assert cll._head.get_data() == lst[0]
     assert len(cll) == cll._length == len(lst)
@@ -48,16 +46,16 @@ def test_creating_circular_linked_list_from_iterable():
     with pytest.raises(TypeError):
         CircularLinkedList().add_front(CircularLinkedList())
     # Using from_iterable (big length)
-    lst = get_list(length=10000)
+    lst = helper.get_list(length=10000)
     cll = CircularLinkedList(lst)
     assert cll._head.get_data() == lst[0]
     assert len(cll) == cll._length == len(lst)
     assert cll.to_list() == [item for item in cll] == lst
     for _ in range(100):  # check random indices
-        idx = get_pos_int(b=10000 - 1)
+        idx = helper.get_pos_int(b=10000 - 1)
         assert cll[idx] == lst[idx]
     # Using Linked List
-    lst = get_list()
+    lst = helper.get_list()
     tmp_cll = CircularLinkedList(lst)
     cll = CircularLinkedList(tmp_cll)
     # assert cll == tmp_cll
@@ -65,7 +63,7 @@ def test_creating_circular_linked_list_from_iterable():
     assert cll.to_list() == [item for item in cll] == lst
 
 
-def test_empty_circular_linked_list():
+def test_empty_circular_linked_list(helper):
     EMPTY = "┌─\n│\n└─"  # represents empty LinkedList
     cll = CircularLinkedList([])
     assert str(cll) == EMPTY
@@ -79,85 +77,87 @@ def test_empty_circular_linked_list():
     assert CircularLinkedList() == CircularLinkedList()
     assert cll == cll.copy()
     assert cll == cll.reverse()
-    assert CircularLinkedList() != CircularLinkedList([get_value()])
-    assert CircularLinkedList() < CircularLinkedList([get_value()])
-    assert CircularLinkedList() <= CircularLinkedList([get_value()])
-    assert CircularLinkedList([get_value()]) > CircularLinkedList()
-    assert CircularLinkedList([get_value()]) >= CircularLinkedList()
+    assert CircularLinkedList() != CircularLinkedList([helper.get_value()])
+    assert CircularLinkedList() < CircularLinkedList([helper.get_value()])
+    assert CircularLinkedList() <= CircularLinkedList([helper.get_value()])
+    assert CircularLinkedList([helper.get_value()]) > CircularLinkedList()
+    assert CircularLinkedList([helper.get_value()]) >= CircularLinkedList()
     # ==================== test count ====================
     assert cll.count(0) == 0
-    assert cll.count(get_value()) == 0
-    assert cll.count(Node(get_value())) == 0
+    assert cll.count(helper.get_value()) == 0
+    assert cll.count(Node(helper.get_value())) == 0
     # ==================== test __contains__ ====================
     assert None not in cll
-    assert Node(get_value()) not in cll
+    assert Node(helper.get_value()) not in cll
     assert 0 not in cll
-    assert get_value() not in cll
+    assert helper.get_value() not in cll
     assert LinkedList() not in cll
-    # assert LinkedList(get_value()) not in ll
+    # assert LinkedList(helper.get_value()) not in ll
     # ==================== test split ====================
     left_list, right_list = cll.split(0)
     assert str(left_list) == str(right_list) == EMPTY
     with pytest.raises(TypeError):
-        cll.split(get_string())
+        cll.split(helper.get_string())
     with pytest.raises(TypeError):
-        cll.split(get_float())
+        cll.split(helper.get_float())
     with pytest.raises(TypeError):
         cll.split(True)
     with pytest.raises(IndexError):
         cll.split(-1)
-    cll.split(get_pos_int())  # shouldn't raise anything
+    cll.split(helper.get_pos_int())  # shouldn't raise anything
     with pytest.raises(IndexError):
-        cll.split(get_neg_int())
+        cll.split(helper.get_neg_int())
     # ==================== test rotate ====================
-    assert cll.rotate_left(get_pos_int(), inplace=False) == cll
-    assert cll.rotate_right(get_pos_int(), inplace=False) == cll
-    assert len(cll.rotate_left(get_pos_int(), inplace=False)) == 0
-    assert len(cll.rotate_right(get_pos_int(), inplace=False)) == 0
+    assert cll.rotate_left(helper.get_pos_int(), inplace=False) == cll
+    assert cll.rotate_right(helper.get_pos_int(), inplace=False) == cll
+    assert len(cll.rotate_left(helper.get_pos_int(), inplace=False)) == 0
+    assert len(cll.rotate_right(helper.get_pos_int(), inplace=False)) == 0
     with pytest.raises(TypeError):
-        cll.rotate_left(get_string())
+        cll.rotate_left(helper.get_string())
     with pytest.raises(TypeError):
-        cll.rotate_right(get_float())
+        cll.rotate_right(helper.get_float())
     with pytest.raises(TypeError):
         cll.rotate_left([])
     with pytest.raises(ValueError):
-        cll.rotate_left(get_neg_int())
+        cll.rotate_left(helper.get_neg_int())
     with pytest.raises(ValueError):
-        cll.rotate_right(get_neg_int())
+        cll.rotate_right(helper.get_neg_int())
     # ==================== test remove/del ====================
     cll.remove_front()  # shouldn't raise any Error
     cll.remove_end()  # shouldn't raise any Error
-    cll.remove(get_value())
-    cll.remove(get_value(), False)
+    cll.remove(helper.get_value())
+    cll.remove(helper.get_value(), False)
     with pytest.raises(TypeError):
-        cll.remove(get_value(), all=get_string(1))
+        cll.remove(helper.get_value(), all=helper.get_string(1))
     del cll[0]  # shouldn't raise anything
-    del cll[get_pos_int()]  # shouldn't raise anything
+    del cll[helper.get_pos_int()]  # shouldn't raise anything
     with pytest.raises(IndexError):
-        del cll[get_neg_int()]
+        del cll[helper.get_neg_int()]
     # ==================== test __getitem__ ====================
     with pytest.raises(IndexError):
         _ = cll[0]
     with pytest.raises(IndexError):
-        _ = cll[get_pos_int()]
+        _ = cll[helper.get_pos_int()]
     with pytest.raises(IndexError):
-        _ = cll[get_neg_int()]
+        _ = cll[helper.get_neg_int()]
     with pytest.raises(IndexError):
         CircularLinkedList() == cll[0:10]
     # ==================== test insert/set ====================
-    cll.insert(get_pos_int(), get_value())  # shouldn't raise anything
+    # the following line shouldn't raise anything !!
+    cll.insert(helper.get_pos_int(), helper.get_value())
     with pytest.raises(IndexError):
-        cll.insert(get_neg_int(), get_value())
-    cll[0] = get_float()  # shouldn't raise anything
-    cll[get_pos_int()] = get_float()  # shouldn't raise anything
+        cll.insert(helper.get_neg_int(), helper.get_value())
+    cll[0] = helper.get_float()  # shouldn't raise anything
+    # the following line shouldn't raise anything !!
+    cll[helper.get_pos_int()] = helper.get_float()
     with pytest.raises(ValueError):
         cll.insert(0, None)
     with pytest.raises(TypeError):
-        cll.insert(0, Node(get_value()))
+        cll.insert(0, Node(helper.get_value()))
 
 
-def test_circular_linked_list_with_one_element():
-    val = get_value()
+def test_circular_linked_list_with_one_element(helper):
+    val = helper.get_value()
     cll = CircularLinkedList()
     cll.insert(0, val)
     assert isinstance(cll._head, Node)
@@ -171,8 +171,8 @@ def test_circular_linked_list_with_one_element():
     assert cll == cll.copy()
     assert cll == cll.reverse()
     # ==================== test rotate ====================
-    assert cll == cll.rotate_left(get_pos_int(), inplace=False)
-    assert cll == cll.rotate_right(get_pos_int(), inplace=False)
+    assert cll == cll.rotate_left(helper.get_pos_int(), inplace=False)
+    assert cll == cll.rotate_right(helper.get_pos_int(), inplace=False)
     # ==================== test operators ====================
     assert cll != CircularLinkedList()
     assert cll > CircularLinkedList()
@@ -180,7 +180,7 @@ def test_circular_linked_list_with_one_element():
     assert CircularLinkedList() < cll
     assert CircularLinkedList() <= cll
     # ==================== test add/remove ====================
-    new_value = get_value()
+    new_value = helper.get_value()
     cll.add_front(new_value)
     cll.remove_front()
     cll.add_end(new_value)
@@ -188,14 +188,14 @@ def test_circular_linked_list_with_one_element():
     assert cll == CircularLinkedList([val])
     # ==================== test insert/split ====================
     with pytest.raises(IndexError):
-        cll.insert(-1, get_value())
-    cll.insert(2, get_value())  # shouldn't raise anything
-    cll.split(get_pos_int())  # shouldn't raise anything
+        cll.insert(-1, helper.get_value())
+    cll.insert(2, helper.get_value())  # shouldn't raise anything
+    cll.split(helper.get_pos_int())  # shouldn't raise anything
 
 
-def test_list_with_same_value():
-    length = get_pos_int()
-    val = get_value()
+def test_list_with_same_value(helper):
+    length = helper.get_pos_int()
+    val = helper.get_value()
     cll = CircularLinkedList()
     # test add_end
     for _ in range(length):
@@ -271,9 +271,9 @@ def test_circular_linked_list_with_known_values():
     assert cll.is_empty()
 
 
-def test_circular_linked_list_with_random_numbers():
+def test_circular_linked_list_with_random_numbers(helper):
     # test add_end() and remove_end()
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     cll = CircularLinkedList()
     for i in lst:
         cll.add_end(i)
@@ -287,7 +287,7 @@ def test_circular_linked_list_with_random_numbers():
     assert len(cll) == 0
     assert cll.is_empty()
     # test add_front() and remove_front()
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     for i in lst:
         cll.add_front(i)
     assert len(cll) == len(lst)
@@ -301,28 +301,45 @@ def test_circular_linked_list_with_random_numbers():
     assert cll.is_empty()
 
 
-def test_relational_operators():
+def test_relational_operators(helper):
     # linked lists have just one value
     assert CircularLinkedList([3.14]) == CircularLinkedList([3.14])
-    assert CircularLinkedList([get_int()]) != CircularLinkedList([get_float()])
     assert (
-        CircularLinkedList([get_string()]) != CircularLinkedList([get_int()])
+        CircularLinkedList([helper.get_int()])
+        != CircularLinkedList([helper.get_float()])
     )
     assert (
-        CircularLinkedList([get_float()]) != CircularLinkedList([get_list()])
+        CircularLinkedList([helper.get_string()])
+        != CircularLinkedList([helper.get_int()])
+    )
+    assert (
+        CircularLinkedList([helper.get_float()])
+        != CircularLinkedList([helper.get_list()])
     )
     assert CircularLinkedList([2.9999]) < CircularLinkedList([3])
     assert CircularLinkedList([3.14]) <= CircularLinkedList([3.14])
     assert CircularLinkedList([3, 2]) > CircularLinkedList([3])
     assert CircularLinkedList(["3.14"]) >= CircularLinkedList(["3.14"])
     with pytest.raises(TypeError):
-        CircularLinkedList([get_float()]) < CircularLinkedList([get_string()])
+        (
+            CircularLinkedList([helper.get_float()])
+            < CircularLinkedList([helper.get_string()])
+        )
     with pytest.raises(TypeError):
-        CircularLinkedList([get_value()]) <= CircularLinkedList([get_list()])
+        (
+            CircularLinkedList([helper.get_value()])
+            <= CircularLinkedList([helper.get_list()])
+        )
     with pytest.raises(TypeError):
-        CircularLinkedList([get_string()]) > CircularLinkedList([get_list()])
+        (
+            CircularLinkedList([helper.get_string()])
+            > CircularLinkedList([helper.get_list()])
+        )
     with pytest.raises(TypeError):
-        CircularLinkedList([get_list()]) >= CircularLinkedList([get_float()])
+        (
+            CircularLinkedList([helper.get_list()])
+            >= CircularLinkedList([helper.get_float()])
+        )
     # linked lists have more than one value
     cll1 = CircularLinkedList([1, "2", 3.14])
     cll2 = CircularLinkedList([1, "2", 5.14])
@@ -387,8 +404,8 @@ def test_rotate():
     assert isinstance(cll._head, Node)
 
 
-def test_extend_method():
-    lst = get_list()
+def test_extend_method(helper):
+    lst = helper.get_list()
     # two linked lists are empty
     cll1 = CircularLinkedList()
     cll1.extend(CircularLinkedList())
@@ -410,8 +427,8 @@ def test_extend_method():
     assert len(cll2) == 2 * len(lst)
 
 
-def test_split_method():
-    lst = get_list(length=100)
+def test_split_method(helper):
+    lst = helper.get_list(length=100)
     cll = CircularLinkedList(lst)
     for i in range(len(lst)):
         # test left list

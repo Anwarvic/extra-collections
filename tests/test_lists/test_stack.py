@@ -1,10 +1,8 @@
 import pytest
-from tests import get_string, get_value, get_list, get_pos_int, get_float, \
-    get_int, get_neg_int, get_neg_float
 from extra.lists.stack import Stack
 
 
-def test_creating_stack():
+def test_creating_stack(helper):
     # empty stack
     s = Stack()
     assert s._max_capacity == float("inf")
@@ -30,14 +28,14 @@ def test_creating_stack():
     with pytest.raises(IndexError):
         s.peek()
     with pytest.raises(OverflowError):
-        s.push(get_value())
+        s.push(helper.get_value())
     s.clear()  # not to through any errors
     assert s._max_capacity == 0
 
 
-def test_stack_with_max_capacity():
-    cap = get_pos_int()
-    lst = get_list(length=cap)
+def test_stack_with_max_capacity(helper):
+    cap = helper.get_pos_int()
+    lst = helper.get_list(length=cap)
     s = Stack(max_capacity=cap)
     assert s._max_capacity == cap
     for i in lst:
@@ -47,33 +45,33 @@ def test_stack_with_max_capacity():
     assert not s.is_empty()
     assert s.is_full()
     with pytest.raises(OverflowError):
-        s.push(get_value())
+        s.push(helper.get_value())
     for _ in range(cap):
         assert s.peek() == lst[-1]
         assert s.pop() == lst.pop()
     assert len(s) == 0
     assert s.is_empty()
     assert s.is_full() is False
-    s.push(get_value())
+    s.push(helper.get_value())
     # test max capacity after clear
     s.clear()
     assert s._max_capacity == cap
 
 
-def test_stack_with_invalid_max_capacity():
+def test_stack_with_invalid_max_capacity(helper):
     with pytest.raises(TypeError):
-        Stack(max_capacity=get_list())
+        Stack(max_capacity=helper.get_list())
     with pytest.raises(TypeError):
-        Stack(max_capacity=get_string())
+        Stack(max_capacity=helper.get_string())
     with pytest.raises(ValueError):
-        Stack(max_capacity=get_neg_int())
+        Stack(max_capacity=helper.get_neg_int())
     with pytest.raises(ValueError):
-        Stack(max_capacity=get_neg_float())
+        Stack(max_capacity=helper.get_neg_float())
 
 
-def test_creating_stack_with_random_numbers():
+def test_creating_stack_with_random_numbers(helper):
     # stack with random values
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     s = Stack()
     for i in lst:
         s.push(i)
@@ -112,13 +110,13 @@ def test_stack_with_known_values():
     assert s.is_full() is False
 
 
-def test_push_method():
+def test_push_method(helper):
     s = Stack()
     with pytest.raises(ValueError):
         s.push(None)
     s.push("")
-    s.push(get_value())
-    s.push(get_int())
-    s.push(get_string())
-    s.push(get_float())
-    s.push(get_list())
+    s.push(helper.get_value())
+    s.push(helper.get_int())
+    s.push(helper.get_string())
+    s.push(helper.get_float())
+    s.push(helper.get_list())

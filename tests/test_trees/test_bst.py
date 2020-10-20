@@ -1,15 +1,9 @@
 import pytest
-from tests import (
-    get_string,
-    get_list,
-    get_float,
-    get_int,
-    verify_bst_rules,
-)
+
 from extra.trees.bst import BSTNode, BST
 
 
-def test_bst_node():
+def test_bst_node(helper):
     with pytest.raises(TypeError):
         BSTNode(None)
     with pytest.raises(TypeError):
@@ -17,11 +11,11 @@ def test_bst_node():
     with pytest.raises(TypeError):
         BSTNode(BST())
     with pytest.raises(TypeError):
-        BSTNode(get_string())
+        BSTNode(helper.get_string())
     with pytest.raises(TypeError):
-        BSTNode(get_list())
+        BSTNode(helper.get_list())
     # these shouldn't raise any erros
-    for val in [get_int(), get_float()]:
+    for val in [helper.get_int(), helper.get_float()]:
         node = BSTNode(val)
         assert node.get_data() == val
         assert node.get_left() == node.get_right() is None
@@ -52,31 +46,31 @@ def test_empty_bst(bst=BST()):
         bst.get_min()
 
 
-def test_search_insert_remove_input(bst=BST()):
+def test_search_insert_remove_input(helper, bst=BST()):
     assert None not in bst
-    assert get_string() not in bst
-    assert get_list() not in bst
+    assert helper.get_string() not in bst
+    assert helper.get_list() not in bst
     with pytest.raises(ValueError):
         bst.insert(None)
     with pytest.raises(TypeError):
-        bst.insert(get_string())
+        bst.insert(helper.get_string())
     with pytest.raises(TypeError):
-        bst.insert(get_list())
+        bst.insert(helper.get_list())
 
     with pytest.warns(UserWarning):
         bst.remove(None)
     with pytest.warns(UserWarning):
-        bst.remove(get_string())
+        bst.remove(helper.get_string())
     with pytest.warns(UserWarning):
-        bst.remove(get_list())
+        bst.remove(helper.get_list())
 
 
-def test_bst_one_value():
+def test_bst_one_value(helper):
     bst = BST()
-    val = get_int()
+    val = helper.get_int()
     bst.insert(val)
     # test structure
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     assert bst._root.get_data() == val
     # test various methods
     assert bst.count_leaf_nodes() == 1
@@ -103,10 +97,10 @@ def test_bst_one_value():
     # test empty bst
     test_empty_bst(bst)
     # validate
-    test_search_insert_remove_input(bst)
+    test_search_insert_remove_input(helper, bst)
 
 
-def test_bst_simple():
+def test_bst_simple(helper):
     bst = BST()
     bst.insert(4)
     bst.insert(2)
@@ -114,7 +108,7 @@ def test_bst_simple():
     bst.insert(3)
     bst.insert(5)
     # test structure
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     assert bst._root.get_data() == 4
     assert bst._root.get_left().get_data() == 2
     assert bst._root.get_right().get_data() == 5
@@ -146,19 +140,19 @@ def test_bst_simple():
     bst.remove(4)
     assert len(bst) == 4
     assert 4 not in bst
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     # test empty bst
     bst.clear()
     test_empty_bst(bst)
     # validate
-    test_search_insert_remove_input(bst)
+    test_search_insert_remove_input(helper, bst)
 
 
-def test_bst_from_iterable():
+def test_bst_from_iterable(helper):
     lst = [19, 7, 10, 12, 22, 30, 11, 25, 9, 20, 14, 12, 30, 22]
     bst = BST(lst)
     # test structure
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     assert bst._root.get_data() == 19
     assert bst._root.get_left().get_data() == 7
     assert bst._root.get_right().get_data() == 22
@@ -204,15 +198,15 @@ def test_bst_from_iterable():
     bst.remove(22)
     assert len(bst) == 10
     assert 22 not in bst
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     # test empty bst
     bst.clear()
     test_empty_bst(bst)
     # validate
-    test_search_insert_remove_input(bst)
+    test_search_insert_remove_input(helper, bst)
 
 
-def test_bst_big_example():
+def test_bst_big_example(helper):
     # SRC: "Data Structures and Algorithms in Python" book
     bst = BST()
     bst.insert(44)
@@ -230,14 +224,14 @@ def test_bst_big_example():
     bst.insert(76)
     bst.insert(68)
     bst.insert(80)
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     bst.remove(80)
     bst.remove(32)
     bst.remove(44)
     with pytest.warns(UserWarning):
         bst.remove(4000)
     bst.remove(65)
-    assert verify_bst_rules(bst._root)
+    assert helper.verify_bst_rules(bst._root)
     assert bst._root.get_data() == 54
     assert len(bst) == 11
     assert bst.get_height() == 4
@@ -249,4 +243,4 @@ def test_bst_big_example():
     bst.clear()
     test_empty_bst(bst)
     # validate
-    test_search_insert_remove_input(bst)
+    test_search_insert_remove_input(helper, bst)

@@ -1,19 +1,9 @@
 import pytest
 
-from tests import (
-    get_string,
-    get_value,
-    get_list,
-    get_pos_int,
-    get_float,
-    get_int,
-    get_neg_int,
-    get_neg_float,
-)
 from extra.lists.deque import Deque
 
 
-def test_creating_deque():
+def test_creating_deque(helper):
     # empty stack
     dq = Deque()
     assert dq._max_capacity == float("inf")
@@ -49,20 +39,20 @@ def test_creating_deque():
     with pytest.raises(IndexError):
         dq.get_right()
     with pytest.warns(UserWarning):
-        dq.enqueue(get_value())
+        dq.enqueue(helper.get_value())
     with pytest.warns(UserWarning):
-        dq.append_left(get_value())
+        dq.append_left(helper.get_value())
     with pytest.warns(UserWarning):
-        dq.append_right(get_value())
+        dq.append_right(helper.get_value())
     dq.clear()  # not to through any errors
     assert dq._max_capacity == 0
     assert dq.is_full()
 
 
-def test_deque_with_max_capacity():
-    cap = get_pos_int()
+def test_deque_with_max_capacity(helper):
+    cap = helper.get_pos_int()
     # test append_left/pop_left
-    lst = get_list(length=cap)
+    lst = helper.get_list(length=cap)
     dq = Deque(max_capacity=cap)
     assert dq._max_capacity == cap
     for i in lst:
@@ -77,13 +67,13 @@ def test_deque_with_max_capacity():
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() is False
-    dq.enqueue(get_value())
+    dq.enqueue(helper.get_value())
     # test max capacity after clear
     dq.clear()
     assert dq._max_capacity == cap
 
     # test append_right/pop_right
-    lst = get_list(length=cap)
+    lst = helper.get_list(length=cap)
     dq = Deque(max_capacity=cap)
     assert dq._max_capacity == cap
     for i in lst:
@@ -98,26 +88,26 @@ def test_deque_with_max_capacity():
     assert len(dq) == 0
     assert dq.is_empty()
     assert dq.is_full() is False
-    dq.enqueue(get_value())
+    dq.enqueue(helper.get_value())
     # test max capacity after clear
     dq.clear()
     assert dq._max_capacity == cap
 
 
-def test_deque_with_invalid_max_capacity():
+def test_deque_with_invalid_max_capacity(helper):
     with pytest.raises(TypeError):
-        Deque(max_capacity=get_list())
+        Deque(max_capacity=helper.get_list())
     with pytest.raises(TypeError):
-        Deque(max_capacity=get_string())
+        Deque(max_capacity=helper.get_string())
     with pytest.raises(ValueError):
-        Deque(max_capacity=get_neg_int())
+        Deque(max_capacity=helper.get_neg_int())
     with pytest.raises(ValueError):
-        Deque(max_capacity=get_neg_float())
+        Deque(max_capacity=helper.get_neg_float())
 
 
-def test_creating_deque_with_random_numbers():
+def test_creating_deque_with_random_numbers(helper):
     # stack with random values
-    lst = get_list(length=100)
+    lst = helper.get_list(length=100)
     dq = Deque()
     for i in lst:
         dq.append_right(i)
@@ -186,7 +176,7 @@ def test_deque_with_known_values():
     assert dq.is_full() is False
 
 
-def test_append_methods():
+def test_append_methods(helper):
     dq = Deque()
     with pytest.raises(ValueError):
         dq.enqueue(None)
@@ -197,8 +187,8 @@ def test_append_methods():
     dq.enqueue("")
     dq.append_left("")
     dq.append_right("")
-    dq.enqueue(get_value())
-    dq.enqueue(get_int())
-    dq.enqueue(get_string())
-    dq.enqueue(get_float())
-    dq.enqueue(get_list())
+    dq.enqueue(helper.get_value())
+    dq.enqueue(helper.get_int())
+    dq.enqueue(helper.get_string())
+    dq.enqueue(helper.get_float())
+    dq.enqueue(helper.get_list())

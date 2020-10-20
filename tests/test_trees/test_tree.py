@@ -1,37 +1,36 @@
 import pytest
-from tests import (
-    get_string,
-    get_value,
-    get_list,
-    get_float,
-    get_int,
-)
 from extra.trees.tree import TreeNode, Tree
 
 
-def test_treenode():
+def test_treenode(helper):
     with pytest.raises(ValueError):
         TreeNode(None)
     with pytest.raises(TypeError):
-        TreeNode(TreeNode(get_value()))
+        TreeNode(TreeNode(helper.get_value()))
     # the following shouldn't raise anything
     TreeNode("")
     TreeNode("      ")
     assert TreeNode("\nap\nple\n").get_data() == "\\nap\\nple\\n"
-    for val in [get_int(), get_float(), get_string(), get_list()]:
+    values = [
+        helper.get_int(),
+        helper.get_float(),
+        helper.get_string(),
+        helper.get_list()
+    ]
+    for val in values:
         node = TreeNode(val)
         assert node.get_data() == val
         assert node.get_children() == []
     with pytest.raises(TypeError):
-        TreeNode(get_value()).set_child(get_value)
+        TreeNode(helper.get_value()).set_child(helper.get_value())
     with pytest.raises(TypeError):
-        TreeNode(get_value()).set_children(get_value)
+        TreeNode(helper.get_value()).set_children(helper.get_value())
 
 
-def test_empty_tree():
+def test_empty_tree(helper):
     t = Tree()
     with pytest.raises(TypeError):
-        Tree(get_value())
+        Tree(helper.get_value())
     with pytest.raises(TypeError):
         Tree(None)
     assert t.is_empty()
@@ -106,7 +105,7 @@ def test_tree_with_known_values():
     assert t.to_list() == []
 
 
-def test_invalid_path():
-    val = get_string()
+def test_invalid_path(helper):
+    val = helper.get_string()
     with pytest.raises(ValueError):
         Tree.from_path(val)

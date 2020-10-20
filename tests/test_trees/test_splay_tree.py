@@ -1,10 +1,10 @@
 # import pytest
-from tests import verify_bst_rules
+
 from extra.trees.bst import BSTNode
 from extra.trees.splay_tree import SplayTree
 
 
-def test_splay_tree_example1():
+def test_splay_tree_example1(helper):
     # example from Data Structures and Algorithm in Python (page: 514)
     stree = SplayTree()
     stree._root = BSTNode(8)
@@ -22,7 +22,7 @@ def test_splay_tree_example1():
     stree._root.get_right().get_right().get_right().get_right()\
         .set_right(BSTNode(17))
     # let's test it
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)
     assert stree.is_balanced()
     assert not stree.is_perfect()
     assert not stree.is_strict()
@@ -49,7 +49,7 @@ def test_splay_tree_example1():
     # find 8
     assert 8 in stree
     assert stree._root.get_data() == 8
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)
     assert stree.get_max() == 17
     assert stree.get_min() == 3
     assert stree.is_balanced()
@@ -58,12 +58,12 @@ def test_splay_tree_example1():
     # find 2
     assert 5.5 not in stree
     assert stree._root.get_data() == 5
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)
     assert stree.get_max() == 17
     assert stree.get_min() == 3
 
 
-def test_splay_tree_example2():
+def test_splay_tree_example2(helper):
     # example from Data Structures and Algorithm in Python (page: 517)
     stree = SplayTree()
     stree._root = BSTNode(8)
@@ -75,7 +75,7 @@ def test_splay_tree_example2():
     stree._root.set_right(BSTNode(10))
     stree._root.get_right().set_right(BSTNode(11))
     # let's test it
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)
     assert not stree.is_balanced()
     assert not stree.is_perfect()
     assert not stree.is_strict()
@@ -93,7 +93,7 @@ def test_splay_tree_example2():
     # remove 8
     stree.remove(8)
     assert stree._root.get_data() in {7, 10}
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)
     assert 8 not in stree
     assert stree.get_max() == 11
     assert stree.get_min() == 3
@@ -102,7 +102,7 @@ def test_splay_tree_example2():
     assert not stree.is_strict()
 
 
-def test_splay_tree_example3():
+def test_splay_tree_example3(helper):
     stree = SplayTree()
     stree._root = BSTNode(50)
     lst = []
@@ -110,10 +110,10 @@ def test_splay_tree_example3():
         stree.insert(item)
         lst.append(item)
         assert stree._root.get_data() == item
-        assert verify_bst_rules(stree._root)
+        assert helper.verify_bst_rules(stree._root)
         assert stree.get_max() == max(lst)
         assert stree.get_min() == min(lst)
     # remove 30
     stree.remove(30)
     assert stree._root.get_data() in {28, 35}
-    assert verify_bst_rules(stree._root)
+    assert helper.verify_bst_rules(stree._root)

@@ -1,4 +1,5 @@
 import pytest
+
 from extra.trees.suffix_trie import SuffixTrie
 
 
