@@ -1,15 +1,13 @@
 """
-A deque, which is usually pronounced "deck", is a queue-like data structure that
-supports insertion and deletion at both the front and the back of the queue.
-Deque is a short for "double-ended queue". The deque is more general than both
-the stack and the queue.
+A deque, which is usually pronounced "deck", is a queue-like data structure
+that supports insertion and deletion at both the front and the back of the
+queue. Deque is a short for "double-ended queue". The deque is more general
+than both the stack and the queue.
 
 .. image:: ../../img/lists/deque.gif
 """
 import warnings
 from extra.lists.queue import Queue
-
-
 
 
 class Deque(Queue):
@@ -19,19 +17,19 @@ class Deque(Queue):
     queue. Deque is a short for "double-ended queue". The deque is more general
     than both the stack and the queue.
     """
-    __name__ = "extra.Deque()"
 
+    __name__ = "extra.Deque()"
 
     def __init__(self, max_capacity=float("inf")):
         """
         Creates a `Deque()` object!!
-        
+
         Parameters
         ----------
         max_capacity: int
-            It'dq a positive integer representing the maximum number of elements
-            a `Deque()` should contain (Default: inf).
-        
+            It'dq a positive integer representing the maximum number of
+            elements a `Deque()` should contain (Default: inf).
+
         Raises
         ------
         TypeError:
@@ -63,9 +61,8 @@ class Deque(Queue):
         11
         """
         super().__init__(max_capacity)
-    
 
-    ##############################      PRINT     ##############################
+    # =============================     PRINT    ==============================
     def __repr__(self):
         """
         Represents the `Deque()` instance as a string.
@@ -74,7 +71,7 @@ class Deque(Queue):
         -------
         str:
             The string-representation of the `Deque()` instance.
-        
+
         Example
         -------
         >>> dq = Deque()
@@ -85,10 +82,9 @@ class Deque(Queue):
         ⟷│ 20 │ 10 │⟷
         ─┴────┴────┴─
         """
-        return super()._print_queue('⟷')
-    
+        return super()._print_queue("⟷")
 
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `Deque()` instance in constant time.
@@ -98,7 +94,7 @@ class Deque(Queue):
         int:
             The length of the `Deque()` instance. By Length, I mean the number
             of nodes of in the instance.
-        
+
         Examples
         --------
         >>> dq = Deque()
@@ -112,18 +108,17 @@ class Deque(Queue):
         """
         return super().__len__()
 
-
     def is_empty(self):
         """
         Checks if `Deque()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `Deque()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's not
             empty.
-        
+
         Example
         --------
         >>> dq = Deque()
@@ -135,18 +130,17 @@ class Deque(Queue):
         """
         return super().is_empty()
 
-
     def is_full(self):
         """
         Checks if `Deque()` instance is at full-capacity in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `Deque()` instance is full or not.
             `True` shows that this instance is full and `False` shows it's not
             full.
-        
+
         Example
         --------
         >>> dq = Deque(max_capacity=2)
@@ -161,8 +155,7 @@ class Deque(Queue):
         """
         return super().is_full()
 
-    
-    ##############################     APPEND     ##############################
+    # =============================    APPEND    ==============================
     def append_left(self, item):
         """
         Inserts the given `item` to left-side of the `Deque()`, it does that in
@@ -172,7 +165,7 @@ class Deque(Queue):
         ----------
         item: object
             The python object to be pushed to the `Deque()`.
-        
+
         Raises
         ------
         UserWarning:
@@ -197,7 +190,8 @@ class Deque(Queue):
         ⟷│ 2 │ 1 │⟷
         ─┴───┴───┴─
         >>> dq.append_left(3)
-        UserWarning: Enqueuing to a full `extra.Deque()` could lead to missing values!!
+        UserWarning: Enqueuing to a full `extra.Deque()` could lead to \
+            missing values!!
         >>> dq
         ─┬───┬───┬─
         ⟷│ 3 │ 2 │⟷
@@ -209,17 +203,16 @@ class Deque(Queue):
         """
         super().enqueue(item)
 
-
     def append_right(self, item):
         """
-        Inserts the given `item` to right-side of the `Deque()`, it does that in
-        constant time.
+        Inserts the given `item` to right-side of the `Deque()`, it does that
+        in constant time.
 
         Parameters
         ----------
         item: object
             The python object to be pushed to the `Deque()`.
-        
+
         Raises
         ------
         UserWarning:
@@ -244,7 +237,8 @@ class Deque(Queue):
         ⟷│ 1 │ 2 │⟷
         ─┴───┴───┴─
         >>> dq.append_right(3)
-        UserWarning: Enqueuing to a full `extra.Deque()` could lead to missing values!!
+        UserWarning: Enqueuing to a full `extra.Deque()` could lead to \
+            missing values!!
         >>> dq
         ─┬───┬───┬─
         ⟷│ 2 │ 3 │⟷
@@ -253,16 +247,15 @@ class Deque(Queue):
         super()._validate_item(item)
         if self.is_full():
             warnings.warn(
-                f"Enqueuing to a full `{self.__name__}` "+\
-                    "could lead to missing values!!",
-                UserWarning
+                f"Enqueuing to a full `{self.__name__}` "
+                + "could lead to missing values!!",
+                UserWarning,
             )
             self._container.remove_front()
         if self._max_capacity > 0:
             self._container._insert(len(self), item)
 
-
-    #############################       GET       ##############################
+    # =============================      GET     ==============================
     def get_left(self):
         """
         Returns the left-most item of the `Deque()` instance in constant time.
@@ -271,7 +264,7 @@ class Deque(Queue):
         -------
         object:
             The `Deque()` instance's left-most item.
-        
+
         Raises
         ------
         IndexError:
@@ -296,7 +289,6 @@ class Deque(Queue):
                 f"Can't retrieve from an empty `{self.__name__}`!!"
             )
         return self._container._head.get_data()
-    
 
     def get_right(self):
         """
@@ -306,7 +298,7 @@ class Deque(Queue):
         -------
         object:
             The `Deque()` instance's right-most item.
-        
+
         Raises
         ------
         IndexError:
@@ -328,17 +320,16 @@ class Deque(Queue):
         """
         return super().top()
 
-
-    ##############################       POP      ##############################
+    # =============================      POP     ==============================
     def pop_left(self):
         """
         Pops the left-most item from the `Deque()` in constant time.
-        
+
         Returns
         -------
         object:
             The `Deque()` instance's left-most item.
-        
+
         Raises
         ------
         UserWarning:
@@ -370,16 +361,15 @@ class Deque(Queue):
             self._container.remove_front()
             return head_value
 
-
     def pop_right(self):
         """
         Pops the right-most item from the `Deque()` in constant time.
-        
+
         Returns
         -------
         object:
             The `Deque()` instance's right-most item.
-        
+
         Raises
         ------
         UserWarning:
@@ -404,7 +394,6 @@ class Deque(Queue):
         ─┴────┴─
         """
         return super().dequeue()
-
 
     def clear(self):
         """
@@ -432,9 +421,7 @@ class Deque(Queue):
 
         Note
         ----
-        When you clear the `Deque()` instance, the `max_capacity` of the cleared
-        instance remains the same as the one before.
+        When you clear the `Deque()` instance, the `max_capacity` of the
+        cleared instance remains the same as the one before.
         """
         super().clear()
-
-
