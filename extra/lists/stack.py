@@ -10,8 +10,6 @@ import warnings
 from extra.interface import Extra
 
 
-
-
 class Stack(Extra):
     """
     A stack is the simplest linear data structure where objects that are
@@ -19,19 +17,19 @@ class Stack(Extra):
     A user may insert objects into a stack at any time, but may only access or
     remove the most recently inserted object that remains at, the so-called,
     **top** of the stack."""
+
     __name__ = "extra.Stack()"
 
-    
     def __init__(self, max_capacity=float("inf")):
         """
         Creates a `Stack()` object!!
-        
+
         Parameters
         ----------
         max_capacity: int
             It's a positive integer representing the maximum number of elements
             a `Stack()` should contain (Default: inf).
-        
+
         Raises
         ------
         TypeError:
@@ -71,12 +69,11 @@ class Stack(Extra):
                 f"Max capacity of `{self.__name__}` has to be >= 0"
             )
         self._container = []
-        self._max_capacity = round(max_capacity) \
-            if max_capacity != float("inf") \
-            else max_capacity
+        self._max_capacity = (
+          round(max_capacity) if max_capacity != float("inf") else max_capacity
+        )
 
-
-    ##############################     PRINT      ##############################
+    # =============================    PRINT     ==============================
     def __repr__(self):
         """
         Represents the `Stack()` instance as a string.
@@ -85,7 +82,7 @@ class Stack(Extra):
         -------
         str:
             The string-representation of the `Stack()` instance.
-        
+
         Example
         -------
         >>> s = Stack()
@@ -93,26 +90,25 @@ class Stack(Extra):
         >>> s.push(20)
         >>> s
         ┌────┬────┬─
-        │ 10 │ 20 │ 
+        │ 10 │ 20 │
         └────┴────┴─
         """
-        top_border    = '┌'
-        middle_border = '│'
-        down_border   = '└'
+        top_border = "┌"
+        middle_border = "│"
+        down_border = "└"
         for item in self._container:
-            #NOTE: +2 for a space before & after `item`
-            width = len(str(item))+2
-            top_border += ('─'*width) + '┬'
+            # NOTE: +2 for a space before & after `item`
+            width = len(str(item)) + 2
+            top_border += ("─" * width) + "┬"
             middle_border += " {} │".format(item)
-            down_border += ('─'*width) + '┴'
+            down_border += ("─" * width) + "┴"
         # add extension
-        top_border += '─'
-        middle_border += ' '
-        down_border += '─'
+        top_border += "─"
+        middle_border += " "
+        down_border += "─"
         return "{}\n{}\n{}".format(top_border, middle_border, down_border)
 
-
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `Stack()` instance in constant time.
@@ -122,7 +118,7 @@ class Stack(Extra):
         int:
             The length of the `Stack()` instance. By Length, I mean the
             number of elements of in the instance.
-        
+
         Examples
         --------
         >>> s = Stack()
@@ -136,18 +132,17 @@ class Stack(Extra):
         """
         return len(self._container)
 
-
     def is_empty(self):
         """
         Checks if `Stack()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `Stack()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's not
             empty.
-        
+
         Example
         --------
         >>> s = Stack()
@@ -158,19 +153,18 @@ class Stack(Extra):
         False
         """
         return len(self._container) == 0
-    
 
     def is_full(self):
         """
         Checks if `Stack()` instance is at full-capacity in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `Stack()` instance is full or not.
             `True` shows that this instance is full and `False` shows it's not
             full.
-        
+
         Example
         --------
         >>> s = Stack(max_capacity=2)
@@ -185,8 +179,7 @@ class Stack(Extra):
         """
         return len(self) == self._max_capacity
 
-
-    ##############################      PUSH      ##############################
+    # =============================     PUSH     ==============================
     def push(self, item):
         """
         Pushs the given `item` to the `Stack()` in constant time. This
@@ -196,7 +189,7 @@ class Stack(Extra):
         ----------
         item: object
             The python object to be pushed to the `Stack()`.
-        
+
         Raises
         ------
         OverflowError:
@@ -212,13 +205,13 @@ class Stack(Extra):
         >>> s = Stack(max_capacity=2)
         >>> s
         ┌─
-        │ 
+        │
         └─
         >>> s.push(1)
         >>> s.push(2)
         >>> s
         ┌───┬───┬─
-        │ 1 │ 2 │ 
+        │ 1 │ 2 │
         └───┴───┴─
         >>> s.push(3)
         OverflowError: Stackoverflow! Can't push into a full `extra.Stack()`!!
@@ -229,11 +222,10 @@ class Stack(Extra):
             )
         super()._validate_item(item)
         if type(item) == str:
-            item = item.replace('\n', '\\n')
+            item = item.replace("\n", "\\n")
         self._container.append(item)
 
-
-    ##############################      PEEK      ##############################
+    # =============================     PEEK     ==============================
     def peek(self):
         """
         Returns the top item of the `Stack()` instance in constant time.
@@ -243,7 +235,7 @@ class Stack(Extra):
         object:
             The `Stack()` instance's top item which is the last item to be
             pushed to the instance.
-        
+
         Raises
         ------
         IndexError:
@@ -258,7 +250,7 @@ class Stack(Extra):
         >>> s.push(20)
         >>> s
         ┌────┬────┬─
-        │ 10 │ 20 │ 
+        │ 10 │ 20 │
         └────┴────┴─
         >>> s.peek()
         20
@@ -267,18 +259,17 @@ class Stack(Extra):
             raise IndexError(f"Can't peek from an empty `{self.__name__}`!!")
         return self._container[-1]
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def pop(self):
         """
         Pops the top item from the `Stack()` in constant time.
-        
+
         Returns
         -------
         object:
             The `Stack()` instance's top item which is the last item to be
             pushed to the instance.
-        
+
         Raises
         ------
         UserWarning:
@@ -293,7 +284,7 @@ class Stack(Extra):
         >>> s.push(20)
         >>> s
         ┌────┬────┬─
-        │ 10 │ 20 │ 
+        │ 10 │ 20 │
         └────┴────┴─
         >>> s.pop()
         20
@@ -304,13 +295,11 @@ class Stack(Extra):
         """
         if self.is_empty():
             warnings.warn(
-                f"Popping from empty `{self.__name__}`!!",
-                UserWarning
+                f"Popping from empty `{self.__name__}`!!", UserWarning
             )
             return
         else:
             return self._container.pop()
-
 
     def clear(self):
         """
@@ -324,7 +313,7 @@ class Stack(Extra):
         >>> s.push(3)
         >>> s
         ┌───┬───┬───┬─
-        │ 1 │ 2 │ 3 │ 
+        │ 1 │ 2 │ 3 │
         └───┴───┴───┴─
         >>> len(s)
         3
@@ -335,12 +324,10 @@ class Stack(Extra):
         └─
         >>> len(s)
         0
-        
+
         Note
         ----
-        When you clear the `Stack()` instance, the `max_capacity` of the cleared
-        instance remains the same as the one before.
+        When you clear the `Stack()` instance, the `max_capacity` of the
+        cleared instance remains the same as the one before.
         """
         self.__init__(max_capacity=self._max_capacity)
-
-
