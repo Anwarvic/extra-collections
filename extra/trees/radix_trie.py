@@ -1,9 +1,9 @@
 """
 A radix trie, or compressed trie, is similar to a standard trie but it ensures
-that each internal node in the trie has at least two children. It enforces this 
+that each internal node in the trie has at least two children. It enforces this
 rule by compressing chains of single-child nodes into individual edges. So, the
-following is a simple trie formed by inserting these three words: "car", "cart",
-and "cast".
+following is a simple trie formed by inserting these three words: "car",
+"cart", and "cast".
 
 .. code-block:: text
 
@@ -27,44 +27,42 @@ three words:
       └── st ✓
 
 The advantage of a radix trie over a standard trie is that the number of nodes
-of the compressed trie is less than the latter. Also, the number of nodes is 
+of the compressed trie is less than the latter. Also, the number of nodes is
 proportional to the number of strings and not to their total length. This
 additional compression scheme reduces the total space for the trie itself from
 **O(n)** for the standard trie to **O(s)** for the radix trie, where **n** is
 the total length of the strings and **s** is the number of strings.
 
 Searching in a radix trie is not necessarily faster than in a standard tree,
-since there is still need to compare every character of the desired pattern with
-the potentially multi-character labels while traversing paths in the trie.
+since there is still need to compare every character of the desired pattern
+with the potentially multi-character labels while traversing paths in the trie.
 
 .. image:: ../../img/trees/radix_trie.gif
 """
 from extra.trees.trie import TrieNode, Trie
 
 
-
-
 def get_lcp(word1, word2):
     """
     Gets the LCP, Longest Common Prefix, between the two given words.
-    
+
     Parameters
     ----------
     word1: str
         The first word to consider when getting LCP.
     word2: str
         The second word to considerwhen getting LCP.
-    
+
     Returns
     -------
     str:
         The longest common prefix between the given two words.
-    
+
     Raises
     ------
     AssertionError:
         If either of the two given words isn't a string.
-    
+
     Example
     -------
     >>> get_lcp("apple", "append")
@@ -72,16 +70,14 @@ def get_lcp(word1, word2):
     >>> get_lcp("apple", "abnormal")
     a
     >>> get_lcp("apple", "xapple")
-    
+
     """
-    assert type(word1)==str and type(word2)==str
+    assert type(word1) == str and type(word2) == str
 
     for i in range(min(len(word1), len(word2))):
         if word1[i] != word2[i]:
             return word1[:i]
     return word1 if len(word1) < len(word2) else word2
-
-
 
 
 class RadixTrie(Trie):
@@ -92,13 +88,13 @@ class RadixTrie(Trie):
     of tree nodes, where each node contains string value and each node has a
     list of references to the children tree nodes in a tree-form structure.
     """
+
     __name__ = "extra.RadixTrie()"
-    
 
     def __init__(self):
         """
         Creates an empty `RadixTrie()` object!!
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -108,9 +104,8 @@ class RadixTrie(Trie):
         --
         """
         super().__init__()
-    
 
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `RadixTrie()` instance. Length is the number of
@@ -121,7 +116,7 @@ class RadixTrie(Trie):
         int:
             The length of the `RadixTrie()` instance. Length is the number of
             nodes in the instance.
-        
+
         Examples
         --------
         >>> rt = RadixTrie()
@@ -140,19 +135,18 @@ class RadixTrie(Trie):
         5
         """
         return super().__len__()
-    
 
     def is_empty(self):
         """
         Checks if the `RadixTrie()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `RadixTrie()` instance is empty or
-            not. `True` shows that this instance is empty and `False` shows it's
-            not empty.
-        
+            not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
+
         Example
         --------
         >>> rt = RadixTrie()
@@ -163,13 +157,12 @@ class RadixTrie(Trie):
         False
         """
         return super().is_empty()
-    
 
-    ##############################     PRINT      ##############################
+    # =============================     PRINT    ==============================
     def __repr__(self):
         """
         Represents the `RadixTrie()` instance as a string.
-        
+
         Returns
         -------
         str:
@@ -192,18 +185,17 @@ class RadixTrie(Trie):
         """
         return super().__repr__()
 
-
-    ##############################  HEIGHT/DEPTH  ##############################
+    # ============================= HEIGHT/DEPTH ==============================
     def get_height(self):
         """
-        Gets the height of the `RadixTrie()` instance. The trie's height is the 
+        Gets the height of the `RadixTrie()` instance. The trie's height is the
         number of edges between the root and the furthest leaf node.
 
         Returns
         -------
         int:
             A positive integer representing the height of the instance.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -220,7 +212,6 @@ class RadixTrie(Trie):
         3
         """
         return super().get_height()
-    
 
     def get_depth(self):
         """
@@ -229,8 +220,9 @@ class RadixTrie(Trie):
         Returns
         -------
         int:
-            A positive integer representing the depth of the given `RadixTrie()`.
-        
+            A positive integer representing the depth of the given
+            `RadixTrie()`.
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -247,9 +239,8 @@ class RadixTrie(Trie):
         0
         """
         return super().get_depth()
-    
-    
-    ##############################   LEAF NODES   ##############################
+
+    # =============================  LEAF NODES  ==============================
     def count_leaf_nodes(self):
         """
         Counts the number of leaf nodes in the `RadixTrie()` instance. Leaf
@@ -258,9 +249,9 @@ class RadixTrie(Trie):
         Returns
         -------
         int:
-            A positive integer representing the number of leaf nodes in the 
+            A positive integer representing the number of leaf nodes in the
             `RadixTrie()`.
-                
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -278,18 +269,17 @@ class RadixTrie(Trie):
         """
         return super().count_leaf_nodes()
 
-
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `RadixTrie()` instance and returns a generator of the 
+        Iterates over the `RadixTrie()` instance and returns a generator of the
         string values stored at the different nodes in breadth-first manner.
 
         Yields
         -------
         str:
             The string stored at each node in the instance.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -307,7 +297,6 @@ class RadixTrie(Trie):
         ca,r,st,t,
         """
         return super().__iter__()
-    
 
     def to_list(self):
         """
@@ -319,7 +308,7 @@ class RadixTrie(Trie):
         list:
             A `list` object containing the same elements as the `RadixTrie()`
             instance.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -337,8 +326,7 @@ class RadixTrie(Trie):
         """
         return super().to_list()
 
-
-    ##############################      FIND      ##############################
+    # =============================     FIND     ==============================
     def __contains__(self, word):
         """
         Searches the `RadixTrie()` for the given `word` and returns `True` if
@@ -348,13 +336,13 @@ class RadixTrie(Trie):
         ----------
         word: str
             The word to be searched for in the `RadixTrie()` instance.
-        
+
         Returns
         -------
         bool:
-            Returns `True` if the value exists in the `RadixTrie()` instance and
-            `False` if not.
-        
+            Returns `True` if the value exists in the `RadixTrie()` instance
+            and `False` if not.
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -378,7 +366,6 @@ class RadixTrie(Trie):
         """
         return super().__contains__(word)
 
-
     def has_prefix(self, prefix):
         """
         Searches the `RadixTrie()` for the given `prefix` and returns `True` if
@@ -388,13 +375,13 @@ class RadixTrie(Trie):
         ----------
         prefix: str
             The prefix to be searched for in the `RadixTrie()` instance.
-        
+
         Returns
         -------
         bool:
             Returns `True` if the prefix exists in the `RadixTrie()` instance
             and `False` if not.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -416,8 +403,7 @@ class RadixTrie(Trie):
         """
         return super().has_prefix(prefix)
 
-
-    ##############################     INSERT     ##############################
+    # =============================    INSERT    ==============================
     def _insert(self, word):
         """
         Inserts a word to the `RadixTrie()` instance.
@@ -426,13 +412,13 @@ class RadixTrie(Trie):
         ----------
         word: str
             The new word to be inserted.
-        
+
         Returns
         -------
         TrieNode():
             A reference to the last accessed node after inserting the given
             `word`.
-            
+
         Raises
         ------
         AssertionError:
@@ -442,16 +428,16 @@ class RadixTrie(Trie):
 
         last_node, remaining_word = super()._follow_path(word)
         curr_node = last_node
-        while(remaining_word):
+        while remaining_word:
             ch = remaining_word[0]
             child = curr_node.get_child(ch)
-            child_data = child.get_data() if child else ''
+            child_data = child.get_data() if child else ""
             idx = len(get_lcp(child_data, remaining_word))
             # couldn't find the remaining_word
             if idx == 0:
                 new_node = TrieNode(remaining_word)
                 curr_node.set_child(ch, new_node)
-                remaining_word = ''
+                remaining_word = ""
                 self._nodes_count += 1
             # child is prefix of the remaining_word
             elif idx <= len(remaining_word) and idx != len(child_data):
@@ -468,7 +454,6 @@ class RadixTrie(Trie):
         curr_node._is_word = True
         # return the newest created node after insertion
         return curr_node
-    
 
     def insert(self, word):
         """
@@ -478,7 +463,7 @@ class RadixTrie(Trie):
         ----------
         word: str
             The new word that will be inserted.
-        
+
         Raises
         ------
         ValueError:
@@ -502,22 +487,21 @@ class RadixTrie(Trie):
         super()._validate_item(word, accept_empty_string=False)
         self._insert(word)
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def remove(self, word):
         """
-        Removes the given `word` from the `RadixTrie()` instance. 
+        Removes the given `word` from the `RadixTrie()` instance.
 
         Parameters
         ----------
         word: str
             The word to be deleted from the `RadixTrie()`.
-        
+
         Raises
         ------
         UserWarning: If the `RadixTrie()` instance is empty of if the value \
             wasn't found in the instance.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -538,7 +522,6 @@ class RadixTrie(Trie):
           └── st ✓
         """
         super().remove(word)
-
 
     def clear(self):
         """
@@ -564,24 +547,23 @@ class RadixTrie(Trie):
         """
         super().clear()
 
-
-    ############################## AUTOCOMPLETION ##############################
-    def auto_complete(self, prefix=''):
+    # ============================= AUTOCOMPLETE ==============================
+    def auto_complete(self, prefix=""):
         """
         Parses the `RadixTrie()` instance and retrieves all the words that has
-        the given `prefix`. In other words, auto-compeletes a given prefix using
-        all saved words found in the `RadixTrie()` instance.
+        the given `prefix`. In other words, auto-compeletes a given prefix
+        using all saved words found in the `RadixTrie()` instance.
 
         Parameters
         ----------
         prefix: str (default '')
             A prefix to auto-complete.
-        
+
         Returns
         -------
         list:
             A list of all found words that have the given `prefix`.
-        
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -603,7 +585,7 @@ class RadixTrie(Trie):
 
         Note
         ----
-        Using an empty prefix as an input will return all saved words in the 
+        Using an empty prefix as an input will return all saved words in the
         `RadixTrie()` instance.
         """
 
@@ -612,20 +594,22 @@ class RadixTrie(Trie):
         last_node, remaining = super()._follow_path(prefix)
         # update prefix
         curr_node = last_node
-        prefix = prefix[:-len(remaining)] if remaining else prefix
+        prefix = prefix[: -len(remaining)] if remaining else prefix
         if remaining:
             ch = remaining[0]
             child = curr_node.get_child(ch)
-            child_data = child.get_data() if child else ''
+            child_data = child.get_data() if child else ""
             # couldn't find the remaining prefix
-            if len(remaining) > len(child_data) or \
-                child_data[:len(remaining)] != remaining:
+            if (
+                len(remaining) > len(child_data)
+                or child_data[: len(remaining)] != remaining
+            ):
                 return candidates
             else:
-                remaining = ''
+                remaining = ""
                 prefix += child_data
                 curr_node = child
-       
+
         # check the current node
         if curr_node._is_word:
             candidates.append(prefix)
@@ -634,20 +618,20 @@ class RadixTrie(Trie):
             candidates.extend(super()._get_candidates(child, [prefix]))
         return candidates
 
-
-    ##############################      NODES     ##############################
+    # =============================     NODES    ==============================
     def get_nodes_per_level(self):
         """
         Retrieves all trie nodes within the `RadixTrie()` instance so that all
-        trie nodes in a certain level will be concatenated into a separate list.
+        trie nodes in a certain level will be concatenated into a separate
+        list.
 
         Returns
         -------
         list:
-            A nested list where the first inner-list has all the trie nodes in 
-            the first level, the second inner-list has all the trie nodes in the 
-            second level, ... so on.
-        
+            A nested list where the first inner-list has all the trie nodes in
+            the first level, the second inner-list has all the trie nodes in
+            the second level, ... so on.
+
         Example
         -------
         >>> rt = RadixTrie()
@@ -664,5 +648,3 @@ class RadixTrie(Trie):
         [['ca'], ['r', 'st'], ['t']]
         """
         return super().get_nodes_per_level()
-    
-

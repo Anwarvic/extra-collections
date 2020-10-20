@@ -10,8 +10,6 @@ from extra.interface import Extra
 from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie
 
 
-
-
 def is_palindrome(word):
     """
     Checks if the given word is a palindrome or not. A palindrome is  string
@@ -21,7 +19,7 @@ def is_palindrome(word):
     ----------
     word: str
         The word to be checked if it's a palindrome or not.
-    
+
     Returns
     -------
     bool:
@@ -46,24 +44,22 @@ def is_palindrome(word):
     """
     assert type(word) == str
 
-    for i in range(len(word)//2):
-        if word[i] != word[len(word)-1-i]:
+    for i in range(len(word) // 2):
+        if word[i] != word[len(word) - 1 - i]:
             return False
     return True
-
-
 
 
 class SuffixTrie(Extra):
     """
     A suffix trie is a radix trie that stores information about a single string
-    and exports a huge amount of structural information about that string. It is
-    able to perform these stuctural operations by storing all the possible
+    and exports a huge amount of structural information about that string. It
+    is able to perform these stuctural operations by storing all the possible
     suffixes of the given text, hence the name "Suffix Trie".
     """
+
     __name__ = "extra.SuffixTrie"
 
-    
     def __init__(self, word):
         """
         Creates a `SuffixTrie()` object using the given `word` in quadratic
@@ -74,7 +70,7 @@ class SuffixTrie(Extra):
         word: str
             The string that we want to create our `SuffixTrie()` from its
             suffixes.
-        
+
         Raises
         ------
         ValueError: It can be raised due to one of these cases:
@@ -112,9 +108,9 @@ class SuffixTrie(Extra):
             raise ValueError(
                 f"An empty string can't be inserted to `{self.__name__}`!!"
             )
-        
-        self._word = word.replace('$', '')
-        # dictionary containing suffix-index as key and leaf nodes as values 
+
+        self._word = word.replace("$", "")
+        # dictionary containing suffix-index as key and leaf nodes as values
         self._leaf_nodes = {}
         # SuffixTrie is basically a RadixTrie
         self._rt = RadixTrie()
@@ -124,31 +120,30 @@ class SuffixTrie(Extra):
             node = self._rt._insert(self._word[idx:] + "$ ⟶ " + str(idx))
             node._is_word = False
             self._leaf_nodes[idx] = node
-            self._suffix_array.append( (idx, self._word[idx:]) )
-        
+            self._suffix_array.append((idx, self._word[idx:]))
+
         # edge case
         node = self._rt._insert("$ ⟶ " + str(len(self._word)))
         node._is_word = False
         self._leaf_nodes[len(self._word)] = node
-        self._suffix_array.append((len(self._word), '$'))
+        self._suffix_array.append((len(self._word), "$"))
         # NOTE
         # The `self._suffix_array` isn't the actually suffix array. To obtain
         # the suffix array, you will need to sort the suffixes alphabetically
         # and obtain the indices only. And that's what happens in
         # `to_suffix_array` method.
 
-
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the number of nodes within the `SuffixTrie()` instance.
-        
+
         Returns
         -------
         int:
             The length of the `SuffixTrie()` instance. Length is the number of
             nodes in the instance.
-        
+
         Examples
         --------
         >>> st = SuffixTrie("banana")
@@ -169,17 +164,16 @@ class SuffixTrie(Extra):
         """
         return len(self._rt)
 
-
-    ##############################     PRINT      ##############################
+    # =============================     PRINT    ==============================
     def __repr__(self):
         """
         Represents the `SuffixTrie()` instance as a string.
-        
+
         Returns
         -------
         str:
             The string-representation of the `SuffixTrie()` instance.
-        
+
         Examples
         --------
         >>> st = SuffixTrie("banana")
@@ -198,18 +192,17 @@ class SuffixTrie(Extra):
         """
         return str(self._rt)
 
-
-    ##############################  HEIGHT/DEPTH  ##############################
+    # ============================= HEIGHT/DEPTH ==============================
     def get_height(self):
         """
-        Gets the height of the `SuffixTrie()` instance. The trie's height is the 
-        number of edges between the root and the furthest leaf node.
+        Gets the height of the `SuffixTrie()` instance. The trie's height is
+        the number of edges between the root and the furthest leaf node.
 
         Returns
         -------
         int:
             A positive integer representing the height of the instance.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -229,7 +222,6 @@ class SuffixTrie(Extra):
         3
         """
         return self._rt.get_height()
-    
 
     def get_depth(self):
         """
@@ -240,7 +232,7 @@ class SuffixTrie(Extra):
         int:
             A positive integer representing the depth of the given
             `SuffixTrie()`.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -260,9 +252,8 @@ class SuffixTrie(Extra):
         0
         """
         return self._rt.get_depth()
-        
 
-    ##############################   LEAF NODES   ##############################
+    # =============================  LEAF NODES  ==============================
     def count_leaf_nodes(self):
         """
         Counts the number of leaf nodes in the `SuffixTrie()` instance. Leaf
@@ -271,9 +262,9 @@ class SuffixTrie(Extra):
         Returns
         -------
         int:
-            A positive integer representing the number of leaf nodes in the 
+            A positive integer representing the number of leaf nodes in the
             `SuffixTrie()`.
-                
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -294,18 +285,18 @@ class SuffixTrie(Extra):
         """
         return self._rt.count_leaf_nodes()
 
-
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `SuffixTrie()` instance and returns a generator of the 
-        string values stored at the different nodes in breadth-first manner.
+        Iterates over the `SuffixTrie()` instance and returns a generator of
+        the string values stored at the different nodes in breadth-first
+        manner.
 
         Yields
         ------
         str:
             The string value stored at each node in the instance.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -326,8 +317,7 @@ class SuffixTrie(Extra):
         banana$,a,na,$,na,$,na$,$,na$,$,
         """
         for node in self._rt.__iter__():
-            yield node.split(' ⟶ ')[0]
-    
+            yield node.split(" ⟶ ")[0]
 
     def to_list(self):
         """
@@ -339,7 +329,7 @@ class SuffixTrie(Extra):
         list:
             A `list` object containing the same elements as the `SuffixTrie()`
             instance.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -360,8 +350,7 @@ class SuffixTrie(Extra):
         """
         return [node for node in self]
 
-    
-    ##############################      FIND      ##############################
+    # =============================     FIND     ==============================
     def has_substring(self, substr):
         """
         Searches the `SuffixTrie()` for the given substring and returns `True`
@@ -371,13 +360,13 @@ class SuffixTrie(Extra):
         ----------
         substr: str
             The substring to be searched for in the `SuffixTrie()` instance.
-        
+
         Returns
         -------
         bool:
             Returns `True` if the substring exists in the `SuffixTrie()`
             instance and `False` if not.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -400,7 +389,6 @@ class SuffixTrie(Extra):
         """
         return self._rt.has_prefix(substr)
 
-
     def to_suffix_array(self):
         """
         Converts the `SuffixTrie()` to a suffix array. A suffix array is an
@@ -411,7 +399,7 @@ class SuffixTrie(Extra):
         -------
         list:
             The suffix array.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -433,10 +421,9 @@ class SuffixTrie(Extra):
         >>> # ['$', 'a', 'ana', 'anana', 'banana', 'na', 'nana']
         """
         # sort suffixes alphabetically and obtain only the indices
-        return [k for k, v in sorted(self._suffix_array, key=lambda  x: x[1])]
+        return [k for k, v in sorted(self._suffix_array, key=lambda x: x[1])]
 
-
-    ##############################     LCS/LRS    ##############################
+    # =============================    LCS/LRS   ==============================
     def __get_deepest_nodes(self):
         """
         Returns a list of the trie nodes found in the deepest one or two levels
@@ -447,40 +434,40 @@ class SuffixTrie(Extra):
         Returns
         -------
         list:
-            A list of the deepest `TrieNode()` objects found in the 
+            A list of the deepest `TrieNode()` objects found in the
             `SuffixTrie()` instanece.
         """
         if self._rt.is_empty():
             return self._rt._root
-        level_nodes = \
+        level_nodes = (
             self._rt._get_nodes_per_level(self._rt._root, 0, [], False)
+        )
         if len(level_nodes) > 2:
             return level_nodes[-1] + level_nodes[-2]
         return level_nodes[-1]
 
-
     def _get_ancestors_data(self, node):
         """
-        Gets all the data in the ancestors (parent, then grand-parent, then 
-        great grand-parent, ...etc.) of the given `node` inorder where the first
-        value belongs to the shallowest ancestor.
+        Gets all the data in the ancestors (parent, then grand-parent, then
+        great grand-parent, ...etc.) of the given `node` inorder where the
+        first value belongs to the shallowest ancestor.
 
         Parameters
         ----------
         node: TrieNode()
             The `TrieNode()` whose ansestors data should be obtained.
-        
+
         Returns
         -------
         list:
             A list of all the data stores at the ancestors of the given `node`
             in order where the first value belongs to the shallowest ancestor.
-        
+
         Raises
         ------
         AssertionError:
             If the given `node` is not a `TrieNode()`.
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -509,12 +496,11 @@ class SuffixTrie(Extra):
         ancestors_data = []
         if node is not self._rt._root:
             parent = node.get_parent()
-            while(parent is not self._rt._root):
+            while parent is not self._rt._root:
                 parent_data = parent.get_data()
                 ancestors_data.append(parent_data)
                 parent = parent.get_parent()
         return "".join(ancestors_data[::-1])
-
 
     def get_longest_common_substring(self):
         """
@@ -525,7 +511,7 @@ class SuffixTrie(Extra):
         -------
         list:
             A list of longest commong substring(s) found in the `SuffixTrie()`
-        
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -538,8 +524,8 @@ class SuffixTrie(Extra):
 
         Note
         ----
-        Longest Common Substring is the same as Longest Repeated Substring which
-        means that the following two methods are exactly the same:
+        Longest Common Substring is the same as Longest Repeated Substring
+        which means that the following two methods are exactly the same:
 
             - `get_longest_common_substring()`.
             - `get_longest_repeated_substring()`.
@@ -549,12 +535,11 @@ class SuffixTrie(Extra):
         lcs_set = set()
         longest_length = 0
         for node in self.__get_deepest_nodes():
-            lcs = self._get_ancestors_data(node)            
+            lcs = self._get_ancestors_data(node)
             longest_length = max(longest_length, len(lcs))
             lcs_set.add(lcs)
         # return the longest ones
         return [substr for substr in lcs_set if len(substr) == longest_length]
-
 
     def get_longest_repeated_substring(self):
         """
@@ -564,8 +549,9 @@ class SuffixTrie(Extra):
         Returns
         -------
         list:
-            A list of longest reapeated substring(s) found in the `SuffixTrie()`
-        
+            A list of longest reapeated substring(s) found in the
+            `SuffixTrie()`
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -578,17 +564,16 @@ class SuffixTrie(Extra):
 
         Note
         ----
-        Longest Repeated Substring is the same as Longest Common Substring which
-        means that the following two methods are exactly the same:
-        
+        Longest Repeated Substring is the same as Longest Common Substring
+        which means that the following two methods are exactly the same:
+
             - `get_longest_common_substring()`.
             - `get_longest_repeated_substring()`.
         """
         # LRS is the longest substring that occurs at least twice.
         return self.get_longest_common_substring()
 
-
-    ##############################       LCA      ##############################
+    # =============================      LCA     ==============================
     def get_lowest_common_ancestor(self, i, j):
         """
         Gets lowest common ancestor between two given suffixes defined by their
@@ -600,20 +585,20 @@ class SuffixTrie(Extra):
             The start index of the first suffix.
         j: int
             The start index of the second suffix.s
-        
+
         Returns
         -------
         str:
             The lowest common ancestor between the two suffixes.
-        
+
         Raises
         -------
         TypeError:
             If either one of the given indices were not an integer.
         ValueError:
-            If the value of the given indices were invalid, like negative number
-            of more than the length of the base string.
-        
+            If the value of the given indices were invalid, like negative
+            number of more than the length of the base string.
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -638,45 +623,45 @@ class SuffixTrie(Extra):
         """
         if type(i) != int or type(j) != int:
             raise TypeError("`i` and `j` should be integer values!!")
-        elif i < 0 or j < 0 :
+        elif i < 0 or j < 0:
             raise ValueError("`i` and `j` should be postive integer values!!")
         elif i >= len(self._word) or j > len(self._word):
             raise ValueError(
-                f"`i` and `j` values can't exceed {len(self._word)} " + 
-                f"since it is the length of given word: `{self._word}`!!"
+                f"`i` and `j` values can't exceed {len(self._word)} "
+                + f"since it is the length of given word: `{self._word}`!!"
             )
         ith_ancestors_data = self._get_ancestors_data(self._leaf_nodes[i])
         jth_ancestors_data = self._get_ancestors_data(self._leaf_nodes[j])
         return get_lcp(ith_ancestors_data, jth_ancestors_data)
-    
-    
-    ##############################   PALINDROME   ##############################
+
+    # =============================  PALINDROME  ==============================
     def __get_longest_palindrome(self):
         """
         IT'S NOT READY YET!!
         """
         rev = self._word[::-1]
-        longest_palindrome = ''
+        longest_palindrome = ""
         for i in range(len(rev)):
             suffix = rev[i:]
             node, remaining = self._rt._follow_path(suffix)
-            if not remaining: remaining = '$'
+            if not remaining:
+                remaining = "$"
             child = node.get_child(remaining[0])
             if child is not None and child.is_leaf():
-                child_data = child.get_data() if child else ''
+                child_data = child.get_data() if child else ""
                 position = int(child_data.split(" ⟶ ")[1])
                 lcp = get_lcp(child_data, remaining)
                 remaining = remaining[len(lcp):]
-                end_position = len(suffix)-len(remaining)
-                if position == len(self._word)-i-end_position:
+                end_position = len(suffix) - len(remaining)
+                if position == len(self._word) - i - end_position:
                     palindrome = suffix[:end_position]
-                    if is_palindrome(palindrome) and \
-                        len(palindrome) > len(longest_palindrome):
+                    if is_palindrome(palindrome) and len(palindrome) > len(
+                        longest_palindrome
+                    ):
                         longest_palindrome = palindrome
         return longest_palindrome
-               
-        
-    ##############################    MATCHING    ##############################
+
+    # =============================     MATCH    ==============================
     def count_pattern_occurrences(self, pattern):
         """
         Counts the number of times a certain sequence of characters appear in
@@ -687,12 +672,13 @@ class SuffixTrie(Extra):
         pattern: str
             The pattern or the sequence of characters to find its number of
             occurrences.
-        
+
         Returns
         -------
         int:
-            The number of occurrences this pattern appear in the `SuffixTrie()`.
-        
+            The number of occurrences this pattern appear in the
+            `SuffixTrie()`.
+
         Example
         -------
         >>> st = SuffixTrie("banana")
@@ -708,13 +694,11 @@ class SuffixTrie(Extra):
         last_node, remaining = self._rt._follow_path(pattern)
         if remaining:
             child = last_node.get_child(remaining[0])
-            child_data = child.get_data() if child else ''
-            if child_data[:len(remaining)] == remaining:
+            child_data = child.get_data() if child else ""
+            if child_data[: len(remaining)] == remaining:
                 last_node = child
             else:
                 return 0
         if last_node == self._rt._root:
             return 0
         return self._rt._count_leaf_nodes(last_node)
-
-
