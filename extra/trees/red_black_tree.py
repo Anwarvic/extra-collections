@@ -257,7 +257,7 @@ class RedBlackTree(BST):
 
         >>> RedBlackTree([2, None])
         ValueError: Can't use `None` as an element within \
-            `extra.RedBlackTree()`!!
+`extra.RedBlackTree()`!!
 
         Using a non-iterable object will raise `TypeError`
 
@@ -269,7 +269,7 @@ class RedBlackTree(BST):
         >>> rbtree_1 = RedBlackTree([1])
         >>> rbtree_2 = RedBlackTree([1, rbtree_1])
         TypeError: Can't create `extra.RedBlackTree()` using \
-            `extra.RedBlackTree()`!!
+`extra.RedBlackTree()`!!
         """
         super().__init__(iterable)
 
