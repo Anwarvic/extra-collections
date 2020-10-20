@@ -24,4 +24,3 @@ from extra.trees.treap import Treap as Treap
 from extra.trees.trie import Trie as Trie
 from extra.trees.radix_trie import RadixTrie as RadixTrie
 from extra.trees.suffix_trie import SuffixTrie as SuffixTrie
-
