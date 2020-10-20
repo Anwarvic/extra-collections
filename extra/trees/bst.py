@@ -1,17 +1,17 @@
 """
 A binary search tree, or BST for short, is a non-linear data structure that
-stores numbers hierarchical. With the exception of the top element, each element
-in the binary serach tree has a parent element and each node has two children
-elements at most. We typically call the top element of the binary search tree,
-"the root". The root is drawn as the highest element, with the other elements
-being connected below (just the opposite of an actual tree).
+stores numbers hierarchical. With the exception of the top element, each
+element in the binary serach tree has a parent element and each node has two
+children elements at most. We typically call the top element of the binary
+search tree, "the root". The root is drawn as the highest element, with the
+other elements being connected below (just the opposite of an actual tree).
 
 .. image:: ../../img/trees/bst.gif
 
-In other words, we can consider the binary search tree as a binary tree that 
-stores numbers where the value stored in a certain node is greater than all the 
-numbers found in the node's left subtree and less than those found in the node's
-right subtree.
+In other words, we can consider the binary search tree as a binary tree that
+stores numbers where the value stored in a certain node is greater than all the
+numbers found in the node's left subtree and less than those found in the
+node's right subtree.
 
 So, the following is a simple BST:
 
@@ -30,11 +30,11 @@ In the previous binary search tree, we can say the following:
 
 - `8` has no parent.
 - `8` is the parent of both `5` and `15`. `5` is the left child of `8` and \
-    `15` is the right child. 
+    `15` is the right child.
 - `8` is the grandparnet of `2`, `7` and `10`.
 - `15` is the uncle of `2` and `7`. While `5` is the uncle of just `10`.
-- `15` is the sibling of `5` and vice versa. And `2` is the sibling of `7` and \
-    vice versa.
+- `15` is the sibling of `5` and vice versa. And `2` is the sibling of `7` \
+    and vice versa.
 
 Now, let's try to use the previous BST to explain a few terms:
 
@@ -49,8 +49,8 @@ Now, let's try to use the previous BST to explain a few terms:
 - **Height**: The tree height is the number of edges between the root and the \
     furthest leaf node. In this case, the tree height is just 3 as there are \
     three edges between `8` and `3`.
-- **Depth**: The depth of a tree node is the number of edges between this tree \
-    node and the root. So, the depth of the tree's root is always 0.
+- **Depth**: The depth of a tree node is the number of edges between this \
+    tree node and the root. So, the depth of the tree's root is always 0.
 - **Balanced Tree**: A BST is said to be balanced if the difference between \
     the depth of any two leaf nodes is less than or equal one. So, this BST \
     is balanced
@@ -58,9 +58,9 @@ Now, let's try to use the previous BST to explain a few terms:
     completely filled. So, the pervious BST is NOT perfect.
 - **Strict Tree**: A BST is said to be strict if all its non-leaf nodes has \
     left and right children. So, the pervious BST is NOT strict.
-- **Traversal**: Traversal is the process to visit all nodes of a BST starting \
-    from the root as we cannot randomly access any node in a BST. There are \
-    four ways which we use to traverse a BST:
+- **Traversal**: Traversal is the process to visit all nodes of a BST \
+    starting from the root as we cannot randomly access any node in a BST. \
+    There are four ways which we use to traverse a BST:
 
     - **Pre-order Traversal**: It's also known as "Depth-first Traversal" \
         where the **parent** is visited first. Then, the **left subtree** \
@@ -68,23 +68,23 @@ Now, let's try to use the previous BST to explain a few terms:
         traversal of the previous BST will be: \
 
             8 ⟶ 5 ⟶ 2 ⟶ 3 ⟶ 7 ⟶ 15 ⟶ 10
-        
+
     - **In-order Traversal**: The **left subtree** (if found) is visited first\
         . Then, the **parent** then the **right subtree** (if found). So, the \
         in-order traversal of the previous BST will be: \
 
             2 ⟶ 3 ⟶ 5 ⟶ 7 ⟶ 8 ⟶ 10 ⟶ 15
-        
+
     - **Post-order Traversal**: The **left subtree** (if found) is visited \
-        first. Then, the **right subtree** (if found) then the **parent**. So, \
-        the post-order traversal of the previous BST will be: \
+        first. Then, the **right subtree** (if found) then the **parent**. \
+        So, the post-order traversal of the previous BST will be: \
 
             3 ⟶ 2 ⟶ 7 ⟶ 5 ⟶ 10 ⟶ 15 ⟶ 8
-        
+
     - **Breadth-order Traversal**: It's also known as "Level-order Traversal" \
         where all nodes is visited by the order of the level they are in. So, \
-        tree nodes in the first level are visited before all tree nodes in the \
-        second level and so on. So, the breadth-first traversal of the \
+        tree nodes in the first level are visited before all tree nodes in \
+        the second level and so on. So, the breadth-first traversal of the \
         previuos BST will be: \
 
             8 ⟶ 5 ⟶ 15 ⟶ 2 ⟶ 7 ⟶ 10 ⟶ 3
@@ -93,20 +93,18 @@ import warnings
 from extra.trees.binary_tree import BinaryTreeNode, BinaryTree
 
 
-
-
 class BSTNode(BinaryTreeNode):
     """
-    A BST node is the basic unit for building BSTs. A BST node must contain a 
+    A BST node is the basic unit for building BSTs. A BST node must contain a
     number. Each BST node has either zero, one or two children BST nodes.
     The node that has no children is called a **leaf node**.
     """
+
     __name__ = "extra.BSTNode()"
-    
 
     def __init__(self, value):
         """
-        Creates a `BSTNode()` object which is the basic unit for building 
+        Creates a `BSTNode()` object which is the basic unit for building
         `BST()` objects!!
 
         Parameters
@@ -126,7 +124,6 @@ class BSTNode(BinaryTreeNode):
         super().__init__(value)
         self._parent = None
 
-
     def get_parent(self):
         """
         Returns the parent of the current `BSTNode()` instance.
@@ -135,11 +132,10 @@ class BSTNode(BinaryTreeNode):
         -------
         BSTNode() or None:
             A reference to the parent of the current `BSTNode()` which could be
-            a `BSTNode() object or `None` in case the current `BSTNode()` is the
-            root of the `BST()`.
+            a `BSTNode() object or `None` in case the current `BSTNode()` is
+            the root of the `BST()`.
         """
         return self._parent
-
 
     def get_grand_parent(self):
         """
@@ -154,7 +150,6 @@ class BSTNode(BinaryTreeNode):
         """
         return self._parent.get_parent() if self._parent is not None else None
 
-
     def get_uncle(self):
         """
         Returns the uncle of the current `BSTNode()` instance. The uncle is the
@@ -163,7 +158,7 @@ class BSTNode(BinaryTreeNode):
         Returns
         -------
         BSTNode() or None:
-            The uncle of the current `BSTNode()` which could be a `BSTNode() 
+            The uncle of the current `BSTNode()` which could be a `BSTNode()
             object or `None` in case the current `BSTNode()` has no uncle.
         """
         parent = self._parent
@@ -172,9 +167,11 @@ class BSTNode(BinaryTreeNode):
         grand_parent = parent.get_parent()
         if grand_parent is None:
             return None
-        return grand_parent.get_right() \
-            if parent.is_left_child() else grand_parent.get_left()
-
+        return (
+            grand_parent.get_right()
+            if parent.is_left_child()
+            else grand_parent.get_left()
+        )
 
     def get_sibling(self):
         """
@@ -183,16 +180,19 @@ class BSTNode(BinaryTreeNode):
         Returns
         -------
         BSTNode() or None:
-            The sibling of the current `BSTNode()` which could be a `BSTNode() 
-            object or `None` in case the current `BSTNode()` doesn't have a 
+            The sibling of the current `BSTNode()` which could be a `BSTNode()
+            object or `None` in case the current `BSTNode()` doesn't have a
             sibling.
         """
         # return the brother if found
         parent = self._parent
         if parent is None:
             return None
-        return parent.get_right() if self.is_left_child() else parent.get_left()
-
+        return (
+            parent.get_right()
+            if self.is_left_child()
+            else parent.get_left()
+        )
 
     def set_left(self, new_node):
         """
@@ -214,10 +214,10 @@ class BSTNode(BinaryTreeNode):
         if new_node is not None:
             self._left._parent = self
 
-
     def set_right(self, new_node):
         """
-        Sets the given `BSTNode()` as a right child for the current `BSTNode()`.
+        Sets the given `BSTNode()` as a right child for the current
+        `BSTNode()`.
 
         Parameters
         ----------
@@ -235,7 +235,6 @@ class BSTNode(BinaryTreeNode):
         if new_node is not None:
             self._right._parent = self
 
-
     def set_parent(self, new_node):
         """
         Sets the given `BSTNode()` as a parent for the current `BSTNode()`.
@@ -251,9 +250,10 @@ class BSTNode(BinaryTreeNode):
             If the given item is neither a `BSTNode()` object nor `None`.
         """
         if not (new_node is None or isinstance(new_node, BSTNode)):
-            raise TypeError(f"Can't set {type(new_node)} as a child's parent!!")
+            raise TypeError(
+                f"Can't set {type(new_node)} as a child's parent!!"
+            )
         self._parent = new_node
-
 
     def is_left_child(self):
         """
@@ -267,7 +267,6 @@ class BSTNode(BinaryTreeNode):
         """
         return self._parent.get_data() > self.get_data()
 
-
     def __repr__(self):
         """
         Represents `BSTNode()` object as a string.
@@ -276,7 +275,7 @@ class BSTNode(BinaryTreeNode):
         -------
         str:
             A string representing the `BSTNode()` instance.
-        
+
         Example
         -------
         >>> x = BSTNode(10)
@@ -284,8 +283,6 @@ class BSTNode(BinaryTreeNode):
         BSTNode(10)
         """
         return f"BSTNode({self._data})"
-
-
 
 
 class BST(BinaryTree):
@@ -297,22 +294,22 @@ class BST(BinaryTree):
     values being hold by the left subtree and smaller that all the values being
     hold by the right subtree.
     """
+
     _basic_node = BSTNode
     __name__ = "extra.BST()"
 
-
     def __init__(self, iterable=None):
-        """      
-        Initializes a `BST()` instance using an optiona iterable object in time-
-        complexity of O(n) where **n** is the number of elements inside the
-        given `iterable`.
+        """
+        Initializes a `BST()` instance using an optiona iterable object in
+        time-complexity of O(n) where **n** is the number of elements inside
+        the given `iterable`.
 
         Parameters
         ----------
         iterable: iterable (default: None)
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
+
         Raises
         ------
         TypeError:
@@ -340,12 +337,12 @@ class BST(BinaryTree):
 
         >>> BST([2, None])
         ValueError: Can't use `None` as an element within `extra.BST()`!!
-        
+
         Using a non-iterable object will raise `TypeError`
 
         >>> BST(2)
         TypeError: The given object isn't iterable!!
-        
+
         Using nested `BST()` objects will raise `TypeError` as well
 
         >>> bst_1 = BST([1])
@@ -363,18 +360,17 @@ class BST(BinaryTree):
             for item in iterable:
                 self.insert(item)
 
-
     def _validate_item(self, item):
         """
-        Makes sure the input variable type can be processed. The main use for 
-        this method is to make sure we can't create nested objects from the 
+        Makes sure the input variable type can be processed. The main use for
+        this method is to make sure we can't create nested objects from the
         package.
-        
+
         Parameters
         ----------
         item: object
             The input object of any type.
-        
+
         Raises
         -------
         ValueError:
@@ -385,19 +381,18 @@ class BST(BinaryTree):
         super()._validate_item(item)
         if type(item) not in {int, float}:
             raise TypeError(f"`{self.__name__}` accepts only numbers!!")
-    
 
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `BST()` instance in constant time.
-        
+
         Returns
         -------
         int:
-            The length of the `BST()` instance. Length is the number of tree 
+            The length of the `BST()` instance. Length is the number of tree
             nodes in the instance.
-        
+
         Example
         -------
         >>> bst = BST([2, 1, 3])
@@ -410,18 +405,17 @@ class BST(BinaryTree):
         """
         return self._length
 
-
     def is_empty(self):
         """
         Checks if the `BST()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `BST()` instance is empty or not.
             `True` shows that this instance is empty and `False` shows it's
             not empty.
-        
+
         Example
         --------
         >>> bst = BST()
@@ -432,9 +426,8 @@ class BST(BinaryTree):
         False
         """
         return super().is_empty()
-    
-    
-    ##############################       MAX      ##############################
+
+    # =============================      MAX     ==============================
     def _get_max_node(self, start_node):
         """
         Gets the `BSTNode()` that holds the maximum numeric value in the given
@@ -444,13 +437,15 @@ class BST(BinaryTree):
         Parameters
         ----------
         start_node: BSTNode()
-            The root of the subtree from which we want to get the maximum value.
-        
+            The root of the subtree from which we want to get the maximum
+            value.
+
         Returns
         -------
         BSTNode():
-            The `BSTNode()` that holds the maximum numeric value in the subtree.
-        
+            The `BSTNode()` that holds the maximum numeric value in the
+            subtree.
+
         Raises
         ------
         AssertionError:
@@ -459,22 +454,21 @@ class BST(BinaryTree):
         assert isinstance(start_node, self._basic_node)
 
         # get the right-most node
-        if start_node.get_right() == None:
+        if start_node.get_right() is None:
             return start_node
         else:
             return self._get_max_node(start_node.get_right())
 
-
     def get_max(self):
         """
-        Gets the maximum value in the `BST()` isntance. The maximum value can be
-        found at the right-most tree node in the `BST()` instance.
+        Gets the maximum value in the `BST()` isntance. The maximum value can
+        be found at the right-most tree node in the `BST()` instance.
 
         Returns
         -------
         int or float:
             The maximum numeric value in the `BST()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -495,13 +489,13 @@ class BST(BinaryTree):
         15
         """
         if self.is_empty():
-            raise IndexError(\
-                f"Can't get the maximum value of an empty `{self.__name__}`")
+            raise IndexError(
+                f"Can't get the maximum value of an empty `{self.__name__}`"
+            )
         max_node = self._get_max_node(self._root)
         return max_node.get_data()
 
-
-    ##############################       MIN      ##############################
+    # =============================      MIN     ==============================
     def _get_min_node(self, start_node):
         """
         Gets the `BSTNode()` that holds the minimum numeric value in the given
@@ -511,13 +505,15 @@ class BST(BinaryTree):
         Parameters
         ----------
         start_node: BSTNode()
-            The root of the subtree from which we want to get the minimum value.
-        
+            The root of the subtree from which we want to get the minimum
+            value.
+
         Returns
         -------
         BSTNode():
-            The `BSTNode()` that holds the minimum numeric value in the subtree.
-        
+            The `BSTNode()` that holds the minimum numeric value in the
+            subtree.
+
         Raises
         ------
         AssertionError:
@@ -527,22 +523,21 @@ class BST(BinaryTree):
         assert isinstance(start_node, self._basic_node)
 
         # get the left-most node
-        if start_node.get_left() == None:
+        if start_node.get_left() is None:
             return start_node
         else:
             return self._get_min_node(start_node.get_left())
 
-
     def get_min(self):
         """
-        Gets the minimum value in the `BST()` isntance. The minimum value can be
-        found at the left-most tree node in the `BST()` instance.
+        Gets the minimum value in the `BST()` isntance. The minimum value can
+        be found at the left-most tree node in the `BST()` instance.
 
         Returns
         -------
         int or float:
             The minimum numeric value in the `BST()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -563,18 +558,18 @@ class BST(BinaryTree):
         2
         """
         if self.is_empty():
-            raise IndexError(\
-                f"Can't get the minimum value of an empty `{self.__name__}`")
+            raise IndexError(
+                f"Can't get the minimum value of an empty `{self.__name__}`"
+            )
         min_node = self._get_min_node(self._root)
         return min_node.get_data()
 
-
-    ##############################      SEARCH    ##############################
+    # =============================    SEARCH    ==============================
     def _search(self, find_val, start_node):
         """
         Searches the `BST()` for a given value (`find_val`) starting from the
         subtree whose root is the given `start_node` and returns the node
-        containing that value if found. If not found, it returns the last 
+        containing that value if found. If not found, it returns the last
         accessed node.
 
         Parameters
@@ -583,12 +578,12 @@ class BST(BinaryTree):
             The value to be searched for in the `BST()` instance.
         start_node: BSTNode()
             The root of the subtree where the search will begin.
-        
+
         Returns
         -------
         BSTNode():
-            If the value is found, this object represents the found node. If the
-            value isn't found, this object will be the last accessed node.
+            If the value is found, this object represents the found node. If
+            the value isn't found, this object will be the last accessed node.
 
         Raises
         ------
@@ -629,23 +624,22 @@ class BST(BinaryTree):
             else:
                 return start_node
 
-
     def __contains__(self, find_val):
         """
-        Searches the `BST()` for the given value and returns `True` if the 
+        Searches the `BST()` for the given value and returns `True` if the
         value exists and `False` if not.
 
         Parameters
         ----------
         find_val: int or float
             The value to be searched for in the `BST()` instance.
-        
+
         Returns
         -------
         bool:
             Returns `True` if the value exists in the `BST()` instance and
             `False` if not.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -667,8 +661,7 @@ class BST(BinaryTree):
         found_node = self._search(find_val, self._root)
         return found_node.get_data() == find_val
 
-
-    ##############################     INSERT     ##############################
+    # =============================    INSERT    ==============================
     def _insert_node(self, start_node, inserted_node):
         """
         Inserts a `BSTNode()` in the subtree whose root is `start_node`
@@ -680,46 +673,46 @@ class BST(BinaryTree):
             The root of the subtree where the new node will be inserted.
         inserted_node: BSTNode()
             The new node that will be inserted
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new node after being inserted to the subtree.
-        
+
         Raises
         ------
         AssertionError:
             This will be raised in the following cases:
                 1. If `start_node` isn't an instance of `BSTNode()`.
-                2. If the `inserted_node` is not either `None` nor an instance \
-                    of `BSTNode()`.
-
+                2. If the `inserted_node` is not either `None` nor an
+                instance of `BSTNode()`.
         """
         assert isinstance(start_node, self._basic_node)
-        assert inserted_node is None or \
-            isinstance(inserted_node, self._basic_node)
-        
+        assert (
+            inserted_node is None
+            or isinstance(inserted_node, self._basic_node)
+        )
+
         value = inserted_node.get_data()
         if value == start_node.get_data():
-            warnings.warn(f"`{value}` already exists in `{self.__name__}`",
-                UserWarning
+            warnings.warn(
+                f"`{value}` already exists in `{self.__name__}`", UserWarning
             )
             return start_node
         elif value < start_node.get_data():
             if start_node.get_left():
                 return self._insert_node(start_node.get_left(), inserted_node)
             else:
-                start_node.set_left( inserted_node )
+                start_node.set_left(inserted_node)
                 self._length += 1
                 return inserted_node
         else:
             if start_node.get_right():
                 return self._insert_node(start_node.get_right(), inserted_node)
             else:
-                start_node.set_right( inserted_node )
+                start_node.set_right(inserted_node)
                 self._length += 1
                 return inserted_node
-
 
     def _insert_value(self, start_node, value):
         """
@@ -732,12 +725,12 @@ class BST(BinaryTree):
             The root of the subtree where the new node will be inserted.
         value: int or float
             The new numeric value that will be inserted.
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new node after being inserted to the subtree.
-        
+
         Raises
         ------
         AssertionError:
@@ -752,7 +745,6 @@ class BST(BinaryTree):
         inserted_node = self._basic_node(value)
         return self._insert_node(start_node, inserted_node)
 
-
     def _insert(self, value):
         """
         Inserts a numeric value in the `BST()` instance according to the rules
@@ -762,25 +754,26 @@ class BST(BinaryTree):
         ----------
         value: int or float
             The new numeric value that will be inserted.
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new node after being inserted to the subtree.
-        
+
         Raises
         ------
         AssertionError:
             If the given `value` is not a numeric value.
         """
-        assert type(value) in {int, float} or \
-                    isinstance(value, self._basic_node)
-        
+        assert (
+            type(value) in {int, float}
+            or isinstance(value, self._basic_node)
+        )
+
         if isinstance(value, self._basic_node):
             return self._insert_node(self._root, value)
         else:
             return self._insert_value(self._root, value)
-
 
     def insert(self, value):
         """
@@ -791,7 +784,7 @@ class BST(BinaryTree):
         ----------
         value: int or float
             The new numeric value that will be inserted.
-        
+
         Raises
         ------
         ValueError:
@@ -819,11 +812,10 @@ class BST(BinaryTree):
         else:
             self._insert(value)
 
-
-    ##############################     REMOVE     ##############################
+    # =============================    REMOVE    ==============================
     def _find_replacement(self, node):
         """
-        Find a replacement to the numeric value of the given `node` as 
+        Find a replacement to the numeric value of the given `node` as
         preparation step before removing `node`. This replacement will be
         either the in-order predecessor or the in-order successor.
 
@@ -831,17 +823,17 @@ class BST(BinaryTree):
         ----------
         node: BSTNode()
             The node that will be replaced.
-        
+
         Returns
         -------
         BSTNode():
             The node that will replace the given `node`.
-        
+
         Raises
         ------
         AssertionError:
             If the given `node` isn't a `BSTNode()` object.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -870,7 +862,6 @@ class BST(BinaryTree):
             # start_node is leaf
             replacement_node = None
         return replacement_node
-    
 
     def _transplant(self, node, replacement):
         """
@@ -882,7 +873,7 @@ class BST(BinaryTree):
             A reference to the node that will be replaced.
         replacement: BSTNode()
             A reference to the replacement node which will replace the `node`.
-        
+
         Raises
         ------
         AssertionError:
@@ -912,11 +903,10 @@ class BST(BinaryTree):
             self._basic_node.swap(node, replacement)
             self._transplant(replacement, new_replacement)
 
-
     def _remove(self, del_value, start_node):
         """
         Removes the `del_value` from the subtree whose root is the given
-        `start_node` object. 
+        `start_node` object.
 
         Parameters
         ----------
@@ -924,13 +914,13 @@ class BST(BinaryTree):
             The value to be deleted from the subtree.
         start_node: BSTNode()
             The root of the subtree from which the `del_value` will be removed.
-        
+
         Returns
         -------
         BSTNode():
             A refernce to the last accessed node when removing the value from
             the subtree. This could be either the removed node or its parent.
-        
+
         Raises
         ------
         AssertionError:
@@ -939,7 +929,7 @@ class BST(BinaryTree):
                 2. If the given `start_node` isn't a `BSTNode()`.
         UserWarning:
             If the given `del_value` wasn't found in the `BST()`.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -969,7 +959,8 @@ class BST(BinaryTree):
         removed_node = self._search(del_value, self._root)
         # couldn't find the node
         if removed_node.get_data() != del_value:
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`",
                 UserWarning
             )
             last_accessed_node = removed_node
@@ -989,22 +980,21 @@ class BST(BinaryTree):
         last_accessed_node = parent
         return last_accessed_node
 
-
     def remove(self, del_value):
         """
-        Removes the `del_value` from the `BST()` instance. 
+        Removes the `del_value` from the `BST()` instance.
 
         Parameters
         ----------
         del_value: int or float
             The value to be deleted from the subtree.
-        
+
         Raises
         ------
         UserWarning:
-            If the `BST()` instance is empty of if the value wasn't found in 
+            If the `BST()` instance is empty of if the value wasn't found in
             the instance.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1032,17 +1022,17 @@ class BST(BinaryTree):
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
-            return 
+            return
         # check if bst has only one item and it's the one to be deleted
         elif self._root.is_leaf() and del_value == self._root.get_data():
             self._root = None
             self._length -= 1
         else:
             self._remove(del_value, self._root)
-    
 
     def clear(self):
         """
@@ -1067,8 +1057,7 @@ class BST(BinaryTree):
         """
         super().clear()
 
-
-    ##############################     ROTATE     ##############################
+    # =============================   ROTATION   ==============================
     def _rotate_left(self, start_node):
         """
         Rotates the given subtree whose root is `start_node` to the left side.
@@ -1077,12 +1066,12 @@ class BST(BinaryTree):
         ----------
         start_node: BSTNode()
             A reference to the root of the subtree that will be rotated
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new root fo the subtree after rotation.
-        
+
         Raises
         ------
         AssertionError:
@@ -1107,11 +1096,10 @@ class BST(BinaryTree):
 
         # print("Rotating Left")
         middle = start_node.get_right()
-        middle.set_parent( start_node.get_parent() )
+        middle.set_parent(start_node.get_parent())
         start_node.set_right(middle.get_left())
         middle.set_left(start_node)
         return middle
-
 
     def _rotate_right(self, start_node):
         """
@@ -1121,12 +1109,12 @@ class BST(BinaryTree):
         ----------
         start_node: BSTNode()
             A reference to the root of the subtree that will be rotated
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new root fo the subtree after rotation.
-        
+
         Raises
         ------
         AssertionError:
@@ -1151,11 +1139,10 @@ class BST(BinaryTree):
 
         # print("Rotating Right")
         middle = start_node.get_left()
-        middle.set_parent( start_node.get_parent() )
+        middle.set_parent(start_node.get_parent())
         start_node.set_left(middle.get_right())
         middle.set_right(start_node)
         return middle
-    
 
     def _rotate_left_right(self, start_node):
         """
@@ -1166,12 +1153,12 @@ class BST(BinaryTree):
         ----------
         start_node: BSTNode()
             A reference to the root of the subtree that will be rotated
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new root fo the subtree after rotation.
-        
+
         Raises
         ------
         AssertionError:
@@ -1196,29 +1183,28 @@ class BST(BinaryTree):
 
         # print("Rotating Left-Right")
         middle = start_node.get_left().get_right()
-        middle.set_parent( start_node.get_parent() )
+        middle.set_parent(start_node.get_parent())
         start_node.get_left().set_right(middle.get_left())
         middle.set_left(start_node.get_left())
         start_node.set_left(middle.get_right())
         middle.set_right(start_node)
         return middle
 
-
     def _rotate_right_left(self, start_node):
         """
-        Double-rotates the given subtree whose root is `start_node` to the right
-        side first, then to the left side.
+        Double-rotates the given subtree whose root is `start_node` to the
+        right side first, then to the left side.
 
         Parameters
         ----------
         start_node: BSTNode()
             A reference to the root of the subtree that will be rotated
-        
+
         Returns
         -------
         BSTNode():
             A reference to the new root fo the subtree after rotation.
-        
+
         Raises
         ------
         AssertionError:
@@ -1243,13 +1229,12 @@ class BST(BinaryTree):
 
         # print("Rotating Right-Left")
         middle = start_node.get_right().get_left()
-        middle.set_parent( start_node.get_parent() )
+        middle.set_parent(start_node.get_parent())
         start_node.get_right().set_left(middle.get_right())
         middle.set_right(start_node.get_right())
         start_node.set_right(middle.get_left())
         middle.set_left(start_node)
         return middle
-
 
     def _attach(self, parent, child):
         """
@@ -1262,7 +1247,7 @@ class BST(BinaryTree):
             A reference to the node that will be the parent.
         child: BSTNode()
             A reference to the node that will be the child.
-        
+
         Raises
         ------
         AssertionError:
@@ -1277,12 +1262,11 @@ class BST(BinaryTree):
             self._root = child
         else:
             if parent.get_data() > child.get_data():
-                parent.set_left(child) 
+                parent.set_left(child)
             else:
                 parent.set_right(child)
 
-
-    ##############################  HEIGHT/DEPTH  ##############################
+    # ============================= HEIGHT/DEPTH ==============================
     def get_height(self):
         """
         Gets the height of the `BST()` instance. The BST's height is the number
@@ -1292,7 +1276,7 @@ class BST(BinaryTree):
         -------
         int:
             A positive integer representing the height of the instance.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1308,7 +1292,6 @@ class BST(BinaryTree):
         3
         """
         return super().get_height()
-    
 
     def get_depth(self):
         """
@@ -1318,7 +1301,7 @@ class BST(BinaryTree):
         -------
         int:
             A positive integer representing the depth of the instance.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1334,9 +1317,8 @@ class BST(BinaryTree):
         0
         """
         return super().get_depth()
-    
 
-    ##############################   LEAF NODES   ##############################
+    # =============================  LEAF NODES  ==============================
     def count_leaf_nodes(self):
         """
         Counts the number of leaf nodes in the `BST()` instance. Leaf nodes are
@@ -1345,9 +1327,9 @@ class BST(BinaryTree):
         Returns
         -------
         int:
-            A positive integer representing the number of leaf nodes in the 
+            A positive integer representing the number of leaf nodes in the
             `BST()`.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1364,20 +1346,19 @@ class BST(BinaryTree):
         """
         return super().count_leaf_nodes()
 
-
-    ##############################    BALANCED    ##############################
+    # =============================   BALANCED   ==============================
     def is_balanced(self):
         """
         Checks if the `BST()` instance is balanced. A BST is balanced if the
-        difference between the depth of any two leaf nodes is less than or equal
-        to one.
+        difference between the depth of any two leaf nodes is less than or
+        equal to one.
 
         Returns
         -------
         bool:
             `True` if the `BST()` instance is balanced and `False` if it is not
             balanced.
-        
+
         Raises
         ------
         UserWarning:
@@ -1399,8 +1380,7 @@ class BST(BinaryTree):
         """
         return super().is_balanced()
 
-
-    ##############################    PERFECT     ##############################
+    # =============================    PERFECT   ==============================
     def is_perfect(self):
         """
         Checks if the `BST()` instance is perfect. A BST is perfect if all its
@@ -1411,7 +1391,7 @@ class BST(BinaryTree):
         bool:
             `True` if the `BST()` instance is perfect and `False` if it is not
             perfect.
-        
+
         Raises
         ------
         UserWarning:
@@ -1442,8 +1422,7 @@ class BST(BinaryTree):
         """
         return super().is_perfect()
 
-
-    ##############################     STRICT     ##############################
+    # =============================    STRICT    ==============================
     def is_strict(self):
         """
         Checks if the `BST()` instance is strict. A BST is strict if all its
@@ -1454,7 +1433,7 @@ class BST(BinaryTree):
         bool:
             `True` if the `BST()` instance is strict and `False` if it is not
             strict.
-        
+
         Raises
         ------
         UserWarning:
@@ -1475,12 +1454,11 @@ class BST(BinaryTree):
         False
         """
         return super().is_strict()
-    
 
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `BST()` instance and returns a generator of the 
+        Iterates over the `BST()` instance and returns a generator of the
         `BSTNode()` values in breadth-first manner.
 
         Yields
@@ -1505,7 +1483,6 @@ class BST(BinaryTree):
         """
         return super().__iter__()
 
-
     def to_list(self):
         """
         Converts the `BST()` instance to a `list` where values will be inserted
@@ -1516,7 +1493,7 @@ class BST(BinaryTree):
         list:
             A `list` object containing the same elements as the `BST()`
             instance.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1533,20 +1510,20 @@ class BST(BinaryTree):
         """
         return super().to_list()
 
-
-    ##############################      NODES     ##############################
+    # =============================     NODES    ==============================
     def get_nodes_per_level(self):
         """
         Retrieves all tree nodes within the `BST()` instance so that all
-        tree nodes in a certain level will be concatenated into a separate list.
+        tree nodes in a certain level will be concatenated into a separate
+        list.
 
         Returns
         -------
         list:
-            A nested list where the first inner-list has all the tree nodes in 
-            the first level, the second inner-list has all the tree nodes in the 
-            second level, ... so on.
-        
+            A nested list where the first inner-list has all the tree nodes in
+            the first level, the second inner-list has all the tree nodes in
+            the second level, ... so on.
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1563,14 +1540,13 @@ class BST(BinaryTree):
         """
         return super().get_nodes_per_level()
 
-
-    ##############################   Pre-Order    ##############################
+    # =============================   PRE-ORDER  ==============================
     def preorder_traverse(self):
         """
-        Traverses the `BST()` instance in pre-order manner. Which means that the
-        **parent** is visited first. Then, the **left subtree** (if found), then
-        the **right subtree** (if found).
-        
+        Traverses the `BST()` instance in pre-order manner. Which means that
+        the **parent** is visited first. Then, the **left subtree** (if found),
+        then the **right subtree** (if found).
+
         Note
         -----
         It's the same as `depth_first_traverse()` method.
@@ -1579,7 +1555,7 @@ class BST(BinaryTree):
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1596,13 +1572,12 @@ class BST(BinaryTree):
         """
         return super().preorder_traverse()
 
-
     def depth_first_traverse(self):
         """
         Traverses the `BST()` instance in depth-first manner. Which means that
         the **parent** is visited first. Then, the **left subtree** (if found),
-        then the **right subtree** (if found). 
-        
+        then the **right subtree** (if found).
+
         Note
         -----
         It's the same as `preorder_traverse()` method.
@@ -1611,7 +1586,7 @@ class BST(BinaryTree):
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1628,19 +1603,18 @@ class BST(BinaryTree):
         """
         return super().depth_first_traverse()
 
-
-    ##############################   Post-Order   ##############################
+    # =============================  POST-ORDER  ==============================
     def postorder_traverse(self):
         """
         Traverses the `BST()` instance in post-order manner. Which means that
         the **left subtree** (if found) is visited first. Then, the **right
         subtree** (if found) then the **parent**.
-        
+
         Returns
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1657,19 +1631,18 @@ class BST(BinaryTree):
         """
         return super().postorder_traverse()
 
-
-    ##############################    In-Order    ##############################
+    # =============================   IN-ORDER   ==============================
     def inorder_traverse(self):
         """
         Traverses the `BST()` instance in in-order manner. Which means that the
         **left subtree** (if found) is visited first. Then, the **parent** then
         the **right subtree** (if found).
-        
+
         Returns
         --------
         list:
             A list of all values of the in-order visited nodes.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1686,18 +1659,17 @@ class BST(BinaryTree):
         """
         return super().inorder_traverse()
 
-
-    ##############################  BREADTH-FIRST ##############################
+    # ============================= BREADTH-FIRST==============================
     def breadth_first_traverse(self):
         """
-        Traverses the `BST()` instance in breadth-first manner. Which means that
-        the tree nodes will be visited level by level.
-        
+        Traverses the `BST()` instance in breadth-first manner. Which means
+        that the tree nodes will be visited level by level.
+
         Returns
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> bst = BST([8, 5, 2, 7, 15, 10, 3])
@@ -1714,9 +1686,8 @@ class BST(BinaryTree):
         """
         return super().breadth_first_traverse()
 
-
-    ##############################    TRAVERSE    ##############################
-    def traverse(self, method='inorder'):
+    # =============================   TRAVERSE   ==============================
+    def traverse(self, method="inorder"):
         """
         Traversal is the process to visit all nodes of a BST starting from the
         root as we cannot randomly access any node in a binary tree. There are
@@ -1733,13 +1704,13 @@ class BST(BinaryTree):
             A lower-cased string describing the type of traversal that will be
             used. It could be one of these values: ["inorder", "postorder",
             "preorder", "depth-first", "breadth-first"]
-        
+
         Returns
         --------
         list:
-            A list of all values of the visited nodes according to the specified
-            traversal method.
-        
+            A list of all values of the visited nodes according to the
+            specified traversal method.
+
         Raises
         ------
         ValueError:
@@ -1771,5 +1742,3 @@ class BST(BinaryTree):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-

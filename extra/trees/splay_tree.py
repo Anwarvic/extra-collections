@@ -1,15 +1,15 @@
 """
 Splay Tree is a binary search tree which is a non-linear data structure that
-stores numbers hierarchical. With the exception of the top element, each element
-in the binary serach tree has a parent element and each node has two children
-elements at most. We typically call the top element of the binary search tree,
-"the root". The root is drawn as the highest element, with the other elements
-being connected below (just the opposite of an actual tree).
+stores numbers hierarchical. With the exception of the top element, each
+element in the binary serach tree has a parent element and each node has two
+children elements at most. We typically call the top element of the binary
+search tree, "the root". The root is drawn as the highest element, with the
+other elements being connected below (just the opposite of an actual tree).
 
 The only difference between "Splay Trees" and "BSTs" is that any operation done
 to the the former, like insertion, deletion, or even a search, should be
 followed by a move-to-root operation called "splaying" that changes the
-structure of the tree. 
+structure of the tree.
 
 .. image:: ../../img/trees/splay_tree.gif
 
@@ -24,8 +24,8 @@ SplayTree which is a BST in a first place.
          / \\
         4   6
 
-Now, let's insert `4.5` to this SplayTree; now the Splay Tree will look like the
-following:
+Now, let's insert `4.5` to this SplayTree; now the Splay Tree will look like
+the following:
 
 .. code-block:: text
 
@@ -35,27 +35,25 @@ following:
      / \\       \\
     2   4       6
 
-As we can see, the newly-inserted node has been moved to the root which makes it
-faster to be accessed for later usage. This happens with all searching,
+As we can see, the newly-inserted node has been moved to the root which makes
+it faster to be accessed for later usage. This happens with all searching,
 insertion and deletion.
 """
 import warnings
 from extra.trees.bst import BST
 
 
-
-
 class SplayTree(BST):
     """
     A Splay Tree is a non-linear data structure that can be defined recursively
-    using a collection of binary tree nodes, where each node contains a  numeric
+    using a collection of binary tree nodes, where each node contains a numeric
     value and it has either zero, one or two references to the children binary
-    tree nodes. Any node that has been accessed is moved to the root directly to
-    make it faster to be accessed again. This operation is called "splaying".
-    Hence the name of this data structure... Splay Tree.
+    tree nodes. Any node that has been accessed is moved to the root directly
+    to make it faster to be accessed again. This operation is called
+    "splaying". Hence the name of this data structure... Splay Tree.
     """
+
     __name__ = "extra.SplayTree()"
-    
 
     def __init__(self, iterable=None):
         """
@@ -68,7 +66,7 @@ class SplayTree(BST):
         iterable: iterable, optional
             An iterable python object that implements the `__iter__` method.
             For example, `list` and `tuple` are both iterables.
-        
+
         Raises
         ------
         TypeError:
@@ -94,12 +92,12 @@ class SplayTree(BST):
 
         >>> SplayTree([2, None])
         ValueError: Can't use `None` as an element within `extra.SplayTree()`!!
-        
+
         Using a non-iterable object will raise `TypeError`
 
         >>> SplayTree(2)
         TypeError: The given object isn't iterable!!
-        
+
         Using nested `SplayTree()` objects will raise `TypeError` as well
 
         >>> stree_1 = SplayTree([1])
@@ -108,18 +106,17 @@ class SplayTree(BST):
         """
         super().__init__(iterable)
 
-
-    ##############################     LENGTH     ##############################
+    # =============================    LENGTH    ==============================
     def __len__(self):
         """
         Gets the length of the `SplayTree()` instance in constant time.
-        
+
         Returns
         -------
         int:
             The length of the `SplayTree()` instance. Length is the number of
             tree nodes in the instance.
-        
+
         Example
         -------
         >>> stree = SplayTree([[2, 5, 4, 6, 3])
@@ -133,19 +130,18 @@ class SplayTree(BST):
         5
         """
         return super().__len__()
-    
 
     def is_empty(self):
         """
         Checks if the `SplayTree()` instance is empty or not in constant time.
-        
+
         Returns
         -------
         bool:
             A boolean flag showing if the `SplayTree()` instance is empty or
-            not. `True` shows that this instance is empty and `False` shows it's
-            not empty.
-        
+            not. `True` shows that this instance is empty and `False` shows
+            it's not empty.
+
         Example
         --------
         >>> stree = SplayTree()
@@ -156,9 +152,8 @@ class SplayTree(BST):
         False
         """
         return super().is_empty()
-    
 
-    ##############################       MAX      ##############################
+    # =============================      MAX     ==============================
     def get_max(self):
         """
         Gets the maximum value in the `SplayTree()` isntance. The maximum value
@@ -168,7 +163,7 @@ class SplayTree(BST):
         -------
         int or float:
             The maximum numeric value in the `SplayTree()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -187,9 +182,8 @@ class SplayTree(BST):
         6
         """
         return super().get_max()
-    
 
-    ##############################       MIN      ##############################
+    # =============================      MIN     ==============================
     def get_min(self):
         """
         Gets the minimum value in the `SplayTree()` isntance. The minimum value
@@ -199,7 +193,7 @@ class SplayTree(BST):
         -------
         int or float:
             The maximum numeric value in the `SplayTree()` instance.
-        
+
         Raises
         ------
         IndexError:
@@ -219,8 +213,7 @@ class SplayTree(BST):
         """
         return super().get_min()
 
-
-    ##############################    SPLAYING    ##############################
+    # =============================    SPLAY     ==============================
     def __zig_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # print("zig-zig operation")
@@ -228,14 +221,13 @@ class SplayTree(BST):
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
         # start zig-zig
-        child.set_parent( grand_parent.get_parent() )
+        child.set_parent(grand_parent.get_parent())
         grand_parent.set_left(parent.get_right())
         parent.set_right(grand_parent)
         parent.set_left(child.get_right())
         child.set_right(parent)
-        #child is now the grand-parent
+        # child is now the grand-parent
         return child
-    
 
     def __zag_zag(self, start_node):
         assert isinstance(start_node, self._basic_node)
@@ -244,14 +236,13 @@ class SplayTree(BST):
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
         # start zag-zag
-        child.set_parent( grand_parent.get_parent() )
+        child.set_parent(grand_parent.get_parent())
         grand_parent.set_right(parent.get_left())
         parent.set_left(grand_parent)
         parent.set_right(child.get_left())
         child.set_left(parent)
-        #child is now the grand-parent
+        # child is now the grand-parent
         return child
-
 
     def __zig_zag(self, start_node):
         assert isinstance(start_node, self._basic_node)
@@ -260,13 +251,12 @@ class SplayTree(BST):
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
         # start zig-zag
-        child.set_parent( grand_parent.get_parent() )
+        child.set_parent(grand_parent.get_parent())
         grand_parent.set_left(child.get_right())
         parent.set_right(child.get_left())
         child.set_right(grand_parent)
         child.set_left(parent)
         return child
-
 
     def __zag_zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
@@ -275,35 +265,32 @@ class SplayTree(BST):
         parent = child.get_parent()
         grand_parent = child.get_grand_parent()
         # start zag-zig
-        child.set_parent( grand_parent.get_parent() )
+        child.set_parent(grand_parent.get_parent())
         grand_parent.set_right(child.get_left())
         parent.set_left(child.get_right())
         child.set_left(grand_parent)
         child.set_right(parent)
         return child
 
-
     def __zig(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # print("zig operation")
         child = start_node
         parent = child.get_parent()
-        child.set_parent( parent.get_parent() )
+        child.set_parent(parent.get_parent())
         parent.set_left(child.get_right())
         child.set_right(parent)
         return child
-    
 
     def __zag(self, start_node):
         assert isinstance(start_node, self._basic_node)
         # print("zag operation")
         child = start_node
         parent = child.get_parent()
-        child.set_parent( parent.get_parent() )
+        child.set_parent(parent.get_parent())
         parent.set_right(child.get_left())
         child.set_left(parent)
         return child
-
 
     def __splaying(self, start_node):
         assert isinstance(start_node, self._basic_node)
@@ -336,13 +323,12 @@ class SplayTree(BST):
             else:
                 root = grand_parent
         return root
-    
-    
+
     def _splay(self, start_node):
         """
         Splays the given subtree whose root is the given `start_node` object.
-        Splaying means "moving the node to the root". And this operation is done
-        after searching, insertion and deletion.
+        Splaying means "moving the node to the root". And this operation is
+        done after searching, insertion and deletion.
 
         Parameters
         ----------
@@ -351,24 +337,23 @@ class SplayTree(BST):
         """
         self._root = self.__splaying(start_node)
 
-
-    ##############################     SEARCH     ##############################
+    # =============================    SEARCH    ==============================
     def __contains__(self, find_val):
         """
-        Searches the `SplayTree()` for the given value and returns `True` if the 
-        value exists and `False` if not.
+        Searches the `SplayTree()` for the given value and returns `True` if
+        the value exists and `False` if not.
 
         Parameters
         ----------
         find_val: int or float
             The value to be searched for in the `SplayTree()` instance.
-        
+
         Returns
         -------
         bool:
-            Returns `True` if the value exists in the `SplayTree()` instance and
-            `False` if not.
-        
+            Returns `True` if the value exists in the `SplayTree()` instance
+            and `False` if not.
+
         Example
         -------
         >>> stree = SplayTree([[2, 5, 4, 6, 3])
@@ -403,7 +388,7 @@ class SplayTree(BST):
         changes its structure each time we search for a certain value. If the
         value if found, the found node will be moved to the root. If the value
         isn't found, the last accessed node will be moved to the root. And
-        that's what happended when searching for `50`, the last accessed value 
+        that's what happended when searching for `50`, the last accessed value
         which is the greatest value (`6`) in the splay tree is moved to the
         root.
         """
@@ -412,8 +397,7 @@ class SplayTree(BST):
         self._splay(node)
         return node.get_data() == find_val
 
-
-    ##############################   INSERTION    ##############################
+    # =============================    INSERT    ==============================
     def insert(self, value):
         """
         Inserts a numeric value in the SplayTree()` instance according to the
@@ -423,7 +407,7 @@ class SplayTree(BST):
         ----------
         value: int or float
             The new numeric value that will be inserted.
-        
+
         Raises
         ------
         ValueError:
@@ -467,23 +451,22 @@ class SplayTree(BST):
             new_node = super()._insert(value)
             self._splay(new_node)
 
-
-    ##############################    REMOVAL     ##############################
+    # =============================    REMOVAL   ==============================
     def remove(self, del_value):
         """
-        Removes the `del_value` from the `SplayTree()` instance. 
+        Removes the `del_value` from the `SplayTree()` instance.
 
         Parameters
         ----------
         del_value: int or float
             The value to be deleted from the subtree.
-        
+
         Raises
         ------
         UserWarning:
             If the `SplayTree()` instance is empty of if the value wasn't found
             in the instance.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -507,10 +490,11 @@ class SplayTree(BST):
             warnings.warn(f"`{self.__name__}` is empty!!", UserWarning)
             return
         elif type(del_value) not in {int, float}:
-            warnings.warn(f"Couldn't find `{del_value}` in `{self.__name__}`!!",
+            warnings.warn(
+                f"Couldn't find `{del_value}` in `{self.__name__}`!!",
                 UserWarning
             )
-            return 
+            return
         # check if splay tree has only one item and it's the one to be deleted
         elif self._root.is_leaf() and del_value == self._root.get_data():
             self._root = None
@@ -518,7 +502,6 @@ class SplayTree(BST):
         else:
             node = super()._remove(del_value, self._root)
             self._splay(node)
-
 
     def clear(self):
         """
@@ -541,8 +524,7 @@ class SplayTree(BST):
         """
         super().clear()
 
-
-    ##############################  HEIGHT/DEPTH  ##############################
+    # ============================= HEIGHT/DEPTH ==============================
     def get_height(self):
         """
         Gets the height of the `SplayTree()` instance. The SplayTree's height
@@ -552,7 +534,7 @@ class SplayTree(BST):
         -------
         int:
             A positive integer representing the height of the instance.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -576,7 +558,6 @@ class SplayTree(BST):
         example.
         """
         return super().get_height()
-    
 
     def get_depth(self):
         """
@@ -586,7 +567,7 @@ class SplayTree(BST):
         -------
         int:
             A positive integer representing the depth of the instance.
-        
+
         Example
         -------
         >>> stree = SplayTree([[2, 5, 4, 6, 3])
@@ -600,9 +581,8 @@ class SplayTree(BST):
         0
         """
         return super().get_depth()
-    
 
-    ##############################   LEAF NODES   ##############################
+    # =============================  LEAF NODES  ==============================
     def count_leaf_nodes(self):
         """
         Counts the number of leaf nodes in the `SplayTree()` instance. Leaf
@@ -611,9 +591,9 @@ class SplayTree(BST):
         Returns
         -------
         int:
-            A positive integer representing the number of leaf nodes in the 
+            A positive integer representing the number of leaf nodes in the
             `SplayTree()`.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -638,8 +618,7 @@ class SplayTree(BST):
         """
         return super().count_leaf_nodes()
 
-
-    ##############################    BALANCED    ##############################
+    # =============================    BALANCE   ==============================
     def is_balanced(self):
         """
         Checks if the `SplayTree()` instance is balanced. A `SplayTree()`
@@ -651,7 +630,7 @@ class SplayTree(BST):
         bool:
             `True` if the `SplayTree()` instance is balanced and `False` if it
             is not balanced.
-        
+
         Raises
         ------
         UserWarning:
@@ -675,14 +654,13 @@ class SplayTree(BST):
 
         Note
         ----
-        The balance of the `SplayTree()` instance is changed after any operation
-        such as insertion, removal or even searching as we saw in the previous
-        example
+        The balance of the `SplayTree()` instance is changed after any
+        operation such as insertion, removal or even searching as we saw in
+        the previous example.
         """
         return super().is_balanced()
 
-
-    ##############################    PERFECT     ##############################
+    # =============================    PERFECT   ==============================
     def is_perfect(self):
         """
         Checks if the `SplayTree()` instance is perfect. A `SplayTree()`
@@ -691,9 +669,9 @@ class SplayTree(BST):
         Returns
         -------
         bool:
-            `True` if the `SplayTree()` instance is perfect and `False` if it is
-            not perfect.
-        
+            `True` if the `SplayTree()` instance is perfect and `False` if it
+            is not perfect.
+
         Raises
         ------
         UserWarning:
@@ -718,19 +696,19 @@ class SplayTree(BST):
         """
         return super().is_perfect()
 
-
-    ##############################     STRICT     ##############################
+    # =============================    STRICT    ==============================
     def is_strict(self):
         """
-        Checks if the `SplayTree()` instance is strict. A `SplayTree()` instance
-        is strict if all its non-leaf nodes have two children (left and right).
+        Checks if the `SplayTree()` instance is strict. A `SplayTree()`
+        instance is strict if all its non-leaf nodes have two children (left
+        and right).
 
         Returns
         -------
         bool:
             `True` if the `SplayTree()` instance is strict and `False` if it is
             not strict.
-        
+
         Raises
         ------
         UserWarning:
@@ -759,12 +737,11 @@ class SplayTree(BST):
         previous example
         """
         return super().is_strict()
-    
 
-    ##############################      ITER      ##############################
+    # =============================     ITER     ==============================
     def __iter__(self):
         """
-        Iterates over the `SplayTree()` instance and returns a generator of the 
+        Iterates over the `SplayTree()` instance and returns a generator of the
         `SplayTreeNode()` values in breadth-first manner.
 
         Yields
@@ -787,7 +764,6 @@ class SplayTree(BST):
         """
         return super().__iter__()
 
-
     def to_list(self):
         """
         Converts the `SplayTree()` instance to a `list` where values will be
@@ -798,7 +774,7 @@ class SplayTree(BST):
         list:
             A `list` object containing the same elements as the `SplayTree()`
             instance.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -813,20 +789,20 @@ class SplayTree(BST):
         """
         return super().to_list()
 
-
-    ##############################      NODES     ##############################
+    # =============================     NODES    ==============================
     def get_nodes_per_level(self):
         """
         Retrieves all tree nodes within the `SplayTree()` instance so that all
-        tree nodes in a certain level will be concatenated into a separate list.
+        tree nodes in a certain level will be concatenated into a separate
+        list.
 
         Returns
         -------
         list:
-            A nested list where the first inner-list has all the tree nodes in 
-            the first level, the second inner-list has all the tree nodes in the 
-            second level, ... so on.
-        
+            A nested list where the first inner-list has all the tree nodes in
+            the first level, the second inner-list has all the tree nodes in
+            the second level, ... so on.
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -841,14 +817,13 @@ class SplayTree(BST):
         """
         return super().get_nodes_per_level()
 
-
-    ##############################   Pre-Order    ##############################
+    # =============================   PRE-ORDER  ==============================
     def preorder_traverse(self):
         """
         Traverses the `SplayTree()` instance in pre-order manner. Which means
         that the **parent** is visited first. Then, the **left subtree** (if
         found), then the **right subtree** (if found).
-        
+
         Note
         -----
         It's the same as `depth_first_traverse()` method.
@@ -857,7 +832,7 @@ class SplayTree(BST):
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -872,13 +847,12 @@ class SplayTree(BST):
         """
         return super().preorder_traverse()
 
-
     def depth_first_traverse(self):
         """
         Traverses the `SplayTree()` instance in depth-first manner. Which means
         that the **parent** is visited first. Then, the **left subtree** (if
-        found), then the **right subtree** (if found). 
-        
+        found), then the **right subtree** (if found).
+
         Note
         -----
         It's the same as `preorder_traverse()` method.
@@ -887,7 +861,7 @@ class SplayTree(BST):
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -902,19 +876,18 @@ class SplayTree(BST):
         """
         return super().depth_first_traverse()
 
-
-    ##############################   Post-Order   ##############################
+    # =============================  POST-ORDER  ==============================
     def postorder_traverse(self):
         """
         Traverses the `SplayTree()` instance in post-order manner. Which means
-        that the **left subtree** (if found) is visited first. Then, the **right
-        subtree** (if found) then the **parent**.
-        
+        that the **left subtree** (if found) is visited first. Then, the
+        **right subtree** (if found) then the **parent**.
+
         Returns
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -927,21 +900,20 @@ class SplayTree(BST):
         >>> stree.postorder_traverse()
         [2, 4, 6, 5, 3]
         """
-        return super().postorder_traverse() 
+        return super().postorder_traverse()
 
-
-    ##############################    In-Order    ##############################
+    # =============================   IN-ORDER   ==============================
     def inorder_traverse(self):
         """
         Traverses the `SplayTree()` instance in in-order manner. Which means
         that the **left subtree** (if found) is visited first. Then, the
         **parent** then the **right subtree** (if found).
-        
+
         Returns
         --------
         list:
             A list of all values of the in-order visited nodes.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -956,18 +928,17 @@ class SplayTree(BST):
         """
         return super().inorder_traverse()
 
-
-    #############################  BREADTH-FIRST ##############################
+    # ============================= BREADTH-FIRST==============================
     def breadth_first_traverse(self):
         """
         Traverses the `SplayTree()` instance in breadth-first manner. Which
         means that the tree nodes will be visited level by level.
-        
+
         Returns
         --------
         list:
             A list of all values of the pre-order visited nodes.
-        
+
         Example
         -------
         >>> stree = SplayTree([2, 5, 4, 6, 3])
@@ -982,13 +953,12 @@ class SplayTree(BST):
         """
         return super().breadth_first_traverse()
 
-
-    ##############################    TRAVERSE    ##############################
-    def traverse(self, method='inorder'):
+    # =============================   TRAVERSE   ==============================
+    def traverse(self, method="inorder"):
         """
-        Traversal is the process to visit all nodes of a SplayTree starting from
-        the root as we cannot randomly access any node in a binary tree. There
-        are four ways which we use to traverse a SplayTree:
+        Traversal is the process to visit all nodes of a SplayTree starting
+        from the root as we cannot randomly access any node in a binary tree.
+        There are four ways which we use to traverse a `SplayTree()`:
 
         1. preorder - depth-first
         2. inorder
@@ -1001,13 +971,13 @@ class SplayTree(BST):
             A lower-cased string describing the type of traversal that will be
             used. It could be one of these values: ["inorder", "postorder",
             "preorder", "depth-first", "breadth-first"]
-        
+
         Returns
         --------
         list:
-            A list of all values of the visited nodes according to the specified
-            traversal method.
-        
+            A list of all values of the visited nodes according to the
+            specified traversal method.
+
         Raises
         ------
         ValueError:
@@ -1037,5 +1007,3 @@ class SplayTree(BST):
         {'breadth-first', 'postorder', 'inorder', 'depth-first', 'preorder'}
         """
         return super().traverse(method)
-
-
