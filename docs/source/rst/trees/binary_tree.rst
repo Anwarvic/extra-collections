@@ -11,7 +11,7 @@ Binary Tree
 
 
 ⏱ Time-Complexity
--------------------
+===================
 The following table sums up all the different public functionality in this
 class and also provides the worst-case time complexity along side with the
 optimal time complexity that I will try to reach in future releases Insha'Allah.
@@ -26,7 +26,7 @@ Generally, we are going to use the following indicators in the table:
 
 
 ☕️ API
-*******
+=======
 
 BinaryTreeNode()
 ----------------
