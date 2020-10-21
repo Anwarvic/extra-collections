@@ -1,6 +1,17 @@
 <h1 align="center">
 <!-- <p>Extra-Collections</p> -->
-<img src="./docs/source/img/dark-logo.png" height=400 alt="logo">
+<img src="https://extra-collections.readthedocs.io/en/latest/_images/light-logo.png" height=400 alt="logo">
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fe844ba14d8c4b18bc67e74d5005da06)](https://www.codacy.com/gh/Anwarvic/extra-collections/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Anwarvic/extra-collections&amp;utm_campaign=Badge_Grade)
+
+![python3.6](https://github.com/Anwarvic/extra-collections/workflows/python3.6/badge.svg)
+![python3.7](https://github.com/Anwarvic/extra-collections/workflows/python3.7/badge.svg)
+![python3.8](https://github.com/Anwarvic/extra-collections/workflows/python3.8/badge.svg)
+
+[![Documentation Status](https://readthedocs.org/projects/extra-collections/badge/?version=latest)](https://extra-collections.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/extra-collections.svg)](https://badge.fury.io/py/extra-collections)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 </h1>
 
 # Extra-Collections
