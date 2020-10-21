@@ -29,7 +29,7 @@ Generally, we are going to use the following indicators in the table:
 -------
 
 BinaryTreeNode()
-****************
+^^^^^^^^^^^^^^^^
 Here are all of the public methods that can be used with `BinaryTreeNode()`
 objects:
 
@@ -41,7 +41,7 @@ objects:
 --------------------------------------------------------------------------------
 
 BinaryTree()
-************
+^^^^^^^^^^^^
 Here are all of the public methods that can be used with `BinaryTree()` objects:
 
 .. autoclass:: extra.trees.binary_tree.BinaryTree

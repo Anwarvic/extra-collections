@@ -29,7 +29,7 @@ Generally, we are going to use the following indicators in the table:
 -------
 
 TreeNode()
-**********
+^^^^^^^^^^
 Here are all of the public methods that can be used with `TreeNode()` objects:
 
 .. autoclass:: extra.trees.tree.TreeNode
@@ -40,7 +40,7 @@ Here are all of the public methods that can be used with `TreeNode()` objects:
 --------------------------------------------------------------------------------
 
 Tree()
-******
+^^^^^^
 Here are all of the public methods that can be used with `Tree()` objects:
 
 .. autoclass:: extra.trees.tree.Tree
