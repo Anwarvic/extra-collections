@@ -4,9 +4,9 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fe844ba14d8c4b18bc67e74d5005da06)](https://www.codacy.com/gh/Anwarvic/extra-collections/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Anwarvic/extra-collections&amp;utm_campaign=Badge_Grade)
 
-![python3.6](https://github.com/Anwarvic/extra-collections/workflows/python3.6/badge.svg)
-![python3.7](https://github.com/Anwarvic/extra-collections/workflows/python3.7/badge.svg)
-![python3.8](https://github.com/Anwarvic/extra-collections/workflows/python3.8/badge.svg)
+[![python3.6](https://github.com/Anwarvic/extra-collections/workflows/python3.6/badge.svg)](https://github.com/Anwarvic/extra-collections/actions?query=workflow%3Apython3.6)
+[![python3.7](https://github.com/Anwarvic/extra-collections/workflows/python3.7/badge.svg)](https://github.com/Anwarvic/extra-collections/actions?query=workflow%3Apython3.7)
+[![python3.8](https://github.com/Anwarvic/extra-collections/workflows/python3.8/badge.svg)](https://github.com/Anwarvic/extra-collections/actions?query=workflow%3Apython3.8)
 
 [![Documentation Status](https://readthedocs.org/projects/extra-collections/badge/?version=latest)](https://extra-collections.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/extra-collections.svg)](https://badge.fury.io/py/extra-collections)
@@ -42,14 +42,20 @@ those data structures on any given task. At the same time, I did my best to
 make these python modules as consistent as they could be. So dealing with the 
 most complicated data structrue will as easy as the easiest one.
 
-### **Fun fact:**
+### **Fun fact #1:**
 
-🤤 extra-collection was originally developed as a way to teach myself how to
+🤫 extra-collection was originally developed as a way to teach myself how to
 code and there were no intentions to release it at all. But after spending more
 than 18 months playing with different data structres, I've found out that I've
 implemented 16 different data-structures. Just then, I decided to push it to 20
 data structures and release it. Why 20 you ask? Because it is a nice round
 number 😁.
+
+### **Fun fact #2:**
+
+🤤 The first version of extra-collection was releases on 20/10/2020. I wanted
+to release it on 20/20/2020 but my brother told me there are only 12 months in
+a year. I didn't believe him, but he sweared.
 
 
 ## 👨🏻‍💻 Installation
