@@ -1,1 +1,2 @@
+# readthedocs requirements
 extra-collections
