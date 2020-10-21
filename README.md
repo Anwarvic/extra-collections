@@ -1,14 +1,18 @@
 <h1 align="center">
 <!-- <p>Extra-Collections</p> -->
-<img src="./docs/source/img/dark-logo.png" height=200 alt="logo">
+<img src="./docs/source/img/dark-logo.png" height=400 alt="logo">
 </h1>
 
 # Extra-Collections
 👋 `extra-collections` (or `extra` for short) is a python3 pacakge that provides
-an **intuitive**, **pythonic**, **easy** implementation of the most common data
-structures used in software projects. Some of these data structures are simple
-such as :ref:`stack` or :ref:`queue`; and some are much complicated such as
-:ref:`skip_list` or :ref:`red_black_tree`.
+an **pythonic**, **intuitive**, and **easy** implementation of the most common
+data structures used in software projects. Some of these data structures are
+simple such as
+[stack](https://extra-collections.readthedocs.io/en/latest/rst/lists/stack.html)
+or [queue](https://extra-collections.readthedocs.io/en/latest/rst/lists/queue.html);
+and some are much complicated such as
+[skip_list](https://extra-collections.readthedocs.io/en/latest/rst/lists/skip_list.html)
+or [red_black_tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/red_black_tree.html).
 
 🧐 The name of the pacakge was inspired by the 
 `collections <https://docs.python.org/3.8/library/collections.html>`_ built-in
@@ -53,28 +57,28 @@ In this release, you can find 2️⃣0️⃣ data structures that can be categor
 two categories:
 
 ### ⚡️ Linear Data Structures:
-* 1️⃣ :ref:`linked_list`
-* 2️⃣ :ref:`doubly_linked_list`
-* 3️⃣ :ref:`circular_linked_list`
-* 4️⃣ :ref:`stack`
-* 5️⃣ :ref:`queue`
-* 6️⃣ :ref:`deque`
-* 7️⃣ :ref:`priority_queue`
-* 8️⃣ :ref:`skip_list`
+* 1️⃣ [Linked List](https://extra-collections.readthedocs.io/en/latest/rst/lists/linked_list.html)
+* 2️⃣ [Doubly Linked List](https://extra-collections.readthedocs.io/en/latest/rst/lists/doubly_linked_list.html)
+* 3️⃣ [Circular Linked List](https://extra-collections.readthedocs.io/en/latest/rst/lists/circular_linked_list.html)
+* 4️⃣ [Stack](https://extra-collections.readthedocs.io/en/latest/rst/lists/stack.html)
+* 5️⃣ [Queue](https://extra-collections.readthedocs.io/en/latest/rst/lists/queue.html)
+* 6️⃣ [Deque](https://extra-collections.readthedocs.io/en/latest/rst/lists/deque.html)
+* 7️⃣ [Priority Queue](https://extra-collections.readthedocs.io/en/latest/rst/lists/priority_queue.html)
+* 8️⃣ [Skip List](https://extra-collections.readthedocs.io/en/latest/rst/lists/skip_list.html)
 
 ### 🔥 Non-linear Data Structures:
-* 9️⃣   :ref:`tree`
-* 1️⃣0️⃣ :ref:`binary_tree`
-* 1️⃣1️⃣ :ref:`bst`
-* 1️⃣2️⃣ :ref:`avl`
-* 1️⃣3️⃣ :ref:`splay_tree`
-* 1️⃣4️⃣ :ref:`red_black_tree`
-* 1️⃣5️⃣ :ref:`min_heap`
-* 1️⃣6️⃣ :ref:`max_heap`
-* 1️⃣7️⃣ :ref:`treap`
-* 1️⃣8️⃣ :ref:`trie`
-* 1️⃣9️⃣ :ref:`radix_trie`
-* 2️⃣0️⃣ :ref:`suffix_trie`
+* 9️⃣   [Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/tree.html)
+* 1️⃣0️⃣ [Binary Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/binary_tree.html)
+* 1️⃣1️⃣ [Binary Search Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/bst.html)
+* 1️⃣2️⃣ [AVL Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/avl.html)
+* 1️⃣3️⃣ [Splay Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/splay_tree.html)
+* 1️⃣4️⃣ [Red-Black Tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/red_black_tree.html)
+* 1️⃣5️⃣ [Min Heap](https://extra-collections.readthedocs.io/en/latest/rst/trees/min_heap.html)
+* 1️⃣6️⃣ [Max Heap](https://extra-collections.readthedocs.io/en/latest/rst/trees/max_heap.html)
+* 1️⃣7️⃣ [Treap](https://extra-collections.readthedocs.io/en/latest/rst/trees/treap.html)
+* 1️⃣8️⃣ [Trie](https://extra-collections.readthedocs.io/en/latest/rst/trees/trie.html)
+* 1️⃣9️⃣ [Radix Trie](https://extra-collections.readthedocs.io/en/latest/rst/trees/radix_trie.html)
+* 2️⃣0️⃣ [Suffix Trie](https://extra-collections.readthedocs.io/en/latest/rst/trees/suffix_trie.html)
 
 
 ## 🚀 Quick tour
@@ -85,7 +89,7 @@ $ python
 ```
 
 To immediately use a data strucutre, you can import it directly from the package
-and start using it right-away. The following code uses a :ref:`bst`:
+and start using it right-away. The following code uses a [bst](https://extra-collections.readthedocs.io/en/latest/rst/trees/bst.html):
 
 ```python
 >>> from extra import BST
@@ -120,7 +124,8 @@ and start using it right-away. The following code uses a :ref:`bst`:
 
 ## 🤝 Contribution guidelines
 If you want to contribute to extra-collections, be sure to review the 
-:ref:`contribution_guidelines`. By participating, you are expected to uphold
+[contribution_guidelines](https://extra-collections.readthedocs.io/en/latest/contribution.html). 
+By participating, you are expected to uphold
 this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
