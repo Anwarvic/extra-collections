@@ -10,6 +10,11 @@ Treap
     :exclude-members: TreapNode, Treap
 
 
+.. image:: ../../img/trees/treap.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

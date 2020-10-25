@@ -7,7 +7,12 @@ Red-Black Tree
     :noindex:
     :members:
     :special-members:
-    :exclude-members: RedBlackNode, RedBlackTree
+    :exclude-members: RedBlackNode, RedBlackTree, Color
+
+
+.. image:: ../../img/trees/red_black_tree.gif
+    :align: center
+    :height: 800
 
 
 ⏱ Time-Complexity

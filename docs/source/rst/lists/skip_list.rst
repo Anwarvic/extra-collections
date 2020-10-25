@@ -10,6 +10,11 @@ Skip List
     :exclude-members: flip_coin, search_sorted, SkipNode, SkipList
 
 
+.. image:: ../../img/lists/skip_list.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

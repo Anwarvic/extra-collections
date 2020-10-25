@@ -10,6 +10,11 @@ Radix Trie
     :exclude-members: get_lcp, RadixTrie
 
 
+.. image:: ../../img/trees/radix_trie.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

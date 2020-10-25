@@ -10,6 +10,11 @@ Splay Tree
     :exclude-members: SplayTree
 
 
+.. image:: ../../img/trees/splay_tree.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

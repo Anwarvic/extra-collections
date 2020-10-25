@@ -10,6 +10,11 @@ Binary Tree
     :exclude-members: BinaryTreeNode, BinaryTree
 
 
+.. image:: ../../img/trees/binary_tree.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

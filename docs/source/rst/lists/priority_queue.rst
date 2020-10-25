@@ -10,6 +10,11 @@ Priority Queue
     :exclude-members: PriorityNode, PriorityQueue
 
 
+.. image:: ../../img/lists/priority_queue.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

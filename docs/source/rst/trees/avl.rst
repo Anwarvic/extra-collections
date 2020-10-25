@@ -10,6 +10,11 @@ AVL Tree
     :exclude-members: AVLNode, AVL
 
 
+.. image:: ../../img/trees/avl.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

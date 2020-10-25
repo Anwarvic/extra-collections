@@ -10,6 +10,11 @@ Max Heap
     :exclude-members: MaxHeap
 
 
+.. image:: ../../img/trees/max_heap.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this

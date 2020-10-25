@@ -10,6 +10,11 @@ Deque
     :exclude-members: Deque
 
 
+.. image:: ../../img/lists/deque.gif
+    :align: center
+    :height: 800
+
+
 ⏱ Time-Complexity
 -------------------
 The following table sums up all the different public functionality in this
