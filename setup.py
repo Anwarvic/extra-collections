@@ -10,10 +10,9 @@ setuptools.setup(
     author="Anwarvic",
     author_email="mohamedanwarvic@gmail.com",
     description=(
-        "`extra-collections` (or `extra` for short) is a python3 "
-        + "pacakge that provides an **pythonic**, **intuitive**, and **easy** "
-        + "implementation of the most common data structures used in software "
-        + "projects."
+        "extra-collections (or extra for short) is a python3 pacakge that "
+        + "provides a pythonic, intuitive, and easy implementation of the "
+        + "most common data structures used in software projects."
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",
