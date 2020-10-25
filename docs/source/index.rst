@@ -8,13 +8,14 @@ Extra Collections
 
 .. raw:: html
 
-   <h1 align="center">
+   <p>
+      <div align="center">
+         <a href="https://www.codacy.com/gh/Anwarvic/extra-collections/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Anwarvic/extra-collections&amp;utm_campaign=Badge_Grade" style="text-decoration: none">
+            <img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/fe844ba14d8c4b18bc67e74d5005da06">
+         </a>
+      </div>
 
-      <a href="https://www.codacy.com/gh/Anwarvic/extra-collections/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Anwarvic/extra-collections&amp;utm_campaign=Badge_Grade" style="text-decoration: none">
-         <img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/fe844ba14d8c4b18bc67e74d5005da06">
-      </a>
-
-      <div>
+      <div align="center">
          <a href="https://github.com/Anwarvic/extra-collections/actions?query=workflow%3Apython3.6" style="text-decoration: none">
             <img src="https://github.com/Anwarvic/extra-collections/workflows/python3.6/badge.svg" alt="python3.6">
          </a>
@@ -26,7 +27,7 @@ Extra Collections
          </a>
       </div>
       
-      <div>
+      <div align="center">
          <a href="https://extra-collections.readthedocs.io/en/latest/?badge=latest" style="text-decoration: none">
             <img alt="Documentation Status" src="https://readthedocs.org/projects/extra-collections/badge/?version=latest">
          </a>
@@ -38,7 +39,7 @@ Extra Collections
          </a>
       </div>
 
-   </h1>
+   </p>
 
 👋 "extra-collections" (or "extra" for short) is a python3 pacakge that provides
 an **intuitive**, **pythonic**, **easy** implementation of the most common data
@@ -47,16 +48,16 @@ such as :ref:`stack` or :ref:`queue`; and some are much complicated such as
 :ref:`skip_list` or :ref:`red_black_tree`.
 
 🧐 The name of the pacakge was inspired by the 
-`collections <https://docs.python.org/3.8/library/collections.html>`_ built-in
-python package which provides simple implementations for some of the basic data
+`collections <https://docs.python.org/3.8/library/collections.html>`_ python
+package which provides simple implementations for some of the basic data
 structures. "extra" provides an additional set of data structures, hence the
 name.. "extra-collections".
 
 🤯 extra-collections, in its first release, provides 20 different data
-structures to perform different tasks in a very fast and optimized way. Its aim
-is to make working with these complicated data structres as simple as dealing
-with a simple linked list which makes things easier to use for everyone
-espcially if you're starting your journey into coding.
+structures each performs different functionality in a very fast and optimized
+way. Its aim is to make working with these complicated data structres as simple
+as dealing with a simple linked list which makes things easier to use for
+everyone espcially if they're starting their journey into coding.
 
 📒 extra-collections provides API documentations to quickly understand and use
 those data structures on any given task. At the same time, I did my best to 
@@ -202,6 +203,7 @@ awesome project
    rst/lists/deque
    rst/lists/priority_queue
    rst/lists/skip_list
+
    rst/trees/tree
    rst/trees/binary_tree
    rst/trees/bst
@@ -214,9 +216,3 @@ awesome project
    rst/trees/trie
    rst/trees/radix_trie
    rst/trees/suffix_trie
-
-
-
-
-   
-
