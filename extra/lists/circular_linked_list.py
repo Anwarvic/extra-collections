@@ -8,8 +8,6 @@ the circular linked list.
 The first node of a circular linked list is known as the **head** of the linked
 list. And the last node is known as the **tail**. The **tail** of a circular
 linked list always points to the **head**.
-
-.. image:: ../../img/lists/circular_linked_list.gif
 """
 from extra.lists.linked_list import LinkedList
 

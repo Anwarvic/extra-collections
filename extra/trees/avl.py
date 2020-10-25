@@ -4,8 +4,6 @@ that stores numbers hierarchical with the assertion that any operation, like
 insertion, searching, and deletion, will be done in **log(n)** time-complexity
 where **n** is the number of elements in the AVL. AVL was named after the
 initials of its inventors: Adel’son-Vel’skii and Landis.
-
-.. image:: ../../img/trees/avl.gif
 """
 from extra.trees.bst import BSTNode, BST
 

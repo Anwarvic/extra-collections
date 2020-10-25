@@ -19,9 +19,6 @@ item in the PriorityQueue(), you can set the static variable `SHOW_PRIORITY` to
 `True` just like so:
 
 >>> PriorityQueue.SHOW_PRIORITY = True
-
-
-.. image:: ../../img/lists/priority_queue.gif
 """
 import random
 import warnings

@@ -3,8 +3,6 @@ A stack is the simplest linear data structure where objects that are inserted
 and removed according to the last-in, first-out (LIFO) principle. A user may
 insert objects into a stack at any time, but may only access or remove the most
 recently inserted object that remains at, the so-called, **top** of the stack.
-
-.. image:: ../../img/lists/stack.gif
 """
 import warnings
 from extra.interface import Extra

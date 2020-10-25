@@ -5,8 +5,6 @@ and zero or more children elements. We typically call the top element of the
 tree, "the root". The root is drawn as the highest element, with the other
 elements being connected below (just the opposite of an actual tree).
 
-.. image:: ../../img/trees/tree.gif
-
 The following is a simple tree that represents the family-tree of Homer Simpson
 from The Simpsons show :)
 

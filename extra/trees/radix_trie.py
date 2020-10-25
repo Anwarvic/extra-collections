@@ -36,8 +36,6 @@ the total length of the strings and **s** is the number of strings.
 Searching in a radix trie is not necessarily faster than in a standard tree,
 since there is still need to compare every character of the desired pattern
 with the potentially multi-character labels while traversing paths in the trie.
-
-.. image:: ../../img/trees/radix_trie.gif
 """
 from extra.trees.trie import TrieNode, Trie
 

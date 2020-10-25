@@ -9,8 +9,6 @@ The first node of a linked list is known as the **head** of the linked list.
 By starting at the linked list's head and moving to the latter nodes using each
 node's next reference, we can reach the end of the list. This process is
 commonly known as *traversing* the linked list.
-
-.. image:: ../../img/lists/linked_list.gif
 """
 import operator
 from extra.interface import Extra

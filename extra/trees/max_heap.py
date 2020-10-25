@@ -15,8 +15,6 @@ informally said to be at the top of the heap. Hence, the name "Max Heap".
 terms of the shape of heap itself. A binary tree is perfect if all its levels
 are completely filled. So, given an **n** inserted items, the height of the
 heap should be **log(n)** at most.
-
-.. image:: ../../img/trees/max_heap.gif
 """
 from extra.trees._heap import Heap
 

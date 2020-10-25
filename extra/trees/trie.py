@@ -4,8 +4,6 @@ order to support fast pattern matching. Indeed, the name "trie" comes from the
 word "retrieval". The primary query operations that tries support is "prefix
 matching" which involves being given a string and looking for all the sequences
 that contain the given string as a prefix.
-
-.. image:: ../../img/trees/trie.gif
 """
 import warnings
 from extra.trees.tree import TreeNode, Tree

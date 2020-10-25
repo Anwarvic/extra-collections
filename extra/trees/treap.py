@@ -7,8 +7,6 @@ treap contains two main values:
     The bigger this numeric value is, the higher its priority in the treap \
     becomes.
 
-.. image:: ../../img/trees/treap.gif
-
 Each node in the treap must satisfy two additional properties:
 
 1. **BST Property**: It is a relational property defined in terms of the

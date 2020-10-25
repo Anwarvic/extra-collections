@@ -3,8 +3,6 @@ A suffix trie is a radix trie that stores information about a single string and
 exports a huge amount of structural information about that string. It is able
 to perform these stuctural operations by storing all the possible suffixes of
 the given text, hence the name "Suffix Trie".
-
-.. image:: ../../img/trees/suffix_trie.gif
 """
 from extra.interface import Extra
 from extra.trees.radix_trie import get_lcp, TrieNode, RadixTrie

@@ -6,8 +6,6 @@ either "Red" or "Black". Hence, the name "Red-Black Tree". The color of the
 node is used only to re-balance the tree and has nothing to do with anything
 else.
 
-.. image:: ../../img/trees/red_black_tree.gif
-
 So, the following is a simple Red-Black Tree:
 
 .. code-block:: text

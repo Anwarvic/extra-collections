@@ -6,8 +6,6 @@ call the top element of the binary tree, "the root". The root is drawn as the
 highest element, with the other elements being connected below (just the
 opposite of an actual tree).
 
-.. image:: ../../img/trees/binary_tree.gif
-
 In other words, we can consider this data structure as tree data structure
 with the only exception that every tree node in the binary tree has at most two
 children while every tree node in the tree can have more than two children.

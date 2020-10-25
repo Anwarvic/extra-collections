@@ -15,8 +15,6 @@ informally said to be at the top of the heap. Hence, the name "Min Heap"
 terms of the shape of heap itself. A binary tree is perfect if all its levels
 are completely filled. So, given an **n** inserted items, the height of the
 heap should be **log(n)** at most.
-
-.. image:: ../../img/trees/min_heap.gif
 """
 from extra.trees._heap import Heap
 

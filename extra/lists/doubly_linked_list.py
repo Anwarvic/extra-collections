@@ -9,8 +9,6 @@ The first node of a doubly linked list is known as the **head** of the doubly
 linked list. By starting at the doubly linked list's head and moving to the
 latter nodes using each node's next reference, we can reach the end of the
 list. This process is commonly known as *traversing* the doubly linked list.
-
-.. image:: ../../img/lists/doubly_linked_list.gif
 """
 from extra.lists.linked_list import Node, LinkedList
 

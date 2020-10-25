@@ -3,8 +3,6 @@ A deque, which is usually pronounced "deck", is a queue-like data structure
 that supports insertion and deletion at both the front and the back of the
 queue. Deque is a short for "double-ended queue". The deque is more general
 than both the stack and the queue.
-
-.. image:: ../../img/lists/deque.gif
 """
 import warnings
 from extra.lists.queue import Queue

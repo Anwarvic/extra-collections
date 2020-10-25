@@ -5,8 +5,6 @@ principle. That is, elements can be inserted at any time,
 but only the element that has been in the queue the longest can be next
 removed. We usually say that elements enter a queue at the back and are removed
 from the front.
-
-.. image:: ../../img/lists/queue.gif
 """
 import warnings
 from extra.interface import Extra

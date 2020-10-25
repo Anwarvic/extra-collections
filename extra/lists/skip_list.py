@@ -6,8 +6,6 @@ every possible value that can be inserted. The really interesting part about
 skip list is that it supports searching for values in time-complexity of
 **O(log(n))** which is considered faster than most linear data structures.
 
-.. image:: ../../img/lists/skip_list.gif
-
 The following is a simple skip list containing the first seven number from the
 Fibbonacci series which are: [0, 1, 1, 2, 3, 5, 8]
 
