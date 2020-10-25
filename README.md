@@ -16,7 +16,7 @@
 
 # Extra-Collections
 👋 `extra-collections` (or `extra` for short) is a python3 pacakge that provides
-an **pythonic**, **intuitive**, and **easy** implementation of the most common
+a **pythonic**, **intuitive**, and **easy** implementation of the most common
 data structures used in software projects. Some of these data structures are
 simple such as
 [stack](https://extra-collections.readthedocs.io/en/latest/rst/lists/stack.html)
@@ -26,16 +26,16 @@ and some are much complicated such as
 or [red_black_tree](https://extra-collections.readthedocs.io/en/latest/rst/trees/red_black_tree.html).
 
 🧐 The name of the pacakge was inspired by the 
-`collections <https://docs.python.org/3.8/library/collections.html>`_ built-in
-python package which provides simple implementations for some of the basic data
+[collections](https://docs.python.org/3.8/library/collections.html) python
+package which provides simple implementations for some of the basic data
 structures. "extra" provides an additional set of data structures, hence the
 name.. "extra-collections".
 
 🤯 extra-collections, in its first release, provides 20 different data
-structures to perform different tasks in a very fast and optimized way. Its aim
-is to make working with these complicated data structres as simple as dealing
-with a simple linked list which makes things easier to use for everyone
-espcially if you're starting your journey into coding.
+structures each performs different functionality in a very fast and optimized
+way. Its aim is to make working with these complicated data structres as simple
+as dealing with a simple linked list which makes things easier to use for
+everyone espcially if they're starting their journey into coding.
 
 📒 extra-collections provides API documentations to quickly understand and use
 those data structures on any given task. At the same time, I did my best to 
@@ -166,7 +166,7 @@ what you're doing.
 - All public methods must raise appropriate errors when needed. The Other
 methods must raise only `AssertionError` when needed.
 - Search/remove methods shouldn't raise any errors.
-- Insert/delete/get_index/delete_index/set_index methods must raise errors when
+- Insert/delete/get-index/delete-index/set-index methods must raise errors when
 needed.
 - All methods should return the data stored not the used objects.
 - Any module can be emptied except for the `SuffixTrie`.
@@ -178,5 +178,5 @@ The following are the main resources that helped me while working on this
 awesome project:
 
 - [Introduction to Algorithms Course (MIT 6.046J/18.410J)](https://www.youtube.com/playlist?list=PLDC836E1A1076378E>).
-- "Data Structures and Algorithms in Python" book.
+- "[Data Structures and Algorithms in Python](https://www.amazon.com/Structures-Algorithms-Python-Michael-Goodrich/dp/1118290275#:~:text=From%20the%20Back%20Cover,design%2C%20analysis%2C%20and%20implementation.)" book.
 - [GeeksforGeeks](https://www.geeksforgeeks.org/) Forum.
