@@ -12,7 +12,7 @@ Red-Black Tree
 
 .. image:: ../../img/trees/red_black_tree.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

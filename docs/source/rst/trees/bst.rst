@@ -12,7 +12,7 @@ Binary Search Tree (BST)
 
 .. image:: ../../img/trees/bst.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

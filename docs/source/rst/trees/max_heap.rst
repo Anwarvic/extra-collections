@@ -12,7 +12,7 @@ Max Heap
 
 .. image:: ../../img/trees/max_heap.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

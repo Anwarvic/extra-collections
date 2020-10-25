@@ -12,7 +12,7 @@ Tree
 
 .. image:: ../../img/trees/tree.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

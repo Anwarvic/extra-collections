@@ -12,7 +12,7 @@ Doubly Linked List
 
 .. image:: ../../img/lists/doubly_linked_list.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

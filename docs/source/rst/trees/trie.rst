@@ -12,7 +12,7 @@ Trie
 
 .. image:: ../../img/trees/trie.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

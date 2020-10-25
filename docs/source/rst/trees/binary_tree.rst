@@ -12,7 +12,7 @@ Binary Tree
 
 .. image:: ../../img/trees/binary_tree.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

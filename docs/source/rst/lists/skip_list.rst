@@ -12,7 +12,7 @@ Skip List
 
 .. image:: ../../img/lists/skip_list.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity

@@ -12,7 +12,7 @@ Stack
 
 .. image:: ../../img/lists/stack.gif
     :align: center
-    :height: 800
+    :height: 650
 
 
 ⏱ Time-Complexity
