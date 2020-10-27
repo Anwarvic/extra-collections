@@ -1,7 +1,7 @@
 Extra Collections
 =================
 
-.. image:: ./img/light-logo.png
+.. image:: ./_images/light-logo.png
    :height: 400
    :align: center
 
@@ -176,7 +176,7 @@ This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
 under :code:`extra-collections` tag.
 
-.. image:: ./img/stackoverflow-tag.png
+.. image:: ./_images/stackoverflow-tag.png
    :align: center
    :target: https://stackoverflow.com/questions/tagged/extra-collections
 
