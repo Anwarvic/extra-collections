@@ -169,7 +169,7 @@ and start using it right-away. The following code uses a :ref:`bst`:
 🤝 Contribution guidelines
 ---------------------------
 If you want to contribute to extra-collections, be sure to review the 
-`contribution_guidelines <contribution.html>`_. By participating, you are
+`contribution guidelines <contribution.html>`_. By participating, you are
 expected to uphold this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
@@ -187,7 +187,7 @@ The following are the main resources that helped me while working on this
 awesome project
 
 - `Introduction to Algorithms Course (MIT 6.046J/18.410J) <https://www.youtube.com/playlist?list=PLDC836E1A1076378E>`_.
-- "Data Structures and Algorithms in Python" book.
+- "`Data Structures and Algorithms in Python <https://www.amazon.com/Structures-Algorithms-Python-Michael-Goodrich/dp/1118290275>`_" book.
 - `GeeksforGeeks <https://www.geeksforgeeks.org/>`_ Forum.
 
 
