@@ -169,7 +169,8 @@ and start using it right-away. The following code uses a :ref:`bst`:
 🤝 Contribution guidelines
 ---------------------------
 If you want to contribute to extra-collections, be sure to review the 
-`contribution_guidelines <./contribution.html>`_. By participating, you are expected to uphold this code.
+`contribution_guidelines <contribution.html>`_. By participating, you are
+expected to uphold this code.
 
 This project uses GitHub issues for tracking requests and bugs, questions and
 even discussion. Please, if you have any question, direct it to Stack Overflow
