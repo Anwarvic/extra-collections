@@ -10,7 +10,7 @@ Trie
     :exclude-members: TrieNode, Trie
 
 
-.. image:: ../../img/trees/trie.gif
+.. image:: ../../_images/trees/trie.gif
     :align: center
     :height: 650
 

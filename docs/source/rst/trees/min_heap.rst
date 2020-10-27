@@ -10,7 +10,7 @@ Min Heap
     :exclude-members: MinHeap
 
 
-.. image:: ../../img/trees/min_heap.gif
+.. image:: ../../_images/trees/min_heap.gif
     :align: center
     :height: 650
 

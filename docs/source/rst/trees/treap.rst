@@ -10,7 +10,7 @@ Treap
     :exclude-members: TreapNode, Treap
 
 
-.. image:: ../../img/trees/treap.gif
+.. image:: ../../_images/trees/treap.gif
     :align: center
     :height: 650
 

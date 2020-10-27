@@ -10,7 +10,7 @@ Red-Black Tree
     :exclude-members: RedBlackNode, RedBlackTree, Color
 
 
-.. image:: ../../img/trees/red_black_tree.gif
+.. image:: ../../_images/trees/red_black_tree.gif
     :align: center
     :height: 650
 

@@ -10,7 +10,7 @@ Suffix Trie
     :exclude-members: is_palindrome, SuffixTrie
 
 
-.. image:: ../../img/trees/suffix_trie.gif
+.. image:: ../../_images/trees/suffix_trie.gif
     :align: center
     :height: 650
 

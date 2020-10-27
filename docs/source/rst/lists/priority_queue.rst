@@ -10,7 +10,7 @@ Priority Queue
     :exclude-members: PriorityNode, PriorityQueue
 
 
-.. image:: ../../img/lists/priority_queue.gif
+.. image:: ../../_images/lists/priority_queue.gif
     :align: center
     :height: 650
 

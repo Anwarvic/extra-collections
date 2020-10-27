@@ -10,7 +10,7 @@ Binary Tree
     :exclude-members: BinaryTreeNode, BinaryTree
 
 
-.. image:: ../../img/trees/binary_tree.gif
+.. image:: ../../_images/trees/binary_tree.gif
     :align: center
     :height: 650
 

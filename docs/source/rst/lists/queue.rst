@@ -10,7 +10,7 @@ Queue
     :exclude-members: Queue
 
 
-.. image:: ../../img/lists/queue.gif
+.. image:: ../../_images/lists/queue.gif
     :align: center
     :height: 650
 

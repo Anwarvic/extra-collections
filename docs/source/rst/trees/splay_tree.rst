@@ -10,7 +10,7 @@ Splay Tree
     :exclude-members: SplayTree
 
 
-.. image:: ../../img/trees/splay_tree.gif
+.. image:: ../../_images/trees/splay_tree.gif
     :align: center
     :height: 650
 

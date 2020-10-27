@@ -10,7 +10,7 @@ Circular Linked List
     :exclude-members: CircularLinkedList
 
 
-.. image:: ../../img/lists/circular_linked_list.gif
+.. image:: ../../_images/lists/circular_linked_list.gif
     :align: center
     :height: 650
 

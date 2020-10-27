@@ -10,7 +10,7 @@ Max Heap
     :exclude-members: MaxHeap
 
 
-.. image:: ../../img/trees/max_heap.gif
+.. image:: ../../_images/trees/max_heap.gif
     :align: center
     :height: 650
 

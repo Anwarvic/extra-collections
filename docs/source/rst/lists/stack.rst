@@ -10,7 +10,7 @@ Stack
     :exclude-members: Stack
 
 
-.. image:: ../../img/lists/stack.gif
+.. image:: ../../_images/lists/stack.gif
     :align: center
     :height: 650
 

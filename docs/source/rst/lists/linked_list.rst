@@ -10,7 +10,7 @@ Linked List
     :exclude-members: Node, LinkedList
 
 
-.. image:: ../../img/lists/linked_list.gif
+.. image:: ../../_images/lists/linked_list.gif
     :align: center
     :height: 650
 

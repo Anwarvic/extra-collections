@@ -10,7 +10,7 @@ Tree
     :exclude-members: TreeNode, Tree
 
 
-.. image:: ../../img/trees/tree.gif
+.. image:: ../../_images/trees/tree.gif
     :align: center
     :height: 650
 

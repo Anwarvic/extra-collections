@@ -10,7 +10,7 @@ AVL Tree
     :exclude-members: AVLNode, AVL
 
 
-.. image:: ../../img/trees/avl.gif
+.. image:: ../../_images/trees/avl.gif
     :align: center
     :height: 650
 

@@ -10,7 +10,7 @@ Radix Trie
     :exclude-members: get_lcp, RadixTrie
 
 
-.. image:: ../../img/trees/radix_trie.gif
+.. image:: ../../_images/trees/radix_trie.gif
     :align: center
     :height: 650
 

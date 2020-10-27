@@ -10,7 +10,7 @@ Deque
     :exclude-members: Deque
 
 
-.. image:: ../../img/lists/deque.gif
+.. image:: ../../_images/lists/deque.gif
     :align: center
     :height: 650
 

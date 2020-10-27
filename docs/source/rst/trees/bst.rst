@@ -10,7 +10,7 @@ Binary Search Tree (BST)
     :exclude-members: BSTNode, BST
 
 
-.. image:: ../../img/trees/bst.gif
+.. image:: ../../_images/trees/bst.gif
     :align: center
     :height: 650
 

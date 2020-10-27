@@ -10,7 +10,7 @@ Doubly Linked List
     :exclude-members: DoublyNode, DoublyLinkedList
 
 
-.. image:: ../../img/lists/doubly_linked_list.gif
+.. image:: ../../_images/lists/doubly_linked_list.gif
     :align: center
     :height: 650
 
