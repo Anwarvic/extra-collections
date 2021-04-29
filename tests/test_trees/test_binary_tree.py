@@ -193,3 +193,33 @@ def test_parse(helper):
     # clear this binary tree
     btree.clear()
     test_empty_binary_tree(helper, btree)
+
+
+def test_inversion(helper):
+    btree = BinaryTree()
+    btree._root = BinaryTreeNode(1)
+    btree._root.set_left(BinaryTreeNode(2))
+    btree._root.set_right(BinaryTreeNode(3))
+    btree._root.get_right().set_left(BinaryTreeNode(6))
+    btree._root.get_right().set_right(BinaryTreeNode(7))
+    btree._root.get_left().set_left(BinaryTreeNode(4))
+    btree._root.get_left().set_right(BinaryTreeNode(5))
+    btree.invert()
+    assert not btree.is_empty()
+    assert len(btree) == 7
+    assert btree.get_height() == 2
+    assert btree._root.get_left().get_data() == 3
+    assert btree._get_depth(btree._root.get_left()) == 1
+    assert btree.to_list() == [1, 3, 2, 7, 6, 5, 4]
+    assert btree.count_leaf_nodes() == 4
+    assert btree.is_balanced()
+    assert btree.is_perfect()
+    assert btree.is_strict()
+    assert btree.preorder_traverse() == [1, 3, 7, 6, 2, 5, 4]
+    assert btree.postorder_traverse() == [7, 6, 3, 5, 4, 2, 1]
+    assert btree.inorder_traverse() == [7, 3, 6, 1, 5, 2, 4]
+    assert btree.breadth_first_traverse() == [1, 3, 2, 7, 6, 5, 4]
+    assert btree.traverse() == [7, 3, 6, 1, 5, 2, 4]
+    # clear this binary tree
+    btree.clear()
+    test_empty_binary_tree(helper, btree)
