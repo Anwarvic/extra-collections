@@ -1241,6 +1241,40 @@ class BinaryTree(Tree):
         """
         return super().__contains__(value)
 
+    # =============================    INVERT    ==============================
+    def _invert_subtree(self, curr_node):
+        """"""
+        if curr_node is not None:
+            curr_node._left, curr_node._right = (
+                self._invert_subtree(curr_node._right), 
+                self._invert_subtree(curr_node._left)
+            )
+        return curr_node
+
+    def invert(self):
+        """
+        Inverts the `BinaryTree()` instance O(log(n)) time. Inverting a binary
+        tree means to switch sides as shown in the following example:
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, 5], [3, 6, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    / \\
+        4   5   6   7
+        >>> btree.invert()
+        >>> btree
+            __1__
+           /     \\
+          3       2
+         / \\    / \\
+        7   6   5   4
+        """
+        self._root = self._invert_subtree(self._root)
+
     # =============================     CLEAR    ==============================
     def clear(self):
         """
