@@ -1208,6 +1208,48 @@ class BinaryTree(Tree):
                 + str(trav_methods)
             )
 
+    # =============================     VIEW     ==============================
+    def get_rightside_view(self):
+        """
+        Returns a list of all binary treenode values seen from the right side
+        of the tree. So, given the root of a binary tree, imagine yourself
+        standing on the right side of it, we should return all seen values from
+        the right side. For example.
+
+        Returns
+        -------
+        list:
+            A list of all node values seen from the right side of the binary
+            tree. These values are ordered by depth. So, the first value is of
+            depth 0, the second value is of depth 1, and so on.
+
+        Example
+        -------
+        >>> btree = BinaryTree.parse([1, [2, 4, [5, 8]], [3, 7]])
+        >>> btree
+            __1__
+           /     \\
+          2       3
+         / \\    /
+        4   5   7
+           /
+          8
+        >>> btree.get_rightside_view()
+        [1, 3, 7, 8]
+        """
+        if self.is_empty(): return []
+        # general case
+        levels = {0: self._root._data}
+        stack = [(self._root, 0)] #0: root depth
+        while(stack):
+            curr_node, depth = stack.pop()
+            levels[depth] = curr_node._data
+            if curr_node._right is not None:
+                stack.append((curr_node._right, depth+1))
+            if curr_node._left is not None:
+                stack.append((curr_node._left, depth+1))
+        return list(levels.values())
+    
     # =============================    SEARCH    ==============================
     def __contains__(self, value):
         """
