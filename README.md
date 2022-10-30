@@ -15,7 +15,7 @@
 </h1>
 
 # Extra-Collections
-👋 `extra-collections` (or `extra` for short) is a python3 pacakge that provides
+👋 `extra-collections` (or `extra` for short) is a python3 package that provides
 a **pythonic**, **intuitive**, and **easy** implementation of the most common
 data structures used in software projects. Some of these data structures are
 simple such as
