@@ -42,6 +42,12 @@ those data structures on any given task. At the same time, I did my best to
 make these python modules as consistent as they could be. So dealing with the 
 most complicated data structrue will as easy as the easiest one.
 
+
+
+https://github.com/Anwarvic/extra-collections/assets/15960959/8d60dda7-7750-494b-a7b7-f0e9a0667347
+
+
+
 ### **Fun fact #1:**
 
 🤫 extra-collection was originally developed as a way to teach myself how to
